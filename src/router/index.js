@@ -5,19 +5,31 @@ Vue.use(VueRouter)
 
 const routes = [{
   path: '/',
-  name: 'Home',
-  component: () => import('@/views/Home.vue'),
-  children: [
-    // {
-    // path: '/',
-    // name: 'Home',
-    // component: () => import('@/views/Home.vue'),
-    // },
-    // {
-    // path: '/',
-    // name: 'Home',
-    // component: () => import('@/views/Home.vue'),
-    // },
+  component: () => import('@/views/home/Home.vue'),
+  children: [{
+      path: '/',
+      name: 'ForeignCapital',
+      component: () => import('@/views/foreignCapital/ForeignCapital.vue'),
+      children: [{
+        path: '/',
+        name: 'FlowsAndStocks',
+        meta: {
+          title: '中国对外直接投资流量与存量'
+        },
+        component: () => import('@/views/foreignCapital/outbound/FlowsAndStocks.vue'),
+      }]
+    },
+    {
+      path: '/foreignTrade',
+      name: 'ForeignTrade',
+      component: () => import('@/views/foreignTrade/ForeignTrade.vue'),
+    },
+    {
+      path: '/economicIndicators',
+      name: 'EconomicIndicators',
+      component: () => import('@/views/economicIndicators/EconomicIndicators.vue'),
+    },
+
   ]
 }]
 

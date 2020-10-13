@@ -1,0 +1,134 @@
+<template>
+  <div class="pageHeader">
+    <div class="logo">
+      <img src="" alt="" />
+    </div>
+    <div class="action">
+      <div class="latest-data">
+        <div class="icon-block">
+          <div class="iconfont icon-msg">&#xe60a;</div>
+          <div class="data-num">{{ 2 }}</div>
+        </div>
+        <div class="text-block">
+          <div class="text-chinese">最新数据</div>
+          <div class="text-english">latest data</div>
+        </div>
+      </div>
+      <div class="user-actions">
+        <div class="user-info">
+          <img src="../../../assets/img/avatar.png" class="user-avatar" />
+          <div class="user-name">{{ "用户名" }}</div>
+        </div>
+        <div class="line"></div>
+        <div class="logout" @click="logout">
+          <div class="iconfont icon-logout">&#xe620;</div>
+          <div class="logout-text">{{ true ? "退出" : "登录" }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "PageHeader",
+  data() {
+    return {};
+  },
+  methods: {
+    logout() {}
+  }
+};
+</script>
+
+<style lang="less" scoped>
+// header
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 0.53125rem;
+  padding: 0 1.041667rem;
+  box-sizing: border-box;
+}
+.logo {
+  width: 50%;
+}
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50%;
+  color: #999999;
+  //  最新数据
+  .latest-data {
+    display: flex;
+    align-items: center;
+    font-size: 0.09375rem;
+    .icon-block {
+      position: relative;
+      padding: 0.052083rem;
+      &:hover {
+        cursor: pointer;
+      }
+      .icon-msg {
+        font-size: 0.135417rem;
+      }
+      .data-num {
+        position: absolute;
+        right: 0.052083rem;
+        top: 0.0625rem;
+        width: 0.083333rem;
+        height: 0.083333rem;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 0.083333rem;
+        color: #fff;
+        background-color: #df2323;
+      }
+    }
+    .text-block {
+      font-size: 0.083333rem;
+      div {
+        line-height: 0.09375rem;
+      }
+    }
+  }
+  //  用户操作
+  .user-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 0.208333rem;
+    .user-info {
+      display: flex;
+      align-items: center;
+      .user-avatar {
+        width: 0.130208rem;
+        height: 0.130208rem;
+      }
+      .user-name {
+        margin-left: 0.0625rem;
+      }
+    }
+    .line {
+      width: 0.010417rem;
+      height: 0.140625rem;
+      margin: 0 0.130208rem;
+      background-color: #d1d1d1;
+    }
+    .logout {
+      display: flex;
+      align-items: center;
+      &:hover {
+        cursor: pointer;
+      }
+      .icon-logout {
+        transform: rotateZ(180deg);
+        font-size: 0.09375rem;
+        margin-right: 0.041667rem;
+      }
+    }
+  }
+}
+</style>
