@@ -54,6 +54,13 @@ export default {
       timer: null
     };
   },
+  watch: {
+    value: {
+      handler() {
+        this.getPageIndex();
+      }
+    }
+  },
   mounted() {
     this.getYears();
     this.getPageIndex();
@@ -87,7 +94,7 @@ export default {
       }
     },
     handleClick(year) {
-      this.$emit("change", year);
+      this.$emit("change", `${year}`);
     },
     next() {
       if (this.pageIndex < this.years.length - 1) {

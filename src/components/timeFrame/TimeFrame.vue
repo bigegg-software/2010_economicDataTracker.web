@@ -21,7 +21,7 @@
         >
           <year-component
             :option="option"
-            :value.sync="option.value"
+            :value="option.value"
             @change="changeValue(key, $event)"
           ></year-component>
         </div>
@@ -35,6 +35,7 @@
         >
           <quarter-component
             :option="option"
+            :value="option.value"
             @change="changeValue(key, $event)"
           ></quarter-component>
         </div>
@@ -47,11 +48,17 @@
         >
           <month-component
             :option="option"
+            :value="option.value"
             @change="changeValue(key, $event)"
           ></month-component>
         </div>
       </div>
     </div>
+    <progress-bar
+      :options="options[activeKey]"
+      :activeKey="activeKey"
+      @change="changeProgress"
+    ></progress-bar>
   </div>
 </template>
 
@@ -59,6 +66,7 @@
 import YearComponent from "@/components/timeFrame/Year";
 import QuarterComponent from "@/components/timeFrame/Quarter";
 import MonthComponent from "@/components/timeFrame/Month";
+import ProgressBar from "@/components/timeFrame/ProgressBar";
 
 export default {
   props: {
@@ -67,18 +75,22 @@ export default {
   components: {
     YearComponent,
     QuarterComponent,
-    MonthComponent
+    MonthComponent,
+    ProgressBar
   },
   data() {
     return {
-      activeKey: "quarterly"
+      activeKey: "yearly"
     };
   },
   mounted() {},
   methods: {
+    changeProgress(value) {
+      this.$emit("update", this.activeKey, value);
+    },
     //  值，这个值是哪个组件的值，
     changeValue(key, value) {
-      console.log(this.activeKey, key, value, "111");
+      //   console.log(this.activeKey, key, value, "111");
       this.$emit("change", this.activeKey, key, value);
     },
     changeActiveKey(key) {
@@ -95,7 +107,7 @@ export default {
 }
 .tab-area {
   width: 100%;
-  padding: 0.072917rem 0;
+  padding-top: 0.072917rem;
   .tab-area-item {
     padding: 0.072917rem 0;
   }

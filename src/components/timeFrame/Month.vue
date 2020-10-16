@@ -44,7 +44,8 @@ import FadeInOut from "@/components/animations/FadeInOut";
 
 export default {
   props: {
-    option: {}
+    option: {},
+    value: {}
   },
   components: {
     FadeInOut
@@ -71,8 +72,16 @@ export default {
       ]
     };
   },
+  watch: {
+    value: {
+      handler(a, b) {
+        this.getPageIndex();
+      }
+    }
+  },
   mounted() {
     this.getYears();
+    this.getPageIndex();
   },
   methods: {
     // 生成所有年份
@@ -85,6 +94,11 @@ export default {
       }
       years.sort();
       this.years = years;
+    },
+    getPageIndex() {
+      this.pageIndex = this.years.findIndex(v => {
+        return v == this.value.split("-")[0];
+      });
     },
     handleClick(item) {
       //   console.log(`${this.years[this.pageIndex]}-${item.month}`);

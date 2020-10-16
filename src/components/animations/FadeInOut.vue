@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: "ForeignTrade",
   data() {
     return {};
   },
@@ -19,7 +18,7 @@ export default {
   animation: fadeInOut 0.5s;
 }
 .fade-leave-active {
-  animation: fadeInOut 0.5s reverse;
+  animation: fadeInOut 0.3s reverse;
 }
 @keyframes fadeInOut {
   0% {

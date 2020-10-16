@@ -5,7 +5,7 @@
       <div>{{ option.en }}</div>
     </div>
     <div class="time-block">
-      <div class="text">{{ handleText(option.value) }}</div>
+      <div class="text">{{ handleText(value) }}</div>
       <div
         class="icon iconfont"
         @mouseenter="openCalendar"
@@ -44,7 +44,8 @@ import FadeInOut from "@/components/animations/FadeInOut";
 
 export default {
   props: {
-    option: {}
+    option: {},
+    value: {}
   },
   components: {
     FadeInOut
@@ -63,10 +64,23 @@ export default {
       ]
     };
   },
+  watch: {
+    value: {
+      handler(a, b) {
+        this.getPageIndex();
+      }
+    }
+  },
   mounted() {
     this.getYears();
+    this.getPageIndex();
   },
   methods: {
+    getPageIndex() {
+      this.pageIndex = this.years.findIndex(v => {
+        return v == this.value.split("-")[0];
+      });
+    },
     // 生成所有年份
     getYears() {
       let frame = this.option.frame.split("_");
@@ -79,7 +93,6 @@ export default {
       this.years = years;
     },
     handleClick(item) {
-      //   console.log(`${this.years[this.pageIndex]}-${item.month}`);
       this.$emit("change", `${this.years[this.pageIndex]}-${item.month}`);
     },
     next() {

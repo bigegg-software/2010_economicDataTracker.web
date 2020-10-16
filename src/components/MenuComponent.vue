@@ -8,154 +8,160 @@
         @click="showSubnav(index)"
       >
         <li class="text">
-          <div>{{ nav.chinese }}</div>
-          <div>{{ nav.english }}</div>
+          <div>{{ nav.ch }}</div>
+          <div>{{ nav.en }}</div>
         </li>
+        <!-- :class="{ 'rotate primary-active': nav.active, r: !nav.active }" -->
+
         <li
           class="arrow-icon iconfont"
-          :class="{ 'rotate primary-active': nav.active }"
+          :class="nav.active ? 'rotate primary-active' : 'r'"
         >
           &#xe609;
         </li>
       </ul>
       <!-- 2级 -->
-      <ul v-if="nav.active" class="secondary">
-        <li
-          v-for="(subnav, i) in nav.children"
-          :key="i"
-          class="subnav"
-          :class="{ 'secondary-active': subnav.active }"
-          @click="handleClickSubnav(subnav, index, i)"
-        >
-          <ul class="text">
-            <li>{{ subnav.chinese }}</li>
-            <li>{{ subnav.english }}</li>
-          </ul>
-        </li>
-      </ul>
+      <fade-in-out>
+        <ul v-if="nav.active" class="secondary">
+          <li
+            v-for="(subnav, i) in nav.children"
+            :key="i"
+            class="subnav"
+            :class="{ 'secondary-active': subnav.active }"
+            @click="handleClickSubnav(subnav, index, i)"
+          >
+            <ul class="text">
+              <li>{{ subnav.ch }}</li>
+              <li>{{ subnav.en }}</li>
+            </ul>
+          </li>
+        </ul>
+      </fade-in-out>
     </div>
   </div>
 </template>
 
 <script>
+import FadeInOut from "@/components/animations/FadeInOut";
 export default {
-  name: "",
   props: {},
+  components: {
+    FadeInOut
+  },
   data() {
     return {
       navList: [
         {
           name: "",
-          chinese: "中国对外投资",
-          english: "China’s outbound investment",
+          ch: "中国对外投资",
+          en: "China’s outbound investment",
           active: false,
           children: [
             {
               name: "",
-              chinese: "中国对外直接投资流量与存量",
-              english: "China’s outward FDI flows vs. Stocks",
+              ch: "中国对外直接投资流量与存量",
+              en: "China’s outward FDI flows vs. Stocks",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外直接投资存量",
-              english: "China’s FDI stocks",
+              ch: "中国对外直接投资存量",
+              en: "China’s FDI stocks",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外直接投资存量按国家和地区统计",
-              english: "China’s FDI stocks by destination",
+              ch: "中国对外直接投资存量按国家和地区统计",
+              en: "China’s FDI stocks by destination",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外直接投资流量",
-              english: "China’s FDI outflows",
+              ch: "中国对外直接投资流量",
+              en: "China’s FDI outflows",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外直接投资流量按国家和地区统计",
-              english: "China’s FDI outflows by destination",
+              ch: "中国对外直接投资流量按国家和地区统计",
+              en: "China’s FDI outflows by destination",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外直接投资流量行业分布情况",
-              english: "China’s FDI outflows by industry",
+              ch: "中国对外直接投资流量行业分布情况",
+              en: "China’s FDI outflows by industry",
               active: false
             },
             {
               name: "",
-              chinese: " 中国对“一带一路”沿线国家投资情况",
-              english:
+              ch: " 中国对“一带一路”沿线国家投资情况",
+              en:
                 "China’s FDI outflows in Belt and Road Initiative (BRI) countries",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外承包工程",
-              english: "China’s overseas projects",
+              ch: "中国对外承包工程",
+              en: "China’s overseas projects",
               active: false
             },
             {
               name: "",
-              chinese: "中国对外劳务合作",
-              english: "China’s international labor",
+              ch: "中国对外劳务合作",
+              en: "China’s international labor",
               active: false
             }
           ]
         },
         {
           name: "",
-          chinese: "外商投资中国",
-          english: "China’s inbound investment",
+          ch: "外商投资中国",
+          en: "China’s inbound investment",
           active: false,
           children: [
             {
               name: "",
-              chinese: "实际使用外资",
-              english: "China’s FDI inflows",
+              ch: "实际使用外资",
+              en: "China’s FDI inflows",
               active: false
             },
             {
               name: "",
-              chinese: "主要对华投资国家/地区",
-              english: "Major foreign investors of China",
+              ch: "主要对华投资国家/地区",
+              en: "Major foreign investors of China",
               active: false
             },
             {
               name: "",
-              chinese: "外商直接投资主要行业",
-              english: "Foreign investment to China by industry",
+              ch: "外商直接投资主要行业",
+              en: "Foreign investment to China by industry",
               active: false
             },
             {
               name: "",
-              chinese: "外商投资企业税收统计",
-              english: "Tax revenue from foreign investment enterprises",
+              ch: "外商投资企业税收统计",
+              en: "Tax revenue from foreign investment enterprises",
               active: false
             },
             {
               name: "",
-              chinese: "“一带一路”沿线国家对华投资情况",
-              english:
-                "Investment from Belt and Road Initiative (BRI) countries",
+              ch: "“一带一路”沿线国家对华投资情况",
+              en: "Investment from Belt and Road Initiative (BRI) countries",
               active: false
             }
           ]
         },
         {
           name: "",
-          chinese: "双向直接投资",
-          english: "China’s FDI outflows vs. inflows",
+          ch: "双向直接投资",
+          en: "China’s FDI outflows vs. inflows",
           active: false,
           children: [
             {
               name: "",
-              chinese: "双向直接投资",
-              english: "China’s FDI outflows vs. inflows",
+              ch: "双向直接投资",
+              en: "China’s FDI outflows vs. inflows",
               active: false
             }
           ]
@@ -167,9 +173,9 @@ export default {
     showSubnav(index) {
       // 旋转当前点击 icon 还原其他 icon
       // 改变字体颜色
-      for (let i = 0; i < this.navList.length; i++) {
-        this.navList[index].active = !this.navList[index].active;
-      }
+      // for (let i = 0; i < this.navList.length; i++) {
+      //   }
+      this.navList[index].active = !this.navList[index].active;
     },
     handleClickSubnav(subnav, index, i) {
       console.log(subnav, index, i);
@@ -250,8 +256,12 @@ export default {
 }
 
 .rotate {
-  transform: rotateZ(0) !important;
-  animation: ratateTriangle 0.5s;
+  transform: rotateZ(0deg) !important;
+  animation: _rotate 0.5s;
+}
+.r {
+  transform: rotateZ(-90deg) !important;
+  animation: rotate 0.5s;
 }
 .primary-active {
   color: #1d3f6c !important;
@@ -260,7 +270,16 @@ export default {
   color: #fff !important;
   background-color: #1d3f6c !important;
 }
-@keyframes ratateTriangle {
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+@keyframes _rotate {
   0% {
     transform: rotate(-90deg);
   }
