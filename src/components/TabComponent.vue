@@ -16,7 +16,6 @@
 
 <script>
 export default {
-  name: "ForeignTrade",
   props: {
     tabList: {},
     tabIndex: {}
