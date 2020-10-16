@@ -186,6 +186,7 @@ export default {
 }
 .navigator {
   width: 1.59375rem;
+  box-shadow: darkgrey 0px 0px 20px 3px;
 }
 .nav-block {
   width: 100%;

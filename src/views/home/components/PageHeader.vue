@@ -4,7 +4,7 @@
       <img src="" alt="" />
     </div>
     <div class="action">
-      <div class="latest-data">
+      <div class="latest-data" @click="showDataList">
         <div class="icon-block">
           <div class="iconfont icon-msg">&#xe60a;</div>
           <div class="data-num">{{ 2 }}</div>
@@ -25,6 +25,23 @@
           <div class="logout-text">{{ true ? "退出" : "登录" }}</div>
         </div>
       </div>
+      <!-- 下拉框 -->
+      <div v-if="show" class="data-list" @mouseleave="hiddenDataList">
+        <div v-for="(item, key) in dataList" :key="key">
+          <div class="list-time">{{ key }}</div>
+          <div class="list-text-block">
+            <div
+              v-for="(data, index) in item"
+              :key="index"
+              class="list-text"
+              @click="jumpPage(data)"
+            >
+              <div>{{ data.ch }}</div>
+              <div>{{ data.en }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,17 +50,45 @@
 export default {
   name: "PageHeader",
   data() {
-    return {};
+    return {
+      dataList: {
+        "2020-10-01": [
+          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" },
+          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" }
+        ],
+        "2020-10-02": [{ ch: "国对外直接投资流量与存量", en: "xxxxxxx" }]
+      },
+      show: false
+    };
   },
   methods: {
+    showDataList() {
+      this.show = !this.show;
+    },
+    hiddenDataList() {
+      this.show = false;
+    },
+    jumpPage(data) {
+      console.log(data, "最新数据");
+      this.show = false;
+    },
     logout() {}
   }
 };
 </script>
 
 <style lang="less" scoped>
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 // header
 .pageHeader {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,6 +99,39 @@ export default {
 }
 .logo {
   width: 50%;
+}
+.data-list {
+  position: absolute;
+  right: 1.5rem;
+  top: 110px;
+  z-index: 2;
+  width: 1.53125rem;
+  padding: 0.020833rem 0;
+  box-shadow: darkgrey 0px 0px 5px 1px;
+  color: rgba(153, 153, 153, 1);
+  font-size: 0.072917rem;
+  background-color: #fff;
+  animation: fadeIn 0.5s ease-in-out;
+  .list-time {
+    padding: 0.041667rem 0.057292rem;
+    border-bottom: 1.5px solid #efefef;
+  }
+  .list-text-block {
+    padding: 0.114583rem 0.083333rem 0.072917rem;
+    :hover {
+      color: #1d3f6b;
+    }
+    .list-text {
+      cursor: pointer;
+      margin-bottom: 0.145833rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      div {
+        line-height: 20px;
+      }
+    }
+  }
 }
 .action {
   display: flex;
@@ -66,6 +144,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 0.09375rem;
+    cursor: pointer;
     .icon-block {
       position: relative;
       padding: 0.052083rem;
@@ -79,8 +158,8 @@ export default {
         position: absolute;
         right: 0.052083rem;
         top: 0.0625rem;
-        width: 0.083333rem;
-        height: 0.083333rem;
+        width: 0.084rem;
+        height: 0.084rem;
         border-radius: 50%;
         text-align: center;
         line-height: 0.083333rem;

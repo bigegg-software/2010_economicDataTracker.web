@@ -31,6 +31,14 @@ const routes = [{
     },
 
   ]
+}, {
+  path: '/outbound/share',
+  name: '',
+  component: () => import('@/views/foreignCapital/outbound/components/OutboundBody'),
+}, {
+  path: '/test',
+  name: '',
+  component: () => import('@/views/test/index'),
 }]
 
 const router = new VueRouter({
