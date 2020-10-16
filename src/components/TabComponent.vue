@@ -4,12 +4,12 @@
       v-for="(item, index) in tabList"
       :key="index"
       class="tab-item"
-      :class="{ active: activeIndex == index }"
+      :class="{ active: tabIndex == index }"
       @click="handleClickTab(index)"
     >
       <div class="text">{{ item.chinese }}</div>
       <div class="text">{{ item.english }}</div>
-      <div v-if="activeIndex == index" class="under-line"></div>
+      <div v-if="tabIndex == index" class="under-line"></div>
     </div>
   </div>
 </template>
@@ -18,21 +18,17 @@
 export default {
   name: "ForeignTrade",
   props: {
-    tabList: {}
+    tabList: {},
+    tabIndex: {}
   },
   data() {
-    return {
-      activeIndex: 0
-    };
-  },
-  watch: {
-    activeIndex() {}
+    return {};
   },
   mounted() {},
   methods: {
     getUnderLineWidth() {},
     handleClickTab(index) {
-      this.activeIndex = index;
+      this.$emit("change", index);
     }
   }
 };
@@ -46,7 +42,8 @@ export default {
   .tab-item {
     position: relative;
     color: #666666;
-    margin-right: 4px;
+    cursor: pointer;
+    margin-right: 0.020833rem;
     padding: 0.072917rem 0.145833rem;
     background-color: #f0f0f0;
     border-top-left-radius: 0.041667rem;

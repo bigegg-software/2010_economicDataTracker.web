@@ -1,7 +1,11 @@
 <template>
   <!-- 中国对外直接投资流量与存量 -->
   <div class="container">
-    <tab-component :tabList="tabList"></tab-component>
+    <tab-component
+      :tabList="tabList"
+      :tabIndex="tabIndex"
+      @change="changeTabIndex"
+    ></tab-component>
     <outbound-body></outbound-body>
     <actions-component
       :actionsList="actionsList"
@@ -24,6 +28,7 @@ export default {
   },
   data() {
     return {
+      tabIndex: 0,
       tabList: [
         {
           chinese: "中国对外直接投资流量",
@@ -82,7 +87,7 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "facebook.png" },
+            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -93,11 +98,14 @@ export default {
     };
   },
   mounted() {
-    document.addEventListener("click", e => {
-      this.initActionsList();
-    });
+    // document.addEventListener("click", e => {
+    //   this.initActionsList();
+    // });
   },
   methods: {
+    changeTabIndex(index) {
+      this.tabIndex = index;
+    },
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle

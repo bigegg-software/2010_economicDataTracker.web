@@ -5,6 +5,7 @@
       :key="index"
       class="action"
       :class="{ active: item.checked }"
+      @mouseleave="mouseleave"
       @click.stop="handleClickAction(item, index)"
     >
       <div class="iconfont icon-action">
@@ -60,18 +61,12 @@
 
 <script>
 export default {
-  name: "Actions",
   props: {
     actionsList: {}
   },
   data() {
-    return {
-      // _ 下划线: 用于 切割字符串判断显示前者还是后者
-      // toggle: 是否可以切换按钮的文字 和 icon
-      // checked: 是否选中
-    };
+    return {};
   },
-
   methods: {
     handelText(toggle, checked, text) {
       return toggle && checked ? text.split("_")[1] : text.split("_")[0];
@@ -81,6 +76,11 @@ export default {
     },
     choose(index, i) {
       this.$emit("choose", index, i);
+    },
+    mouseleave() {
+      console.log("mouseleave");
+      this.actionsList;
+      for (let i = 0; i < this.actionsList.length; i++) {}
     }
   }
 };

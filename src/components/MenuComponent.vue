@@ -11,12 +11,7 @@
           <div>{{ nav.ch }}</div>
           <div>{{ nav.en }}</div>
         </li>
-        <!-- :class="{ 'rotate primary-active': nav.active, r: !nav.active }" -->
-
-        <li
-          class="arrow-icon iconfont"
-          :class="nav.active ? 'rotate primary-active' : 'r'"
-        >
+        <li class="arrow-icon iconfont">
           &#xe609;
         </li>
       </ul>
@@ -171,11 +166,12 @@ export default {
   },
   methods: {
     showSubnav(index) {
-      // 旋转当前点击 icon 还原其他 icon
-      // 改变字体颜色
-      // for (let i = 0; i < this.navList.length; i++) {
-      //   }
+      let className = "arrow-icon iconfont";
       this.navList[index].active = !this.navList[index].active;
+      let dom = document.querySelectorAll(".primary .arrow-icon");
+      dom[index].className = this.navList[index].active
+        ? className + " rotate primary-active"
+        : className + " _rotate";
     },
     handleClickSubnav(subnav, index, i) {
       console.log(subnav, index, i);
@@ -215,10 +211,6 @@ export default {
   cursor: pointer;
   .text {
     padding: 0.052083rem 0;
-    div {
-      // height: 0.13rem;
-      // line-height: 0.13rem;
-    }
   }
   .arrow-icon {
     color: #dbdbdb;
@@ -259,7 +251,7 @@ export default {
   transform: rotateZ(0deg) !important;
   animation: _rotate 0.5s;
 }
-.r {
+._rotate {
   transform: rotateZ(-90deg) !important;
   animation: rotate 0.5s;
 }
