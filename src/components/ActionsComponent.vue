@@ -72,7 +72,7 @@ export default {
       return toggle && checked ? text.split("_")[1] : text.split("_")[0];
     },
     handleClickAction(item, index) {
-      this.$emit("handleClickAction", index);
+      this.$emit("handleClickAction", item,index);
     },
     choose(index, i) {
       this.$emit("choose", index, i);

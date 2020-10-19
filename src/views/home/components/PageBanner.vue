@@ -6,7 +6,7 @@
           v-for="(item, index) in navList"
           :key="index"
           class="nav-item"
-          :class="$route.name == item.name ? 'active' : ''"
+          :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
           @click="jumpPage(item)"
         >
           <div class="nav-text">{{ item.Chinese }}</div>
@@ -34,13 +34,13 @@ export default {
         {
           Chinese: "外资",
           English: "Foreign Direct Investment (FDI)",
-          name: "ForeignCapital"
+          name: "foreignCapital"
         },
-        { Chinese: "外贸", English: "Trade", name: "ForeignTrade" },
+        { Chinese: "外贸", English: "Trade", name: "foreignTrade" },
         {
           Chinese: "宏观经济指标",
           English: "Macro-economic indicators",
-          name: "EconomicIndicators"
+          name: "economicIndicators"
         }
       ],
       searchValue: ""

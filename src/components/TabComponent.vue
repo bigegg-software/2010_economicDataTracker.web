@@ -1,15 +1,15 @@
 <template>
   <div class="tab-block">
     <div
-      v-for="(item, index) in tabList"
-      :key="index"
+      v-for="item in tabList"
+      :key="item.name"
       class="tab-item"
-      :class="{ active: tabIndex == index }"
-      @click="handleClickTab(index)"
+      :class="{ active: tabComponent == item.name }"
+      @click="handleClickTab(item.name)"
     >
       <div class="text">{{ item.chinese }}</div>
       <div class="text">{{ item.english }}</div>
-      <div v-if="tabIndex == index" class="under-line"></div>
+      <div v-if="tabComponent == item.name" class="under-line"></div>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 export default {
   props: {
     tabList: {},
-    tabIndex: {}
+    tabComponent: {}
   },
   data() {
     return {};
@@ -26,8 +26,8 @@ export default {
   mounted() {},
   methods: {
     getUnderLineWidth() {},
-    handleClickTab(index) {
-      this.$emit("change", index);
+    handleClickTab(name) {
+      this.$emit("change", name);
     }
   }
 };

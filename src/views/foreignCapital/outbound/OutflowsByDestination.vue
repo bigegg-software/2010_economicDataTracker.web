@@ -1,12 +1,12 @@
 <template>
-  <!-- 中国对外直接投资流量与存量 -->
+  <!-- 中国对外直接投资流量按国家和地区统计 -->
   <div class="container">
     <tab-component
       :tabList="tabList"
-      :tabIndex="tabIndex"
-      @change="changeTabIndex"
+      :tabComponent="tabComponent"
+      @change="changeTabCompnent"
     ></tab-component>
-    <outbound-body></outbound-body>
+    <share-body :tabComponent="tabComponent"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -17,28 +17,41 @@
 
 <script>
 import TabComponent from "@/components/TabComponent";
+import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
-import OutboundBody from "./components/OutboundBody";
 export default {
-  name: "FlowsAndStocks",
+  name: "outflowsByDestination",
   components: {
     TabComponent,
-    ActionsComponent,
-    OutboundBody
+    ShareBody,
+    ActionsComponent
   },
   data() {
     return {
-      tabIndex: 0,
+      tabComponent: 'flowsByContinentChart',
       tabList: [
         {
-          chinese: "中国对外直接投资流量",
-          english: "China's FDI outflows"
+          name:'flowsByContinentChart',
+          chinese: "按大洲统计",
+          english: "By continent"
         },
         {
-          chinese: "中国对外直接投资流量行业",
-          english: "XXXXXXXXXXX"
-        }
+          name:'flowsByCRIContinentChart',
+          chinese: "按各洲内国家/地区统计",
+          english: "By country/region within a continent"
+        },
+        {
+          name:'flowsByDestinationChart',
+          chinese: "按国家和地区统计",
+          english: "China’s FDI flows by destination"
+        },
+        {
+          name:'flowsTwentyDestinationChart',
+          chinese: "历年前20位国家",
+          english: "Top 20 destinations of China's FDI flows"
+        },
       ],
+      
       actionsList: [
         {
           name: "chart",
@@ -73,7 +86,7 @@ export default {
               icon: "",
               ch: "将这段代码粘贴到一个HTML页面中",
               en: "Paste this into an HTML page",
-              src: `<iframe src="https://www.test.net" width="200" height="500">`
+              src: ``
             }
           ]
         },
@@ -95,17 +108,16 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
+    
     };
   },
   mounted() {
-    // document.addEventListener("click", e => {
-    //   this.initActionsList();
-    // });
   },
   methods: {
-    changeTabIndex(index) {
-      this.tabIndex = index;
+    changeTabCompnent(name) {
+      this.tabComponent = name;
     },
+    
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -113,7 +125,12 @@ export default {
           : false;
       }
     },
-    handleClickAction(index) {
+    handleClickAction(item,index) {
+      if(item.name=='embed'){  //设置嵌入链接
+        item.children[0].src=`
+            <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
+        `
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -121,6 +138,7 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
+  
   }
 };
 </script>

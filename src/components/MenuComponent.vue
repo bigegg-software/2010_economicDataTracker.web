@@ -1,5 +1,5 @@
 <template>
-  <div class="navigator">
+  <div class="navigator" ref="navigator">
     <div v-for="(nav, index) in navList" :key="index" class="nav-block">
       <!-- 1级 -->
       <ul
@@ -22,7 +22,7 @@
             v-for="(subnav, i) in nav.children"
             :key="i"
             class="subnav"
-            :class="{ 'secondary-active': subnav.active }"
+            :class="{ 'secondary-active': $route.name==subnav.name }"
             @click="handleClickSubnav(subnav, index, i)"
           >
             <ul class="text">
@@ -47,62 +47,62 @@ export default {
     return {
       navList: [
         {
-          name: "",
+          name: "outBound",
           ch: "中国对外投资",
           en: "China’s outbound investment",
           active: false,
           children: [
+            // {
+            //   name: "flowsAndStocks",
+            //   ch: "中国对外直接投资流量与存量",
+            //   en: "China’s outward FDI flows vs. Stocks",
+            //   active: false
+            // },
             {
-              name: "",
-              ch: "中国对外直接投资流量与存量",
-              en: "China’s outward FDI flows vs. Stocks",
-              active: false
-            },
-            {
-              name: "",
-              ch: "中国对外直接投资存量",
-              en: "China’s FDI stocks",
-              active: false
-            },
-            {
-              name: "",
-              ch: "中国对外直接投资存量按国家和地区统计",
-              en: "China’s FDI stocks by destination",
-              active: false
-            },
-            {
-              name: "",
+              name: "outflows",
               ch: "中国对外直接投资流量",
               en: "China’s FDI outflows",
               active: false
             },
             {
-              name: "",
+              name: "outstocks",
+              ch: "中国对外直接投资存量",
+              en: "China’s FDI stocks",
+              active: false
+            },
+            {
+              name: "outstocksByDestination",
+              ch: "中国对外直接投资存量按国家和地区统计",
+              en: "China’s FDI stocks by destination",
+              active: false
+            },
+            {
+              name: "outflowsByDestination",
               ch: "中国对外直接投资流量按国家和地区统计",
               en: "China’s FDI outflows by destination",
               active: false
             },
             {
-              name: "",
+              name: "outflowsByIndustry",
               ch: "中国对外直接投资流量行业分布情况",
               en: "China’s FDI outflows by industry",
               active: false
             },
             {
-              name: "",
+              name: "outflowsBeltAndRoad",
               ch: " 中国对“一带一路”沿线国家投资情况",
               en:
                 "China’s FDI outflows in Belt and Road Initiative (BRI) countries",
               active: false
             },
             {
-              name: "",
+              name: "overseasProjects",
               ch: "中国对外承包工程",
               en: "China’s overseas projects",
               active: false
             },
             {
-              name: "",
+              name: "internationalLabor",
               ch: "中国对外劳务合作",
               en: "China’s international labor",
               active: false
@@ -110,37 +110,37 @@ export default {
           ]
         },
         {
-          name: "",
+          name: "inBound",
           ch: "外商投资中国",
           en: "China’s inbound investment",
           active: false,
           children: [
             {
-              name: "",
+              name: "inflows",
               ch: "实际使用外资",
               en: "China’s FDI inflows",
               active: false
             },
             {
-              name: "",
+              name: "majorForeignInvestors",
               ch: "主要对华投资国家/地区",
               en: "Major foreign investors of China",
               active: false
             },
             {
-              name: "",
+              name: "foreignInvestIndustry",
               ch: "外商直接投资主要行业",
               en: "Foreign investment to China by industry",
               active: false
             },
             {
-              name: "",
+              name: "foreignInvestTax",
               ch: "外商投资企业税收统计",
               en: "Tax revenue from foreign investment enterprises",
               active: false
             },
             {
-              name: "",
+              name: "beltAndRoadInvest",
               ch: "“一带一路”沿线国家对华投资情况",
               en: "Investment from Belt and Road Initiative (BRI) countries",
               active: false
@@ -148,13 +148,13 @@ export default {
           ]
         },
         {
-          name: "",
+          name: "twoWayInvestment",
           ch: "双向直接投资",
           en: "China’s FDI outflows vs. inflows",
           active: false,
           children: [
             {
-              name: "",
+              name: "outflowsVsInflows",
               ch: "双向直接投资",
               en: "China’s FDI outflows vs. inflows",
               active: false
@@ -168,13 +168,15 @@ export default {
     showSubnav(index) {
       let className = "arrow-icon iconfont";
       this.navList[index].active = !this.navList[index].active;
-      let dom = document.querySelectorAll(".primary .arrow-icon");
+      let dom = this.$refs.navigator.querySelectorAll(".primary .arrow-icon");
       dom[index].className = this.navList[index].active
         ? className + " rotate primary-active"
         : className + " _rotate";
     },
     handleClickSubnav(subnav, index, i) {
-      console.log(subnav, index, i);
+        console.log(subnav, index, i);
+        this.$router.push({name:subnav.name});
+      
     }
   }
 };
