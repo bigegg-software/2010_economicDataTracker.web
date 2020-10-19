@@ -192,8 +192,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 75%;
-  height: 0.177083rem;
-  line-height: 0.177083rem;
+  height: 0.197917rem;
+  line-height: 0.197917rem;
   font-size: 0.072917rem;
   border: 0.007813rem solid #cacaca;
   border-radius: 0.026042rem;
