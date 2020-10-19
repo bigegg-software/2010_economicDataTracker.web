@@ -1,13 +1,14 @@
 <template>
-  <div class="outboundBody">
-    <div class="echart-block"></div>
+<!-- 主要对华投资国家/地区-年度部分国家/地区对华直接投资chart-->
+  <div class="stateDirectInvest-in-China-chart">
+    <div class="echart-block">stateDirectInvest-in-China-chart</div>
     <div class="select-block"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "OutboundBody",
+  name: "stateDirectInvestInChinaChart",
   data() {
     return {};
   },
@@ -16,7 +17,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.outboundBody {
+.stateDirectInvest-in-China-chart {
   display: flex;
   .echart-block {
     width: 77%;
