@@ -13,19 +13,13 @@
           <div class="nav-text">{{ item.English }}</div>
         </div>
       </div>
-      <div class="input-block">
-        <input
-          v-model="searchValue"
-          type="text"
-          placeholder="关键字 keywords"
-        />
-        <div class="iconfont icon-search">&#xe6a6;</div>
-      </div>
+      <nav-search></nav-search>
     </div>
   </div>
 </template>
 
 <script>
+import NavSearch from '@/components/NavSearch'
 export default {
   name: "PageBanner",
   data() {
@@ -46,6 +40,7 @@ export default {
       searchValue: ""
     };
   },
+  components:{NavSearch},
   methods: {
     jumpPage(item) {
       this.$router.push({ name: item.name });
@@ -104,25 +99,7 @@ export default {
         }
       }
     }
-    .input-block {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 1.5625rem;
-      height: 0.197917rem;
-      font-size: 0.09375rem;
-      background-color: #fff;
-      input {
-        flex: 1;
-        border: none;
-        outline: none;
-        padding-left: 0.05rem;
-        box-sizing: border-box;
-      }
-      .icon-search {
-        padding: 0 0.05rem;
-      }
-    }
+    
   }
 }
 </style>

@@ -38,6 +38,7 @@
 
 <script>
 import FadeInOut from "@/components/animations/FadeInOut";
+import {foreignCapitalMenuLists} from '@/utils/menuSearchConfigs.js'
 export default {
   props: {},
   components: {
@@ -45,123 +46,118 @@ export default {
   },
   data() {
     return {
-      navList: [
-        {
-          name: "outBound",
-          ch: "中国对外投资",
-          en: "China’s outbound investment",
-          active: false,
-          children: [
-            // {
-            //   name: "flowsAndStocks",
-            //   ch: "中国对外直接投资流量与存量",
-            //   en: "China’s outward FDI flows vs. Stocks",
-            //   active: false
-            // },
-            {
-              name: "outflows",
-              ch: "中国对外直接投资流量",
-              en: "China’s FDI outflows",
-              active: false
-            },
-            {
-              name: "outstocks",
-              ch: "中国对外直接投资存量",
-              en: "China’s FDI stocks",
-              active: false
-            },
-            {
-              name: "outstocksByDestination",
-              ch: "中国对外直接投资存量按国家和地区统计",
-              en: "China’s FDI stocks by destination",
-              active: false
-            },
-            {
-              name: "outflowsByDestination",
-              ch: "中国对外直接投资流量按国家和地区统计",
-              en: "China’s FDI outflows by destination",
-              active: false
-            },
-            {
-              name: "outflowsByIndustry",
-              ch: "中国对外直接投资流量行业分布情况",
-              en: "China’s FDI outflows by industry",
-              active: false
-            },
-            {
-              name: "outflowsBeltAndRoad",
-              ch: " 中国对“一带一路”沿线国家投资情况",
-              en:
-                "China’s FDI outflows in Belt and Road Initiative (BRI) countries",
-              active: false
-            },
-            {
-              name: "overseasProjects",
-              ch: "中国对外承包工程",
-              en: "China’s overseas projects",
-              active: false
-            },
-            {
-              name: "internationalLabor",
-              ch: "中国对外劳务合作",
-              en: "China’s international labor",
-              active: false
-            }
-          ]
-        },
-        {
-          name: "inBound",
-          ch: "外商投资中国",
-          en: "China’s inbound investment",
-          active: false,
-          children: [
-            {
-              name: "inflows",
-              ch: "实际使用外资",
-              en: "China’s FDI inflows",
-              active: false
-            },
-            {
-              name: "majorForeignInvestors",
-              ch: "主要对华投资国家/地区",
-              en: "Major foreign investors of China",
-              active: false
-            },
-            {
-              name: "foreignInvestIndustry",
-              ch: "外商直接投资主要行业",
-              en: "Foreign investment to China by industry",
-              active: false
-            },
-            {
-              name: "foreignInvestTax",
-              ch: "外商投资企业税收统计",
-              en: "Tax revenue from foreign investment enterprises",
-              active: false
-            },
-            {
-              name: "beltAndRoadInvest",
-              ch: "“一带一路”沿线国家对华投资情况",
-              en: "Investment from Belt and Road Initiative (BRI) countries",
-              active: false
-            }
-          ]
-        },
-        {
-          name: "twoWayInvestment",
-          ch: "双向直接投资",
-          en: "China’s FDI outflows vs. inflows",
-          active: false,
-          children: [
-            {
-              name: "outflowsVsInflows",
-              ch: "双向直接投资",
-              en: "China’s FDI outflows vs. inflows",
-              active: false
-            }
-          ]
-        }
-      ]
+      navList: foreignCapitalMenuLists
+      // [
+      //   {
+      //     name: "outBound",
+      //     ch: "中国对外投资",
+      //     en: "China’s outbound investment",
+      //     active: false,
+      //     children: [
+      //       {
+      //         name: "outflows",
+      //         ch: "中国对外直接投资流量",
+      //         en: "China’s FDI outflows",
+      //         active: false
+      //       },
+      //       {
+      //         name: "outstocks",
+      //         ch: "中国对外直接投资存量",
+      //         en: "China’s FDI stocks",
+      //         active: false
+      //       },
+      //       {
+      //         name: "outstocksByDestination",
+      //         ch: "中国对外直接投资存量按国家和地区统计",
+      //         en: "China’s FDI stocks by destination",
+      //         active: false
+      //       },
+      //       {
+      //         name: "outflowsByDestination",
+      //         ch: "中国对外直接投资流量按国家和地区统计",
+      //         en: "China’s FDI outflows by destination",
+      //         active: false
+      //       },
+      //       {
+      //         name: "outflowsByIndustry",
+      //         ch: "中国对外直接投资流量行业分布情况",
+      //         en: "China’s FDI outflows by industry",
+      //         active: false
+      //       },
+      //       {
+      //         name: "outflowsBeltAndRoad",
+      //         ch: " 中国对“一带一路”沿线国家投资情况",
+      //         en:
+      //           "China’s FDI outflows in Belt and Road Initiative (BRI) countries",
+      //         active: false
+      //       },
+      //       {
+      //         name: "overseasProjects",
+      //         ch: "中国对外承包工程",
+      //         en: "China’s overseas projects",
+      //         active: false
+      //       },
+      //       {
+      //         name: "internationalLabor",
+      //         ch: "中国对外劳务合作",
+      //         en: "China’s international labor",
+      //         active: false
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: "inBound",
+      //     ch: "外商投资中国",
+      //     en: "China’s inbound investment",
+      //     active: false,
+      //     children: [
+      //       {
+      //         name: "inflows",
+      //         ch: "实际使用外资",
+      //         en: "China’s FDI inflows",
+      //         active: false
+      //       },
+      //       {
+      //         name: "majorForeignInvestors",
+      //         ch: "主要对华投资国家/地区",
+      //         en: "Major foreign investors of China",
+      //         active: false
+      //       },
+      //       {
+      //         name: "foreignInvestIndustry",
+      //         ch: "外商直接投资主要行业",
+      //         en: "Foreign investment to China by industry",
+      //         active: false
+      //       },
+      //       {
+      //         name: "foreignInvestTax",
+      //         ch: "外商投资企业税收统计",
+      //         en: "Tax revenue from foreign investment enterprises",
+      //         active: false
+      //       },
+      //       {
+      //         name: "beltAndRoadInvest",
+      //         ch: "“一带一路”沿线国家对华投资情况",
+      //         en: "Investment from Belt and Road Initiative (BRI) countries",
+      //         active: false
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: "twoWayInvestment",
+      //     ch: "双向直接投资",
+      //     en: "China’s FDI outflows vs. inflows",
+      //     active: false,
+      //     children: [
+      //       {
+      //         name: "outflowsVsInflows",
+      //         ch: "双向直接投资",
+      //         en: "China’s FDI outflows vs. inflows",
+      //         active: false
+      //       }
+      //     ]
+      //   }
+      // ]
     };
   },
   methods: {
