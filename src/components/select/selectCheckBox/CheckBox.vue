@@ -45,12 +45,13 @@ export default {
   text-align: center;
   color: #fff;
   cursor: pointer;
+  user-select: none;
   .icon-mark {
     width: 100%;
     height: 100%;
     font-size: 0.083333rem;
     border-radius: 0.010417rem;
-    background-color: #1d3f6c;
+    background-color: rgba(29, 63, 108, 0.8);
   }
   .icon-square {
     width: 100%;
@@ -72,6 +73,6 @@ export default {
   }
 }
 .active {
-  color: #1d3f6c;
+  color: rgba(29, 63, 108, 0.8);
 }
 </style>

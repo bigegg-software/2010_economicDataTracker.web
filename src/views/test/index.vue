@@ -36,7 +36,7 @@
 <script>
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
-import CheckBox from "@/components/select/CheckBox";
+import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import SelectRadio from "@/components/select/SelectRadio";
 import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
 export default {

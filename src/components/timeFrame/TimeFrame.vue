@@ -125,6 +125,8 @@ export default {
     border-right: 1.5px solid #d8d8d8;
     border: 1.5px solid #d8d8d8;
     border-right: none;
+    background-color: #fff;
+
     &:first-child {
       border-top-left-radius: 0.026042rem;
       border-bottom-left-radius: 0.026042rem;
@@ -142,7 +144,7 @@ export default {
     }
   }
   .active {
-    background-color: #1d3f6b;
+    background-color: rgba(29, 63, 108, 0.8);
     .ch {
       color: #fff;
     }

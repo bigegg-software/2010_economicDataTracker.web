@@ -1,5 +1,5 @@
 <template>
-<!-- 中国对外直接投资存量chart-->
+  <!-- 中国对外直接投资存量chart-->
   <div class="outstocks-chart">
     <div class="echart-block">outstocks-chart</div>
     <div class="select-block"></div>
