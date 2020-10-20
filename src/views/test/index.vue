@@ -16,17 +16,18 @@
       ></time-frame>
     </div>
     <div class="a">
-      <select-radio
+      <!-- <select-radio
         :option="radio"
         :value="value"
         @change="changeRadio"
-      ></select-radio>
+      ></select-radio> -->
     </div>
     <div class="a">
       <select-check-box
         :option="checkBox"
         :result="result"
         @change="changeOption"
+        @changeInputValue="changeInputValue"
       ></select-check-box>
     </div>
   </div>
@@ -42,7 +43,7 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    SelectRadio,
+    // SelectRadio,
     SelectCheckBox
   },
   data() {
@@ -206,6 +207,10 @@ export default {
   },
   mounted() {},
   methods: {
+    changeInputValue(value) {
+      console.log(value, "inputvalue");
+      // 然后重新发请求修改 checkBox.op
+    },
     // 下拉多选框
     changeOption(op) {
       // 判断存不存在 存在就删掉， 不存在就加进去
@@ -215,8 +220,10 @@ export default {
       } else {
         this.result.splice(index, 1);
       }
-      console.log(index, "index");
-      console.log(this.result, "this.result");
+
+      let i = this.checkBox.op.findIndex(v => v.en == op.en);
+      this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
+      // console.log(this.result, "this.result");
     },
     // 下拉单选框
     changeRadio(item) {

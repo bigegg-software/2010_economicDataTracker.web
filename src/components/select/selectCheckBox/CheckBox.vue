@@ -6,7 +6,7 @@
       </div>
       <div v-else class="icon-square"></div>
     </div>
-    <div class="label-block">
+    <div class="label-block" :class="{ active: option.checked }">
       <div class="label-row">{{ option.ch }}</div>
       <div class="label-row">{{ option.en }}</div>
     </div>
@@ -60,7 +60,7 @@ export default {
   }
 }
 .label-block {
-  color: #666;
+  color: rgb(187, 184, 184);
   width: 70%;
   .label-row {
     width: 100%;
@@ -70,5 +70,8 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
+.active {
+  color: #1d3f6c;
 }
 </style>

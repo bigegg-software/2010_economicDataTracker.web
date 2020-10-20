@@ -9,6 +9,7 @@
         {{ `(${result.length})` }}
       </div>
       <div class="iconfont icon-arrow">&#xe609;</div>
+      <!-- 弹出框 -->
       <fade-in-out>
         <div v-if="show" class="drop-down" @mouseenter="mouseenter">
           <div class="left">
@@ -26,7 +27,19 @@
           </div>
           <div class="right">
             <div class="action-block">
-              <div class="iconfont close-icon">&#xe608;</div>
+              <div class="iconfont close-icon" @click.stop="close">
+                &#xe608;
+              </div>
+            </div>
+            <div class="list-block">
+              <div
+                v-for="(item, index) in result"
+                :key="index"
+                class="list-row"
+              >
+                <div>{{ item.ch }}</div>
+                <div>{{ item.en }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -52,7 +65,7 @@ export default {
   },
   data() {
     return {
-      show: true,
+      show: false,
       timer: null,
       inputValue: ""
     };
@@ -60,7 +73,7 @@ export default {
   watch: {
     inputValue: {
       handler(a, b) {
-        console.log(a, "inputValue 变化啦");
+        this.$emit("changeInputValue", a);
       }
     }
   },
@@ -81,14 +94,18 @@ export default {
       this.$emit("change", op);
     },
     mouseenter() {
-      //   clearTimeout(this.timer);
+      // clearTimeout(this.timer);
     },
     mouseleave() {
-      //   clearTimeout(this.timer);
-      //   this.timer = setTimeout(() => {
-      //     this.show = false;
-      //     this.rotateArrowIcon();
-      //   }, 300);
+      // clearTimeout(this.timer);
+      // this.timer = setTimeout(() => {
+      //   this.show = false;
+      //   this.rotateArrowIcon();
+      // }, 300);
+    },
+    close() {
+      this.show = false;
+      this.rotateArrowIcon();
     }
   }
 };
@@ -96,7 +113,7 @@ export default {
 
 <style lang="less" scoped>
 .drop-down .left {
-  flex: 0.65;
+  width: 65%;
   height: 100%;
   border-right: 2px solid #ccc;
   .action-block {
@@ -116,7 +133,7 @@ export default {
   }
 }
 .drop-down .right {
-  flex: 0.35;
+  width: 35%;
   height: 100%;
   .action-block {
     display: flex;
@@ -129,6 +146,24 @@ export default {
     .close-icon {
       color: #999;
       font-size: 0.083333rem;
+    }
+  }
+  .list-block {
+    height: 82%;
+    padding: 0 0.052083rem;
+    box-sizing: border-box;
+    overflow: auto;
+    .list-row {
+      width: 100%;
+      padding: 0.0625rem 0;
+      div {
+        width: 100%;
+        line-height: 0.125rem;
+        color: #1d3f6c;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 }
@@ -145,7 +180,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0.229167rem;
-    width: ceil(200%);
+    width: ceil(250%);
     height: 2.083333rem;
     overflow: auto;
     border-radius: 0.026042rem;
@@ -179,17 +214,21 @@ export default {
   }
 }
 // 滚动条样式
-.list-block::-webkit-scrollbar {
+.left .list-block::-webkit-scrollbar,
+.right .list-block::-webkit-scrollbar {
   width: 0.026042rem;
 }
-.list-block::-webkit-scrollbar-track {
+.left .list-block::-webkit-scrollbar-track,
+.right .list-block::-webkit-scrollbar-track {
   background: #fff;
 }
-.list-block::-webkit-scrollbar-thumb {
+.left .list-block::-webkit-scrollbar-thumb,
+.right .list-block::-webkit-scrollbar-thumb {
   background: #bfbfbf;
   border-radius: 0.010417rem;
 }
-.list-block::-webkit-scrollbar-thumb:hover {
+.left .list-block::-webkit-scrollbar-thumb:hover,
+.right .list-block::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
 
