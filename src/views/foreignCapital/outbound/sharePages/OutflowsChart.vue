@@ -1,18 +1,181 @@
 <template>
-<!-- 中国对外直接投资流量chart-->
+  <!-- 中国对外直接投资流量chart-->
   <div class="outflows-chart">
-    <div class="echart-block">outflows-chart</div>
-    <div class="select-block"></div>
+    <div class="echart-block">
+      <div class="container">
+        <lines-chart :options="linesChart"></lines-chart>
+      </div>
+      <div class="container"></div>
+    </div>
+    <div class="select-block">
+      <div class="frame">
+        <time-frame
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
+      </div>
+      <div class="status">
+        <check-box
+          v-for="(item, index) in status"
+          :key="index"
+          :option="item"
+          @change="changeSelect(index)"
+        ></check-box>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+import TimeFrame from "@/components/timeFrame/TimeFrame";
+import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import LinesChart from "@/components/charts/Lines";
+
 export default {
+  components: {
+    TimeFrame,
+    CheckBox,
+    LinesChart
+  },
   name: "outflowsChart",
   data() {
-    return {};
+    return {
+      linesChart: {
+        yName: "百万美元\nUSD min",
+        yearStatus: true, //同比是否显示
+        title: "2019年销售水量和主营业务收入对比",
+        titleText: "019年销售水量和主营",
+        xData: [
+          "2011",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        series: [
+          {
+            name: "中国对外非金融类直接投资\naaaaaaaaaaaaaaaaa",
+            color: "red",
+            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
+            yearData: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+          },
+          {
+            name: "中国对内非金融类直接投资\nbbbbbbbbbbbbbbbbb",
+            color: "deepskyblue",
+            data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
+            yearData: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
+          }
+        ]
+      },
+      status: [
+        {
+          checked: false,
+          ch: "同比",
+          en: "Year on year"
+        },
+        {
+          checked: false,
+          ch: "人民币计价",
+          en: "In RMB"
+        }
+      ],
+      options: {
+        yearly: {
+          ch: "年度",
+          en: "yearly",
+          list: {
+            start: {
+              ch: "开始",
+              en: "Start",
+              frame: "1990_2020",
+              value: "1990"
+            },
+            end: {
+              ch: "结束",
+              en: "End",
+              frame: "1990_2020",
+              value: "2020"
+            }
+          }
+        },
+        quarterly: {
+          ch: "季度",
+          en: "quarterly",
+          list: {
+            start: {
+              ch: "开始",
+              en: "Start",
+              frame: "2000_2020",
+              value: "2000-03"
+            },
+            end: {
+              ch: "结束",
+              en: "End",
+              frame: "2000_2020",
+              value: "2020-12"
+            }
+          }
+        },
+        monthly: {
+          ch: "月度",
+          en: "monthly",
+          list: {
+            start: {
+              ch: "开始",
+              en: "Start",
+              frame: "2010_2020",
+              value: "2010-03"
+            },
+            end: {
+              ch: "结束",
+              en: "End",
+              frame: "2010_2020",
+              value: "2020-12"
+            }
+          }
+        }
+      }
+    };
   },
-  methods: {}
+  methods: {
+    // 时间范围组件 update and change
+    update(activeKey, value) {
+      // console.log(activeKey, value, "666");
+      this.options[activeKey].list.start.value = value[0];
+      this.options[activeKey].list.end.value = value[1];
+    },
+    change(activeKey, key, value) {
+      let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
+      let start =
+        key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
+      let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
+      if (end.isBefore(start)) {
+        return console.log("开始时间不得大于结束时间");
+      }
+      this.options[activeKey].list[key].value = value;
+    },
+    // 复选框
+    changeSelect(index) {
+      this.status[index].checked = !this.status[index].checked;
+      if (index == 0) {
+        this.status[index].checked
+          ? console.log("同比")
+          : console.log("去掉同比");
+      }
+      if (index == 1) {
+        this.status[index].checked
+          ? console.log("RMB")
+          : console.log("去掉RMB");
+      }
+    }
+  }
 };
 </script>
 
@@ -21,16 +184,27 @@ export default {
   display: flex;
   .echart-block {
     width: 77%;
-    height: 664px;
+    height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
     border-right: none;
+    .container {
+      width: 100%;
+      height: 3.458333rem;
+    }
   }
   .select-block {
     width: 23%;
-    height: 664px;
+    height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    .frame {
+      padding: 0.104167rem;
+      border-bottom: 1.5px solid #cacaca;
+    }
+    .status {
+      padding: 0.104167rem;
+    }
   }
 }
 </style>

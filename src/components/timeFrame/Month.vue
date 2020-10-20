@@ -145,6 +145,7 @@ export default {
   top: 100%;
   z-index: 1;
   width: 100%;
+  padding: 0 0.052083rem 0.052083rem;
   border-radius: 0.026042rem;
   box-shadow: darkgrey 0px 0px 5px 1px;
   background-color: #fff;
@@ -152,7 +153,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 0.0625rem 0.15625rem;
+    padding: 0.0625rem 0.052083rem;
     .iconfont {
       width: 0.125rem;
       height: 0.125rem;
@@ -168,18 +169,20 @@ export default {
   .calendar {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     .month {
-      padding: 0.041667rem 0.052083rem;
-      margin: 0.052083rem;
+      width: 0.208333rem;
+      height: 0.208333rem;
+      margin: 0.05rem;
       text-align: center;
-      border-radius: 0.026042rem;
+      border-radius: 50%;
       background-color: #eee;
       cursor: pointer;
     }
     .current {
-      background-color: skyblue;
+      color: #fff;
+      background-color: rgba(29, 63, 108, 0.8);
     }
   }
 }
@@ -197,6 +200,7 @@ export default {
   font-size: 0.072917rem;
   border: 0.007813rem solid #cacaca;
   border-radius: 0.026042rem;
+  background-color: #fff;
   .text {
     padding: 0 0.072917rem;
   }

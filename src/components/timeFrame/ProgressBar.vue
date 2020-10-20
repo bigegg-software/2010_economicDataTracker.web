@@ -101,4 +101,7 @@ export default {
   margin-top: -0.03125rem;
   border: 0.010417rem solid #476387;
 }
+.ant-slider /deep/ .ant-slider-rail {
+  background-color: #cacaca;
+}
 </style>
