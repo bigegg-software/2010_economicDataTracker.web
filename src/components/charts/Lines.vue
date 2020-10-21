@@ -1,5 +1,5 @@
 <template>
-  <div id="myChart" style="width:100%;height:100%;"></div>
+  <div :id="options.id" style="width:100%;height:100%;"></div>
 </template>
 
 <script>
@@ -37,15 +37,19 @@ export default {
   methods: {
     initChart() {
       // 基于准备好的dom，初始化echarts实例
-      this.chart = echarts.init(document.getElementById("myChart"));
+      this.chart = echarts.init(document.getElementById(this.options.id));
       //找出y轴数值最大最小值
       let totalArray = [];
       let yearArray = [];
       let Max1, Min1, Max2, Min2;
       for (let j = 0; j < this.options.series.length; j++) {
         for (let i = 0; i < this.options.series[0].data.length; i++) {
-          totalArray.push(this.options.series[j].data[i]);
-          yearArray.push(this.options.series[j].yearOnYear[i]);
+          if (this.options.series[0].data) {
+            totalArray.push(this.options.series[j].data[i]);
+          }
+          if (this.options.series[j].yearOnYear) {
+            yearArray.push(this.options.series[j].yearOnYear[i]);
+          }
         }
       }
       if (this.options) {
@@ -116,15 +120,22 @@ export default {
           trigger: "axis",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
+            let a = "";
+            let b = "";
+            let c = "";
             let dom = `<div style="padding:0.052083rem 0;font-size:0.083333rem;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
-              let a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.0625rem">${
-                params[i].seriesName.split("_")[0]
-              }</div>`;
-              let b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#ccc;font-size:0.0625rem">${
-                params[i].seriesName.split("_")[1]
-              }</div>`;
-              let c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.09375rem;font-weight:bold;">${params[i].value}</div>`;
+              if (params[i].seriesName.split("_")[0]) {
+                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.0625rem">${
+                  params[i].seriesName.split("_")[0]
+                }</div>`;
+              }
+              if (params[i].seriesName.split("_")[1]) {
+                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#ccc;font-size:0.0625rem">${
+                  params[i].seriesName.split("_")[1]
+                }</div>`;
+              }
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.09375rem;font-weight:bold;">${params[i].value}</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 5px 1px;">${dom}</div>`;
@@ -211,8 +222,8 @@ export default {
             }
           },
           {
-            show: this.options.yearOnYear,
             type: "value",
+            show: this.options.yearOnYear,
             min: Min2,
             max: Max2,
             splitNumber: 5,

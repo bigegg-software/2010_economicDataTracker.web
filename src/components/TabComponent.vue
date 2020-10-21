@@ -58,6 +58,7 @@ export default {
     position: absolute;
     left: -1px;
     bottom: -2px;
+    z-index: 1;
     width: ceil(100%+1px);
     height: 0.020833rem;
     background-color: #1d3f6c;
