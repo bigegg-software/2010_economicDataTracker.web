@@ -1,11 +1,14 @@
 <template>
   <!-- 中国对外直接投资流量chart-->
   <div class="outflows-chart">
+    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
       <div class="container">
-        <lines-chart :options="linesChart"></lines-chart>
+        <lines-chart :options="USD"></lines-chart>
       </div>
-      <div class="container"></div>
+      <div v-if="isShowRMB" class="container">
+        <lines-chart :options="RMB"></lines-chart>
+      </div>
     </div>
     <div class="select-block">
       <div class="frame">
@@ -34,6 +37,9 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 
 export default {
+  props: {
+    isShowTable: {}
+  },
   components: {
     TimeFrame,
     CheckBox,
@@ -42,9 +48,43 @@ export default {
   name: "outflowsChart",
   data() {
     return {
-      linesChart: {
+      isShowRMB: false,
+      RMB: {
+        id: "RMB",
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //同比是否显示
+        yearOnYear: true, //通过修改这个值来显示同比
+        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
+        xData: [
+          "2011",
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        series: [
+          {
+            name: "中国对外全行业直接投资_xxx",
+            color: "#6AA3CD",
+            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+          },
+          {
+            name: "中国对内非金融类直接投资_xxx",
+            color: "#FF0000",
+            data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
+          }
+        ]
+      },
+      USD: {
+        id: "USD",
+        yName: { ch: "百万美元", en: "USD min" },
+        yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [
           "2011",
@@ -143,6 +183,9 @@ export default {
       }
     };
   },
+  mounted() {
+    // console.log(this.isShowTable, "isShowTable");
+  },
   methods: {
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -170,8 +213,8 @@ export default {
       }
       if (index == 1) {
         this.status[index].checked
-          ? console.log("RMB")
-          : console.log("去掉RMB");
+          ? (this.isShowRMB = true)
+          : (this.isShowRMB = false);
       }
     }
   }
@@ -180,7 +223,17 @@ export default {
 
 <style lang="less" scoped>
 .outflows-chart {
+  position: relative;
   display: flex;
+  .table-block {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+  }
   .echart-block {
     width: 77%;
     height: auto;
