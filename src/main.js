@@ -10,11 +10,21 @@ import './assets/font/iconfont.css'
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 Vue.use(Antd);
+import {
+  fontSize
+} from './utils/echarts.js'
+Vue.prototype.$fz = fontSize
 Vue.prototype.$Parse = Parse
+Vue.prototype.$EventBus = new Vue()
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    window.addEventListener('resize', () => {
+      this.$EventBus.$emit('resize')
+    })
+  }
 }).$mount('#app')
