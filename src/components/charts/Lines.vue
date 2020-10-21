@@ -4,7 +4,7 @@
 
 <script>
 import echarts from "echarts";
-
+import { fontSize } from "./echarts";
 export default {
   data() {
     return {};
@@ -36,7 +36,7 @@ export default {
       //   for (let j = 0; j < this.options.series.length; j++) {
       //     for (let i = 0; i < this.options.series[0].data.length; i++) {
       //       totalArray.push(this.options.series[j].data[i]);
-      //       yearArray.push(this.options.series[j].yearData[i]);
+      //       yearArray.push(this.options.series[j].yearOnYear[i]);
       //     }
       //   }
       //   if (this.options) {
@@ -74,24 +74,26 @@ export default {
                 }
               }
             },
-            data: this.options.series[j].yearData
+            data: this.options.yearOnYear
+              ? this.options.series[j].yearOnYear
+              : []
           }
         );
       }
       // 绘制图表
       let option = {
         title: {
-          text: this.options.title,
+          text: this.options.title.ch,
           textStyle: {
             color: "#333",
-            fontSize: 16
+            fontSize: fontSize(0.18)
           },
-          subtext: this.options.titleText,
+          subtext: this.options.title.en,
           subtextStyle: {
             color: "#999",
-            fontSize: 14
+            fontSize: fontSize(0.16)
           },
-          top: "3%",
+          top: "2%",
           left: "center"
         },
         grid: {
@@ -99,34 +101,47 @@ export default {
           bottom: "10%"
         },
         tooltip: {
-          trigger: "axis"
+          trigger: "axis",
+          backgroundColor: "rgba(255, 255, 255,0)",
+          formatter: params => {
+            let dom = `<div style="padding:10px 0;font-size:16px;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
+            for (let i = 0; i < params.length; i++) {
+              let a = `<div style="height:18px;line-height:18px;color:#333;font-size:12px">${
+                params[i].seriesName.split("_")[0]
+              }</div>`;
+              let b = `<div style="height:18px;line-height:18px;color:#ccc;font-size:12px">${
+                params[i].seriesName.split("_")[1]
+              }</div>`;
+              let c = `<div style="padding:10px 0 15px;color:#333;font-size:18px;font-weight:bold;">${params[i].value}</div>`;
+              dom = dom + a + b + c;
+            }
+            return `<div style="width:auto;height:auto;padding:0 15px;border-radius: 5px;background:#fff;box-shadow: darkgrey 0px 0px 5px 1px;">${dom}</div>`;
+          },
+          axisPointer: {
+            label: { show: false }
+          }
         },
         legend: {
-          data: this.options.series.name,
           selectedMode: false, //是否可以通过点击图例改变系列的显示状态
-          top: "15%",
+          formatter: name => {
+            return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
+              "\n"
+            );
+          },
+
+          top: "13%",
           icon: "none",
           textStyle: {
-            color: function(params) {}
+            color: params => {},
+            fontSize: fontSize(0.14)
           }
         },
         xAxis: {
-          data: [
-            "2011",
-            "2012",
-            "2013",
-            "2014",
-            "2015",
-            "2016",
-            "2017",
-            "2018",
-            "2019",
-            "2020"
-          ], // x轴
+          data: this.options.xData, // x轴
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#666",
+              color: "#ccc",
               type: "solid"
             }
           },
@@ -147,9 +162,18 @@ export default {
             // max: Max1,
             // splitNumber: 5,
             // interval: (Max1 - Min1) / 5,
-            name: this.options.yName,
+            name: [
+              `{div|${this.options.yName.ch}}`,
+              `{div|${this.options.yName.en}}`
+            ].join("\n"),
             nameTextStyle: {
-              color: "#333"
+              rich: {
+                div: {
+                  color: "#333",
+                  fontSize: "12",
+                  padding: [2, 0]
+                }
+              }
             },
             splitLine: {
               show: true,
@@ -172,7 +196,7 @@ export default {
             }
           },
           {
-            show: this.options.yearStatus,
+            show: this.options.yearOnYear,
             type: "value",
             // min: Min2,
             // max: Max2,
@@ -232,4 +256,8 @@ export default {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.a {
+  color: red;
+}
+</style>

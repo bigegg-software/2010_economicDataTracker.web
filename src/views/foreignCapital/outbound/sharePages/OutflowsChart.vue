@@ -43,10 +43,9 @@ export default {
   data() {
     return {
       linesChart: {
-        yName: "百万美元\nUSD min",
-        yearStatus: true, //同比是否显示
-        title: "2019年销售水量和主营业务收入对比",
-        titleText: "019年销售水量和主营",
+        yName: { ch: "百万美元", en: "USD min" },
+        yearOnYear: true, //同比是否显示
+        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [
           "2011",
           "2012",
@@ -61,16 +60,16 @@ export default {
         ],
         series: [
           {
-            name: "中国对外非金融类直接投资\naaaaaaaaaaaaaaaaa",
-            color: "red",
+            name: "中国对外全行业直接投资_xxx",
+            color: "#6AA3CD",
             data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearData: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
           },
           {
-            name: "中国对内非金融类直接投资\nbbbbbbbbbbbbbbbbb",
-            color: "deepskyblue",
+            name: "中国对内非金融类直接投资_xxx",
+            color: "#FF0000",
             data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
-            yearData: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
           }
         ]
       },
