@@ -1,17 +1,39 @@
 <template>
 <!-- 中国对外直接投资存量按历年前20位国家chart -->
   <div class="stocks-twenty-destination-chart">
-    <div class="echart-block">stocks-twenty-destination-chart</div>
+    <div class="echart-block">
+      <chart-bar :chartBarData="chartBar"></chart-bar>
+    </div>
     <div class="select-block"></div>
   </div>
 </template>
 
 <script>
+import ChartBar from '@/components/charts/ChartBar'
 export default {
   name: "stocksTwentyDestinationChart",
   data() {
-    return {};
+    return {
+      chartBar: {
+        title:{
+          text:'中国对外直接投资存量历年前20位国家',
+          subtext:"Top 20 destinations of China's FDI outflow"
+        },
+        xData: [
+          "蒙古\nMongolia",
+          "芬兰\nFinland",
+          "瑞典\nSweden",
+          "挪威\nNorway",
+          "冰岛\nIceland",
+          "丹麦\nDenmark",
+          "泰国\nThailand"
+        ],
+        yName: "百万美元\nUSD min",
+        seriesData: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+      }
+    };
   },
+  components:{ChartBar},
   methods: {}
 };
 </script>
