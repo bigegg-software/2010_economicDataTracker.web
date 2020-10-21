@@ -8,12 +8,14 @@
     />
     <div class="iconfont icon-search">&#xe6a6;</div>
 </div>
-<section class="result">
+<section class="result" v-if="name.replace(/(^\s*)/g,'')!=''">
  <template v-for="tem in menuFileList">
-    <router-link tag="p" :key="tem.name" v-if="tem.active" :to="{name:tem.name}">
-        {{tem.ch}}/{{tem.en}}
-    </router-link>
+    <div :key="tem.name" v-if="tem.active" @click="gotoPage(tem)" class="menu-link">
+        <p>{{tem.ch}}</p> 
+        <p>{{tem.en}}</p> 
+    </div>
  </template>
+ <div v-if="name.replace(/(^\s*)/g,'')!=''&&noData">暂无数据</div>
 </section>
 </div>
 </template>
@@ -23,6 +25,7 @@ import {searchMenuLists} from '@/utils/menuSearchConfigs.js'
 export default {
     data() {
         return {
+           noData:false,
            name:'',
            menuFileList:searchMenuLists
         }
@@ -39,7 +42,7 @@ export default {
     },
     methods:{
         fileDataList() {
-            if(this.name==''){
+            if(this.name.replace(/(^\s*)/g,"")==''){
                   for(let i=0; i<this.menuFileList.length; i++){
                       this.menuFileList[i].active=false;
                   }
@@ -64,6 +67,7 @@ export default {
                         i=i-1;
                     }
                 }
+                 let show=true;
                 for(let i=0; i<this.menuFileList.length; i++){
                       let splitList=this.menuFileList[i].splitList.join(',').toLowerCase().split(',');
                       let active=true;
@@ -73,9 +77,17 @@ export default {
                            }
                       }
                       this.menuFileList[i].active=active;
+                      if(this.menuFileList[i].active==true){
+                          show=false;
+                      }
                 }
+                this.noData=show;
             }
        },
+       gotoPage(tem) {
+             this.$router.push({name:tem.name});
+             this.name='';
+       }
     }
 }
 </script>
@@ -104,13 +116,27 @@ export default {
     }
     .result{
        background:#fff;
-       border-radius: 0.053333rem;
        position: absolute;
        right:0;
        padding:0.133333rem;
-       top:0.266667rem;
-       min-width: 4rem;
+       top:0.21rem;
+       min-width: 2rem;
+       max-height: 4rem;
+       overflow-y: auto;
+       border:1px solid #eee;
        z-index: 1;
+       .menu-link{
+           p{
+                white-space: nowrap;
+                margin-bottom:0.026667rem;
+            }
+       }
+       .menu-link:not(:last-child){
+            border-bottom:1px solid #eee;
+            margin-bottom:0.026667rem;
+            cursor: pointer;
+        }
+       
     }
 }
   
