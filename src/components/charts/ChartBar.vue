@@ -7,16 +7,54 @@ import echarts from "echarts";
 export default {
   data() {
     return {
-      setTime:null,
-      myChartBar:Object,
-      option:{
+      timer:null,
+      myChartBar:Object
+    };
+  },
+  props: {
+    chartBarData:{
+      type:Object,
+      required:true
+    }
+  },
+  watch:{
+    chartBarData: {
+        handler(newName, oldName) {
+        this.initChart();
+      },
+      deep: true
+    }
+  },
+  created() {},
+  mounted() {
+    if(JSON.stringify(this.chartBarData)!='{}'){
+      this.initChart();
+      this.$EventBus.$on("resize", () => {
+        this.timer=null;
+        this.timer = setTimeout(async () => {
+          console.log("页面尺寸变化");
+         await this.initChart();
+          this.myChartBar.resize();
+        }, 1000);
+      });
+        
+    }
+  },
+  methods: {
+    initChart() {
+      let  option={
         title:{
           text:this.chartBarData.title.text,
           subtext:this.chartBarData.title.subtext,
           top:'3%',
           left:'center',
           textStyle:{
-            fontSize:'20'
+            color: "#000",
+            fontSize:this.$fz(0.30)
+          },
+          subtextStyle:{
+            color: "#CBCBCB",
+            fontSize:this.$fz(0.20)
           }
         },
         tooltip: {
@@ -79,37 +117,9 @@ export default {
             }
           }
         ]
-      }
-    };
-  },
-  props: {
-    chartBarData:{
-      type:Object,
-      required:true
-    }
-  },
-  watch:{
-    chartBarData: {
-        handler(newName, oldName) {
-        this.initChart();
-      },
-      deep: true
-    }
-  },
-  created() {},
-  mounted() {
-    if(JSON.stringify(this.chartBarData)!='{}'){
-        this.initChart();
-    }
-  },
-  methods: {
-    initChart() {
+      };
       this.myChartBar = echarts.init(this.$refs.chartBar);
-       this.myChartBar.setOption(this.option);
-          window.addEventListener('resize',()=>{
-            this.setTime=null;
-            this.setTime=setTimeout( ()=>{this.myChartBar.resize();},800);
-          });
+       this.myChartBar.setOption(option);
     }
   }
 };
