@@ -4,15 +4,25 @@
 
 <script>
 import echarts from "echarts";
-import { fontSize } from "./echarts";
 export default {
   data() {
-    return {};
+    return {
+      timer: null,
+      chart: null
+    };
   },
   props: {
     options: {}
   },
   mounted() {
+    this.$EventBus.$on("resize", () => {
+      clearInterval(this.timer);
+      this.timer = setTimeout(async () => {
+        console.log("页面尺寸变化");
+        this.initChart();
+        this.chart.resize();
+      }, 1000);
+    });
     this.initChart();
   },
   watch: {
@@ -27,25 +37,25 @@ export default {
   methods: {
     initChart() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart"));
-
+      this.chart = echarts.init(document.getElementById("myChart"));
       //找出y轴数值最大最小值
-      //   let totalArray = [];
-      //   let yearArray = [];
-      //   let Max1, Min1, Max2, Min2;
-      //   for (let j = 0; j < this.options.series.length; j++) {
-      //     for (let i = 0; i < this.options.series[0].data.length; i++) {
-      //       totalArray.push(this.options.series[j].data[i]);
-      //       yearArray.push(this.options.series[j].yearOnYear[i]);
-      //     }
-      //   }
-      //   if (this.options) {
-      //     Max1 = this.calMax(totalArray);
-      //     Min1 = this.calMin(totalArray);
-      //     Max2 = this.calMax(yearArray);
-      //     Min2 = this.calMin(yearArray);
-      //   }
+      let totalArray = [];
+      let yearArray = [];
+      let Max1, Min1, Max2, Min2;
+      for (let j = 0; j < this.options.series.length; j++) {
+        for (let i = 0; i < this.options.series[0].data.length; i++) {
+          totalArray.push(this.options.series[j].data[i]);
+          yearArray.push(this.options.series[j].yearOnYear[i]);
+        }
+      }
+      if (this.options) {
+        Max1 = this.calMax(totalArray);
+        Min1 = this.calMin(totalArray);
+        Max2 = this.calMax(yearArray);
+        Min2 = this.calMin(yearArray);
+      }
       let series = [];
+      let legend = [];
       for (let j = 0; j < this.options.series.length; j++) {
         series.push(
           {
@@ -53,10 +63,9 @@ export default {
             type: "line",
             showSymbol: false, //是否显示拐点
             smooth: true, //平滑曲线显示
-            itemStyle: {
-              normal: {
-                color: this.options.series[j].color
-              }
+            lineStyle: {
+              color: this.options.series[j].color,
+              width: 1.5
             },
             data: this.options.series[j].data
           },
@@ -65,33 +74,36 @@ export default {
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                  color: this.options.series[j].color,
-                  width: 2,
-                  type: "dashed"
-                }
-              }
+            lineStyle: {
+              color: this.options.series[j].color,
+              width: 1.5,
+              type: "dashed"
             },
             data: this.options.yearOnYear
               ? this.options.series[j].yearOnYear
               : []
           }
         );
+        legend.push({
+          name: this.options.series[j].name,
+          textStyle: {
+            color: this.options.series[j].color
+          }
+        });
       }
+
       // 绘制图表
       let option = {
         title: {
           text: this.options.title.ch,
           textStyle: {
             color: "#333",
-            fontSize: fontSize(0.18)
+            fontSize: this.$fz(0.18)
           },
           subtext: this.options.title.en,
           subtextStyle: {
             color: "#999",
-            fontSize: fontSize(0.16)
+            fontSize: this.$fz(0.16)
           },
           top: "2%",
           left: "center"
@@ -104,36 +116,37 @@ export default {
           trigger: "axis",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let dom = `<div style="padding:10px 0;font-size:16px;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
+            let dom = `<div style="padding:0.052083rem 0;font-size:0.083333rem;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
-              let a = `<div style="height:18px;line-height:18px;color:#333;font-size:12px">${
+              let a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.0625rem">${
                 params[i].seriesName.split("_")[0]
               }</div>`;
-              let b = `<div style="height:18px;line-height:18px;color:#ccc;font-size:12px">${
+              let b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#ccc;font-size:0.0625rem">${
                 params[i].seriesName.split("_")[1]
               }</div>`;
-              let c = `<div style="padding:10px 0 15px;color:#333;font-size:18px;font-weight:bold;">${params[i].value}</div>`;
+              let c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.09375rem;font-weight:bold;">${params[i].value}</div>`;
               dom = dom + a + b + c;
             }
-            return `<div style="width:auto;height:auto;padding:0 15px;border-radius: 5px;background:#fff;box-shadow: darkgrey 0px 0px 5px 1px;">${dom}</div>`;
+            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 5px 1px;">${dom}</div>`;
           },
           axisPointer: {
             label: { show: false }
           }
         },
+        // color: ["#1DD6CF", "#ED8DD0"], // 控制 lengend icon 的颜色
         legend: {
+          data: legend,
           selectedMode: false, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
               "\n"
             );
           },
-
           top: "13%",
           icon: "none",
           textStyle: {
             color: params => {},
-            fontSize: fontSize(0.14)
+            fontSize: this.$fz(0.14)
           }
         },
         xAxis: {
@@ -151,17 +164,18 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#333"
+              color: "#333",
+              fontSize: this.$fz(0.14)
             }
           }
         },
         yAxis: [
           {
             type: "value",
-            // min: Min1,
-            // max: Max1,
-            // splitNumber: 5,
-            // interval: (Max1 - Min1) / 5,
+            min: Min1,
+            max: Max1,
+            splitNumber: 5,
+            interval: (Max1 - Min1) / 5,
             name: [
               `{div|${this.options.yName.ch}}`,
               `{div|${this.options.yName.en}}`
@@ -170,7 +184,7 @@ export default {
               rich: {
                 div: {
                   color: "#333",
-                  fontSize: "12",
+                  fontSize: this.$fz(0.14),
                   padding: [2, 0]
                 }
               }
@@ -191,17 +205,18 @@ export default {
             axisLabel: {
               show: true,
               textStyle: {
-                color: "#333"
+                color: "#333",
+                fontSize: this.$fz(0.14)
               }
             }
           },
           {
             show: this.options.yearOnYear,
             type: "value",
-            // min: Min2,
-            // max: Max2,
-            // splitNumber: 5,
-            // interval: (Max2 - Min2) / 5,
+            min: Min2,
+            max: Max2,
+            splitNumber: 5,
+            interval: (Max2 - Min2) / 5,
             nameTextStyle: {
               color: "#333"
             },
@@ -225,7 +240,8 @@ export default {
               show: true,
               formatter: "{value} %", //右侧Y轴文字显示
               textStyle: {
-                color: "#333"
+                color: "#333",
+                fontSize: this.$fz(0.14)
               }
             }
           }
@@ -233,7 +249,7 @@ export default {
         series: series
       };
 
-      myChart.setOption(option, true);
+      this.chart.setOption(option, true);
     },
     //计算最大值
     calMax(arr) {
@@ -251,13 +267,9 @@ export default {
       let min = Math.min(...arr);
       let minint = Math.floor(min / 10);
       let minval = minint * 10; //让显示的刻度是整数
-      return minval;
+      return minval > 0 ? 0 : minval;
     }
   }
 };
 </script>
-<style scoped>
-.a {
-  color: red;
-}
-</style>
+<style scoped></style>
