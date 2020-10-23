@@ -2,6 +2,7 @@
   <!-- 中国对“一带一路”沿线国家非金融类直接投资情况chart -->
   <div class="outflows-chart">
     <div class="echart-block">
+       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
         <lines-chart :options="USD"></lines-chart>
       </div>

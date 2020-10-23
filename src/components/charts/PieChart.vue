@@ -32,13 +32,15 @@ export default {
       let option = {
         title: {
           left: "center",
-          top: this.$fz(0.2),
+          top: "2%",
           text: this.totalData.title.ch,
           textStyle: {
+            color: "#333",
             fontSize: this.$fz(0.18)
           },
           subtext: this.totalData.title.en,
           subtextStyle: {
+            color: "#999",
             fontSize: this.$fz(0.16)
           }
         },
@@ -86,36 +88,62 @@ export default {
             }
           }
         ],
-        graphic: [
+          graphic: [
           {
             type: "group",
-            left: this.$fz(0.2),
-            bottom: this.$fz(0.15) * 1,
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15) * 2.2,
             children: [
               {
                 type: "text",
                 z: 100,
+                left: "center",
                 top: "middle",
                 style: {
                   fill: "#333",
-                  text: "数据最后更新时间:" + this.totalData.updatedDate.ch,
-                  font: `${this.$fz(0.14)}px Microsoft YaHei`
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
                 }
-              },
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15),
+            children: [
               {
                 type: "text",
                 z: 100,
-                top: this.$fz(0.15),
+                left: "center",
+                top: "middle",
                 style: {
                   fill: "#333",
-                  text:
-                    "Last update time of data:" + this.totalData.updatedDate.en,
-                  font: `${this.$fz(0.14)}px Microsoft YaHei`
+                  text: "Data last updated",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 11.5,
+            bottom: this.$fz(0.15) * 1.5,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: this.totalData.updatedDate,
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
                 }
               }
             ]
           }
-        ]
+        ],
       };
       this.chart.setOption(option, true);
     }

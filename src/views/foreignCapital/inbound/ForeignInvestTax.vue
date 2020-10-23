@@ -1,12 +1,8 @@
 <template>
   <!-- 外商投资企业税收统计 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -28,22 +24,22 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'foreignInvestTaxChart',
+      tabComponent: "foreignInvestTaxChart",
       tabList: [
         {
-          name:'foreignInvestTaxChart',
+          name: "foreignInvestTaxChart",
           chinese: "外商投资企业税收统计",
           english: "Tax revenue from foreign investment enterprises"
         }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
@@ -93,16 +89,14 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -110,11 +104,15 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
+      }
+      if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -123,7 +121,6 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>

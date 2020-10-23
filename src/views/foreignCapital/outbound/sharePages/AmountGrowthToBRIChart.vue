@@ -2,17 +2,14 @@
   <!-- 中国对“一带一路”沿线国家直接投资情况完成营业额chart -->
   <div class="outflows-chart">
     <div class="echart-block">
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
         <lines-chart :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box

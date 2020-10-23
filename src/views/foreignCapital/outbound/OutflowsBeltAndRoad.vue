@@ -6,7 +6,7 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       tabComponent: "nonFinancialToBRIChart",
+      isShowTable: false,
       tabList: [
         {
           name: "nonFinancialToBRIChart",
@@ -53,7 +54,7 @@ export default {
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
@@ -124,6 +125,9 @@ export default {
         item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
         `;
+      }
+       if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;

@@ -1,9 +1,11 @@
 <template>
   <!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
   <div class="flows-by-CRI-continent-chart">
-    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
-      <treemap-chart :totalData="totalData"></treemap-chart>
+      <div v-if="isShowTable" class="table-block"></div>
+      <div class="container">
+        <treemap-chart :totalData="totalData"></treemap-chart>
+      </div>
     </div>
     <div class="select-block">
       <div class="year-select">
@@ -119,23 +121,26 @@ export default {
 
 <style lang="less" scoped>
 .flows-by-CRI-continent-chart {
-  position: relative;
-  display: flex;
-  .table-block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-  }
+ display: flex;
   .echart-block {
+    position: relative;
     width: 77%;
-    height: 3.458333rem;
+    height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    .container {
+      width: 100%;
+      height: 3.458333rem;
+    }
   }
   .select-block {
     width: 23%;

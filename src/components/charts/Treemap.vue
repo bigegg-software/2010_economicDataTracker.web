@@ -10,8 +10,11 @@
     </div>
     <div id="treemap" style="width:100%;height:81%;"></div>
     <div class="updated">
-      <div>数据最后更新时间:{{this.totalData.updatedDate.ch}}</div>
-      <div>Last update time of data:{{this.totalData.updatedDate.en}}</div>
+      <div >
+        <div>数据最后更新时间</div>
+        <div>Date last updated</div>
+      </div >
+      <div class="updatedDate">{{this.totalData.updatedDate.ch}}</div>
     </div>
   </div>
 </template>
@@ -138,7 +141,7 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  padding: 0.07rem 0.09375rem;
+  padding: 0.07rem 0.1rem 0.1rem;
   box-sizing: border-box;
   .title {
     width: 100%;
@@ -148,7 +151,7 @@ export default {
     .titleCh {
       font-size: 0.09375rem;
       font-weight: bold;
-      color: #000;
+      color: #333;
     }
     .titleEn {
       font-size: 0.083333rem;
@@ -165,8 +168,13 @@ export default {
     box-sizing: border-box;
   }
   .updated {
-    font-size: 0.083333rem;
-    color: #999;
+    display: flex;
+    align-items: center;
+    font-size:0.078125rem;
+    color: #333;
+  }
+  .updatedDate{
+    margin-left: 0.07rem;
   }
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
   <!-- 中国对外直接投资存量按各洲内国家/地区统计chart -->
   <div class="stocks-by-CRI-continent-chart">
-    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
-      <treemap-chart :totalData="totalData"></treemap-chart>
+      <div v-if="isShowTable" class="table-block"></div>
+      <div class="container">
+        <treemap-chart :totalData="totalData"></treemap-chart>
+      </div>
     </div>
     <div class="select-block">
       <div class="year-select">
@@ -58,9 +60,9 @@ export default {
             { name: "编结植物_xsdvx", value: 20 }
           ]
         },
-        updatedDate:{
-          ch:"2020-10-23",
-          en:"October 23,2020"
+        updatedDate: {
+          ch: "2020-10-23",
+          en: "October 23,2020"
         }
       },
       option: {
@@ -119,23 +121,26 @@ export default {
 
 <style lang="less" scoped>
 .stocks-by-CRI-continent-chart {
-  position: relative;
   display: flex;
-  .table-block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-  }
   .echart-block {
+    position: relative;
     width: 77%;
-    height: 3.458333rem;
+    height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    .container {
+      width: 100%;
+      height: 3.458333rem;
+    }
   }
   .select-block {
     width: 23%;

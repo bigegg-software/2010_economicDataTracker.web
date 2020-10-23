@@ -1,19 +1,15 @@
 <template>
   <!-- 中国对外直接投资存量chart-->
   <div class="outstocks-chart">
-    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
         <lines-chart :options="myChart"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -145,23 +141,23 @@ export default {
 
 <style lang="less" scoped>
 .outstocks-chart {
-  position: relative;
   display: flex;
-  .table-block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-  }
   .echart-block {
+    position: relative;
     width: 77%;
     height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
     border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
     .container {
       width: 100%;
       height: 3.458333rem;

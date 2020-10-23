@@ -1,12 +1,8 @@
 <template>
   <!-- 中国对外直接投资流量行业分布情况 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -28,27 +24,28 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'outflowsByIndustryChart',
+      tabComponent: "outflowsByIndustryChart",
+      isShowTable: false,
       tabList: [
         {
-          name:'outflowsByIndustryChart',
+          name: "outflowsByIndustryChart",
           chinese: "中国对外直接投资流量行业分布情况",
           english: "China's FDI outflows by industry"
         },
         {
-          name:'economyByIndustryChart',
+          name: "economyByIndustryChart",
           chinese: "中国对主要经济体投资按行业统计",
           english: "XXXXXXXXXXXXXXXX"
         }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
@@ -98,16 +95,14 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -115,11 +110,15 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-        if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
+      }
+      if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -128,7 +127,6 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>

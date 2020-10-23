@@ -2,7 +2,7 @@
   <!-- 中国对外直接投资存量按国家和地区统计 -->
   <div class="container">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="isShowTable"></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -55,7 +55,7 @@ export default {
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
