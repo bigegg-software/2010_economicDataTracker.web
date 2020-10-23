@@ -180,6 +180,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0.229167rem;
+    z-index: 1;
     width: ceil(250%);
     height: 2.083333rem;
     overflow: auto;

@@ -1,7 +1,7 @@
 <template>
-<!-- 中国对主要经济体投资按行业统计chart -->
+  <!-- 中国对主要经济体投资按行业统计chart -->
   <div class="economy-by-industry-chart">
-    <div class="echart-block">economy-by-industry-chart</div>
+    <div class="echart-block">economy-by--chart</div>
     <div class="select-block"></div>
   </div>
 </template>

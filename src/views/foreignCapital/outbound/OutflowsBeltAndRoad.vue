@@ -28,25 +28,25 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'nonFinancialToBRIChart',
+      tabComponent: "nonFinancialToBRIChart",
       tabList: [
         {
-          name:'nonFinancialToBRIChart',
+          name: "nonFinancialToBRIChart",
           chinese: "中国对“一带一路”沿线国家非金融类直接投资情况",
           english: " China’s non-financial FDI outflows to BRI countries"
         },
         {
-          name:'newContractAmountToBRIChart',
+          name: "newContractAmountToBRIChart",
           chinese: "新签合同额",
           english: "Total value of new contract"
         },
         {
-          name:'amountGrowthToBRIChart',
+          name: "amountGrowthToBRIChart",
           chinese: "完成营业额",
           english: "Total value of new contract y-o-y growth"
         }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
@@ -103,16 +103,14 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -120,11 +118,12 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -133,7 +132,6 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>

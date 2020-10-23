@@ -1,5 +1,5 @@
 <template>
-<!-- 主要对华投资国家/地区-国家和地区对华投资比重chart-->
+  <!-- 主要对华投资国家/地区-国家和地区对华投资比重chart-->
   <div class="investProportion-in-China-chart">
     <div class="echart-block">investProportion-in-China-chart</div>
     <div class="select-block"></div>

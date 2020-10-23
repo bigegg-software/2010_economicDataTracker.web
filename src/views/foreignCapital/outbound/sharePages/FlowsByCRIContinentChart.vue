@@ -1,5 +1,5 @@
 <template>
-<!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
+  <!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
   <div class="flows-by-CRI-continent-chart">
     <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
