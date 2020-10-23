@@ -1,8 +1,8 @@
 <template>
   <!-- 中国对外直接投资流量chart-->
   <div class="outflows-chart">
-    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
         <lines-chart :options="USD"></lines-chart>
       </div>
@@ -223,23 +223,23 @@ export default {
 
 <style lang="less" scoped>
 .outflows-chart {
-  position: relative;
   display: flex;
-  .table-block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-  }
   .echart-block {
+    position: relative;
     width: 77%;
     height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    // border-right: none;
     .container {
       width: 100%;
       height: 3.458333rem;
@@ -250,6 +250,7 @@ export default {
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    border-left: none;
     .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;

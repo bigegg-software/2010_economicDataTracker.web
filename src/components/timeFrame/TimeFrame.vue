@@ -83,6 +83,13 @@ export default {
       activeKey: "yearly"
     };
   },
+  watch: {
+    activeKey: {
+      handler(a, b) {
+        this.$emit("changeActiveKey", a);
+      }
+    }
+  },
   mounted() {},
   methods: {
     changeProgress(value) {

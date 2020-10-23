@@ -39,27 +39,40 @@ export default {
   align-items: center;
   width: 100%;
   .tab-item {
+    width: 30%;
     position: relative;
     color: #666666;
     cursor: pointer;
     margin-right: 0.020833rem;
-    padding: 0.072917rem 0.145833rem;
+    padding: 0.072917rem 0.1rem;
     background-color: #f0f0f0;
     border-top-left-radius: 0.041667rem;
     border-top-right-radius: 0.041667rem;
+    &:last-child {
+      margin-right: 0;
+    }
+    .text {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      width: 100%;
+    }
   }
   .active {
+    width: auto;
     color: #1d3f6c;
     background-color: #fff;
     border: 2px solid #cccccc;
     border-bottom: none;
+    white-space: nowrap;
   }
   .under-line {
     position: absolute;
-    left: -1px;
+    left: 0px;
     bottom: -2px;
     z-index: 1;
-    width: ceil(100%+1px);
+    width: 100%;
     height: 0.020833rem;
     background-color: #1d3f6c;
   }

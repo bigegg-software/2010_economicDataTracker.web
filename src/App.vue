@@ -18,10 +18,22 @@ body,
   padding: 0;
   font-family: "Microsoft Yahei", Arial;
 }
-::-webkit-scrollbar{width:8px;}
-::-webkit-scrollbar{height:8px;}
-::-webkit-scrollbar-track{background-color:#eee;} // 后背景
-::-webkit-scrollbar-thumb{background-color:#aab0b8;} // 原前背景aab0b8
-::-webkit-scrollbar-thumb:hover {background-color:#143257}  //鼠标放上
-::-webkit-scrollbar-thumb:active {background-color:#aab0b8} // 选中前背景
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar {
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #eee;
+} // 后背景
+::-webkit-scrollbar-thumb {
+  background-color: #aab0b8;
+} // 原前背景aab0b8
+::-webkit-scrollbar-thumb:hover {
+  background-color: #143257;
+} //鼠标放上
+::-webkit-scrollbar-thumb:active {
+  background-color: #aab0b8;
+} // 选中前背景
 </style>

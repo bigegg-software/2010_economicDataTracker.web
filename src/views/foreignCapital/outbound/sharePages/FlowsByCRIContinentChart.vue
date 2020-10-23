@@ -1,7 +1,7 @@
 <template>
-<!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
+  <!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
   <div class="flows-by-CRI-continent-chart">
-    <div class="echart-block">flows-by-CRI-continent-chart</div>
+    <div class="echart-block">fnt-chart</div>
     <div class="select-block"></div>
   </div>
 </template>

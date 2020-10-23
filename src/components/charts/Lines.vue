@@ -117,8 +117,65 @@ export default {
         },
         grid: {
           top: "25%",
-          bottom: "10%"
+          bottom: "15%"
         },
+        graphic: [
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15) * 2.2,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "Data last updated",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 11.5,
+            bottom: this.$fz(0.15) * 1.5,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "2020-10-22",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          }
+        ],
+
         tooltip: {
           trigger: "axis",
           backgroundColor: "rgba(255, 255, 255,0)",
@@ -126,10 +183,10 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052083rem 0;font-size:0.083333rem;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
+            let dom = `<div style="padding:0.052rem  0 0.125rem;font-size:0.09375rem;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
               if (params[i].seriesName.split("_")[0]) {
-                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.0625rem">${
+                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.072917rem">${
                   params[i].seriesName.split("_")[0]
                 }</div>`;
               }
@@ -138,10 +195,10 @@ export default {
                   params[i].seriesName.split("_")[1]
                 }</div>`;
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.09375rem;font-weight:bold;">${params[i].value}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value}</div>`;
               dom = dom + a + b + c;
             }
-            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 5px 1px;">${dom}</div>`;
+            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;
           },
           axisPointer: {
             label: { show: false }

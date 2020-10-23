@@ -6,7 +6,10 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -28,37 +31,37 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'flowsByContinentChart',
+      tabComponent: "flowsByContinentChart",
       tabList: [
         {
-          name:'flowsByContinentChart',
+          name: "flowsByContinentChart",
           chinese: "按大洲统计",
           english: "By continent"
         },
         {
-          name:'flowsByCRIContinentChart',
+          name: "flowsByCRIContinentChart",
           chinese: "按各洲内国家/地区统计",
           english: "By country/region within a continent"
         },
         {
-          name:'flowsByDestinationChart',
+          name: "flowsByDestinationChart",
           chinese: "按国家和地区统计",
           english: "China’s FDI flows by destination"
         },
         {
-          name:'flowsTwentyDestinationChart',
+          name: "flowsTwentyDestinationChart",
           chinese: "历年前20位国家",
           english: "Top 20 destinations of China's FDI flows"
-        },
+        }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
@@ -108,16 +111,14 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -125,11 +126,12 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -138,7 +140,6 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>
