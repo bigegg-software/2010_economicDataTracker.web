@@ -1,45 +1,36 @@
 <template>
   <!-- 中国对外直接投资存量按各洲内国家/地区统计chart -->
   <div class="stocks-by-CRI-continent-chart">
+    <div v-if="isShowTable" class="table-block"></div>
     <div class="echart-block">
-      <div class="title">
-        <div>{{this.totalData.title.ch}}</div>
-        <div>{{this.totalData.title.en}}</div>
-      </div>
-      <div class="content">
-        <div class="unit">
-          <div>{{this.totalData.yName.ch}}</div>
-          <div>{{this.totalData.yName.en}}</div>
-        </div>
-        <div class="chart">
-          <treemap-chart :totalData="totalData"></treemap-chart>
-        </div>
-        <div class="updated">
-          <div>
-            <div>{{this.totalData.updated.ch}}</div>
-            <div>{{this.totalData.updated.en}}</div>
-          </div>
-          <div>{{this.totalData.updated.date}}</div>
-        </div>
-      </div>
+      <treemap-chart :totalData="totalData"></treemap-chart>
     </div>
     <div class="select-block">
-      <div class="frame">
-        <time-frame :options="options" @change="change" @update="update"></time-frame>
+      <div class="year-select">
+        <Yearly :option="option" :value="option.value" @change="changeValue"></Yearly>
       </div>
+      <SelectRadio
+        :option="selectOption"
+        :value="selectOption.value"
+        @change="changeSelect($event)"
+      ></SelectRadio>
     </div>
   </div>
 </template>
 
 <script>
-import dayjs from "dayjs";
 import TreemapChart from "@/components/charts/Treemap";
-import TimeFrame from "@/components/timeFrame/TimeFrame";
+import Yearly from "@/components/timeFrame/Year";
+import SelectRadio from "@/components/select/SelectRadio";
 
 export default {
   components: {
-    TimeFrame,
-    TreemapChart
+    TreemapChart,
+    Yearly,
+    SelectRadio
+  },
+  props: {
+    isShowTable: {}
   },
   name: "stocksByCRIContinentChart",
   data() {
@@ -53,48 +44,74 @@ export default {
           ch: "百万美元",
           en: "USD min"
         },
-        updated: {
-          ch: "数据最后更新时间",
-          en: "Data last updated",
-          date: "2020-10-21"
-        },
-        seriesData: [
-            { name: "树、插花_xxxxxxxx", value: "292" },
-            { name: "蔬菜_xxxxxx", value: "2037" },
-            { name: "水果_xxxxxx", value: "8682" },
-            { name: "咖啡茶_xxxxxx", value: "633" },
-            { name: "谷物_xxxxxx", value: "5793" },
-            { name: "淀粉_xxxxxx", value: "1178" },
-            { name: "含油子仁果实_xxxxxx", value: "4079" },
-            { name: "树胶树脂_xxxxxx", value: "313" },
-            { name: "编结植物_xxxxxx", value: "142" }
+        seriesData: {
+          all: "全部_ALL",
+          data: [
+            { name: "树、插花_xxfgdbbfx", value: 292 },
+            { name: "蔬菜_vffxfbdx", value: 234 },
+            { name: "水果_xbdfv", value: 75 },
+            { name: "咖啡茶_dvfxxx", value: 251 },
+            { name: "谷物_ffff", value: 452 },
+            { name: "淀粉_ewwwwwwwwwwww", value: 90 },
+            { name: "含油子仁果实_dscxx", value: 145 },
+            { name: "树胶树脂_dscdx", value: 120 },
+            { name: "编结植物_xsdvx", value: 20 }
           ]
-      },
-      options: {
-        yearly: {
-          // ch: "年度",
-          // en: "yearly",
-          list: {
-            start: {
-              ch: "年度",
-              en: "Yearly",
-              frame: "1990_2020",
-              value: "1990"
-            }
-          }
+        },
+        updatedDate:{
+          ch:"2020-10-23",
+          en:"October 23,2020"
         }
+      },
+      option: {
+        ch: "年度",
+        en: "yearly",
+        frame: "1990_2020",
+        value: "2020"
+      },
+      selectOption: {
+        ch: "大洲",
+        en: "xxxxxx",
+        value: {
+          ch: "亚洲",
+          en: "yazhou"
+        },
+        op: [
+          {
+            ch: "非洲",
+            en: "yazhou"
+          },
+          {
+            ch: "亚洲",
+            en: "yazhou"
+          },
+          {
+            ch: "南美洲",
+            en: "yazhou"
+          },
+          {
+            ch: "欧洲",
+            en: "yazhou"
+          },
+          {
+            ch: "北美洲",
+            en: "yazhou"
+          },
+          {
+            ch: "南极洲",
+            en: "yazhou"
+          }
+        ]
       }
     };
   },
+  mounted() {},
   methods: {
-    //  时间范围组件 update and change
-    update(activeKey, value) {
-      this.options[activeKey].list.start.value = value[0];
+    changeValue(value) {
+      this.option.value = value;
     },
-    change(activeKey, key, value) {
-      let start =
-        key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
-      this.options[activeKey].list[key].value = value;
+    changeSelect(item) {
+      this.selectOption.value = item;
     }
   }
 };
@@ -102,36 +119,34 @@ export default {
 
 <style lang="less" scoped>
 .stocks-by-CRI-continent-chart {
+  position: relative;
   display: flex;
+  .table-block {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+  }
   .echart-block {
     width: 77%;
-    height: 664px;
+    height: 3.458333rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     border-right: none;
-    .title {
-      width: 100%;
-      display: flex;
-      flex-flow: column nowrap;
-      align-items: center;
-    }
-    .content {
-      .chart {
-        width: 100%;
-        height: 2.6rem;
-        border: 1px solid red;
-      }
-      .updated {
-        display: flex;
-        align-items: center;
-      }
-    }
   }
   .select-block {
     width: 23%;
-    height: 664px;
+    height: auto;
+    padding: 0.078125rem;
+    box-sizing: border-box;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    .year-select {
+      margin-bottom: 0.078125rem;
+    }
   }
 }
 </style>

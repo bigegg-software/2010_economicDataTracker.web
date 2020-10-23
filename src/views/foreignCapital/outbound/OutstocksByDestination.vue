@@ -1,12 +1,8 @@
 <template>
   <!-- 中国对外直接投资存量按国家和地区统计 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="isShowTable"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -28,30 +24,31 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'stocksByContinentChart',
+      tabComponent: "stocksByContinentChart",
+      isShowTable: false,
       tabList: [
         {
-          name:'stocksByContinentChart',
+          name: "stocksByContinentChart",
           chinese: "按大洲统计",
           english: "By continent"
         },
         {
-          name:'stocksByCRIContinentChart',
+          name: "stocksByCRIContinentChart",
           chinese: "按各洲内国家/地区统计",
           english: "By country/region within a continent"
         },
         {
-          name:'stocksByDestinationChart',
+          name: "stocksByDestinationChart",
           chinese: "按国家和地区统计",
           english: "China’s FDI stocks by destination"
         },
         {
-          name:'stocksTwentyDestinationChart',
+          name: "stocksTwentyDestinationChart",
           chinese: "历年前20位国家",
           english: "Top 20 destinations of China's FDI stocks"
-        },
+        }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
@@ -108,16 +105,14 @@ export default {
         },
         { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -125,11 +120,15 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
+      }
+      if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -138,7 +137,6 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>
