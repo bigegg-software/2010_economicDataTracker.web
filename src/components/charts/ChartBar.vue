@@ -34,7 +34,6 @@ export default {
         this.timer = setTimeout(async () => {
           console.log("页面尺寸变化");
          await this.initChart();
-          this.myChartBar.resize();
         }, 1000);
       });
         
@@ -42,6 +41,18 @@ export default {
   },
   methods: {
     initChart() {
+      let series= [];
+        this.chartBarData.series.forEach(item => {
+          series.push({
+            name: item.name,
+            type: "bar",
+            barWidth:'30%',
+            data: item.data,
+            itemStyle: {
+              color: item.color
+            }
+          });
+        });
       let  option={
         title:{
           text:this.chartBarData.title.text,
@@ -50,24 +61,91 @@ export default {
           left:'center',
           textStyle:{
             color: "#000",
-            fontSize:this.$fz(0.30)
+            fontSize:this.$fz(0.20)
           },
           subtextStyle:{
             color: "#CBCBCB",
-            fontSize:this.$fz(0.20)
+            fontSize:this.$fz(0.14)
           }
         },
+        graphic: [
+          // 数据最后更新时间：2020-09-24 Data last updated：September 24，2020
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15) * 2.2,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "数据最后更新时间：",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+           {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.05) * 2.2,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "Data last updated：",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          }
+        ],
         tooltip: {
           trigger: "axis",
+          backgroundColor:'rgba(225,225,255,0)',
           axisPointer: {
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-          }
+            type: "line" // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: params => {
+            let a = "";
+            let b = "";
+            let c = "";
+            console.log(params)
+            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:rgba(29, 64, 109,0.8);">
+              <span>${params[0].name.split('\n')[0]}</span><br/>
+              <span style="font-size:0.0625rem; font-weight:normal;">${params[0].name.split('\n')[1]}</span>
+            </div>`;
+            for (let i = 0; i < params.length; i++) {
+              if(params[i].seriesName.includes('_')){
+                  if (params[i].seriesName.split("_")[0]) {
+                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+                      params[i].seriesName.split("_")[0]
+                    }</div>`;
+                  }
+                  if (params[i].seriesName.split("_")[1]) {
+                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+                      params[i].seriesName.split("_")[1]
+                    }</div>`;
+                  }
+              }
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value}</div>`;
+              dom = dom + a + b + c;
+            }
+            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
+          },
         },
         grid: {
-          top:'18%',
+          top:'23%',
           left: "3%",
           right: "4%",
-          bottom: "0%",
+          bottom: "10%",
           containLabel: true
         },
         xAxis: [
@@ -75,9 +153,15 @@ export default {
             type: "category",
             data: this.chartBarData.xData,
             axisLabel: {
-              fontSize: 10,
+              interval: 0, //强制显示全
+              fontSize: this.$fz(0.14),
               rotate: 45,
               margin: 10 //刻度标签与轴线之间的距离
+            },
+            axisLine:{
+              lineStyle: {
+                color:'#8C8C8C'
+              }
             },
             axisTick: {
               alignWithLabel: true
@@ -90,7 +174,19 @@ export default {
         yAxis: [
           {
             type: "value",
-            name: this.chartBarData.yName,
+            name: [
+              `{div|${this.chartBarData.yName.ch}}`,
+              `{div|${this.chartBarData.yName.en}}`
+            ].join("\n"),
+            nameTextStyle: {
+              rich: {
+                div: {
+                  color: "#333",
+                  fontSize: this.$fz(0.14),
+                  padding: [2, 0,0,-60]
+                }
+              }
+            },
             axisLine: {
               show: false
             },
@@ -106,21 +202,15 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            name: "直接访问",
-            type: "bar",
-            barWidth: "60%",
-            data: this.chartBarData.seriesData,
-            itemStyle: {
-              color: "deepskyblue"
-            }
-          }
-        ]
+        series:series
       };
       this.myChartBar = echarts.init(this.$refs.chartBar);
        this.myChartBar.setOption(option);
+       this.myChartBar.resize();
     }
+  },
+  beforeDestroy() {
+      this.$EventBus.$off("resize");
   }
 };
 </script>

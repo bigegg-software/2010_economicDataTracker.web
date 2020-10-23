@@ -6,7 +6,7 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body :isShowTable="actionsList[0].checked" :tabComponent="tabComponent"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -110,6 +110,11 @@ export default {
       ]
     
     };
+  },
+  watch:{
+    tabComponent() {
+      this.$set(this.actionsList[0],'checked',false);
+    }
   },
   mounted() {
   },
