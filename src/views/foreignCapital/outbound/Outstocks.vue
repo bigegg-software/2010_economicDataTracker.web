@@ -8,7 +8,7 @@
     ></tab-component>
     <share-body
       :tabComponent="tabComponent"
-      :isShowTable="isShowTable"
+      :isShowTable="actionsList[0].checked"
     ></share-body>
     <actions-component
       :actionsList="actionsList"
@@ -52,7 +52,7 @@ export default {
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {

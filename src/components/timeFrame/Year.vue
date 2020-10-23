@@ -62,6 +62,8 @@ export default {
     }
   },
   mounted() {
+    console.log(this.option);
+    console.log(this.value);
     this.getYears();
     this.getPageIndex();
   },

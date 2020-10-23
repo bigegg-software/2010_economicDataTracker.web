@@ -1,15 +1,8 @@
 <template>
   <!-- 中国对外直接投资流量 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body
-      :tabComponent="tabComponent"
-      :isShowTable="isShowTable"
-    ></share-body>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -22,6 +15,7 @@
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
+import { getImageDataUrl } from "@/utils/html2Canvas.js";
 export default {
   name: "outflows",
   components: {
@@ -47,7 +41,7 @@ export default {
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
@@ -115,9 +109,7 @@ export default {
     handleClickAction(item, index) {
       if (item.name == "embed") {
         //设置嵌入链接
-        item.children[0].src = `
-            <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `;
+        item.children[0].src = `<iframe src="${window.location.host}/#/${this.tabComponent}" width="100%" height="100%">`;
       }
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
@@ -125,9 +117,21 @@ export default {
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
-    choose(index, i) {
+    async choose(index, i) {
       console.log(index, i, "-");
       this.initActionsList();
+      if ((index = 1 && i == 0)) {
+        let base64Url = await getImageDataUrl(".echart-block");
+        // console.log(base64Url, "base64Url");
+        var a = document.createElement("a"); // 创建一个a节点插入的document
+        var event = new MouseEvent("click"); // 模拟鼠标click点击事件
+        a.download = "beautifulGirl"; // 设置a节点的download属性值
+        a.href = base64Url; // 将图片的src赋值给a节点的href
+        a.dispatchEvent(event); // 触发鼠标点击事件
+      }
+      if ((index = 1 && i == 1)) {
+        console.log("下载表格");
+      }
     }
   }
 };

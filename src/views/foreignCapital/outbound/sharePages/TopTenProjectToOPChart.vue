@@ -1,7 +1,7 @@
 <template>
-<!-- 中国对外承包工程前十项目chart -->
+  <!-- 中国对外承包工程前十项目chart -->
   <div class="topTenProject-To-OPChart">
-    <div class="echart-block">topTenProject-To-OPChart</div>
+    <div class="echart-block">中国对外承包工程前十项目chart</div>
     <div class="select-block"></div>
   </div>
 </template>

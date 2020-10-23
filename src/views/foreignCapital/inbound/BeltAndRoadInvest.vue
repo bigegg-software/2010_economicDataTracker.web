@@ -6,7 +6,7 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -120,6 +120,9 @@ export default {
         item.children[0].src=`
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
         `
+      }
+        if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;

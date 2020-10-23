@@ -1,36 +1,158 @@
 <template>
-<!-- 主要对华投资国家/地区-国家和地区对华投资比重chart-->
+  <!-- 主要对华投资国家/地区-国家和地区对华投资比重chart-->
   <div class="investProportion-in-China-chart">
-    <div class="echart-block">investProportion-in-China-chart</div>
-    <div class="select-block"></div>
+    <div class="echart-block">
+      <div v-if="isShowTable" class="table-block"></div>
+      <div class="container">
+        <treemap-chart :totalData="totalData"></treemap-chart>
+      </div>
+    </div>
+    <div class="select-block">
+      <div class="year-select">
+        <Yearly :option="option" :value="option.value" @change="changeValue"></Yearly>
+      </div>
+      <SelectRadio
+        :option="selectOption"
+        :value="selectOption.value"
+        @change="changeSelect($event)"
+      ></SelectRadio>
+    </div>
   </div>
 </template>
 
 <script>
+
+import TreemapChart from "@/components/charts/Treemap";
+import Yearly from "@/components/timeFrame/Year";
+import SelectRadio from "@/components/select/SelectRadio";
+
 export default {
+   components: {
+    TreemapChart,
+    Yearly,
+    SelectRadio
+  },
+  props: {
+    isShowTable: {}
+  },
   name: "investProportionInChinaChart",
   data() {
-    return {};
+    return {
+      totalData: {
+        title: {
+          ch: "按各洲内国家/地区统计",
+          en: "Statistics by continent country / Region"
+        },
+        yName: {
+          ch: "百万美元",
+          en: "USD min"
+        },
+        seriesData: {
+          all: "全部_ALL",
+          data: [
+            { name: "树、插花_xxfgdbbfx", value: 292 },
+            { name: "蔬菜_vffxfbdx", value: 234 },
+            { name: "水果_xbdfv", value: 75 },
+            { name: "咖啡茶_dvfxxx", value: 251 },
+            { name: "谷物_ffff", value: 452 },
+            { name: "淀粉_ewwwwwwwwwwww", value: 90 },
+            { name: "含油子仁果实_dscxx", value: 145 },
+            { name: "树胶树脂_dscdx", value: 120 },
+            { name: "编结植物_xsdvx", value: 20 }
+          ]
+        },
+        updatedDate: {
+          ch: "2020-10-23",
+          en: "October 23,2020"
+        }
+      },
+      option: {
+        ch: "年度",
+        en: "yearly",
+        frame: "1990_2020",
+        value: "2020"
+      },
+      selectOption: {
+        ch: "大洲",
+        en: "xxxxxx",
+        value: {
+          ch: "亚洲",
+          en: "yazhou"
+        },
+        op: [
+          {
+            ch: "非洲",
+            en: "yazhou"
+          },
+          {
+            ch: "亚洲",
+            en: "yazhou"
+          },
+          {
+            ch: "南美洲",
+            en: "yazhou"
+          },
+          {
+            ch: "欧洲",
+            en: "yazhou"
+          },
+          {
+            ch: "北美洲",
+            en: "yazhou"
+          },
+          {
+            ch: "南极洲",
+            en: "yazhou"
+          }
+        ]
+      }
+    };
   },
-  methods: {}
+  mounted() {},
+  methods: {
+    changeValue(value) {
+      this.option.value = value;
+    },
+    changeSelect(item) {
+      this.selectOption.value = item;
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
 .investProportion-in-China-chart {
-  display: flex;
+   display: flex;
   .echart-block {
+    position: relative;
     width: 77%;
-    height: 664px;
+    height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    .container {
+      width: 100%;
+      height: 3.458333rem;
+    }
   }
   .select-block {
     width: 23%;
-    height: 664px;
+    height: auto;
+    padding: 0.078125rem;
+    box-sizing: border-box;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    .year-select {
+      margin-bottom: 0.078125rem;
+    }
   }
 }
 </style>

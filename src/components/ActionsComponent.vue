@@ -15,72 +15,80 @@
         <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
         <div>{{ handelText(item.toggle, item.checked, item.en) }}</div>
       </div>
-      <!-- 下载 -->
-      <div
-        v-if="item.popup && item.name == 'download' && item.checked"
-        class="download-block"
-      >
+      <fade-in-out>
+        <!-- 下载 -->
         <div
-          v-for="(action, i) in item.children"
-          :key="i"
-          class="download"
-          @click.stop="choose(index, i)"
+          v-if="item.popup && item.name == 'download' && item.checked"
+          class="download-block"
         >
-          <div>{{ action.ch }}</div>
-          <div>{{ action.en }}</div>
+          <div
+            v-for="(action, i) in item.children"
+            :key="i"
+            class="download"
+            @click.stop="choose(index, i)"
+          >
+            <div>{{ action.ch }}</div>
+            <div>{{ action.en }}</div>
+          </div>
         </div>
-      </div>
-      <!-- 嵌入 -->
-      <div
-        v-if="item.popup && item.name == 'embed' && item.checked"
-        class="embed-block"
-      >
-        <div v-for="(action, i) in item.children" :key="i" class="embed">
-          <div>{{ action.ch }}</div>
-          <div>{{ action.en }}</div>
-          <div>{{ action.src }}</div>
-        </div>
-      </div>
-      <!-- 分享 -->
-      <div
-        v-if="item.popup && item.name == 'share' && item.checked"
-        class="share-block"
-      >
+        <!-- 嵌入 -->
         <div
-          v-for="(action, i) in item.children"
-          :key="i"
-          class="share"
-          @click.stop="choose(index, i)"
+          v-if="item.popup && item.name == 'embed' && item.checked"
+          class="embed-block"
         >
-          <img :src="require('../assets/img/' + action.img)" alt="" />
+          <div v-for="(action, i) in item.children" :key="i" class="embed">
+            <div>{{ action.ch }}</div>
+            <div>{{ action.en }}</div>
+            <div>{{ action.src }}</div>
+          </div>
         </div>
-      </div>
+        <!-- 分享 -->
+        <div
+          v-if="item.popup && item.name == 'share' && item.checked"
+          class="share-block"
+        >
+          <div
+            v-for="(action, i) in item.children"
+            :key="i"
+            class="share"
+            @click.stop="choose(index, i)"
+          >
+            <img :src="require('../assets/img/' + action.img)" alt="" />
+          </div>
+        </div>
+      </fade-in-out>
     </div>
   </div>
 </template>
 
 <script>
+import FadeInOut from "@/components/animations/FadeInOut";
+
 export default {
   props: {
     actionsList: {}
   },
+  components: {
+    FadeInOut
+  },
   data() {
-    return {};
+    return { timer: null };
   },
   methods: {
     handelText(toggle, checked, text) {
       return toggle && checked ? text.split("_")[1] : text.split("_")[0];
     },
     handleClickAction(item, index) {
-      this.$emit("handleClickAction", item,index);
+      this.$emit("handleClickAction", item, index);
     },
     choose(index, i) {
       this.$emit("choose", index, i);
     },
     mouseleave() {
-      console.log("mouseleave");
-      this.actionsList;
-      for (let i = 0; i < this.actionsList.length; i++) {}
+      // clearTimeout(this.timer);
+      // setTimeout(() => {
+      //   this.$emit("mouseleave");
+      // }, 500);
     }
   }
 };
@@ -99,18 +107,17 @@ export default {
   justify-content: center;
   width: 19.25%;
   height: 0.296875rem;
-  border: 2px solid #cbcbcb;
-  border-right: none;
-  border-top: none;
+  border-bottom: 2px solid #cbcbcb;
+  border-right: 2px solid #cbcbcb;
   color: #999;
   cursor: pointer;
   user-select: none;
   &:first-child {
     color: #1d3f6c !important; // 让第一个常亮
+    border-left: 2px solid #cbcbcb;
   }
   &:last-child {
     width: 23%;
-    border-right: 2px solid #cbcbcb;
   }
   .icon-action {
     font-size: 0.145833rem;
@@ -124,6 +131,7 @@ export default {
     position: absolute;
     top: -0.59375rem;
     left: 0;
+    z-index: 5;
     box-shadow: darkgrey 0px 0px 10px 1px;
     .download {
       display: flex;
@@ -153,8 +161,8 @@ export default {
     position: absolute;
     top: -0.8125rem;
     left: 0;
+    z-index: 5;
     box-shadow: darkgrey 0px 0px 10px 1px;
-    width: 1.90625rem;
     height: 0.770833rem;
     padding: 0.052083rem 0.072917rem;
     line-height: 0.104167rem;
@@ -179,13 +187,13 @@ export default {
     position: absolute;
     top: -0.59375rem;
     left: 0;
+    z-index: 5;
     box-shadow: darkgrey 0px 0px 10px 1px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 0.552083rem;
     background-color: #f5f5f5;
-
     .share {
       padding: 0 0.052083rem;
       img {
