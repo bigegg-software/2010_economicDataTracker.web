@@ -114,6 +114,9 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
+      if(item.name=='enlarge'){
+        console.log('enlarge')
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },

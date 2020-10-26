@@ -82,7 +82,7 @@ export default {
         op: [
           {
             ch: "非洲",
-            en: "yazhou"
+            en: "feizhou"
           },
           {
             ch: "亚洲",
@@ -90,19 +90,19 @@ export default {
           },
           {
             ch: "南美洲",
-            en: "yazhou"
+            en: "nanmeizhou"
           },
           {
             ch: "欧洲",
-            en: "yazhou"
+            en: "ouzhou"
           },
           {
             ch: "北美洲",
-            en: "yazhou"
+            en: "beimeizhou"
           },
           {
             ch: "南极洲",
-            en: "yazhou"
+            en: "nanjizhou"
           }
         ]
       }

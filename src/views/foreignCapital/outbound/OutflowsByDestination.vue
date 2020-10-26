@@ -113,6 +113,11 @@ export default {
       ]
     };
   },
+  watch:{
+    tabComponent() {
+      this.$set(this.actionsList[0],'checked',false);
+    }
+  },
   mounted() {},
   methods: {
     changeTabCompnent(name) {

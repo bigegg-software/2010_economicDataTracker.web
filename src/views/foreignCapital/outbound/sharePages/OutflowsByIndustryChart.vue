@@ -7,7 +7,7 @@
         <lines-chart :options="USD"></lines-chart>
       </div>
       <div v-else class="container">
-        柱状图
+         <chart-bar :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
@@ -34,6 +34,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import ChartBar from '@/components/charts/ChartBar'
 import LinesChart from "@/components/charts/Lines";
 
 export default {
@@ -43,12 +44,37 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
+    ChartBar,
     LinesChart
   },
   name: "outflowsChart",
   data() {
     return {
       isShowLineChart: false,
+      chartBar: {
+        showAxisLabel:false,
+        yName: { ch: "百万美元", en: "USD min" },
+        title:{
+          text:'中国对外直接投资流量行业分布情况',
+          subtext:"China’s FDI outflows by industry"
+        },
+        xData: [
+          "租赁和商务服务业\nLeasing and business service",
+          "制造业\nManufacturing",
+          "科学研究和技术服务业\nScientific research and technological service",
+          "卫生和社会工作\nHealthcare and social work",
+          "电力/热力/燃气及水的生产和供应业\nElectricity, gas, etc",
+          "居民服务/修理和其他服务业\nResidential, repair and other services",
+          "交通运输/仓储和邮政业\nTransportation, storage and postal service"
+        ],
+        series:[
+          {
+            // name:'存量_xxxxx',
+            color:["#0C9AFF", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#61a0a8", "#91c7ae", "#2f4554"],
+            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+          }
+        ]
+      },
       USD: {
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },

@@ -17,7 +17,7 @@ body,
   height:100%;
   margin: 0;
   padding: 0;
-  font-family: "Microsoft Yahei", Arial;
+  font-family:Arial,"Microsoft Yahei";
 }
 ::-webkit-scrollbar {
   width: 8px;

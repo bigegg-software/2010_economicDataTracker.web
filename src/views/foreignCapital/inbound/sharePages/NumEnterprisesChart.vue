@@ -7,7 +7,7 @@
         <lines-chart :options="RMB"></lines-chart>
       </div>
       <div v-else class="container">
-        柱状图
+        <chart-bar :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
@@ -19,7 +19,7 @@
         ></time-frame>
       </div>
       <div v-if="!isShowYearOnYear" class="frame">
-        选择单年份选择器
+        <year :option="optionYear" :value="optionYear.value" @change="yearChange"></year>
       </div>
       <div class="status">
         <check-box
@@ -43,6 +43,8 @@
 
 <script>
 import dayjs from "dayjs";
+import ChartBar from '@/components/charts/ChartBar'
+import Year from '@/components/timeFrame/Year'
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
@@ -56,12 +58,38 @@ export default {
     TimeFrame,
     CheckBox,
     LinesChart,
-    SelectCheckBox
+    SelectCheckBox,
+    ChartBar,
+    Year
   },
   name: "outflowsChart",
   data() {
     return {
       isShowYearOnYear: false,
+      chartBar: {
+        showAxisLabel:false,
+        yName: { ch: "百万美元", en: "USD min" },
+        title:{
+          text:'开办企业数',
+          subtext:"XXXXXXXXXXXXXXXXXXXX"
+        },
+        xData: [
+          "租赁和商务服务业\nLeasing and business service",
+          "制造业\nManufacturing",
+          "科学研究和技术服务业\nScientific research and technological service",
+          "卫生和社会工作\nHealthcare and social work",
+          "电力/热力/燃气及水的生产和供应业\nElectricity, gas, etc",
+          "居民服务/修理和其他服务业\nResidential, repair and other services",
+          "交通运输/仓储和邮政业\nTransportation, storage and postal service"
+        ],
+        series:[
+          {
+            // name:'存量_xxxxx',
+            color:["#0C9AFF", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#91c7ae", "#2f4554"],
+            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+          }
+        ]
+      },
       RMB: {
         id: "RMB",
         yName: { ch: "百万美元", en: "USD min" },
@@ -131,13 +159,22 @@ export default {
             }
           }
         }
-      }
+      },
+      optionYear: {
+              ch: "年度",
+              en: "Yearly",
+              frame: "1990_2020",
+              value: "1990"
+            },
     };
   },
   mounted() {
     // console.log(this.isShowTable, "isShowTable");
   },
   methods: {
+    yearChange(year) {
+          this.optionYear.value=year;
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");

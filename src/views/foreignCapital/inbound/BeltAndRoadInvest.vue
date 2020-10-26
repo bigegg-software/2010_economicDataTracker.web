@@ -48,7 +48,7 @@ export default {
           ch: "表格_图表",
           en: "table_chart",
           icon: "\ue61e_\ue63e",
-          checked: true,
+          checked: false,
           toggle: true
         },
         {
