@@ -1,18 +1,19 @@
 <template>
 <!-- 中国对外直接投资流量按历年前20位国家chart -->
-<div>
-  <div class="flows-twenty-destination-chart"  v-show="!isShowTable" >
+  <div class="flows-twenty-destination-chart" >
+
     <div class="echart-block">
-      <chart-bar :chartBarData="chartBar"></chart-bar>
+        <div v-if="isShowTable" class="table-block"></div>
+        <div class="container">
+            <chart-bar :chartBarData="chartBar"></chart-bar>
+        </div>
     </div>
     <div class="select-block">
-      <year :option="option" :value="option.value" @change="yearChange"></year>
+      <div class="frame">
+            <year :option="option" :value="option.value" @change="yearChange"></year>
+      </div>
     </div>
   </div>
-  <div v-show="isShowTable" class="table">
-           
-    </div>
-</div>
   
 </template>
 
@@ -41,7 +42,7 @@ export default {
         series:[
           {
             // name:'存量_xxxxx',
-            color:'#0C9AFF',
+            color:['#0C9AFF'],
             data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
           }
         ]
@@ -76,24 +77,35 @@ export default {
 .flows-twenty-destination-chart {
   display: flex;
   .echart-block {
-    width: 4.765625rem;
-    height: 3.182292rem;
+    position: relative;
+    width: 77%;
+    height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
+    // border-right: none;
+    .container {
+      width: 100%;
+      height: 3.458333rem;
+    }
   }
   .select-block {
-    width: 1.401042rem;
-    height: 3.182292rem;
-    padding: 0.104167rem;
+    width: 23%;
+    height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    border-left: none;
+    .frame{
+      padding: 0.104167rem;
+    }
   }
-  
 }
-.table{
-    height:3.182292rem;
-    width: 100%;
-    background:#eee;
-  }
 </style>

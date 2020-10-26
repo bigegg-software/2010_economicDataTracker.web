@@ -42,14 +42,19 @@ export default {
   methods: {
     initChart() {
       let series= [];
-        this.chartBarData.series.forEach(item => {
+        this.chartBarData.series.forEach((item,i) => {
           series.push({
             name: item.name,
             type: "bar",
             barWidth:'30%',
             data: item.data,
             itemStyle: {
-              color: item.color
+              normal: {
+                          color: (params)=> {
+                              let colorList =this.chartBarData.series[i].color;
+                              return colorList[params.dataIndex]||colorList[0]
+                          }
+                        }
             }
           });
         });
@@ -153,6 +158,7 @@ export default {
             type: "category",
             data: this.chartBarData.xData,
             axisLabel: {
+              show:this.chartBarData.showAxisLabel==false?false:true,
               interval: 0, //强制显示全
               fontSize: this.$fz(0.14),
               rotate: 45,
