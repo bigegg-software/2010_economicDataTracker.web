@@ -4,17 +4,14 @@ function toJson(data) {
   return JSON.parse(JSON.stringify(data))
 }
 
-function changeData() {
-
-}
 export default {
   // 获取年度最大值最小值
   getMaxMinDate: async function () {
-    let FDIOutflow = await Parse.Cloud.run('getMinMaxYears', {
-      tableName: 'FDIOutflow'
+    let timeFrame = await Parse.Cloud.run('getMinMaxYears', {
+      tableName: 'InwardFDI'
     });
-    if (FDIOutflow.code == 200) {
-      return `${FDIOutflow.data[0].min}_${FDIOutflow.data[0].max}`
+    if (timeFrame.code == 200) {
+      return `${timeFrame.data[0].min}_${timeFrame.data[0].max}`
     }
   },
   getChartsData: async function (aug) {
