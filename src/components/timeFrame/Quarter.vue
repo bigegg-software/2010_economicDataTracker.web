@@ -73,7 +73,7 @@ export default {
   },
   mounted() {
     this.getYears();
-    if(this.value){
+    if (this.value) {
       this.getPageIndex();
     }
   },
@@ -108,6 +108,9 @@ export default {
       }
     },
     handleText(value) {
+      if (!value) {
+        return "请选择";
+      }
       let val = this.quarter.find(v => {
         return v.month == value.split("-")[1];
       });

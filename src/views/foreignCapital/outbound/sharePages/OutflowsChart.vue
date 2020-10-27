@@ -40,18 +40,18 @@ import { objArrtransArr } from "@/utils/echarts";
 import request from "@/request/outBound/outflows";
 export default {
   props: {
-    isShowTable: {},
+    isShowTable: {}
   },
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart,
+    LinesChart
   },
   name: "outflowsChart",
   data() {
     return {
-      maxmindate:'',
       showTimeFrame:false,
+      maxmindate:'',
       isShowRMB: false,
       RMB: {
         id: "RMB",
@@ -68,22 +68,22 @@ export default {
           "2017",
           "2018",
           "2019",
-          "2020",
+          "2020"
         ],
         series: [
           {
             name: "中国对外全行业直接投资_xxx",
             color: "#6AA3CD",
             data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6],
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
           },
           {
             name: "中国对内非金融类直接投资_xxx",
             color: "#FF0000",
             data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8],
-          },
-        ],
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
+          }
+        ]
       },
       USD: {
         id: "USD",
@@ -100,34 +100,34 @@ export default {
           "2017",
           "2018",
           "2019",
-          "2020",
+          "2020"
         ],
         series: [
           {
             name: "中国对外全行业直接投资_xxx",
             color: "#6AA3CD",
             data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6],
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
           },
           {
             name: "中国对内非金融类直接投资_xxx",
             color: "#FF0000",
             data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8],
-          },
-        ],
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
+          }
+        ]
       },
       status: [
         {
           checked: false,
           ch: "同比",
-          en: "Year on year",
+          en: "Year on year"
         },
         {
           checked: false,
           ch: "人民币计价",
-          en: "In RMB",
-        },
+          en: "In RMB"
+        }
       ],
       options: {
         yearly: {
@@ -138,15 +138,15 @@ export default {
               ch: "开始",
               en: "Start",
               frame: "",
-              value: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
               frame: "",
-              value: "",
-            },
-          },
+              value: ""
+            }
+          }
         },
         quarterly: {
           ch: "季度",
@@ -156,15 +156,15 @@ export default {
               ch: "开始",
               en: "Start",
               frame: "",
-              value: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
               frame: "",
-              value: "",
-            },
-          },
+              value: ""
+            }
+          }
         },
         monthly: {
           ch: "月度",
@@ -174,23 +174,22 @@ export default {
               ch: "开始",
               en: "Start",
               frame: "",
-              value: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
               frame: "",
-              value: "",
-            },
-          },
-        },
-      },
+              value: ""
+            }
+          }
+        }
+      }
     };
   },
   async mounted() {
     await this.getMaxMinDate();
     this.getChartsData();
-    // console.log(this.isShowTable, "isShowTable");
   },
   methods: {
     async getMaxMinDate(){
@@ -223,6 +222,7 @@ export default {
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
+      console.log(activeKey);
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
     },
@@ -249,8 +249,8 @@ export default {
           ? (this.isShowRMB = true)
           : (this.isShowRMB = false);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

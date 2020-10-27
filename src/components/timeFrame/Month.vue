@@ -5,10 +5,11 @@
       <div>{{ option.en }}</div>
     </div>
     <div class="time-block">
-      <div class="text">{{ option.value }}</div>
+      <div class="text">{{ value ? value : "请选择" }}</div>
       <div
         class="icon iconfont"
-        @mouseenter="openCalendar"
+        @click="openCalendar"
+        @mouseenter="mouseenter"
         @mouseleave="closeCalendar"
       >
         <div>&#xe72a;</div>
@@ -81,7 +82,7 @@ export default {
   },
   mounted() {
     this.getYears();
-    if(this.value){
+    if (this.value) {
       this.getPageIndex();
     }
   },
@@ -115,6 +116,9 @@ export default {
       if (this.pageIndex > 0) {
         this.pageIndex--;
       }
+    },
+    mouseenter() {
+      clearTimeout(this.timer);
     },
     openCalendar() {
       clearTimeout(this.timer);

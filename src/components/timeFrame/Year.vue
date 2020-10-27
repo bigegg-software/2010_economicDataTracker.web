@@ -5,7 +5,7 @@
       <div>{{ option.en }}</div>
     </div>
     <div class="time-block">
-      <div class="text">{{ value }}</div>
+      <div class="text">{{ value ? value : "请选择" }}</div>
       <div
         class="icon iconfont"
         @mouseenter="mouseenter"
@@ -62,10 +62,8 @@ export default {
     }
   },
   mounted() {
-    console.log(this.option);
-    console.log(this.value);
     this.getYears();
-    if(this.value){
+    if (this.value) {
       this.getPageIndex();
     }
   },
