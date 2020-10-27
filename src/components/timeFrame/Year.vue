@@ -65,7 +65,9 @@ export default {
     console.log(this.option);
     console.log(this.value);
     this.getYears();
-    this.getPageIndex();
+    if(this.value){
+      this.getPageIndex();
+    }
   },
   methods: {
     // 生成所有年份

@@ -73,7 +73,9 @@ export default {
   },
   mounted() {
     this.getYears();
-    this.getPageIndex();
+    if(this.value){
+      this.getPageIndex();
+    }
   },
   methods: {
     getPageIndex() {

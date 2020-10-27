@@ -81,7 +81,9 @@ export default {
   },
   mounted() {
     this.getYears();
-    this.getPageIndex();
+    if(this.value){
+      this.getPageIndex();
+    }
   },
   methods: {
     // 生成所有年份

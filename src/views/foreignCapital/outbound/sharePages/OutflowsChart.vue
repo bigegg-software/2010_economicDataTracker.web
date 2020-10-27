@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="select-block">
-      <div class="frame">
+      <div class="frame" v-if="showFrame">
         <time-frame
           :options="options"
           @change="change"
@@ -35,19 +35,22 @@ import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
-
+import { objArrtransArr } from "@/utils/echarts";
+import request from "@/request/outBound/outflows";
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
   },
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
   },
   name: "outflowsChart",
   data() {
     return {
+      maxmindate:'',
+      showFrame:true,
       isShowRMB: false,
       RMB: {
         id: "RMB",
@@ -64,22 +67,22 @@ export default {
           "2017",
           "2018",
           "2019",
-          "2020"
+          "2020",
         ],
         series: [
           {
             name: "中国对外全行业直接投资_xxx",
             color: "#6AA3CD",
             data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6],
           },
           {
             name: "中国对内非金融类直接投资_xxx",
             color: "#FF0000",
             data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
-          }
-        ]
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8],
+          },
+        ],
       },
       USD: {
         id: "USD",
@@ -96,34 +99,34 @@ export default {
           "2017",
           "2018",
           "2019",
-          "2020"
+          "2020",
         ],
         series: [
           {
             name: "中国对外全行业直接投资_xxx",
             color: "#6AA3CD",
             data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6],
           },
           {
             name: "中国对内非金融类直接投资_xxx",
             color: "#FF0000",
             data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8]
-          }
-        ]
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2, 6.8, 7, 8, 9, 8],
+          },
+        ],
       },
       status: [
         {
           checked: false,
           ch: "同比",
-          en: "Year on year"
+          en: "Year on year",
         },
         {
           checked: false,
           ch: "人民币计价",
-          en: "In RMB"
-        }
+          en: "In RMB",
+        },
       ],
       options: {
         yearly: {
@@ -133,16 +136,16 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: "",
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
-            }
-          }
+              frame: "",
+              value: "",
+            },
+          },
         },
         quarterly: {
           ch: "季度",
@@ -151,16 +154,16 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "2000_2020",
-              value: "2000-03"
+              frame: "",
+              value: "",
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "2000_2020",
-              value: "2020-12"
-            }
-          }
+              frame: "",
+              value: "",
+            },
+          },
         },
         monthly: {
           ch: "月度",
@@ -169,24 +172,58 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "2010_2020",
-              value: "2010-03"
+              frame: "",
+              value: "",
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "2010_2020",
-              value: "2020-12"
-            }
-          }
-        }
-      }
+              frame: "",
+              value: "",
+            },
+          },
+        },
+      },
     };
   },
-  mounted() {
+  async mounted() {
+    await this.getMaxMinDate();
+    this.getChartsData();
     // console.log(this.isShowTable, "isShowTable");
   },
   methods: {
+    async getMaxMinDate(){
+         let res= await request.getMaxMinDate();
+         this.maxmindate=res;
+         this.options.yearly.list.start.frame=res;
+         this.options.yearly.list.end.frame=res;
+        //  this.options.yearly.list.start.value=res.split('_')[0];
+        //  this.options.yearly.list.end.value=res.split('_')[1];
+         
+         this.options.quarterly.list.start.frame=res;
+         this.options.quarterly.list.end.frame=res;
+        // this.options.quarterly.list.start.value=`${res.split('_')[0]}-03`;
+        //  this.options.quarterly.list.end.value=`${res.split('_')[1]}-12`;
+         
+         this.options.monthly.list.start.frame=res;
+         this.options.monthly.list.end.frame=res;
+        //  this.options.monthly.list.start.value=`${res.split('_')[0]}-01`;
+        //  this.options.monthly.list.end.value=`${res.split('_')[1]}-12`;
+         this.showFrame=false;
+         this.$nextTick(()=>{
+             this.showFrame=true;
+         });
+    },
+    async getChartsData() {
+      let arrmaxmin=this.maxmindate.split('_');
+      let res = await request.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
+      // let quan=objArrtransArr(res.wholeIndustry,'year','investConversion');
+      // let fei=objArrtransArr(res.nonfinancial,'year','investConversion');
+      // let quanName=quan.nameArr;
+      // let quanNum=quan.numArr;
+      // let feiName=fei.nameArr;
+      // let feiNum=fei.numArr;
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
@@ -216,8 +253,8 @@ export default {
           ? (this.isShowRMB = true)
           : (this.isShowRMB = false);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
