@@ -13,6 +13,7 @@
     <div class="select-block">
       <div class="frame">
         <time-frame
+        v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -35,7 +36,8 @@ import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
-
+import { objArrtransArr } from "@/utils/echarts";
+import request from "@/request/outBound/outflows";
 export default {
   props: {
     isShowTable: {}
@@ -48,6 +50,8 @@ export default {
   name: "outflowsChart",
   data() {
     return {
+      showTimeFrame:false,
+      maxmindate:'',
       isShowRMB: false,
       RMB: {
         id: "RMB",
@@ -133,14 +137,14 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
+              frame: "",
+              value: ""
             }
           }
         },
@@ -151,14 +155,14 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "2000_2020",
-              value: "2000-03"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "2000_2020",
-              value: "2020-12"
+              frame: "",
+              value: ""
             }
           }
         },
@@ -169,27 +173,56 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "2010_2020",
-              value: "2010-03"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "2010_2020",
-              value: "2020-12"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
   },
-  mounted() {
-    // console.log(this.isShowTable, "isShowTable");
+  async mounted() {
+    await this.getMaxMinDate();
+    this.getChartsData();
   },
   methods: {
+    async getMaxMinDate(){
+         let res = await request.getMaxMinDate();
+      this.maxmindate = res;
+
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      // console.log(this.options, "options")
+    },
+    async getChartsData() {
+      let arrmaxmin=this.maxmindate.split('_');
+      let range=await request.getXRange(this.maxmindate);
+       this.USD.xData=range;
+      let res = await request.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])},range);
+      // let quan=objArrtransArr(res.allIndustry,'year','investConversion');
+      // let fei=objArrtransArr(res.nonfinancial,'year','investConversion');
+      // this.request.completionDate(quan,range);
+      // let quanName=quan.nameArr;
+      // let quanNum=quan.numArr;
+      // let feiName=fei.nameArr;
+      // let feiNum=fei.numArr;
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
+      console.log(activeKey);
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
     },

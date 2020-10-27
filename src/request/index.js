@@ -1,4 +1,5 @@
 import Parse from 'parse'
-Parse.initialize(process.env.VUE_APP_ID,process.env.JAVASCRIPT_KEY);
-Parse.serverURL = process.env.VUE_APP_URL
+Parse.initialize('puWodHf9OmTXp1Ae','LDSC3SN5kCqhy7oHYVz6frvyrYdsjuKy');
+Parse.serverURL = 'http://192.168.124.188:1339/api/1';
+// console.log(process.env.VUE_APP_ID)
 export default Parse

@@ -1,11 +1,11 @@
 <template>
   <div class="progessBar">
     <a-slider
-      v-if="years.length"
+      v-if="frame.length"
       :value="frame"
       range
-      :min="0"
-      :max="years.length - 1"
+      :min="min"
+      :max="max"
       :step="1"
       :tip-formatter="formatter"
       @change="change"
@@ -21,41 +21,33 @@ export default {
   },
   data() {
     return {
-      years: [],
-      frame: []
+      frame: [],
+      mim: 0,
+      max: 100
     };
   },
   watch: {
     activeKey: {
       handler() {
-        this.getProgressFrame();
-      },
-      deep: true
-    },
-    options: {
-      handler(a, b) {
-        let start = a.list.start.value.split("-")[0];
-        let end = a.list.end.value.split("-")[0];
-        let i = this.years.findIndex(v => v == start);
-        let j = this.years.findIndex(v => v == end);
-        this.frame = [i, j];
+        this.initProgress();
       },
       deep: true
     }
   },
   mounted() {
-    this.getProgressFrame();
+    this.initProgress();
   },
   methods: {
+    initProgress() {
+      this.min = Number(this.options.list.start.frame.split("_")[0]);
+      this.max = Number(this.options.list.start.frame.split("_")[1]);
+      this.frame = [this.min, this.max];
+    },
     change(val) {
       this.frame = val;
       let result;
-      let start = this.years[val[0]];
-      let end = this.years[val[1]];
-      if (this.activeKey == "yearly") {
-        start = `${this.years[val[0]]}`;
-        end = `${this.years[val[1]]}`;
-      }
+      let start = val[0];
+      let end = val[1];
       if (this.activeKey == "quarterly") {
         start = `${start}-03`;
         end = `${end}-03`;
@@ -67,19 +59,8 @@ export default {
       result = [start, end];
       this.$emit("change", result);
     },
-    getProgressFrame() {
-      let frame = this.options.list.start.frame.split("_");
-      let len = frame[1] - frame[0];
-      let years = [];
-      for (let i = 0; i <= len; i++) {
-        years.push(Number(frame[0]) + i);
-      }
-      years.sort();
-      this.years = years;
-      this.frame = [0, this.years.length - 1];
-    },
     formatter(value) {
-      return `${this.years[value]}`;
+      return `${value}`;
     }
   }
 };
