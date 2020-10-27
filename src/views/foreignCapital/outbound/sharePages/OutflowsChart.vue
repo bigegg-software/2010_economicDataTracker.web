@@ -11,8 +11,9 @@
       </div>
     </div>
     <div class="select-block">
-      <div class="frame" v-if="showFrame">
+      <div class="frame">
         <time-frame
+        v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       maxmindate:'',
-      showFrame:true,
+      showTimeFrame:false,
       isShowRMB: false,
       RMB: {
         id: "RMB",
@@ -193,32 +194,27 @@ export default {
   },
   methods: {
     async getMaxMinDate(){
-         let res= await request.getMaxMinDate();
-         this.maxmindate=res;
-         this.options.yearly.list.start.frame=res;
-         this.options.yearly.list.end.frame=res;
-        //  this.options.yearly.list.start.value=res.split('_')[0];
-        //  this.options.yearly.list.end.value=res.split('_')[1];
-         
-         this.options.quarterly.list.start.frame=res;
-         this.options.quarterly.list.end.frame=res;
-        // this.options.quarterly.list.start.value=`${res.split('_')[0]}-03`;
-        //  this.options.quarterly.list.end.value=`${res.split('_')[1]}-12`;
-         
-         this.options.monthly.list.start.frame=res;
-         this.options.monthly.list.end.frame=res;
-        //  this.options.monthly.list.start.value=`${res.split('_')[0]}-01`;
-        //  this.options.monthly.list.end.value=`${res.split('_')[1]}-12`;
-         this.showFrame=false;
-         this.$nextTick(()=>{
-             this.showFrame=true;
-         });
+         let res = await request.getMaxMinDate();
+      this.maxmindate = res;
+
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      // console.log(this.options, "options")
     },
     async getChartsData() {
       let arrmaxmin=this.maxmindate.split('_');
-      let res = await request.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
-      // let quan=objArrtransArr(res.wholeIndustry,'year','investConversion');
+      let range=await request.getXRange(this.maxmindate);
+       this.USD.xData=range;
+      let res = await request.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])},range);
+      // let quan=objArrtransArr(res.allIndustry,'year','investConversion');
       // let fei=objArrtransArr(res.nonfinancial,'year','investConversion');
+      // this.request.completionDate(quan,range);
       // let quanName=quan.nameArr;
       // let quanNum=quan.numArr;
       // let feiName=fei.nameArr;
