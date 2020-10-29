@@ -36,8 +36,7 @@ import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
-import { objArrtransArr } from "@/utils/echarts";
-import request from "@/request/outBound/outflows";
+import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
@@ -234,7 +233,7 @@ export default {
       // 
     },
     async getChartsData(aug) {  //改变横轴 获取数据
-      let {allIndustry,nonFinancial} = await request.getChartsData(aug);
+      let {allIndustry,nonFinancial} = await request.getOutFlowsChartsData(aug);
       // 完整的区间
       let range=await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

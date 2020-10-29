@@ -209,9 +209,14 @@ export default {
           data: legend,
           selectedMode: false, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
-            return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
+            if(!this.options.hideLegend){
+              return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
               "\n"
-            );
+              );
+            }else{
+              return []
+            }
+            
           },
           top: "13%",
           icon: "none",
