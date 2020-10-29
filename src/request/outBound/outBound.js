@@ -1,5 +1,4 @@
 import Parse from '../index'
-
 export default {
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据  带年度月度季度的折线图使用
             let q = new Parse.Query(tableName)
@@ -70,6 +69,6 @@ export default {
             }
             console.log('nonFinancial',res);
             return {res};
-    }
+  }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="progessBar">
     <a-slider
-      v-if="frame.length"
+      v-if="options"
       :value="frame"
       range
       :min="min"
@@ -22,14 +22,32 @@ export default {
   data() {
     return {
       frame: [],
-      mim: 0,
-      max: 100
+      min: 0,
+      max: 0
     };
   },
   watch: {
     activeKey: {
       handler() {
         this.initProgress();
+      },
+      deep: true
+    },
+    "options.list.start": {
+      handler(a, b) {
+        let time = Number(a.value.split("-")[0]);
+        if (time) {
+          this.$set(this.frame, 0, time);
+        }
+      },
+      deep: true
+    },
+    "options.list.end": {
+      handler(a, b) {
+        let time = Number(a.value.split("-")[0]);
+        if (time) {
+          this.$set(this.frame, 1, time);
+        }
       },
       deep: true
     }
@@ -44,10 +62,11 @@ export default {
       this.frame = [this.min, this.max];
     },
     change(val) {
+      console.log(val, "change");
       this.frame = val;
       let result;
-      let start = val[0];
-      let end = val[1];
+      let start = `${val[0]}`;
+      let end = `${val[1]}`;
       if (this.activeKey == "quarterly") {
         start = `${start}-03`;
         end = `${end}-03`;
