@@ -7,21 +7,18 @@ function toJson(data) {
 export default {
   // 获取年度最大值最小值
   getMaxMinDate: async function () {
-    let timeFrame = await Parse.Cloud.run('getMinMaxYears', {
+    let data = await Parse.Cloud.run('getMinMaxYears', {
       tableName: 'InwardFDI'
     });
-    if (timeFrame.code == 200) {
-      return `${timeFrame.data[0].min}_${timeFrame.data[0].max}`
+    if (data.code == 200) {
+      return `${data.data[0].min}_${data.data[0].max}`
     }
   },
   getChartsData: async function (aug) {
-    let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', {
-      type: aug.type,
-      start: aug.start,
-      end: aug.end
-    });
-
-    console.log(FDIOutflow);
-    // return res;
+    const InwardFDI = Parse.Object.extend("InwardFDI");
+    const query = new Parse.Query(InwardFDI);
+    // query.equalTo("playerName", "Dan Stemkoski");
+    const res = await query.find();
+    console.log(toJson(res), "resss")
   }
 }

@@ -50,9 +50,9 @@ export default {
   name: "outflowsChart",
   data() {
     return {
+      showTimeFrame: false,
       maxmindate: "",
       isShowRMB: false,
-      showTimeFrame: false,
       RMB: {
         id: "RMB",
         yName: { ch: "百万美元", en: "USD min" },
@@ -195,7 +195,6 @@ export default {
     async getMaxMinDate() {
       let res = await request.getMaxMinDate();
       this.maxmindate = res;
-
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -204,17 +203,23 @@ export default {
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
-      // console.log(this.options, "options");
+      // console.log(this.options, "options")
     },
     async getChartsData() {
       let arrmaxmin = this.maxmindate.split("_");
-      let res = await request.getChartsData({
-        type: "yearly",
-        start: Number(arrmaxmin[0]),
-        end: Number(arrmaxmin[1])
-      });
-      // let quan=objArrtransArr(res.wholeIndustry,'year','investConversion');
+      let range = await request.getXRange(this.maxmindate);
+      this.USD.xData = range;
+      let res = await request.getChartsData(
+        {
+          type: "yearly",
+          start: Number(arrmaxmin[0]),
+          end: Number(arrmaxmin[1])
+        },
+        range
+      );
+      // let quan=objArrtransArr(res.allIndustry,'year','investConversion');
       // let fei=objArrtransArr(res.nonfinancial,'year','investConversion');
+      // this.request.completionDate(quan,range);
       // let quanName=quan.nameArr;
       // let quanNum=quan.numArr;
       // let feiName=fei.nameArr;
@@ -223,11 +228,13 @@ export default {
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
+      console.log("update");
       console.log(activeKey);
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
     },
     change(activeKey, key, value) {
+      console.log("change");
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
       let start =
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
