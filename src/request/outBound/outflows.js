@@ -1,56 +1,55 @@
 import Parse from '../index'
 
-function toJson(data) {
-  return JSON.parse(JSON.stringify(data))
-}
-
-function changeData() {
-
-}
 export default {
-  getXRange(maxmindate) {
-    let arrmaxmin = maxmindate.split('_');
-    let newXName = [];
-    for (let i = 0; i <= Number(arrmaxmin[1]) - Number(arrmaxmin[0]); i++) {
-      newXName.push(Number(arrmaxmin[0]) + i);
-    }
-    return newXName;
-  },
-  // 获取年度最大值最小值
-  getMaxMinDate: async function () {
-    let FDIOutflow = await Parse.Cloud.run('getMinMaxYears', {
-      tableName: 'FDIOutflow'
-    });
-    console.log(FDIOutflow)
-    if (FDIOutflow.code == 200) {
-      return `${FDIOutflow.data[0].min}_${FDIOutflow.data[0].max}`
-    }
-  },
-  getChartsData: async function (aug) {
-    let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', {
-      type: aug.type,
-      start: aug.start,
-      end: aug.end
-    });
-    if (FDIOutflow.code == 200) {
-      // this.completionDate(FDIOutflow.data.allIndustry,range);
-      return FDIOutflow.data;
-    }
 
-    // return res;
-  },
-  completionDate(sourceData, range) {
-    let newDate = [];
-    for (let i = 0; i < range.length; i++) {
-      for (let v = 0; v < sourceData.nameArr.length; v++) {
-        let item = sourceData.nameArr[v];
-        if (range[i] == item) {
-          newDate.push(sourceData.numArr[v]);
-        } else {
-          newDate.push(0);
-        }
-      }
+  getChartsData: async (aug) => { // 获取数据函数接口
+    // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
+    // if (FDIOutflow.code == 200) {
+    //     console.log(FDIOutflow.data)
+    //     return FDIOutflow.data;
+    // }
+    let params = aug;
+    let q = new Parse.Query('FDIOutflow')
+    let type = params.type;
+    q.greaterThanOrEqualTo('year', params.start)
+    q.lessThanOrEqualTo('year', params.end)
+    if (type == 'yearly') {
+      q.equalTo('month', 11) //应该是12
+      q.ascending('year')
+    } else if (type == 'quarterly') {
+      q.containedIn('month', [3, 6, 9, 11]) //应该是12
+      q.ascending('year')
+      q.addAscending(['month'])
+    } else if (type == 'monthly') {
+      q.ascending('year')
+      q.addAscending(['month'])
     }
-    console.log(newDate)
+    let res = await q.find()
+    res = res.map(item => {
+      item = item.toJSON()
+      item.investAmountMillion = item.investAmount * 100;
+      item.investConversionMillion = item.investConversion * 100;
+      return item
+    })
+    let allIndustry = res.filter(item => {
+      return item.outFlowType == 1
+    })
+    let nonFinancial = res.filter(item => {
+      return item.outFlowType == 2
+    })
+    if (type == 'quarterly' || type == 'monthly') {
+      nonFinancial = nonFinancial.filter(item => {
+        return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
+      })
+      allIndustry = allIndustry.filter(item => {
+        return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
+      })
+    }
+    console.log('allIndustry', allIndustry);
+    console.log('nonFinancial', nonFinancial);
+    return {
+      allIndustry,
+      nonFinancial
+    };
   }
 }
