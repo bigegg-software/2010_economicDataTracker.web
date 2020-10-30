@@ -52,7 +52,6 @@ export default {
     return {
       timer: null,
       showTimeFrame: false,
-      maxmindate: "",
       isShowRMB: false,
       RMB: {
         id: "RMB",

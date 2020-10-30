@@ -67,8 +67,30 @@ export default {
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
                 })
             }
-            console.log('nonFinancial',res);
             return {res};
-  }
+  },
+  getOverSeasProjectsChartsData:async function(params) {// 获取中国对外承包工程数据函数接口
+    let type = params.type;
+    let res=await this.manualQueryData('ForeignContract',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+         // 美元完成营业额转百万美元
+         item.completedAmountConMillion = item.completedAmountCon * 100;
+         // 美元新签合同额转百万美元
+         item.newConAmountConMillion = item.newConAmountCon * 100;
+         // 人民币完成营业额转百万人民币
+         item.completedAmountMillion = item.completedAmount * 100;
+         // 人民币新签合同额转百万人民币
+         item.newConAmountMillion = item.newConAmount * 100;
+         return item
+     })
+     if (type == 'quarterly' || type == 'monthly'){
+         res = res.filter(item=>{
+             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+         })
+     }
+     return {res};
+},
+
 }
 
