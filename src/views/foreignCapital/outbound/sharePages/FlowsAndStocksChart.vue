@@ -1,15 +1,21 @@
 <template>
-  <!-- 中国对外直接投资存量chart-->
-  <div class="outstocks-chart">
+  <!-- 中国对外直接投资流量与存量chart -->
+  <div class="Flows-and-stocksChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="myChart"></lines-chart>
+        <lines-chart :options="USD"></lines-chart>
       </div>
     </div>
+    
     <div class="select-block">
       <div class="frame">
-        <time-frame :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+        v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -19,7 +25,8 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
-
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
     isShowTable: {}
@@ -28,32 +35,28 @@ export default {
     TimeFrame,
     LinesChart
   },
-  name: "outstocksChart",
+  name: "flowsAndStocksChart",
   data() {
     return {
-      myChart: {
-        id: "myChart",
-        yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资存量", en: "China’s FDI stocks" },
-        xData: [
-          "2011",
-          "2012",
-          "2013",
-          "2014",
-          "2015",
-          "2016",
-          "2017",
-          "2018",
-          "2019",
-          "2020"
-        ],
+      timer: null,
+      showTimeFrame: false,
+      isShowRMB: false,
+      USD: {
+        id: "USD",
+        yName: { ch: "百万美元", en: "xxxxxx" },
+        yearOnYear: true, //通过修改这个值来显示同比
+        title: { ch: "中国对外直接投资流量与存量", en: "China's outward FDI flows vs. Stocks" },
+        xData: [],
         series: [
           {
-            name: "",
+            name: "对外直接投资流量（FDI流出）_Outward FDI flows (FDI outflows)",
             color: "#6AA3CD",
-            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+            data: []
+          },
+          {
+            name: "中国对外直接投资存量_China’s FDI stocks",
+            color: "#FF3F3F",
+            data: []
           }
         ]
       },
@@ -65,65 +68,118 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
-            }
-          }
-        },
-        quarterly: {
-          ch: "季度",
-          en: "quarterly",
-          list: {
-            start: {
-              ch: "开始",
-              en: "Start",
-              frame: "2000_2020",
-              value: "2000-03"
-            },
-            end: {
-              ch: "结束",
-              en: "End",
-              frame: "2000_2020",
-              value: "2020-12"
-            }
-          }
-        },
-        monthly: {
-          ch: "月度",
-          en: "monthly",
-          list: {
-            start: {
-              ch: "开始",
-              en: "Start",
-              frame: "2010_2020",
-              value: "2010-03"
-            },
-            end: {
-              ch: "结束",
-              en: "End",
-              frame: "2010_2020",
-              value: "2020-12"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
   },
-  mounted() {
-    console.log(this.$options.name, "isShowTable");
+  async created() {
+   let res = await this.getMaxMinDate();
+   let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      noMonth:true,
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
   },
   methods: {
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+        await this.getChartsData({
+          noMonth:true,
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+    },
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIOutflowsInflows");
+      console.log(res);
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        console.log(obj)
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
+    },
+    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    async getItemCategoryData(
+      res,
+      XNameAttr,
+      dataAttr,
+      range
+    ) {
+      let data = await this.getItemData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+      this.USD.series[0]["data"] = data.outward_FDI_flows;
+      this.USD.series[1]["data"] = data.outward_FDI_stocks;
+      
+      //
+    },
+    async getChartsData(aug) {  //改变横轴 获取数据
+      let {res} = await request.getoutstocksChartsData(aug);
+
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
+      // 要换取纵轴数据的字段属性
+      let dataAttr = ["outward_FDI_flows","outward_FDI_stocks"];
+      let XNameAttr = "year";
+      this.USD.xData = range;
+      // 获取当前页面所有线
+      await this.getItemCategoryData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -134,13 +190,20 @@ export default {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
+      // 获取数据入口  zp  开始和结束都有值再去查
+      if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
+        this.mainGetChartsData(activeKey);
+      }
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.outstocks-chart {
+.Flows-and-stocksChart {
   display: flex;
   .echart-block {
     position: relative;
@@ -148,7 +211,6 @@ export default {
     height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
     .table-block {
       position: absolute;
       left: 0;
@@ -158,6 +220,7 @@ export default {
       height: 100%;
       background-color: #ccc;
     }
+    // border-right: none;
     .container {
       width: 100%;
       height: 3.458333rem;
@@ -168,6 +231,7 @@ export default {
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    border-left: none;
     .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;

@@ -1,8 +1,8 @@
 <template>
-  <!--"一带一路"沿线国家对华投资情况-企业数chart-->
-  <div class="outflows-chart">
+  <!-- “一带一路”沿线国家对中国投资情况-企业数chart -->
+  <div class="numEnterprises-BRI-Chart">
     <div class="echart-block">
-      <!-- <div v-if="isShowTable" class="table-block"></div> -->
+       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
         <lines-chart :options="USD"></lines-chart>
       </div>
@@ -10,6 +10,7 @@
     <div class="select-block">
       <div class="frame">
         <time-frame
+        v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -32,7 +33,8 @@ import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
-
+import request from "@/request/inBound/inBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
     isShowTable: {}
@@ -42,21 +44,24 @@ export default {
     CheckBox,
     LinesChart
   },
-  name: "outflowsChart",
+  name: "numEnterprisesBRIChart",
   data() {
     return {
+      timer:null,
+      showTimeFrame:false,
       USD: {
         id: "USD",
-        yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
-        xData: ["2011", "2012", "2013", "2014", "2015"],
+        yName: { ch: "家", en: "XXXX" },
+        yearOnYear: false, //通过修改这个值来显示同比
+        title: { ch: "企业数", en: "XXXXXXXX" },
+        xData: [],
+        hideLegend:true,
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "企业数_xxx",
             color: "#6AA3CD",
-            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
+            data: [],
+            yearOnYear: []
           }
         ]
       },
@@ -64,7 +69,7 @@ export default {
         {
           checked: false,
           ch: "占比",
-          en: "xxx"
+          en: "XXXXXXX"
         }
       ],
       options: {
@@ -75,27 +80,83 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
   },
-  mounted() {},
+ async mounted() {
+     let res=await this.getMaxMinDate();
+      let arrmaxmin=res.split('_');
+      await this.getChartsData({noMonth:true,type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
+  },
   methods: {
+    async mainGetChartsData(type){  //条件改变时获取数据
+          let{start,end}=this.options[type].list;
+           await this.getChartsData({noMonth:true,type,start:Number(start.value),end:Number(end.value)});
+    },
+    async getMaxMinDate(){// 获取最大年最小年
+         let res = await chartDataFun.getMaxMinDate('BRIInvestors');
+      console.log(res)
+for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, key, obj);
+      }
+       this.showTimeFrame = true;
+       return res;
+    },
+    async getItemData(arrSourceData,Axis,Ayis,range) {  //根据字段获取数据
+              let resoult={};
+              for(let i=0;i<Ayis.length;i++) {
+                  let item=Ayis[i];
+                    // 转换图标数据数组和横轴名称数组
+                  let dataArr=await chartDataFun.objArrtransArr(arrSourceData,Axis,item);
+                  // 补全数据
+                  let data=await chartDataFun.completionDate(dataArr,range);
+                  resoult[item]=data;
+              }
+               return resoult;
+    },
+    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    async getItemCategoryData(res,XNameAttr,dataAttr,range) {
+         //对华一带一路
+         let data=await this.getItemData(res,XNameAttr,dataAttr,range);
+               this.USD.series[0]['data']=data.BRINumber;
+               this.USD.series[0]['yearOnYear']=data.BRIPercent;
+    },
+    async getChartsData(aug) {  //改变横轴 获取数据
+      let {res} = await request.getNonFinancialToBRIChartsData(aug);
+      // 完整的区间
+      let range=await chartDataFun.getXRange(aug);
+      // 要换取纵轴数据的字段属性
+      let dataAttr=['BRINumber','BRIPercent'];
+       let XNameAttr='year';
+       this.USD.xData=range;
+      // 获取当前页面所有线
+      await this.getItemCategoryData(res,XNameAttr,dataAttr,range);
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
+      clearTimeout(this.timer);
+        this.timer=setTimeout(()=>{
+          // 条件改变时获取数据数据入口  zp
+            this.mainGetChartsData(activeKey);
+        },600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -106,19 +167,18 @@ export default {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
+       // 获取数据入口  zp  开始和结束都有值再去查
+      if(this.options[activeKey].list['start'].value&&this.options[activeKey].list['end'].value){
+        this.mainGetChartsData(activeKey);
+      }
     },
     // 复选框
     changeSelect(index) {
       this.status[index].checked = !this.status[index].checked;
       if (index == 0) {
         this.status[index].checked
-          ? console.log("同比")
-          : console.log("去掉同比");
-      }
-      if (index == 1) {
-        this.status[index].checked
-          ? (this.isShowRMB = true)
-          : (this.isShowRMB = false);
+          ?  this.$set(this.USD,'yearOnYear',true)
+          : this.$set(this.USD,'yearOnYear',false)
       }
     }
   }
@@ -126,7 +186,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.outflows-chart {
+.numEnterprises-BRI-Chart {
   display: flex;
   .echart-block {
     position: relative;
@@ -134,15 +194,15 @@ export default {
     height: auto;
     background-color: #fff;
     border: 2px solid #cacaca;
-    // .table-block {
-    //   position: absolute;
-    //   left: 0;
-    //   top: 0;
-    //   z-index: 3;
-    //   width: 100%;
-    //   height: 100%;
-    //   background-color: #ccc;
-    // }
+    .table-block {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      background-color: #ccc;
+    }
     // border-right: none;
     .container {
       width: 100%;
