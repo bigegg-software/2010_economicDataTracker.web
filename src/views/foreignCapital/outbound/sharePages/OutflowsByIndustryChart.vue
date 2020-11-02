@@ -7,16 +7,12 @@
         <lines-chart :options="USD"></lines-chart>
       </div>
       <div v-else class="container">
-         <chart-bar :chartBarData="chartBar"></chart-bar>
+        <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -34,7 +30,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
-import ChartBar from '@/components/charts/ChartBar'
+import ChartBar from "@/components/charts/ChartBar";
 import LinesChart from "@/components/charts/Lines";
 
 export default {
@@ -52,11 +48,13 @@ export default {
     return {
       isShowLineChart: false,
       chartBar: {
-        showAxisLabel:false,
+        watermark: false,
+        dataSources: "中国人民网",
+        showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
-        title:{
-          text:'中国对外直接投资流量行业分布情况',
-          subtext:"China’s FDI outflows by industry"
+        title: {
+          text: "中国对外直接投资流量行业分布情况",
+          subtext: "China’s FDI outflows by industry"
         },
         xData: [
           "租赁和商务服务业\nLeasing and business service",
@@ -67,10 +65,19 @@ export default {
           "居民服务/修理和其他服务业\nResidential, repair and other services",
           "交通运输/仓储和邮政业\nTransportation, storage and postal service"
         ],
-        series:[
+        series: [
           {
             // name:'存量_xxxxx',
-            color:["#0C9AFF", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#61a0a8", "#91c7ae", "#2f4554"],
+            color: [
+              "#0C9AFF",
+              "#434348",
+              "#90ed7d",
+              "#f7a35c",
+              "#61a0a8",
+              "#61a0a8",
+              "#91c7ae",
+              "#2f4554"
+            ],
             data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
           }
         ]
@@ -131,7 +138,12 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.isShowTable, "isShowTable");
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.barChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
     // 时间范围组件 update and change

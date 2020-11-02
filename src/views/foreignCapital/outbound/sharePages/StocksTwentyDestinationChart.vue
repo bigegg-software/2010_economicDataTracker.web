@@ -4,7 +4,7 @@
         <div class="echart-block">
           <div v-if="isShowTable" class="table-block"></div>
             <div class="container">
-               <chart-bar :chartBarData="chartBar"></chart-bar>
+               <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
             </div>
         </div>
     <div class="select-block">
@@ -23,6 +23,8 @@ export default {
   data() {
     return {
       chartBar: {
+        watermark: false,
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         title:{
           text:'中国对外直接投资存量历年前20位国家',
@@ -60,7 +62,12 @@ export default {
     }
   },
   mounted() {
-
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.barChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   components:{ChartBar,Year},
   methods: {

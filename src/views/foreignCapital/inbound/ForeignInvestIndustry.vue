@@ -132,8 +132,15 @@ export default {
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
-    choose(index, i) {
-      console.log(index, i);
+    choose(index, i, name) {
+      if (name == "download" && i == 0) {
+        console.log("下载图片");
+        console.log(this.tabComponent)
+         this.$EventBus.$emit("downLoadImg");
+      }
+      if (name == "download" && i == 1) {
+        console.log("下载表格");
+      }
       this.initActionsList();
     }
   

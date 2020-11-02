@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <treemap-chart :totalData="totalData"></treemap-chart>
+        <treemap-chart ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
     <div class="select-block">
@@ -39,8 +39,10 @@ export default {
    data() {
     return {
       totalData: {
+        watermark: false,
+        dataSources: "中国人民网",
         title: {
-          ch: "按各洲内国家/地区统计",
+          ch: "111按各洲内国家/地区统计",
           en: "Statistics by continent country / Region"
         },
         yName: {
@@ -107,6 +109,14 @@ export default {
         ]
       }
     };
+  },
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.treemapChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
       changeValue(value) {
