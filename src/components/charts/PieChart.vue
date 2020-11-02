@@ -1,5 +1,5 @@
 <template>
-  <div id="pieChart" style="width:100%;
+  <div :ref="totalData.id" id="pieChart" style="width:100%;
     height:100%"></div>
 </template>
 
@@ -26,6 +26,42 @@ export default {
     this.drawPie();
   },
   methods: {
+    downloadFile() {
+      //添加水印
+      this.totalData.watermark = true;
+      this.drawPie();
+      let aLink = document.createElement("a");
+      let blob = this.base64ToBlob();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", true, true);
+      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.href = URL.createObjectURL(blob);
+      aLink.click();
+      //消除水印
+      this.totalData.watermark = false;
+      this.drawPie();
+    },
+    exportImg() {
+      //echart返回一个 base64 的 URL
+      return this.chart.getDataURL({
+        type: "png",
+        pixelRatio: 5, //清晰度
+        backgroundColor: "#fff"
+      });
+    },
+    base64ToBlob() {
+      //将base64转换blob
+      let img = this.exportImg();
+      let parts = img.split(";base64,");
+      let contentType = parts[0].split(":")[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+      let uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    },
     drawPie() {
       this.chart = echarts.init(document.getElementById("pieChart"));
       // 绘制图表
@@ -62,7 +98,7 @@ export default {
         series: [
           {
             type: "pie",
-            // radius: "190",//控制内容大小
+            radius: "70%", //控制内容大小
             center: ["50%", "52%"],
             data: this.totalData.seriesData,
             emphasis: {
@@ -88,7 +124,7 @@ export default {
             }
           }
         ],
-          graphic: [
+        graphic: [
           {
             type: "group",
             left: this.$fz(0.15) * 2,
@@ -142,8 +178,28 @@ export default {
                 }
               }
             ]
+          },
+          {
+            type: "group",
+            right: this.$fz(0.15) * 1,
+            bottom: this.$fz(0.15) * 1.5,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: this.totalData.watermark
+                    ? "数据来源:" + this.totalData.dataSources
+                    : "",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
           }
-        ],
+        ]
       };
       this.chart.setOption(option, true);
     }
@@ -151,5 +207,10 @@ export default {
 };
 </script>
 <style scoped>
+#shui {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
 </style>
 
