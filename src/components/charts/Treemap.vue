@@ -1,21 +1,21 @@
 <template>
   <div class="container">
-    <div class="title">
+    <!-- <div class="title">
       <div class="titleCh">{{this.totalData.title.ch}}</div>
       <div class="titleEn">{{this.totalData.title.en}}</div>
     </div>
     <div class="unit">
       <div>{{this.totalData.yName.ch}}</div>
       <div>{{this.totalData.yName.en}}</div>
-    </div>
-    <div id="treemap" style="width:100%;height:81%;"></div>
-    <div class="updated">
+    </div> -->
+    <div id="treemap" style="width:100%;height:100%;"></div>
+    <!-- <div class="updated">
       <div >
         <div>数据最后更新时间</div>
         <div>Date last updated</div>
       </div >
       <div class="updatedDate">{{this.totalData.updatedDate.ch}}</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -81,6 +81,20 @@ export default {
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
       let option = {
+         title: {
+          left: "center",
+          top: "2%",
+          text: this.totalData.title.ch,
+          textStyle: {
+            color: "#333",
+            fontSize: this.$fz(0.18)
+          },
+          subtext: this.totalData.title.en,
+          subtextStyle: {
+            color: "#999",
+            fontSize: this.$fz(0.16)
+          }
+        },
         tooltip: {
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
@@ -169,7 +183,61 @@ export default {
             }
           }
         ],
-        graphic:[
+       graphic: [
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15) * 2.2,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 2,
+            bottom: this.$fz(0.15),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: "Data last updated",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 11.5,
+            bottom: this.$fz(0.15) * 1.5,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: this.totalData.updatedDate.ch,
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
+          },
           {
             type: "group",
             right: this.$fz(0.15) * 1,
@@ -201,8 +269,8 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  padding: 0.07rem 0.1rem 0.1rem;
-  box-sizing: border-box;
+  // padding: 0.07rem 0.1rem 0.1rem;
+  // box-sizing: border-box;
   .title {
     width: 100%;
     display: flex;
