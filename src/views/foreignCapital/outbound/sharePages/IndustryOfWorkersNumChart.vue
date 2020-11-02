@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <PieChart :totalData="totalData"></PieChart>
+        <PieChart ref="pie" :totalData="totalData"></PieChart>
       </div>
     </div>
     <div class="select-block">
@@ -23,7 +23,7 @@ export default {
     Yearly
   },
   props: {
-    isShowTable: {}
+    isShowTable: {},
   },
   name: "industryOfWorkersNumChart",
   data() {
@@ -35,27 +35,40 @@ export default {
         value: "2020"
       },
       totalData: {
+        id:'aaa',
+        watermark:false,
+        dataSources:"中国人民网",
         title: {
-          ch: "派出人数主要行业",
-          en: "Main industries"
+          ch: "年度派出人数主要行业",
+          en: "Overseas workers by industry"
         },
         seriesData: [
           {
-            value: 335,
-            name: "信息传输、软件和信息技术服务业_Information tech"
+            value: 5.3,
+            name: "农林牧渔业_xxxxxxx"
           },
-          { value: 310, name: "制造业_zhizaoye" },
-          { value: 234, name: "住宿和餐饮业_zscdxzc" },
-          { value: 135, name: "视频广告_zhizaoye" },
-          { value: 1548, name: "搜索引擎_zhizaoye" }
+          { value: 15.8, name: "制造业_xxxxxxx" },
+          { value: 42.5, name: "建筑业_xxxxxxx" },
+          { value: 13.5, name: "交通运输业_xxxxxxx" },
+          { value: 0.3, name: "计算机服务和软件业_xxxxxxx" },
+          { value: 5.5, name: "住宿和餐饮业_xxxxxxx" },
+          { value: 0.8, name: "科教文卫体业_xxxxxxx" },
+          { value: 14.2, name: "其他行业_xxxxxxx" }
         ],
         updatedDate: "2020-10-23"
       }
     };
   },
+  mounted(){
+     this.$EventBus.$on('downLoadImg',()=>{
+       this.$refs.pie.downloadFile()
+      console.log(this.$refs)
+    })
+  },
   methods: {
     changeValue(value) {
       this.option.value = value;
+      // this.$refs.pie.downloadFile();
     }
   }
 };
