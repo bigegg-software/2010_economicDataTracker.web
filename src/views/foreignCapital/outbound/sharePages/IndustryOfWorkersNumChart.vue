@@ -23,7 +23,7 @@ export default {
     Yearly
   },
   props: {
-    isShowTable: {},
+    isShowTable: {}
   },
   name: "industryOfWorkersNumChart",
   data() {
@@ -35,9 +35,8 @@ export default {
         value: "2020"
       },
       totalData: {
-        id:'aaa',
-        watermark:false,
-        dataSources:"中国人民网",
+        watermark: false,
+        dataSources: "中国人民网",
         title: {
           ch: "年度派出人数主要行业",
           en: "Overseas workers by industry"
@@ -59,16 +58,17 @@ export default {
       }
     };
   },
-  mounted(){
-     this.$EventBus.$on('downLoadImg',()=>{
-       this.$refs.pie.downloadFile()
-      console.log(this.$refs)
-    })
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.pie.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
     changeValue(value) {
       this.option.value = value;
-      // this.$refs.pie.downloadFile();
     }
   }
 };

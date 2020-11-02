@@ -35,14 +35,50 @@ export default {
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
-        this.drawChart();
+        this.drawTreemap();
         this.chart.resize();
       }, 1000);
     });
-    this.drawChart();
+    this.drawTreemap();
   },
   methods: {
-    drawChart() {
+    downloadFile() {
+      //添加水印
+      this.totalData.watermark = true;
+      this.drawTreemap();
+      let aLink = document.createElement("a");
+      let blob = this.base64ToBlob();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", true, true);
+      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.href = URL.createObjectURL(blob);
+      aLink.click();
+      //消除水印
+      this.totalData.watermark = false;
+      this.drawTreemap();
+    },
+    exportImg() {
+      //echart返回一个 base64 的 URL
+      return this.chart.getDataURL({
+        type: "png",
+        pixelRatio: 5, //清晰度
+        backgroundColor: "#fff"
+      });
+    },
+    base64ToBlob() {
+      //将base64转换blob
+      let img = this.exportImg();
+      let parts = img.split(";base64,");
+      let contentType = parts[0].split(":")[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+      let uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    },
+    drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
       let option = {
         tooltip: {
@@ -67,6 +103,7 @@ export default {
             right: 0,
             name: this.totalData.seriesData.all,
             type: "treemap",
+            radius: "50%", //控制内容大小
             // visibleMin: 300,//小于多少就不会显示
             data: this.totalData.seriesData.data,
             // leafDepth: 1, //呈现层级，若为1加载时仅展开一层，接下来的每一层通过单击进入
@@ -107,6 +144,7 @@ export default {
                 }
               }
             ],
+            //面包屑 没用可删
             breadcrumb: {
               show: false,
               left: "center",
@@ -129,6 +167,28 @@ export default {
                 }
               }
             }
+          }
+        ],
+        graphic:[
+          {
+            type: "group",
+            right: this.$fz(0.15) * 1,
+            bottom: this.$fz(0.15) * 1.5,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#333",
+                  text: this.totalData.watermark
+                    ? "数据来源:" + this.totalData.dataSources
+                    : "",
+                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                }
+              }
+            ]
           }
         ]
       };

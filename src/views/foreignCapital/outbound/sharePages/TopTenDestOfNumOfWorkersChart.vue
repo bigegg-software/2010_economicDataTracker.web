@@ -33,7 +33,7 @@ export default {
         },
         xData: [
         ],
-        series:[
+        series: [
           {
             // name:'存量_xxxxx',
             color:['#0C9AFF'],
@@ -49,10 +49,10 @@ export default {
             }
     };
   },
-  props:{
-    isShowTable:{
-      type:Boolean,
-      default:false
+  props: {
+    isShowTable: {
+      type: Boolean,
+      default: false
     }
   },
   async created() {
@@ -65,7 +65,11 @@ export default {
       year: Number(arrmaxmin[1])
     });
   },
-  components:{ChartBar,Year},
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
+  },
+
+  components: { ChartBar, Year },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -129,7 +133,7 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame{
+    .frame {
       padding: 0.104167rem;
     }
   }

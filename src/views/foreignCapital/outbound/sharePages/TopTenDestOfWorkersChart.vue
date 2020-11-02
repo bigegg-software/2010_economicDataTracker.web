@@ -1,11 +1,11 @@
 <template>
-<!-- 中国对外劳务合作---年度派出各类劳务人员前10位目的地国家chart -->
+  <!-- 中国对外劳务合作---年度派出各类劳务人员前10位目的地国家chart -->
   <div class="topTenDest-of-workersChart">
     <div class="echart-block">
-        <div v-if="isShowTable" class="table-block"></div>
-        <div class="container">
-            <chart-bar :chartBarData="chartBar"></chart-bar>
-        </div>
+      <div v-if="isShowTable" class="table-block"></div>
+      <div class="container">
+        <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
+      </div>
     </div>
     <div class="select-block">
       <div class="frame">
@@ -26,6 +26,8 @@ export default {
     return {
       showTimeFrame:false,
       chartBar: {
+        watermark: false,
+        dataSources: "中国人民网",
         yName: { ch: "万人", en: "XXXXXXXXXX" },
         title:{
           text:'年度派出各类劳务人员前10位目的地国家',
@@ -33,7 +35,7 @@ export default {
         },
         xData: [
         ],
-        series:[
+        series: [
           {
             // name:'存量_xxxxx',
             color:['#0C9AFF'],
@@ -49,12 +51,20 @@ export default {
             }
     };
   },
-  props:{
-    isShowTable:{
-      type:Boolean,
-      default:false
+  props: {
+    isShowTable: {
+      type: Boolean,
+      default: false
     }
   },
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.barChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
+    },
   async created() {
      let res = await this.getMaxMinDate();
      let arrmaxmin = res.split("_");
@@ -65,7 +75,7 @@ export default {
       year: Number(arrmaxmin[1])
     });
   },
-  components:{ChartBar,Year},
+  components: { ChartBar, Year },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -129,7 +139,7 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame{
+    .frame {
       padding: 0.104167rem;
     }
   }
