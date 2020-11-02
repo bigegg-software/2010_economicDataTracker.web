@@ -227,7 +227,6 @@ export default {
       dataAttr,
       range
     ) {
-      //全行业
       let data = await this.getItemData(
         res,
         XNameAttr,

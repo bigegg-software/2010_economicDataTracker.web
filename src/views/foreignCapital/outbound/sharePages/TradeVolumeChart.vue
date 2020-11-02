@@ -4,12 +4,14 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart :options="Person"></lines-chart>
       </div>
     </div>
+    
     <div class="select-block">
       <div class="frame">
         <time-frame
+        v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -23,7 +25,8 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
-
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
     isShowTable: {}
@@ -35,18 +38,30 @@ export default {
   name: "outflowsChart",
   data() {
     return {
+      timer: null,
+      showTimeFrame: false,
       isShowRMB: false,
-      USD: {
-        id: "USD",
-        yName: { ch: "百万美元", en: "USD min" },
+      Person: {
+        id: "person",
+        yName: { ch: "万人", en: "xxxxxx" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
-        xData: ["2011", "2012", "2013", "2014", "2015"],
+        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+        xData: [],
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "各类劳务人员_Workers sent overseas",
             color: "#6AA3CD",
-            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500]
+            data: []
+          },
+          {
+            name: "承包工程项下派人数_Workers under contracted projects",
+            color: "#666",
+            data: []
+          },
+          {
+            name: "劳务合作项下派人数_Workers under labor service cooperation",
+            color: "#999",
+            data: []
           }
         ]
       },
@@ -58,27 +73,120 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
   },
-  mounted() {},
+  async created() {
+   let res = await this.getMaxMinDate();
+   let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
+  },
   methods: {
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+    },
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("LaborServiceCooperation");
+      console.log(res);
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        console.log(obj)
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
+    },
+    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    async getItemCategoryData(
+      res,
+      XNameAttr,
+      dataAttr,
+      range
+    ) {
+      let data = await this.getItemData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+      this.Person.series[0]["data"] = data.variousTypesPerNum;
+      this.Person.series[1]["data"] = data.contractProject;
+      this.Person.series[2]["data"] = data.laborCooperation;
+      //
+    },
+    async getChartsData(aug) {  //改变横轴 获取数据
+      let {res} = await request.getTradeVolumeChartChartsData(aug);
+
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
+      // 要换取纵轴数据的字段属性
+      let dataAttr = [
+        "variousTypesPerNum",
+        "contractProject",
+        "laborCooperation"
+      ];
+      let XNameAttr = "year";
+      this.Person.xData = range;
+      // 获取当前页面所有线
+      await this.getItemCategoryData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -89,6 +197,13 @@ export default {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
+      // 获取数据入口  zp  开始和结束都有值再去查
+      if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
+        this.mainGetChartsData(activeKey);
+      }
     }
   }
 };

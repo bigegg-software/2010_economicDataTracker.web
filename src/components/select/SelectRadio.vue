@@ -122,13 +122,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 60%;
+    width: 75%;
     height: 0.197917rem;
     line-height: 0.197917rem;
     padding: 0 0.052083rem;
     border: 2px solid #ccc;
     border-radius: 0.026042rem;
     cursor: pointer;
+    background:#fff;
     .text {
       display: flex;
       align-items: center;

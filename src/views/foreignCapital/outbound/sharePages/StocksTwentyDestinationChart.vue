@@ -1,57 +1,52 @@
 <template>
 <!-- 中国对外直接投资存量按历年前20位国家chart -->
-    <div class="stocks-twenty-destination-chart">
-        <div class="echart-block">
-          <div v-if="isShowTable" class="table-block"></div>
-            <div class="container">
-               <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
-            </div>
+  <div class="stocksTwentyDestination-chart">
+    <div class="echart-block">
+        <div v-if="isShowTable" class="table-block"></div>
+        <div class="container">
+            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
         </div>
+    </div>
     <div class="select-block">
-        <div class="frame">
-            <year :option="option" :value="option.value" @change="yearChange"></year>
-        </div>
+      <div class="frame">
+            <year  v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import ChartBar from '@/components/charts/ChartBar'
 import Year from '@/components/timeFrame/Year'
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   name: "stocksTwentyDestinationChart",
   data() {
     return {
+      showTimeFrame:false,
       chartBar: {
         watermark: false,
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         title:{
-          text:'中国对外直接投资存量历年前20位国家',
-          subtext:"Top 20 destinations of China's FDI stocks"
+          text:'中国对外直接投资流量历年前20位国家',
+          subtext:"Top 20 destinations of China's FDI outflow"
         },
-        xData: [
-          "蒙古\nMongolia",
-          "芬兰\nFinland",
-          "瑞典\nSweden",
-          "挪威\nNorway",
-          "冰岛\nIceland",
-          "丹麦\nDenmark",
-          "泰国\nThailand"
-        ],
+        xData: [],
         series:[
           {
             // name:'存量_xxxxx',
             color:['#0C9AFF'],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+            data: []
           }
         ]
       },
       option: {
               ch: "年度",
               en: "Yearly",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             }
     };
   },
@@ -60,6 +55,15 @@ export default {
       type:Boolean,
       default:false
     }
+  },
+  async created() {
+     let res = await this.getMaxMinDate();
+     let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      ascending:'rank', //排名升序
+      limit:20,
+      year: Number(arrmaxmin[1])
+    });
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
@@ -71,15 +75,39 @@ export default {
   },
   components:{ChartBar,Year},
   methods: {
-    yearChange(year) {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDITop20Stock");
+        this.$set(this.option, 'frame', res);
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getChartsData(aug) {  //年份 获取数据
+      let {res} = await request.getStocksTwentyDestinationChart(aug);
+      let Xname=[];
+      // 金额
+      let stocks=[];
+          res.forEach(item => {
+              Xname.push(item.country);
+              stocks.push(item.stocksMillion);
+          });
+          this.chartBar.xData=Xname;
+          this.chartBar.series[0].data=stocks;
+    },
+    async yearChange(year) {
           this.option.value=year;
+          await this.getChartsData({
+            ascending:'rank',
+            limit:20,
+            year: Number(year)
+          });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.stocks-twenty-destination-chart {
+.stocksTwentyDestination-chart {
   display: flex;
   .echart-block {
     position: relative;
