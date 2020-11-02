@@ -6,8 +6,10 @@ export default {
             let type = params.type;
             q.greaterThanOrEqualTo('year',params.start)
             q.lessThanOrEqualTo('year',params.end)
-            if (type == 'yearly'){
+            if (type == 'yearly'&&!params.noMonth){
                 q.equalTo('month',11)//应该是12
+                q.ascending('year')
+            }else if (type == 'yearly'&&params.noMonth){
                 q.ascending('year')
             }else if(type == 'quarterly'){
                 q.containedIn('month',[3,6,9,11])//应该是12
@@ -35,7 +37,25 @@ export default {
                 })
             }
             return {res};
-  }
+  },
+  getNonFinancialToBRIChartsData:async function(params) {// 一带一路对华投资（企业数，实际投入外资金额）  折线图
+    let res=await this.manualQueryData('BRIInvestors',params);
+     res = res.map(item=>{
+         item=item.toJSON();
+         item.BRIAmountMillion=item.BRIAmount/100;
+         return item
+     })
+     return {res};
+},   
+getForeignInvestTaxChartsData:async function(params) {// 外商投资企业税收统计（外商投资企业税收统计）  折线图
+    let res=await this.manualQueryData('ForeignInvestment',params);
+     res = res.map(item=>{
+         item=item.toJSON();
+         item.taxMillion=item.tax/100;
+         return item
+     })
+     return {res};
+},
 
 
 }

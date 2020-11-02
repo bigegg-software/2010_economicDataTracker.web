@@ -6,8 +6,10 @@ export default {
             let type = params.type;
             q.greaterThanOrEqualTo('year',params.start)
             q.lessThanOrEqualTo('year',params.end)
-            if (type == 'yearly'){
+            if (type == 'yearly'&&!params.noMonth){
                 q.equalTo('month',11)//应该是12
+                q.ascending('year')
+            }else if (type == 'yearly'&&params.noMonth){
                 q.ascending('year')
             }else if(type == 'quarterly'){
                 q.containedIn('month',[3,6,9,11])//应该是12
@@ -93,8 +95,15 @@ export default {
      return {res};
 },
 getTradeVolumeChartChartsData:async function(params) {//获取中国对外劳务合作(派出人数)  //折线图
-    let type = params.type;
     let res=await this.manualQueryData('LaborServiceCooperation',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+         return item
+     })
+     return {res};
+},
+getoutstocksChartsData:async function(params) {//获取中国对外直接投资存量（投资存量）  //折线图
+    let res=await this.manualQueryData('FDIOutflowsInflows',params);
      res = res.map(item=>{
          item=item.toJSON()
          return item
