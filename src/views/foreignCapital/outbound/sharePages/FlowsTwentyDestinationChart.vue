@@ -1,7 +1,6 @@
 <template>
 <!-- 中国对外直接投资流量按历年前20位国家chart -->
-  <div class="flows-twenty-destination-chart" >
-
+  <div class="flows-twenty-destination-chart">
     <div class="echart-block">
         <div v-if="isShowTable" class="table-block"></div>
         <div class="container">
@@ -10,20 +9,22 @@
     </div>
     <div class="select-block">
       <div class="frame">
-            <year :option="option" :value="option.value" @change="yearChange"></year>
+            <year  v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
 import ChartBar from '@/components/charts/ChartBar'
 import Year from '@/components/timeFrame/Year'
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   name: "flowsTwentyDestinationChart",
   data() {
     return {
+      showTimeFrame:false,
       chartBar: {
         yName: { ch: "百万美元", en: "USD min" },
         title:{
@@ -43,15 +44,15 @@ export default {
           {
             // name:'存量_xxxxx',
             color:['#0C9AFF'],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+            data: []
           }
         ]
       },
       option: {
               ch: "年度",
               en: "Yearly",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             }
     };
   },
@@ -61,13 +62,43 @@ export default {
       default:false
     }
   },
-  mounted() {
-
+  async created() {
+     let res = await this.getMaxMinDate();
+     let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      ascending:'rank', //排名升序
+      limit:20,
+      year: Number(arrmaxmin[1])
+    });
   },
   components:{ChartBar,Year},
   methods: {
-    yearChange(year) {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDITop20Outflow");
+        this.$set(this.option, 'frame', res);
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getChartsData(aug) {  //年份 获取数据
+      let {res} = await request.getFlowsTwentyDestinationChart(aug);
+      let Xname=[];
+      // 金额
+      let outflow=[];
+          res.forEach(item => {
+              Xname.push(item.country);
+              outflow.push(item.outflowMillion);
+          });
+          this.chartBar.xData=Xname;
+          this.chartBar.series[0].data=outflow;
+    },
+    async yearChange(year) {
           this.option.value=year;
+          await this.getChartsData({
+            ascending:'rank',
+            limit:20,
+            year: Number(year)
+          });
     }
   }
 };

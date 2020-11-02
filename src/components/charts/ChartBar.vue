@@ -41,23 +41,66 @@ export default {
   },
   methods: {
     initChart() {
-      let series= [];
-        this.chartBarData.series.forEach((item,i) => {
-          series.push({
-            name: item.name,
+      //找出y轴数值最大最小值
+      let totalArray = [];
+      let yearArray = [];
+      let Max1, Min1, Max2, Min2;
+      for (let j = 0; j < this.chartBarData.series.length; j++) {
+        for (let i = 0; i < this.chartBarData.series[0].data.length; i++) {
+          if (this.chartBarData.series[0].data) {
+            totalArray.push(this.chartBarData.series[j].data[i]);
+          }
+          if (this.chartBarData.series[j].yearOnYear) {
+            yearArray.push(this.chartBarData.series[j].yearOnYear[i]);
+          }
+        }
+      }
+      if (this.chartBarData) {
+        Max1 = this.calMax(totalArray);
+        Min1 = this.calMin(totalArray);
+        Max2 = this.calMax(yearArray);
+        Min2 = this.calMin(yearArray);
+      }
+      let series = [];
+      let legend = [];
+      for (let j = 0; j < this.chartBarData.series.length; j++) {
+        series.push(
+          {
+            name: this.chartBarData.series[j].name,
             type: "bar",
             barWidth:'30%',
-            data: item.data,
             itemStyle: {
               normal: {
                           color: (params)=> {
-                              let colorList =this.chartBarData.series[i].color;
+                              let colorList =this.chartBarData.series[j].color;
                               return colorList[params.dataIndex]||colorList[0]
                           }
                         }
-            }
-          });
+            },
+            data: this.chartBarData.series[j].data
+          },
+          {
+            name: this.chartBarData.series[j].name,
+            type: "line",
+            yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
+            showSymbol: false,
+            lineStyle: {
+              color: this.chartBarData.series[j].color,
+              width: 1.5,
+              type: "dashed"
+            },
+            data: this.chartBarData.yearOnYear
+              ? this.chartBarData.series[j].yearOnYear
+              : []
+          }
+        );
+        legend.push({
+          name: this.chartBarData.series[j].name,
+          textStyle: {
+            color: this.chartBarData.series[j].color
+          }
         });
+      }
       let  option={
         title:{
           text:this.chartBarData.title.text,
@@ -180,6 +223,10 @@ export default {
         yAxis: [
           {
             type: "value",
+            min: Min1,
+            max: Max1,
+            splitNumber: 5,
+            interval: (Max1 - Min1) / 5,
             name: [
               `{div|${this.chartBarData.yName.ch}}`,
               `{div|${this.chartBarData.yName.en}}`
@@ -189,8 +236,15 @@ export default {
                 div: {
                   color: "#333",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0,0,-60]
+                  padding: [2, 0]
                 }
+              }
+            },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                type: "dashed",
+                color: "#eee"
               }
             },
             axisLine: {
@@ -199,11 +253,46 @@ export default {
             axisTick: {
               show: false
             },
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: "#333",
+                fontSize: this.$fz(0.14)
+              }
+            }
+          },
+          {
+            type: "value",
+            show: this.chartBarData.yearOnYear,
+            min: Min2,
+            max: Max2,
+            splitNumber: 5,
+            interval: (Max2 - Min2) / 5,
+            nameTextStyle: {
+              color: "#333"
+            },
             splitLine: {
               show: true,
               lineStyle: {
                 type: "dashed",
-                color: "#dedede"
+                color: "#eee"
+              }
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: "#ffffff"
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              show: true,
+              formatter: "{value} %", //右侧Y轴文字显示
+              textStyle: {
+                color: "#333",
+                fontSize: this.$fz(0.14)
               }
             }
           }
@@ -213,6 +302,24 @@ export default {
       this.myChartBar = echarts.init(this.$refs.chartBar);
        this.myChartBar.setOption(option);
        this.myChartBar.resize();
+    },
+    //计算最大值
+    calMax(arr) {
+      let max = Math.max(...arr);
+      let maxint = Math.ceil(max / 9.5); // 不让最高的值超过最上面的刻度
+      let maxval = maxint * 10; // 让显示的刻度是整数
+      // 为了防止数据为0时，Y轴不显示，给个最大值
+      if (maxval == 0) {
+        maxval = 1;
+      }
+      return maxval;
+    },
+    //计算最小值
+    calMin(arr) {
+      let min = Math.min(...arr);
+      let minint = Math.floor(min / 10);
+      let minval = minint * 10; //让显示的刻度是整数
+      return minval > 0 ? 0 : minval;
     }
   },
   beforeDestroy() {

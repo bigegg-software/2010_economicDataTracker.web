@@ -9,7 +9,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-            <year :option="option" :value="option.value" @change="yearChange"></year>
+            <year  v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
   </div>
@@ -18,38 +18,34 @@
 <script>
 import ChartBar from '@/components/charts/ChartBar'
 import Year from '@/components/timeFrame/Year'
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   name: "topTenDestOfWorkersChart",
   data() {
     return {
+      showTimeFrame:false,
       chartBar: {
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "万人", en: "XXXXXXXXXX" },
         title:{
           text:'年度派出各类劳务人员前10位目的地国家',
           subtext:"Top 10 destinations of workers sent overseas"
         },
         xData: [
-          "蒙古\nMongolia",
-          "芬兰\nFinland",
-          "瑞典\nSweden",
-          "挪威\nNorway",
-          "冰岛\nIceland",
-          "丹麦\nDenmark",
-          "泰国\nThailand"
         ],
         series:[
           {
             // name:'存量_xxxxx',
             color:['#0C9AFF'],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+            data: []
           }
         ]
       },
       option: {
               ch: "年度",
               en: "Yearly",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             }
     };
   },
@@ -59,13 +55,45 @@ export default {
       default:false
     }
   },
-  mounted() {
-
+  async created() {
+     let res = await this.getMaxMinDate();
+     let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      type:1,
+      descending:'destinationPercent', //比重
+      limit:10,
+      year: Number(arrmaxmin[1])
+    });
   },
   components:{ChartBar,Year},
   methods: {
-    yearChange(year) {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("LaborServiceTop10AnnualRank");
+        this.$set(this.option, 'frame', res);
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getChartsData(aug) {  //年份 获取数据
+      let {res} = await request.getLaborServiceTop10AnnualRankChart(aug);
+      let Xname=[];
+      // 年度派出各类劳务人员人数
+      let variousTypesPerNum=[];
+          res.forEach(item => {
+              Xname.push(item.destinations);
+              variousTypesPerNum.push(item.variousTypesPerNum);
+          });
+          this.chartBar.xData=Xname;
+          this.chartBar.series[0].data=variousTypesPerNum;
+    },
+    async yearChange(year) {
           this.option.value=year;
+          await this.getChartsData({
+            type:1,
+            descending:'destinationPercent',
+            limit:10,
+            year: Number(year)
+          });
     }
   }
 };
