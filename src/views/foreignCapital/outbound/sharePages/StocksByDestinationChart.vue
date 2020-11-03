@@ -244,11 +244,13 @@ export default {
                           this.checkBox.op[y].show=true;
                       }
                 }else {
+                  arrName=arrName.shift();
                 for(let i=0; i<this.checkBox.op.length; i++){
                       let splitList=this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
                       let active=true;
                       for(let k=0;k<arrName.length;k++){
                            if(!splitList.includes(arrName[k].toLowerCase())){
+                             console.log(666)
                                active=false;
                            }
                       }
