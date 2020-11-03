@@ -39,7 +39,7 @@ export default {
         {
           name: "chart",
           ch: "表格_图表",
-          en: "table_chart",
+          en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
           toggle: true
@@ -47,7 +47,7 @@ export default {
         {
           name: "download",
           ch: "下载",
-          en: "download",
+          en: "Download",
           icon: "\ue635",
           checked: false,
           popup: true,
@@ -59,7 +59,7 @@ export default {
         {
           name: "embed",
           ch: "嵌入",
-          en: "embed",
+          en: "Embed",
           icon: "\ue616",
           checked: false,
           popup: true,
@@ -75,8 +75,8 @@ export default {
         },
         {
           name: "share",
-          ch: "",
-          en: "",
+          ch: "分享",
+          en: "Share",
           icon: "\ue63c",
           checked: false,
           popup: true,
@@ -89,7 +89,13 @@ export default {
             { name: "", img: "email.png" }
           ]
         },
-        { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
+        {
+          name: "enlarge",
+          ch: "全屏_取消全屏",
+          en: "Full screen_Cancel the full screen",
+          icon: "\ue600",
+          checked: false
+        }
       ]
     };
   },
@@ -114,8 +120,8 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
-      if(item.name=='enlarge'){
-        console.log('enlarge')
+      if (item.name == "enlarge") {
+        console.log("enlarge");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -142,6 +148,6 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  width: 6.09375rem;
+  width: 7.223958rem;
 }
 </style>

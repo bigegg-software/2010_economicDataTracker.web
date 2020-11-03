@@ -10,8 +10,8 @@
     >
       <div class="iconfont icon-action">{{ handelText(item.toggle, item.checked, item.icon) }}</div>
       <div class="text">
-        <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
         <div>{{ handelText(item.toggle, item.checked, item.en) }}</div>
+        <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
       </div>
       <fade-in-out>
         <!-- 下载 -->
@@ -133,7 +133,7 @@ export default {
       qrcodeDiv.id = "qrcode";
       qrcodeDiv.style.position = "absolute";
       qrcodeDiv.style.bottom = "0.36rem";
-      qrcodeDiv.style.left = "3.68rem";
+      qrcodeDiv.style.left = "4.68rem";
       qrcodeDiv.style.zIndex = "4";
       qrcodeDiv.style.boxShadow = "darkgrey 0px 0px 10px 1px";
       let container = document.getElementById("actions-block");
@@ -181,8 +181,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 19.25%;
-  // width: 20%;
+  width: 20.5%;
   height: 0.296875rem;
   border-bottom: 2px solid #cbcbcb;
   border-right: 2px solid #cbcbcb;
@@ -190,19 +189,22 @@ export default {
   cursor: pointer;
   user-select: none;
   &:first-child {
-    color: #1d3f6c !important; // 让第一个常亮
+    color: #186497 !important; // 让第一个常亮
     border-left: 2px solid #cbcbcb;
   }
   &:last-child {
-    width: 23%;
+    width: 18.8%;
   }
   .icon-action {
     font-size: 0.145833rem;
     margin-right: 0.052083rem;
   }
   .text {
-    font-size: 0.072917rem;
+    font-size: 0.104167rem;
     line-height: 0.09375rem;
+    & :last-child{
+      font-size: 0.072917rem;
+    }
   }
   .download-block {
     position: absolute;
@@ -282,6 +284,6 @@ export default {
   }
 }
 .active {
-  color: #1d3f6c;
+  color: #186497;
 }
 </style>

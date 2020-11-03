@@ -1,8 +1,8 @@
 <template>
   <div class="select-radio">
     <div class="label-block">
-      <div class="label-row">{{ option.ch }}</div>
       <div class="label-row">{{ option.en }}</div>
+      <div class="label-row">{{ option.ch }}</div>
     </div>
     <div class="select-block" @click="handleClick" @mouseleave="mouseleave">
       <div class="text">
@@ -40,8 +40,8 @@
                 :key="index"
                 class="list-row"
               >
-                <div>{{ item.ch }}</div>
                 <div>{{ item.en }}</div>
+                <div>{{ item.ch }}</div>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default {
       div {
         width: 100%;
         line-height: 0.125rem;
-        color: #1d3f6c;
+        color: #186497;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

@@ -39,7 +39,6 @@ export default {
    data() {
     return {
       totalData: {
-        watermark: false,
         dataSources: "中国人民网",
         title: {
           ch: "111按各洲内国家/地区统计",
@@ -63,10 +62,7 @@ export default {
             { name: "编结植物_xsdvx", value: 20 }
           ]
         },
-        updatedDate:{
-          ch:"2020-10-23",
-          en:"October 23,2020"
-        }
+        updatedDate:"2020-10-23", 
       },
       option: {
         ch: "年度",
@@ -134,8 +130,8 @@ export default {
  display: flex;
   .echart-block {
     position: relative;
-    width: 77%;
-    height: auto;
+    width: 5.875rem;
+    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -149,11 +145,11 @@ export default {
     }
     .container {
       width: 100%;
-      height: 3.458333rem;
+      height: 100%;
     }
   }
   .select-block {
-    width: 23%;
+    flex: 1;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;

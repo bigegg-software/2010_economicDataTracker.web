@@ -102,6 +102,7 @@ export default {
       width: 1.5625rem;
       height: 0.197917rem;
       font-size: 0.09375rem;
+      color: #999;
       background-color: #fff;
       input {
         flex: 1;

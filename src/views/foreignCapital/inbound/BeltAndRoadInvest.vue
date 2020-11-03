@@ -1,11 +1,7 @@
 <template>
   <!-- "一带一路"沿线国家对华投资情况 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
@@ -28,25 +24,25 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'numEnterprisesBRIChart',
+      tabComponent: "numEnterprisesBRIChart",
       tabList: [
         {
-          name:'numEnterprisesBRIChart',
+          name: "numEnterprisesBRIChart",
           chinese: "企业数",
           english: "XXXXXXXXXXX"
         },
         {
-          name:'inflowsToChinaBRIChart',
+          name: "inflowsToChinaBRIChart",
           chinese: "实际投入外资金额",
           english: "XXXXXXXXXXX"
         }
       ],
-      
+
       actionsList: [
         {
           name: "chart",
           ch: "表格_图表",
-          en: "table_chart",
+          en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
           toggle: true
@@ -54,7 +50,7 @@ export default {
         {
           name: "download",
           ch: "下载",
-          en: "download",
+          en: "Download",
           icon: "\ue635",
           checked: false,
           popup: true,
@@ -66,7 +62,7 @@ export default {
         {
           name: "embed",
           ch: "嵌入",
-          en: "embed",
+          en: "Embed",
           icon: "\ue616",
           checked: false,
           popup: true,
@@ -82,8 +78,8 @@ export default {
         },
         {
           name: "share",
-          ch: "",
-          en: "",
+          ch: "分享",
+          en: "Share",
           icon: "\ue63c",
           checked: false,
           popup: true,
@@ -96,18 +92,22 @@ export default {
             { name: "", img: "email.png" }
           ]
         },
-        { name: "enlarge", ch: "", en: "", icon: "\ue600", checked: false }
+        {
+          name: "enlarge",
+          ch: "全屏_取消全屏",
+          en: "Full screen_Cancel the full screen",
+          icon: "\ue600",
+          checked: false
+        }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -115,13 +115,14 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
       }
-        if (item.name == "chart") {
+      if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
       this.initActionsList();
@@ -131,13 +132,12 @@ export default {
       console.log(index, i);
       this.initActionsList();
     }
-  
   }
 };
 </script>
 
 <style lang="less" scoped>
 .container {
-  width: 6.09375rem;
+  width: 7.223958rem;
 }
 </style>

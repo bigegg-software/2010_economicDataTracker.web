@@ -17,7 +17,8 @@ body,
   height:100%;
   margin: 0;
   padding: 0;
-  font-family:Arial,"Microsoft Yahei";
+  // font-family:Arial,"Microsoft Yahei";
+  font-family: Calibri,"黑体"
 }
 ::-webkit-scrollbar {
   width: 8px;

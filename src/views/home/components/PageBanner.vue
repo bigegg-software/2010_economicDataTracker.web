@@ -9,8 +9,8 @@
           :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
           @click="jumpPage(item)"
         >
-          <div class="nav-text">{{ item.Chinese }}</div>
-          <div class="nav-text">{{ item.English }}</div>
+          <div class="nav-text">{{ item.English}}</div>
+          <div class="nav-text">{{ item.Chinese}}</div>
         </div>
       </div>
       <nav-search></nav-search>
@@ -64,10 +64,10 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 0.322917rem;
-    padding: 0 1.041667rem;
+    height: 0.379167rem;
+    padding: 0 0.429688rem;
     box-sizing: border-box;
-    background-color: rgba(25, 56, 96, 0.7);
+    background-color: rgba(25, 100, 151, 0.6);
     .nav-block {
       display: flex;
       align-items: center;
@@ -76,15 +76,15 @@ export default {
       .nav-item {
         display: flex;
         flex-direction: column;
-        align-items: center;
         // width: 1.59375rem;
         padding: 0 0.15rem;
         height: 100%;
         color: #fff;
-        font-size: 0.09375rem;
+        font-size: 0.083333rem;
         .nav-text:first-child {
           height: 50%;
-          line-height: 0.19rem;
+          line-height: 0.24rem;
+          font-size: 0.125rem;
         }
         &:hover {
           cursor: pointer;
@@ -95,7 +95,7 @@ export default {
           background-color: #fff;
           cursor: not-allowed;
           pointer-events: none;
-          color: rgb(25, 56, 96);
+          color: #186497;
         }
       }
     }
