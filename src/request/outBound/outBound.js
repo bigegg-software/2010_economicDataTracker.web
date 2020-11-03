@@ -22,6 +22,45 @@ export default {
             let res = await q.find()
             return res;
     },
+// 各州国家金额求和
+sumSameYearData:async (sourceData,field)=> {
+    let yearArr=[];
+    let resD=[];
+    sourceData.forEach(async (item)=>{
+        yearArr.push(item.year);
+    });
+    yearArr=Array.from(new Set(yearArr));
+    for(let i=0; i<yearArr.length;i++){
+        let currentYear=yearArr[i];
+        let mount=0;
+        for(let u=0;u<sourceData.length;u++) {
+            let item=sourceData[u];
+            if(item.year==currentYear){
+            mount+=item[field];
+            }
+        }
+        resD.push({
+        year:currentYear,
+        mount:mount/100
+        });
+    }
+    return resD;
+},
+    getAllCountryName:async function() {  // 获取所有国家
+        let q = new Parse.Query('Country');
+        q.limit(500);
+        let res=await q.find();
+        res = res.map( item=>{
+            item=item.toJSON();
+            item.ch=item.abbreviationZH;
+            item.en=item.abbreviationEN;
+            item.searchArr= [...item.abbreviationZH.split(''),...item.abbreviationEN.split(' ')];
+            item.checked=false;
+            item.show=true;
+            return item;
+        });
+        return res;
+    },
     getOutFlowsChartsData:async function(params) {// 获取中国对外直接投资流量数据函数接口
         // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
         // if (FDIOutflow.code == 200) {
@@ -110,7 +149,59 @@ getoutstocksChartsData:async function(params) {//获取中国对外直接投资�
      })
      return {res};
 },
-// 柱状图查询
+getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,filed) {// 获取中国对外直接投资流量按国家和地区统计-按大洲统计
+       let res=await this.manualQueryData(tableName,params);
+       res = res.map(item=>{
+            item=item.toJSON()
+            return item
+        })
+
+        let Asia = res.filter(item=>{
+            return item.continent == '亚洲'
+        })
+        Asia=await this.sumSameYearData(Asia,filed);
+
+        let Europe = res.filter(item=>{
+            return item.continent == '欧洲'
+        })
+        Europe=await this.sumSameYearData(Europe,filed);
+
+        let Oceania = res.filter(item=>{
+            return item.continent == '大洋洲'
+        })
+        Oceania=await this.sumSameYearData(Oceania,filed);
+
+        let North_America = res.filter(item=>{
+            return item.continent == '北美洲'
+        })
+        North_America=await this.sumSameYearData(North_America,filed);
+
+        let Antarctica = res.filter(item=>{
+            return item.continent == '南极洲'
+        })
+        Antarctica=await this.sumSameYearData(Antarctica,filed);
+
+        let South_America = res.filter(item=>{
+            return item.continent == '南美洲'
+        })
+        South_America=await this.sumSameYearData(South_America,filed);
+
+        let Africa = res.filter(item=>{
+            return item.continent == '非洲'
+        })
+        Africa=await this.sumSameYearData(Africa,filed);
+
+        return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa};
+},///
+getStocksByDestinationChartsData:async function(params) {//获取中国对外直接投资存量按国家和地区统计-按国家和地区统计  //折线图
+    let res=await this.manualQueryData('FDIStock',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+         return item
+     })
+     return {res};
+},
+// 柱状图查询  饼图
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     let q = new Parse.Query(tableName);
         if(params.limit){
@@ -153,6 +244,16 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
     });
     return {res};
 },
+// 对外劳务合作派出人数主要行业  饼图
+getIndustryOfWorkersNumChart:async function(params) {
+    let res=await this.barQueryData('LaborServiceIndustry',params);
+    res = res.map(item=>{
+        item=item.toJSON();
+        item.variousTypesPerNumMillion= item.variousTypesPerNum/100;
+        return item;
+    });
+    return {res};
+},
 // 对外直接投资流量历年前20国家
 getFlowsTwentyDestinationChart:async function(params) {
     let res=await this.barQueryData('FDITop20Outflow',params);
@@ -172,6 +273,16 @@ getStocksTwentyDestinationChart:async function(params) {
         return item;
     });
     return {res};
+},
+//对外承包工程前十项目
+getForeignContractNewConRank: async function (params) {
+    let res = await this.barQueryData('ForeignContractNewConRank', params);
+    res = res.map(item => {
+        item = item.toJSON();
+        item.stocksMillion = item.stocks / 100;
+        return item;
+    });
+    return { res };
 }
 
 
