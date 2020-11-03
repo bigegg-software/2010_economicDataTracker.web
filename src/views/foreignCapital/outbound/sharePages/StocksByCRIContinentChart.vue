@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <treemap-chart :totalData="totalData"></treemap-chart>
+        <treemap-chart ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
     <div class="select-block">
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       totalData: {
+        dataSources: "中国人民网",
         title: {
           ch: "按各洲内国家/地区统计",
           en: "Statistics by continent country / Region"
@@ -57,13 +58,28 @@ export default {
             { name: "淀粉_ewwwwwwwwwwww", value: 90 },
             { name: "含油子仁果实_dscxx", value: 145 },
             { name: "树胶树脂_dscdx", value: 120 },
-            { name: "编结植物_xsdvx", value: 20 }
+            { name: "编结植物_xsdvx", value: 20 },
+            { name: "树、插花_xxfgbfx", value: 292 },
+            { name: "蔬菜_vffxdx", value: 234 },
+            { name: "水果_xfv", value: 75 },
+            { name: "咖啡茶_dvxx", value: 251 },
+            { name: "谷物_ff", value: 452 },
+            { name: "淀粉_ewwwwwwwww", value: 90 },
+            { name: "含油子仁果实_dscx", value: 145 },
+            { name: "树胶树脂_dscx", value: 120 },
+            { name: "编结植物_xsvx", value: 20 },
+            { name: "树、插花_xxgdbbfx", value: 292 },
+            { name: "蔬菜_vffxfdx", value: 234 },
+            { name: "水果_xbfv", value: 75 },
+            { name: "咖啡茶_dfxxx", value: 251 },
+            { name: "谷物_ff", value: 452 },
+            { name: "淀粉_ewwwwwwwwwww", value: 90 },
+            { name: "含油子仁果实_dscx", value: 145 },
+            { name: "树胶树脂_dsdx", value: 120 },
+            { name: "编结植物_xsvx", value: 20 }
           ]
         },
-        updatedDate: {
-          ch: "2020-10-23",
-          en: "October 23,2020"
-        }
+        updatedDate: "2020-10-23"
       },
       option: {
         ch: "年度",
@@ -107,7 +123,14 @@ export default {
       }
     };
   },
-  mounted() {},
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.treemapChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
+  },
   methods: {
     changeValue(value) {
       this.option.value = value;
@@ -124,8 +147,8 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 77%;
-    height: auto;
+    width: 5.875rem;
+    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -139,11 +162,11 @@ export default {
     }
     .container {
       width: 100%;
-      height: 3.458333rem;
+      height: 100%;
     }
   }
   .select-block {
-    width: 23%;
+    flex: 1;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;

@@ -1,7 +1,7 @@
 <template>
   <div class="pageHeader">
     <div class="logo">
-      <img src="" alt="" />
+      <img class="logo-img" src="../../../assets/img/logo.png" alt="" />
     </div>
     <div class="action">
       <div class="latest-data" @click="showDataList">
@@ -10,8 +10,8 @@
           <div class="data-num">{{ 2 }}</div>
         </div>
         <div class="text-block">
+          <div class="text-english">Latest data</div>
           <div class="text-chinese">最新数据</div>
-          <div class="text-english">latest data</div>
         </div>
       </div>
       <div class="user-actions">
@@ -94,11 +94,14 @@ export default {
   justify-content: space-between;
   width: 100%;
   height: 0.53125rem;
-  padding: 0 1.041667rem;
+  padding: 0 0.416667rem;
   box-sizing: border-box;
 }
 .logo {
   width: 50%;
+  .logo-img{
+    width: 1.838542rem;
+  }
 }
 .data-list {
   position: absolute;
@@ -162,15 +165,19 @@ export default {
         height: 0.084rem;
         border-radius: 50%;
         text-align: center;
+        font-size: 0.0625rem;
         line-height: 0.083333rem;
         color: #fff;
         background-color: #df2323;
       }
     }
     .text-block {
-      font-size: 0.083333rem;
+      font-size: 0.104167rem;
       div {
-        line-height: 0.09375rem;
+        line-height: 0.125rem;
+      }
+      .text-chinese{
+        font-size: 0.072917rem;
       }
     }
   }
@@ -188,6 +195,7 @@ export default {
       }
       .user-name {
         margin-left: 0.0625rem;
+        font-size: 0.083333rem;
       }
     }
     .line {

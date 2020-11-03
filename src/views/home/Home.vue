@@ -41,7 +41,7 @@ export default {
 // body
 .page-body {
   width: 100%;
-  padding: 0.208333rem 1.041667rem 0.135417rem;
+  padding: 0.208333rem 0.416667rem 0.135417rem;
   background-color: rgba(247, 247, 247);
 }
 </style>

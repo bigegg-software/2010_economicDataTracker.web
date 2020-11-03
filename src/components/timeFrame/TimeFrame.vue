@@ -8,8 +8,8 @@
         :class="key == activeKey ? 'active' : ''"
         @click="changeActiveKey(key)"
       >
-        <div class="ch">{{ item.ch }}</div>
-        <div class="en">{{ item.en }}</div>
+        <div class="ch">{{ item.en }}</div>
+        <div class="en">{{ item.ch }}</div>
       </div>
     </div>
     <div class="tab-area">
@@ -145,18 +145,22 @@ export default {
     }
     .ch {
       color: #333;
+      font-size: 0.09375rem;
     }
     .en {
       color: #999;
+      font-size: 0.072917rem;
     }
   }
   .active {
-    background-color: rgba(29, 63, 108, 0.8);
+    background-color: #91adc3;
     .ch {
       color: #fff;
+      font-size: 0.09375rem;
     }
     .en {
       color: #fff;
+      font-size: 0.072917rem;
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="label-block">
-      <div>{{ option.ch }}</div>
       <div>{{ option.en }}</div>
+      <div>{{ option.ch }}</div>
     </div>
     <div class="time-block">
       <div class="text">{{ value ? value : "请选择" }}</div>
@@ -180,13 +180,16 @@ export default {
     }
     .current {
       color: #fff;
-      background-color: rgba(29, 63, 108, 0.8);
+      background-color: #91adc3;
     }
   }
 }
 .label-block {
-  font-size: 0.0625rem;
   line-height: 0.104167rem;
+  font-size: 0.072917rem;
+  & div:first-child{
+  font-size: 0.09375rem;
+  }
 }
 .time-block {
   display: flex;

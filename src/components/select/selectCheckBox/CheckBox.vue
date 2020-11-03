@@ -1,14 +1,12 @@
 <template>
   <div class="checkbox">
     <div class="icon-block" @click="change">
-      <div v-if="option.checked" class="iconfont icon-mark">
-        &#xe7b0;
-      </div>
+      <div v-if="option.checked" class="iconfont icon-mark">&#xe7b0;</div>
       <div v-else class="icon-square"></div>
     </div>
     <div class="label-block" :class="{ active: option.checked }">
-      <div class="label-row">{{ option.ch }}</div>
       <div class="label-row">{{ option.en }}</div>
+      <div class="label-row">{{ option.ch }}</div>
     </div>
   </div>
 </template>
@@ -51,7 +49,7 @@ export default {
     height: 100%;
     font-size: 0.083333rem;
     border-radius: 0.010417rem;
-    background-color: rgba(29, 63, 108, 0.8);
+    background-color: rgba(145, 173, 195);
   }
   .icon-square {
     width: 100%;
@@ -61,7 +59,7 @@ export default {
   }
 }
 .label-block {
-  color: rgb(187, 184, 184);
+  color: #666;
   width: 70%;
   .label-row {
     width: 100%;
@@ -70,9 +68,13 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 0.09375rem;
+  }
+  & :last-child {
+    font-size: 0.072917rem;
   }
 }
 .active {
-  color: rgba(29, 63, 108, 0.8);
+  color: rgba(145, 173, 195);
 }
 </style>

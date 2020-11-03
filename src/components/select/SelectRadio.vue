@@ -1,8 +1,8 @@
 <template>
   <div class="select-radio">
     <div class="label-block">
-      <div class="label-row">{{ option.ch }}</div>
       <div class="label-row">{{ option.en }}</div>
+      <div class="label-row">{{ option.ch }}</div>
     </div>
     <div class="select-block" @click="handleClick" @mouseleave="mouseleave">
       <div class="text">

@@ -93,13 +93,13 @@ export default {
   margin: 0.072917rem 0.052083rem 0.052083rem;
 }
 .ant-slider /deep/ .ant-slider-track {
-  background-color: #476387;
+  background-color: rgba(145, 173, 195,);
 }
 .ant-slider /deep/ .ant-slider-handle {
   width: 0.09375rem;
   height: 0.09375rem;
   margin-top: -0.03125rem;
-  border: 0.010417rem solid #476387;
+  border: 0.010417rem solid rgba(145, 173, 195, 0.5);
 }
 .ant-slider /deep/ .ant-slider-rail {
   background-color: #cacaca;

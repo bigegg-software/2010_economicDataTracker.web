@@ -252,8 +252,8 @@ for (let key in this.options) {
   display: flex;
   .echart-block {
     position: relative;
-    width: 77%;
-    height: auto;
+    width: 5.875rem;
+    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -267,12 +267,12 @@ for (let key in this.options) {
     }
     // border-right: none;
     .container {
-      width: 100%;
-      height: 3.458333rem;
+      width:100% ;
+      height:100% ;
     }
   }
   .select-block {
-    width: 23%;
+    flex: 1;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

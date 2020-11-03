@@ -2,18 +2,12 @@
   <div class="navigator" ref="navigator">
     <div v-for="(nav, index) in navList" :key="index" class="nav-block">
       <!-- 1级 -->
-      <ul
-        class="primary"
-        :class="{ 'primary-active': nav.active }"
-        @click="showSubnav(index)"
-      >
+      <ul class="primary" :class="{ 'primary-active': nav.active }" @click="showSubnav(index)">
         <li class="text">
-          <div>{{ nav.ch }}</div>
           <div>{{ nav.en }}</div>
+          <div>{{ nav.ch }}</div>
         </li>
-        <li class="arrow-icon iconfont">
-          &#xe609;
-        </li>
+        <li class="arrow-icon iconfont">&#xe609;</li>
       </ul>
       <!-- 2级 -->
       <fade-in-out>
@@ -26,8 +20,8 @@
             @click="handleClickSubnav(subnav, index, i)"
           >
             <ul class="text">
-              <li>{{ subnav.ch }}</li>
-              <li>{{ subnav.en }}</li>
+              <li>{{ subnav.en}}</li>
+              <li>{{ subnav.ch}}</li>
             </ul>
           </li>
         </ul>
@@ -38,7 +32,7 @@
 
 <script>
 import FadeInOut from "@/components/animations/FadeInOut";
-import {foreignCapitalMenuLists} from '@/utils/menuSearchConfigs.js'
+import { foreignCapitalMenuLists } from "@/utils/menuSearchConfigs.js";
 export default {
   props: {},
   components: {
@@ -170,9 +164,8 @@ export default {
         : className + " _rotate";
     },
     handleClickSubnav(subnav, index, i) {
-        console.log(subnav, index, i);
-        this.$router.push({name:subnav.name});
-      
+      console.log(subnav, index, i);
+      this.$router.push({ name: subnav.name });
     }
   }
 };
@@ -185,7 +178,7 @@ export default {
   user-select: none;
 }
 .navigator {
-  width: 1.59375rem;
+  width: 1.817708rem;
   box-shadow: darkgrey 0px 0px 20px 3px;
 }
 .nav-block {
@@ -209,6 +202,10 @@ export default {
   cursor: pointer;
   .text {
     padding: 0.052083rem 0;
+    font-size: 0.083333rem;
+    & div:first-child {
+      font-size: 0.114583rem;
+    }
   }
   .arrow-icon {
     color: #dbdbdb;
@@ -233,9 +230,11 @@ export default {
       li {
         &:first-child {
           padding: 0.03125rem 0 0.010417rem;
+          font-size: 0.104167rem;
         }
         &:last-child {
           padding: 0.010417rem 0 0.03125rem;
+          font-size: 0.083333rem;
         }
       }
     }
@@ -254,11 +253,11 @@ export default {
   animation: rotate 0.5s;
 }
 .primary-active {
-  color: #1d3f6c !important;
+  color: #186497 !important;
 }
 .secondary-active {
   color: #fff !important;
-  background-color: #1d3f6c !important;
+  background-color: #8AA8BB !important;
 }
 
 @keyframes rotate {

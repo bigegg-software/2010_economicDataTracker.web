@@ -186,7 +186,7 @@ export default {
     }
     .current {
       color: #fff;
-      background-color: rgba(29, 63, 108, 0.8);
+      background-color: rgba(145, 173, 195,);
     }
   }
 }

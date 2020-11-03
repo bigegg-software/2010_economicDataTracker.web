@@ -1,21 +1,6 @@
 <template>
   <div class="container">
-    <!-- <div class="title">
-      <div class="titleCh">{{this.totalData.title.ch}}</div>
-      <div class="titleEn">{{this.totalData.title.en}}</div>
-    </div>
-    <div class="unit">
-      <div>{{this.totalData.yName.ch}}</div>
-      <div>{{this.totalData.yName.en}}</div>
-    </div> -->
     <div id="treemap" style="width:100%;height:100%;"></div>
-    <!-- <div class="updated">
-      <div >
-        <div>数据最后更新时间</div>
-        <div>Date last updated</div>
-      </div >
-      <div class="updatedDate">{{this.totalData.updatedDate.ch}}</div>
-    </div> -->
   </div>
 </template>
 
@@ -81,20 +66,6 @@ export default {
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
       let option = {
-         title: {
-          left: "center",
-          top: "2%",
-          text: this.totalData.title.ch,
-          textStyle: {
-            color: "#333",
-            fontSize: this.$fz(0.18)
-          },
-          subtext: this.totalData.title.en,
-          subtextStyle: {
-            color: "#999",
-            fontSize: this.$fz(0.16)
-          }
-        },
         tooltip: {
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
@@ -111,13 +82,13 @@ export default {
         },
         series: [
           {
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
+            top: "16.5%",
+            bottom: "6%",
+            left: "2%",
+            right: "2%",
             name: this.totalData.seriesData.all,
             type: "treemap",
-            radius: "50%", //控制内容大小
+            // radius: "100%", //控制内容大小
             // visibleMin: 300,//小于多少就不会显示
             data: this.totalData.seriesData.data,
             // leafDepth: 1, //呈现层级，若为1加载时仅展开一层，接下来的每一层通过单击进入
@@ -183,29 +154,39 @@ export default {
             }
           }
         ],
-       graphic: [
+        graphic: [
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
-            bottom: this.$fz(0.15) * 2.2,
+            left: "center",
+            top: this.$fz(0.15) * 1,
             children: [
               {
                 type: "text",
                 z: 100,
                 left: "center",
-                top: "middle",
                 style: {
                   fill: "#333",
-                  text: "数据最后更新时间",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  text: this.totalData.title.en,
+                  font: `${this.$fz(0.26)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: this.$fz(0.15) * 2,
+                style: {
+                  fill: "#333",
+                  text: this.totalData.title.ch,
+                  font: `${this.$fz(0.18)}px 黑体`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
-            bottom: this.$fz(0.15),
+            left: this.$fz(0.15) * 1.5,
+            bottom: this.$fz(0.15) * 2,
             children: [
               {
                 type: "text",
@@ -213,9 +194,27 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: "Data last updated",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 1.5,
+            bottom: this.$fz(0.15) * 0.8,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "center",
+                top: "middle",
+                style: {
+                  fill: "#666",
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -223,17 +222,16 @@ export default {
           {
             type: "group",
             left: this.$fz(0.15) * 11.5,
-            bottom: this.$fz(0.15) * 1.5,
+            bottom: this.$fz(0.15) * 1.15,
             children: [
               {
                 type: "text",
                 z: 100,
-                left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: this.totalData.updatedDate.ch,
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: this.totalData.updatedDate,
+                  font: `${this.$fz(0.20)}px Calibri`
                 }
               }
             ]
@@ -253,7 +251,92 @@ export default {
                   text: this.totalData.watermark
                     ? "数据来源:" + this.totalData.dataSources
                     : "",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  font: `${this.$fz(0.15)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 1.5,
+            top: this.$fz(0.15) * 6,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                style: {
+                  fill: "#666",
+                  text: this.totalData.yName.en,
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                top: this.$fz(0.15) * 1.2,
+                style: {
+                  fill: "#666",
+                  text: this.totalData.yName.ch,
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: 0,
+            top: 0,
+            children: [
+              {
+                type: "rect",
+                z: 99,
+                shape: {
+                  width: this.$fz(0.15) * 75,
+                  height: this.$fz(0.15) * 8.2
+                },
+                style: {
+                  fill: "#fff"
+                }
+              },
+              {
+                type: "rect",
+                z: 99,
+                shape: {
+                  width: this.$fz(0.15) * 1.5,
+                  height: this.$fz(0.15) * 50
+                },
+                style: {
+                  fill: "#fff"
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            children: [
+              {
+                type: "rect",
+                z: 99,
+                shape: {
+                  x: this.$fz(0.15) * 73.4,
+                  y: 0,
+                  width: this.$fz(0.15) * 1.5,
+                  height: this.$fz(0.15) * 50
+                },
+                style: {
+                  fill: "#fff"
+                }
+              },
+              {
+                type: "rect",
+                z: 99,
+                shape: {
+                  y: this.$fz(0.15) * 46.5,
+                  width: this.$fz(0.15) * 74,
+                  height: this.$fz(0.15) * 4
+                },
+                style: {
+                  fill: "#fff"
                 }
               }
             ]
@@ -271,39 +354,39 @@ export default {
   height: 100%;
   // padding: 0.07rem 0.1rem 0.1rem;
   // box-sizing: border-box;
-  .title {
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    .titleCh {
-      font-size: 0.09375rem;
-      font-weight: bold;
-      color: #333;
-    }
-    .titleEn {
-      font-size: 0.083333rem;
-      color: #999;
-    }
-  }
-  .unit {
-    font-size: 0.083333rem;
-    color: #666;
-    line-height: 0.09rem;
-  }
-  #treemap {
-    padding: 0.01rem 0 0.03rem;
-    box-sizing: border-box;
-  }
-  .updated {
-    display: flex;
-    align-items: center;
-    font-size:0.078125rem;
-    color: #333;
-  }
-  .updatedDate{
-    margin-left: 0.07rem;
-  }
+  // .title {
+  //   width: 100%;
+  //   display: flex;
+  //   flex-flow: column nowrap;
+  //   align-items: center;
+  //   .titleCh {
+  //     font-size: 0.09375rem;
+  //     font-weight: bold;
+  //     color: #333;
+  //   }
+  //   .titleEn {
+  //     font-size: 0.083333rem;
+  //     color: #999;
+  //   }
+  // }
+  // .unit {
+  //   font-size: 0.083333rem;
+  //   color: #666;
+  //   line-height: 0.09rem;
+  // }
+  // #treemap {
+  //   padding: 0.01rem 0 0.03rem;
+  //   box-sizing: border-box;
+  // }
+  // .updated {
+  //   display: flex;
+  //   align-items: center;
+  //   font-size:0.078125rem;
+  //   color: #333;
+  // }
+  // .updatedDate{
+  //   margin-left: 0.07rem;
+  // }
 }
 </style>
 

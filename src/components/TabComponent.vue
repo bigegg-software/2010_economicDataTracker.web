@@ -7,8 +7,8 @@
       :class="{ active: tabComponent == item.name }"
       @click="handleClickTab(item.name)"
     >
-      <div class="text">{{ item.chinese }}</div>
       <div class="text">{{ item.english }}</div>
+      <div class="text">{{ item.chinese }}</div>
       <div v-if="tabComponent == item.name" class="under-line"></div>
     </div>
   </div>
@@ -57,15 +57,25 @@ export default {
       -webkit-line-clamp: 1;
       overflow: hidden;
       width: 100%;
+      font-size: 0.104167rem;
+      &:last-child {
+        font-size: 0.083333rem;
+      }
     }
   }
   .active {
     width: auto;
-    color: #1d3f6c;
+    color: #186497;
     background-color: #fff;
     border: 2px solid #cccccc;
     border-bottom: none;
     white-space: nowrap;
+    .text {
+      font-size: 0.083333rem;
+      &:first-child {
+        font-size: 0.104167rem;
+      }
+    }
   }
   .under-line {
     position: absolute;
@@ -74,7 +84,7 @@ export default {
     z-index: 1;
     width: 100%;
     height: 0.020833rem;
-    background-color: #1d3f6c;
+    background-color: #186497;
   }
 }
 </style>
