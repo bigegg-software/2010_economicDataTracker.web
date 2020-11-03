@@ -46,6 +46,21 @@ sumSameYearData:async (sourceData,field)=> {
     }
     return resD;
 },
+    getAllCountryName:async function() {  // 获取所有国家
+        let q = new Parse.Query('Country');
+        q.limit(500);
+        let res=await q.find();
+        res = res.map( item=>{
+            item=item.toJSON();
+            item.ch=item.abbreviationZH;
+            item.en=item.abbreviationEN;
+            item.searchArr= [...item.abbreviationZH.split(''),...item.abbreviationEN.split(' ')];
+            item.checked=false;
+            item.show=true;
+            return item;
+        });
+        return res;
+    },
     getOutFlowsChartsData:async function(params) {// 获取中国对外直接投资流量数据函数接口
         // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
         // if (FDIOutflow.code == 200) {
@@ -178,7 +193,15 @@ getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,file
 
         return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa};
 },///
-// 柱状图查询
+getStocksByDestinationChartsData:async function(params) {//获取中国对外直接投资存量按国家和地区统计-按国家和地区统计  //折线图
+    let res=await this.manualQueryData('FDIStock',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+         return item
+     })
+     return {res};
+},
+// 柱状图查询  饼图
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     let q = new Parse.Query(tableName);
         if(params.limit){
@@ -217,6 +240,16 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
     let res=await this.barQueryData('LaborServiceTop10AnnualRank',params);
     res = res.map(item=>{
         item=item.toJSON();
+        return item;
+    });
+    return {res};
+},
+// 对外劳务合作派出人数主要行业  饼图
+getIndustryOfWorkersNumChart:async function(params) {
+    let res=await this.barQueryData('LaborServiceIndustry',params);
+    res = res.map(item=>{
+        item=item.toJSON();
+        item.variousTypesPerNumMillion= item.variousTypesPerNum/100;
         return item;
     });
     return {res};

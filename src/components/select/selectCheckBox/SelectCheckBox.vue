@@ -17,12 +17,15 @@
               <search-component :value.sync="inputValue"></search-component>
             </div>
             <div class="list-block">
+              <template v-for="(op, index) in option.op">
               <check-box
-                v-for="(op, index) in option.op"
+                v-if="op.show"
                 :key="index"
                 :option="op"
                 @change="change(op, index)"
               ></check-box>
+              </template>
+              
             </div>
           </div>
           <div class="right">

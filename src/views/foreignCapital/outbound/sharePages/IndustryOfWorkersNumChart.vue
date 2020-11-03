@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="select-block">
-      <Yearly :option="option" :value="option.value" @change="changeValue"></Yearly>
+      <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="changeValue"></Yearly>
     </div>
   </div>
 </template>
@@ -16,7 +16,8 @@
 <script>
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
-
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   components: {
     PieChart,
@@ -28,11 +29,12 @@ export default {
   name: "industryOfWorkersNumChart",
   data() {
     return {
+      showTimeFrame:false,
       option: {
         ch: "年度",
-        en: "yearly",
-        frame: "1990_2020",
-        value: "2020"
+        en: "Yearly",
+        frame: "",
+        value: ""
       },
       totalData: {
         watermark: false,
@@ -42,17 +44,17 @@ export default {
           en: "Overseas workers by industry"
         },
         seriesData: [
-          {
-            value: 5.3,
-            name: "农林牧渔业_xxxxxxx"
-          },
-          { value: 15.8, name: "制造业_xxxxxxx" },
-          { value: 42.5, name: "建筑业_xxxxxxx" },
-          { value: 13.5, name: "交通运输业_xxxxxxx" },
-          { value: 0.3, name: "计算机服务和软件业_xxxxxxx" },
-          { value: 5.5, name: "住宿和餐饮业_xxxxxxx" },
-          { value: 0.8, name: "科教文卫体业_xxxxxxx" },
-          { value: 14.2, name: "其他行业_xxxxxxx" }
+          // {
+          //   value: 5.3,
+          //   name: "农林牧渔业_xxxxxxx"
+          // },
+          // { value: 15.8, name: "制造业_xxxxxxx" },
+          // { value: 42.5, name: "建筑业_xxxxxxx" },
+          // { value: 13.5, name: "交通运输业_xxxxxxx" },
+          // { value: 0.3, name: "计算机服务和软件业_xxxxxxx" },
+          // { value: 5.5, name: "住宿和餐饮业_xxxxxxx" },
+          // { value: 0.8, name: "科教文卫体业_xxxxxxx" },
+          // { value: 14.2, name: "其他行业_xxxxxxx" }
         ],
         updatedDate: "2020-10-23"
       }
@@ -63,12 +65,37 @@ export default {
       this.$refs.pie.downloadFile();
     });
   },
+ async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      year: Number(arrmaxmin[1])
+    });
+ },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    changeValue(value) {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("LaborServiceIndustry");
+        this.$set(this.option, 'frame', res);
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getChartsData(aug) {  //年份 获取数据
+      let {res} = await request.getIndustryOfWorkersNumChart(aug);
+      let Xname=[];
+          res.forEach(item => {
+              Xname.push({value:item.variousTypesPerNumMillion,name:item.industry});
+          });
+          this.totalData.seriesData=Xname;
+    },
+    async changeValue(value) {
       this.option.value = value;
+      await this.getChartsData({
+            year: Number(value)
+          });
     }
   }
 };

@@ -9,7 +9,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <select-check-box
@@ -28,7 +28,8 @@ import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
 import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
-
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
     isShowTable: {}
@@ -41,33 +42,24 @@ export default {
   name: "stocksByDestinationChart",
   data() {
     return {
+      timer: null,
+      showTimeFrame: false,
       USD: {
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
-        xData: [
-          "2011",
-          "2012",
-          "2013",
-          "2014",
-          "2015",
-          "2016",
-          "2017",
-          "2018",
-          "2019",
-          "2020"
-        ],
+        title: { ch: "中国对外直接投资流量按国家和地区统计", en: "China’s FDI outflows by destination" },
+        xData: [],
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "澳大利亚_North America",
             color: "#6AA3CD",
-            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500]
+            data: []
           },
           {
-            name: "中国对内非金融类直接投资_xxx",
+            name: "俄罗斯_Oceania",
             color: "#FF0000",
-            data: [720, 380, 580, 360, 390, 310, 240, 590, 400, 500]
+            data: []
           }
         ]
       },
@@ -75,43 +67,7 @@ export default {
       checkBox: {
         ch: "国家",
         en: "country",
-        op: [
-          {
-            ch: "中国",
-            en: "china",
-            checked: false
-          },
-          {
-            ch: "巴基斯坦",
-            en: "bjstbbbbbbbb",
-            checked: false
-          },
-          {
-            ch: "俄罗斯",
-            en: "els",
-            checked: false
-          },
-          {
-            ch: "日本",
-            en: "japan",
-            checked: false
-          },
-          {
-            ch: "朝鲜",
-            en: "cx",
-            checked: false
-          },
-          {
-            ch: "加拿大",
-            en: "jnd",
-            checked: false
-          },
-          {
-            ch: "英国",
-            en: "english",
-            checked: false
-          }
-        ]
+        op: []
       },
       options: {
         yearly: {
@@ -121,26 +77,122 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
   },
+  async created() {
+      await this.getAllCountryName();
+     let res = await this.getMaxMinDate();
+   let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      noMonth:true,
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
+  },
   methods: {
+    // 获取国家列表数据
+    async getAllCountryName() {
+       let res= await request.getAllCountryName();
+          this.checkBox.op=res;
+    },
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+        await this.getChartsData({
+          noMonth:true,
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+    },
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIStock");
+      console.log(res);
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        console.log(obj)
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
+    },
+    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    async getItemCategoryData(
+      res,
+      XNameAttr,
+      dataAttr,
+      range
+    ) {
+      let data = await this.getItemData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+      this.USD.series[0]["data"] = data.outward_FDI_stocks;
+      
+      //
+    },
+    async getChartsData(aug) {  //改变横轴 获取数据
+      let {res} = await request.getStocksByDestinationChartsData(aug);
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
+      // 要换取纵轴数据的字段属性
+      let dataAttr = ["outward_FDI_stocks"];
+      let XNameAttr = "year";
+      this.USD.xData = range;
+      // 获取当前页面所有线
+      await this.getItemCategoryData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -151,6 +203,13 @@ export default {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
+      // 获取数据入口  zp  开始和结束都有值再去查
+      if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
+        this.mainGetChartsData(activeKey);
+      }
     },
     // 下拉多选框
     changeOption(op) {
@@ -167,8 +226,36 @@ export default {
       // console.log(this.result, "this.result");
     },
     changeInputValue(value) {
-      console.log(value, "inputvalue");
-      // 然后重新发请求修改 checkBox.op
+       // 中文两端家空格
+                // let p1=/([A-Za-z])((<[^<]*>)*[\u4e00-\u9fa5]+)/gi;
+                // value=value.replace(p1, "$1 $2");
+                // let p2=/([\u4e00-\u9fa5]+(<[^<]*>)*)([A-Za-z])/gi;
+                // value=value.replace(p2, "$1 $3");
+
+                  //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+                 let regz=/[\u4e00-\u9fa5]/gi;
+                 let reg=/\s+/;
+                 let ch=value.match(regz)?value.match(regz):[];
+                 let en=value.replace(regz,'');
+                 let arr=en.split(reg);
+                let arrName=Array.from(new Set([...arr,...ch]));
+                 if(value.replace(/(^\s*)/g,"")==''){
+                      for(let y=0; y<this.checkBox.op.length; y++){
+                          this.checkBox.op[y].show=true;
+                      }
+                }else {
+                for(let i=0; i<this.checkBox.op.length; i++){
+                      let splitList=this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
+                      let active=true;
+                      for(let k=0;k<arrName.length;k++){
+                           if(!splitList.includes(arrName[k].toLowerCase())){
+                               active=false;
+                           }
+                      }
+                      this.checkBox.op[i].show=active;
+                }
+                }
+      
     }
   }
 };
