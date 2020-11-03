@@ -134,6 +134,7 @@ export default {
     height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
+    border-right: none;
     .table-block {
       position: absolute;
       left: 0;
@@ -149,6 +150,7 @@ export default {
     }
   }
   .select-block {
+    // width: 1.411458rem;
     flex: 1;
     height: auto;
     padding: 0.078125rem;

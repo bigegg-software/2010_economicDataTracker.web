@@ -318,7 +318,7 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  x: this.$fz(0.15) * 73.4,
+                  x: this.$fz(0.15) * 73.6,
                   y: 0,
                   width: this.$fz(0.15) * 1.5,
                   height: this.$fz(0.15) * 50

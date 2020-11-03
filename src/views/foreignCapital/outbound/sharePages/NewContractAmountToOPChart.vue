@@ -352,7 +352,7 @@ export default {
     }
   }
   .select-block {
-    flex: 0;
+    flex: 1;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

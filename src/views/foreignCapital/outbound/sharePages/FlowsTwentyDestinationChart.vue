@@ -1,5 +1,5 @@
 <template>
-<!-- 中国对外直接投资流量按历年前20位国家chart -->
+  <!-- 中国对外直接投资流量按历年前20位国家chart -->
   <div class="flows-twenty-destination-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
@@ -9,22 +9,22 @@
     </div>
     <div class="select-block">
       <div class="frame">
-            <year  v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ChartBar from '@/components/charts/ChartBar'
-import Year from '@/components/timeFrame/Year'
+import ChartBar from "@/components/charts/ChartBar";
+import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
 export default {
   name: "flowsTwentyDestinationChart",
   data() {
     return {
-      showTimeFrame:false,
+      showTimeFrame: false,
       chartBar: {
         watermark: false,
         dataSources: "中国人民网",
@@ -45,17 +45,17 @@ export default {
         series: [
           {
             // name:'存量_xxxxx',
-            color:['#0C9AFF'],
+            color: ["#0C9AFF"],
             data: []
           }
         ]
       },
       option: {
-              ch: "年度",
-              en: "Yearly",
-              frame: "",
-              value: ""
-            }
+        ch: "年度",
+        en: "Yearly",
+        frame: "",
+        value: ""
+      }
     };
   },
   props: {
@@ -71,13 +71,13 @@ export default {
   },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
-    },
+  },
   async created() {
-     let res = await this.getMaxMinDate();
-     let arrmaxmin = res.split("_");
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
     await this.getChartsData({
-      ascending:'rank', //排名升序
-      limit:20,
+      ascending: "rank", //排名升序
+      limit: 20,
       year: Number(arrmaxmin[1])
     });
   },
@@ -86,29 +86,31 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDITop20Outflow");
-        this.$set(this.option, 'frame', res);
+      this.$set(this.option, "frame", res);
       this.showTimeFrame = true;
       return res;
     },
-    async getChartsData(aug) {  //年份 获取数据
-      let {res} = await request.getFlowsTwentyDestinationChart(aug);
-      let Xname=[];
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getFlowsTwentyDestinationChart(aug);
+      let Xname = [];
       // 金额
-      let outflow=[];
-          res.forEach(item => {
-              Xname.push(item.country);
-              outflow.push(item.outflowMillion);
-          });
-          this.chartBar.xData=Xname;
-          this.chartBar.series[0].data=outflow;
+      let outflow = [];
+      res.forEach(item => {
+        console.log(item)
+        Xname.push(item.country);
+        outflow.push(item.outflowMillion);
+      });
+      this.chartBar.xData = Xname;
+      this.chartBar.series[0].data = outflow;
     },
     async yearChange(year) {
-          this.option.value=year;
-          await this.getChartsData({
-            ascending:'rank',
-            limit:20,
-            year: Number(year)
-          });
+      this.option.value = year;
+      await this.getChartsData({
+        ascending: "rank",
+        limit: 20,
+        year: Number(year)
+      });
     }
   }
 };
@@ -139,7 +141,7 @@ export default {
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.411458rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

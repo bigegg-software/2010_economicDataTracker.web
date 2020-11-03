@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="select-block">
-      <year :option="option" :value="option.value" @change="yearChange"></year>
+      <year  v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
     </div>
   </div>
 </template>
@@ -16,11 +16,14 @@
 <script>
 import TableChart from "@/components/charts/TableChart";
 import Year from "@/components/timeFrame/Year";
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   components: { TableChart, Year },
   name: "topTenProjectToOPChart",
   data() {
     return {
+      showTimeFrame:false,
       totalData: {
         title: {
           ch: "前十项目",
@@ -44,171 +47,17 @@ export default {
             width: "35%"
           }
         },
-        tableData: [
-          {
-            key: {
-              text: "1",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "2",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "3",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "4",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "5",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "6",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "7",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          },
-          {
-            key: {
-              text: "8",
-              width: "10%"
-            },
-            country: {
-              text: "埃及_Egypt",
-              width: "20%"
-            },
-            project: {
-              text:
-                "新首都 2 期建设项目_New capital phase 2 construction project",
-              width: "35%"
-            },
-            enterprise: {
-              text: "中国建筑集团有限公司_China Construction Group Co., Ltd",
-              width: "35%"
-            }
-          }
-        ],
+        tableData: [],
         updatedDate: {
           ch: "2020-10-23",
           en: "October 23,2020"
         }
       },
-
       option: {
         ch: "年度",
         en: "Yearly",
-        frame: "1990_2020",
-        value: "1990"
+        frame: "",
+        value: ""
       }
     };
   },
@@ -218,9 +67,58 @@ export default {
       default: false
     }
   },
+  mounted() {},
+  async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      ascending: "rank", //排名升序
+      limit: 20,
+      year: Number(arrmaxmin[1])
+    });
+  },
   methods: {
-    yearChange(year) {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("ForeignContractNewConRank");
+      this.$set(this.option, "frame", res);
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getForeignContractNewConRank(aug);
+      this.totalData.tableData=[]
+      res.forEach(item => {
+          this.totalData.tableData.push(
+            {
+            key: {
+              text: item.rank+'_',
+              width: "10%"
+            },
+            country: {
+              text: item.country+'_3424',
+              width: "20%"
+            },
+            project: {
+              text:item.project+'_3424',
+              width: "35%"
+            },
+            enterprise: {
+              text: item.contractingEnterprise+'_3424',
+              width: "35%"
+            }
+          }
+          );
+      });
+    },
+    async yearChange(year) {
       this.option.value = year;
+      await this.getChartsData({
+        ascending: "rank",
+        // limit: 20,
+        year: Number(year)
+      });
     }
   }
 };
@@ -235,6 +133,7 @@ export default {
     height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
+    border-right: none;
     .table-block {
       position: absolute;
       left: 0;
@@ -246,11 +145,12 @@ export default {
     }
     .container {
       width: 100%;
-      height:  100%;
+      height: 100%;
     }
   }
   .select-block {
     flex: 1;
+    width: 1.411458rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
