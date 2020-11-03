@@ -14,6 +14,15 @@ export default {
   props: {
     totalData: {}
   },
+  watch: {
+    totalData: {
+      // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
+      handler(newName, oldName) {
+        this.drawPie();
+      },
+      deep: true // 表示开启深度监听
+    }
+  },
   onLoad() {},
   mounted() {
     this.$EventBus.$on("resize", () => {

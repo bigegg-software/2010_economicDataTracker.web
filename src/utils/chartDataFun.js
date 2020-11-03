@@ -58,7 +58,7 @@ export default {
                 let index=sourceData.nameArr.indexOf(range[i]);
                 newDate.push(sourceData.numArr[index]);
             }else{
-                newDate.push(0);
+                newDate.push('-');
             }
         }
         return newDate;

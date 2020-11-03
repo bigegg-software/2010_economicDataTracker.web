@@ -66,9 +66,12 @@ export default {
       for (let j = 0; j < this.options.series.length; j++) {
         series.push(
           {
+            symbol:'circle',//拐点样式
+            symbolSize: 4,//拐点大小
+            color:this.options.series[j].color,
             name: this.options.series[j].name,
             type: "line",
-            showSymbol: false, //是否显示拐点
+            showSymbol: true, //是否显示拐点
             smooth: true, //平滑曲线显示
             lineStyle: {
               color: this.options.series[j].color,
@@ -77,10 +80,13 @@ export default {
             data: this.options.series[j].data
           },
           {
+            symbol:'circle',//拐点样式
+            symbolSize: 4,//拐点大小
+            color:this.options.series[j].color,
             name: this.options.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
-            showSymbol: false,
+            showSymbol: true,
             lineStyle: {
               color: this.options.series[j].color,
               width: 1.5,
