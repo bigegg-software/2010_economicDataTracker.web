@@ -203,14 +203,13 @@ getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,file
 
         return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa};
 },///
-getStocksByDestinationChartsData:async function(params) {//获取中国对外直接投资存量按国家和地区统计-按国家和地区统计  //折线图
-    let res=await this.manualQueryData('FDIStock',params);
+getStocksByDestinationChartsData:async function(tableName,params) {//获取中国对外直接投资流量|存量按国家和地区统计-按国家和地区统计  //折线图
+    let res=await this.manualQueryData(tableName,params);
     let allresult=[];
      res = res.map(item=>{
          item=item.toJSON()
          return item;
      })
-     console.log(res)
      if(params.containedIn&&params.containedIn.country){
          for (let vk = 0; vk < params.containedIn.country.length; vk++) {
                 const element = params.containedIn.country[vk];

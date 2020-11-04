@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       timer: null,
+      randomColor:[],
       showTimeFrame: false,
       USD: {
         id: "USD",
@@ -50,18 +51,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量按国家和地区统计", en: "China’s FDI outflows by destination" },
         xData: [],
-        series: [
-          // {
-          //   name: "澳大利亚_North America",
-          //   color: "#6AA3CD",
-          //   data: []
-          // },
-          // {
-          //   name: "俄罗斯_Oceania",
-          //   color: "#FF0000",
-          //   data: []
-          // }
-        ]
+        series: []
       },
       result: [],
       checkBox: {
@@ -92,6 +82,7 @@ export default {
     };
   },
   async created() {
+      this.randomColor=await chartDataFun.randomColor(221);
       await this.getAllCountryName();
      let res = await this.getMaxMinDate();
    let arrmaxmin = res.split("_");
@@ -182,15 +173,13 @@ export default {
         this.$set(this.USD.series,i,{
                 name:`${this.result[i].ch}_${this.result[i].en}`,
                 data:data['stocks'],
-                color:'#666'
+                color:this.randomColor[i]
                 })
       }
-      console.log(this.USD.series)
       //
     },
     async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getStocksByDestinationChartsData(aug);
-      console.log(res)
+      let {res} = await request.getStocksByDestinationChartsData('FDIStock',aug);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

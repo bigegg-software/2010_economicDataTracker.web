@@ -62,5 +62,15 @@ export default {
             }
         }
         return newDate;
+    },
+    randomColor(num) { //随机生成颜色
+        let colors=[]
+            for (let i = 0; i < num; i++) {
+                let r = Math.floor(Math.random()*255)
+                let g = Math.floor(Math.random()*255)
+                let b = Math.floor(Math.random()*255)
+                colors.push("rgb("+r+','+g+','+b+")");
+            }
+            return colors;
     }
 }
