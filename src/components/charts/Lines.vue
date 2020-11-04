@@ -66,6 +66,7 @@ export default {
       for (let j = 0; j < this.options.series.length; j++) {
         series.push(
           {
+            // connectNulls: true,
             symbol:'circle',//拐点样式
             symbolSize: 4,//拐点大小
             color:this.options.series[j].color,
@@ -80,6 +81,7 @@ export default {
             data: this.options.series[j].data
           },
           {
+            // connectNulls: true,
             symbol:'circle',//拐点样式
             symbolSize: 4,//拐点大小
             color:this.options.series[j].color,
@@ -201,7 +203,7 @@ export default {
                   params[i].seriesName.split("_")[1]
                 }</div>`;
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value==''?'-':params[i].value}</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;

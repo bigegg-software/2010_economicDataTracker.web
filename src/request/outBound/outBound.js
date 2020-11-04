@@ -19,6 +19,16 @@ export default {
                 q.ascending('year')
                 q.addAscending(['month'])
             }
+            if(params.equalTo){ //等值
+                for(let u in params.equalTo){
+                    q.equalTo(u,params.equalTo[u])
+                }
+            }
+            if(params.containedIn){ //包含值
+                for(let c in params.containedIn){
+                    q.containedIn(c,params.containedIn[c])
+                }
+            }
             let res = await q.find()
             return res;
     },
@@ -195,11 +205,24 @@ getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,file
 },///
 getStocksByDestinationChartsData:async function(params) {//获取中国对外直接投资存量按国家和地区统计-按国家和地区统计  //折线图
     let res=await this.manualQueryData('FDIStock',params);
+    let allresult=[];
      res = res.map(item=>{
          item=item.toJSON()
-         return item
+         return item;
      })
-     return {res};
+     console.log(res)
+     if(params.containedIn&&params.containedIn.country){
+         for (let vk = 0; vk < params.containedIn.country.length; vk++) {
+                const element = params.containedIn.country[vk];
+                let vkData=res.filter(it=>{
+                    return it.country==element;
+                })
+                console.log(vkData)
+                allresult[vk]=vkData;
+            }
+     }
+     
+     return {res:allresult};
 },
 // 柱状图查询  饼图
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  

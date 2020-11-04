@@ -51,16 +51,16 @@ export default {
         title: { ch: "中国对外直接投资流量按国家和地区统计", en: "China’s FDI outflows by destination" },
         xData: [],
         series: [
-          {
-            name: "澳大利亚_North America",
-            color: "#6AA3CD",
-            data: []
-          },
-          {
-            name: "俄罗斯_Oceania",
-            color: "#FF0000",
-            data: []
-          }
+          // {
+          //   name: "澳大利亚_North America",
+          //   color: "#6AA3CD",
+          //   data: []
+          // },
+          // {
+          //   name: "俄罗斯_Oceania",
+          //   color: "#FF0000",
+          //   data: []
+          // }
         ]
       },
       result: [],
@@ -95,9 +95,14 @@ export default {
       await this.getAllCountryName();
      let res = await this.getMaxMinDate();
    let arrmaxmin = res.split("_");
+   this.options.yearly.list.start.value=arrmaxmin[0];
+   this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth:true,
       type: "yearly",
+      containedIn:{
+            country:this.result.map((item)=>{return item.ch})
+          },
       start: Number(arrmaxmin[0]),
       end: Number(arrmaxmin[1])
     });
@@ -107,13 +112,22 @@ export default {
     async getAllCountryName() {
        let res= await request.getAllCountryName();
           this.checkBox.op=res;
+          res[0].checked=true;
+          res[1].checked=true;
+          this.result=res.slice(0,2);
     },
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
+      let containedIn= this.result.map((item)=>{
+               return item.ch
+      });
         await this.getChartsData({
           noMonth:true,
           type,
+          containedIn:{
+            country:containedIn
+          },
           start: Number(start.value),
           end: Number(end.value)
         });
@@ -157,22 +171,30 @@ export default {
       dataAttr,
       range
     ) {
-      let data = await this.getItemData(
-        res,
+      console.log(res)
+      for(let i=0;i<res.length;i++) {
+          let data = await this.getItemData(
+        res[i],
         XNameAttr,
         dataAttr,
         range
       );
-      this.USD.series[0]["data"] = data.outward_FDI_stocks;
-      
+        this.$set(this.USD.series,i,{
+                name:`${this.result[i].ch}_${this.result[i].en}`,
+                data:data['stocks'],
+                color:'#666'
+                })
+      }
+      console.log(this.USD.series)
       //
     },
     async getChartsData(aug) {  //改变横轴 获取数据
       let {res} = await request.getStocksByDestinationChartsData(aug);
+      console.log(res)
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["outward_FDI_stocks"];
+      let dataAttr = ["stocks"];
       let XNameAttr = "year";
       this.USD.xData = range;
       // 获取当前页面所有线
@@ -212,25 +234,21 @@ export default {
       }
     },
     // 下拉多选框
-    changeOption(op) {
+    async changeOption(op) {
       // 判断存不存在 存在就删掉， 不存在就加进去
-      let index = this.result.findIndex(v => v.en == op.en);
+      let index = await this.result.findIndex(v => v.en == op.en);
       if (index == -1) {
         this.result.push(op);
       } else {
         this.result.splice(index, 1);
       }
 
-      let i = this.checkBox.op.findIndex(v => v.en == op.en);
+      let i = await this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      // console.log(this.result, "this.result");
+      this.USD.series=[];
+      await this.mainGetChartsData('yearly');
     },
-    changeInputValue(value) {
-       // 中文两端家空格
-                // let p1=/([A-Za-z])((<[^<]*>)*[\u4e00-\u9fa5]+)/gi;
-                // value=value.replace(p1, "$1 $2");
-                // let p2=/([\u4e00-\u9fa5]+(<[^<]*>)*)([A-Za-z])/gi;
-                // value=value.replace(p2, "$1 $3");
+    async changeInputValue(value) {
 
                   //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
                  let regz=/[\u4e00-\u9fa5]/gi;
@@ -239,18 +257,24 @@ export default {
                  let en=value.replace(regz,'');
                  let arr=en.split(reg);
                 let arrName=Array.from(new Set([...arr,...ch]));
+                // 去掉数组中的空字符串
+                for(var i = 0;i<arrName.length;i++){
+                    if(arrName[i]==''||arrName[i]==null||typeof(arrName[i])==undefined){
+                        arrName.splice(i,1);
+                        i=i-1;
+                    }
+                }
                  if(value.replace(/(^\s*)/g,"")==''){
                       for(let y=0; y<this.checkBox.op.length; y++){
                           this.checkBox.op[y].show=true;
                       }
                 }else {
-                  arrName=arrName.shift();
                 for(let i=0; i<this.checkBox.op.length; i++){
-                      let splitList=this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
+                      let splitList= await this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
+                      console.log(splitList)
                       let active=true;
                       for(let k=0;k<arrName.length;k++){
                            if(!splitList.includes(arrName[k].toLowerCase())){
-                             console.log(666)
                                active=false;
                            }
                       }
