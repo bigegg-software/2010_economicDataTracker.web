@@ -3,7 +3,7 @@ export default {
     // 获取年度最大值最小值
     getMaxMinDate: async  (tableName)=> {
         let res = await Parse.Cloud.run('getMinMaxYears', {tableName});
-        console.log(res)
+        // console.log(res)
         if (res.code == 200) {
             return `${res.data[0].min}_${res.data[0].max}`
         }
@@ -51,7 +51,7 @@ export default {
          });
     },
     completionDate:async (sourceData, range)=> {  //补全数据
-        console.log(sourceData,range)
+        // console.log(sourceData,range)
         let newDate = [];
         for (let i = 0; i < range.length; i++) {
             if(sourceData.nameArr.indexOf(range[i])>-1){

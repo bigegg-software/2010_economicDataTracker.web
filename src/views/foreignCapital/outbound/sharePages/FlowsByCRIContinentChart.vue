@@ -9,7 +9,7 @@
     </div>
     <div class="select-block">
       <div class="year-select">
-        <Yearly :option="option" :value="option.value" @change="changeValue"></Yearly>
+        <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></Yearly>
       </div>
       <SelectRadio
         :option="selectOption"
@@ -25,6 +25,8 @@
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 
 export default {
    components: {
@@ -38,6 +40,7 @@ export default {
   name: "flowsByCRIContinentChart",
    data() {
     return {
+      showTimeFrame: false,
       totalData: {
         dataSources: "中国人民网",
         title: {
@@ -50,25 +53,15 @@ export default {
         },
         seriesData: {
           all: "全部_ALL",
-          data: [
-            { name: "树、插花_xxfgdbbfx", value: 292 },
-            { name: "蔬菜_vffxfbdx", value: 234 },
-            { name: "水果_xbdfv", value: 75 },
-            { name: "咖啡茶_dvfxxx", value: 251 },
-            { name: "谷物_ffff", value: 452 },
-            { name: "淀粉_ewwwwwwwwwwww", value: 90 },
-            { name: "含油子仁果实_dscxx", value: 145 },
-            { name: "树胶树脂_dscdx", value: 120 },
-            { name: "编结植物_xsdvx", value: 20 }
-          ]
+          data: []
         },
         updatedDate:"2020-10-23", 
       },
       option: {
         ch: "年度",
         en: "yearly",
-        frame: "1990_2020",
-        value: "2020"
+        frame: "",
+        value: ""
       },
       selectOption: {
         ch: "大洲",
@@ -80,27 +73,31 @@ export default {
         op: [
           {
             ch: "非洲",
-            en: "feizhou"
+            en: "Africa"
           },
           {
             ch: "亚洲",
-            en: "yazhou"
+            en: "Asia"
           },
           {
             ch: "南美洲",
-            en: "nanmeizhou"
+            en: "South_America"
           },
           {
             ch: "欧洲",
-            en: "ouzhou"
+            en: "Europe"
           },
           {
             ch: "北美洲",
-            en: "beimeizhou"
+            en: "North_America"
           },
           {
             ch: "南极洲",
-            en: "nanjizhou"
+            en: "Antarctica"
+          },
+          {
+            ch: "大洋洲",
+            en: "Oceania"
           }
         ]
       }
@@ -114,12 +111,53 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
-  methods: {
-      changeValue(value) {
-      this.option.value = value;
+  async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      year: Number(arrmaxmin[1]),
+      equalTo: {
+        continent: this.selectOption.value.ch
+      }
+    });
+    this.option.value = Number(arrmaxmin[1]);
+  },
+   methods: {
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIOutflowDestination");
+      this.$set(this.option, "frame", res);
+      this.showTimeFrame = true;
+      return res;
     },
-    changeSelect(item) {
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getFDIOutflowDestination(aug);
+      this.totalData.seriesData.data = [];
+      res.forEach((item, index) => {
+        this.$set(this.totalData.seriesData.data, index, {
+          name: item.country + "_qqww",
+          value: item.outflow
+        });
+      });
+    },
+    async yearChange(year) {
+      this.option.value = year;
+      await this.getChartsData({
+        year: Number(year),
+        equalTo: {
+          continent: this.selectOption.value.ch
+        }
+      });
+    },
+    async changeSelect(item) {
       this.selectOption.value = item;
+      await this.getChartsData({
+        year: Number(this.option.value),
+        equalTo: {
+          continent: item.ch
+        }
+      });
     }
   }
 };

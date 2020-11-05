@@ -315,8 +315,27 @@ getForeignContractNewConRank: async function (params) {
         return item;
     });
     return { res };
+},
+ //中国对外直接投资存量按国家和地区统计
+ getFDIStock: async function (params) {
+    let res = await this.barQueryData('FDIStock', params);
+    res = res.map(item => {
+        item = item.toJSON();
+        item.stocksMillion = item.stocks / 100;
+        return item;
+    });
+    return { res };
+},
+//中国对外直接投资流量按国家和地区统计
+getFDIOutflowDestination: async function (params) {
+    let res = await this.barQueryData('FDIOutflowDestination', params);
+    res = res.map(item => {
+        item = item.toJSON();
+        item.stocksMillion = item.stocks / 100;
+        return item;
+    });
+    return { res };
 }
-
 
 }
 
