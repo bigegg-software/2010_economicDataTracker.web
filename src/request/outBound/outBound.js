@@ -261,10 +261,8 @@ getTopTenCountriesToOPChart:async function(params) {
     let res=await this.barQueryData('ForeignContractAnnualRank',params);
     res = res.map(item=>{
         item=item.toJSON();
-        // 美元新签合同额转百万美元
-        item.newConAmountMillion=item.newConAmount*100;
-        // 美元完成营业额转百万美元
-        item.completedAmountMillion=item.completedAmount*100;
+        // 美元新签/完成合同额转百万美元
+        item.amountMillion=item.amount*100;
         return item;
     });
     return {res};

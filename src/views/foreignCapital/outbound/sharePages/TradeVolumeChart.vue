@@ -90,6 +90,8 @@ export default {
   async created() {
    let res = await this.getMaxMinDate();
    let arrmaxmin = res.split("_");
+   this.options.yearly.list.start.value=arrmaxmin[0];
+   this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
