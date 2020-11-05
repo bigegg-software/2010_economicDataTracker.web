@@ -9,7 +9,7 @@
     </div>
     <div class="select-block">
       <div class="year-select">
-        <Yearly :option="option" :value="option.value" @change="changeValue"></Yearly>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <SelectRadio
         :option="selectOption"
@@ -22,13 +22,15 @@
 
 <script>
 import TreemapChart from "@/components/charts/Treemap";
-import Yearly from "@/components/timeFrame/Year";
+import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 
 export default {
   components: {
     TreemapChart,
-    Yearly,
+    Year,
     SelectRadio
   },
   props: {
@@ -37,10 +39,11 @@ export default {
   name: "stocksByCRIContinentChart",
   data() {
     return {
+      showTimeFrame: false,
       totalData: {
-        dataSources: "中国人民网",
+        dataSources: "中1111国人民网",
         title: {
-          ch: "按各洲内国家/地区统计",
+          ch: "按各洲内国222家/地区统计",
           en: "Statistics by continent country / Region"
         },
         yName: {
@@ -49,75 +52,51 @@ export default {
         },
         seriesData: {
           all: "全部_ALL",
-          data: [
-            { name: "树、插花_xxfgdbbfx", value: 292 },
-            { name: "蔬菜_vffxfbdx", value: 234 },
-            { name: "水果_xbdfv", value: 75 },
-            { name: "咖啡茶_dvfxxx", value: 251 },
-            { name: "谷物_ffff", value: 452 },
-            { name: "淀粉_ewwwwwwwwwwww", value: 90 },
-            { name: "含油子仁果实_dscxx", value: 145 },
-            { name: "树胶树脂_dscdx", value: 120 },
-            { name: "编结植物_xsdvx", value: 20 },
-            { name: "树、插花_xxfgbfx", value: 292 },
-            { name: "蔬菜_vffxdx", value: 234 },
-            { name: "水果_xfv", value: 75 },
-            { name: "咖啡茶_dvxx", value: 251 },
-            { name: "谷物_ff", value: 452 },
-            { name: "淀粉_ewwwwwwwww", value: 90 },
-            { name: "含油子仁果实_dscx", value: 145 },
-            { name: "树胶树脂_dscx", value: 120 },
-            { name: "编结植物_xsvx", value: 20 },
-            { name: "树、插花_xxgdbbfx", value: 292 },
-            { name: "蔬菜_vffxfdx", value: 234 },
-            { name: "水果_xbfv", value: 75 },
-            { name: "咖啡茶_dfxxx", value: 251 },
-            { name: "谷物_ff", value: 452 },
-            { name: "淀粉_ewwwwwwwwwww", value: 90 },
-            { name: "含油子仁果实_dscx", value: 145 },
-            { name: "树胶树脂_dsdx", value: 120 },
-            { name: "编结植物_xsvx", value: 20 }
-          ]
+          data: []
         },
         updatedDate: "2020-10-23"
       },
       option: {
         ch: "年度",
         en: "yearly",
-        frame: "1990_2020",
-        value: "2020"
+        frame: "",
+        value: ""
       },
       selectOption: {
         ch: "大洲",
         en: "xxxxxx",
         value: {
           ch: "亚洲",
-          en: "yazhou"
+          en: "Asia"
         },
         op: [
           {
             ch: "非洲",
-            en: "yazhou"
+            en: "Africa"
           },
           {
             ch: "亚洲",
-            en: "yazhou"
+            en: "Asia"
           },
           {
             ch: "南美洲",
-            en: "yazhou"
+            en: "South_America"
           },
           {
             ch: "欧洲",
-            en: "yazhou"
+            en: "Europe"
           },
           {
             ch: "北美洲",
-            en: "yazhou"
+            en: "North_America"
           },
           {
             ch: "南极洲",
-            en: "yazhou"
+            en: "Antarctica"
+          },
+          {
+            ch: "大洋洲",
+            en: "Oceania"
           }
         ]
       }
@@ -131,12 +110,53 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
+  async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      year: Number(arrmaxmin[1]),
+      equalTo: {
+        continent: this.selectOption.value.ch
+      }
+    });
+    this.option.value = Number(arrmaxmin[1]);
+  },
   methods: {
-    changeValue(value) {
-      this.option.value = value;
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIStock");
+      this.$set(this.option, "frame", res);
+      this.showTimeFrame = true;
+      return res;
     },
-    changeSelect(item) {
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getFDIStock(aug);
+      this.totalData.seriesData.data = [];
+      res.forEach((item, index) => {
+        this.$set(this.totalData.seriesData.data, index, {
+          name: item.country + "_qqww",
+          value: item.stocks
+        });
+      });
+    },
+    async yearChange(year) {
+      this.option.value = year;
+      await this.getChartsData({
+        year: Number(year),
+        equalTo: {
+          continent: this.selectOption.value.ch
+        }
+      });
+    },
+    async changeSelect(item) {
       this.selectOption.value = item;
+      await this.getChartsData({
+        year: Number(this.option.value),
+        equalTo: {
+          continent: item.ch
+        }
+      });
     }
   }
 };

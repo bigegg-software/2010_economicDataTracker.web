@@ -56,6 +56,17 @@ getForeignInvestTaxChartsData:async function(params) {// 外商投资企业税�
      })
      return {res};
 },
+//主要对华投资国家/地区
+getMajorInvestors: async function (params) {
+    let res = await this.manualQueryData('MajorInvestors', params);
+    res = res.map(item => {
+        item = item.toJSON();
+        item.stocksMillion = item.stocks / 100;
+        return item;
+    });
+    return { res };
+},
+
 
 
 }
