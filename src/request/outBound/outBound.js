@@ -241,6 +241,16 @@ barQueryData:async function (tableName,params){  //初始去数据库查询数�
         if(params.type){
             q.equalTo('type',params.type); 
          }
+         if(params.equalTo){ //等值
+            for(let u in params.equalTo){
+                q.equalTo(u,params.equalTo[u])
+            }
+        }
+        if(params.containedIn){ //包含值
+            for(let c in params.containedIn){
+                q.containedIn(c,params.containedIn[c])
+            }
+        }
     let res = await q.find();
     return res;
 },
