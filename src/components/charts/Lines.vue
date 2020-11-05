@@ -301,8 +301,18 @@ export default {
             max: Max2,
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
+            name: [
+              this.options.y2Name?`{div|${this.options.y2Name.ch}}`:'',
+              this.options.y2Name?`{div|${this.options.y2Name.en}}`:''
+            ].join("\n"),
             nameTextStyle: {
-              color: "#333"
+              rich: {
+                div: {
+                  color: "#333",
+                  fontSize: this.$fz(0.14),
+                  padding: [2, 0]
+                }
+              }
             },
             splitLine: {
               show: true,
@@ -322,7 +332,7 @@ export default {
             },
             axisLabel: {
               show: true,
-              formatter: "{value} %", //右侧Y轴文字显示
+              formatter: "{value}"+`${this.options.unit2Symbol==''||this.options.unit2Symbol?' '+this.options.unit2Symbol:' %'}`, //右侧Y轴文字显示
               textStyle: {
                 color: "#333",
                 fontSize: this.$fz(0.14)

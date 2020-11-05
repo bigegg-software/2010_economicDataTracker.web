@@ -63,6 +63,21 @@ barQueryData:async function (tableName,params){  //初始去数据库查询数�
     let res = await q.find();
     return res;
 },
+getAllCountryName:async function() {  // 获取所有国家
+    let q = new Parse.Query('Country');
+    q.limit(500);
+    let res=await q.find();
+    res = res.map( item=>{
+        item=item.toJSON();
+        item.ch=item.abbreviationZH;
+        item.en=item.abbreviationEN;
+        item.searchArr= [...item.abbreviationZH.split(''),...item.abbreviationEN.split(' ')];
+        item.checked=false;
+        item.show=true;
+        return item;
+    });
+    return res;
+},
     getInflowsChartsData:async function(params) {// 实际使用外资（实际使用外资）  折线图
            let type = params.type;
            let res=await this.manualQueryData('InwardFDI',params);
@@ -96,6 +111,28 @@ getForeignInvestTaxChartsData:async function(params) {// 外商投资企业税�
          return item
      })
      return {res};
+},
+getStateDirectInvestInChinaChartData:async function(tableName,params,filed) {//获取主要对话投资国家/地区-国家/地区对华直接投资  //折线图
+    let res=await this.manualQueryData(tableName,params);
+    let allresult=[];
+     res = res.map(item=>{
+         item=item.toJSON()
+         return item;
+     })
+     if(params.containedIn&&params.containedIn.country){
+         for (let vk = 0; vk < params.containedIn.country.length; vk++) {
+                const element = params.containedIn.country[vk];
+                let vkData=res.filter(it=>{
+                    console.log(it)
+                           it[filed+'Million']=Number(it[filed])/100;
+                    return it.country==element;
+                })
+                console.log(vkData)
+                allresult[vk]=vkData;
+            }
+     }
+     
+     return {res:allresult};
 },
 
 

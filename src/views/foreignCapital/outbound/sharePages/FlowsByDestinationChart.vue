@@ -172,18 +172,18 @@ export default {
       );
         this.$set(this.USD.series,i,{
                 name:`${this.result[i].ch}_${this.result[i].en}`,
-                data:data['outflow'],
+                data:data['outflowMillion'],
                 color:this.randomColor[i]
                 })
       }
       //
     },
     async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getStocksByDestinationChartsData('FDIOutflowDestination',aug);
+      let {res} = await request.getFlowsAndStocksByDestinationChartsData('FDIOutflowDestination',aug,'outflow');
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["outflow"];
+      let dataAttr = ["outflowMillion"];
       let XNameAttr = "year";
       this.USD.xData = range;
       // 获取当前页面所有线
