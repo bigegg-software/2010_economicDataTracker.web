@@ -203,7 +203,7 @@ export default {
 
         return { Asia, Europe, Oceania, North_America, Antarctica, South_America, Africa };
     },///
-    getStocksByDestinationChartsData: async function (tableName, params) {//获取中国对外直接投资流量|存量按国家和地区统计-按国家和地区统计  //折线图
+    getFlowsAndStocksByDestinationChartsData: async function (tableName, params, filed) {//获取中国对外直接投资流量|存量按国家和地区统计-按国家和地区统计  //折线图
         let res = await this.manualQueryData(tableName, params);
         let allresult = [];
         res = res.map(item => {
@@ -214,6 +214,8 @@ export default {
             for (let vk = 0; vk < params.containedIn.country.length; vk++) {
                 const element = params.containedIn.country[vk];
                 let vkData = res.filter(it => {
+                    console.log(it)
+                    it[filed + 'Million'] = Number(it[filed]) / 100;
                     return it.country == element;
                 })
                 console.log(vkData)
@@ -336,6 +338,6 @@ export default {
         });
         return { res };
     },
-    
+
 }
 

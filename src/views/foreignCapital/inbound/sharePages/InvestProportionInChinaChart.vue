@@ -132,7 +132,6 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getMajorInvestors(aug);
-      console.log(res)
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
