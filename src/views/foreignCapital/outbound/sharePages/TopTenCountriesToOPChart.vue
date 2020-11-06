@@ -79,18 +79,18 @@ export default {
         ch: "类型",
         en: "xxxxxx",
         value: {
-          id:'newRank',
+          id:1,
           ch: "新签合同额",
           en: "Total value of new contract"
         },
         op: [
           {
-            id:'newRank',
+            id:1,
             ch: "新签合同额",
             en: "Total value of new contract"
           },
           {
-          id:'completedRank',
+          id:2,
           ch: "完成营业额",
           en: "Total value of new contract y-o-y growth "
         }
@@ -107,8 +107,10 @@ export default {
   async created() {
      let res = await this.getMaxMinDate();
      let arrmaxmin = res.split("_");
+     this.option.value=arrmaxmin[1];
     await this.getChartsData({
-      ascending:'newRank',
+      type:1,
+      ascending:'rank',
       limit:10,
       year: Number(arrmaxmin[1])
     });
@@ -134,27 +136,22 @@ export default {
       let {res} = await request.getTopTenCountriesToOPChart(aug);
       let Xname=[];
       // 新签合同额,完成营业额，新签合同额同比，完成营业额同比
-      let newConAmount=[],completedAmount=[],newConAmountYOY=[],completedAmountYOY=[];
+      let amount=[],amountYOY=[];
           res.forEach(item => {
-              Xname.push(item.country);
-              newConAmount.push(item.newConAmountMillion);
-              completedAmount.push(item.completedAmountMillion);
-              newConAmountYOY.push(item.newConAmountYOY);
-              completedAmountYOY.push(item.completedAmountYOY);
+              Xname.push(item.country+'\n'+item.countryEn);
+              amount.push(item.amountMillion);
+              amountYOY.push(item.amountYOY);
           });
           this.chartBar.xData=Xname;
-          if(this.selectOption.value.id=='newRank'){
-              this.chartBar.series[0].data=newConAmount;
-              this.chartBar.series[0].yearOnYear=newConAmountYOY;
-            }else if(this.selectOption.value.id=='completedRank'){
-              this.chartBar.series[0].data=completedAmount;
-              this.chartBar.series[0].yearOnYear=completedAmountYOY;
-            }
+              this.chartBar.series[0].data=amount;
+              this.chartBar.series[0].yearOnYear=amountYOY;
+            
     },
     async yearChange(year) {
           this.option.value=year;
           await this.getChartsData({
-            ascending:this.selectOption.value.id,
+            type:this.selectOption.value.id,
+            ascending:'rank',
             limit:10,
             year: Number(year)
           });
@@ -177,7 +174,8 @@ export default {
     async changeRadioSelect(item) {
       this.selectOption.value = item;
           await this.getChartsData({
-            ascending:item.id,
+            type:item.id,
+            ascending:'rank',
             limit:10,
             year: Number(this.option.value)
           });

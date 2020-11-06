@@ -68,6 +68,7 @@ export default {
   async created() {
      let res = await this.getMaxMinDate();
      let arrmaxmin = res.split("_");
+     this.option.value=arrmaxmin[1];
     await this.getChartsData({
       type:2,
       descending:'destinationPercent', //比重
