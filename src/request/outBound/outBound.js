@@ -335,6 +335,17 @@ getFDIOutflowDestination: async function (params) {
         return item;
     });
     return { res };
+},
+
+//中国对主要经济体投资按行业统计
+getFDIMajorEconomiesIndustry: async function (params) {
+    let res = await this.barQueryData('FDIMajorEconomiesIndustry', params);
+    res = res.map(item => {
+        item = item.toJSON();
+        // item.stocksMillion = item.stocks / 100;
+        return item;
+    });
+    return { res };
 }
 
 }

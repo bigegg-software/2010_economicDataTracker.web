@@ -25,7 +25,9 @@
 <script>
 import ChartBar from '@/components/charts/ChartBar'
 import Year from '@/components/timeFrame/Year'
+import request from "@/request/outBound/outBound";
 import SelectRadio from "@/components/select/SelectRadio";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   name: "economyByIndustryChart",
   data() {
@@ -66,16 +68,16 @@ export default {
         ch: "行业",
         en: "xxxxxx",
         value: {
-          ch: "东盟",
+          ch: "欧盟",
           en: "dongmeng"
         },
         op: [
           {
-          ch: "东盟",
+          ch: "欧盟",
           en: "dongmeng"
         },
         {
-          ch: "欧洲",
+          ch: "亚太经合组织",
           en: "ouzhou"
         }
         ]
@@ -96,13 +98,64 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
+  async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    console.log("arrmaxmin",arrmaxmin,this.selectOption.value.ch)
+    await this.getChartsData({
+      equalTo: {
+        economies: this.selectOption.value.ch
+      },
+      limit: 20,
+      year: Number(arrmaxmin[1])
+    });
+    this.option.value=arrmaxmin[1];
+  },
   components:{ChartBar,Year,SelectRadio},
   methods: {
-    yearChange(year) {
-          this.option.value=year;
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIMajorEconomiesIndustry");
+      this.$set(this.option, "frame", res);
+      return res;
     },
-    changeSelect(item) {
+    async yearChange(year) {
+        this.option.value=year;
+        console.log("yearChange",year)
+        await this.getChartsData({
+          equalTo: {
+            economies: this.selectOption.value.ch
+          },
+          limit: 20,
+          year: Number(this.option.value)
+        });
+    },
+    async changeSelect(item) {
       this.selectOption.value = item;
+      console.log("changeSelect",item,this.selectOption.value)
+      await this.getChartsData({
+        equalTo: {
+          economies: this.selectOption.value.ch
+        },
+        limit: 20,
+        year: Number(this.option.value)
+      });
+    },
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getFDIMajorEconomiesIndustry(aug);
+      console.log("======主要经济体======",res,aug)
+      let Xname = [];
+      // 金额
+      let outflow = [];
+      res.forEach(item => {
+        console.log(item)
+        Xname.push(`${item.industry}\n${item.industry}`);
+        outflow.push(item.outflows);
+      });
+
+      this.chartBar.xData = Xname;
+      this.chartBar.series[0].data = outflow;
     }
   }
 };
