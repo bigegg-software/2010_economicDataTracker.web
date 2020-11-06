@@ -72,5 +72,35 @@ export default {
                 colors.push("rgb("+r+','+g+','+b+")");
             }
             return colors;
+    },
+    industry:()=> { //固定的18个行业
+       let industrys=[
+            {en:'Education',ch:'教育'},
+            {en:'Manufacturing',ch:'制造业'},
+            {en:'Agriculture',ch:'农林牧渔业'},
+            {en:'Mining',ch:'采矿业'},
+            {en:'Energy',ch:'能源业'},
+            {en:'Construction',ch:'建筑业'},
+            {en:'Retail & wholesale',ch:'批发和零售业'},
+            {en:'Transportation',ch:'运输业'},
+            {en:'Hospitality',ch:'住宿和餐饮业'},
+            {en:'IT',ch:'信息技术'},
+            {en:'Finance',ch:'金融业'},
+            {en:'Real estate',ch:'房地产业'},
+            {en:'Business service',ch:'商务服务业'},
+            {en:'Science & technology',ch:'科学技术'},
+            {en:'Environment',ch:'环境'},
+            {en:'Residential services',ch:'居民服务业'},
+            {en:'Healthcare',ch:'医疗卫生'},
+            {en:'Entertainment ',ch:'文娱业'},
+            {en:'Social work',ch:'社会组织'}
+           ]
+           industrys = industrys.map( item=>{
+            item.searchArr= [...item.ch.split(''),...item.en.split(' ')];
+            item.checked=false;
+            item.show=true;
+            return item;
+        });
+           return industrys;
     }
 }

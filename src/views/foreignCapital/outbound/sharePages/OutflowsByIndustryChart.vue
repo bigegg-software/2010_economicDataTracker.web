@@ -12,7 +12,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -22,6 +22,15 @@
           @change="changeSelect(index)"
         ></check-box>
       </div>
+      <div class="status">
+        <select-check-box
+        v-if="status[0].checked"
+          :option="checkBox"
+          :result="result"
+          @change="changeOption"
+          @changeInputValue="changeInputValue"
+        ></select-check-box>
+      </div>
     </div>
   </div>
 </template>
@@ -30,9 +39,11 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
 import ChartBar from "@/components/charts/ChartBar";
 import LinesChart from "@/components/charts/Lines";
-
+import request from "@/request/outBound/outBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
     isShowTable: {}
@@ -41,46 +52,31 @@ export default {
     TimeFrame,
     CheckBox,
     ChartBar,
-    LinesChart
+    LinesChart,
+    SelectCheckBox
   },
   name: "outflowsChart",
   data() {
     return {
+      timer: null,
+      randomColor:[],
+      showTimeFrame:false,
       isShowLineChart: false,
       chartBar: {
         watermark: false,
         dataSources: "中国人民网",
         showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
+        grid:{ //图表上下左右的padding
+          top:'40%'
+        },
         title: {
           text: "中国对外直接投资流量行业分布情况",
           subtext: "China’s FDI outflows by industry"
         },
         xData: [
-          "租赁和商务服务业\nLeasing and business service",
-          "制造业\nManufacturing",
-          "科学研究和技术服务业\nScientific research and technological service",
-          "卫生和社会工作\nHealthcare and social work",
-          "电力/热力/燃气及水的生产和供应业\nElectricity, gas, etc",
-          "居民服务/修理和其他服务业\nResidential, repair and other services",
-          "交通运输/仓储和邮政业\nTransportation, storage and postal service"
         ],
-        series: [
-          {
-            // name:'存量_xxxxx',
-            color: [
-              "#0C9AFF",
-              "#434348",
-              "#90ed7d",
-              "#f7a35c",
-              "#61a0a8",
-              "#61a0a8",
-              "#91c7ae",
-              "#2f4554"
-            ],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
-          }
-        ]
+        series: []
       },
       USD: {
         id: "USD",
@@ -88,24 +84,14 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [
-          "2011",
-          "2012",
-          "2013",
-          "2014",
-          "2015",
-          "2016",
-          "2017",
-          "2018",
-          "2019",
-          "2020"
         ],
         series: [
-          {
-            name: "中国对外全行业直接投资_xxx",
-            color: "#6AA3CD",
-            data: [420, 380, 480, 350, 290, 380, 300, 520, 360, 500],
-            yearOnYear: [1, 2.8, 1, -1, -1.2, 5, 4, 8, 7, 6]
-          }
+          // {
+          //   name: "中国对外全行业直接投资_xxx",
+          //   color: "#6AA3CD",
+          //   data: [],
+          //   yearOnYear: []
+          // }
         ]
       },
       status: [
@@ -115,6 +101,12 @@ export default {
           en: "Year on year"
         }
       ],
+      result: [],
+      checkBox: {
+        ch: "行业",
+        en: "industry",
+        op: []
+      },
       options: {
         yearly: {
           ch: "年度",
@@ -123,19 +115,39 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "1990_2020",
-              value: "1990"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "1990_2020",
-              value: "2020"
+              frame: "",
+              value: ""
             }
           }
         }
       }
     };
+  },
+  async created() {
+    // 行业
+    this.checkBox.op=await chartDataFun.industry();
+    // 行业默认选中
+    this.checkBox.op[0].checked=true;
+    this.checkBox.op[1].checked=true;
+    this.result=this.checkBox.op.slice(0,2);
+     //随机颜色
+    this.randomColor=await chartDataFun.randomColor(18);
+    let res = await this.getMaxMinDate();
+   let arrmaxmin = res.split("_");
+   this.options.yearly.list.start.value=arrmaxmin[0];
+   this.options.yearly.list.end.value=arrmaxmin[1];
+    await this.getChartsData({
+      noMonth:true,
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
@@ -146,11 +158,159 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   methods: {
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+        await this.getChartsData({
+          noMonth:true,
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+    },
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("FDIOutflowsIndustry");
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        console.log(obj)
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
+    },
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
+    },
+    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    async getItemCategoryData(
+      res,
+      XNameAttr,
+      dataAttr,
+      range
+    ) {
+      console.log(res)
+      for(let i=0;i<res.length;i++) {
+          let data = await this.getItemData(
+        res[i],
+        XNameAttr,
+        dataAttr,
+        range
+      );
+        this.$set(this.chartBar.series,i,{
+          name:`${res[i][0].industry}_${res[i][0].industryEn}`,
+          data:data['outflows'],
+          color:[this.randomColor[i]]
+        })
+        for(let p=0;p<this.result.length;p++){
+              let item=this.result[p];
+              if(item.ch==res[i][0].industry){
+                let selectedIndustry={
+                  name:`${res[i][0].industry}_${res[i][0].industryEn}`,
+                  data:data['outflows'],
+                  yearOnYear:data['yOY'],
+                  color:[this.randomColor[p]]
+                };
+                this.USD.series.push(selectedIndustry);
+              }
+        }
+      }
+      //
+    },
+    async getChartsData(aug) {  //改变横轴 获取数据
+      let {res} = await request.getoutflowsByIndustryBarChartsData(aug);
+
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
+      // 要换取纵轴数据的字段属性
+      let dataAttr = ["outflows","yOY"];
+      let XNameAttr = "year";
+      this.chartBar.xData = range;
+      this.USD.xData = range;
+      // 获取当前页面所有线
+      await this.getItemCategoryData(
+        res,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+    },
+    // 下拉多选框
+    async changeOption(op) {
+      // 判断存不存在 存在就删掉， 不存在就加进去
+      let index = await this.result.findIndex(v => v.en == op.en);
+      if (index == -1) {
+        this.result.push(op);
+      } else {
+        this.result.splice(index, 1);
+      }
+
+      let i = await this.checkBox.op.findIndex(v => v.en == op.en);
+      this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
+      this.USD.series=[];
+      await this.mainGetChartsData('yearly');
+    },
+    async changeInputValue(value) {  //搜索
+                  //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+                 let regz=/[\u4e00-\u9fa5]/gi;
+                 let reg=/\s+/;
+                 let ch=value.match(regz)?value.match(regz):[];
+                 let en=value.replace(regz,'');
+                 let arr=en.split(reg);
+                let arrName=Array.from(new Set([...arr,...ch]));
+                // 去掉数组中的空字符串
+                for(var i = 0;i<arrName.length;i++){
+                    if(arrName[i]==''||arrName[i]==null||typeof(arrName[i])==undefined){
+                        arrName.splice(i,1);
+                        i=i-1;
+                    }
+                }
+                 if(value.replace(/(^\s*)/g,"")==''){
+                      for(let y=0; y<this.checkBox.op.length; y++){
+                          this.checkBox.op[y].show=true;
+                      }
+                }else {
+                for(let i=0; i<this.checkBox.op.length; i++){
+                      let splitList= await this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
+                      console.log(splitList)
+                      let active=true;
+                      for(let k=0;k<arrName.length;k++){
+                           if(!splitList.includes(arrName[k].toLowerCase())){
+                               active=false;
+                           }
+                      }
+                      this.checkBox.op[i].show=active;
+                }
+                }
+      
+    },
     // 时间范围组件 update and change
     update(activeKey, value) {
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -161,6 +321,13 @@ export default {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
+      // 获取数据入口  zp  开始和结束都有值再去查
+       if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
+        this.mainGetChartsData(activeKey);
+      }
     },
     // 复选框
     changeSelect(index) {

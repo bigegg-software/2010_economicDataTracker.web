@@ -151,6 +151,25 @@ export default {
             fontSize: this.$fz(0.14)
           }
         },
+        legend:{
+          data: legend,
+          selectedMode: true, //是否可以通过点击图例改变系列的显示状态
+          formatter: name => {
+            if(!this.chartBarData.hideLegend){
+              return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
+              "\n"
+              );
+            }else{
+              return []
+            }
+          },
+          top: "13%",
+          icon: "none",
+          textStyle: {
+            color: params => {},
+            fontSize: this.$fz(0.14)
+          }
+        },
         graphic: [
           // 数据最后更新时间：2020-09-24 Data last updated：September 24，2020
           {
@@ -224,7 +243,7 @@ export default {
             let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:rgba(29, 64, 109,0.8);">
               <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.0625rem; font-weight:normal;">${
-                params[0].name.split("\n")[1]
+                params[0].name.includes('\n')?params[0].name.split("\n")[1]:""
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {
@@ -240,17 +259,17 @@ export default {
                   }</div>`;
                 }
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value?params[i].value:'-'}</div>`;
               dom = dom + a + b + c;
             }
-            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
+            return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
           }
         },
         grid: {
-          top: "23%",
-          left: "3%",
-          right: "4%",
-          bottom: "10%",
+          top: this.chartBarData.grid?this.chartBarData.grid.top:"23%",
+          left: this.chartBarData.left?this.chartBarData.grid.left:"3%",
+          right: this.chartBarData.right?this.chartBarData.grid.right:"4%",
+          bottom: this.chartBarData.bottom?this.chartBarData.grid.bottom:"10%",
           containLabel: true
         },
         xAxis: [
