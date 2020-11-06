@@ -1,4 +1,5 @@
 import Parse from '../index'
+import chartDataFun from "@/utils/chartDataFun";
 export default {
     // 带年度月度季度的折线图使用
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据  
@@ -315,6 +316,31 @@ getForeignContractNewConRank: async function (params) {
         return item;
     });
     return { res };
+},
+//中国对外投资中------ 行业分布情况
+getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图加折线图
+    let res=await this.manualQueryData('FDIOutflowsIndustry',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+         return item
+     })
+     let industrys=chartDataFun.industry();
+        let resoult=[];
+      for (let k = 0; k < industrys.length; k++) {
+          let element = industrys[k].ch;
+          let elementEn = industrys[k].en;
+          let re=res.filter(item=>{
+              if(item.industry == element){
+                item.industryEn=elementEn;
+              }
+            return item.industry == element
+          })
+          if(re.length){
+            resoult.push(re);
+          }
+      }
+      res=resoult;
+     return {res};
 },
  //中国对外直接投资存量按国家和地区统计
  getFDIStock: async function (params) {
