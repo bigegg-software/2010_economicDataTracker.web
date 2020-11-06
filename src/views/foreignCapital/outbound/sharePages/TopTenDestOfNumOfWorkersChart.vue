@@ -4,7 +4,7 @@
     <div class="echart-block">
         <div v-if="isShowTable" class="table-block"></div>
         <div class="container">
-            <chart-bar :chartBarData="chartBar"></chart-bar>
+            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
         </div>
     </div>
     <div class="select-block">
@@ -26,6 +26,7 @@ export default {
     return {
       showTimeFrame:false,
       chartBar: {
+         dataSources: "中国人民网",
         yName: { ch: "万人", en: "XXXXXXXXXX" },
         title:{
           text:'12月末在外各类劳务人员前10位国家',
@@ -39,7 +40,8 @@ export default {
             color:['#0C9AFF'],
             data: []
           }
-        ]
+        ],
+        updatedDate:"2020-11-6"
       },
       option: {
               ch: "年度",
@@ -54,6 +56,14 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.barChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   async created() {
      let res = await this.getMaxMinDate();
@@ -108,8 +118,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -121,21 +129,19 @@ export default {
       height: 100%;
       background-color: #ccc;
     }
-    // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+    width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
-      padding: 0.104167rem;
-    }
+    padding: 0.102083rem;
+    box-sizing: border-box;
   }
 }
 </style>

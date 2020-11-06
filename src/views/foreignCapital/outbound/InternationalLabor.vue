@@ -147,7 +147,6 @@ export default {
     choose(index, i, name) {
       if (name == "download" && i == 0) {
         console.log("下载图片");
-        console.log(this.tabComponent);
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
@@ -161,6 +160,6 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  width: 7.223958rem;
+  width: 7.28125rem;
 }
 </style>

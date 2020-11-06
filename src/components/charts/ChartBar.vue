@@ -103,14 +103,14 @@ export default {
           {
             name: this.chartBarData.series[j].name,
             type: "bar",
-            barWidth:'30%',
+            barWidth: "30%",
             itemStyle: {
               normal: {
-                          color: (params)=> {
-                              let colorList =this.chartBarData.series[j].color;
-                              return colorList[params.dataIndex]||colorList[0]
-                          }
-                        }
+                color: params => {
+                  let colorList = this.chartBarData.series[j].color;
+                  return colorList[params.dataIndex] || colorList[0];
+                }
+              }
             },
             data: this.chartBarData.series[j].data
           },
@@ -136,26 +136,25 @@ export default {
           }
         });
       }
-      let  option={
-        title:{
-          text:this.chartBarData.title.text,
-          subtext:this.chartBarData.title.subtext,
-          top:'3%',
-          left:'center',
-          textStyle:{
-            color: "#000",
-            fontSize: this.$fz(0.2)
+      let option = {
+        title: {
+          text: this.chartBarData.title.subtext,
+          subtext: this.chartBarData.title.text,
+          top: "3%",
+          left: "center",
+          textStyle: {
+            color: "#333",
+            fontSize: this.$fz(0.26)
           },
           subtextStyle: {
-            color: "#CBCBCB",
-            fontSize: this.$fz(0.14)
+            color: "#333",
+            fontSize: this.$fz(0.18)
           }
         },
         graphic: [
-          // 数据最后更新时间：2020-09-24 Data last updated：September 24，2020
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
             children: [
               {
@@ -164,17 +163,17 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "数据最后更新时间：",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: "Data last updated",
+                  font: `${this.$fz(0.18)}px Calibri`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
-            bottom: this.$fz(0.05) * 2.2,
+            left: this.$fz(0.15) * 1.5,
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -182,9 +181,27 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "Data last updated：",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            left: this.$fz(0.15) * 11.5,
+            bottom: this.$fz(0.15) * 1.3,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#666",
+                  text: this.chartBarData.updatedDate,
+                  font: `${this.$fz(0.2)}px Calibri`
                 }
               }
             ]
@@ -204,7 +221,7 @@ export default {
                   text: this.chartBarData.watermark
                     ? "数据来源:" + this.chartBarData.dataSources
                     : "",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -221,10 +238,10 @@ export default {
             let b = "";
             let c = "";
             console.log(params);
-            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:rgba(29, 64, 109,0.8);">
-              <span>${params[0].name.split("\n")[0]}</span><br/>
-              <span style="font-size:0.0625rem; font-weight:normal;">${
-                params[0].name.split("\n")[1]
+            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
+              <span>${params[0].name.split("\n")[1]}</span><br/>
+              <span style="font-size:0.072917rem; font-weight:normal;">${
+                params[0].name.split("\n")[0]
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {
@@ -285,13 +302,18 @@ export default {
             splitNumber: 5,
             interval: (Max1 - Min1) / 5,
             name: [
-              `{div|${this.chartBarData.yName.ch}}`,
-              `{div|${this.chartBarData.yName.en}}`
+              `{diven|${this.chartBarData.yName.en}}`,
+              `{div|${this.chartBarData.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
               rich: {
+                diven: {
+                  color: "#666",
+                  fontSize: this.$fz(0.18),
+                  padding: [2, 0]
+                },
                 div: {
-                  color: "#333",
+                  color: "#666",
                   fontSize: this.$fz(0.14),
                   padding: [2, 0]
                 }
@@ -357,8 +379,8 @@ export default {
         series: series
       };
       this.myChartBar = echarts.init(this.$refs.chartBar);
-       this.myChartBar.setOption(option);
-       this.myChartBar.resize();
+      this.myChartBar.setOption(option);
+      this.myChartBar.resize();
     },
     //计算最大值
     calMax(arr) {

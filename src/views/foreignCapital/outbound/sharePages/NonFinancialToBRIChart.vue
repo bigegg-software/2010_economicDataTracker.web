@@ -2,19 +2,14 @@
   <!-- 中国对“一带一路”沿线国家非金融类直接投资情况chart -->
   <div class="outflows-chart">
     <div class="echart-block">
-       <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="linesCharts" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-        v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -51,9 +46,10 @@ export default {
       showTimeFrame:false,
       USD: {
         id: "USD",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国对”一带一路“沿线国家非金融类直接投资", en: "China's non-financial FDI outflows to BRI countires" },
+        title: { ch: "11中国对”一带一路“沿线国家非金融类直接投资", en: "China's non-financial FDI outflows to BRI countires" },
         xData: [],
         hideLegend:true,
         series: [
@@ -63,7 +59,8 @@ export default {
             data: [],
             yearOnYear: []
           }
-        ]
+        ],
+        updatedDate:"2020-11-6"
       },
       status: [
         {
@@ -134,6 +131,13 @@ export default {
      let res=await this.getMaxMinDate();
       let arrmaxmin=res.split('_');
       await this.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
+    
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.linesCharts.downloadFile();
+    });
+ },
+ beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
     async mainGetChartsData(type){  //条件改变时获取数据
@@ -252,8 +256,6 @@ for (let key in this.options) {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -267,12 +269,12 @@ for (let key in this.options) {
     }
     // border-right: none;
     .container {
-      width:100% ;
-      height:100% ;
+    width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

@@ -155,6 +155,6 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  width: 7.223958rem;
+   width: 7.28125rem;
 }
 </style>

@@ -167,7 +167,7 @@ export default {
           {
             type: "group",
             left: "center",
-            top: this.$fz(0.15) * 1,
+            top: this.$fz(0.15) * 1.4,
             children: [
               {
                 type: "text",
@@ -176,26 +176,26 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.en,
-                  font: `${this.$fz(0.26)}px Calibri`
+                  font: `${this.$fz(0.26)}px Calibri bolder`
                 }
               },
               {
                 type: "text",
                 z: 100,
                 left: "center",
-                top: this.$fz(0.15) * 2,
+                top: this.$fz(0.15) * 2.5,
                 style: {
                   fill: "#333",
                   text: this.totalData.title.ch,
-                  font: `${this.$fz(0.18)}px 黑体`
+                  font: `${this.$fz(0.19)}px 黑体`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) * 1.5,
-            bottom: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) *1.5,
+            bottom: this.$fz(0.15) * 2.2,
             children: [
               {
                 type: "text",
@@ -210,10 +210,10 @@ export default {
               }
             ]
           },
-          {
+           {
             type: "group",
             left: this.$fz(0.15) * 1.5,
-            bottom: this.$fz(0.15) * 0.8,
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -231,16 +231,17 @@ export default {
           {
             type: "group",
             left: this.$fz(0.15) * 11.5,
-            bottom: this.$fz(0.15) * 1.15,
+            bottom: this.$fz(0.15) * 1.3,
             children: [
               {
                 type: "text",
                 z: 100,
+                left: "right",
                 top: "middle",
                 style: {
                   fill: "#666",
                   text: this.totalData.updatedDate,
-                  font: `${this.$fz(0.20)}px Calibri`
+                  font: `${this.$fz(0.2)}px Calibri`
                 }
               }
             ]
@@ -260,7 +261,7 @@ export default {
                   text: this.totalData.watermark
                     ? "数据来源:" + this.totalData.dataSources
                     : "",
-                  font: `${this.$fz(0.15)}px 黑体`
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -276,7 +277,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: this.totalData.yName.en,
-                  font: `${this.$fz(0.18)}px Calibri`
+                  font: `${this.$fz(0.20)}px Calibri`
                 }
               },
               {
@@ -340,9 +341,9 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  y: this.$fz(0.15) * 46.5,
+                  y: this.$fz(0.15) * 46,
                   width: this.$fz(0.15) * 74,
-                  height: this.$fz(0.15) * 4
+                  height: this.$fz(0.15) * 5
                 },
                 style: {
                   fill: "#fff"
@@ -361,41 +362,6 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  // padding: 0.07rem 0.1rem 0.1rem;
-  // box-sizing: border-box;
-  // .title {
-  //   width: 100%;
-  //   display: flex;
-  //   flex-flow: column nowrap;
-  //   align-items: center;
-  //   .titleCh {
-  //     font-size: 0.09375rem;
-  //     font-weight: bold;
-  //     color: #333;
-  //   }
-  //   .titleEn {
-  //     font-size: 0.083333rem;
-  //     color: #999;
-  //   }
-  // }
-  // .unit {
-  //   font-size: 0.083333rem;
-  //   color: #666;
-  //   line-height: 0.09rem;
-  // }
-  // #treemap {
-  //   padding: 0.01rem 0 0.03rem;
-  //   box-sizing: border-box;
-  // }
-  // .updated {
-  //   display: flex;
-  //   align-items: center;
-  //   font-size:0.078125rem;
-  //   color: #333;
-  // }
-  // .updatedDate{
-  //   margin-left: 0.07rem;
-  // }
 }
 </style>
 

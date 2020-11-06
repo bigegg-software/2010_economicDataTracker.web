@@ -8,7 +8,8 @@ export default {
   data() {
     return {
       timer: null,
-      chart: null
+      chart: null,
+      watermark:false,
     };
   },
   props: {
@@ -38,6 +39,42 @@ export default {
     }
   },
   methods: {
+    downloadFile() {
+      //添加水印
+      this.watermark = true;
+      this.initChart();
+      let aLink = document.createElement("a");
+      let blob = this.base64ToBlob();
+      let evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", true, true);
+      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.href = URL.createObjectURL(blob);
+      aLink.click();
+      //消除水印
+      this.watermark = false;
+      this.initChart();
+    },
+    exportImg() {
+      //echart返回一个 base64 的 URL
+      return this.chart.getDataURL({
+        type: "png",
+        pixelRatio: 5, //清晰度
+        backgroundColor: "#fff"
+      });
+    },
+    base64ToBlob() {
+      //将base64转换blob
+      let img = this.exportImg();
+      let parts = img.split(";base64,");
+      let contentType = parts[0].split(":")[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+      let uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
       this.chart = echarts.init(document.getElementById(this.options.id));
@@ -67,9 +104,9 @@ export default {
         series.push(
           {
             // connectNulls: true,
-            symbol:'circle',//拐点样式
-            symbolSize: 4,//拐点大小
-            color:this.options.series[j].color,
+            symbol: "circle", //拐点样式
+            symbolSize: 4, //拐点大小
+            color: this.options.series[j].color,
             name: this.options.series[j].name,
             type: "line",
             showSymbol: true, //是否显示拐点
@@ -82,9 +119,9 @@ export default {
           },
           {
             // connectNulls: true,
-            symbol:'circle',//拐点样式
-            symbolSize: 4,//拐点大小
-            color:this.options.series[j].color,
+            symbol: "circle", //拐点样式
+            symbolSize: 4, //拐点大小
+            color: this.options.series[j].color,
             name: this.options.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
@@ -110,15 +147,15 @@ export default {
       // 绘制图表
       let option = {
         title: {
-          text: this.options.title.ch,
+          text: this.options.title.en,
           textStyle: {
             color: "#333",
-            fontSize: this.$fz(0.18)
+            fontSize: this.$fz(0.26)
           },
-          subtext: this.options.title.en,
+          subtext: this.options.title.ch,
           subtextStyle: {
-            color: "#999",
-            fontSize: this.$fz(0.16)
+            color: "#333",
+            fontSize: this.$fz(0.18)
           },
           top: "2%",
           left: "center"
@@ -130,7 +167,7 @@ export default {
         graphic: [
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
             children: [
               {
@@ -139,16 +176,16 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "数据最后更新时间",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: "Data last updated",
+                  font: `${this.$fz(0.18)}px Calibri`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15),
             children: [
               {
@@ -157,9 +194,9 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "Data last updated",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: "数据最后更新时间",
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -167,6 +204,24 @@ export default {
           {
             type: "group",
             left: this.$fz(0.15) * 11.5,
+            bottom: this.$fz(0.15) * 1.3,
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: "middle",
+                style: {
+                  fill: "#666",
+                  text: this.options.updatedDate,
+                  font: `${this.$fz(0.2)}px Calibri`
+                }
+              }
+            ]
+          },
+          {
+            type: "group",
+            right: this.$fz(0.15) * 1,
             bottom: this.$fz(0.15) * 1.5,
             children: [
               {
@@ -176,8 +231,10 @@ export default {
                 top: "middle",
                 style: {
                   fill: "#333",
-                  text: "2020-10-22",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  text: this.watermark
+                    ? "数据来源:" + this.options.dataSources
+                    : "",
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -191,19 +248,21 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem  0 0.125rem;font-size:0.09375rem;font-weight:bold;color:rgba(29, 64, 109,0.8);">${params[0].name}</div>`;
+            let dom = `<div style="padding:0.052rem  0 0.125rem;font-size:0.104167rem;font-weight:bold;color:#1D3F6C;">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
-              if (params[i].seriesName.split("_")[0]) {
-                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#333;font-size:0.072917rem">${
-                  params[i].seriesName.split("_")[0]
-                }</div>`;
-              }
               if (params[i].seriesName.split("_")[1]) {
-                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#ccc;font-size:0.0625rem">${
+                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
                   params[i].seriesName.split("_")[1]
                 }</div>`;
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value==''?'-':params[i].value}</div>`;
+              if (params[i].seriesName.split("_")[0]) {
+                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#666;font-size:0.072917rem">${
+                  params[i].seriesName.split("_")[0]
+                }</div>`;
+              }
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                params[i].value == "" ? "-" : params[i].value
+              }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;
@@ -217,14 +276,14 @@ export default {
           data: legend,
           selectedMode: false, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
-            if(!this.options.hideLegend){
-              return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
-              "\n"
-              );
-            }else{
-              return []
+            if (!this.options.hideLegend) {
+              return [
+                `${name.split("_")[1]}`,
+                `${name.split("_")[0]}`
+              ].join("\n");
+            } else {
+              return [];
             }
-            
           },
           top: "13%",
           icon: "none",
@@ -248,8 +307,8 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: "#333",
-              fontSize: this.$fz(0.14)
+              color: "#888",
+              fontSize: this.$fz(0.16)
             }
           }
         },
@@ -261,13 +320,18 @@ export default {
             splitNumber: 5,
             interval: (Max1 - Min1) / 5,
             name: [
-              `{div|${this.options.yName.ch}}`,
-              `{div|${this.options.yName.en}}`
+              `{div|${this.options.yName.en}}`,
+              `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
               rich: {
                 div: {
-                  color: "#333",
+                  color: "#666",
+                  fontSize: this.$fz(0.18),
+                  padding: [2, 0]
+                },
+                divch: {
+                  color: "#666",
                   fontSize: this.$fz(0.14),
                   padding: [2, 0]
                 }
@@ -289,8 +353,8 @@ export default {
             axisLabel: {
               show: true,
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           },
@@ -302,8 +366,8 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.options.y2Name?`{div|${this.options.y2Name.ch}}`:'',
-              this.options.y2Name?`{div|${this.options.y2Name.en}}`:''
+              this.options.y2Name ? `{div|${this.options.y2Name.ch}}` : "",
+              this.options.y2Name ? `{div|${this.options.y2Name.en}}` : ""
             ].join("\n"),
             nameTextStyle: {
               rich: {
@@ -332,7 +396,13 @@ export default {
             },
             axisLabel: {
               show: true,
-              formatter: "{value}"+`${this.options.unit2Symbol==''||this.options.unit2Symbol?' '+this.options.unit2Symbol:' %'}`, //右侧Y轴文字显示
+              formatter:
+                "{value}" +
+                `${
+                  this.options.unit2Symbol == "" || this.options.unit2Symbol
+                    ? " " + this.options.unit2Symbol
+                    : " %"
+                }`, //右侧Y轴文字显示
               textStyle: {
                 color: "#333",
                 fontSize: this.$fz(0.14)

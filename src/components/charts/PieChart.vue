@@ -1,6 +1,6 @@
 <template>
   <div :ref="totalData.id" id="pieChart" style="width:100%;
-    height:100%"></div>
+    height:100%" ></div>
 </template>
 
 <script>
@@ -12,7 +12,8 @@ export default {
     };
   },
   props: {
-    totalData: {}
+    totalData: {},
+    value:{}
   },
   watch: {
     totalData: {
@@ -78,29 +79,32 @@ export default {
         title: {
           left: "center",
           top: "2%",
-          text: this.totalData.title.ch,
+          text: this.totalData.title.en,
           textStyle: {
             color: "#333",
-            fontSize: this.$fz(0.18)
+            fontSize: this.$fz(0.26)
           },
-          subtext: this.totalData.title.en,
+          subtext: this.totalData.title.ch,
           subtextStyle: {
-            color: "#999",
-            fontSize: this.$fz(0.16)
+            color: "#333",
+            fontSize: this.$fz(0.18)
           }
         },
         tooltip: {
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let a = `<div style="color:#333;font-size:0.072917rem">${
-              params.name.split("_")[0]
+            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;margin-bottom:0.02rem;">${
+              this.value
             }</div>`;
-            let b = `<div style="color:#ccc;font-size:0.0625rem">${
+            let a = `<div style="color:#666;font-size:0.09375rem">${
               params.name.split("_")[1]
             }</div>`;
-            let c = `<div style="color:#333;font-size: 0.114583rem;font-weight:bold;">${params.value}</div>`;
-            let dom = a + b + c;
+            let b = `<div style="color:#666;font-size:0.072917rem">${
+              params.name.split("_")[0]
+            }</div>`;
+            let c = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
+            let dom =year+ a + b + c;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
         },
@@ -120,8 +124,8 @@ export default {
             label: {
               formatter: params => {
                 return [
-                  `{a|${params.name.split("_")[0]}}`,
-                  `{a|${params.name.split("_")[1]}}`
+                  `{a|${params.name.split("_")[1]}}`,
+                  `{a|${params.name.split("_")[0]}}`
                 ].join("\n");
               },
               rich: {
@@ -136,7 +140,7 @@ export default {
         graphic: [
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
             children: [
               {
@@ -145,16 +149,16 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "数据最后更新时间",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                  text: "Data last updated",
+                  font: `${this.$fz(0.18)}px Calibri`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) * 2,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15),
             children: [
               {
@@ -163,9 +167,10 @@ export default {
                 left: "center",
                 top: "middle",
                 style: {
-                  fill: "#333",
-                  text: "Data last updated",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  fill: "#666",
+                    text: "数据最后更新时间",
+                  font: `${this.$fz(0.14)}px 黑体`
+                
                 }
               }
             ]
@@ -173,7 +178,7 @@ export default {
           {
             type: "group",
             left: this.$fz(0.15) * 11.5,
-            bottom: this.$fz(0.15) * 1.5,
+            bottom: this.$fz(0.15) * 1.3,
             children: [
               {
                 type: "text",
@@ -181,9 +186,9 @@ export default {
                 left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: this.totalData.updatedDate,
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  font: `${this.$fz(0.20)}px Calibri`
                 }
               }
             ]
@@ -203,7 +208,7 @@ export default {
                   text: this.totalData.watermark
                     ? "数据来源:" + this.totalData.dataSources
                     : "",
-                  font: `${this.$fz(0.15)}px Microsoft YaHei`
+                  font: `${this.$fz(0.14)}px 黑体`
                 }
               }
             ]
@@ -220,6 +225,7 @@ export default {
   position: absolute;
   left: 0px;
   top: 0px;
+  
 }
 </style>
 

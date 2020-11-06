@@ -22,15 +22,15 @@
             class="download"
             @click.stop="choose(index, i,item.name)"
           >
-            <div>{{ action.ch }}</div>
             <div>{{ action.en }}</div>
+            <div>{{ action.ch }}</div>
           </div>
         </div>
         <!-- 嵌入 -->
         <div v-if="item.popup && item.name == 'embed' && item.checked" class="embed-block">
           <div v-for="(action, i) in item.children" :key="i" class="embed">
-            <div>{{ action.ch }}</div>
             <div>{{ action.en }}</div>
+            <div>{{ action.ch }}</div>
             <div>{{ action.src }}</div>
           </div>
         </div>
@@ -181,7 +181,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20.5%;
+  width: 20.4%;
   height: 0.296875rem;
   border-bottom: 2px solid #cbcbcb;
   border-right: 2px solid #cbcbcb;
@@ -193,7 +193,7 @@ export default {
     border-left: 2px solid #cbcbcb;
   }
   &:last-child {
-    width: 18.8%;
+    width: 19.2%;
   }
   .icon-action {
     font-size: 0.145833rem;
@@ -216,19 +216,20 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 0.729167rem;
-      height: 0.270833rem;
+      width: 0.604167rem;
+      height:0.276042rem;
       padding: 0 0.083333rem;
       line-height: 0.104167rem;
-      font-size: 0.072917rem;
       background-color: #f5f5f5;
       border-bottom: 1.5px solid #c9c9c9;
       div {
         &:first-child {
-          color: #333;
+          color: #666;
+          font-size: 0.083333rem;
         }
         &:last-child {
-          color: #999;
+          color: #666;
+          font-size: 0.072917rem;
         }
       }
       &:last-child {
@@ -246,17 +247,21 @@ export default {
     padding: 0.052083rem 0.072917rem;
     line-height: 0.104167rem;
     background-color: #f5f5f5;
-    color: #333;
+    color: #666;
     .embed {
       line-height: 0.114583rem;
-      font-size: 0.072917rem;
+      font-size:0.072917rem;
       div {
+        &:first-child{
+          font-size: 0.09375rem;
+          font-family: "Calibri";
+        }
         &:last-child {
           height: 0.395833rem;
           padding: 0.052083rem;
           margin-top: 0.03125rem;
-          color: #656565;
           user-select: all;
+          font-size: 0.0625rem;
           background-color: #fff;
         }
       }

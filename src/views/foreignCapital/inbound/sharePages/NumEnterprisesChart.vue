@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div v-if="isShowYearOnYear" class="container">
-        <lines-chart :options="RMB"></lines-chart>
+        <lines-chart ref="linesChart" :options="RMB"></lines-chart>
       </div>
       <div v-else class="container">
         <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
@@ -176,9 +176,16 @@ export default {
 
   mounted() {
     // console.log(this.isShowTable, "isShowTable");
-    this.$EventBus.$on("downLoadImg", () => {
-      this.$refs.barChart.downloadFile();
-    });
+    if (!this.isShowYearOnYear) {
+      this.$EventBus.$on("downLoadImg", () => {
+        this.$refs.barChart.downloadFile();
+      });
+    }
+    {
+      this.$EventBus.$on("downLoadImg", () => {
+        this.$refs.LinesChart.downloadFile();
+      });
+    }
   },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
@@ -240,8 +247,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -253,14 +258,13 @@ export default {
       height: 100%;
       background-color: #ccc;
     }
-    // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
