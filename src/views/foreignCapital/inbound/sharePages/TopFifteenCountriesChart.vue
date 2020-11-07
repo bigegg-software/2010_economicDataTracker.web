@@ -1,6 +1,6 @@
 <template>
-  <!-- 主要对华投资国家/地区-前15位国家/地区chart-->
-  <div class="topFifteenCountries-chart">
+  <!-- 主要对华投资国家前15位国家/地区chart -->
+  <div class="topFifteen-CountriesChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
@@ -9,7 +9,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <year :option="option" :value="option.value" @change="yearChange"></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <div class="status">
         <check-box
@@ -27,39 +27,42 @@
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import request from "@/request/inBound/inBound";
+import chartDataFun from "@/utils/chartDataFun";
 export default {
-  name: "TopFifteenCountriesChart",
+  name: "topFifteenCountriesChart",
   data() {
     return {
+      showTimeFrame: false,
       chartBar: {
+        watermark: false,
+        unit2Symbol:'',
+        yearOnYear: false, //通过修改这个值来显示同比
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
+        y2Name: { ch: "单位：家", en: "unit:xxxx" },
         title: {
           text: "前15位国家/地区",
-          subtext: "XXXXXXXX"
+          subtext: "XXXXXXXXXX"
         },
         xData: [
-          "蒙古\nMongolia",
-          "芬兰\nFinland",
-          "瑞典\nSweden",
-          "挪威\nNorway",
-          "冰岛\nIceland",
-          "丹麦\nDenmark",
-          "泰国\nThailand"
+          // "蒙古\nMongolia"
         ],
         series: [
           {
             // name:'存量_xxxxx',
             color: ["#0C9AFF"],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+            data: [],
+            yearOnYear:[]
           }
-        ]
+        ],
+        updatedDate:"2020-11-6"
       },
       option: {
         ch: "年度",
         en: "Yearly",
-        frame: "1990_2020",
-        value: "1990"
+        frame: "",
+        value: ""
       },
       status: [
         {
@@ -84,23 +87,57 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
-  components: { ChartBar, Year, CheckBox },
+  async created() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    this.option.value=arrmaxmin[1];
+    await this.getChartsData({
+      descending: "inflowsPercent", //比重降序
+      limit: 15,
+      year: Number(arrmaxmin[1])
+    });
+  },
+  components: { ChartBar, Year,CheckBox },
   methods: {
-    yearChange(year) {
-      this.option.value = year;
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("MajorTop15Investors");
+      this.$set(this.option, "frame", res);
+      this.showTimeFrame = true;
+      return res;
     },
-    // 复选框
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getTopFifteenCountriesChart(aug);
+      let Xname = [];
+      // 金额
+      let FDIInflows = [];
+      let FDIInflowsYOY = [];
+      res.forEach(item => {
+        console.log(item)
+        Xname.push(item.country);
+        FDIInflows.push(item.FDIInflowsMillion);
+        FDIInflowsYOY.push(item.enterpriseNumber);
+      });
+      this.chartBar.xData = Xname;
+      this.chartBar.series[0].data = FDIInflows;
+      this.chartBar.series[0].yearOnYear = FDIInflowsYOY;
+    },
+    async yearChange(year) {
+      this.option.value = year;
+      await this.getChartsData({
+        descending: "inflowsPercent",
+        limit: 15,
+        year: Number(year)
+      });
+    },
+     // 复选框
     changeSelect(index) {
       this.status[index].checked = !this.status[index].checked;
       if (index == 0) {
         this.status[index].checked
-          ? console.log("同比")
-          : console.log("去掉同比");
-      }
-      if (index == 1) {
-        this.status[index].checked
-          ? (this.isShowRMB = true)
-          : (this.isShowRMB = false);
+          ? this.chartBar.yearOnYear=true
+          : this.chartBar.yearOnYear=false
       }
     }
   }
@@ -108,7 +145,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.topFifteenCountries-chart {
+.topFifteen-CountriesChart {
   display: flex;
   .echart-block {
     position: relative;
@@ -124,8 +161,8 @@ export default {
       background-color: #ccc;
     }
     .container {
-      width: 5.875rem;
-      height: 3.916667rem;
+       width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
@@ -139,7 +176,10 @@ export default {
       border-bottom: 1.5px solid #cacaca;
     }
     .status {
-      padding: 0.052083rem 0.104167rem;
+      padding: 0.104167rem;
+      .checkbox{
+        padding: 0;
+      }
     }
   }
 }

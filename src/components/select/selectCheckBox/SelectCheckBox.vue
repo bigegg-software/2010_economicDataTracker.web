@@ -36,6 +36,7 @@
             </div>
             <div class="list-block">
               <div
+                @click="changeSelected(item,index)"
                 v-for="(item, index) in result"
                 :key="index"
                 class="list-row"
@@ -92,6 +93,10 @@ export default {
       dom.className = this.show
         ? className + " rotate "
         : className + " _rotate";
+    },
+    changeSelected(item,index) {
+      item.checked=false;
+      this.result.splice(index,1);
     },
     change(op, index) {
       this.$emit("change", op);
@@ -181,7 +186,7 @@ export default {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0.229167rem;
     z-index: 1;
     width: ceil(250%);

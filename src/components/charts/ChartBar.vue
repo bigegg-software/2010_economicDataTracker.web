@@ -256,7 +256,6 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            console.log(params);
             let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
               <span>${params[0].name.split("\n")[1]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
@@ -295,7 +294,7 @@ export default {
             data: this.chartBarData.xData,
             axisLabel: {
               show: this.chartBarData.showAxisLabel == false ? false : true,
-              interval: 0, //强制显示全
+              // interval: 0, //强制显示全
               fontSize: this.$fz(0.14),
               rotate: 45,
               margin: 10 //刻度标签与轴线之间的距离
@@ -366,6 +365,10 @@ export default {
             max: Max2,
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
+            name: [
+              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.ch}}` : "",
+              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.en}}` : ""
+            ].join("\n"),
             nameTextStyle: {
               color: "#333"
             },
@@ -387,7 +390,12 @@ export default {
             },
             axisLabel: {
               show: true,
-              formatter: "{value} %", //右侧Y轴文字显示
+              formatter: "{value}" +
+                `${
+                  this.chartBarData.unit2Symbol == "" || this.chartBarData.unit2Symbol
+                    ? " " + this.chartBarData.unit2Symbol
+                    : " %"
+                }`, //右侧Y轴文字显示
               textStyle: {
                 color: "#333",
                 fontSize: this.$fz(0.14)

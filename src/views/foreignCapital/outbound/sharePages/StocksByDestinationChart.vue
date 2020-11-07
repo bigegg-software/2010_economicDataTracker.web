@@ -83,6 +83,15 @@ export default {
       }
     };
   },
+  watch:{
+    result:{
+      async handler() {
+          this.USD.series=[];
+          await this.mainGetChartsData("yearly");
+      },
+      deep:true
+    }
+  },
   async created() {
       this.randomColor=await chartDataFun.randomColor(221);
       await this.getAllCountryName();

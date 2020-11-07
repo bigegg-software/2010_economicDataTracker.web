@@ -175,6 +175,17 @@ getForeignInvestIndustryData:async function(params) {//获取  //柱状图加折
      return {res};
 },
 
+// 主要对华投资国家和地区--前12位国家、地区
+getTopFifteenCountriesChart:async function(params) {
+    let res=await this.barQueryData('MajorTop15Investors',params);
+    res = res.map(item=>{
+        item=item.toJSON();
+        // 实际投入外资金额
+        item.FDIInflowsMillion=item.FDIInflows*100;
+        return item;
+    });
+    return {res};
+},
 
 
 }

@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div v-if="isShowLineChart" class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
       <div v-else class="container">
         <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
@@ -82,7 +82,7 @@ export default {
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
+        title: { ch: "中国对外直接投资流量行业分布情况", en: "China’s FDI outflows by industry" },
         xData: [
         ],
         series: [
@@ -129,6 +129,15 @@ export default {
       }
     };
   },
+  watch:{
+    result:{
+      async handler() {
+          this.USD.series=[];
+          await this.mainGetChartsData("yearly");
+      },
+      deep:true
+    }
+  },
   async created() {
     // 行业
     this.checkBox.op=await chartDataFun.industry();
@@ -149,10 +158,18 @@ export default {
       end: Number(arrmaxmin[1])
     });
   },
-  mounted() {
-    this.$EventBus.$on("downLoadImg", () => {
-      this.$refs.barChart.downloadFile();
-    });
+ mounted() {
+    // console.log(this.isShowTable, "isShowTable");
+    if (!this.isShowYearOnYear) {
+      this.$EventBus.$on("downLoadImg", () => {
+        this.$refs.barChart&&this.$refs.barChart.downloadFile();
+      });
+    }
+    {
+      this.$EventBus.$on("downLoadImg", () => {
+        this.$refs.linesChart&&this.$refs.linesChart.downloadFile();
+      });
+    }
   },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
