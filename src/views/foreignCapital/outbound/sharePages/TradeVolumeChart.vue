@@ -4,18 +4,13 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="Person"></lines-chart>
+        <lines-chart ref="linesChart" :options="Person"></lines-chart>
       </div>
     </div>
-    
+
     <div class="select-block">
       <div class="frame">
-        <time-frame
-        v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -42,6 +37,7 @@ export default {
       showTimeFrame: false,
       isShowRMB: false,
       Person: {
+        dataSources: "中国人民网",
         id: "person",
         yName: { ch: "万人", en: "xxxxxx" },
         yearOnYear: true, //通过修改这个值来显示同比
@@ -63,7 +59,8 @@ export default {
             color: "#999",
             data: []
           }
-        ]
+        ],
+        updatedDate: "2020-11-6"
       },
       options: {
         yearly: {
@@ -98,15 +95,23 @@ export default {
       end: Number(arrmaxmin[1])
     });
   },
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.linesChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
+  },
   methods: {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-        await this.getChartsData({
-          type,
-          start: Number(start.value),
-          end: Number(end.value)
-        });
+      await this.getChartsData({
+        type,
+        start: Number(start.value),
+        end: Number(end.value)
+      });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -117,7 +122,7 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        console.log(obj)
+        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -141,25 +146,16 @@ export default {
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
-    async getItemCategoryData(
-      res,
-      XNameAttr,
-      dataAttr,
-      range
-    ) {
-      let data = await this.getItemData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.Person.series[0]["data"] = data.variousTypesPerNum;
       this.Person.series[1]["data"] = data.contractProject;
       this.Person.series[2]["data"] = data.laborCooperation;
       //
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getTradeVolumeChartChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getTradeVolumeChartChartsData(aug);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -172,12 +168,7 @@ export default {
       let XNameAttr = "year";
       this.Person.xData = range;
       // 获取当前页面所有线
-      await this.getItemCategoryData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -216,8 +207,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -231,12 +220,12 @@ export default {
     }
     // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+    width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

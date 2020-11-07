@@ -1,4 +1,5 @@
 import Parse from '../index'
+import chartDataFun from "@/utils/chartDataFun";
 export default {
     // 带年度月度季度的折线图使用
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
@@ -145,7 +146,34 @@ export default {
         return { res };
     
     
-    }
+    },
+    //外商直接投资------ 主要行业--开办企业数/实际使用外资金额
+getForeignInvestIndustryData:async function(params) {//获取  //柱状图加折线图
+    let res=await this.manualQueryData('ForeignInvestmentMainIndustries',params);
+     res = res.map(item=>{
+         item=item.toJSON()
+        //  需要换算单位
+         item.inflowsFDIMillion=item.inflowsFDI*100
+         return item
+     })
+     let industrys=chartDataFun.industry();
+        let resoult=[];
+      for (let k = 0; k < industrys.length; k++) {
+          let element = industrys[k].ch;
+          let elementEn = industrys[k].en;
+          let re=res.filter(item=>{
+              if(item.industry == element){
+                item.industryEn=elementEn;
+              }
+            return item.industry == element
+          })
+          if(re.length){
+            resoult.push(re);
+          }
+      }
+      res=resoult;
+     return {res};
+},
 
 
 

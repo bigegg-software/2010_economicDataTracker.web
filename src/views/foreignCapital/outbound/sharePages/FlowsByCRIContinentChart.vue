@@ -168,11 +168,8 @@ export default {
  display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
-    border-right: none;
     .table-block {
       position: absolute;
       left: 0;
@@ -183,18 +180,18 @@ export default {
       background-color: #ccc;
     }
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    // width: 1.411458rem;
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
+    border-left: none;
     .year-select {
       margin-bottom: 0.078125rem;
     }

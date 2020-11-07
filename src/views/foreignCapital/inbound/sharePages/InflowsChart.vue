@@ -2,19 +2,14 @@
   <!-- 实际使用外资-实际使用外资chart -->
   <div class="Inflows-chart">
     <div class="echart-block">
-       <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-        v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -47,15 +42,16 @@ export default {
   name: "Inflows-chart",
   data() {
     return {
-      timer:null,
-      showTimeFrame:false,
+      timer: null,
+      showTimeFrame: false,
       USD: {
         id: "USD",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "实际使用外资", en: "China’s FDI inflows" },
         xData: [],
-        hideLegend:true,
+        hideLegend: true,
         series: [
           {
             name: "实际使用外资_China’s FDI inflows",
@@ -130,83 +126,110 @@ export default {
       }
     };
   },
- async mounted() {
-     let res=await this.getMaxMinDate();
-      let arrmaxmin=res.split('_');
-      await this.getChartsData({type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
+
+  async mounted() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
+
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.linesChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    async mainGetChartsData(type){  //条件改变时获取数据
-          let{start,end}=this.options[type].list;
-          if(type=='yearly'){
-           await this.getChartsData({type,start:Number(start.value),end:Number(end.value)});
-          }else if(type=='quarterly'||type=='monthly'){
-            let startTimeArr=start.value.split('-');
-            let endTimeArr=end.value.split('-');
-            let quarterStart=parseInt(startTimeArr[0]);
-            let quarterStartMonth=parseInt(startTimeArr[1]);
-            let quarterEnd=parseInt(endTimeArr[0]);
-            let quarterEndMonth=parseInt(endTimeArr[1]);
-            await this.getChartsData({
-              type,
-              start:quarterStart,
-              end:quarterEnd,
-              startMonth:quarterStartMonth,
-              endMonth:quarterEndMonth
-            });
-          }
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+      if (type == "yearly") {
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+      } else if (type == "quarterly" || type == "monthly") {
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]);
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          type,
+          start: quarterStart,
+          end: quarterEnd,
+          startMonth: quarterStartMonth,
+          endMonth: quarterEndMonth
+        });
+      }
     },
-    async getMaxMinDate(){// 获取最大年最小年
-         let res = await chartDataFun.getMaxMinDate('InwardFDI');
-      console.log(res)
-for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
-        for (let k in obj.list) {
-          obj.list[k].frame = res;
-        }
-        this.$set(this.options, key, obj);
-      }
-       this.showTimeFrame = true;
-       return res;
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("InwardFDI");
+      console.log(res);
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
     },
-    async getItemData(arrSourceData,Axis,Ayis,range) {  //根据字段获取数据
-              let resoult={};
-              for(let i=0;i<Ayis.length;i++) {
-                  let item=Ayis[i];
-                    // 转换图标数据数组和横轴名称数组
-                  let dataArr=await chartDataFun.objArrtransArr(arrSourceData,Axis,item);
-                  // 补全数据
-                  let data=await chartDataFun.completionDate(dataArr,range);
-                  resoult[item]=data;
-              }
-               return resoult;
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
-    async getItemCategoryData(res,XNameAttr,dataAttr,range) {
-         let data=await this.getItemData(res,XNameAttr,dataAttr,range);
-               this.USD.series[0]['data']=data.inwardFDIConMillion;
-               this.USD.series[0]['yearOnYear']=data.inwardFDIConYOY;
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      this.USD.series[0]["data"] = data.inwardFDIConMillion;
+      this.USD.series[0]["yearOnYear"] = data.inwardFDIConYOY;
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getInflowsChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getInflowsChartsData(aug);
       // 完整的区间
-      let range=await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr=['inwardFDIConMillion','inwardFDIConYOY'];
-       let XNameAttr='year';
-       this.USD.xData=range;
-       //添加额外的Q和M属性
-       await chartDataFun.addOtherCategory(res);
-      
-      if(aug.type=='yearly'){// 年
-        XNameAttr='year';
-      }else if(aug.type=='quarterly') { //季度
-        XNameAttr='Q';
-      }else if(aug.type='monthly'){ //月度
-        XNameAttr='M';
+      let dataAttr = ["inwardFDIConMillion", "inwardFDIConYOY"];
+      let XNameAttr = "year";
+      this.USD.xData = range;
+      //添加额外的Q和M属性
+      await chartDataFun.addOtherCategory(res);
+
+      if (aug.type == "yearly") {
+        // 年
+        XNameAttr = "year";
+      } else if (aug.type == "quarterly") {
+        //季度
+        XNameAttr = "Q";
+      } else if ((aug.type = "monthly")) {
+        //月度
+        XNameAttr = "M";
       }
       // 获取当前页面所有线
-      await this.getItemCategoryData(res,XNameAttr,dataAttr,range);
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -214,10 +237,10 @@ for (let key in this.options) {
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
-        this.timer=setTimeout(()=>{
-          // 条件改变时获取数据数据入口  zp
-            this.mainGetChartsData(activeKey);
-        },600);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -228,8 +251,11 @@ for (let key in this.options) {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
-       // 获取数据入口  zp  开始和结束都有值再去查
-      if(this.options[activeKey].list['start'].value&&this.options[activeKey].list['end'].value){
+      // 获取数据入口  zp  开始和结束都有值再去查
+      if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
         this.mainGetChartsData(activeKey);
       }
     },
@@ -238,8 +264,8 @@ for (let key in this.options) {
       this.status[index].checked = !this.status[index].checked;
       if (index == 0) {
         this.status[index].checked
-          ?  this.$set(this.USD,'yearOnYear',true)
-          : this.$set(this.USD,'yearOnYear',false)
+          ? this.$set(this.USD, "yearOnYear", true)
+          : this.$set(this.USD, "yearOnYear", false);
       }
     }
   }
@@ -251,8 +277,6 @@ for (let key in this.options) {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -266,12 +290,12 @@ for (let key in this.options) {
     }
     // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

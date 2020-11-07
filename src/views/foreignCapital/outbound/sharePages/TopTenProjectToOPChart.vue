@@ -48,10 +48,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: {
-          ch: "2020-10-23",
-          en: "October 23,2020"
-        }
+        updatedDate: "2020-10-23"
       },
       option: {
         ch: "年度",
@@ -144,12 +141,12 @@ export default {
       background-color: #ccc;
     }
     .container {
-      width: 100%;
-      height: 100%;
+    width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     width: 1.411458rem;
     height: auto;
     background-color: #f0f0f0;

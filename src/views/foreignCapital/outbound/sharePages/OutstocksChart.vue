@@ -4,18 +4,13 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
-    
+
     <div class="select-block">
       <div class="frame">
-        <time-frame
-        v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -43,6 +38,7 @@ export default {
       isShowRMB: false,
       USD: {
         id: "USD",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "xxxxxx" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资存量", en: "China’s FDI stocks" },
@@ -53,7 +49,8 @@ export default {
             color: "#6AA3CD",
             data: []
           }
-        ]
+        ],
+        updatedDate: "2020-11-6"
       },
       options: {
         yearly: {
@@ -77,11 +74,19 @@ export default {
       }
     };
   },
+  mounted() {
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.linesChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
+  },
   async created() {
-   let res = await this.getMaxMinDate();
-   let arrmaxmin = res.split("_");
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
     await this.getChartsData({
-      noMonth:true,
+      noMonth: true,
       type: "yearly",
       start: Number(arrmaxmin[0]),
       end: Number(arrmaxmin[1])
@@ -91,12 +96,12 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-        await this.getChartsData({
-          noMonth:true,
-          type,
-          start: Number(start.value),
-          end: Number(end.value)
-        });
+      await this.getChartsData({
+        noMonth: true,
+        type,
+        start: Number(start.value),
+        end: Number(end.value)
+      });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -107,7 +112,7 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        console.log(obj)
+        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -131,24 +136,15 @@ export default {
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
-    async getItemCategoryData(
-      res,
-      XNameAttr,
-      dataAttr,
-      range
-    ) {
-      let data = await this.getItemData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.USD.series[0]["data"] = data.outward_FDI_stocks;
-      
+
       //
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getoutstocksChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getoutstocksChartsData(aug);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -157,12 +153,7 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       // 获取当前页面所有线
-      await this.getItemCategoryData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -201,8 +192,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -216,12 +205,12 @@ export default {
     }
     // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+    width: 5.875rem;
+    height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

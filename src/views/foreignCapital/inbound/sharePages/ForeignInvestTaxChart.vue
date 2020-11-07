@@ -2,19 +2,14 @@
   <!-- 外商投资企业税收统计-外商投资企业税收统计chart -->
   <div class="foreign-invest-taxChart">
     <div class="echart-block">
-       <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-        v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -47,25 +42,30 @@ export default {
   name: "foreignInvestTaxChart",
   data() {
     return {
-      timer:null,
-      showTimeFrame:false,
-      yearOnYearData:0,
-      percentData:0,
+      timer: null,
+      showTimeFrame: false,
+      yearOnYearData: 0,
+      percentData: 0,
       USD: {
         id: "USD",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         percent: false, //通过修改这个值来显示同比
-        title: { ch: "外商投资企业税收统计", en: "Tax revenue from foreign investment enterprises" },
+        title: {
+          ch: "外商投资企业税收统计",
+          en: "Tax revenue from foreign investment enterprises"
+        },
         xData: [],
-        hideLegend:true,
+        hideLegend: true,
         series: [
           {
-            name: "外商投资企业税收统计_Tax revenue from foreign investment enterprises",
+            name:
+              "外商投资企业税收统计_Tax revenue from foreign investment enterprises",
             color: "#6AA3CD",
             data: [],
             yearOnYear: [],
-            percent:[]
+            percent: []
           }
         ]
       },
@@ -103,60 +103,85 @@ export default {
       }
     };
   },
- async mounted() {
-     let res=await this.getMaxMinDate();
-      let arrmaxmin=res.split('_');
-      await this.getChartsData({noMonth:true,type:'yearly',start:Number(arrmaxmin[0]),end:Number(arrmaxmin[1])});
+  async mounted() {
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    await this.getChartsData({
+      noMonth: true,
+      type: "yearly",
+      start: Number(arrmaxmin[0]),
+      end: Number(arrmaxmin[1])
+    });
+
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.linesChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    async mainGetChartsData(type){  //条件改变时获取数据
-          let{start,end}=this.options[type].list;
-           await this.getChartsData({noMonth:true,type,start:Number(start.value),end:Number(end.value)});
+    async mainGetChartsData(type) {
+      //条件改变时获取数据
+      let { start, end } = this.options[type].list;
+      await this.getChartsData({
+        noMonth: true,
+        type,
+        start: Number(start.value),
+        end: Number(end.value)
+      });
     },
-    async getMaxMinDate(){// 获取最大年最小年
-         let res = await chartDataFun.getMaxMinDate('ForeignInvestment');
-      console.log(res)
-for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
-        for (let k in obj.list) {
-          obj.list[k].frame = res;
-        }
-        this.$set(this.options, key, obj);
-      }
-       this.showTimeFrame = true;
-       return res;
+    async getMaxMinDate() {
+      // 获取最大年最小年
+      let res = await chartDataFun.getMaxMinDate("ForeignInvestment");
+      console.log(res);
+      for (let key in this.options) {
+        let obj = JSON.parse(JSON.stringify(this.options[key]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, key, obj);
+      }
+      this.showTimeFrame = true;
+      return res;
     },
-    async getItemData(arrSourceData,Axis,Ayis,range) {  //根据字段获取数据
-              let resoult={};
-              for(let i=0;i<Ayis.length;i++) {
-                  let item=Ayis[i];
-                    // 转换图标数据数组和横轴名称数组
-                  let dataArr=await chartDataFun.objArrtransArr(arrSourceData,Axis,item);
-                  // 补全数据
-                  let data=await chartDataFun.completionDate(dataArr,range);
-                  resoult[item]=data;
-              }
-               return resoult;
+    async getItemData(arrSourceData, Axis, Ayis, range) {
+      //根据字段获取数据
+      let resoult = {};
+      for (let i = 0; i < Ayis.length; i++) {
+        let item = Ayis[i];
+        // 转换图标数据数组和横轴名称数组
+        let dataArr = await chartDataFun.objArrtransArr(
+          arrSourceData,
+          Axis,
+          item
+        );
+        // 补全数据
+        let data = await chartDataFun.completionDate(dataArr, range);
+        resoult[item] = data;
+      }
+      return resoult;
     },
     // 获取当前页面的每条线数据
-    async getItemCategoryData(res,XNameAttr,dataAttr,range) {
-         //外商投资企业税收统计
-         let data=await this.getItemData(res,XNameAttr,dataAttr,range);
-               this.USD.series[0]['data']=data.taxMillion;
-               this.yearOnYearData=JSON.parse(JSON.stringify(data.YOYGrowth));
-               this.percentData=JSON.parse(JSON.stringify(data.percentInCountry));
-               this.USD.series[0]['yearOnYear']=data.YOYGrowth;
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      //外商投资企业税收统计
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      this.USD.series[0]["data"] = data.taxMillion;
+      this.yearOnYearData = JSON.parse(JSON.stringify(data.YOYGrowth));
+      this.percentData = JSON.parse(JSON.stringify(data.percentInCountry));
+      this.USD.series[0]["yearOnYear"] = data.YOYGrowth;
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getForeignInvestTaxChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getForeignInvestTaxChartsData(aug);
       // 完整的区间
-      let range=await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr=['taxMillion','YOYGrowth','percentInCountry'];
-       let XNameAttr='year';
-       this.USD.xData=range;
+      let dataAttr = ["taxMillion", "YOYGrowth", "percentInCountry"];
+      let XNameAttr = "year";
+      this.USD.xData = range;
       // 获取当前页面所有线
-      await this.getItemCategoryData(res,XNameAttr,dataAttr,range);
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -164,10 +189,10 @@ for (let key in this.options) {
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
-        this.timer=setTimeout(()=>{
-          // 条件改变时获取数据数据入口  zp
-            this.mainGetChartsData(activeKey);
-        },600);
+      this.timer = setTimeout(() => {
+        // 条件改变时获取数据数据入口  zp
+        this.mainGetChartsData(activeKey);
+      }, 600);
     },
     change(activeKey, key, value) {
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
@@ -178,31 +203,34 @@ for (let key in this.options) {
         return console.log("开始时间不得大于结束时间");
       }
       this.options[activeKey].list[key].value = value;
-       // 获取数据入口  zp  开始和结束都有值再去查
-      if(this.options[activeKey].list['start'].value&&this.options[activeKey].list['end'].value){
+      // 获取数据入口  zp  开始和结束都有值再去查
+      if (
+        this.options[activeKey].list["start"].value &&
+        this.options[activeKey].list["end"].value
+      ) {
         this.mainGetChartsData(activeKey);
       }
     },
     // 复选框
     changeSelect(index) {
-      for(let i=0; i<this.status.length;i++){
-            if(i==index){
-              this.status[index].checked = !this.status[index].checked;
-            }else{
-               this.status[i].checked=false;
-            }
+      for (let i = 0; i < this.status.length; i++) {
+        if (i == index) {
+          this.status[index].checked = !this.status[index].checked;
+        } else {
+          this.status[i].checked = false;
+        }
       }
       if (index == 0) {
-        this.USD.series[0]['yearOnYear']=this.yearOnYearData;
+        this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
-          ?  this.$set(this.USD,'yearOnYear',true)
-          : this.$set(this.USD,'yearOnYear',false)
+          ? this.$set(this.USD, "yearOnYear", true)
+          : this.$set(this.USD, "yearOnYear", false);
       }
       if (index == 1) {
-        this.USD.series[0]['yearOnYear']=this.percentData;
+        this.USD.series[0]["yearOnYear"] = this.percentData;
         this.status[index].checked
-          ?  this.$set(this.USD,'yearOnYear',true)
-          : this.$set(this.USD,'yearOnYear',false)
+          ? this.$set(this.USD, "yearOnYear", true)
+          : this.$set(this.USD, "yearOnYear", false);
       }
     }
   }
@@ -214,8 +242,6 @@ for (let key in this.options) {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -227,14 +253,13 @@ for (let key in this.options) {
       height: 100%;
       background-color: #ccc;
     }
-    // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

@@ -112,8 +112,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -126,12 +124,12 @@ export default {
       background-color: #ccc;
     }
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

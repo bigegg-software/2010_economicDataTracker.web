@@ -216,7 +216,7 @@ export default {
         );
         this.$set(this.chartBar.series,i,{
           name:`${res[i][0].industry}_${res[i][0].industryEn}`,
-          data:data['outflows'],
+          data:data['outflowsMillion'],
           color:[this.randomColor[i]]
         })
         for(let p=0;p<this.result.length;p++){
@@ -224,7 +224,7 @@ export default {
               if(item.ch==res[i][0].industry){
                 let selectedIndustry={
                   name:`${res[i][0].industry}_${res[i][0].industryEn}`,
-                  data:data['outflows'],
+                  data:data['outflowsMillion'],
                   yearOnYear:data['yOY'],
                   color:[this.randomColor[p]]
                 };
@@ -240,7 +240,7 @@ export default {
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["outflows","yOY"];
+      let dataAttr = ["outflowsMillion","yOY"];
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;

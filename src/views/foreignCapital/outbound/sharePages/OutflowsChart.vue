@@ -4,7 +4,7 @@
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
       <div class="container">
-        <lines-chart :options="USD"></lines-chart>
+        <lines-chart ref="lineChart" :options="USD"></lines-chart>
       </div>
       <div v-if="isShowRMB" class="container">
         <lines-chart :options="RMB"></lines-chart>
@@ -12,12 +12,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -55,6 +50,7 @@ export default {
       isShowRMB: false,
       RMB: {
         id: "RMB",
+        dataSources: "中国人民网",
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
@@ -72,10 +68,12 @@ export default {
             data: [],
             yearOnYear: []
           }
-        ]
+        ],
+        updatedDate: "2020-11-6"
       },
       USD: {
         id: "USD",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
@@ -93,7 +91,8 @@ export default {
             data: [],
             yearOnYear: []
           }
-        ]
+        ],
+        updatedDate: "2020-11-6"
       },
       status: [
         {
@@ -173,6 +172,12 @@ export default {
       start: Number(arrmaxmin[0]),
       end: Number(arrmaxmin[1])
     });
+    this.$EventBus.$on("downLoadImg", () => {
+      this.$refs.lineChart.downloadFile();
+    });
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("downLoadImg");
   },
   methods: {
     async mainGetChartsData(type) {
@@ -262,8 +267,11 @@ export default {
       this.RMB.series[1]["yearOnYear"] = nondata.yOY;
       //
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {allIndustry,nonFinancial} = await request.getOutFlowsChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { allIndustry, nonFinancial } = await request.getOutFlowsChartsData(
+        aug
+      );
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -358,8 +366,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -371,14 +377,13 @@ export default {
       height: 100%;
       background-color: #ccc;
     }
-    // border-right: none;
     .container {
-      width: 100%;
-      height: 100%;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
