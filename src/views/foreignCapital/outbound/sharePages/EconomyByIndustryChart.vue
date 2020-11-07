@@ -2,21 +2,25 @@
   <!-- 中国对主要经济体投资按行业统计chart -->
   <div class="economy-by-industry-chart">
     <div class="echart-block">
-        <div v-if="isShowTable" class="table-block"></div>
-        <div class="container">
-            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
-        </div>
+      <div v-if="isShowTable" class="table-block"></div>
+      <div class="container">
+        <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
+      </div>
     </div>
     <div class="select-block">
       <div class="frame">
-            <year :option="option" :value="option.value" @change="yearChange"></year>
+        <year
+          :option="option"
+          :value="option.value"
+          @change="yearChange"
+        ></year>
       </div>
-      <div  class="frame">
+      <div class="frame">
         <SelectRadio
-        :option="selectOption"
-        :value="selectOption.value"
-        @change="changeSelect($event)"
-      ></SelectRadio>
+          :option="selectOption"
+          :value="selectOption.value"
+          @change="changeSelect($event)"
+        ></SelectRadio>
       </div>
     </div>
   </div>
@@ -32,6 +36,7 @@ export default {
   name: "economyByIndustryChart",
   data() {
     return {
+      randomColor:[],
       chartBar: {
         showAxisLabel:false,
         watermark: false,
@@ -51,11 +56,11 @@ export default {
           "交通运输/仓储和邮政业\nTransportation, storage and postal service"
         ],
         series:[
-          {
-            // name:'存量_xxxxx',
-            color:["#0C9AFF", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#61a0a8", "#91c7ae", "#2f4554"],
-            data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
-          }
+          // {
+          //   name:'存量_xxxxx',
+          //   color:["#0C9AFF", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#61a0a8", "#91c7ae", "#2f4554"],
+          //   data: [10000, 52000, 200000, 334000, 390000, 330000, 220000]
+          // }
         ]
       },
       option: {
@@ -99,6 +104,7 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   async created() {
+    this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     console.log("arrmaxmin",arrmaxmin,this.selectOption.value.ch)
@@ -144,18 +150,20 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIMajorEconomiesIndustry(aug);
+      // debugger
       console.log("======主要经济体======",res,aug)
-      let Xname = [];
       // 金额
       let outflow = [];
-      res.forEach(item => {
-        console.log(item)
-        Xname.push(`${item.industry}\n${item.industry}`);
-        outflow.push(item.outflows);
+      res.forEach((item,i) => {
+        outflow.push({
+          name:`${item.industry}_${item.industry}`,
+          data:[item.outflows],
+          color:[this.randomColor[i]]
+        })
       });
-
-      this.chartBar.xData = Xname;
-      this.chartBar.series[0].data = outflow;
+      this.chartBar.xData = [];
+      this.chartBar.series = outflow
+      console.log("this.chartBar",this.chartBar.series.length, outflow)
     }
   }
 };
@@ -191,7 +199,7 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame{
+    .frame {
       padding: 0.104167rem;
     }
   }
