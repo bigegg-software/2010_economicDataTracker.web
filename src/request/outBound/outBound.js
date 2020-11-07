@@ -322,6 +322,8 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
     let res=await this.manualQueryData('FDIOutflowsIndustry',params);
      res = res.map(item=>{
          item=item.toJSON()
+        //  需要换算单位
+         item.outflowsMillion=item.outflows*100
          return item
      })
      let industrys=chartDataFun.industry();
