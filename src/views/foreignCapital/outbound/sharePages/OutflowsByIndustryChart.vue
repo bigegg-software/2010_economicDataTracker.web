@@ -226,11 +226,11 @@ export default {
       console.log(res)
       for(let i=0;i<res.length;i++) {
           let data = await this.getItemData(
-        res[i],
-        XNameAttr,
-        dataAttr,
-        range
-      );
+          res[i],
+          XNameAttr,
+          dataAttr,
+          range
+        );
         this.$set(this.chartBar.series,i,{
           name:`${res[i][0].industry}_${res[i][0].industryEn}`,
           data:data['outflowsMillion'],

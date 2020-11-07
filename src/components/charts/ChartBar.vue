@@ -28,6 +28,7 @@ export default {
   created() {},
   mounted() {
     if (JSON.stringify(this.chartBarData) != "{}") {
+      this.myChartBar = echarts.init(this.$refs.chartBar);
       this.initChart();
       this.$EventBus.$on("resize", () => {
         this.timer = null;
@@ -77,6 +78,7 @@ export default {
     },
     initChart() {
       //找出y轴数值最大最小值
+      this.myChartBar.clear()
       let totalArray = [];
       let yearArray = [];
       let Max1, Min1, Max2, Min2;
@@ -99,6 +101,7 @@ export default {
       let series = [];
       let legend = [];
       for (let j = 0; j < this.chartBarData.series.length; j++) {
+        let colorList =this.chartBarData.series[j].color;
         series.push(
           {
             name: this.chartBarData.series[j].name,
@@ -106,11 +109,10 @@ export default {
             barWidth: "30%",
             itemStyle: {
               normal: {
-                color: params => {
-                  let colorList = this.chartBarData.series[j].color;
-                  return colorList[params.dataIndex] || colorList[0];
-                }
-              }
+                    color: (params)=> {
+                        return colorList[params.dataIndex]||colorList[0]
+                    }
+                  }
             },
             data: this.chartBarData.series[j].data
           },
@@ -405,9 +407,9 @@ export default {
         ],
         series: series
       };
-      this.myChartBar = echarts.init(this.$refs.chartBar);
-      this.myChartBar.setOption(option);
-      this.myChartBar.resize();
+      
+       this.myChartBar.setOption(option);
+       this.myChartBar.resize();
     },
     //计算最大值
     calMax(arr) {
