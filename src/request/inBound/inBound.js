@@ -8,12 +8,12 @@ export default {
         q.greaterThanOrEqualTo('year', params.start)
         q.lessThanOrEqualTo('year', params.end)
         if (type == 'yearly' && !params.noMonth) {
-            q.equalTo('month', 11)//应该是12
+            q.equalTo('month', 12)//应该是12
             q.ascending('year')
         } else if (type == 'yearly' && params.noMonth) {
             q.ascending('year')
         } else if (type == 'quarterly') {
-            q.containedIn('month', [3, 6, 9, 11])//应该是12
+            q.containedIn('month', [3, 6, 9, 12])//应该是12
             q.ascending('year')
             q.addAscending(['month'])
         } else if (type == 'monthly') {

@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       timer: null,
-      randomColor:[],
+      randomColor:['#8DC32E','#FF800C','#0CF6FF','#DB9800','#8D6CE3','#FFBD0C','#111BFF','#FF0CC5','#2992AE','#0C9AFF','#C4D225','#E39145','#0CFFCB','#CF90FF','#FF0000','#101010','#D04747','#7B0CFF'],
       showTimeFrame:false,
       isShowLineChart: false,
       chartBar: {
@@ -146,7 +146,7 @@ export default {
     this.checkBox.op[1].checked=true;
     this.result=this.checkBox.op.slice(0,2);
      //随机颜色
-    this.randomColor=await chartDataFun.randomColor(18);
+    // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
    let arrmaxmin = res.split("_");
    this.options.yearly.list.start.value=arrmaxmin[0];

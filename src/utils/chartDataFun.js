@@ -102,5 +102,18 @@ export default {
             return item;
         });
            return industrys;
+    },
+    getServerIndustry:async ()=> {
+        let industrys = new Parse.Query('Industry');
+        industrys = await industrys.map( item=>{
+            item=item.toJSON();
+            item.ch=item.industryZH;
+            item.en=item.industryEN;
+            item.searchArr= [...item.industryZH.split(''),...item.industryEN.split(' ')];
+            item.checked=false;
+            item.show=true;
+            return item;
+        });
+        return industrys;
     }
 }
