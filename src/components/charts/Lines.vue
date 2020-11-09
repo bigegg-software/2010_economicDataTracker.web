@@ -261,7 +261,7 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                params[i].value == "" ? "-" : params[i].value
+                !!params[i].value?params[i].value :"-"
               }</div>`;
               dom = dom + a + b + c;
             }
@@ -274,7 +274,7 @@ export default {
         // color: ["#1DD6CF", "#ED8DD0"], // 控制 lengend icon 的颜色
         legend: {
           data: legend,
-          selectedMode: false, //是否可以通过点击图例改变系列的显示状态
+          selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if (!this.options.hideLegend) {
               return [

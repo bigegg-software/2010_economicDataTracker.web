@@ -4,11 +4,10 @@
       <div>{{ option.ch }}</div>
       <div>{{ option.en }}</div>
     </div>
-    <div class="time-block">
+    <div class="time-block" @click="openCalendar">
       <div class="text">{{ value ? value : "请选择" }}</div>
       <div
         class="icon iconfont"
-        @click="openCalendar"
         @mouseenter="mouseenter"
         @mouseleave="closeCalendar"
       >
@@ -182,8 +181,8 @@ export default {
       height: 0.208333rem;
       margin: 0.05rem;
       text-align: center;
-      border-radius: 50%;
-      background-color: #eee;
+      border-radius: 0.02rem;
+      // background-color: #eee;
       cursor: pointer;
     }
     .current {
@@ -199,6 +198,7 @@ export default {
 .time-block {
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: space-between;
   width: 75%;
   height: 0.197917rem;

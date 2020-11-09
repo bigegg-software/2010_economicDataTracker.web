@@ -103,7 +103,7 @@ export default {
           {
             name: this.chartBarData.series[j].name,
             type: "bar",
-            barWidth: "30%",
+            // barWidth: "30%",
             itemStyle: {
               normal: {
                 color: params => {
@@ -275,7 +275,7 @@ export default {
                   }</div>`;
                 }
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params[i].value?params[i].value:'-'}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${!!params[i].value?params[i].value :"-"}</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;

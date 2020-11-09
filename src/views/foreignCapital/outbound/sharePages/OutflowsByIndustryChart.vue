@@ -223,7 +223,7 @@ export default {
       dataAttr,
       range
     ) {
-      console.log(res)
+      this.USD.series=[];
       for(let i=0;i<res.length;i++) {
           let data = await this.getItemData(
           res[i],
