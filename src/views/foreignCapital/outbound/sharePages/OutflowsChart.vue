@@ -272,7 +272,6 @@ export default {
       let { allIndustry, nonFinancial } = await request.getOutFlowsChartsData(
         aug
       );
-
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

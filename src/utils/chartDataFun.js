@@ -103,6 +103,7 @@ export default {
         });
            return industrys;
     },
+    // 获取行业
     getServerIndustry:async ()=> {
         let industrys = new Parse.Query('Industry');
         industrys = await industrys.map( item=>{
@@ -115,5 +116,13 @@ export default {
             return item;
         });
         return industrys;
-    }
+    },
+    exportData:async function(fileName,tHeader,filterVal,tableData){
+                let { export_json_to_excel } = require('@/vendor/Export2Excel');
+                let data = await this.formatJson(filterVal, tableData);
+                export_json_to_excel({header:tHeader, data, filename:fileName});
+        },
+        formatJson:async function(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => v[j]))
+        }
 }
