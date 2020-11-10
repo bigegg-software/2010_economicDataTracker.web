@@ -1,5 +1,6 @@
 import Parse from '../index'
 import chartDataFun from "@/utils/chartDataFun";
+import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据  
@@ -82,10 +83,34 @@ sumSameYearData:async (sourceData,field)=> {
            let res=await this.manualQueryData('FDIOutflow',params);
             res = res.map(item=>{
                 item=item.toJSON()
+                if(item.outFlowType==1){
+                    item.outFlowTypeCH='全行业'
+                }else if(item.outFlowType==2){
+                    item.outFlowTypeCH='非金融'
+                }
                 item.investAmountMillion = item.investAmount * 100;
                 item.investConversionMillion = item.investConversion * 100;
                 return item
             })
+            // 处理存储导出excel数据
+            let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+            })
+            tableres=tableres.reverse();
+            let tableInfo={
+            fileName:'中国对外直接投资流量',
+            tHeader:[
+                "年",
+                "月份",
+                '中国对外直接投资流量',
+                '中国对外直接投资流量同比',
+                '单位',
+                '类型'
+            ],
+            filterVal:['year','month','investConversion','conversionYOY','conversionUnit','outFlowTypeCH'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
             let allIndustry = res.filter(item=>{
                 return item.outFlowType == 1
             })
@@ -158,6 +183,19 @@ getoutstocksChartsData:async function(params) {//获取中国对外直接投资�
          item=item.toJSON()
          return item
      })
+     let tableres=await JSON.parse(JSON.stringify(res));
+     tableres=tableres.reverse();
+            let tableInfo={
+            fileName:'中国对外直接投资存量',
+            tHeader:[
+                "年份",
+                '中国对外直接投资存量',
+                '单位'
+            ],
+            filterVal:['year','outward_FDI_stocks','unit'],
+            tableData:[...tableres]
+            }
+     store.commit('saveChartTable',tableInfo);
      return {res};
 },
 getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,filed) {// 获取中国对外直接投资流量按国家和地区统计-按大洲统计
