@@ -16,6 +16,10 @@ export default {
     totalData: {}
   },
    watch: {
+      "$store.state.fullScreen.isFullScreen"() {
+       this.drawTreemap();
+        this.chart.resize();
+    },
     totalData: {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
       handler(newName, oldName) {

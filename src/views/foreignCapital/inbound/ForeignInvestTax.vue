@@ -1,6 +1,6 @@
 <template>
   <!-- 外商投资企业税收统计 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
@@ -120,10 +120,13 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
+      if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
-     choose(index, i, name) {
+    choose(index, i, name) {
       if (name == "download" && i == 0) {
         console.log("下载图片");
         this.$EventBus.$emit("downLoadImg");
@@ -139,6 +142,9 @@ export default {
 
 <style lang="less" scoped>
 .container {
-   width: 7.28125rem;
+  width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

@@ -1,12 +1,8 @@
 <template>
   <!-- "一带一路"沿线国家对华投资情况 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body
-      :tabComponent="tabComponent"
-      :isShowTable="actionsList[0].checked"
-      :isFullScreen="actionsList[actionsList.length-1].checked"
-    ></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -129,18 +125,12 @@ export default {
       }
       if (item.name == "chart") {
         // this.isShowTable = !this.isShowTable;
-
       }
       if (item.name == "enlarge") {
-
-        console.log(this.actionsList[this.actionsList.length-1].checked)
-
-        console.log("111111enlarge");
+        this.$store.commit("fullScreen");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
-
-
     },
     choose(index, i, name) {
       if (name == "download" && i == 0) {
@@ -159,7 +149,9 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  // width: 7.28125rem;
+  width: 7.28125rem;
+}
+.FullContainer {
   width: 9.166667rem;
 }
 </style>

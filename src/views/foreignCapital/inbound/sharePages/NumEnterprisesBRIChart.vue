@@ -3,7 +3,7 @@
   <div class="numEnterprises-BRI-Chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div :class="isFullScreen==true?'fullContainer':'container'">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
@@ -235,12 +235,10 @@ export default {
     .fullContainer {
       width: 7.4rem;
       height: 4.933333rem;
-      border: 2px solid red;
     }
   }
   .select-block {
-    // width: 1.40625rem;
-    width: 1.76667rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

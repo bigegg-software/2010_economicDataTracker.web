@@ -1,20 +1,21 @@
 <template>
   <div class="pageBanner">
-    <!-- <div :class="isFullScreen?'nav-container':'nav-fullContainer'"> -->
-    <div class="nav-container">
-      <div class="nav-block">
-        <div
-          v-for="(item, index) in navList"
-          :key="index"
-          class="nav-item"
-          :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
-          @click="jumpPage(item)"
-        >
-          <div class="nav-text">{{ item.English}}</div>
-          <div class="nav-text">{{ item.Chinese}}</div>
+    <div :class="$store.state.fullScreen.isFullScreen==true?'nav-container':'nav-fullContainer'">
+      <div class="nav-container">
+        <div class="nav-block">
+          <div
+            v-for="(item, index) in navList"
+            :key="index"
+            class="nav-item"
+            :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
+            @click="jumpPage(item)"
+          >
+            <div class="nav-text">{{ item.English}}</div>
+            <div class="nav-text">{{ item.Chinese}}</div>
+          </div>
         </div>
+        <nav-search></nav-search>
       </div>
-      <nav-search></nav-search>
     </div>
   </div>
 </template>

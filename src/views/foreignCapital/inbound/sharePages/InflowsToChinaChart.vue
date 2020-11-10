@@ -3,10 +3,10 @@
   <div class="outflows-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div v-if="isShowLineChart" class="container">
+      <div v-if="isShowLineChart" :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
-      <div v-else class="container">
+      <div v-else :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
@@ -92,7 +92,8 @@ export default {
           //   data: [],
           //   yearOnYear: []
           // }
-        ]
+        ],
+        updatedDate: "2020-10-23"
       },
       status: [
         {
@@ -364,8 +365,6 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -379,12 +378,16 @@ export default {
     }
     // border-right: none;
     .container {
-      width: 100%;
-      height: 3.458333rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
