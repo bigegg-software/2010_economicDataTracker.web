@@ -4,7 +4,9 @@ import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据  
-            let q = new Parse.Query(tableName)
+            let q = new Parse.Query(tableName);
+            let limiCcount = await q.count();
+            q.limit(limiCcount);
             let type = params.type;
             q.greaterThanOrEqualTo('year',params.start)
             q.lessThanOrEqualTo('year',params.end)
@@ -31,11 +33,12 @@ export default {
                     q.containedIn(c,params.containedIn[c])
                 }
             }
-            let res = await q.find()
+            let res = await q.find();
+            console.log(res);
             return res;
     },
 // 各州国家金额求和
-sumSameYearData:async (sourceData,field)=> {
+sumSameYearData:async (sourceData,field,name)=> {
     let yearArr=[];
     let resD=[];
     sourceData.forEach(async (item)=>{
@@ -48,10 +51,16 @@ sumSameYearData:async (sourceData,field)=> {
         for(let u=0;u<sourceData.length;u++) {
             let item=sourceData[u];
             if(item.year==currentYear){
-            mount+=item[field];
+           if(item[field]){
+               mount+=item[field];
+           }else{
+            mount+=0;
+           }
             }
         }
         resD.push({
+        name,
+        unit:sourceData[0].unit,
         year:currentYear,
         mount:mount/100
         });
@@ -177,7 +186,7 @@ getTradeVolumeChartChartsData:async function(params) {//获取中国对外劳务
      })
      return {res};
 },
-getoutstocksChartsData:async function(params) {//获取中国对外直接投资存量（投资存量）  //折线图
+getoutstocksChartsData:async function(params,tabIndex) {//获取中国对外直接投资存量（投资存量）  //折线图
     let res=await this.manualQueryData('FDIOutflowsInflows',params);
      res = res.map(item=>{
          item=item.toJSON()
@@ -185,7 +194,8 @@ getoutstocksChartsData:async function(params) {//获取中国对外直接投资�
      })
      let tableres=await JSON.parse(JSON.stringify(res));
      tableres=tableres.reverse();
-            let tableInfo={
+     if(tabIndex==1){ // 代表存量
+         let tableInfo={
             fileName:'中国对外直接投资存量',
             tHeader:[
                 "年份",
@@ -195,51 +205,83 @@ getoutstocksChartsData:async function(params) {//获取中国对外直接投资�
             filterVal:['year','outward_FDI_stocks','unit'],
             tableData:[...tableres]
             }
-     store.commit('saveChartTable',tableInfo);
+            store.commit('saveChartTable',tableInfo);
+     }else if(tabIndex==2){ //代表流量与存量
+        let tableInfo={
+            fileName:'中国对外直接投资流量与存量',
+            tHeader:[
+                "年份",
+                '中国对外直接投资流量',
+                '中国对外直接投资存量',
+                '单位'
+            ],
+            filterVal:['year','outward_FDI_flows','outward_FDI_stocks','unit'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
+     }
      return {res};
 },
-getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,filed) {// 获取中国对外直接投资流量按国家和地区统计-按大洲统计
+getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,filed,tabIndex) {// 获取中国对外直接投资流量按国家和地区统计-按大洲统计
        let res=await this.manualQueryData(tableName,params);
        res = res.map(item=>{
             item=item.toJSON()
             return item
         })
-
         let Asia = res.filter(item=>{
             return item.continent == '亚洲'
         })
-        Asia=await this.sumSameYearData(Asia,filed);
-
+        Asia=await this.sumSameYearData(Asia,filed,'亚洲');
         let Europe = res.filter(item=>{
             return item.continent == '欧洲'
         })
-        Europe=await this.sumSameYearData(Europe,filed);
+        Europe=await this.sumSameYearData(Europe,filed,'欧洲');
 
         let Oceania = res.filter(item=>{
             return item.continent == '大洋洲'
         })
-        Oceania=await this.sumSameYearData(Oceania,filed);
+        Oceania=await this.sumSameYearData(Oceania,filed,'大洋洲');
 
         let North_America = res.filter(item=>{
             return item.continent == '北美洲'
         })
-        North_America=await this.sumSameYearData(North_America,filed);
+        North_America=await this.sumSameYearData(North_America,filed,'北美洲');
 
         let Antarctica = res.filter(item=>{
             return item.continent == '南极洲'
         })
-        Antarctica=await this.sumSameYearData(Antarctica,filed);
+        Antarctica=await this.sumSameYearData(Antarctica,filed,'南极洲');
 
         let South_America = res.filter(item=>{
             return item.continent == '南美洲'
         })
-        South_America=await this.sumSameYearData(South_America,filed);
+        South_America=await this.sumSameYearData(South_America,filed,'南美洲');
 
         let Africa = res.filter(item=>{
             return item.continent == '非洲'
         })
-        Africa=await this.sumSameYearData(Africa,filed);
-
+        Africa=await this.sumSameYearData(Africa,filed,'非洲');
+           
+// 处理table数据
+let tableres=await JSON.parse(JSON.stringify([...Asia,...Europe,...Oceania,...North_America,...Antarctica,...South_America,...Africa]));
+        tableres=tableres.sort((a,b)=>{
+             return b.year-a.year;
+        });
+        // if(tabIndex==1){ // 代表存量的按大洲统计
+            let tableInfo={
+                fileName: tabIndex==1?'中国对外直接投资存量按大洲统计':'中国对外直接投资流量按大洲统计',
+                tHeader:[
+                    "年份",
+                    '大洲',
+                    tabIndex==1?'中国对外直接投资存量':'中国对外直接投资流量',
+                    '单位'
+                ],
+                filterVal:['year','name','mount','unit'],
+                tableData:[...tableres]
+                }
+                store.commit('saveChartTable',tableInfo);
+        // }
+// 
         return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa};
 },///
 getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed) {//获取中国对外直接投资流量|存量按国家和地区统计-按国家和地区统计  //折线图
@@ -267,6 +309,8 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed) 
 // 柱状图查询  饼图
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     let q = new Parse.Query(tableName);
+    let limiCcount = await q.count();
+        q.limit(limiCcount);
         if(params.limit){
             q.limit(params.limit);
         }

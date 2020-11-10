@@ -184,7 +184,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getoutstocksChartsData(aug);
+      let { res } = await request.getoutstocksChartsData(aug,1);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);

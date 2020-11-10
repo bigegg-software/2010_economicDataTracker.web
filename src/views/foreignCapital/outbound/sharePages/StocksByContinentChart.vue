@@ -2,9 +2,11 @@
   <!-- 中国对外直接投资存量按国家和地区统计-按大洲统计chart-->
   <div class="Stocks-ByContinentChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+         <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div class="container">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -21,17 +23,45 @@ import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
     isShowTable: {}
   },
   components: {
     TimeFrame,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "stocksByContinentChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "中国对外直接投资存量按大洲统计",
+          en: "China’s FDI stocks by continent"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          name: {
+            text: "大洲_Continent",
+            width: "35%"
+          },
+          mount: {
+            text: "中国对外直接投资存量_China's FDI stocks",
+            width: "35%"
+          },
+          unit: {
+            text: "单位_unit",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
@@ -103,6 +133,20 @@ export default {
         }
       }
     };
+  },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
   },
   async mounted() {
     let res = await this.getMaxMinDate();
@@ -241,7 +285,8 @@ export default {
       } = await request.getOutflowsOutstocksByDestinationChartsData(
         "FDIStock",
         aug,
-        "stocks"
+        "stocks",
+        1
       );
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -309,7 +354,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {
