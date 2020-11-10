@@ -1,5 +1,5 @@
 <template>
-  <component :is="tabComponent" :isShowTable="isShowTable"></component>
+  <component :is="tabComponent" :isShowTable="isShowTable" :isFullScreen="isFullScreen"></component>
 </template>
 
 <script>
@@ -62,7 +62,8 @@ export default {
       type: String,
       required: true
     },
-    isShowTable: {}
+    isShowTable: {},
+    isFullScreen:{}
   },
   data() {
     return {};

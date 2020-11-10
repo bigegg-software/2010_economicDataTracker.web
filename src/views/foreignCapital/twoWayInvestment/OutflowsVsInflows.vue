@@ -1,6 +1,6 @@
 <template>
   <!-- 双向直接投资 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent"></share-body>
     <actions-component
@@ -117,6 +117,9 @@ export default {
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
         `;
       }
+       if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -137,5 +140,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

@@ -18,6 +18,9 @@ export default {
     }
   },
   watch: {
+     "$store.state.fullScreen.isFullScreen"() {
+       this.initChart()
+    },
     chartBarData: {
       handler(newName, oldName) {
         this.initChart();

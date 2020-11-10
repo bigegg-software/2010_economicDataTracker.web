@@ -1,6 +1,6 @@
 <template>
   <div :ref="totalData.id" id="pieChart" style="width:100%;
-    height:100%" ></div>
+    height:100%"></div>
 </template>
 
 <script>
@@ -13,9 +13,13 @@ export default {
   },
   props: {
     totalData: {},
-    value:{}
+    value: {}
   },
   watch: {
+    "$store.state.fullScreen.isFullScreen"() {
+      this.drawPie();
+      this.chart.resize();
+    },
     totalData: {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
       handler(newName, oldName) {
@@ -94,9 +98,7 @@ export default {
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;margin-bottom:0.02rem;">${
-              this.value
-            }</div>`;
+            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;margin-bottom:0.02rem;">${this.value}</div>`;
             let a = `<div style="color:#666;font-size:0.09375rem">${
               params.name.split("_")[1]
             }</div>`;
@@ -104,7 +106,7 @@ export default {
               params.name.split("_")[0]
             }</div>`;
             let c = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
-            let dom =year+ a + b + c;
+            let dom = year + a + b + c;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
         },
@@ -168,9 +170,8 @@ export default {
                 top: "middle",
                 style: {
                   fill: "#666",
-                    text: "数据最后更新时间",
+                  text: "数据最后更新时间",
                   font: `${this.$fz(0.14)}px 黑体`
-                
                 }
               }
             ]
@@ -188,7 +189,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: this.totalData.updatedDate,
-                  font: `${this.$fz(0.20)}px Calibri`
+                  font: `${this.$fz(0.2)}px Calibri`
                 }
               }
             ]
@@ -225,7 +226,6 @@ export default {
   position: absolute;
   left: 0px;
   top: 0px;
-  
 }
 </style>
 

@@ -3,7 +3,7 @@
   <div class="topFifteen-CountriesChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
@@ -161,12 +161,16 @@ export default {
       background-color: #ccc;
     }
     .container {
-       width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+       width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

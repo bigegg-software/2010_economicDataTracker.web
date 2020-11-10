@@ -1,25 +1,27 @@
 <template>
   <div class="pageBanner">
-    <div class="nav-container">
-      <div class="nav-block">
-        <div
-          v-for="(item, index) in navList"
-          :key="index"
-          class="nav-item"
-          :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
-          @click="jumpPage(item)"
-        >
-          <div class="nav-text">{{ item.English}}</div>
-          <div class="nav-text">{{ item.Chinese}}</div>
+    <div :class="$store.state.fullScreen.isFullScreen==true?'nav-container':'nav-fullContainer'">
+      <div class="nav-container">
+        <div class="nav-block">
+          <div
+            v-for="(item, index) in navList"
+            :key="index"
+            class="nav-item"
+            :class="item.name&&$route.path.includes(item.name) ? 'active' : ''"
+            @click="jumpPage(item)"
+          >
+            <div class="nav-text">{{ item.English}}</div>
+            <div class="nav-text">{{ item.Chinese}}</div>
+          </div>
         </div>
+        <nav-search></nav-search>
       </div>
-      <nav-search></nav-search>
     </div>
   </div>
 </template>
 
 <script>
-import NavSearch from '@/components/NavSearch'
+import NavSearch from "@/components/NavSearch";
 export default {
   name: "PageBanner",
   data() {
@@ -40,7 +42,7 @@ export default {
       searchValue: ""
     };
   },
-  components:{NavSearch},
+  components: { NavSearch },
   methods: {
     jumpPage(item) {
       this.$router.push({ name: item.name });
@@ -56,6 +58,9 @@ export default {
   width: 100%;
   height: 1.958333rem;
   background: url("../../../assets/img/banner.jpg") center/cover no-repeat;
+  .nav-fullContainer {
+    display: none;
+  }
   .nav-container {
     position: absolute;
     bottom: 0;
@@ -99,7 +104,6 @@ export default {
         }
       }
     }
-    
   }
 }
 </style>

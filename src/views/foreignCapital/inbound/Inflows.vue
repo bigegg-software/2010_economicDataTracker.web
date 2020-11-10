@@ -1,11 +1,7 @@
 <template>
   <!-- 实际使用外资 -->
-  <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
@@ -28,16 +24,16 @@ export default {
   },
   data() {
     return {
-      tabComponent: 'inflowsChart',
+      tabComponent: "inflowsChart",
       tabList: [
         {
-          name:'inflowsChart',
+          name: "inflowsChart",
           chinese: "实际使用外资",
           english: "China's FDI inflows"
-        },
+        }
       ],
-      
-    actionsList: [
+
+      actionsList: [
         {
           name: "chart",
           ch: "表格_图表",
@@ -91,18 +87,22 @@ export default {
             { name: "", img: "email.png" }
           ]
         },
-        { name: "enlarge", ch: "全屏_取消全屏", en: "Full screen_Cancel the full screen", icon: "\ue600", checked: false }
+        {
+          name: "enlarge",
+          ch: "全屏_取消全屏",
+          en: "Full screen_Cancel the full screen",
+          icon: "\ue600",
+          checked: false
+        }
       ]
-    
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
     },
-    
+
     initActionsList() {
       for (let i = 0; i < this.actionsList.length; i++) {
         this.actionsList[i].checked = this.actionsList[i].toggle
@@ -110,19 +110,23 @@ export default {
           : false;
       }
     },
-    handleClickAction(item,index) {
-      if(item.name=='embed'){  //设置嵌入链接
-        item.children[0].src=`
+    handleClickAction(item, index) {
+      if (item.name == "embed") {
+        //设置嵌入链接
+        item.children[0].src = `
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
-        `
+        `;
       }
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
+      if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
-     choose(index, i, name) {
+    choose(index, i, name) {
       if (name == "download" && i == 0) {
         console.log("下载图片");
         this.$EventBus.$emit("downLoadImg");
@@ -132,13 +136,15 @@ export default {
       }
       this.initActionsList();
     }
-  
   }
 };
 </script>
 
 <style lang="less" scoped>
 .container {
-   width: 7.28125rem;
+  width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

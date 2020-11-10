@@ -1,7 +1,7 @@
 <template>
   <div class="foreignCapital">
     <!-- 左侧导航栏 -->
-    <div class="slide">
+    <div class="slide" v-if="$store.state.fullScreen.isFullScreen">
       <menu-component></menu-component>
     </div>
     <!-- 右侧内容 -->
@@ -31,4 +31,7 @@ export default {
   justify-content: space-between;
   width: 100%;
 }
+// .slide{
+//   display: none;
+// }
 </style>

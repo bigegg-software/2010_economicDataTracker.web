@@ -9,7 +9,7 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark:false,
+      watermark: false
     };
   },
   props: {
@@ -30,6 +30,10 @@ export default {
     this.$EventBus.$off("resize");
   },
   watch: {
+    "$store.state.fullScreen.isFullScreen"() {
+      this.initChart();
+      this.chart.resize();
+    },
     options: {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
       handler(newName, oldName) {
@@ -162,7 +166,7 @@ export default {
         },
         grid: {
           top: "25%",
-          bottom: "15%"
+          bottom: "11%"
         },
         graphic: [
           {
@@ -261,7 +265,7 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value?params[i].value :"-"
+                !!params[i].value ? params[i].value : "-"
               }</div>`;
               dom = dom + a + b + c;
             }
@@ -277,10 +281,9 @@ export default {
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if (!this.options.hideLegend) {
-              return [
-                `${name.split("_")[1]}`,
-                `${name.split("_")[0]}`
-              ].join("\n");
+              return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
+                "\n"
+              );
             } else {
               return [];
             }
