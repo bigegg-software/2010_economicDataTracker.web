@@ -162,7 +162,7 @@ export default {
         },
         grid: {
           top: "25%",
-          bottom: "15%"
+          bottom: "11%"
         },
         graphic: [
           {

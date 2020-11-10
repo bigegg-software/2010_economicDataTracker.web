@@ -1,5 +1,6 @@
 <template>
   <div class="pageBanner">
+    <!-- <div :class="isFullScreen?'nav-container':'nav-fullContainer'"> -->
     <div class="nav-container">
       <div class="nav-block">
         <div
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import NavSearch from '@/components/NavSearch'
+import NavSearch from "@/components/NavSearch";
 export default {
   name: "PageBanner",
   data() {
@@ -40,7 +41,7 @@ export default {
       searchValue: ""
     };
   },
-  components:{NavSearch},
+  components: { NavSearch },
   methods: {
     jumpPage(item) {
       this.$router.push({ name: item.name });
@@ -56,6 +57,9 @@ export default {
   width: 100%;
   height: 1.958333rem;
   background: url("../../../assets/img/banner.jpg") center/cover no-repeat;
+  .nav-fullContainer {
+    display: none;
+  }
   .nav-container {
     position: absolute;
     bottom: 0;
@@ -99,7 +103,6 @@ export default {
         }
       }
     }
-    
   }
 }
 </style>

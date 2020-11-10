@@ -3,7 +3,7 @@
   <div class="numEnterprises-BRI-Chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
+      <div :class="isFullScreen==true?'fullContainer':'container'">
         <lines-chart ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
@@ -32,7 +32,8 @@ import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    isFullScreen: {}
   },
   components: {
     TimeFrame,
@@ -91,6 +92,9 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.isFullScreen);
+    console.log(this.isShowTable);
+
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     await this.getChartsData({
@@ -226,11 +230,17 @@ export default {
     }
     .container {
       width: 5.875rem;
-    height: 3.916667rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+      border: 2px solid red;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    // width: 1.40625rem;
+    width: 1.76667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
