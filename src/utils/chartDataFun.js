@@ -122,7 +122,21 @@ export default {
                 let data = await this.formatJson(filterVal, tableData);
                 export_json_to_excel({header:tHeader, data, filename:fileName});
         },
-        formatJson:async function(filterVal, jsonData) {
-            return jsonData.map(v => filterVal.map(j => v[j]))
-        }
+    formatJson:async function(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => v[j]))
+    },
+    conversionTable: function(tableTitle,tableData) {
+        let res=[];
+        tableData.forEach(item => {
+            let itemObj={};
+            for(let i in tableTitle){
+                itemObj[i]={
+                       text:item[i]+'_',
+                       width:tableTitle[i].width
+                     }
+            } 
+            res.push(itemObj);
+        });
+        return res;
+    }
 }

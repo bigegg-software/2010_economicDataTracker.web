@@ -102,6 +102,11 @@ export default {
       ]
     };
   },
+  watch: {
+    tabComponent() {
+      this.$set(this.actionsList[0], "checked", false);
+    }
+  },
   mounted() {},
   methods: {
     changeTabCompnent(name) {
@@ -134,7 +139,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        console.log("下载表格");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }
