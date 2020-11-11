@@ -54,6 +54,10 @@ export default {
           ch: "中国对外直接投资流量",
           en: "China's FDI outflows"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -63,16 +67,12 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          investConversion: {
+          investConversionMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
             width: "35%"
           },
           conversionYOY: {
             text: "中国对外直接投资流量同比_xxxxxxxx",
-            width: "35%"
-          },
-          conversionUnit: {
-            text: "单位_unit",
             width: "35%"
           },
           outFlowTypeCH:{

@@ -41,6 +41,10 @@ export default {
           ch: "中国对外直接投资流量按大洲统计",
           en: "China’s FDI outflows by continent"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -52,10 +56,6 @@ export default {
           },
           mount: {
             text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%"
-          },
-          unit: {
-            text: "单位_unit",
             width: "35%"
           }
         },
