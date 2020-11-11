@@ -102,7 +102,7 @@ export default {
 
         tableres=tableres.reverse();
         let tableInfo={
-        fileName:'中国对外直接投资流量',
+        fileName:'实际使用外资',
         tHeader:[
             "年份",
             "月份",
@@ -209,11 +209,31 @@ getTopFifteenCountriesChart:async function(params) {
         item=item.toJSON();
         // 实际投入外资金额
         item.FDIInflowsMillion=item.FDIInflows*100;
+        item.unitMillion = '百万美元'
         return item;
     });
+
+    let tableres= JSON.parse(JSON.stringify(res))
+
+    tableres=tableres.reverse();
+    let tableInfo={
+    fileName:'主要对华投资前15位国家/地区',
+    tHeader:[
+        "年份",
+        "国家/地区",
+        '企业数',
+        '比重',
+        '实际投入外资金额',
+        '比重',
+        '单位'
+    ],
+    filterVal:['year','country','enterpriseNumber','enterprisePercent','FDIInflows', 'inflowsPercent' , 'unitMillion'],
+    tableData:[...tableres]
+    }
+    store.commit('saveChartTable',tableInfo);
+
     return {res};
 },
-
 
 }
 
