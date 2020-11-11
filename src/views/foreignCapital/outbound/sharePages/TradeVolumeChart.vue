@@ -2,15 +2,26 @@
   <!-- 中国对外劳务合作派出人数chart -->
   <div class="outflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div class="container">
-        <lines-chart ref="linesChart" :options="Person"></lines-chart>
+        <lines-chart
+          v-if="!isShowTable"
+          ref="linesChart"
+          :options="Person"
+        ></lines-chart>
       </div>
     </div>
 
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -22,17 +33,50 @@ import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
   },
   components: {
     TimeFrame,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "outflowsChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "派出人数",
+          en: "Total trade volume"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          rank: {
+            text: "排名_Rank",
+            width: "20%"
+          },
+          variousTypesPerNum: {
+            text: "各类劳务人员_Workers sent overseas",
+            width: "35%"
+          },
+          contractProject: {
+            text: "承包工程项下派人数_Workers under contracted projects",
+            width: "35%"
+          },
+          laborCooperation: {
+            text: "劳务合作项下派人数_Workers under labor service cooperation",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
@@ -84,11 +128,29 @@ export default {
       }
     };
   },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
+  },
   async created() {
-   let res = await this.getMaxMinDate();
-   let arrmaxmin = res.split("_");
-   this.options.yearly.list.start.value=arrmaxmin[0];
-   this.options.yearly.list.end.value=arrmaxmin[1];
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -216,12 +278,11 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
-    // border-right: none;
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {

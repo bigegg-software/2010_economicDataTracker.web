@@ -2,9 +2,15 @@
   <!-- 中国对外承包工程完成营业额chart -->
   <div class="outflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div class="container">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart
+          v-if="!isShowTable"
+          ref="linesChart"
+          :options="USD"
+        ></lines-chart>
       </div>
       <div v-if="isShowRMB" class="container">
         <lines-chart :options="RMB"></lines-chart>
@@ -13,7 +19,7 @@
     <div class="select-block">
       <div class="frame">
         <time-frame
-        v-if="showTimeFrame"
+          v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -38,6 +44,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -45,11 +53,46 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "outflowsChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "完成营业额",
+          en: "Total value of new contract y-o-y growth"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_month",
+            width: "20%"
+          },
+          completedAmount: {
+            text: "完成营业额(USD)_Revenue of completed contract",
+            width: "35%"
+          },
+          completedAmountYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%"
+          },
+          completedAmountCon: {
+            text: "完成营业额折合(RMB)_unit",
+            width: "35%"
+          },
+          completedAmountConYOY: {
+            text: "完成营业额折合同比_type",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
@@ -58,9 +101,12 @@ export default {
         dataSources: "中国人民网",
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "完成营业额", en: "Total value of new contract y-o-y growth " },
+        title: {
+          ch: "完成营业额",
+          en: "Total value of new contract y-o-y growth "
+        },
         xData: [],
-        hideLegend:true,
+        hideLegend: true,
         series: [
           {
             name: "完成营业额_Total value of new contract y-o-y growth ",
@@ -69,16 +115,19 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate: "2020-11-6"
       },
       USD: {
         id: "USD",
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "完成营业额", en: "Total value of new contract y-o-y growth " },
+        title: {
+          ch: "完成营业额",
+          en: "Total value of new contract y-o-y growth "
+        },
         xData: [],
-        hideLegend:true,
+        hideLegend: true,
         series: [
           {
             name: "完成营业额_Total value of new contract y-o-y growth ",
@@ -87,7 +136,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate: "2020-11-6"
       },
       status: [
         {
@@ -159,8 +208,26 @@ export default {
       }
     };
   },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
+  },
   async created() {
-   let res = await this.getMaxMinDate();
+    let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     await this.getChartsData({
       type: "yearly",
@@ -233,27 +300,18 @@ export default {
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
-    async getItemCategoryData(
-      res,
-      XNameAttr,
-      dataAttr,
-      range
-    ) {
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       //全行业
-      let data = await this.getItemData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.USD.series[0]["data"] = data.completedAmountConMillion;
       this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
       this.RMB.series[0]["data"] = data.completedAmountMillion;
       this.RMB.series[0]["yearOnYear"] = data.completedAmountYOY;
       //
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getOverSeasProjectsChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getOverSeasProjectsChartsData(aug);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -281,12 +339,7 @@ export default {
         XNameAttr = "M";
       }
       // 获取当前页面所有线
-      await this.getItemCategoryData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -354,11 +407,11 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
-       width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {

@@ -1,15 +1,26 @@
 <template>
-<!-- 中国主要经济体投资按行业统计chart-->
+  <!-- 中国主要经济体投资按行业统计chart-->
   <div class="economy-ByIndustry-chart">
     <div class="echart-block">
-        <div v-if="isShowTable" class="table-block"></div>
-        <div class="container">
-            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
-        </div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
+      <div class="container">
+        <chart-bar
+          v-if="!isShowTable"
+          ref="barChart"
+          :chartBarData="chartBar"
+        ></chart-bar>
+      </div>
     </div>
     <div class="select-block">
       <div class="frame">
-            <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
+        <year
+          v-if="showTimeFrame"
+          :option="option"
+          :value="option.value"
+          @change="yearChange"
+        ></year>
       </div>
       <SelectRadio
         class="status"
@@ -22,82 +33,143 @@
 </template>
 
 <script>
-import ChartBar from '@/components/charts/ChartBar'
-import Year from '@/components/timeFrame/Year'
+import ChartBar from "@/components/charts/ChartBar";
+import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   name: "economyByIndustryChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "中国对外直接投资流量",
+          en: "China's FDI outflows"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          economies: {
+            text: "经济体_Economies",
+            width: "20%"
+          },
+          industry: {
+            text: "行业_industry",
+            width: "20%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
-      randomColor:['#8DC32E','#FF800C','#0CF6FF','#DB9800','#8D6CE3','#FFBD0C','#111BFF','#FF0CC5','#2992AE','#0C9AFF','#C4D225','#E39145','#0CFFCB','#CF90FF','#FF0000','#101010','#D04747','#7B0CFF'],
+      randomColor: [
+        "#8DC32E",
+        "#FF800C",
+        "#0CF6FF",
+        "#DB9800",
+        "#8D6CE3",
+        "#FFBD0C",
+        "#111BFF",
+        "#FF0CC5",
+        "#2992AE",
+        "#0C9AFF",
+        "#C4D225",
+        "#E39145",
+        "#0CFFCB",
+        "#CF90FF",
+        "#FF0000",
+        "#101010",
+        "#D04747",
+        "#7B0CFF"
+      ],
       showTimeFrame: false,
       chartBar: {
-         dataSources: "中国人民网",
+        dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
-        title:{
-          text:'中国对东盟直接投资的主要行业',
-          subtext:"XXXXXXXXXXXXXXXXXXXXXX"
+        title: {
+          text: "中国对东盟直接投资的主要行业",
+          subtext: "XXXXXXXXXXXXXXXXXXXXXX"
         },
         xData: [2020],
-        series:[
+        series: [
           {
             // name:'存量_xxxxx',
-            color:[],
+            color: [],
             data: []
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate: "2020-11-6"
       },
       option: {
-              ch: "年度",
-              en: "Yearly",
-              frame: "",
-              value: ""
-            },
+        ch: "年度",
+        en: "Yearly",
+        frame: "",
+        value: ""
+      },
       selectOption: {
         ch: "经济体",
         en: "xxxxxx",
         value: {
-          id:1,
+          id: 1,
           ch: "欧盟",
           en: "xxxxxx"
         },
         op: [
           {
-            id:1,
+            id: 1,
             ch: "欧盟",
             en: "xxxxxx"
           },
           {
-          id:2,
-          ch: "亚太经合组织",
-          en: "yyyyy"
-        }
+            id: 2,
+            ch: "亚太经合组织",
+            en: "yyyyy"
+          }
         ]
       }
     };
   },
-  props:{
-    isShowTable:{
-      type:Boolean,
-      default:false
+  props: {
+    isShowTable: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
     }
   },
   async created() {
-     let res = await this.getMaxMinDate();
-     let arrmaxmin = res.split("_");
-     this.option.value=arrmaxmin[1];
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
-      equalTo:{
-        economies:this.selectOption.value.ch
+      equalTo: {
+        economies: this.selectOption.value.ch
       },
       year: Number(arrmaxmin[1])
     });
   },
-   mounted() {
+  mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barChart.downloadFile();
     });
@@ -105,52 +177,52 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
-  components:{ChartBar,Year,SelectRadio},
+  components: { ChartBar, Year, SelectRadio, TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIMajorEconomiesIndustry");
-        this.$set(this.option, 'frame', res);
+      this.$set(this.option, "frame", res);
       this.showTimeFrame = true;
       return res;
     },
-    async getChartsData(aug) {  //年份 获取数据
-      let {res} = await request.getFDIMajorEconomiesIndustry(aug);
-      let Xname=[];
-      let outflows=[];
-      let colors=[];
-          res.forEach((item,i) => {
-              Xname.push(item.industry+'\n'+item.industryEN);
-              outflows.push(item.outflowsMillion);
-              colors.push(this.randomColor[i]);
-          });
-          this.chartBar.xData=Xname;
-          this.chartBar.series[0].color=colors;
-          this.chartBar.series[0].data=outflows;
-            
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getFDIMajorEconomiesIndustry(aug);
+      let Xname = [];
+      let outflows = [];
+      let colors = [];
+      res.forEach((item, i) => {
+        Xname.push(item.industry + "\n" + item.industryEN);
+        outflows.push(item.outflowsMillion);
+        colors.push(this.randomColor[i]);
+      });
+      this.chartBar.xData = Xname;
+      this.chartBar.series[0].color = colors;
+      this.chartBar.series[0].data = outflows;
     },
     async yearChange(year) {
-          this.option.value=year;
-          await this.getChartsData({
-            equalTo:{
-              economies:this.selectOption.value.ch
-            },
-            year: Number(year)
-          });
+      this.option.value = year;
+      await this.getChartsData({
+        equalTo: {
+          economies: this.selectOption.value.ch
+        },
+        year: Number(year)
+      });
     },
     //选择经济体
     async changeRadioSelect(item) {
       this.selectOption.value = item;
-          await this.getChartsData({
-            equalTo:{
-              economies:this.selectOption.value.ch
-            },
-            year: Number(this.option.value)
-          });
-      this.chartBar.title={
-        text:this.selectOption.value.ch,
-        subtext:this.selectOption.value.en
-      }
+      await this.getChartsData({
+        equalTo: {
+          economies: this.selectOption.value.ch
+        },
+        year: Number(this.option.value)
+      });
+      this.chartBar.title = {
+        text: this.selectOption.value.ch,
+        subtext: this.selectOption.value.en
+      };
     }
   }
 };
@@ -170,12 +242,12 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
@@ -184,7 +256,7 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame{
+    .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }

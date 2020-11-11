@@ -2,17 +2,32 @@
   <!-- 中国对外直接投资流量行业分布情况chart -->
   <div class="outflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div v-if="isShowLineChart" class="container">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart
+          v-if="!isShowTable"
+          ref="linesChart"
+          :options="USD"
+        ></lines-chart>
       </div>
       <div v-else class="container">
-        <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
+        <chart-bar
+          v-if="!isShowTable"
+          ref="barChart"
+          :chartBarData="chartBar"
+        ></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -24,7 +39,7 @@
       </div>
       <div class="status">
         <select-check-box
-        v-if="status[0].checked"
+          v-if="status[0].checked"
           :option="checkBox"
           :result="result"
           @change="changeOption"
@@ -44,6 +59,8 @@ import ChartBar from "@/components/charts/ChartBar";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -53,38 +70,86 @@ export default {
     CheckBox,
     ChartBar,
     LinesChart,
-    SelectCheckBox
+    SelectCheckBox,
+    TableChart
   },
   name: "outflowsChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "中国对外直接投资流量行业分布情况",
+          en: "China's FDI outflows by industry"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          industry: {
+            text: "行业_industry",
+            width: "20%"
+          },
+          outflows: {
+            text: "流量_outflows",
+            width: "35%"
+          },
+          yOY: {
+            text: "同比_xxxxxxxx",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
-      randomColor:['#8DC32E','#FF800C','#0CF6FF','#DB9800','#8D6CE3','#FFBD0C','#111BFF','#FF0CC5','#2992AE','#0C9AFF','#C4D225','#E39145','#0CFFCB','#CF90FF','#FF0000','#101010','#D04747','#7B0CFF'],
-      showTimeFrame:false,
+      randomColor: [
+        "#8DC32E",
+        "#FF800C",
+        "#0CF6FF",
+        "#DB9800",
+        "#8D6CE3",
+        "#FFBD0C",
+        "#111BFF",
+        "#FF0CC5",
+        "#2992AE",
+        "#0C9AFF",
+        "#C4D225",
+        "#E39145",
+        "#0CFFCB",
+        "#CF90FF",
+        "#FF0000",
+        "#101010",
+        "#D04747",
+        "#7B0CFF"
+      ],
+      showTimeFrame: false,
       isShowLineChart: false,
       chartBar: {
         watermark: false,
         dataSources: "中国人民网",
         showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
-        grid:{ //图表上下左右的padding
-          top:'40%'
+        grid: {
+          //图表上下左右的padding
+          top: "40%"
         },
         title: {
           text: "中国对外直接投资流量行业分布情况",
           subtext: "China’s FDI outflows by industry"
         },
-        xData: [
-        ],
+        xData: [],
         series: []
       },
       USD: {
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资流量行业分布情况", en: "China’s FDI outflows by industry" },
-        xData: [
-        ],
+        title: {
+          ch: "中国对外直接投资流量行业分布情况",
+          en: "China’s FDI outflows by industry"
+        },
+        xData: [],
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",
@@ -129,45 +194,61 @@ export default {
       }
     };
   },
-  watch:{
-    result:{
+  watch: {
+    result: {
       async handler() {
-          this.USD.series=[];
-          await this.mainGetChartsData("yearly");
+        this.USD.series = [];
+        await this.mainGetChartsData("yearly");
       },
-      deep:true
+      deep: true
+    },
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
     }
   },
   async created() {
     // 行业
-    this.checkBox.op=await chartDataFun.industry();
+    this.checkBox.op = await chartDataFun.industry();
     // 行业默认选中
-    this.checkBox.op[0].checked=true;
-    this.checkBox.op[1].checked=true;
-    this.result=this.checkBox.op.slice(0,2);
-     //随机颜色
+    this.checkBox.op[0].checked = true;
+    this.checkBox.op[1].checked = true;
+    this.result = this.checkBox.op.slice(0, 2);
+    //随机颜色
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
-   let arrmaxmin = res.split("_");
-   this.options.yearly.list.start.value=arrmaxmin[0];
-   this.options.yearly.list.end.value=arrmaxmin[1];
+    let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
-      noMonth:true,
+      noMonth: true,
       type: "yearly",
       start: Number(arrmaxmin[0]),
       end: Number(arrmaxmin[1])
     });
   },
- mounted() {
+  mounted() {
     // console.log(this.isShowTable, "isShowTable");
     if (!this.isShowYearOnYear) {
       this.$EventBus.$on("downLoadImg", () => {
-        this.$refs.barChart&&this.$refs.barChart.downloadFile();
+        this.$refs.barChart && this.$refs.barChart.downloadFile();
       });
     }
     {
       this.$EventBus.$on("downLoadImg", () => {
-        this.$refs.linesChart&&this.$refs.linesChart.downloadFile();
+        this.$refs.linesChart && this.$refs.linesChart.downloadFile();
       });
     }
   },
@@ -178,12 +259,12 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-        await this.getChartsData({
-          noMonth:true,
-          type,
-          start: Number(start.value),
-          end: Number(end.value)
-        });
+      await this.getChartsData({
+        noMonth: true,
+        type,
+        start: Number(start.value),
+        end: Number(end.value)
+      });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -193,7 +274,7 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        console.log(obj)
+        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -217,57 +298,43 @@ export default {
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
-    async getItemCategoryData(
-      res,
-      XNameAttr,
-      dataAttr,
-      range
-    ) {
-      this.USD.series=[];
-      for(let i=0;i<res.length;i++) {
-          let data = await this.getItemData(
-          res[i],
-          XNameAttr,
-          dataAttr,
-          range
-        );
-        this.$set(this.chartBar.series,i,{
-          name:`${res[i][0].industry}_${res[i][0].industryEn}`,
-          data:data['outflowsMillion'],
-          color:[this.randomColor[i]]
-        })
-        for(let p=0;p<this.result.length;p++){
-              let item=this.result[p];
-              if(item.ch==res[i][0].industry){
-                let selectedIndustry={
-                  name:`${res[i][0].industry}_${res[i][0].industryEn}`,
-                  data:data['outflowsMillion'],
-                  yearOnYear:data['yOY'],
-                  color:[this.randomColor[p]]
-                };
-                this.USD.series.push(selectedIndustry);
-              }
+    async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      this.USD.series = [];
+      for (let i = 0; i < res.length; i++) {
+        let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
+        this.$set(this.chartBar.series, i, {
+          name: `${res[i][0].industry}_${res[i][0].industryEn}`,
+          data: data["outflowsMillion"],
+          color: [this.randomColor[i]]
+        });
+        for (let p = 0; p < this.result.length; p++) {
+          let item = this.result[p];
+          if (item.ch == res[i][0].industry) {
+            let selectedIndustry = {
+              name: `${res[i][0].industry}_${res[i][0].industryEn}`,
+              data: data["outflowsMillion"],
+              yearOnYear: data["yOY"],
+              color: [this.randomColor[p]]
+            };
+            this.USD.series.push(selectedIndustry);
+          }
         }
       }
       //
     },
-    async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getoutflowsByIndustryBarChartsData(aug);
+    async getChartsData(aug) {
+      //改变横轴 获取数据
+      let { res } = await request.getoutflowsByIndustryBarChartsData(aug);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["outflowsMillion","yOY"];
+      let dataAttr = ["outflowsMillion", "yOY"];
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
       // 获取当前页面所有线
-      await this.getItemCategoryData(
-        res,
-        XNameAttr,
-        dataAttr,
-        range
-      );
+      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 下拉多选框
     async changeOption(op) {
@@ -281,42 +348,49 @@ export default {
 
       let i = await this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      this.USD.series=[];
-      await this.mainGetChartsData('yearly');
+      this.USD.series = [];
+      await this.mainGetChartsData("yearly");
     },
-    async changeInputValue(value) {  //搜索
-                  //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
-                 let regz=/[\u4e00-\u9fa5]/gi;
-                 let reg=/\s+/;
-                 let ch=value.match(regz)?value.match(regz):[];
-                 let en=value.replace(regz,'');
-                 let arr=en.split(reg);
-                let arrName=Array.from(new Set([...arr,...ch]));
-                // 去掉数组中的空字符串
-                for(var i = 0;i<arrName.length;i++){
-                    if(arrName[i]==''||arrName[i]==null||typeof(arrName[i])==undefined){
-                        arrName.splice(i,1);
-                        i=i-1;
-                    }
-                }
-                 if(value.replace(/(^\s*)/g,"")==''){
-                      for(let y=0; y<this.checkBox.op.length; y++){
-                          this.checkBox.op[y].show=true;
-                      }
-                }else {
-                for(let i=0; i<this.checkBox.op.length; i++){
-                      let splitList= await this.checkBox.op[i].searchArr.join(',').toLowerCase().split(',');
-                      console.log(splitList)
-                      let active=true;
-                      for(let k=0;k<arrName.length;k++){
-                           if(!splitList.includes(arrName[k].toLowerCase())){
-                               active=false;
-                           }
-                      }
-                      this.checkBox.op[i].show=active;
-                }
-                }
-      
+    async changeInputValue(value) {
+      //搜索
+      //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+      let regz = /[\u4e00-\u9fa5]/gi;
+      let reg = /\s+/;
+      let ch = value.match(regz) ? value.match(regz) : [];
+      let en = value.replace(regz, "");
+      let arr = en.split(reg);
+      let arrName = Array.from(new Set([...arr, ...ch]));
+      // 去掉数组中的空字符串
+      for (var i = 0; i < arrName.length; i++) {
+        if (
+          arrName[i] == "" ||
+          arrName[i] == null ||
+          typeof arrName[i] == undefined
+        ) {
+          arrName.splice(i, 1);
+          i = i - 1;
+        }
+      }
+      if (value.replace(/(^\s*)/g, "") == "") {
+        for (let y = 0; y < this.checkBox.op.length; y++) {
+          this.checkBox.op[y].show = true;
+        }
+      } else {
+        for (let i = 0; i < this.checkBox.op.length; i++) {
+          let splitList = await this.checkBox.op[i].searchArr
+            .join(",")
+            .toLowerCase()
+            .split(",");
+          console.log(splitList);
+          let active = true;
+          for (let k = 0; k < arrName.length; k++) {
+            if (!splitList.includes(arrName[k].toLowerCase())) {
+              active = false;
+            }
+          }
+          this.checkBox.op[i].show = active;
+        }
+      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -339,7 +413,7 @@ export default {
       }
       this.options[activeKey].list[key].value = value;
       // 获取数据入口  zp  开始和结束都有值再去查
-       if (
+      if (
         this.options[activeKey].list["start"].value &&
         this.options[activeKey].list["end"].value
       ) {
@@ -364,8 +438,8 @@ export default {
   display: flex;
   .echart-block {
     position: relative;
-    width: 5.875rem;
-    height: 3.916667rem;
+    // width: 5.875rem;
+    // height: 3.916667rem;
     background-color: #fff;
     border: 2px solid #cacaca;
     .table-block {
@@ -375,16 +449,15 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
-    // border-right: none;
     .container {
-      width: 100%;
-      height: 3.458333rem;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
-    flex: 1;
+    width: 1.40625rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
