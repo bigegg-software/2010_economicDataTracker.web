@@ -61,6 +61,10 @@ export default {
           ch: "新签合同额",
           en: "Total value of new contract"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -70,11 +74,11 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          newConAmount: {
+          newConAmountCon: {
             text: "新签合同额_Total value of new contract",
             width: "35%"
           },
-          newConAmountYOY: {
+          newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
             width: "35%"
           }
@@ -89,7 +93,7 @@ export default {
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签qq合同额", en: "Total value of new contract" },
+        title: { ch: "新签合同额", en: "Total value of new contract" },
         xData: [],
         hideLegend: true,
         series: [
@@ -267,7 +271,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug);
+      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug,2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

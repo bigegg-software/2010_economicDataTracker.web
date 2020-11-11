@@ -138,7 +138,7 @@ sumSameYearData:async (sourceData,field,name)=> {
             }
             return {allIndustry,nonFinancial};
     },
-    getOutflowsBeltAndRoadChartsData:async function(params) {// 获取中国对“一带一路”沿线国家非金融类直接投资情况数据函数接口（新签合同，完成营业额 投资金额）  折线图
+    getOutflowsBeltAndRoadChartsData:async function(params,tabIndex) {// 获取中国对“一带一路”沿线国家非金融类直接投资情况数据函数接口（新签合同，完成营业额 投资金额）  折线图
            let type = params.type;
            let res=await this.manualQueryData('FDIOutflowsBRICountry',params);
             res = res.map(item=>{
@@ -149,13 +149,62 @@ sumSameYearData:async (sourceData,field,name)=> {
                 item.newConAmountConMillion = item.newConAmountCon * 100;
                 // 美元完成营业额转百万美元
                 item.completedAmountConMillion = item.completedAmountCon * 100;
+                item.unitMillion='百万美元'
                 return item
             })
+
             if (type == 'quarterly' || type == 'monthly'){
                 res = res.filter(item=>{
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
                 })
             }
+            let tableres=await JSON.parse(JSON.stringify(res));
+            tableres=tableres.reverse();
+             if(tabIndex==1) {
+                let tableInfo={
+                fileName:'中国对“一带一路”沿线国家非金融类直接投资情况',
+                tHeader:[
+                    "年",
+                    "月份",
+                    '非金融类直接投资',
+                    '非金融类直接投资同比',
+                    '单位'
+                ],
+                filterVal:['year','month','investConversionMillion','conversionYOY','unitMillion'],
+                tableData:[...tableres]
+                }
+                store.commit('saveChartTable',tableInfo);
+             }
+             if(tabIndex==2) {
+                let tableInfo={
+                fileName:'中国对“一带一路”沿线国家投资情况-新签合同额',
+                tHeader:[
+                    "年",
+                    "月份",
+                    '新签合同额',
+                    '新签合同额同比',
+                    '单位'
+                ],
+                filterVal:['year','month','newConAmountConMillion','newConAmountConYOY','unitMillion'],
+                tableData:[...tableres]
+                }
+                store.commit('saveChartTable',tableInfo);
+             }
+             if(tabIndex==3) {
+                let tableInfo={
+                fileName:'中国对“一带一路”沿线国家投资情况-完成营业额',
+                tHeader:[
+                    "年",
+                    "月份",
+                    '完成营业额',
+                    '完成营业额同比',
+                    '单位'
+                ],
+                filterVal:['year','month','completedAmountConMillion','completedAmountConYOY','unitMillion'],
+                tableData:[...tableres]
+                }
+                store.commit('saveChartTable',tableInfo);
+             }
             return {res};
   },
   getOverSeasProjectsChartsData:async function(params) {// 获取中国对外承包工程数据函数接口(完成营业额 新签合同额)  //折线图
@@ -457,8 +506,24 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
          item=item.toJSON()
         //  需要换算单位
          item.outflowsMillion=item.outflows*100
+         item.unitMillion='百万美元';
          return item
      })
+     let tableres=await JSON.parse(JSON.stringify(res));
+         tableres=tableres.reverse();
+         let tableInfo={
+            fileName: '中国对外直接投资流量行业分布情况',
+            tHeader:[
+                "年份",
+                '行业',
+                '流量',
+                '同比',
+                '单位'
+            ],
+            filterVal:['year','industry','outflowsMillion','yOY','unitMillion'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
      let industrys=chartDataFun.industry();
         let resoult=[];
       for (let k = 0; k < industrys.length; k++) {
@@ -534,8 +599,23 @@ getFDIMajorEconomiesIndustry: async function (params) {
     res = res.map(item => {
         item = item.toJSON();
         item.outflowsMillion = item.outflows / 100;
+        item.unitMillion='百万美元'
         return item;
     });
+    let tableres=await JSON.parse(JSON.stringify(res));
+        let tableInfo={
+            fileName: '中国对主要经济体投资按行业统计',
+            tHeader:[
+                "年份",
+                '经济体',
+                '行业',
+                '中国对外直接投资流量',
+                '单位'
+            ],
+            filterVal:['year','economies','industry','outflowsMillion','unitMillion'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
     return { res };
 }
 

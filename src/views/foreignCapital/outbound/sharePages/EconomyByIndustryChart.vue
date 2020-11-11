@@ -46,8 +46,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          ch: "中国对主要经济体投资按行业统计",
+          en: "XXXXXXXXXXX"
+        },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
         },
         tableTitle: {
           year: {
@@ -61,6 +65,10 @@ export default {
           industry: {
             text: "行业_industry",
             width: "20%"
+          },
+          outflowsMillion:{
+             text: "中国对外直接投资流量_China's FDI outflows",
+             width: "20%"
           }
         },
         tableData: [],

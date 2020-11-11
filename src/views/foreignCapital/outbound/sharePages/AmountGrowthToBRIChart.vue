@@ -70,11 +70,11 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          completedAmount: {
+          completedAmountConMillion: {
             text: "完成营业额_Revenue of completed contract",
             width: "35%"
           },
-          completedAmountYOY: {
+          completedAmountConYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
             width: "35%"
           }
@@ -262,18 +262,18 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //一带一路新签合同额
+      //一带一路完成营业额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.USD.series[0]["data"] = data.completedAmountConMillion;
-      this.USD.series[0]["yearOnYear"] = data.completedAmountYOY;
+      this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug);
+      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug,3);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["completedAmountConMillion", "completedAmountYOY"];
+      let dataAttr = ["completedAmountConMillion", "completedAmountConYOY"];
       let XNameAttr = "year";
       this.USD.xData = range;
       //添加额外的Q和M属性

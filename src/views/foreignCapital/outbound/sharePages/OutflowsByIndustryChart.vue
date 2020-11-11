@@ -81,6 +81,10 @@ export default {
           ch: "中国对外直接投资流量行业分布情况",
           en: "China's FDI outflows by industry"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -90,7 +94,7 @@ export default {
             text: "行业_industry",
             width: "20%"
           },
-          outflows: {
+          outflowsMillion: {
             text: "流量_outflows",
             width: "35%"
           },
@@ -300,6 +304,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
+      let industryAddYoYData=[];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -310,6 +315,8 @@ export default {
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
+            // 为了保存同比下的行业分布情况在表格中展示
+              industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["outflowsMillion"],
@@ -320,6 +327,25 @@ export default {
           }
         }
       }
+      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
+               return b.year-a.year;
+      });
+      if(this.status[0].checked){
+        let tableInfo={
+            fileName: '中国对外直接投资流量行业分布情况',
+            tHeader:[
+                "年份",
+                '行业',
+                '流量',
+                '同比',
+                '单位'
+            ],
+            filterVal:['year','industry','outflowsMillion','yOY','unitMillion'],
+            tableData:[...industryAddYoYData]
+            }
+            this.$store.commit('saveChartTable',tableInfo);
+      }
+      
       //
     },
     async getChartsData(aug) {
@@ -428,6 +454,8 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
+      // 重新去获取数据再判断表格切换数据时展示行业筛选后的还是全部行业的
+      this.mainGetChartsData('yearly');
     }
   }
 };
