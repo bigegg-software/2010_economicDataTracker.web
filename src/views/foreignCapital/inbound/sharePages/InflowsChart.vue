@@ -53,6 +53,10 @@ export default {
           ch: "实际使用外资",
           en: "China’s inward FDI"
         },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -255,6 +259,7 @@ export default {
     async getChartsData(aug) {
       //改变横轴 获取数据
       let { res } = await request.getInflowsChartsData(aug);
+
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

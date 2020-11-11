@@ -1,5 +1,6 @@
 import Parse from '../index'
 import chartDataFun from "@/utils/chartDataFun";
+import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
@@ -90,8 +91,30 @@ export default {
             item = item.toJSON()
             // 美元实际使用外资转百万美元
             item.inwardFDIConMillion = item.inwardFDICon * 100;
+            item.unitMillion = '百万美元'
             return item
         })
+        let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+            return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+        })
+
+        console.log("tableres",tableres)
+
+        tableres=tableres.reverse();
+        let tableInfo={
+        fileName:'中国对外直接投资流量',
+        tHeader:[
+            "年份",
+            "月份",
+            '实际使用外资',
+            '实际使用外资同比',
+            '单位'
+        ],
+        filterVal:['year','month','inwardFDIConMillion','inwardFDIConYOY', 'unitMillion'],
+        tableData:[...tableres]
+        }
+        store.commit('saveChartTable',tableInfo);
+
         if (type == 'quarterly' || type == 'monthly') {
             res = res.filter(item => {
                 return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
