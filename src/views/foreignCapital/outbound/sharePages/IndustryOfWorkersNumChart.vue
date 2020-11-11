@@ -2,26 +2,31 @@
   <!-- 中国对外劳务合作---派出人数主要行业chart -->
   <div class="industry-of-workersNumChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div class="container">
-        <PieChart ref="pie" :totalData="totalData" :value="option.value"></PieChart>
+        <PieChart v-if="!isShowTable" ref="pie" :totalData="totalDatas" :value="option.value"></PieChart>
       </div>
     </div>
     <div class="select-block">
       <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="changeValue"></Yearly>
     </div>
-  </div>
+  </div>     
 </template>
-
+ 
 <script>
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   components: {
     PieChart,
-    Yearly
+    Yearly,
+    TableChart
   },
   props: {
     isShowTable: {}
@@ -29,6 +34,32 @@ export default {
   name: "industryOfWorkersNumChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "年度派出人数主要行业",
+          en: "Overseas workers by industry"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          industry: {
+            text: "类别_Industry category",
+            width: "30%"
+          },
+          variousTypesPerNum: {
+            text: "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+            width: "30%"
+          },
+          industryPercent: {
+            text: "比重_Share of overseas workers by industries",
+            width: "30%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       showTimeFrame:false,
       option: {
         ch: "年度",
@@ -36,7 +67,7 @@ export default {
         frame: "",
         value: ""
       },
-      totalData: {
+      totalDatas: {
         dataSources: "中国人民网",
         title: {
           ch: "年度派出人数主要行业",
@@ -58,6 +89,21 @@ export default {
         updatedDate: "2020-10-23"
       }
     };
+  },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
@@ -89,7 +135,7 @@ export default {
           res.forEach(item => {
               Xname.push({value:item.variousTypesPerNumMillion,name:item.industry});
           });
-          this.totalData.seriesData=Xname;
+          this.totalDatas.seriesData=Xname;
     },
     async changeValue(value) {
       this.option.value = value;
@@ -115,7 +161,6 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
     }
     .container {
     width: 5.875rem;

@@ -2,9 +2,11 @@
   <!-- 主要对话投资国家和地区统计-年度部分国家/地区对华直接投资chart -->
   <div class="state-DirectInvest-InChinaChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -39,6 +41,8 @@ import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -47,11 +51,50 @@ export default {
     TimeFrame,
     LinesChart,
     SelectCheckBox,
-    CheckBox
+    CheckBox,
+    TableChart
   },
   name: "stateDirectInvestInChinaChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "国家/地区对华投资比重",
+          en: "Proportion of national and regional investment in China"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          continent: {
+            text: "区域_xxxxxx",
+            width: "20%"
+          },
+          country: {
+            text: "国家/地区_Country/Region",
+            width: "20%"
+          },
+          enterpriseNumber: {
+            text: "企业数_Number of enterprises",
+            width: "10%"
+          },
+          enterprisePercent: {
+            text: "比重_Share of foreign investment enterprises",
+            width: "15%"
+          },
+          FDIInflows: {
+            text: "实际投入外资金额_FDI inflows to China",
+            width: "15%"
+          },
+          inflowsPercent: {
+            text: "比重_Share of total FDI inflows to China",
+            width: "10%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       randomColor: [],
       showTimeFrame: false,
@@ -101,13 +144,29 @@ export default {
       }
     };
   },
-  watch:{
-    result:{
-      async handler() {
-          this.USD.series=[];
-          await this.mainGetChartsData("yearly");
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
+    },
+    result: {
+      async handler() {
+        this.USD.series = [];
+        await this.mainGetChartsData("yearly");
+      },
+      deep: true
     }
   },
   async created() {
@@ -340,7 +399,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
@@ -352,7 +411,7 @@ export default {
     }
   }
   .select-block {
-     width: 1.74667rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
@@ -363,8 +422,8 @@ export default {
     }
     .status {
       padding: 0.104167rem;
-      .checkbox{
-        padding:0;
+      .checkbox {
+        padding: 0;
       }
     }
   }

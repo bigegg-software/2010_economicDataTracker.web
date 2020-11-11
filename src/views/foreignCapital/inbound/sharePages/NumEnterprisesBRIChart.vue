@@ -2,9 +2,11 @@
   <!-- “一带一路”沿线国家对中国投资情况-企业数chart -->
   <div class="numEnterprises-BRI-Chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -30,6 +32,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {},
@@ -38,11 +42,35 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "numEnterprisesBRIChart",
   data() {
     return {
+          totalData: {
+        title: {
+          ch: "企业数",
+          en: "Number of enterprises"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "20%"
+          },
+          BRINumber: {
+            text: "一带一路企业数_Number of BRI enterprises",
+            width: "40%"
+          },
+          BRIPercent: {
+            text: "占外资企业比重_Share of total number of foreign enterprises",
+            width: "40%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
@@ -90,6 +118,21 @@ export default {
         }
       }
     };
+  },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
   },
   async mounted() {
     console.log(this.isFullScreen);
@@ -226,7 +269,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
