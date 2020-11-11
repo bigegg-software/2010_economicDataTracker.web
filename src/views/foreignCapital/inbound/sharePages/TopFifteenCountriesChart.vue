@@ -42,6 +42,10 @@ export default {
           ch: "国家/地区对华投资比重",
           en: "Proportion of national and regional investment in China"
         },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
