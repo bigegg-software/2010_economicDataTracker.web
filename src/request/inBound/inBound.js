@@ -122,13 +122,45 @@ export default {
         }
         return { res };
     },
-    getNonFinancialToBRIChartsData: async function (params) {// 一带一路对华投资（企业数，实际投入外资金额）  折线图
+    getNonFinancialToBRIChartsData: async function (params,type) {// 一带一路对华投资（企业数，实际投入外资金额）  折线图
         let res = await this.manualQueryData('BRIInvestors', params);
         res = res.map(item => {
             item = item.toJSON();
             item.BRIAmountMillion = item.BRIAmount / 100;
+            item.BRIUnit = '家';
+            item.unitMillion = '百万美元';
             return item
         })
+        let tableres = JSON.parse(JSON.stringify(res))
+        tableres = tableres.reverse();
+        if (type == 2){
+            let tableInfo = {
+                fileName: '"一带一路"企业数',
+                tHeader: [
+                    "年份",
+                    "一带一路企业数",
+                    '占外资企业比重',
+                    '单位'
+                ],
+                filterVal: ['year', 'BRINumber', 'BRIPercent', 'BRIUnit'],
+                tableData: [...tableres]
+            }
+            store.commit('saveChartTable', tableInfo);
+        }else if (type == 1){
+            let tableInfo = {
+                fileName: '"一带一路"实际外资投入金额',
+                tHeader: [
+                    "年份",
+                    "带一路沿线国家投资金额",
+                    '占总外资金额比重',
+                    '单位'
+                ],
+                filterVal: ['year', 'BRIAmountMillion', 'BRIAmountPercent', 'unitMillion'],
+                tableData: [...tableres]
+            }
+            store.commit('saveChartTable', tableInfo);
+        }
+        
         return { res };
     },
     getForeignInvestTaxChartsData: async function (params) {// 外商投资企业税收统计（外商投资企业税收统计）  折线图
@@ -142,7 +174,7 @@ export default {
         let tableres = JSON.parse(JSON.stringify(res))
         tableres = tableres.reverse();
         let tableInfo = {
-            fileName: '外资投资企业税收统计',
+            fileName: '外商投资企业税收统计',
             tHeader: [
                 "年份",
                 "外商投资企业税收额",
