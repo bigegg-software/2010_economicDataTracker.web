@@ -4,6 +4,8 @@ export default {
     // 带年度月度季度的折线图使用
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
         let q = new Parse.Query(tableName)
+        let limiCcount = await q.count();
+            q.limit(limiCcount);
         let type = params.type;
         q.greaterThanOrEqualTo('year', params.start)
         q.lessThanOrEqualTo('year', params.end)
@@ -36,6 +38,8 @@ export default {
     // 柱状图查询  饼图
     barQueryData: async function (tableName, params) {  //初始去数据库查询数据  
         let q = new Parse.Query(tableName);
+        let limiCcount = await q.count();
+        q.limit(limiCcount);
         if (params.limit) {
             q.limit(params.limit);
         }
