@@ -2,14 +2,25 @@
   <!-- 中国对“一带一路”沿线国家直接投资情况完成营业额chart -->
   <div class="outflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div class="container">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart
+          v-if="!isShowTable"
+          ref="linesChart"
+          :options="USD"
+        ></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -30,6 +41,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,11 +50,38 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "outflowsChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "中国对外直接投资流量",
+          en: "China's FDI outflows"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_month",
+            width: "20%"
+          },
+          completedAmount: {
+            text: "完成营业额_Revenue of completed contract",
+            width: "35%"
+          },
+          completedAmountYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
@@ -129,6 +169,24 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async mounted() {
     let res = await this.getMaxMinDate();
@@ -289,7 +347,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;

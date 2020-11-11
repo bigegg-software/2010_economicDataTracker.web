@@ -2,9 +2,11 @@
   <!-- 主要对华投资国家前15位国家/地区chart -->
   <div class="topFifteen-CountriesChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
@@ -29,10 +31,46 @@ import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   name: "topFifteenCountriesChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "国家/地区对华投资比重",
+          en: "Proportion of national and regional investment in China"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          country: {
+            text: "国家/地区_Country/Region",
+            width: "20%"
+          },
+          enterpriseNumber: {
+            text: "企业数_Number of enterprises",
+            width: "10%"
+          },
+          enterprisePercent: {
+            text: "比重_Share of foreign investment enterprises",
+            width: "20%"
+          },
+          FDIInflows:{
+            text: "实际投入外资金额_FDI inflows to China",
+            width: "20%"
+          },
+          inflowsPercent:{
+            text: "比重_Share of total FDI inflows to China",
+            width: "10%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       showTimeFrame: false,
       chartBar: {
         watermark: false,
@@ -79,6 +117,21 @@ export default {
       default: false
     }
   },
+    computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barChart.downloadFile();
@@ -97,7 +150,8 @@ export default {
       year: Number(arrmaxmin[1])
     });
   },
-  components: { ChartBar, Year,CheckBox },
+    
+  components: { ChartBar, Year,CheckBox,TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -158,7 +212,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;

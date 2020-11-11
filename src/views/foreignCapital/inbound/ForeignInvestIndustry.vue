@@ -144,6 +144,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }

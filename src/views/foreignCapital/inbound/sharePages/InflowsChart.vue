@@ -2,9 +2,11 @@
   <!-- 实际使用外资-实际使用外资chart -->
   <div class="Inflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+         <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -30,6 +32,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,11 +41,39 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "Inflows-chart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "实际使用外资",
+          en: "China’s inward FDI"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_Monthly",
+            width: "20%"
+          },
+          inwardFDICon: {
+            text: "实际使用外资_China’s inward FDI",
+            width: "35%"
+          },
+          inwardFDIConYOY: {
+            text: "实际使用外资同比_xxxxxxx",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
@@ -126,7 +158,21 @@ export default {
       }
     };
   },
-
+ computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
@@ -286,7 +332,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {

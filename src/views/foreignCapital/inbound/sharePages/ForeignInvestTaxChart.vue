@@ -2,9 +2,11 @@
   <!-- 外商投资企业税收统计-外商投资企业税收统计chart -->
   <div class="foreign-invest-taxChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
-       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -30,6 +32,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,11 +41,38 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "foreignInvestTaxChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "外商投资企业税收统计",
+          en: "Tax statistics of foreign invested enterprises"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          tax: {
+            text: "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
+            width: "40%"
+          },
+          YOYGrowth: {
+            text: "增幅_Y-o-y growth",
+            width: "25%"
+          },
+          percentInCountry: {
+            text: "全国占比_Share of national tax revenue",
+            width: "25%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       yearOnYearData: 0,
@@ -67,7 +98,7 @@ export default {
             yearOnYear: [],
             percent: []
           }
-        ],
+        ]
       },
       status: [
         {
@@ -102,6 +133,21 @@ export default {
         }
       }
     };
+  },
+   computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
   },
   async mounted() {
     let res = await this.getMaxMinDate();
@@ -251,9 +297,9 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
-     .container {
+    .container {
       width: 5.875rem;
       height: 3.916667rem;
     }

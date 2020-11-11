@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import Parse from "@/request/user.js";
 export default {
   name: "Login",
   data() {
@@ -65,9 +66,18 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
-          console.log(err, values);
+          try {
+            let user = await Parse.logIn(values);
+            window.sessionStorage.setItem("user", JSON.stringify(user));
+            this.$router.push("/");
+          } catch (error) {
+            this.$message.warning({
+              content: "用户名或密码错误",
+              duration: 2
+            });
+          }
         }
       });
     },

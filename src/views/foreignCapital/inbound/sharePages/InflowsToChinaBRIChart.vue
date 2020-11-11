@@ -2,9 +2,11 @@
   <!-- “一带一路”沿线国家对中国投资情况-实际投入外资金额chart -->
   <div class="Inflowsto-chinaBRI-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+          <TableChart :totalData="totalData"></TableChart>
+      </div>
        <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -30,6 +32,8 @@ import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,11 +41,35 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "inflowsToChinaBRIChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "实际投入外资",
+          en: "Actual foreign investment"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "20%"
+          },
+          BRIAmount: {
+            text: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
+            width: "40%"
+          },
+          BRIAmountPercent: {
+            text: "占总外资金额比重_Share of total FDI inflows to China",
+            width: "40%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
@@ -89,6 +117,21 @@ export default {
         }
       }
     };
+  },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
   },
   async mounted() {
     let res = await this.getMaxMinDate();
@@ -222,7 +265,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
      .container {
       width: 5.875rem;

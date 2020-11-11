@@ -1,15 +1,26 @@
 <template>
-<!-- 中国对外承包工程--对外承包工程前十国别（市场）chart-->
+  <!-- 中国对外承包工程--对外承包工程前十国别（市场）chart-->
   <div class="topTenCountriesToOP-chart">
     <div class="echart-block">
-        <div v-if="isShowTable" class="table-block"></div>
-        <div class="container">
-            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
-        </div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
+      <div class="container">
+        <chart-bar
+          v-if="!isShowTable"
+          ref="barChart"
+          :chartBarData="chartBar"
+        ></chart-bar>
+      </div>
     </div>
     <div class="select-block">
       <div class="frame">
-            <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
+        <year
+          v-if="showTimeFrame"
+          :option="option"
+          :value="option.value"
+          @change="yearChange"
+        ></year>
       </div>
       <SelectRadio
         class="status"
@@ -30,44 +41,105 @@
 </template>
 
 <script>
-import ChartBar from '@/components/charts/ChartBar'
-import Year from '@/components/timeFrame/Year'
+import ChartBar from "@/components/charts/ChartBar";
+import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   name: "topTenCountriesToOPChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "前十国别（市场）",
+          en: "xxx"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          rank: {
+            text: "排名_Rank",
+            width: "20%"
+          },
+          country: {
+            text: "国别_Country/Region",
+            width: "35%"
+          },
+          amount: {
+            text: "新签合同额_Total value of new contract ",
+            width: "35%"
+          },
+          amountYOY: {
+            text: "新签合同额同比_Y-o-y growth of new contract value ",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
+      totalData2: {
+        title: {
+          ch: "前十国别（市场）",
+          en: "xxx"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          rank: {
+            text: "排名_Rank",
+            width: "20%"
+          },
+          country: {
+            text: "国别_Country/Region",
+            width: "35%"
+          },
+          amount: {
+            text: "完成营业额_Revenue of completed contract",
+            width: "35%"
+          },
+          amountYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       showTimeFrame: false,
       chartBar: {
-         dataSources: "中国人民网",
+        dataSources: "中国人民网",
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
-        title:{
-          text:'新签合同额',
-          subtext:"Total value of new contract"
+        title: {
+          text: "新签合同额",
+          subtext: "Total value of new contract"
         },
-        xData: [
-        ],
-        series:[
+        xData: [],
+        series: [
           {
             // name:'存量_xxxxx',
-            color:['#0C9AFF'],
+            color: ["#0C9AFF"],
             data: [],
-            yearOnYear:[]
+            yearOnYear: []
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate: "2020-11-6"
       },
       option: {
-              ch: "年度",
-              en: "Yearly",
-              frame: "",
-              value: ""
-            },
+        ch: "年度",
+        en: "Yearly",
+        frame: "",
+        value: ""
+      },
       status: [
         {
           checked: false,
@@ -79,43 +151,61 @@ export default {
         ch: "类型",
         en: "xxxxxx",
         value: {
-          id:1,
+          id: 1,
           ch: "新签合同额",
           en: "Total value of new contract"
         },
         op: [
           {
-            id:1,
+            id: 1,
             ch: "新签合同额",
             en: "Total value of new contract"
           },
           {
-          id:2,
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth "
-        }
+            id: 2,
+            ch: "完成营业额",
+            en: "Total value of new contract y-o-y growth "
+          }
         ]
       }
     };
   },
-  props:{
-    isShowTable:{
-      type:Boolean,
-      default:false
+  props: {
+    isShowTable: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
     }
   },
   async created() {
-     let res = await this.getMaxMinDate();
-     let arrmaxmin = res.split("_");
-     this.option.value=arrmaxmin[1];
+    let res = await this.getMaxMinDate();
+    let arrmaxmin = res.split("_");
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
-      type:1,
-      ascending:'rank',
-      limit:10,
+      type: 1,
+      ascending: "rank",
+      limit: 10,
       year: Number(arrmaxmin[1])
     });
   },
-   mounted() {
+  mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barChart.downloadFile();
     });
@@ -123,38 +213,39 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
-  components:{ChartBar,Year,CheckBox,SelectRadio},
+  components: { ChartBar, Year, CheckBox, SelectRadio, TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("ForeignContractAnnualRank");
-        this.$set(this.option, 'frame', res);
+      this.$set(this.option, "frame", res);
       this.showTimeFrame = true;
       return res;
     },
-    async getChartsData(aug) {  //年份 获取数据
-      let {res} = await request.getTopTenCountriesToOPChart(aug);
-      let Xname=[];
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getTopTenCountriesToOPChart(aug);
+      let Xname = [];
       // 新签合同额,完成营业额，新签合同额同比，完成营业额同比
-      let amount=[],amountYOY=[];
-          res.forEach(item => {
-              Xname.push(item.country+'\n'+item.countryEn);
-              amount.push(item.amountMillion);
-              amountYOY.push(item.amountYOY);
-          });
-          this.chartBar.xData=Xname;
-              this.chartBar.series[0].data=amount;
-              this.chartBar.series[0].yearOnYear=amountYOY;
-            
+      let amount = [],
+        amountYOY = [];
+      res.forEach(item => {
+        Xname.push(item.country + "\n" + item.countryEn);
+        amount.push(item.amountMillion);
+        amountYOY.push(item.amountYOY);
+      });
+      this.chartBar.xData = Xname;
+      this.chartBar.series[0].data = amount;
+      this.chartBar.series[0].yearOnYear = amountYOY;
     },
     async yearChange(year) {
-          this.option.value=year;
-          await this.getChartsData({
-            type:this.selectOption.value.id,
-            ascending:'rank',
-            limit:10,
-            year: Number(year)
-          });
+      this.option.value = year;
+      await this.getChartsData({
+        type: this.selectOption.value.id,
+        ascending: "rank",
+        limit: 10,
+        year: Number(year)
+      });
     },
     // 复选框
     changeSelect(index) {
@@ -162,7 +253,7 @@ export default {
       if (index == 0) {
         this.status[index].checked
           ? this.$set(this.chartBar, "yearOnYear", true)
-          : this.$set(this.chartBar, "yearOnYear", false)
+          : this.$set(this.chartBar, "yearOnYear", false);
       }
       if (index == 1) {
         this.status[index].checked
@@ -173,16 +264,16 @@ export default {
     //选择类型新签合同额还是完成营业额
     async changeRadioSelect(item) {
       this.selectOption.value = item;
-          await this.getChartsData({
-            type:item.id,
-            ascending:'rank',
-            limit:10,
-            year: Number(this.option.value)
-          });
-      this.chartBar.title={
-        text:this.selectOption.value.ch,
-        subtext:this.selectOption.value.en
-      }
+      await this.getChartsData({
+        type: item.id,
+        ascending: "rank",
+        limit: 10,
+        year: Number(this.option.value)
+      });
+      this.chartBar.title = {
+        text: this.selectOption.value.ch,
+        subtext: this.selectOption.value.en
+      };
     }
   }
 };
@@ -202,12 +293,12 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
     }
   }
   .select-block {
@@ -216,7 +307,7 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame{
+    .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }

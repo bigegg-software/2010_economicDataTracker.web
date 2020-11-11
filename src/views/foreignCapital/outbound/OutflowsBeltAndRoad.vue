@@ -1,8 +1,15 @@
 <template>
   <!-- 中国对“一带一路”沿线国家投资情况 -->
   <div class="container">
-    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <tab-component
+      :tabList="tabList"
+      :tabComponent="tabComponent"
+      @change="changeTabCompnent"
+    ></tab-component>
+    <share-body
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -145,7 +152,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        console.log("下载表格");
+        this.$EventBus.$emit("downLoadImg");
       }
       this.initActionsList();
     }
@@ -155,6 +162,6 @@ export default {
 
 <style lang="less" scoped>
 .container {
- width: 7.28125rem;
+  width: 7.28125rem;
 }
 </style>
