@@ -6,7 +6,7 @@ export default {
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
         let q = new Parse.Query(tableName)
         let limiCcount = await q.count();
-            q.limit(limiCcount);
+        q.limit(limiCcount);
         let type = params.type;
         q.greaterThanOrEqualTo('year', params.start)
         q.lessThanOrEqualTo('year', params.end)
@@ -94,26 +94,26 @@ export default {
             item.unitMillion = '百万美元'
             return item
         })
-        let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-            return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+        let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
+            return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
         })
 
-        console.log("tableres",tableres)
+        console.log("tableres", tableres)
 
-        tableres=tableres.reverse();
-        let tableInfo={
-        fileName:'实际使用外资',
-        tHeader:[
-            "年份",
-            "月份",
-            '实际使用外资',
-            '实际使用外资同比',
-            '单位'
-        ],
-        filterVal:['year','month','inwardFDIConMillion','inwardFDIConYOY', 'unitMillion'],
-        tableData:[...tableres]
+        tableres = tableres.reverse();
+        let tableInfo = {
+            fileName: '实际使用外资',
+            tHeader: [
+                "年份",
+                "月份",
+                '实际使用外资',
+                '实际使用外资同比',
+                '单位'
+            ],
+            filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY', 'unitMillion'],
+            tableData: [...tableres]
         }
-        store.commit('saveChartTable',tableInfo);
+        store.commit('saveChartTable', tableInfo);
 
         if (type == 'quarterly' || type == 'monthly') {
             res = res.filter(item => {
@@ -136,8 +136,24 @@ export default {
         res = res.map(item => {
             item = item.toJSON();
             item.taxMillion = item.tax / 100;
+            item.unitMillion = '百万美元'
             return item
         })
+        let tableres = JSON.parse(JSON.stringify(res))
+        tableres = tableres.reverse();
+        let tableInfo = {
+            fileName: '外资投资企业税收统计',
+            tHeader: [
+                "年份",
+                "外商投资企业税收额",
+                '增幅',
+                '全国占比',
+                '单位'
+            ],
+            filterVal: ['year', 'taxMillion', 'YOYGrowth', 'percentInCountry', 'unitMillion'],
+            tableData: [...tableres]
+        }
+        store.commit('saveChartTable', tableInfo);
         return { res };
     },
     getStateDirectInvestInChinaChartData: async function (tableName, params, filed) {//获取主要对话投资国家/地区-国家/地区对华直接投资  //折线图
@@ -171,69 +187,69 @@ export default {
             return item;
         });
         return { res };
-    
-    
+
+
     },
     //外商直接投资------ 主要行业--开办企业数/实际使用外资金额
-getForeignInvestIndustryData:async function(params) {//获取  //柱状图加折线图
-    let res=await this.manualQueryData('ForeignInvestmentMainIndustries',params);
-     res = res.map(item=>{
-         item=item.toJSON()
-        //  需要换算单位
-         item.inflowsFDIMillion=item.inflowsFDI*100
-         return item
-     })
-     let industrys=chartDataFun.industry();
-        let resoult=[];
-      for (let k = 0; k < industrys.length; k++) {
-          let element = industrys[k].ch;
-          let elementEn = industrys[k].en;
-          let re=res.filter(item=>{
-              if(item.industry == element){
-                item.industryEn=elementEn;
-              }
-            return item.industry == element
-          })
-          if(re.length){
-            resoult.push(re);
-          }
-      }
-      res=resoult;
-     return {res};
-},
+    getForeignInvestIndustryData: async function (params) {//获取  //柱状图加折线图
+        let res = await this.manualQueryData('ForeignInvestmentMainIndustries', params);
+        res = res.map(item => {
+            item = item.toJSON()
+            //  需要换算单位
+            item.inflowsFDIMillion = item.inflowsFDI * 100
+            return item
+        })
+        let industrys = chartDataFun.industry();
+        let resoult = [];
+        for (let k = 0; k < industrys.length; k++) {
+            let element = industrys[k].ch;
+            let elementEn = industrys[k].en;
+            let re = res.filter(item => {
+                if (item.industry == element) {
+                    item.industryEn = elementEn;
+                }
+                return item.industry == element
+            })
+            if (re.length) {
+                resoult.push(re);
+            }
+        }
+        res = resoult;
+        return { res };
+    },
 
-// 主要对华投资国家和地区--前12位国家、地区
-getTopFifteenCountriesChart:async function(params) {
-    let res=await this.barQueryData('MajorTop15Investors',params);
-    res = res.map(item=>{
-        item=item.toJSON();
-        // 实际投入外资金额
-        item.FDIInflowsMillion=item.FDIInflows*100;
-        item.unitMillion = '百万美元'
-        return item;
-    });
+    // 主要对华投资国家和地区--前12位国家、地区
+    getTopFifteenCountriesChart: async function (params) {
+        let res = await this.barQueryData('MajorTop15Investors', params);
+        res = res.map(item => {
+            item = item.toJSON();
+            // 实际投入外资金额
+            item.FDIInflowsMillion = item.FDIInflows * 100;
+            item.unitMillion = '百万美元'
+            return item;
+        });
 
-    let tableres= JSON.parse(JSON.stringify(res))
+        let tableres = JSON.parse(JSON.stringify(res))
 
-    tableres=tableres.reverse();
-    let tableInfo={
-    fileName:'主要对华投资前15位国家/地区',
-    tHeader:[
-        "年份",
-        "国家/地区",
-        '企业数',
-        '比重',
-        '实际投入外资金额',
-        '比重',
-        '单位'
-    ],
-    filterVal:['year','country','enterpriseNumber','enterprisePercent','FDIInflows', 'inflowsPercent' , 'unitMillion'],
-    tableData:[...tableres]
-    }
-    store.commit('saveChartTable',tableInfo);
+        tableres = tableres.reverse();
+        let tableInfo = {
+            fileName: '主要对华投资前15位国家/地区',
+            tHeader: [
+                "年份",
+                "国家/地区",
+                '企业数',
+                '比重',
+                '实际投入外资金额',
+                '比重',
+                '单位'
+            ],
+            filterVal: ['year', 'country', 'enterpriseNumber', 'enterprisePercent', 'FDIInflowsMillion', 'inflowsPercent', 'unitMillion'],
+            tableData: [...tableres]
+        }
+        store.commit('saveChartTable', tableInfo);
 
-    return {res};
-},
+        return { res };
+    },
 
 }
 
