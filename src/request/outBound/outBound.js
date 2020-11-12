@@ -164,7 +164,7 @@ sumSameYearData:async (sourceData,field,name)=> {
                 let tableInfo={
                 fileName:'中国对“一带一路”沿线国家非金融类直接投资情况',
                 tHeader:[
-                    "年",
+                    "年份",
                     "月份",
                     '非金融类直接投资',
                     '非金融类直接投资同比',
@@ -179,7 +179,7 @@ sumSameYearData:async (sourceData,field,name)=> {
                 let tableInfo={
                 fileName:'中国对“一带一路”沿线国家投资情况-新签合同额',
                 tHeader:[
-                    "年",
+                    "年份",
                     "月份",
                     '新签合同额',
                     '新签合同额同比',
@@ -194,7 +194,7 @@ sumSameYearData:async (sourceData,field,name)=> {
                 let tableInfo={
                 fileName:'中国对“一带一路”沿线国家投资情况-完成营业额',
                 tHeader:[
-                    "年",
+                    "年份",
                     "月份",
                     '完成营业额',
                     '完成营业额同比',
@@ -207,7 +207,7 @@ sumSameYearData:async (sourceData,field,name)=> {
              }
             return {res};
   },
-  getOverSeasProjectsChartsData:async function(params) {// 获取中国对外承包工程数据函数接口(完成营业额 新签合同额)  //折线图
+  getOverSeasProjectsChartsData:async function(params,tabIndex) {// 获取中国对外承包工程数据函数接口(完成营业额 新签合同额)  //折线图
     let type = params.type;
     let res=await this.manualQueryData('ForeignContract',params);
      res = res.map(item=>{
@@ -220,6 +220,8 @@ sumSameYearData:async (sourceData,field,name)=> {
          item.completedAmountMillion = item.completedAmount * 100;
          // 人民币新签合同额转百万人民币
          item.newConAmountMillion = item.newConAmount * 100;
+         item.unitConMillion='百万美元'
+         item.unitMillion='百万人民币'
          return item
      })
      if (type == 'quarterly' || type == 'monthly'){
@@ -227,14 +229,74 @@ sumSameYearData:async (sourceData,field,name)=> {
              return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
          })
      }
+     let tableres=await JSON.parse(JSON.stringify(res));
+            tableres=tableres.reverse();
+             if(tabIndex==1) {
+                let tableInfo={
+                fileName:'完成营业额',
+                tHeader:[
+                    "年份",
+                    "月份",
+                    '单位',
+                    '完成营业额',
+                    '完成营业额同比',
+                    '单位',
+                    '完成营业额折合(RMB)',
+                    '完成营业额折合同比'
+                ],
+                filterVal:['year','month','unitConMillion','completedAmountConMillion','completedAmountConYOY','unitMillion','completedAmountMillion','completedAmountYOY'],
+                tableData:[...tableres]
+                }
+                store.commit('saveChartTable',tableInfo);
+     }
+     if(tabIndex==2) {
+        let tableInfo={
+        fileName:'新签合同额',
+        tHeader:[
+            "年份",
+            "月份",
+            '单位',
+            '新签合同额',
+            '新签合同额同比',
+            '新签合同额折合(RMB)',
+            '新签合同额折合同比',
+            '单位'
+        ],
+        filterVal:['year','month','unitConMillion','newConAmountConMillion','newConAmountConYOY','unitMillion','newConAmountMillion','newConAmountYOY'],
+        tableData:[...tableres]
+        }
+        store.commit('saveChartTable',tableInfo);
+       }
      return {res};
 },
 getTradeVolumeChartChartsData:async function(params) {//获取中国对外劳务合作(派出人数)  //折线图
+    let type = params.type;
     let res=await this.manualQueryData('LaborServiceCooperation',params);
      res = res.map(item=>{
          item=item.toJSON()
          return item
      })
+     if (type == 'quarterly' || type == 'monthly'){
+        res = res.filter(item=>{
+            return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+        })
+    }
+    let tableres=await JSON.parse(JSON.stringify(res));
+        tableres=tableres.reverse();
+     let tableInfo={
+        fileName:'派出人数',
+        tHeader:[
+            "年份",
+            "月份",
+            '各类劳务人员',
+            '承包工程项下派人数',
+            '劳务合作项下派人数',
+            '单位'
+        ],
+        filterVal:['year','month','variousTypesPerNum','contractProject','laborCooperation','unit'],
+        tableData:[...tableres]
+        }
+        store.commit('saveChartTable',tableInfo);
      return {res};
 },
 getoutstocksChartsData:async function(params,tabIndex) {//获取中国对外直接投资存量（投资存量）  //折线图
@@ -412,8 +474,24 @@ getTopTenCountriesToOPChart:async function(params) {
         item=item.toJSON();
         // 美元新签/完成合同额转百万美元
         item.amountMillion=item.amount*100;
+        item.unitMillion='百万美元';
         return item;
     });
+    let tableres=await JSON.parse(JSON.stringify(res));
+        let tableInfo={
+            fileName:  params.type==1?'中国对外承包工程前十国别新签合同额':'中国对外承包工程前十国别完成营业额',
+            tHeader:[
+                "年份",
+                '排名',
+                '国别',
+                params.type==1?'新签合同额':'完成营业额',
+                params.type==1?'新签合同额同比':'完成营业额同比',
+                '单位'
+            ],
+            filterVal:['year','rank','country','amountMillion','amountYOY','unitMillion'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
     return {res};
 },
 // 对外劳务合作前十位目的地国家和12月末前十位国家
@@ -421,8 +499,24 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
     let res=await this.barQueryData('LaborServiceTop10AnnualRank',params);
     res = res.map(item=>{
         item=item.toJSON();
+        item.variousTypesPerNumMillion= item.variousTypesPerNum/100;
+        item.unitMillion='万人'
         return item;
     });
+    let tableres=await JSON.parse(JSON.stringify(res));
+    let tableInfo={
+        fileName:  params.type==1?'年度派出各类劳务人员前10位目的地国家':'12月末在外各类劳务人员前10位国家',
+        tHeader:[
+            "年份",
+            '单位',
+            params.type==1?'年度派出各类劳务人员国家/地区':'12月末在外各类劳务人员国家/地区',
+            params.type==1?'年度派出各类劳务人员人数':'12月末在外各类劳务人员人数',
+            params.type==1?'年度派出各类劳务人员比重':'12月末在外各类劳务人员比重'
+        ],
+        filterVal:['year','unitMillion','destinations','variousTypesPerNumMillion','destinationPercent'],
+        tableData:[...tableres]
+        }
+        store.commit('saveChartTable',tableInfo);
     return {res};
 },
 // 对外劳务合作派出人数主要行业  饼图
@@ -430,9 +524,22 @@ getIndustryOfWorkersNumChart:async function(params) {
     let res=await this.barQueryData('LaborServiceIndustry',params);
     res = res.map(item=>{
         item=item.toJSON();
-        item.variousTypesPerNumMillion= item.variousTypesPerNum/100;
         return item;
     });
+    let tableres=await JSON.parse(JSON.stringify(res));
+     tableres=tableres.reverse();
+    let tableInfo={
+        fileName: '年度派出人数主要行业',
+        tHeader:[
+            "年份",
+            '类别',
+            '在外各类劳务人员行业构成人数（万人）',
+            '比重'
+        ],
+        filterVal:['year','industry','unit','variousTypesPerNum','industryPercent'],
+        tableData:[...tableres]
+        }
+        store.commit('saveChartTable',tableInfo);
     return {res};
 },
 // 对外直接投资流量历年前20国家
@@ -476,7 +583,7 @@ getStocksTwentyDestinationChart:async function(params) {
             fileName: '中国对外直接投资存量历年前20位国家',
             tHeader:[
                 "年份",
-                '序号',
+                '排名',
                 '中国对外直接投资存量前20位国家（地区）',
                 '单位',
                 '中国对外直接投资存量前20位国家（地区）投资额',
@@ -494,9 +601,23 @@ getForeignContractNewConRank: async function (params) {
     let res = await this.barQueryData('ForeignContractNewConRank', params);
     res = res.map(item => {
         item = item.toJSON();
-        item.stocksMillion = item.stocks / 100;
         return item;
     });
+    let tableres=await JSON.parse(JSON.stringify(res));
+        let tableInfo={
+            fileName: '中国对外承包工程前十项目',
+            tHeader:[
+                '排名',
+                '国家（地区）',
+                '项目名称翻译',
+                '项目名称',
+                '签约企业名称翻译',
+                '签约企业'
+            ],
+            filterVal:['rank','country','projectEn','project','contractingEnterpriseEn','contractingEnterprise'],
+            tableData:[...tableres]
+            }
+            store.commit('saveChartTable',tableInfo);
     return { res };
 },
 //中国对外投资中------ 行业分布情况

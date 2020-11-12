@@ -35,7 +35,7 @@ export default {
           en: "XXXXXXXXXXXXXXXXXXXXX"
         },
         tableTitle: {
-          key: {
+          rank: {
             text: "排名_Rank",
             width: "10%"
           },
@@ -43,11 +43,19 @@ export default {
             text: "国家(地区)_Country/Region",
             width: "20%"
           },
+           projectEn: {
+            text: "项目名称翻译_Project name translation",
+            width: "35%"
+          },
           project: {
             text: "项目名称_Project",
             width: "35%"
           },
-          enterprise: {
+          contractingEnterpriseEn:{
+            text: "签约企业名称翻译_Contracting enterprise name translation",
+            width: "35%"
+          },
+          contractingEnterprise: {
             text: "签约企业_Contracting enterprise",
             width: "35%"
           }
@@ -93,20 +101,28 @@ export default {
       this.totalData.tableData = [];
       res.forEach(item => {
         this.totalData.tableData.push({
-          key: {
+          rank: {
             text: item.rank + "_",
             width: "10%"
           },
           country: {
-            text: item.country + "_3424",
+            text: item.country + "_"+item.countryEn,
             width: "20%"
           },
-          project: {
-            text: item.project + "_3424",
+          projectEn: {
+            text: item.projectEn + "_",
             width: "35%"
           },
-          enterprise: {
-            text: item.contractingEnterprise + "_3424",
+           project: {
+            text: item.project + "_",
+            width: "35%"
+          },
+          contractingEnterpriseEn: {
+            text: item.contractingEnterpriseEn + "_",
+            width: "35%"
+          },
+          contractingEnterprise: {
+            text: item.contractingEnterprise + "_",
             width: "35%"
           }
         });

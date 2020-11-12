@@ -52,13 +52,17 @@ export default {
           ch: "派出人数",
           en: "Total trade volume"
         },
+        unit:{
+          ch:'万人',
+          en:'xxx'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          rank: {
-            text: "排名_Rank",
+          month: {
+            text: "月份_Month",
             width: "20%"
           },
           variousTypesPerNum: {
@@ -95,12 +99,12 @@ export default {
           },
           {
             name: "承包工程项下派人数_Workers under contracted projects",
-            color: "#666",
+            color: "#FF0000",
             data: []
           },
           {
             name: "劳务合作项下派人数_Workers under labor service cooperation",
-            color: "#999",
+            color: "#8CFF0C",
             data: []
           }
         ],
@@ -110,6 +114,24 @@ export default {
         yearly: {
           ch: "年度",
           en: "yearly",
+          list: {
+            start: {
+              ch: "开始",
+              en: "Start",
+              frame: "",
+              value: ""
+            },
+            end: {
+              ch: "结束",
+              en: "End",
+              frame: "",
+              value: ""
+            }
+          }
+        },
+         monthly: {
+          ch: "月度",
+          en: "monthly",
           list: {
             start: {
               ch: "开始",
@@ -169,11 +191,27 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-      await this.getChartsData({
-        type,
-        start: Number(start.value),
-        end: Number(end.value)
-      });
+      if (type == "yearly") {
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+      } else if (type == "quarterly" || type == "monthly") {
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]);
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          type,
+          start: quarterStart,
+          end: quarterEnd,
+          startMonth: quarterStartMonth,
+          endMonth: quarterEndMonth
+        });
+      }
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -218,7 +256,6 @@ export default {
     async getChartsData(aug) {
       //改变横轴 获取数据
       let { res } = await request.getTradeVolumeChartChartsData(aug);
-
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -229,6 +266,19 @@ export default {
       ];
       let XNameAttr = "year";
       this.Person.xData = range;
+      //添加额外的Q和M属性
+      await chartDataFun.addOtherCategory(res);
+
+      if (aug.type == "yearly") {
+        // 年
+        XNameAttr = "year";
+      } else if (aug.type == "quarterly") {
+        //季度
+        XNameAttr = "Q";
+      } else if ((aug.type = "monthly")) {
+        //月度
+        XNameAttr = "M";
+      }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

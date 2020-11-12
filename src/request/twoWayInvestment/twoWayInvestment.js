@@ -1,4 +1,5 @@
 import Parse from '../index'
+import store from '@/vuexStore'
 export default {
  // 带年度月度季度的折线图使用
  manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
@@ -48,6 +49,28 @@ export default {
                 item=item.toJSON()
                 return item
             })
+
+            console.log("tableres ====   ====", res)
+
+            // let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
+            //     return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
+            // })
+    
+            // console.log("tableres", tableres)
+            let tableres = await JSON.parse(JSON.stringify(res))
+            tableres = tableres.reverse();
+            let tableInfo = {
+                fileName: '双向直接投资',
+                tHeader: [
+                    "年份",
+                    "对外直接投资流量",
+                    '外国直接投资流入',
+                    '单位'
+                ],
+                filterVal: ['year', 'outward_FDI_flows', 'inward_FDI_flows', 'unit'],
+                tableData: [...tableres]
+            }
+            store.commit('saveChartTable', tableInfo);
             
             // if (type == 'quarterly' || type == 'monthly'){
             //     res = res.filter(item=>{
@@ -72,6 +95,7 @@ export default {
                 itemElement = itemElement.toJSON()
                 // 美元实际使用外资转百万美元
                 itemElement.inwardFDIConMillion = itemElement.inwardFDICon * 100;
+                itemElement.unitMillion = "百万美元"
                 return itemElement
             })
      if (type == 'quarterly' || type == 'monthly'){
@@ -82,6 +106,22 @@ export default {
             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
         })
      }
+     console.log('美元实际使用外资转百万美',res)
+     let tableres = await JSON.parse(JSON.stringify(res))
+            tableres = tableres.reverse();
+            let tableInfo = {
+                fileName: '双向直接投资',
+                tHeader: [
+                    "年份",
+                    "月份",
+                    "实际使用外资",
+                    '实际使用外资同比   ',
+                    '单位'
+                ],
+                filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY', 'unitMillion'],
+                tableData: [...tableres]
+            }
+            store.commit('saveChartTable', tableInfo);
 
      return {allIndustry,res};
 }

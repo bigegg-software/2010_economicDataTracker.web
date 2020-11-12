@@ -42,6 +42,10 @@ export default {
           ch: "中国对外直接投资流量",
           en: "China's FDI outflows"
         },
+        unit:{
+          ch:'万人',
+          en:'xxx'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -52,7 +56,7 @@ export default {
               "年度派出各类劳务人员国家_Top 10 destinations of workers sent overseas",
             width: "20%"
           },
-          variousTypesPerNum: {
+          variousTypesPerNumMillion: {
             text: "年度派出各类劳务人员人数_Number of workers sent overseas",
             width: "35%"
           },
@@ -152,7 +156,7 @@ export default {
       let variousTypesPerNum = [];
       res.forEach(item => {
         Xname.push(item.destinations);
-        variousTypesPerNum.push(item.variousTypesPerNum);
+        variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;
       this.chartBar.series[0].data = variousTypesPerNum;
@@ -184,7 +188,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;

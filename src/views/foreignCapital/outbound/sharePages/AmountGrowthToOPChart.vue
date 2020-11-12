@@ -12,7 +12,7 @@
           :options="USD"
         ></lines-chart>
       </div>
-      <div v-if="isShowRMB" class="container">
+      <div v-if="isShowRMB &&!isShowTable" class="container">
         <lines-chart :options="RMB"></lines-chart>
       </div>
     </div>
@@ -64,6 +64,10 @@ export default {
           ch: "完成营业额",
           en: "Total value of new contract y-o-y growth"
         },
+        unit:{
+          ch:'百万美元/百万人民币',
+          en:'USD min/RMB min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -73,19 +77,19 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          completedAmount: {
+          completedAmountCon: {
             text: "完成营业额(USD)_Revenue of completed contract",
             width: "35%"
           },
-          completedAmountYOY: {
+          completedAmountConYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
             width: "35%"
           },
-          completedAmountCon: {
+          completedAmount: {
             text: "完成营业额折合(RMB)_unit",
             width: "35%"
           },
-          completedAmountConYOY: {
+          completedAmountYOY: {
             text: "完成营业额折合同比_type",
             width: "35%"
           }
@@ -311,7 +315,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug);
+      let { res } = await request.getOverSeasProjectsChartsData(aug,1);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);

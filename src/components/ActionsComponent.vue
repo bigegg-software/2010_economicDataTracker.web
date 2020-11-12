@@ -1,7 +1,8 @@
 <template>
   <div class="actions-block" id="actions-block">
+    <template v-for="(item, index) in actionsList">
     <div
-      v-for="(item, index) in actionsList"
+      v-if="!item.hide"
       :key="index"
       class="action"
       :class="{ active: item.checked }"
@@ -47,6 +48,7 @@
         </div>
       </fade-in-out>
     </div>
+    </template>
   </div>
 </template>
 
@@ -174,7 +176,7 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .action {
   position: relative;
@@ -189,7 +191,7 @@ export default {
   cursor: pointer;
   user-select: none;
   &:first-child {
-    color: #186497 !important; // 让第一个常亮
+    // color: #186497 !important; // 让第一个常亮
     border-left: 2px solid #cbcbcb;
   }
   &:last-child {

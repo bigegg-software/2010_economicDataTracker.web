@@ -33,6 +33,10 @@ export default {
           ch: "12月末在外各类劳务人员前10位国家",
           en: "Top 10 desinations of total number of workers overseas"
         },
+        unit:{
+          ch:'万人',
+          en:'xxx'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -43,7 +47,7 @@ export default {
               "12月末在外各类劳务人员国家/地区_Top 10 desinations of total number of workers overseas",
             width: "40%"
           },
-          variousTypesPerNum: {
+          variousTypesPerNumMillion: {
             text: "12月末在外各类劳务人员人数_Total number of workers overseas",
             width: "25%"
           },
@@ -142,7 +146,7 @@ export default {
       let variousTypesPerNum = [];
       res.forEach(item => {
         Xname.push(item.destinations);
-        variousTypesPerNum.push(item.variousTypesPerNum);
+        variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;
       this.chartBar.series[0].data = variousTypesPerNum;
@@ -174,6 +178,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
+      background: #fff;
     }
     .container {
       width: 5.875rem;

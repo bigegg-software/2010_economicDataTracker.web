@@ -60,6 +60,7 @@ export default {
           en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
+          hide:false,
           toggle: true
         },
         {
@@ -126,6 +127,11 @@ export default {
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
+      if(name=='topTenProjectToOPChart'){
+           this.actionsList[0].hide=true;
+      }else{
+        this.actionsList[0].hide=false;
+      }
     },
 
     initActionsList() {
@@ -154,7 +160,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }

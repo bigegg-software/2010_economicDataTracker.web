@@ -163,7 +163,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }
