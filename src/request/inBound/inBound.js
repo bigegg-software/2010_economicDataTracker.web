@@ -132,6 +132,7 @@ export default {
             return item
         })
         let tableres = JSON.parse(JSON.stringify(res))
+        console.log("=====资投入金额====",tableres)
         tableres = tableres.reverse();
         if (type == 2){
             let tableInfo = {

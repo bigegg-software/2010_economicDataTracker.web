@@ -62,7 +62,7 @@ export default {
             text: "年份_Year",
             width: "20%"
           },
-          BRIAmount: {
+          BRIAmountMillion: {
             text: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
             width: "40%"
           },
