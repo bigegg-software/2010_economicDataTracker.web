@@ -224,15 +224,49 @@ export default {
 
     },
     //外商直接投资------ 主要行业--开办企业数/实际使用外资金额
-    getForeignInvestIndustryData: async function (params) {//获取  //柱状图加折线图
+    getForeignInvestIndustryData: async function (params,tabIndex) {//获取  //柱状图加折线图
         let res = await this.manualQueryData('ForeignInvestmentMainIndustries', params);
         res = res.map(item => {
             item = item.toJSON()
             //  需要换算单位
             item.inflowsFDIMillion = item.inflowsFDI * 100
+            item.enterprisesNumberUnit='家'
+            item.unitMillion='百万美元'
             return item
         })
-        let industrys = chartDataFun.industry();
+        let tableres=await JSON.parse(JSON.stringify(res));
+         tableres=tableres.reverse();
+         if(tabIndex==1){
+            let tableInfo={
+                fileName: '开办企业数',
+                tHeader:[
+                    "年份",
+                    '行业',
+                    '单位',
+                    '企业数',
+                    '企业数同比'
+                ],
+                filterVal:['year','industry','enterprisesNumberUnit','enterprisesNumber','numberYOYGrowth'],
+                tableData:[...tableres]
+                }
+            store.commit('saveChartTable',tableInfo);
+         }
+         if(tabIndex==2){
+            let tableInfo={
+                fileName: '实际使用外资金额',
+                tHeader:[
+                    "年份",
+                    '行业',
+                    '单位',
+                    '实际使用外资金额',
+                    '实际使用外资金额同比'
+                ],
+                filterVal:['year','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
+                tableData:[...tableres]
+                }
+            store.commit('saveChartTable',tableInfo);
+         }
+        let industrys = await chartDataFun.getServerIndustry();
         let resoult = [];
         for (let k = 0; k < industrys.length; k++) {
             let element = industrys[k].ch;
@@ -243,6 +277,7 @@ export default {
                 }
                 return item.industry == element
             })
+            console.log(re)
             if (re.length) {
                 resoult.push(re);
             }

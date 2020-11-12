@@ -80,7 +80,7 @@ export default {
             text: "行业_Industry",
             width: "30%"
           },
-          inflowsFDI: {
+          inflowsFDIMillion: {
             text: "实际使用外资金额_FDI inflows to China",
             width: "30%"
           },
@@ -290,6 +290,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
+      let industryAddYoYData=[];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -300,6 +301,7 @@ export default {
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
+            industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["inflowsFDIMillion"],
@@ -310,11 +312,29 @@ export default {
           }
         }
       }
+      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
+               return b.year-a.year;
+      });
+      if(this.status[0].checked){
+        let tableInfo={
+                fileName: '实际使用外资金额',
+                tHeader:[
+                    "年份",
+                    '行业',
+                    '单位',
+                    '实际使用外资金额',
+                    '实际使用外资金额同比'
+                ],
+                filterVal:['year','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
+                tableData:[...industryAddYoYData]
+        }
+            this.$store.commit('saveChartTable',tableInfo);
+      }
       //
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getForeignInvestIndustryData(aug);
+      let { res } = await request.getForeignInvestIndustryData(aug,2);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -418,6 +438,7 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
+      this.mainGetChartsData('yearly');
     }
   }
 };

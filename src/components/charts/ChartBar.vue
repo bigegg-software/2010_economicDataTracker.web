@@ -250,6 +250,7 @@ export default {
           }
         ],
         tooltip: {
+          confine:true,
           trigger: "axis",
           backgroundColor: "rgba(225,225,255,0)",
           axisPointer: {

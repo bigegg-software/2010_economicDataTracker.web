@@ -113,12 +113,12 @@ sumSameYearData:async (sourceData,field,name)=> {
             tHeader:[
                 "年",
                 "月份",
+                '单位',
                 '中国对外直接投资流量',
                 '中国对外直接投资流量同比',
-                '单位',
                 '类型'
             ],
-            filterVal:['year','month','investConversionMillion','conversionYOY','conversionUnitMillion','outFlowTypeCH'],
+            filterVal:['year','month','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
