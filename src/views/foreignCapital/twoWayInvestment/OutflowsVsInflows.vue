@@ -2,7 +2,7 @@
   <!-- 双向直接投资 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked" ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -120,6 +120,9 @@ export default {
        if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
+      if (item.name == "chart") {
+        this.isShowTable = !this.isShowTable;
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -130,6 +133,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }

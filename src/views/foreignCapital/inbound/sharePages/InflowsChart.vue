@@ -66,7 +66,7 @@ export default {
             text: "月份_Monthly",
             width: "20%"
           },
-          inwardFDICon: {
+          inwardFDIConMillion: {
             text: "实际使用外资_China’s inward FDI",
             width: "35%"
           },

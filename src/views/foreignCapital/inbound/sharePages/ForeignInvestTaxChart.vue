@@ -61,7 +61,7 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          tax: {
+          taxMillion: {
             text: "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
             width: "40%"
           },
