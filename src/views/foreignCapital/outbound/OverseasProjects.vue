@@ -1,24 +1,20 @@
 <template>
   <!-- 中国对外承包工程 -->
   <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body
-      :tabComponent="tabComponent"
-      :isShowTable="actionsList[0].checked"
-    ></share-body>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -27,10 +23,12 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData: BeltAndRoadInvestDescribe,
       tabComponent: "amountGrowthToOPChart",
       tabList: [
         {

@@ -15,7 +15,9 @@
         <div class="chTitle">{{describeData.concept.chTitle}}</div>
         <div class="chText">{{describeData.concept.chText}}</div>
         <div class="chText">{{describeData.concept.chTextEnd}}</div>
-        <div class="chItalic">{{describeData.concept.chItalic}}</div>
+        <div class="chItalic">
+          <a :href="describeData.concept.conceptLink">{{describeData.concept.chItalic}}</a>
+        </div>
       </div>
     </div>
     <div class="rightContainer">
@@ -47,8 +49,8 @@ export default {
   data() {
     return {};
   },
-  mounted(){
-    console.log(this.describeData)
+  mounted() {
+    console.log(this.describeData);
   }
 };
 </script>
@@ -115,9 +117,11 @@ export default {
       color: #666;
     }
     .chItalic {
-      font-style: oblique;
-      font-size: 0.083333rem;
-      color: #999;
+      a {
+        font-style: oblique;
+        font-size: 0.083333rem;
+        color: #999;
+      }
     }
   }
 }

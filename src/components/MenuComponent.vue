@@ -11,15 +11,15 @@
       </ul>
       <!-- 2级 -->
       <fade-in-out>
-        <ul v-if="nav.active" class="secondary" >
+        <ul v-if="nav.active" class="secondary">
           <li
             v-for="(subnav, i) in nav.children"
             :key="i"
             class="subnav"
-            :class="{ 'secondary-active': $route.name==subnav.name,'indent':subnav.isIndent}"
+            :class="{ 'secondary-active': $route.name==subnav.name}"
             @click="handleClickSubnav(subnav, index, i)"
           >
-            <ul class="text">
+            <ul class="text" :class="{'indent':subnav.isIndent }">
               <li>{{ subnav.en}}</li>
               <li>{{ subnav.ch}}</li>
             </ul>
@@ -248,8 +248,8 @@ export default {
     }
   }
 }
-.indent{
-  padding-left: 0.14rem !important;
+.indent {
+  padding-left: 0.15rem !important;
   box-sizing: border-box;
 }
 

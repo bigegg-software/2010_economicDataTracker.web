@@ -8,10 +8,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {outflowsDescribe} from '@/utils/describe.js'
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -21,10 +24,12 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:outflowsDescribe,
       tabComponent: "outflowsChart",
       isShowTable: false,
       tabList: [
