@@ -12,7 +12,7 @@
           :options="USD"
         ></lines-chart>
       </div>
-      <div v-if="isShowRMB" class="container">
+      <div v-if="isShowRMB && !isShowTable" class="container">
         <lines-chart :options="RMB"></lines-chart>
       </div>
     </div>
@@ -61,8 +61,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          ch: "新签合同额",
+          en: "Total value of new contract"
+        },
+        unit:{
+          ch:'百万美元/百万人民币',
+          en:'USD min/RMB min'
         },
         tableTitle: {
           year: {
@@ -73,19 +77,19 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          newConAmount: {
+          newConAmountConMillion: {
             text: "新签合同额(USD)_Total value of new contract",
             width: "35%"
           },
-          newConAmountYOY: {
+          newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
             width: "35%"
           },
-          newConAmountCon: {
+          newConAmountMillion: {
             text: "新签合同额折合（RMB）_xxx",
             width: "35%"
           },
-          newConAmountConYOY: {
+          newConAmountYOY: {
             text: "新签合同额折合同比_xxx",
             width: "35%"
           }
@@ -101,7 +105,7 @@ export default {
         dataSources: "中国人民网",
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签qqqq合同额", en: "Total value of new contract" },
+        title: { ch: "新签合同额", en: "Total value of new contract" },
         xData: [],
         hideLegend: true,
         series: [
@@ -119,7 +123,7 @@ export default {
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签ww合同额", en: "Total value of new contract" },
+        title: { ch: "新签合同额", en: "Total value of new contract" },
         xData: [],
         hideLegend: true,
         series: [
@@ -304,7 +308,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug);
+      let { res } = await request.getOverSeasProjectsChartsData(aug,2);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);

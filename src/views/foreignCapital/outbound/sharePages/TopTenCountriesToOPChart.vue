@@ -3,7 +3,8 @@
   <div class="topTenCountriesToOP-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
-        <TableChart :totalData="totalData"></TableChart>
+        <TableChart  v-if="selectOption.value.id==1" :totalData="totalData"></TableChart>
+        <TableChart v-if="selectOption.value.id==2" :totalData="totalData2"></TableChart>
       </div>
       <div class="container">
         <chart-bar
@@ -58,6 +59,10 @@ export default {
           ch: "前十国别（市场）",
           en: "xxx"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -87,6 +92,10 @@ export default {
         title: {
           ch: "前十国别（市场）",
           en: "xxx"
+        },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
         },
         tableTitle: {
           year: {
@@ -185,11 +194,14 @@ export default {
     tableDatas: {
       handler() {
         let resoult = chartDataFun.conversionTable(
-          this.totalData.tableTitle,
+          this.selectOption.value.id==1? this.totalData.tableTitle:this.totalData2.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
-        this.$set(this.totalData, "tableData", resoult);
+        if(this.selectOption.value.id==1){
+          this.$set(this.totalData, "tableData", resoult);
+        }else if(this.selectOption.value.id==2){
+          this.$set(this.totalData2, "tableData", resoult);
+        }
       },
       deep: true
     }

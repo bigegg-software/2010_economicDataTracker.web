@@ -39,6 +39,10 @@ export default {
           ch: "年度派出人数主要行业",
           en: "Overseas workers by industry"
         },
+        unit:{
+          ch:'万人',
+          en:'XXXXX'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -133,7 +137,7 @@ export default {
       let {res} = await request.getIndustryOfWorkersNumChart(aug);
       let Xname=[];
           res.forEach(item => {
-              Xname.push({value:item.variousTypesPerNumMillion,name:item.industry});
+              Xname.push({value:item.variousTypesPerNum,name:item.industry});
           });
           this.totalDatas.seriesData=Xname;
     },
