@@ -188,7 +188,7 @@ export default {
     position: absolute;
     right: 0;
     top: 0.229167rem;
-    z-index: 1;
+    z-index: 10;
     width: ceil(250%);
     height: 2.083333rem;
     overflow: auto;

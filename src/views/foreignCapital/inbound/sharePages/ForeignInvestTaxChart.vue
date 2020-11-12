@@ -52,12 +52,16 @@ export default {
           ch: "外商投资企业税收统计",
           en: "Tax statistics of foreign invested enterprises"
         },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          tax: {
+          taxMillion: {
             text: "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
             width: "40%"
           },

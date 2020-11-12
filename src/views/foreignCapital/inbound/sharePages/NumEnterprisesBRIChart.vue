@@ -54,6 +54,10 @@ export default {
           ch: "企业数",
           en: "Number of enterprises"
         },
+        unit:{
+          ch: "家",
+          en: "xxx"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -204,7 +208,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getNonFinancialToBRIChartsData(aug);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug,2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

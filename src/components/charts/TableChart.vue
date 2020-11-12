@@ -4,6 +4,10 @@
       <div class="titleCh">{{this.totalData.title.ch}}</div>
       <div class="titleEn">{{this.totalData.title.en}}</div>
     </div>
+    <span style="position:absolute;top:0.2rem">
+      {{this.totalData.unit?this.totalData.unit.en:''}}<br/> 
+      {{this.totalData.unit?this.totalData.unit.ch:''}}
+    </span>
     <div class="tableChart" ref="box">
       <div class="tableTitle">
         <div

@@ -2,9 +2,11 @@
 <!-- 中国对外直接投资存量按历年前20位国家chart -->
   <div class="stocksTwentyDestination-chart">
     <div class="echart-block">
-        <div v-if="isShowTable" class="table-block"></div>
+        <div v-if="isShowTable" class="table-block">
+            <TableChart :totalData="tableTotalData"></TableChart>
+        </div>
         <div class="container">
-            <chart-bar ref="barChart" :chartBarData="chartBar"></chart-bar>
+            <chart-bar  v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
         </div>
     </div>
     <div class="select-block">
@@ -20,17 +22,52 @@ import ChartBar from '@/components/charts/ChartBar'
 import Year from '@/components/timeFrame/Year'
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
 export default {
   name: "stocksTwentyDestinationChart",
   data() {
     return {
+      tableTotalData: {
+        title: {
+          ch: "中国对外直接投资存量历年前20位国家",
+          en: "Top 20 destinations of China's FDI stocks"
+        },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "5%"
+          },
+          rank: {
+            text: "序号_Rank",
+            width: "5%"
+          },
+          country: {
+            text: "中国对外直接投资存量前20位国家（地区）_Top 20 destinations of China's FDI stocks",
+            width: "25%"
+          },
+          stocksMillion:{
+            text: "中国对外直接投资存量前20位国家（地区）投资额_China's FDI stocks in top 20 destinations",
+            width: "25%"
+          },
+          stockPercent:{
+            text: "中国对外直接投资存量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI stocks",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       showTimeFrame:false,
       chartBar: {
         watermark: false,
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         title:{
-          text:'中国对外直接投资流量历年前20位国家',
+          text:'中国对外直接投资存量历年前20位国家',
           subtext:"Top 20 destinations of China's FDI outflow"
         },
         xData: [],
@@ -66,6 +103,20 @@ export default {
       year: Number(arrmaxmin[1])
     });
   },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            this.$set(this.tableTotalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barChart.downloadFile();
@@ -74,7 +125,7 @@ export default {
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
-  components:{ChartBar,Year},
+  components:{ChartBar,Year,TableChart},
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -121,7 +172,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {

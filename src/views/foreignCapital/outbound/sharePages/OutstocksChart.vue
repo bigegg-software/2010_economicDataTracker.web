@@ -42,6 +42,10 @@ export default {
           ch: "中国对外直接投资存量",
           en: "China's FDI stocks"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -49,11 +53,7 @@ export default {
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
-            width: "35%"
-          },
-          unit: {
-            text: "单位_unit",
-            width: "35%"
+            width: "85%"
           }
         },
         tableData: [],

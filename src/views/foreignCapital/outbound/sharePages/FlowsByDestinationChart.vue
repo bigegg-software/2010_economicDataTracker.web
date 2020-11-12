@@ -2,9 +2,11 @@
   <!-- 中国对外直接投资存量按国家和地区统计chart -->
   <div class="stocks-by-destination-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="tableTotalData"></TableChart>
+      </div>
       <div class="container">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart  v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -30,6 +32,7 @@ import LinesChart from "@/components/charts/Lines";
 import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
     isShowTable: {}
@@ -37,11 +40,42 @@ export default {
   components: {
     TimeFrame,
     LinesChart,
-    SelectCheckBox
+    SelectCheckBox,
+    TableChart
   },
   name: "stocksByDestinationChart",
   data() {
     return {
+      tableTotalData: {
+        title: {
+          ch: "按国家和地区统计",
+          en: "China’s FDI stocks by destination"
+        },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          continent: {
+            text: "大洲_Continent",
+            width: "35%"
+          },
+          country: {
+            text: "国家_Country/Region",
+            width: "35%"
+          },
+          outflowMillion:{
+            text: "中国对外直接投资流量_China's FDI outflow",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       timer: null,
       randomColor:[],
       showTimeFrame: false,
@@ -90,6 +124,18 @@ export default {
           await this.mainGetChartsData("yearly");
       },
       deep:true
+    },
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            this.$set(this.tableTotalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
     }
   },
   async created() {
@@ -198,7 +244,7 @@ export default {
       //
     },
     async getChartsData(aug) {  //改变横轴 获取数据
-      let {res} = await request.getFlowsAndStocksByDestinationChartsData('FDIOutflowDestination',aug,'outflow');
+      let {res} = await request.getFlowsAndStocksByDestinationChartsData('FDIOutflowDestination',aug,'outflow',2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -309,7 +355,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {

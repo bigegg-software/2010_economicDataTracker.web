@@ -2,9 +2,11 @@
   <!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
   <div class="flows-by-CRI-continent-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="tableTotalData"></TableChart>
+      </div>
       <div class="container">
-        <treemap-chart ref="treemapChart" :totalData="totalData"></treemap-chart>
+        <treemap-chart  v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
     <div class="select-block">
@@ -27,12 +29,13 @@ import Yearly from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
-
+import TableChart from "@/components/charts/TableChart";
 export default {
    components: {
     TreemapChart,
     Yearly,
-    SelectRadio
+    SelectRadio,
+    TableChart
   },
    props: {
     isShowTable: {}
@@ -40,6 +43,36 @@ export default {
   name: "flowsByCRIContinentChart",
    data() {
     return {
+      tableTotalData: {
+        title: {
+          ch: "按各洲内国家/地区统计",
+          en: "By country/region within a continent"
+        },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          continent: {
+            text: "大洲_Continent",
+            width: "35%"
+          },
+          country: {
+            text: "国家_Country/Region",
+            width: "35%"
+          },
+          outflowMillion:{
+            text: "中国对外直接投资流量_China's FDI outflow",
+            width: "35%"
+          }
+        },
+        tableData: [],
+        updatedDate: "2020-10-23"
+      },
       showTimeFrame: false,
       totalData: {
         dataSources: "中国人民网",
@@ -103,6 +136,20 @@ export default {
       }
     };
   },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            this.$set(this.tableTotalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.treemapChart.downloadFile();
@@ -137,7 +184,7 @@ export default {
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
           name: item.country + "_qqww",
-          value: item.outflow
+          value: item.outflowMillion
         });
       });
     },
@@ -177,7 +224,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;

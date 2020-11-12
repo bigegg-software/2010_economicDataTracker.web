@@ -61,6 +61,10 @@ export default {
           ch: "中国对“一带一路”沿线国家非金融类直接投资情况",
           en: "China’s non-financial FDI outflows to BRI countries"
         },
+        unit:{
+          ch:'百万美元',
+          en:'USD min'
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -70,11 +74,11 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          investAmount: {
+          investConversionMillion: {
             text: "非金融类直接投资_non-financial FDI outflows",
             width: "35%"
           },
-          yOY: {
+          conversionYOY: {
             text:
               "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
             width: "35%"
@@ -271,7 +275,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug);
+      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug,1);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
