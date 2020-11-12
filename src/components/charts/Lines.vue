@@ -247,6 +247,7 @@ export default {
 
         tooltip: {
           trigger: "axis",
+          confine:true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let a = "";

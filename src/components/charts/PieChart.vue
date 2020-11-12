@@ -95,6 +95,7 @@ export default {
           }
         },
         tooltip: {
+          confine:true,
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {

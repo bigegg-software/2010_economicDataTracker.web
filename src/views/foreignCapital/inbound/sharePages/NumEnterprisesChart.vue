@@ -289,6 +289,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
+      let industryAddYoYData=[];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -299,6 +300,7 @@ export default {
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
+            industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["enterprisesNumber"],
@@ -309,12 +311,30 @@ export default {
           }
         }
       }
+      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
+               return b.year-a.year;
+      });
+      if(this.status[0].checked){
+        let tableInfo={
+            fileName: '开办企业数',
+            tHeader:[
+                "年份",
+                '行业',
+                '单位',
+                '企业数',
+                '企业数同比'
+            ],
+            filterVal:['year','industry','unitMillion','enterprisesNumber','numberYOYGrowth'],
+            tableData:[...industryAddYoYData]
+            }
+            this.$store.commit('saveChartTable',tableInfo);
+      }
       //
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getForeignInvestIndustryData(aug);
-
+      let { res } = await request.getForeignInvestIndustryData(aug,1);
+         console.log(res)
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -417,6 +437,7 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
+      this.mainGetChartsData('yearly');
     }
   }
 };
