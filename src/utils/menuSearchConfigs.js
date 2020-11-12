@@ -2,8 +2,8 @@ let foreignCapitalMenuLists = [  //外资模块
   {
     name: "outBound",
     ch: "中国对外投资",
-    en: "China’s outbound investment",
-    active: true,
+    en: "China's outbound investment",
+    active: false,
     children: [
       {
         name: "outflows",
@@ -73,58 +73,64 @@ let foreignCapitalMenuLists = [  //外资模块
   {
     name: "inBound",
     ch: "外商投资中国",
-    en: "China’s inbound investment",
+    en: "China's inbound investment",
     active: false,
     children: [
       {
         name: "inflows",
         ch: "实际使用外资",
-        en: "China’s FDI inflows",
-        splitList: ['实', '际', '使', '用', '外', '资', 'China', 'China’s', 'FDI', 'inflows'],
-        active: false
+        en: "China's FDI inflows",
+        splitList: ['实', '际', '使', '用', '外', '资', 'China', "China's", 'FDI', 'inflows'],
+        active: false,
+        isIndent:true
       },
       {
         name: "majorForeignInvestors",
         ch: "主要对华投资国家/地区",
         en: "Major foreign investors of China",
         splitList: ['主', '要', '对', '华', '投', '资', '国', '家', '地', '区', 'Major', 'foreign', 'investors', 'of', 'China'],
-        active: false
+        active: false,
+        isIndent:true
       },
       {
         name: "foreignInvestIndustry",
         ch: "外商直接投资主要行业",
         en: "Foreign investment to China by industry",
         splitList: ['外', '商', '直', '接', '投', '资', '主', '要', '行', '业', 'Foreign', 'investment', 'to', 'China', ' by', ' industry'],
-        active: false
+        active: false,
+        isIndent:true
       },
       {
         name: "foreignInvestTax",
         ch: "外商投资企业税收统计",
         en: "Tax revenue from foreign investment enterprises",
         splitList: ['外', '商', '投', '资', '企', '业', '税', '收', '统', '计', 'Tax', 'revenue', 'from', 'foreign ', 'investment', 'enterprises'],
-        active: false
+        active: false,
+        isIndent:true
       },
       {
         name: "beltAndRoadInvest",
         ch: "“一带一路”沿线国家对华投资情况",
         en: "Investment from Belt and Road Initiative (BRI) countries",
         splitList: ['一', '带', '一', '路', '沿', '线', '国', '家', '对', '华', '投', '资', '情', '况', 'Investment', 'from', 'Belt', 'and', 'Road', 'Initiative', 'BRI', 'countries'],
-        active: false
+        active: false,
+        isIndent:true
       }
     ]
   },
   {
     name: "twoWayInvestment",
     ch: "双向直接投资",
-    en: "China’s FDI outflows vs. inflows",
+    en: "China's FDI outflows vs. inflows",
     active: false,
     children: [
       {
         name: "outflowsVsInflows",
         ch: "双向直接投资",
-        en: "China’s FDI outflows vs. inflows",
-        splitList: ['双', '向', '直', '接', '投', '资', 'China', 'China’s', 'FDI', 'outflows', 'vs', 'inflows'],
-        active: false
+        en: "China's FDI outflows vs. inflows",
+        splitList: ['双', '向', '直', '接', '投', '资', 'China', "China's", 'FDI', 'outflows', 'vs', 'inflows'],
+        active: false,
+        isIndent:true
       }
     ]
   }
