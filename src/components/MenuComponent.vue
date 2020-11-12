@@ -11,12 +11,12 @@
       </ul>
       <!-- 2级 -->
       <fade-in-out>
-        <ul v-if="nav.active" class="secondary">
+        <ul v-if="nav.active" class="secondary" >
           <li
             v-for="(subnav, i) in nav.children"
             :key="i"
             class="subnav"
-            :class="{ 'secondary-active': $route.name==subnav.name }"
+            :class="{ 'secondary-active': $route.name==subnav.name,'indent':subnav.isIndent}"
             @click="handleClickSubnav(subnav, index, i)"
           >
             <ul class="text">
@@ -154,6 +154,11 @@ export default {
       // ]
     };
   },
+  mounted() {
+    let className = "arrow-icon iconfont";
+    let dom = this.$refs.navigator.querySelectorAll(".primary .arrow-icon");
+    dom[0].className = className + " defaultRotate primary-active";
+  },
   methods: {
     showSubnav(index) {
       let className = "arrow-icon iconfont";
@@ -243,7 +248,14 @@ export default {
     }
   }
 }
+.indent{
+  padding-left: 0.14rem !important;
+  box-sizing: border-box;
+}
 
+.defaultRotate {
+  transform: rotateZ(0deg) !important;
+}
 .rotate {
   transform: rotateZ(0deg) !important;
   animation: _rotate 0.5s;
@@ -257,7 +269,7 @@ export default {
 }
 .secondary-active {
   color: #fff !important;
-  background-color: #8AA8BB !important;
+  background-color: #8aa8bb !important;
 }
 
 @keyframes rotate {

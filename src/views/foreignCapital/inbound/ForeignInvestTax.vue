@@ -8,22 +8,28 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {ForeignInvestTaxDescribe} from '@/utils/describe.js'
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
+import Describe from "@/components/Describe";
+
 export default {
   name: "foreignInvestTax",
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:ForeignInvestTaxDescribe,
       tabComponent: "foreignInvestTaxChart",
       tabList: [
         {
