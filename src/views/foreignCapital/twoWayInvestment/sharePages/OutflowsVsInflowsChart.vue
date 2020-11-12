@@ -327,11 +327,11 @@ export default {
           this.totalData.tableTitle = {
             year: {
               text: "年份_Year",
-              width: "15%",
+              width: "20%",
             },
             month: {
               text: "月份_Year",
-              width: "15%",
+              width: "20%",
             },
             inwardFDIConMillion: {
               text: "实际使用外资_xxx",
@@ -339,7 +339,7 @@ export default {
             },
             inwardFDIConYOY: {
               text: "实际使用外资同比_xxx",
-              width: "50%",
+              width: "30%",
             },
           };
           break;
