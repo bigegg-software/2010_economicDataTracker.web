@@ -124,19 +124,39 @@ export default {
         en: "xxxxxx",
         value: {
           id: 1,
-          ch: "欧盟",
-          en: "xxxxxx"
+          ch: "中国香港",
+          en: "aaaaa"
         },
         op: [
           {
             id: 1,
-            ch: "欧盟",
-            en: "xxxxxx"
+            ch: "中国香港",
+            en: "aaaaa"
           },
           {
             id: 2,
-            ch: "亚太经合组织",
-            en: "yyyyy"
+            ch: "东盟",
+            en: "bbb"
+          },
+          {
+            id: 3,
+            ch: "欧盟",
+            en: "ccc"
+          },
+          {
+            id: 4,
+            ch: "美国",
+            en: "ddd"
+          },
+          {
+            id: 5,
+            ch: "澳大利亚",
+            en: "eee"
+          },
+          {
+            id: 6,
+            ch: "俄罗斯联邦",
+            en: "fff"
           }
         ]
       }
