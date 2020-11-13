@@ -1,6 +1,6 @@
 <template>
   <!-- 中国对外承包工程 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
@@ -112,8 +112,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -151,6 +152,9 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
+       if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -171,5 +175,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

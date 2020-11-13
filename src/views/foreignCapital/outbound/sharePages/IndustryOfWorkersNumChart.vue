@@ -5,14 +5,14 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <PieChart v-if="!isShowTable" ref="pie" :totalData="totalDatas" :value="option.value"></PieChart>
       </div>
     </div>
     <div class="select-block">
       <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="changeValue"></Yearly>
     </div>
-  </div>     
+  </div>
 </template>
  
 <script>
@@ -34,14 +34,14 @@ export default {
   name: "industryOfWorkersNumChart",
   data() {
     return {
-       totalData: {
+      totalData: {
         title: {
           ch: "年度派出人数主要行业",
           en: "Overseas workers by industry"
         },
-        unit:{
-          ch:'万人',
-          en:'XXXXX'
+        unit: {
+          ch: "万人",
+          en: "XXXXX"
         },
         tableTitle: {
           year: {
@@ -53,7 +53,8 @@ export default {
             width: "30%"
           },
           variousTypesPerNum: {
-            text: "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+            text:
+              "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
             width: "30%"
           },
           industryPercent: {
@@ -64,7 +65,7 @@ export default {
         tableData: [],
         updatedDate: "2020-10-23"
       },
-      showTimeFrame:false,
+      showTimeFrame: false,
       option: {
         ch: "年度",
         en: "Yearly",
@@ -94,19 +95,22 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -114,14 +118,14 @@ export default {
       this.$refs.pie.downloadFile();
     });
   },
- async created() {
+  async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.option.value=arrmaxmin[1];
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
       year: Number(arrmaxmin[1])
     });
- },
+  },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
@@ -129,23 +133,24 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("LaborServiceIndustry");
-        this.$set(this.option, 'frame', res);
+      this.$set(this.option, "frame", res);
       this.showTimeFrame = true;
       return res;
     },
-    async getChartsData(aug) {  //年份 获取数据
-      let {res} = await request.getIndustryOfWorkersNumChart(aug);
-      let Xname=[];
-          res.forEach(item => {
-              Xname.push({value:item.variousTypesPerNum,name:item.industry});
-          });
-          this.totalDatas.seriesData=Xname;
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getIndustryOfWorkersNumChart(aug);
+      let Xname = [];
+      res.forEach(item => {
+        Xname.push({ value: item.variousTypesPerNum, name: item.industry });
+      });
+      this.totalDatas.seriesData = Xname;
     },
     async changeValue(value) {
       this.option.value = value;
       await this.getChartsData({
-            year: Number(value)
-          });
+        year: Number(value)
+      });
     }
   }
 };
@@ -167,12 +172,16 @@ export default {
       height: 100%;
     }
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

@@ -5,23 +5,14 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="Person"
-        ></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="Person"></lines-chart>
       </div>
     </div>
 
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -52,9 +43,9 @@ export default {
           ch: "派出人数",
           en: "Total trade volume"
         },
-        unit:{
-          ch:'万人',
-          en:'xxx'
+        unit: {
+          ch: "万人",
+          en: "xxx"
         },
         tableTitle: {
           year: {
@@ -129,7 +120,7 @@ export default {
             }
           }
         },
-         monthly: {
+        monthly: {
           ch: "月度",
           en: "Monthly",
           list: {
@@ -334,9 +325,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

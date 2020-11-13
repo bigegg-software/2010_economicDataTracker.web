@@ -5,7 +5,7 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
@@ -33,9 +33,9 @@ export default {
           ch: "12月末在外各类劳务人员前10位国家",
           en: "Top 10 desinations of total number of workers overseas"
         },
-        unit:{
-          ch:'万人',
-          en:'xxx'
+        unit: {
+          ch: "万人",
+          en: "xxx"
         },
         tableTitle: {
           year: {
@@ -52,7 +52,8 @@ export default {
             width: "25%"
           },
           destinationPercent: {
-            text: "12月末在外各类劳务人员比重_Share of total number of workers by destinations",
+            text:
+              "12月末在外各类劳务人员比重_Share of total number of workers by destinations",
             width: "25%"
           }
         },
@@ -91,19 +92,22 @@ export default {
       default: false
     }
   },
-   computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -129,7 +133,7 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
 
-  components: { ChartBar, Year,TableChart },
+  components: { ChartBar, Year, TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -184,9 +188,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

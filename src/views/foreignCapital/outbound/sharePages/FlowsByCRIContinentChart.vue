@@ -5,8 +5,8 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="tableTotalData"></TableChart>
       </div>
-      <div class="container">
-        <treemap-chart  v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <treemap-chart v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
     <div class="select-block">
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -31,26 +30,26 @@ import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 export default {
-   components: {
+  components: {
     TreemapChart,
     Yearly,
     SelectRadio,
     TableChart
   },
-   props: {
+  props: {
     isShowTable: {}
   },
   name: "flowsByCRIContinentChart",
-   data() {
+  data() {
     return {
       tableTotalData: {
         title: {
           ch: "按各洲内国家/地区统计",
           en: "By country/region within a continent"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -65,7 +64,7 @@ export default {
             text: "国家_Country/Region",
             width: "35%"
           },
-          outflowMillion:{
+          outflowMillion: {
             text: "中国对外直接投资流量_China's FDI outflow",
             width: "35%"
           }
@@ -88,7 +87,7 @@ export default {
           all: "全部_ALL",
           data: []
         },
-        updatedDate:"2020-10-23", 
+        updatedDate: "2020-10-23"
       },
       option: {
         ch: "年度",
@@ -136,18 +135,21 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            this.$set(this.tableTotalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.tableTotalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.tableTotalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -169,7 +171,7 @@ export default {
     });
     this.option.value = Number(arrmaxmin[1]);
   },
-   methods: {
+  methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIOutflowDestination");
@@ -212,7 +214,7 @@ export default {
 
 <style lang="less" scoped>
 .flows-by-CRI-continent-chart {
- display: flex;
+  display: flex;
   .echart-block {
     position: relative;
     background-color: #fff;
@@ -228,11 +230,15 @@ export default {
     }
     .container {
       width: 5.875rem;
-    height: 3.916667rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;
