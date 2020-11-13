@@ -173,7 +173,7 @@ export default {
       let FDIInflowsYOY = [];
       res.forEach(item => {
         console.log(item)
-        Xname.push(item.country);
+        Xname.push(item.country+'\n'+item.countryEn);
         FDIInflows.push(item.FDIInflowsMillion);
         FDIInflowsYOY.push(item.enterpriseNumber);
       });

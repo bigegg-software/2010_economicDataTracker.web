@@ -123,7 +123,7 @@ export default {
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
             lineStyle: {
-              color: this.chartBarData.series[j].color,
+              color: '#f00fff',
               width: 1.5,
               type: "dashed"
             },
@@ -279,7 +279,7 @@ export default {
                   }</div>`;
                 }
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${!!params[i].value?params[i].value :"-"}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${!!params[i].value?params[i].value.toFixed(1) :"-"}</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
@@ -370,8 +370,8 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.ch}}` : "",
-              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.en}}` : ""
+              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.en}}`: "",
+              this.chartBarData.y2Name ? `{divch|${this.chartBarData.y2Name.ch}}`: ""
             ].join("\n"),
             nameTextStyle: {
               color: "#333"

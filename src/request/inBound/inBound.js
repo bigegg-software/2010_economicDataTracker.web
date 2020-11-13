@@ -202,6 +202,8 @@ export default {
                 let vkData = res.filter(it => {
                     console.log(it)
                     it[filed + 'Million'] = Number(it[filed]) / 100;
+                    it['unit']='家';
+                    it['unitMillion']='百万美元';
                     return it.country == element;
                 })
                 console.log(vkData)
@@ -209,14 +211,35 @@ export default {
             }
         }
 
+        let tableres = JSON.parse(JSON.stringify(res))
+        tableres = tableres.reverse();
+        let tableInfo = {
+            fileName: '外商投资企业税收统计',
+            tHeader: [
+                "年份",
+                "区域",
+                '国家/地区',
+                '单位',
+                '企业数',
+                '企业数比重',
+                '单位',
+                '实际投入外资金额',
+                '实际投入外资金额比重'
+            ],
+            filterVal: ['year', 'continent', 'country','unit','enterpriseNumber','enterprisePercent','unitMillion',filed+'Million','inflowsPercent'],
+            tableData: [...tableres]
+        }
+        store.commit('saveChartTable', tableInfo);
+
         return { res: allresult };
     },
     //主要对华投资国家/地区
     getMajorInvestors: async function (params) {
         let res = await this.barQueryData('MajorInvestors', params);
+        console.log(res)
         res = res.map(item => {
             item = item.toJSON();
-            // item.taxMillion = item.tax / 100;
+            item.FDIInflowsMillion = item.FDIInflows / 100;
             return item;
         });
         return { res };

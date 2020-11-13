@@ -13,11 +13,6 @@
       <div class="year-select">
         <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></Yearly>
       </div>
-      <SelectRadio
-        :option="selectOption"
-        :value="selectOption.value"
-        @change="changeSelect($event)"
-      ></SelectRadio>
     </div>
   </div>
 </template>
@@ -25,7 +20,6 @@
 <script>
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
-import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
@@ -34,9 +28,7 @@ export default {
   components: {
     TreemapChart,
     Yearly,
-    SelectRadio,
     TableChart
-
   },
   props: {
     isShowTable: {}
@@ -104,44 +96,6 @@ export default {
         en: "yearly",
         frame: "",
         value: ""
-      },
-      selectOption: {
-        ch: "大洲",
-        en: "xxxxxx",
-        value: {
-          ch: "亚洲",
-          en: "yazhou"
-        },
-        op: [
-          {
-            ch: "非洲",
-            en: "Africa"
-          },
-          {
-            ch: "亚洲",
-            en: "Asia"
-          },
-          {
-            ch: "南美洲",
-            en: "South_America"
-          },
-          {
-            ch: "欧洲",
-            en: "Europe"
-          },
-          {
-            ch: "北美洲",
-            en: "North_America"
-          },
-          {
-            ch: "南极洲",
-            en: "Antarctica"
-          },
-          {
-            ch: "大洋洲",
-            en: "Oceania"
-          }
-        ]
       }
     };
   },
@@ -172,10 +126,7 @@ export default {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     await this.getChartsData({
-      year: Number(arrmaxmin[1]),
-      equalTo: {
-        continent: this.selectOption.value.ch
-      }
+      year: Number(arrmaxmin[1])
     });
     this.option.value = Number(arrmaxmin[1]);
   },
@@ -201,19 +152,7 @@ export default {
     async yearChange(year) {
       this.option.value = year;
       await this.getChartsData({
-        year: Number(year),
-        equalTo: {
-          continent: this.selectOption.value.ch
-        }
-      });
-    },
-    async changeSelect(item) {
-      this.selectOption.value = item;
-      await this.getChartsData({
-        year: Number(this.option.value),
-        equalTo: {
-          continent: item.ch
-        }
+        year: Number(year)
       });
     }
   }

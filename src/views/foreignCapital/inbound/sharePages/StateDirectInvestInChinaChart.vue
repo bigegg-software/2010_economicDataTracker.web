@@ -83,7 +83,7 @@ export default {
             text: "比重_Share of foreign investment enterprises",
             width: "15%"
           },
-          FDIInflows: {
+          FDIInflowsMillion: {
             text: "实际投入外资金额_FDI inflows to China",
             width: "15%"
           },

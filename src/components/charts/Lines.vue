@@ -266,7 +266,7 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value : "-"
+                !!params[i].value ? params[i].value.toFixed(1) : "-"
               }</div>`;
               dom = dom + a + b + c;
             }
