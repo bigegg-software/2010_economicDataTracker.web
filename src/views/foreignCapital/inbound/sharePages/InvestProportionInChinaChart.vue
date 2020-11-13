@@ -44,11 +44,11 @@ export default {
         tableTitle: {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "100px"
           },
           continent: {
             text: "区域_xxxxxx",
-            width: "20%"
+            width: "200px"
           },
           country: {
             text: "国家/地区_Country/Region",
@@ -56,19 +56,19 @@ export default {
           },
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
-            width: "10%"
+            width: "20%"
           },
           enterprisePercent: {
             text: "比重_Share of foreign investment enterprises",
-            width: "15%"
+            width: "20%"
           },
-          FDIInflows: {
+          FDIInflowsMillion: {
             text: "实际投入外资金额_FDI inflows to China",
-            width: "15%"
+            width: "20%"
           },
           inflowsPercent: {
             text: "比重_Share of total FDI inflows to China",
-            width: "10%"
+            width: "20%"
           }
         },
         tableData: [],
@@ -149,7 +149,7 @@ export default {
         this.$set(this.totalDatas.seriesData.data, index, {
           name: item.country + "_QQQQQQQ",
           actual: "实际投入外资金额_XXXXXXXXXXXXXXXX",
-          actualInflows: item.FDIInflows,
+          actualInflows: item.FDIInflowsMillion,
           proportion: "金额比重_QQQQQQQQQ",
           value: item.inflowsPercent
         });
