@@ -14,16 +14,19 @@
           <div class="text-chinese">最新数据</div>
         </div>
       </div>
-      <div class="user-actions">
+      <div class="user-actions" v-if="reload">
         <div class="user-info">
           <img src="../../../assets/img/avatar.png" class="user-avatar" />
-          <div class="user-name">{{ "用户名" }}</div>
+          <div class="user-name">{{ userInfo.nickname?userInfo.nickname:userInfo&&!userInfo.nickname&&userInfo.username?userInfo.username:''}}</div>
         </div>
         <div class="line"></div>
-        <div class="logout" @click="logout">
-          <div class="iconfont icon-logout">&#xe620;</div>
-          <div class="logout-text">{{ true ? "退出" : "登录" }}</div>
+        <div class="logout" v-if="userInfo.sessionToken" @click="logout">
+          <div  class="iconfont icon-logout">
+            &#xe620;
+          </div>
+          <div class="logout-text">退出</div>
         </div>
+        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">登录</div>
       </div>
       <!-- 下拉框 -->
       <div v-if="show" class="data-list" @mouseleave="hiddenDataList">
@@ -51,6 +54,7 @@ export default {
   name: "PageHeader",
   data() {
     return {
+      reload:true,
       dataList: {
         "2020-10-01": [
           { ch: "国对外直接投资流量与存量", en: "xxxxxxx" },
@@ -60,6 +64,13 @@ export default {
       },
       show: false
     };
+  },
+  mounted() {
+  },
+  computed:{
+     userInfo() {
+       return this.$store.getters.userInfo;
+     }
   },
   methods: {
     showDataList() {
@@ -72,7 +83,30 @@ export default {
       console.log(data, "最新数据");
       this.show = false;
     },
-    logout() {}
+    logout() {
+      let tthis=this;
+      this.$confirm({
+        title: '确认要退出吗?',
+        onOk() {
+          // 退出后删除所有信息
+          tthis.$storage.clear();
+          tthis.$store.commit('setUserInfo',{});
+        },
+        okText: '确定',
+        okType: 'danger',
+        cancelText: '取消',
+        onCancel() {
+          
+        }
+      });
+    },
+    logInfo() {
+      console.log(this.$route)
+      this.$router.push({
+        path:'/login',
+        query:{redirect:this.$route.fullPath}
+      });
+    }
   }
 };
 </script>

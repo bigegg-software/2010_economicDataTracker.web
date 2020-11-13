@@ -7,6 +7,8 @@ export default {
             let q = new Parse.Query(tableName);
             let limiCcount = await q.count();
             q.limit(limiCcount);
+            // 发布的才拉取
+            // q.equalTo('isCheckIn',true);
             let type = params.type;
             q.greaterThanOrEqualTo('year',params.start)
             q.lessThanOrEqualTo('year',params.end)
@@ -439,6 +441,8 @@ barQueryData:async function (tableName,params){  //初始去数据库查询数�
     let q = new Parse.Query(tableName);
     let limiCcount = await q.count();
         q.limit(limiCcount);
+        // 发布的才拉取
+        // q.equalTo('isCheckIn',true);
         if(params.limit){
             q.limit(params.limit);
         }

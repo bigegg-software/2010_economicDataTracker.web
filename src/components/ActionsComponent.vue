@@ -2,7 +2,7 @@
   <div class="actions-block" id="actions-block">
     <template v-for="(item, index) in actionsList">
     <div
-      v-if="!item.hide"
+      v-if="!item.hide && ((item.name!='download'&&item.name!='embed')||((item.name=='download'||item.name=='embed')&&$store.getters.userInfo.sessionToken))"
       :key="index"
       class="action"
       :class="{ active: item.checked }"
@@ -17,15 +17,17 @@
       <fade-in-out>
         <!-- 下载 -->
         <div v-if="item.popup && item.name == 'download' && item.checked" class="download-block">
-          <div
-            v-for="(action, i) in item.children"
-            :key="i"
-            class="download"
-            @click.stop="choose(index, i,item.name)"
-          >
-            <div>{{ action.en }}</div>
-            <div>{{ action.ch }}</div>
-          </div>
+          <template v-for="(action, i) in item.children">
+            <div
+              v-if="actionsList[0].checked!=true || action.name!='image'&&actionsList[0].checked==true"
+              :key="i"
+              class="download"
+              @click.stop="choose(index, i,item.name)"
+            >
+              <div>{{ action.en }}</div>
+              <div>{{ action.ch }}</div>
+            </div>
+          </template>
         </div>
         <!-- 嵌入 -->
         <div v-if="item.popup && item.name == 'embed' && item.checked" class="embed-block">
@@ -210,15 +212,16 @@ export default {
   }
   .download-block {
     position: absolute;
-    top: -0.59375rem;
+    bottom: 0.325rem;
     left: 0;
     z-index: 5;
+    width:100%;
     box-shadow: darkgrey 0px 0px 10px 1px;
     .download {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 0.604167rem;
+      // width: 0.604167rem;
       height:0.276042rem;
       padding: 0 0.083333rem;
       line-height: 0.104167rem;

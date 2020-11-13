@@ -6,14 +6,12 @@ const user = {
   },
   mutations: {
     setUserInfo(state,info){
-         
+         state.info=info;
     }
   },
 
   actions: {
-    setInfo({commit,state,getters},props){
-      
-    }
+    
   }
 }
 
