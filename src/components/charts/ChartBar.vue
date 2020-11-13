@@ -332,12 +332,12 @@ export default {
                 diven: {
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0]
+                  padding: [2,0]
                 },
                 div: {
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  padding: [2,0]
                 }
               }
             },
