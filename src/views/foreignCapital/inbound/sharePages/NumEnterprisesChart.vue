@@ -128,6 +128,7 @@ export default {
           text: "开办企业数",
           subtext: "Number of enterprises"
         },
+        updatedDate:'2020-11-13',
         xData: [],
         series: []
       },
@@ -136,6 +137,7 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "开办企业数", en: "Number of enterprises" },
+        updatedDate:'2020-11-13',
         xData: [],
         series: [
           // {

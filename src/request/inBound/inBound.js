@@ -218,7 +218,7 @@ export default {
         let tableres = JSON.parse(JSON.stringify(res))
         tableres = tableres.reverse();
         let tableInfo = {
-            fileName: '外商投资企业税收统计',
+            fileName: '年度部分国家/地区对华直接投资',
             tHeader: [
                 "年份",
                 "区域",
@@ -244,8 +244,29 @@ export default {
         res = res.map(item => {
             item = item.toJSON();
             item.FDIInflowsMillion = item.FDIInflows / 100;
+            item['unit']='家';
+            item['unitMillion']='百万美元';
             return item;
         });
+        let tableres = JSON.parse(JSON.stringify(res))
+        tableres = tableres.reverse();
+        let tableInfo = {
+            fileName: '国家和地区对华投资比重',
+            tHeader: [
+                "年份",
+                "区域",
+                '国家/地区',
+                '单位',
+                '企业数',
+                '企业数比重',
+                '单位',
+                '实际投入外资金额',
+                '实际投入外资金额比重'
+            ],
+            filterVal: ['year', 'continent', 'country','unit','enterpriseNumber','enterprisePercent','unitMillion','FDIInflowsMillion','inflowsPercent'],
+            tableData: [...tableres]
+        }
+        store.commit('saveChartTable', tableInfo);
         return { res };
 
 
