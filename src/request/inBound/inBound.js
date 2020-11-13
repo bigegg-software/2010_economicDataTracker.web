@@ -218,7 +218,7 @@ export default {
         let tableres = JSON.parse(JSON.stringify(res))
         tableres = tableres.reverse();
         let tableInfo = {
-            fileName: '外商投资企业税收统计',
+            fileName: '年度部分国家/地区对华直接投资',
             tHeader: [
                 "年份",
                 "区域",
@@ -251,7 +251,7 @@ export default {
         let tableres = JSON.parse(JSON.stringify(res))
         tableres = tableres.reverse();
         let tableInfo = {
-            fileName: '外商投资企业税收统计',
+            fileName: '国家和地区对华投资比重',
             tHeader: [
                 "年份",
                 "区域",
