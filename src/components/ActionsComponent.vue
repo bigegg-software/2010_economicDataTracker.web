@@ -74,7 +74,7 @@ export default {
         document.getElementById("qrcode").remove();
       }
       this.actionsList.forEach(item => {
-        if (item.name != "chart") {
+        if (item.name != "chart"&&item.name != "enlarge") {
           item.checked = false;
         }
       });
