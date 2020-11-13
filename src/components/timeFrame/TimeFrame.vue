@@ -1,6 +1,6 @@
 <template>
   <div class="timeFrame">
-    <div class="tab-list">
+    <div class="tab-list"  v-if="options.monthly || options.quarterly">
       <div
         v-for="(item, key) in options"
         :key="key"
@@ -96,7 +96,7 @@ export default {
 }
 .tab-area {
   width: 100%;
-  padding-top: 0.072917rem;
+  // padding-top: 0.072917rem;
   .tab-area-item {
     padding: 0.072917rem 0;
   }
@@ -105,6 +105,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.072917rem;
   width: 100%;
   .tab-list-item {
     flex: 1;
