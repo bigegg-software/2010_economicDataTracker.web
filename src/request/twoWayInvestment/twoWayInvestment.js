@@ -5,6 +5,10 @@ export default {
  manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
     let q = new Parse.Query(tableName)
     let type = params.type;
+    let limiCcount = await q.count();
+    q.limit(limiCcount);
+    // 发布的才拉取
+    // q.equalTo('isCheckIn',true);
     q.greaterThanOrEqualTo('year', params.start)
     q.lessThanOrEqualTo('year', params.end)
     if (type == 'yearly' && !params.noMonth) {
