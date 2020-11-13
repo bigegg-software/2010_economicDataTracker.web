@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="label-block">
-      <div>{{ option.ch }}</div>
       <div>{{ option.en }}</div>
+      <div>{{ option.ch }}</div>
     </div>
     <div class="time-block" @click="openCalendar">
       <div class="text">{{ handleText(value) }}</div>
@@ -191,8 +191,11 @@ export default {
   }
 }
 .label-block {
-  font-size: 0.0625rem;
   line-height: 0.104167rem;
+  font-size: 0.072917rem;
+  & div:first-child{
+  font-size: 0.09375rem;
+  }
 }
 .time-block {
   display: flex;

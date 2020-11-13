@@ -4,15 +4,15 @@
     <input
         v-model="name"
         type="text"
-        placeholder="关键字 keywords"
+        placeholder="keywords 关键字"
     />
     <div class="iconfont icon-search">&#xe6a6;</div>
 </div>
 <section class="result" v-if="name.replace(/(^\s*)/g,'')!=''">
  <template v-for="tem in menuFileList">
     <div :key="tem.name" v-if="tem.active" @click="gotoPage(tem)" class="menu-link">
-        <p>{{tem.ch}}</p> 
         <p>{{tem.en}}</p> 
+        <p>{{tem.ch}}</p> 
     </div>
  </template>
  <div v-if="name.replace(/(^\s*)/g,'')!=''&&noData">暂无数据</div>

@@ -29,13 +29,13 @@ export default {
       navList: [
         {
           Chinese: "外资",
-          English: "Foreign Direct Investment (FDI)",
+          English: "FOREIGN DIRECT INVESTMENT",
           name: "foreignCapital"
         },
-        { Chinese: "外贸", English: "Trade", name: "foreignTrade" },
+        { Chinese: "外贸", English: "TRADE", name: "foreignTrade" },
         {
           Chinese: "宏观经济指标",
-          English: "Macro-economic indicators",
+          English: "MACRO-ECONOMIC INDICATORS",
           name: "economicIndicators"
         }
       ],
