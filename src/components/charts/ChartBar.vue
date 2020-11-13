@@ -159,7 +159,7 @@ export default {
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if(!this.chartBarData.hideLegend){
-              return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
+              return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
               "\n"
               );
             }else{
@@ -268,14 +268,14 @@ export default {
             </div>`;
             for (let i = 0; i < params.length; i++) {
               if (params[i].seriesName.includes("_")) {
-                if (params[i].seriesName.split("_")[0]) {
+                if (params[i].seriesName.split("_")[1]) {
                   a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
-                    params[i].seriesName.split("_")[0]
+                    params[i].seriesName.split("_")[1]
                   }</div>`;
                 }
-                if (params[i].seriesName.split("_")[1]) {
+                if (params[i].seriesName.split("_")[0]) {
                   b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
-                    params[i].seriesName.split("_")[1]
+                    params[i].seriesName.split("_")[0]
                   }</div>`;
                 }
               }
