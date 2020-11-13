@@ -5,7 +5,7 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="tableTotalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <treemap-chart v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
@@ -47,9 +47,9 @@ export default {
           ch: "按各洲内国家/地区统计",
           en: "By country/region within a continent"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -64,7 +64,7 @@ export default {
             text: "国家_Country/Region",
             width: "35%"
           },
-          stocksMillion:{
+          stocksMillion: {
             text: "中国对外直接投资存量_China's FDI stocks",
             width: "35%"
           }
@@ -135,18 +135,21 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            this.$set(this.tableTotalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.tableTotalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.tableTotalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -226,12 +229,16 @@ export default {
       background-color: #fff;
     }
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;

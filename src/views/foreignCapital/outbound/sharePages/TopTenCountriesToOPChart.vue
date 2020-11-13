@@ -3,25 +3,16 @@
   <div class="topTenCountriesToOP-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
-        <TableChart  v-if="selectOption.value.id==1" :totalData="totalData"></TableChart>
+        <TableChart v-if="selectOption.value.id==1" :totalData="totalData"></TableChart>
         <TableChart v-if="selectOption.value.id==2" :totalData="totalData2"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <SelectRadio
         class="status"
@@ -59,9 +50,9 @@ export default {
           ch: "前十国别（市场）",
           en: "xxx"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -93,9 +84,9 @@ export default {
           ch: "前十国别（市场）",
           en: "xxx"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -194,12 +185,14 @@ export default {
     tableDatas: {
       handler() {
         let resoult = chartDataFun.conversionTable(
-          this.selectOption.value.id==1? this.totalData.tableTitle:this.totalData2.tableTitle,
+          this.selectOption.value.id == 1
+            ? this.totalData.tableTitle
+            : this.totalData2.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        if(this.selectOption.value.id==1){
+        if (this.selectOption.value.id == 1) {
           this.$set(this.totalData, "tableData", resoult);
-        }else if(this.selectOption.value.id==2){
+        } else if (this.selectOption.value.id == 2) {
           this.$set(this.totalData2, "tableData", resoult);
         }
       },
@@ -312,9 +305,14 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
     width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

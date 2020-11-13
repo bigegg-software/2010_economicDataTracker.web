@@ -5,22 +5,13 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <SelectRadio
         class="status"
@@ -49,9 +40,9 @@ export default {
           ch: "中国对主要经济体投资按行业统计",
           en: "XXXXXXXXXXX"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -66,9 +57,9 @@ export default {
             text: "行业_industry",
             width: "20%"
           },
-          outflowsMillion:{
-             text: "中国对外直接投资流量_China's FDI outflows",
-             width: "20%"
+          outflowsMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "20%"
           }
         },
         tableData: [],
@@ -257,9 +248,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

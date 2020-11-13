@@ -5,7 +5,7 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="tableTotalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
@@ -32,9 +32,9 @@ export default {
           ch: "中国对外直接投资流量历年前20位国家",
           en: "Top 20 destinations of China's FDI flows"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -46,15 +46,18 @@ export default {
             width: "5%"
           },
           country: {
-            text: "中国对外直接投资流量前20位国家（地区）_Top 20 destinations of China's FDI outflow",
+            text:
+              "中国对外直接投资流量前20位国家（地区）_Top 20 destinations of China's FDI outflow",
             width: "25%"
           },
-          outflowMillion:{
-            text: "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflow in top 20 destinations",
+          outflowMillion: {
+            text:
+              "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflow in top 20 destinations",
             width: "25%"
           },
-          outflowPercent:{
-            text: "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflow",
+          outflowPercent: {
+            text:
+              "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflow",
             width: "35%"
           }
         },
@@ -86,7 +89,7 @@ export default {
             data: []
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate: "2020-11-6"
       },
       option: {
         ch: "年度",
@@ -102,18 +105,21 @@ export default {
       default: false
     }
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.tableTotalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            this.$set(this.tableTotalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.tableTotalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.tableTotalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -133,7 +139,7 @@ export default {
       year: Number(arrmaxmin[1])
     });
   },
-  components: { ChartBar, Year,TableChart },
+  components: { ChartBar, Year, TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -149,7 +155,7 @@ export default {
       // 金额
       let outflow = [];
       res.forEach(item => {
-        console.log(item)
+        console.log(item);
         Xname.push(item.country);
         outflow.push(item.outflowMillion);
       });
@@ -185,12 +191,16 @@ export default {
       background-color: #fff;
     }
     .container {
-       width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

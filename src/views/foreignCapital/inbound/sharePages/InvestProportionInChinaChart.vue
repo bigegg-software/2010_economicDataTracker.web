@@ -36,7 +36,7 @@ export default {
   name: "investProportionInChinaChart",
   data() {
     return {
-       totalData: {
+      totalData: {
         title: {
           ch: "国家/地区对华投资比重",
           en: "Proportion of national and regional investment in China"
@@ -62,11 +62,11 @@ export default {
             text: "比重_Share of foreign investment enterprises",
             width: "15%"
           },
-          FDIInflows:{
+          FDIInflows: {
             text: "实际投入外资金额_FDI inflows to China",
             width: "15%"
           },
-          inflowsPercent:{
+          inflowsPercent: {
             text: "比重_Share of total FDI inflows to China",
             width: "10%"
           }
@@ -99,19 +99,22 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -144,8 +147,11 @@ export default {
       this.totalDatas.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalDatas.seriesData.data, index, {
-          name: item.country + "_qqww",
-          value: item.enterprisePercent
+          name: item.country + "_QQQQQQQ",
+          actual: "实际投入外资金额_XXXXXXXXXXXXXXXX",
+          actualInflows: item.FDIInflows,
+          proportion: "金额比重_QQQQQQQQQ",
+          value: item.inflowsPercent
         });
       });
     },
@@ -189,9 +195,9 @@ export default {
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
-    border-left: none; 
-      padding: 0.078125rem;
-      box-sizing: border-box;
+    border-left: none;
+    padding: 0.078125rem;
+    box-sizing: border-box;
     .year-select {
       margin-bottom: 0.078125rem;
     }

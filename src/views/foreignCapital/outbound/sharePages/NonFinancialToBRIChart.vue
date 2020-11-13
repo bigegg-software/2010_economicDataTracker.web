@@ -5,22 +5,13 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesCharts"
-          :options="USD"
-        ></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesCharts" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -61,9 +52,9 @@ export default {
           ch: "中国对“一带一路”沿线国家非金融类直接投资情况",
           en: "China’s non-financial FDI outflows to BRI countries"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -275,7 +266,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug,1);
+      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 1);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -360,9 +351,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

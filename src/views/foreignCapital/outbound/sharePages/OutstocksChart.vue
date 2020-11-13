@@ -5,7 +5,7 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
@@ -42,9 +42,9 @@ export default {
           ch: "中国对外直接投资存量",
           en: "China's FDI stocks"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -100,18 +100,21 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -184,7 +187,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getoutstocksChartsData(aug,1);
+      let { res } = await request.getoutstocksChartsData(aug, 1);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -245,12 +248,16 @@ export default {
     }
     // border-right: none;
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

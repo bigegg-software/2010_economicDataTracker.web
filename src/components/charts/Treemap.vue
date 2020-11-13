@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <div id="treemap" style="width:100%;height:100%;"></div>
-  </div>
+  <!-- <div class="container"> -->
+  <div id="treemap" style="width:100%;height:100%;"></div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -15,10 +15,10 @@ export default {
   props: {
     totalData: {}
   },
-   watch: {
-      "$store.state.fullScreen.isFullScreen"() {
-       this.drawTreemap();
-        this.chart.resize();
+  watch: {
+    "$store.state.fullScreen.isFullScreen"() {
+      this.drawTreemap();
+      this.chart.resize();
     },
     totalData: {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
@@ -82,15 +82,42 @@ export default {
         tooltip: {
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let a = `<div style="color:#333;font-size:0.072917rem">${
-              params.name.split("_")[0]
+            //国家或地区
+            let name = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.083333rem">${
+              (params.name || "").split("_")[1]
             }</div>`;
-            let b = `<div style="color:#ccc;font-size:0.0625rem">${
-              params.name.split("_")[1]
+            let nameCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding:0.026042rem 0 0.15rem;color:#7C7C7C;font-size:0.072917rem">${
+              (params.name || "").split("_")[0]
             }</div>`;
-            let c = `<div style="color:#333;font-size: 0.114583rem;font-weight:bold;">${params.value}</div>`;
-            let dom = a + b + c;
-            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
+            //实际投入外资金额
+            let actual = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+              (params.data.actual || "").split("_")[1]
+            }</div>`;
+            let actualCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+              (params.data.actual || "").split("_")[0]
+            }</div>`;
+            let actualInflows = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.data.actualInflows}</div>`;
+            //金额比重
+            let proportion = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+              (params.data.proportion || "").split("_")[1]
+            }</div>`;
+            let proportionCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+              (params.data.proportion || "").split("_")[0]
+            }</div>`;
+
+            let value = `<div style="padding:0.052083rem 0 0.01rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.value}</div>`;
+
+            let dom =
+              name +
+              nameCh +
+              actual +
+              actualCh +
+              actualInflows +
+              proportion +
+              proportionCh +
+              value;
+            let basic = name + nameCh + value;
+            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${params.data.actual?dom:basic}</div>`;
           }
         },
         series: [
@@ -110,16 +137,25 @@ export default {
               fontSize: 14,
               position: "insideTopLeft",
               formatter: params => {
+                let www = [
+                  `{a|${(params.data.actual || "").split("_")[0]}}`,
+                  `{a|${(params.data.actual || "").split("_")[1]}}`,
+                  `{a|${params.data.actualInflows}}`,
+                  `{a|${(params.data.proportion || "").split("_")[0]}}`,
+                  `{a|${(params.data.proportion || "").split("_")[1]}}`,
+                  `{c|${params.data.value}%}`
+                ];
                 return [
-                  `{a|${params.name.split("_")[0]}}`,
-                  `{a|${params.name.split("_")[1]}}`,
-                  `{c|${params.value}}`
+                  `{a|${(params.data.name || "").split("_")[0]}}`,
+                  `{a|${(params.data.name || "").split("_")[1]}}`,
+                  ...(params.data.actual ? www : [`{c|${params.data.value}}`])
                 ].join("\n");
               },
               rich: {
                 a: {
                   color: "#FFF",
-                  lineHeight: this.$fz(0.16)
+                  fontSize: this.$fz(0.16),
+                  lineHeight: this.$fz(0.2)
                 },
                 c: {
                   color: "#FFF",
@@ -198,7 +234,7 @@ export default {
           },
           {
             type: "group",
-            left: this.$fz(0.15) *1.5,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
             children: [
               {
@@ -214,7 +250,7 @@ export default {
               }
             ]
           },
-           {
+          {
             type: "group",
             left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15),
@@ -281,7 +317,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: this.totalData.yName.en,
-                  font: `${this.$fz(0.20)}px Calibri`
+                  font: `${this.$fz(0.2)}px Calibri`
                 }
               },
               {
@@ -363,9 +399,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.container {
-  width: 100%;
-  height: 100%;
-}
+// .container {
+//   width: 100%;
+//   height: 100%;
+// }
 </style>
 

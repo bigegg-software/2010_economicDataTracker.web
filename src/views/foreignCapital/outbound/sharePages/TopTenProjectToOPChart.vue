@@ -3,17 +3,12 @@
   <div class="topTenProject-To-OPChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <TableChart :totalData="totalData"></TableChart>
       </div>
     </div>
     <div class="select-block">
-      <year
-        v-if="showTimeFrame"
-        :option="option"
-        :value="option.value"
-        @change="yearChange"
-      ></year>
+      <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
     </div>
   </div>
 </template>
@@ -43,7 +38,7 @@ export default {
             text: "国家(地区)_Country/Region",
             width: "20%"
           },
-           projectEn: {
+          projectEn: {
             text: "项目名称翻译_Project name translation",
             width: "35%"
           },
@@ -51,7 +46,7 @@ export default {
             text: "项目名称_Project",
             width: "35%"
           },
-          contractingEnterpriseEn:{
+          contractingEnterpriseEn: {
             text: "签约企业名称翻译_Contracting enterprise name translation",
             width: "35%"
           },
@@ -106,14 +101,14 @@ export default {
             width: "10%"
           },
           country: {
-            text: item.country + "_"+item.countryEn,
+            text: item.country + "_" + item.countryEn,
             width: "20%"
           },
           projectEn: {
             text: item.projectEn + "_",
             width: "35%"
           },
-           project: {
+          project: {
             text: item.project + "_",
             width: "35%"
           },
@@ -160,9 +155,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

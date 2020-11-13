@@ -5,22 +5,13 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
   </div>
@@ -42,9 +33,9 @@ export default {
           ch: "中国对外直接投资流量",
           en: "China's FDI outflows"
         },
-        unit:{
-          ch:'万人',
-          en:'xxx'
+        unit: {
+          ch: "万人",
+          en: "xxx"
         },
         tableTitle: {
           year: {
@@ -194,9 +185,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

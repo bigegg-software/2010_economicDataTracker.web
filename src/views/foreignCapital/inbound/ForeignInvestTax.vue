@@ -97,8 +97,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };

@@ -5,29 +5,19 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div v-if="isShowLineChart" class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="USD"
-        ></lines-chart>
+      <div
+        v-if="isShowLineChart"
+        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+      >
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
-      <div v-else class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div v-else :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
         <check-box
@@ -81,9 +71,9 @@ export default {
           ch: "中国对外直接投资流量行业分布情况",
           en: "China's FDI outflows by industry"
         },
-        unit:{
-          ch:'百万美元',
-          en:'USD min'
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -304,7 +294,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
-      let industryAddYoYData=[];
+      let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -316,7 +306,7 @@ export default {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
             // 为了保存同比下的行业分布情况在表格中展示
-              industryAddYoYData.push(...res[i]);
+            industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["outflowsMillion"],
@@ -327,25 +317,25 @@ export default {
           }
         }
       }
-      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
-               return b.year-a.year;
+      industryAddYoYData = industryAddYoYData.sort((a, b) => {
+        return b.year - a.year;
       });
-      if(this.status[0].checked){
-        let tableInfo={
-            fileName: '中国对外直接投资流量行业分布情况',
-            tHeader:[
-                "年份",
-                '行业',
-                '流量',
-                '同比',
-                '单位'
-            ],
-            filterVal:['year','industry','outflowsMillion','yOY','unitMillion'],
-            tableData:[...industryAddYoYData]
-            }
-            this.$store.commit('saveChartTable',tableInfo);
+      if (this.status[0].checked) {
+        let tableInfo = {
+          fileName: "中国对外直接投资流量行业分布情况",
+          tHeader: ["年份", "行业", "流量", "同比", "单位"],
+          filterVal: [
+            "year",
+            "industry",
+            "outflowsMillion",
+            "yOY",
+            "unitMillion"
+          ],
+          tableData: [...industryAddYoYData]
+        };
+        this.$store.commit("saveChartTable", tableInfo);
       }
-      
+
       //
     },
     async getChartsData(aug) {
@@ -455,7 +445,7 @@ export default {
           : (this.isShowLineChart = false);
       }
       // 重新去获取数据再判断表格切换数据时展示行业筛选后的还是全部行业的
-      this.mainGetChartsData('yearly');
+      this.mainGetChartsData("yearly");
     }
   }
 };
@@ -483,9 +473,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
