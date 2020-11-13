@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==true?'container':'fullContainer'">
     <div class="concept">
       <!-- 小标题 -->
       <div class="subhead">
@@ -60,6 +60,9 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 0.14rem;
+}
+.fullContainer{
+  display: none;
 }
 .subhead {
   display: flex;
