@@ -58,7 +58,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       chartBar: {
@@ -76,7 +76,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -145,11 +145,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getLaborServiceTop10AnnualRankChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 年度派出各类劳务人员人数
       let variousTypesPerNum = [];
       res.forEach(item => {
-        Xname.push(item.destinations);
+        Xname.push(item.destinationsEn+'\n'+item.destinations);
         variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;

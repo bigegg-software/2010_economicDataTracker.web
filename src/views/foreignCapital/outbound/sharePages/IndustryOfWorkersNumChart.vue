@@ -63,7 +63,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       option: {
@@ -91,7 +91,7 @@ export default {
           // { value: 0.8, name: "科教文卫体业_xxxxxxx" },
           // { value: 14.2, name: "其他行业_xxxxxxx" }
         ],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       }
     };
   },
@@ -140,9 +140,11 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getIndustryOfWorkersNumChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.totalDatas.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       res.forEach(item => {
-        Xname.push({ value: item.variousTypesPerNum, name: item.industry });
+        Xname.push({ value: item.variousTypesPerNum, name: item.industry+'_'+item.industryEn});
       });
       this.totalDatas.seriesData = Xname;
     },

@@ -56,7 +56,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -93,6 +93,7 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getForeignContractNewConRank(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       this.totalData.tableData = [];
       res.forEach(item => {
         this.totalData.tableData.push({
