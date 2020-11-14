@@ -76,7 +76,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -96,6 +96,7 @@ export default {
             yearOnYear: []
           }
         ],
+        updatedDate: ""
       },
       status: [
         {
@@ -266,6 +267,8 @@ export default {
       let dataAttr = ["inwardFDIConMillion", "inwardFDIConYOY"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 

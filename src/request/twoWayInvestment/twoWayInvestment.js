@@ -1,6 +1,7 @@
 import Parse from '../index'
 import store from '@/vuexStore'
 import chartDataFun from "@/utils/chartDataFun";
+import dayjs from 'dayjs'
 export default {
  // 带年度月度季度的折线图使用
  manualQueryData: async function (tableName, params) {  //初始去数据库查询数据 
@@ -86,7 +87,7 @@ export default {
             return {res};
   },
   getQuarterMonthOutflowsVsInflowsChartData:async function(params) {//单独针对季度和度的 双向直接投资（双向直接投资）  折线图
-    let type = params.type;
+           let type = params.type;
            let allIndustry=await this.manualQueryData('FDIOutflow',params);  // 全行业直接投资
             allIndustry = allIndustry.map(item=>{
                 item=item.toJSON()
@@ -104,6 +105,14 @@ export default {
                 itemElement.unitMillion = "百万美元"
                 return itemElement
             })
+            // 特殊情况： 修正vuex中的最新更新时间
+        let FDIOutflowTime=await chartDataFun.getLatestTime('FDIOutflow');
+        let InwardFDITime=await chartDataFun.getLatestTime('InwardFDI');
+           if(dayjs(FDIOutflowTime).valueOf()-dayjs(InwardFDITime).valueOf()>0){
+                store.commit('saveLatestTime',dayjs(FDIOutflowTime).format('YYYY-MM-DD HH:mm:ss'));
+           }else{
+                store.commit('saveLatestTime',dayjs(InwardFDITime).format('YYYY-MM-DD HH:mm:ss'));
+           };
      if (type == 'quarterly' || type == 'monthly'){
         allIndustry = allIndustry.filter(item=>{
             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)

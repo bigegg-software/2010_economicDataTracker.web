@@ -238,7 +238,7 @@ export default {
       let amount = [],
         amountYOY = [];
       res.forEach(item => {
-        Xname.push(item.country + "\n" + item.countryEn);
+        Xname.push(item.countryEn + "\n" + item.country);
         amount.push(item.amountMillion);
         amountYOY.push(item.amountYOY);
       });

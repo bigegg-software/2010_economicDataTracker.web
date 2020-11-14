@@ -72,7 +72,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       totalDatas: {
@@ -89,7 +89,7 @@ export default {
           all: "全部_ALL",
           data: []
         },
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -144,6 +144,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getMajorInvestors(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.totalDatas.updatedDate=this.$store.getters.latestTime;
       this.totalDatas.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalDatas.seriesData.data, index, {

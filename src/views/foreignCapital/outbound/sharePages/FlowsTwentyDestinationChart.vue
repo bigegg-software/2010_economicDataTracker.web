@@ -73,15 +73,7 @@ export default {
           text: "中国对外直接投资流量历年前20位国家",
           subtext: "Top 20 destinations of China's FDI outflow"
         },
-        xData: [
-          "蒙古\nMongolia",
-          "芬兰\nFinland",
-          "瑞典\nSweden",
-          "挪威\nNorway",
-          "冰岛\nIceland",
-          "丹麦\nDenmark",
-          "泰国\nThailand"
-        ],
+        xData: [],
         series: [
           {
             // name:'存量_xxxxx',
@@ -158,7 +150,7 @@ export default {
       let outflow = [];
       res.forEach(item => {
         console.log(item);
-        Xname.push(item.country);
+        Xname.push(item.countryEn + "\n" + item.country);
         outflow.push(item.outflowMillion);
       });
       this.chartBar.xData = Xname;

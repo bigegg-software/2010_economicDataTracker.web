@@ -90,7 +90,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
@@ -128,7 +128,7 @@ export default {
           text: "开办企业数",
           subtext: "Number of enterprises"
         },
-        updatedDate:'2020-11-13',
+        updatedDate:'',
         xData: [],
         series: []
       },
@@ -146,7 +146,8 @@ export default {
           //   data: [],
           //   yearOnYear: []
           // }
-        ]
+        ],
+        updatedDate:''
       },
       status: [
         {
@@ -344,6 +345,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

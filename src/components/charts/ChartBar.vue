@@ -261,9 +261,9 @@ export default {
             let b = "";
             let c = "";
             let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
-              <span>${params[0].name.split("\n")[1]}</span><br/>
+              <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
-                params[0].name.split("\n")[0]
+                params[0].name.includes("\n")?params[0].name.split("\n")[1]:''
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {

@@ -90,7 +90,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
@@ -129,7 +129,8 @@ export default {
           subtext: "FDI inflows to China"
         },
         xData: [],
-        series: []
+        series: [],
+        updatedDate: ""
       },
       USD: {
         id: "USD",
@@ -145,7 +146,7 @@ export default {
           //   yearOnYear: []
           // }
         ],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       status: [
         {
@@ -343,6 +344,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

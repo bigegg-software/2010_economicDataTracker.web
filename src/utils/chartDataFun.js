@@ -121,7 +121,6 @@ export default {
     },
     // 获取表中最新更新时间
     getLatestTime:async (tableName)=> {
-        alert(tableName)
         let q = new Parse.Query('News');
             q.equalTo('tableName',tableName);
             let res=await q.find();
@@ -130,12 +129,11 @@ export default {
                     item=item.toJSON();
                     return item;
                 });
-                console.log(res)
                 store.commit('saveLatestTime',dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss'));
             }else{
                 store.commit('saveLatestTime','');
             }
-        return res;
+        return dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss');
     },
     exportData:async function(fileName,tHeader,filterVal,tableData){
                 let { export_json_to_excel } = require('@/vendor/Export2Excel');

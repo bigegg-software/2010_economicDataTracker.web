@@ -72,7 +72,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -92,6 +92,7 @@ export default {
             yearOnYear: []
           }
         ],
+        updatedDate:""
       },
       status: [
         {
@@ -211,6 +212,8 @@ export default {
       let dataAttr = ["BRIAmountMillion", "BRIAmountPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
