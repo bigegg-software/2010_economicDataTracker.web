@@ -62,7 +62,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       chartBar: {
@@ -89,7 +89,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -151,6 +151,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFlowsTwentyDestinationChart(aug);
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let outflow = [];

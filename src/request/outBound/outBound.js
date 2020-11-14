@@ -3,7 +3,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
-  manualQueryData:async function (tableName,params){  //初始去数据库查询数据  
+  manualQueryData:async function (tableName,params){  //初始去数据库查询数据 
+           chartDataFun.getLatestTime(tableName); 
             let q = new Parse.Query(tableName);
             let limiCcount = await q.count();
             q.limit(limiCcount);
@@ -36,7 +37,6 @@ export default {
                 }
             }
             let res = await q.find();
-            console.log(res);
             return res;
     },
 // 各州国家金额求和
@@ -438,6 +438,7 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
 },
 // 柱状图查询  饼图
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
+    chartDataFun.getLatestTime(tableName); 
     let q = new Parse.Query(tableName);
     let limiCcount = await q.count();
         q.limit(limiCcount);

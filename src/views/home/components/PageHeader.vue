@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import user from '@/request/user'
 export default {
   name: "PageHeader",
   data() {
@@ -89,6 +90,7 @@ export default {
         title: '确认要退出吗?',
         onOk() {
           // 退出后删除所有信息
+          user.logOut();
           tthis.$storage.clear();
           tthis.$store.commit('setUserInfo',{});
         },

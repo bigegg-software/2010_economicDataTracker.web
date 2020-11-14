@@ -1,8 +1,10 @@
 import Parse from '../index'
 import store from '@/vuexStore'
+import chartDataFun from "@/utils/chartDataFun";
 export default {
  // 带年度月度季度的折线图使用
- manualQueryData: async function (tableName, params) {  //初始去数据库查询数据  
+ manualQueryData: async function (tableName, params) {  //初始去数据库查询数据 
+    chartDataFun.getLatestTime(tableName);  
     let q = new Parse.Query(tableName)
     let type = params.type;
     let limiCcount = await q.count();

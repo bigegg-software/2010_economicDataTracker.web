@@ -63,7 +63,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
@@ -102,7 +102,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -179,6 +179,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
+    console.log(res)
     let arrmaxmin = res.split("_");
     this.option.value = arrmaxmin[1];
     await this.getChartsData({
@@ -208,6 +209,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIMajorEconomiesIndustry(aug);
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       let outflows = [];
       let colors = [];
