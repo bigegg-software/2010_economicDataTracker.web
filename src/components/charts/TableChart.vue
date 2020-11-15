@@ -32,7 +32,7 @@
     </div>
     <div class="updated">
       <div>
-        <div>Date last updated</div>
+        <div>Data last updated</div>
         <div class="updatedCh">数据最后更新时间</div>
       </div>
       <div class="updatedDate">{{this.totalData.updatedDate}}</div>
@@ -125,10 +125,13 @@ export default {
   }
 }
 .updated {
+  transform: scale(0.9, 0.9);
+  transform-origin: left top;
   display: flex;
   align-items: center;
   font-size: 0.09375rem;
   color: #666;
+  font-family:'黑体' Calibri ;
   .updatedCh{
     font-size: 0.072917rem;
   }

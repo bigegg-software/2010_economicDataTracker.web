@@ -63,7 +63,8 @@ export default {
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border:'none'
       });
     },
     base64ToBlob() {

@@ -7,7 +7,7 @@
       <div class="latest-data" @click="showDataList">
         <div class="icon-block">
           <div class="iconfont icon-msg">&#xe60a;</div>
-          <div class="data-num">{{ 2 }}</div>
+          <div class="data-num">{{ dataList.allreadySetMenus.length }}</div>
         </div>
         <div class="text-block">
           <div class="text-english">Latest data</div>
@@ -30,17 +30,17 @@
       </div>
       <!-- 下拉框 -->
       <div v-if="show" class="data-list" @mouseleave="hiddenDataList">
-        <div v-for="(item, key) in dataList" :key="key">
-          <div class="list-time">{{ key }}</div>
+        <div v-for="item in dataList" :key="item.activityTime">
+          <div class="list-time">{{ item.activityTime }}</div>
           <div class="list-text-block">
             <div
-              v-for="(data, index) in item"
-              :key="index"
+              v-for="data in item.menus"
+              :key="data.name"
               class="list-text"
               @click="jumpPage(data)"
             >
-              <div>{{ data.ch }}</div>
               <div>{{ data.en }}</div>
+              <div>{{ data.ch }}</div>
             </div>
           </div>
         </div>
@@ -56,13 +56,6 @@ export default {
   data() {
     return {
       reload:true,
-      dataList: {
-        "2020-10-01": [
-          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" },
-          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" }
-        ],
-        "2020-10-02": [{ ch: "国对外直接投资流量与存量", en: "xxxxxxx" }]
-      },
       show: false
     };
   },
@@ -71,6 +64,9 @@ export default {
   computed:{
      userInfo() {
        return this.$store.getters.userInfo;
+     },
+     dataList() {
+       return this.$store.getters.latestNews;
      }
   },
   methods: {
@@ -81,7 +77,8 @@ export default {
       this.show = false;
     },
     jumpPage(data) {
-      console.log(data, "最新数据");
+      this.$router.push({name:data.name});
+      // console.log(data, "最新数据");
       this.show = false;
     },
     logout() {
@@ -141,10 +138,12 @@ export default {
 }
 .data-list {
   position: absolute;
-  right: 1.5rem;
+  right: 1.2rem;
   top: 110px;
   z-index: 2;
-  width: 1.53125rem;
+  height: 4rem;
+  overflow: auto;
+  // width: 1.53125rem;
   padding: 0.020833rem 0;
   box-shadow: darkgrey 0px 0px 5px 1px;
   color: rgba(153, 153, 153, 1);
@@ -162,12 +161,12 @@ export default {
     }
     .list-text {
       cursor: pointer;
-      margin-bottom: 0.145833rem;
+      margin-bottom: 0.045833rem;
       &:last-child {
         margin-bottom: 0;
       }
       div {
-        line-height: 20px;
+        line-height: 26px;
       }
     }
   }
@@ -197,8 +196,8 @@ export default {
         position: absolute;
         right: 0.052083rem;
         top: 0.0625rem;
-        width: 0.084rem;
-        height: 0.084rem;
+        width: 0.094rem;
+        height: 0.094rem;
         border-radius: 50%;
         text-align: center;
         font-size: 0.0625rem;

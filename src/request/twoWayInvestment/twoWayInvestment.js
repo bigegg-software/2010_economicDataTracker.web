@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 export default {
  // 带年度月度季度的折线图使用
  manualQueryData: async function (tableName, params) {  //初始去数据库查询数据 
+    chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(tableName);  
     let q = new Parse.Query(tableName)
     let type = params.type;
