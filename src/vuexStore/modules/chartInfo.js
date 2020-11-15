@@ -4,7 +4,8 @@ const chartTable = {
   state: {
     // fileName:'全行业',tHeader:['这','时'],filterVal:['this','that'],tableData:[{this:'666',that:'888'},{this:'111',that:'222'}]
     chartInfo:{},
-    latestTime:''
+    latestTime:'',
+    showOperate:true
   },
   mutations: {
     saveChartTable(state,chartInfo){
@@ -15,6 +16,9 @@ const chartTable = {
     },
     saveLatestTime(state,time){
        state.latestTime=time;
+    },
+    setShowOperate(state,status) {  //表格时隐藏一些操作
+        state.showOperate=status;
     }
   }
 }

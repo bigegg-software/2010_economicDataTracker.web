@@ -1,6 +1,6 @@
 <template>
   <div class="timeFrame">
-    <div class="tab-list"  v-if="options.monthly || options.quarterly">
+    <div class="tab-list"  v-if="(options.monthly || options.quarterly)&&$store.getters.showOperate">
       <div
         v-for="(item, key) in options"
         :key="key"

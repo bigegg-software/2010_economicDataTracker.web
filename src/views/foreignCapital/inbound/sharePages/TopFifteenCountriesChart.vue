@@ -13,7 +13,7 @@
       <div class="frame">
         <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"

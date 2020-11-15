@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from '@/vuexStore'
 Vue.use(VueRouter)
 /*解决路由跳转报错问题开始*/
 const originalPush = VueRouter.prototype.push
@@ -488,6 +488,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
+  store.commit('setShowOperate',true);
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
     if (true) { // 判断当前的token是否存在
       next();

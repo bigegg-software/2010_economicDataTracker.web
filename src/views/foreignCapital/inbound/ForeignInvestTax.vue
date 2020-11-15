@@ -125,7 +125,7 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
       }
       if (item.name == "enlarge") {
         this.$store.commit("fullScreen");

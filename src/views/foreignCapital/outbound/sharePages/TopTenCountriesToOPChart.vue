@@ -20,7 +20,7 @@
         :value="selectOption.value"
         @change="changeRadioSelect($event)"
       ></SelectRadio>
-      <div class="status">
+      <div class="status"  v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"

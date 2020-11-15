@@ -7,7 +7,7 @@
       <div class="latest-data" @click="showDataList">
         <div class="icon-block">
           <div class="iconfont icon-msg">&#xe60a;</div>
-          <div class="data-num">{{ dataList.allreadySetMenus.length }}</div>
+          <div class="data-num" v-if="dataList&&dataList.allreadySetMenus">{{ dataList.allreadySetMenus.length }}</div>
         </div>
         <div class="text-block">
           <div class="text-english">Latest data</div>
@@ -140,7 +140,7 @@ export default {
   position: absolute;
   right: 1.2rem;
   top: 110px;
-  z-index: 2;
+  z-index: 10;
   height: 4rem;
   overflow: auto;
   // width: 1.53125rem;

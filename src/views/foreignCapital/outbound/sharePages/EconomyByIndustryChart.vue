@@ -215,7 +215,7 @@ export default {
       let outflows = [];
       let colors = [];
       res.forEach((item, i) => {
-        Xname.push(item.industry + "\n" + item.industryEN);
+        Xname.push(item.industryEN + "\n" + item.industry);
         outflows.push(item.outflowsMillion);
         colors.push(this.randomColor[i]);
       });
