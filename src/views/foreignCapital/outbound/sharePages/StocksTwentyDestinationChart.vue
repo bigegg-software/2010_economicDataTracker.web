@@ -100,6 +100,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.option.value=arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
       limit: 20,
