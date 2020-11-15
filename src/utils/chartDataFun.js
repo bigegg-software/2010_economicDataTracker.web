@@ -235,7 +235,7 @@ export default {
             let itemObj={};
             for(let i in tableTitle){
                 itemObj[i]={
-                       text:item[i]+'_',
+                       text:item[i]?item[i]+'_':'',
                        width:tableTitle[i].width
                      }
             } 

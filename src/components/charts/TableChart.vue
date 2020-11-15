@@ -24,8 +24,8 @@
       <div class="tableBody">
         <div class="tableRow" v-for="(item,index) in totalData.tableData" :key="index">
           <div class="tableCols" v-for="(items,i) in item" :key="i" :style="`width:${items.width}`">
-            <div>{{items.text.split("_")[1]}}</div>
-            <div>{{items.text.split("_")[0]}}</div>
+            <div>{{items.text.includes('_')&&items.text.split("_")[1]?items.text.split("_")[1]:''}}</div>
+            <div>{{items.text.includes('_')&&items.text.split("_")[0]?items.text.split("_")[0]:''}}</div>
           </div>
         </div>
       </div>
