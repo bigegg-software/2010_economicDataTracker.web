@@ -58,13 +58,14 @@ export default {
       this.watermark = false;
       this.initChart();
     },
+
     exportImg() {
       //echart返回一个 base64 的 URL
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
         backgroundColor: "#fff",
-        border:'none'
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -79,6 +80,14 @@ export default {
         uInt8Array[i] = raw.charCodeAt(i);
       }
       return new Blob([uInt8Array], { type: contentType });
+    },
+    formatNum(value) {
+      if (!value && value !== 0) return 0;
+      let strs = value.toFixed(1) 
+      let str = strs.toString() ;
+      let reg =
+        str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+      return str.replace(reg, "$1,");
     },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
@@ -166,7 +175,9 @@ export default {
           left: "center"
         },
         grid: {
-          top: "25%",
+          top: "23%",
+          left: "8%",
+          right: "4%",
           bottom: "11%"
         },
         graphic: [
@@ -248,7 +259,7 @@ export default {
 
         tooltip: {
           trigger: "axis",
-          confine:true,
+          confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let a = "";
@@ -267,7 +278,7 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value.toFixed(1) : "-"
+                !!params[i].value ? this.formatNum(params[i].value) : "-"
               }</div>`;
               dom = dom + a + b + c;
             }
@@ -333,12 +344,12 @@ export default {
                 div: {
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0]
+                  padding: [2, 0, 0, -45]
                 },
                 divch: {
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  padding: [2, 0, 2, -58]
                 }
               }
             },

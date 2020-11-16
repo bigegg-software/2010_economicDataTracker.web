@@ -12,9 +12,9 @@ export let outflowsDescribe = {
         chItalic: "商务部《2015年度中国对外直接投资统计公报<五、主要概念及指标解释>》 ",
         conceptLink:"http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 对外直接投资流量按国家和地区统计
 export let outflowsByDestinationDescribe = {
@@ -29,9 +29,9 @@ export let outflowsByDestinationDescribe = {
         chItalic: "商务部《2015年度中国对外直接投资统计公报<五、主要概念及指标解释>》 ",
         conceptLink:"http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 对外直接投资流量行业分布情况
 export let outflowsByIndustryDescribe = {
@@ -46,9 +46,9 @@ export let outflowsByIndustryDescribe = {
         chItalic: "商务部《2015年度中国对外直接投资统计公报<五、主要概念及指标解释>》 ",
         conceptLink:"http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 中国对“一带一路”沿线国家投资
 export let outflowsBeltAndRoadDescribe = {
@@ -63,9 +63,9 @@ export let outflowsBeltAndRoadDescribe = {
         chItalic: "商务部《中国对外承包工程发展报告2018-2019》",
         conceptLink:"http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 中国对外承包工程
 export let overseasProjectsDescribe = {
@@ -80,9 +80,9 @@ export let overseasProjectsDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 中国对外劳务合作
 export let internationalLaborDescribe = {
@@ -97,9 +97,9 @@ export let internationalLaborDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 中国对外直接投资存量
 export let outstocksDescribe = {
@@ -114,9 +114,9 @@ export let outstocksDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
-    noteContent: ""
+    noteContent: "测试111"
 }
 // 对外直接投资存量按国家和地区统计
 export let outstocksByDestinationDescribe = {
@@ -131,7 +131,7 @@ export let outstocksByDestinationDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -149,7 +149,7 @@ export let InflowsDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -166,7 +166,7 @@ export let MajorForeignInvestorsDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -183,7 +183,7 @@ export let ForeignInvestIndustryDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -200,7 +200,7 @@ export let ForeignInvestTaxDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -217,7 +217,7 @@ export let BeltAndRoadInvestDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }
@@ -235,7 +235,7 @@ export let OutflowsVsInflowsDescribe = {
         chItalic: "",
         conceptLink:""
     },
-    dataSources: "",
+    dataSources: "测试111",
     sourceLink: "",
     noteContent: ""
 }

@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import {outflowsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -91,7 +92,7 @@ export default {
       isShowRMB: false,
       RMB: {
         id: "RMB",
-        dataSources: "中国人民网",
+        dataSources: outflowsDescribe.dataSources,
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
@@ -114,7 +115,7 @@ export default {
       },
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources:  outflowsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },

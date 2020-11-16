@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import {outflowsByDestinationDescribe} from '@/utils/describe.js'
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -74,7 +75,7 @@ export default {
       },
       showTimeFrame: false,
       totalData: {
-        dataSources: "中国人民网",
+        dataSources: outflowsByDestinationDescribe.dataSources,
         title: {
           ch: "按各洲内国家/地区统计",
           en: "Statistics by continent country / Region"

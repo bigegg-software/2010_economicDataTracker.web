@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -76,7 +77,7 @@ export default {
       showTimeFrame: false,
       isShowRMB: false,
       Person: {
-        dataSources: "中国人民网",
+        dataSources: internationalLaborDescribe.dataSources,
         id: "person",
         yName: { ch: "万人", en: "xxxxxx" },
         yearOnYear: true, //通过修改这个值来显示同比

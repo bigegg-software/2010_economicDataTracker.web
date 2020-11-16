@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="select-block">
-      <div :class="$store.state.tableTime.istableTime==true?'frame':'noneFrame'">
+      <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status" v-if="$store.getters.showOperate">
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import {BeltAndRoadInvestDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -79,7 +80,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "家", en: "XXXX" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "企业数", en: "XXXXXXXX" },

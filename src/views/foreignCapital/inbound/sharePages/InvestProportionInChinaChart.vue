@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/inBound/inBound";
@@ -76,7 +77,7 @@ export default {
       },
       showTimeFrame: false,
       totalDatas: {
-        dataSources: "中国人民网",
+        dataSources: MajorForeignInvestorsDescribe.dataSources,
         title: {
           ch: "按各洲内国家/地区统计",
           en: "Statistics by continent country / Region"
@@ -151,9 +152,9 @@ export default {
         this.$set(this.totalDatas.seriesData.data, index, {
           name: item.country + "_QQQQQQQ",
           actual: "实际投入外资金额_XXXXXXXXXXXXXXXX",
-          actualInflows: item.FDIInflowsMillion,
+          value: item.FDIInflowsMillion,
           proportion: "金额比重_QQQQQQQQQ",
-          value: item.inflowsPercent
+          proportionValue: (item.inflowsPercent).toFixed(1)
         });
       });
     },

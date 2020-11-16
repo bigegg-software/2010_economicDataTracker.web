@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import {outflowsByIndustryDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -121,7 +122,7 @@ export default {
       isShowLineChart: false,
       chartBar: {
         watermark: false,
-        dataSources: "中国人民网",
+        dataSources: outflowsByIndustryDescribe.dataSources,
         showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
         grid: {

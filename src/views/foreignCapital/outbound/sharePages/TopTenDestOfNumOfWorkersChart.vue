@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -62,8 +63,8 @@ export default {
       },
       showTimeFrame: false,
       chartBar: {
-        dataSources: "中国人民网",
-        yName: { ch: "万人", en: "XXXXXXXXXX" },
+        dataSources: internationalLaborDescribe.dataSources,
+        yName: { ch: "万人", en: "XXX" },
         title: {
           text: "12月末在外各类劳务人员前10位国家",
           subtext: "Top 10 desinations of total number of workers overseas"

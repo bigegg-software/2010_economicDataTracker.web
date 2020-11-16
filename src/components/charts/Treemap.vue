@@ -61,7 +61,7 @@ export default {
         type: "png",
         pixelRatio: 5, //清晰度
         backgroundColor: "#fff",
-        border:'none'
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -97,7 +97,11 @@ export default {
             let actualCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
               (params.data.actual || "").split("_")[0]
             }</div>`;
-            let actualInflows = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.data.actualInflows}</div>`;
+            let value = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+              !!params.data.value
+                ? params.data.value.toLocaleString()
+                : ""
+            }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
               (params.data.proportion || "").split("_")[1]
@@ -106,19 +110,21 @@ export default {
               (params.data.proportion || "").split("_")[0]
             }</div>`;
 
-            let value = `<div style="padding:0.052083rem 0 0.01rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.value}</div>`;
+            let proportionValue = `<div style="padding:0.052083rem 0 0.01rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.data.proportionValue}%</div>`;
 
             let dom =
               name +
               nameCh +
               actual +
               actualCh +
-              actualInflows +
+              value +
               proportion +
               proportionCh +
-              value;
+              proportionValue;
             let basic = name + nameCh + value;
-            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${params.data.actual?dom:basic}</div>`;
+            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${
+              params.data.actual ? dom : basic
+            }</div>`;
           }
         },
         series: [
@@ -137,20 +143,32 @@ export default {
               show: true,
               fontSize: 14,
               position: "insideTopLeft",
-              letterSpacing:'10',
+              letterSpacing: "10",
               formatter: params => {
                 let www = [
                   `{a|${(params.data.actual || "").split("_")[1]}}`,
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
-                  `{a|${params.data.actualInflows}}`,
+                  `{a|${
+                    !!params.data.value
+                      ? params.data.value.toLocaleString()
+                      : ""
+                  }}`,
                   `{a|${(params.data.proportion || "").split("_")[1]}}`,
                   `{a|${(params.data.proportion || "").split("_")[0]}}`,
-                  `{c|${params.data.value}%}`
+                  `{c|${params.data.proportionValue}%}`
                 ];
                 return [
                   `{a|${(params.data.name || "").split("_")[1]}}`,
                   `{a|${(params.data.name || "").split("_")[0]}}`,
-                  ...(params.data.actual ? www : [`{c|${params.data.value}}`])
+                  ...(params.data.actual
+                    ? www
+                    : [
+                        `{a|${
+                          !!params.data.value
+                            ? params.data.value.toLocaleString()
+                            : ""
+                        }}`
+                      ])
                 ].join("\n");
               },
               rich: {
