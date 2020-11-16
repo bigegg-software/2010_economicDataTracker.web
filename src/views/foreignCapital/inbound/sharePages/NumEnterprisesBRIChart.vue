@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="select-block">
-      <div class="frame">
+      <div :class="$store.state.tableTime.istableTime==true?'frame':'noneFrame'">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
       <div class="status">
@@ -293,6 +293,9 @@ export default {
     .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
+    }
+    .noneFrame{
+      display: none;
     }
     .status {
       padding: 0.104167rem;
