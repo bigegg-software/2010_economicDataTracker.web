@@ -141,7 +141,7 @@ export default {
   right: 1.2rem;
   top: 110px;
   z-index: 10;
-  height: 4rem;
+  max-height: 4rem;
   overflow: auto;
   // width: 1.53125rem;
   padding: 0.020833rem 0;
@@ -250,6 +250,9 @@ export default {
         font-size: 0.09375rem;
         margin-right: 0.041667rem;
       }
+    }
+    .logout-text{
+      cursor: pointer;
     }
   }
 }

@@ -41,11 +41,11 @@ export default {
   .tab-item {
     width: 30%;
     position: relative;
-    color: #666666;
+    color: #898989;
     cursor: pointer;
     margin-right: 0.020833rem;
     padding: 0.072917rem 0.1rem;
-    background-color: #f0f0f0;
+    background-color: #E1E1E1;
     border-top-left-radius: 0.041667rem;
     border-top-right-radius: 0.041667rem;
     &:last-child {

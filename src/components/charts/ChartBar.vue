@@ -131,6 +131,7 @@ export default {
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
+            smooth: true, //平滑曲线显示
             lineStyle: {
               color: '#f00fff',
               width: 1.5,
