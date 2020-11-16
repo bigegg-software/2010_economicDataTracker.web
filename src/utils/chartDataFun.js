@@ -1,4 +1,7 @@
+import dayjs from 'dayjs';
 import Parse from '../request'
+import store from '@/vuexStore'
+import {foreignCapitalMenuLists} from '@/utils/menuSearchConfigs'
 export default {
     // 获取年度最大值最小值
     getMaxMinDate: async  (tableName)=> {
@@ -117,6 +120,106 @@ export default {
         });
         return industrys;
     },
+    // 获取表中最新更新时间
+    getLatestTime:async (tableName)=> {
+        let q = new Parse.Query('News');
+            q.equalTo('tableName',tableName);
+            let res=await q.find();
+            if(res.length){
+                res = res.map( item=>{
+                    item=item.toJSON();
+                    return item;
+                });
+                store.commit('saveLatestTime',dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss'));
+            }else{
+                store.commit('saveLatestTime','');
+            }
+        return dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss');
+    },
+    //获取News表中三天内的更新数据
+    getInThreeDays:async function(p_count) {
+        let q = new Parse.Query('News');
+        q.descending('checkDate');
+         let dd = new Date();
+         dd.setDate(dd.getDate()+p_count);
+        let beforexDaysTime=dd.getTime();
+        let res=await q.find();
+            res=res.map( (item)=>{
+                 item=item.toJSON();
+                 return item;
+            });
+            res=res.filter((it)=>{
+                return dayjs(it.checkDate.iso).valueOf()>beforexDaysTime;
+            });
+        
+             let classArr=await this.produceNewArray(res);
+             let minix= JSON.parse(JSON.stringify(await this.getAllMenuItem()));
+            //  存放所有已经加入到最新通知里的菜单
+             let allreadySetMenus=[];
+             for(let i=0; i<classArr.length;i++){
+                 let menuItems=[];
+                 let calssNames=classArr[i].childrenList;
+                for(let p=0;p<minix.length;p++){
+                    let ev=minix[p];
+                    for(let k=0;k<ev.cloudFun.length;k++){
+                        let t=ev.cloudFun[k];
+                        if(calssNames.includes(t)){
+                          // 判断当前菜单是否已经存在最新通知里了不存在才插入到最新通知的菜单里
+                            let haveThis=false;
+                            allreadySetMenus.forEach((op)=>{
+                                if(op.name==ev.name){
+                                    haveThis=true;
+                                }
+                            });
+                            if(!haveThis){
+                                menuItems.push(ev);
+                                allreadySetMenus.push(ev);
+                                break; 
+                            }
+                        }
+                    }
+                }
+                 classArr[i].menus=menuItems;
+             }
+             classArr.allreadySetMenus=allreadySetMenus;
+             store.commit('saveLatestNews',classArr);
+            return classArr;
+    },
+    // 纵向二级菜单合并
+    getAllMenuItem:async function() {
+        let arr=[];
+         foreignCapitalMenuLists.forEach((item)=>{
+               if(item.children){
+                   arr=[...arr,...item.children]
+               }
+         });
+         return arr;
+    },
+    // 更新的表按天分组
+    produceNewArray : async function(arr){
+        let newArr = []
+        arr && arr.forEach((item, i) => {
+                let index = -1
+                let alreadyExists = newArr.some((newItem, j) => {
+                    if(dayjs(item.checkDate.iso).format('YYYY-MM-DD') === dayjs(newItem.activityTime).format('YYYY-MM-DD')) {
+                        index = j
+                        return true
+                    }
+                })
+                if(!alreadyExists) {
+                    newArr.push({
+                        activityTime: dayjs(item.checkDate.iso).format('YYYY-MM-DD'),
+                        childrenList: [
+                            item.tableName
+                        ]
+                    })
+                } else {
+                    newArr[index].childrenList.push(item.tableName)
+                }
+            });
+        return newArr;
+    },
+    // 导出excel
     exportData:async function(fileName,tHeader,filterVal,tableData){
                 let { export_json_to_excel } = require('@/vendor/Export2Excel');
                 let data = await this.formatJson(filterVal, tableData);
@@ -125,13 +228,14 @@ export default {
     formatJson:async function(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => v[j]))
     },
+    // 转表格所需格式
     conversionTable: function(tableTitle,tableData) {
         let res=[];
         tableData.forEach(item => {
             let itemObj={};
             for(let i in tableTitle){
                 itemObj[i]={
-                       text:item[i]+'_',
+                       text:item[i]?item[i]+'_':'',
                        width:tableTitle[i].width
                      }
             } 

@@ -13,7 +13,7 @@
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -21,7 +21,7 @@
           @change="changeSelect(index)"
         ></check-box>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <select-check-box
           :option="checkBox"
           :result="result"
@@ -93,7 +93,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [],
@@ -107,7 +107,8 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "年度部分国家/地区对华直接投资", en: "xxxxxxxxxxx" },
         xData: [],
-        series: []
+        series: [],
+        updatedDate: ""
       },
       status: [
         {
@@ -281,6 +282,8 @@ export default {
       let dataAttr = ["FDIInflowsMillion", "enterpriseNumber"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

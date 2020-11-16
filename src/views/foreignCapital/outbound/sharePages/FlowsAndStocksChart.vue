@@ -61,7 +61,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -89,7 +89,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       options: {
         yearly: {
@@ -133,6 +133,8 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -209,6 +211,8 @@ export default {
       let dataAttr = ["outward_FDI_flows", "outward_FDI_stocks"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

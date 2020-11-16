@@ -50,7 +50,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.chartBarData.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -62,7 +62,8 @@ export default {
       return this.myChartBar.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border:'none'
       });
     },
     base64ToBlob() {
@@ -261,9 +262,9 @@ export default {
             let b = "";
             let c = "";
             let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
-              <span>${params[0].name.split("\n")[1]}</span><br/>
+              <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
-                params[0].name.split("\n")[0]
+                params[0].name.includes("\n")?params[0].name.split("\n")[1]:''
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {
@@ -332,12 +333,12 @@ export default {
                 diven: {
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0]
+                  padding: [2,0]
                 },
                 div: {
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  padding: [2,0]
                 }
               }
             },

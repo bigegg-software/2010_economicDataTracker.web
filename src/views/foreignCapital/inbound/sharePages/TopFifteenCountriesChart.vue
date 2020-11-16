@@ -13,7 +13,7 @@
       <div class="frame">
         <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -73,7 +73,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       chartBar: {
@@ -98,7 +98,7 @@ export default {
             yearOnYear:[]
           }
         ],
-        updatedDate:"2020-11-6"
+        updatedDate:""
       },
       option: {
         ch: "年度",
@@ -167,13 +167,15 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getTopFifteenCountriesChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let FDIInflows = [];
       let FDIInflowsYOY = [];
       res.forEach(item => {
         console.log(item)
-        Xname.push(item.country+'\n'+item.countryEn);
+        Xname.push(item.countryEn+'\n'+item.country);
         FDIInflows.push(item.FDIInflowsMillion);
         FDIInflowsYOY.push(item.enterpriseNumber);
       });

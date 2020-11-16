@@ -20,7 +20,7 @@
         :value="selectOption.value"
         @change="changeRadioSelect($event)"
       ></SelectRadio>
-      <div class="status">
+      <div class="status"  v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -77,7 +77,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       totalData2: {
         title: {
@@ -111,7 +111,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -132,7 +132,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -230,12 +230,15 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getTopTenCountriesToOPChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.totalData2.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 新签合同额,完成营业额，新签合同额同比，完成营业额同比
       let amount = [],
         amountYOY = [];
       res.forEach(item => {
-        Xname.push(item.country + "\n" + item.countryEn);
+        Xname.push(item.countryEn + "\n" + item.country);
         amount.push(item.amountMillion);
         amountYOY.push(item.amountYOY);
       });

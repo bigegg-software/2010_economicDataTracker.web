@@ -128,7 +128,7 @@ export default {
         this.$store.commit("fullScreen");
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;

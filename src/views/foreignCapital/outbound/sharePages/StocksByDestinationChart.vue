@@ -74,7 +74,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [],
@@ -90,7 +90,7 @@ export default {
         },
         xData: [],
         series: [],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       result: [],
       checkBox: {
@@ -199,7 +199,8 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIStock");
-      console.log(res);
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {

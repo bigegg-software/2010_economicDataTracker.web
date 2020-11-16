@@ -27,13 +27,17 @@ export default {
         return {
            noData:false,
            name:'',
-           menuFileList:searchMenuLists
+           menuFileList:searchMenuLists,
+           timer:null
         }
     },
     watch:{
         name: {
             handler(){
-                this.fileDataList();
+                clearTimeout(this.timer);
+                this.timer=setTimeout(()=>{
+                   this.fileDataList();
+                },800);
             },
             immediate:true,
             deep:true
@@ -125,7 +129,8 @@ export default {
        max-height: 4rem;
        overflow-y: auto;
        border:1px solid #eee;
-       z-index: 1;
+       color:#999999;
+       z-index: 10;
        .menu-link{
            p{
                 white-space: nowrap;

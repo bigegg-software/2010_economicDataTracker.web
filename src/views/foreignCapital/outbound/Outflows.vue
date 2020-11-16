@@ -31,7 +31,6 @@ export default {
     return {
       describeData:outflowsDescribe,
       tabComponent: "outflowsChart",
-      isShowTable: false,
       tabList: [
         {
           name: "outflowsChart",
@@ -124,7 +123,7 @@ export default {
         item.children[0].src = `<iframe src="${window.location.host}/#/${this.tabComponent}" width="100%" height="100%">`;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
       }
       if (item.name == "enlarge") {
         this.$store.commit("fullScreen");

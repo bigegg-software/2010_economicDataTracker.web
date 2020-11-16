@@ -74,7 +74,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [],
@@ -90,7 +90,7 @@ export default {
         },
         xData: [],
         series: [],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       result: [],
       checkBox: {
@@ -255,6 +255,8 @@ export default {
       let dataAttr = ["outflowMillion"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

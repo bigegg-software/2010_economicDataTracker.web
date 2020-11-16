@@ -37,7 +37,6 @@ export default {
     return {
       describeData:outflowsBeltAndRoadDescribe,
       tabComponent: "nonFinancialToBRIChart",
-      isShowTable: false,
       tabList: [
         {
           name: "nonFinancialToBRIChart",
@@ -124,6 +123,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
     }
   },
   mounted() {},
@@ -147,7 +147,7 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
       }
         if (item.name == "enlarge") {
         this.$store.commit("fullScreen");

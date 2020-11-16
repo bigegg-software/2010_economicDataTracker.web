@@ -48,7 +48,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.totalData.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -60,7 +60,8 @@ export default {
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border:'none'
       });
     },
     base64ToBlob() {
@@ -136,18 +137,19 @@ export default {
               show: true,
               fontSize: 14,
               position: "insideTopLeft",
+              letterSpacing:'10',
               formatter: params => {
                 let www = [
-                  `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{a|${(params.data.actual || "").split("_")[1]}}`,
+                  `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{a|${params.data.actualInflows}}`,
-                  `{a|${(params.data.proportion || "").split("_")[0]}}`,
                   `{a|${(params.data.proportion || "").split("_")[1]}}`,
+                  `{a|${(params.data.proportion || "").split("_")[0]}}`,
                   `{c|${params.data.value}%}`
                 ];
                 return [
-                  `{a|${(params.data.name || "").split("_")[0]}}`,
                   `{a|${(params.data.name || "").split("_")[1]}}`,
+                  `{a|${(params.data.name || "").split("_")[0]}}`,
                   ...(params.data.actual ? www : [`{c|${params.data.value}}`])
                 ].join("\n");
               },

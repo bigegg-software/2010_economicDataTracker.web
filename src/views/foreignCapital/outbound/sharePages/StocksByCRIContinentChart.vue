@@ -70,7 +70,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       totalData: {
@@ -87,7 +87,7 @@ export default {
           all: "全部_ALL",
           data: []
         },
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -182,6 +182,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIStock(aug);
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {

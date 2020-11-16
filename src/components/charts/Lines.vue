@@ -51,7 +51,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.options.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -63,7 +63,8 @@ export default {
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border:'none'
       });
     },
     base64ToBlob() {

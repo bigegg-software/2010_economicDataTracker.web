@@ -16,7 +16,7 @@
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status"  v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -86,7 +86,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -107,7 +107,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       USD: {
         id: "USD",
@@ -125,7 +125,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       status: [
         {
@@ -209,7 +209,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -218,6 +217,8 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -313,6 +314,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.RMB.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 

@@ -19,7 +19,7 @@
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -27,7 +27,7 @@
           @change="changeSelect(index)"
         ></check-box>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <select-check-box
           v-if="status[0].checked"
           :option="checkBox"
@@ -94,7 +94,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
@@ -133,7 +133,8 @@ export default {
           subtext: "China’s FDI outflows by industry"
         },
         xData: [],
-        series: []
+        series: [],
+        updatedDate: ""
       },
       USD: {
         id: "USD",
@@ -151,7 +152,8 @@ export default {
           //   data: [],
           //   yearOnYear: []
           // }
-        ]
+        ],
+        updatedDate: ""
       },
       status: [
         {
@@ -202,7 +204,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -349,6 +350,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
+       this.USD.updatedDate=this.$store.getters.latestTime;
+       this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },

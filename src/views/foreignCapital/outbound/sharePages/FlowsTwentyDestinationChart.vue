@@ -62,7 +62,7 @@ export default {
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       chartBar: {
@@ -73,15 +73,7 @@ export default {
           text: "中国对外直接投资流量历年前20位国家",
           subtext: "Top 20 destinations of China's FDI outflow"
         },
-        xData: [
-          "蒙古\nMongolia",
-          "芬兰\nFinland",
-          "瑞典\nSweden",
-          "挪威\nNorway",
-          "冰岛\nIceland",
-          "丹麦\nDenmark",
-          "泰国\nThailand"
-        ],
+        xData: [],
         series: [
           {
             // name:'存量_xxxxx',
@@ -89,7 +81,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -133,6 +125,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.option.value=arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
       limit: 20,
@@ -151,12 +144,14 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFlowsTwentyDestinationChart(aug);
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let outflow = [];
       res.forEach(item => {
         console.log(item);
-        Xname.push(item.country);
+        Xname.push(item.countryEn + "\n" + item.country);
         outflow.push(item.outflowMillion);
       });
       this.chartBar.xData = Xname;
