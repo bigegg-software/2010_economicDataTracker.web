@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -100,7 +101,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         y2Name: { ch: "单位：家", en: "unit:xxxx" },
         unit2Symbol: "",

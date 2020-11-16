@@ -16,6 +16,7 @@
 </template>
  
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -73,7 +74,7 @@ export default {
         value: ""
       },
       totalDatas: {
-        dataSources: "中国人民网",
+        dataSources: internationalLaborDescribe.dataSources,
         title: {
           ch: "年度派出人数主要行业",
           en: "Overseas workers by industry"

@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -80,7 +81,7 @@ export default {
         watermark: false,
         unit2Symbol:'',
         yearOnYear: false, //通过修改这个值来显示同比
-        dataSources: "中国人民网",
+        dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         y2Name: { ch: "单位：家", en: "unit:xxxx" },
         title: {

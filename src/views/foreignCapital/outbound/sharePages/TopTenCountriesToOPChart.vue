@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -116,7 +117,7 @@ export default {
       timer: null,
       showTimeFrame: false,
       chartBar: {
-        dataSources: "中国人民网",
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
         title: {

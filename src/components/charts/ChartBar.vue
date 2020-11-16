@@ -79,6 +79,14 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
+    formatNum(value) {
+      if (!value && value !== 0) return 0;
+      let strs = value.toFixed(1) 
+      let str = strs.toString() ;
+      let reg =
+        str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+      return str.replace(reg, "$1,");
+    },
     initChart() {
       //找出y轴数值最大最小值
       let totalArray = [];
@@ -281,7 +289,7 @@ export default {
                 }
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value.toFixed(1)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') : "-"
+                !!params[i].value?this.formatNum(params[i].value)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') :"-"
                 }</div>`;
               dom = dom + a + b + c;
             }
@@ -293,7 +301,7 @@ export default {
           left: this.chartBarData.left?this.chartBarData.grid.left:"3%",
           right: this.chartBarData.right?this.chartBarData.grid.right:"4%",
           bottom: this.chartBarData.bottom?this.chartBarData.grid.bottom:"10%",
-          containLabel: true
+          containLabel: true 
         },
         xAxis: [
           {
@@ -335,12 +343,12 @@ export default {
                 diven: {
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2,0]
+                  padding: [2, 0,2,-38]
                 },
                 div: {
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2,0]
+                  padding: [2, 0,2,-50]
                 }
               }
             },

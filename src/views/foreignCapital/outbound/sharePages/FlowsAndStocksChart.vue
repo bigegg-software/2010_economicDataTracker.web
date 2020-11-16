@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {outstocksDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -68,7 +69,7 @@ export default {
       isShowRMB: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources:outstocksDescribe.dataSources,
         yName: { ch: "百万美元", en: "xxxxxx" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
