@@ -145,6 +145,10 @@ export default {
           en: "China’s FDI outflows by industry"
         },
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",

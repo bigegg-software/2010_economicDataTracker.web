@@ -86,6 +86,10 @@ export default {
         },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name: "完成营业额_Total value of new contract y-o-y growth",

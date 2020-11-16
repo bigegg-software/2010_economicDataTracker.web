@@ -93,6 +93,10 @@ export default {
         },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name:
@@ -109,7 +113,7 @@ export default {
         {
           checked: false,
           ch: "同比",
-          en: "XXXXXXX"
+          en: "Year on year"
         },
         {
           checked: false,
@@ -276,12 +280,20 @@ export default {
         }
       }
       if (index == 0) {
+        this.USD.spliceCon={// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        };
         this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
       if (index == 1) {
+        this.USD.spliceCon={// toolTip里面插入占比和占比英文
+          ch:'占比',
+          en:'xxxxx'
+        },
         this.USD.series[0]["yearOnYear"] = this.percentData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)

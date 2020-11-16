@@ -131,10 +131,12 @@ export default {
                     return item;
                 });
                 store.commit('saveLatestTime',dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss'));
+                return res[0].checkDate.iso;
             }else{
                 store.commit('saveLatestTime','');
+                return ''
             }
-        return dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss');
+        // return dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss');
     },
     //获取News表中三天内的更新数据
     getInThreeDays:async function(p_count) {

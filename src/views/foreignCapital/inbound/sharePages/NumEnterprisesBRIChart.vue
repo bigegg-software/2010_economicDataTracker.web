@@ -85,6 +85,10 @@ export default {
         title: { ch: "企业数", en: "XXXXXXXX" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入占比和占比英文
+          ch:'占比',
+          en:'xxxxx'
+        },
         series: [
           {
             name: "企业数_xxx",

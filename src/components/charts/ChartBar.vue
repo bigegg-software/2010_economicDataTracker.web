@@ -119,7 +119,7 @@ export default {
             data: this.chartBarData.series[j].data
           },
           {
-            name: this.chartBarData.series[j].name,
+            name: this.chartBarData.spliceCon?this.chartBarData.series[j].name.split('_')[0]+this.chartBarData.spliceCon.ch+'_'+this.chartBarData.series[j].name.split('_')[1]+' '+this.chartBarData.spliceCon.en:this.chartBarData.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
@@ -261,7 +261,7 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
+            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">
               <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
                 params[0].name.includes("\n")?params[0].name.split("\n")[1]:''
@@ -280,7 +280,9 @@ export default {
                   }</div>`;
                 }
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${!!params[i].value?params[i].value.toFixed(1) :"-"}</div>`;
+              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+                !!params[i].value ? params[i].value.toFixed(1)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') : "-"
+                }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;

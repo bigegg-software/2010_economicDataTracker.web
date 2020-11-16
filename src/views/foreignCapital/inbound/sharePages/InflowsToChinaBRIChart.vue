@@ -84,6 +84,10 @@ export default {
         title: { ch: "实际投入外资金额", en: "XXXXXXXX" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入占比和占比英文
+          ch:'占比',
+          en:'xxxxx'
+        },
         series: [
           {
             name: "实际投入外资金额_xxx",

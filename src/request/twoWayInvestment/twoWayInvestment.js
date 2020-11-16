@@ -109,11 +109,20 @@ export default {
             // 特殊情况： 修正vuex中的最新更新时间
         let FDIOutflowTime=await chartDataFun.getLatestTime('FDIOutflow');
         let InwardFDITime=await chartDataFun.getLatestTime('InwardFDI');
-           if(dayjs(FDIOutflowTime).valueOf()-dayjs(InwardFDITime).valueOf()>0){
+        if(!!FDIOutflowTime&&!!InwardFDITime){
+            if(dayjs(FDIOutflowTime).valueOf()-dayjs(InwardFDITime).valueOf()>0){
                 store.commit('saveLatestTime',dayjs(FDIOutflowTime).format('YYYY-MM-DD HH:mm:ss'));
            }else{
                 store.commit('saveLatestTime',dayjs(InwardFDITime).format('YYYY-MM-DD HH:mm:ss'));
            };
+        }else {
+            if(!!FDIOutflowTime){
+                store.commit('saveLatestTime',dayjs(FDIOutflowTime).format('YYYY-MM-DD HH:mm:ss'));
+            }
+            if(!!InwardFDITime){
+                store.commit('saveLatestTime',dayjs(InwardFDITime).format('YYYY-MM-DD HH:mm:ss'));
+            }
+        }
      if (type == 'quarterly' || type == 'monthly'){
         allIndustry = allIndustry.filter(item=>{
             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)

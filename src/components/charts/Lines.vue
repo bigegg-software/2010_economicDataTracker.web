@@ -127,7 +127,7 @@ export default {
             symbol: "circle", //拐点样式
             symbolSize: 4, //拐点大小
             color: this.options.series[j].color,
-            name: this.options.series[j].name,
+            name: this.options.spliceCon?this.options.series[j].name.split('_')[0]+this.options.spliceCon.ch+'_'+this.options.series[j].name.split('_')[1]+' '+this.options.spliceCon.en:this.options.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: true,
@@ -251,10 +251,11 @@ export default {
           confine:true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
+            console.log(params)
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem  0 0.125rem;font-size:0.104167rem;font-weight:bold;color:#1D3F6C;">${params[0].name}</div>`;
+            let dom = `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
               if (params[i].seriesName.split("_")[1]) {
                 a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
@@ -267,7 +268,7 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value.toFixed(1) : "-"
+                !!params[i].value ? params[i].value.toFixed(1)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') : "-"
               }</div>`;
               dom = dom + a + b + c;
             }

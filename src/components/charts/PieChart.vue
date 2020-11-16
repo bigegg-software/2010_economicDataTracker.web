@@ -100,7 +100,7 @@ export default {
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;margin-bottom:0.02rem;">${this.value}</div>`;
+            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;margin-bottom:0.02rem;">${this.value}</div>`;
             let a = `<div style="color:#666;font-size:0.09375rem">${
               params.name.split("_")[1]
             }</div>`;

@@ -87,6 +87,10 @@ export default {
         title: { ch: "新签合同额", en: "Total value of new contract" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name: "新签合同额_Total value of new contract",

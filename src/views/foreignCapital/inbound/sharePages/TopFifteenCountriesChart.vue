@@ -90,9 +90,13 @@ export default {
         xData: [
           // "蒙古\nMongolia"
         ],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'企业数',
+          en:'XXX'
+        },
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'投资金额_xxxxx',
             color: ["#0C9AFF"],
             data: [],
             yearOnYear:[]

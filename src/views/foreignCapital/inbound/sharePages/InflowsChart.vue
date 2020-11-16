@@ -88,6 +88,10 @@ export default {
         title: { ch: "实际使用外资", en: "China’s FDI inflows" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name: "实际使用外资_China’s FDI inflows",

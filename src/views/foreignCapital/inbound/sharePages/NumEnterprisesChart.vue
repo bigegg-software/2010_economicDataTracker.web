@@ -137,8 +137,11 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "开办企业数", en: "Number of enterprises" },
-        updatedDate:'2020-11-13',
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",

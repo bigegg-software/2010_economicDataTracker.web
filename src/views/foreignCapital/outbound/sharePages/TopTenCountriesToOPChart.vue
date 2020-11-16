@@ -124,9 +124,14 @@ export default {
           subtext: "Total value of new contract"
         },
         xData: [],
+        hideLegend:true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'新签合同额_Total value of new contract',
             color: ["#0C9AFF"],
             data: [],
             yearOnYear: []
@@ -282,6 +287,7 @@ export default {
         text: this.selectOption.value.ch,
         subtext: this.selectOption.value.en
       };
+      this.chartBar.series[0].name = this.selectOption.value.ch+'_'+this.selectOption.value.en;
     }
   }
 };

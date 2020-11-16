@@ -115,6 +115,10 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name: "实际使用外资_xxx",

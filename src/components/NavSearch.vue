@@ -37,7 +37,7 @@ export default {
                 clearTimeout(this.timer);
                 this.timer=setTimeout(()=>{
                    this.fileDataList();
-                },800);
+                },500);
             },
             immediate:true,
             deep:true

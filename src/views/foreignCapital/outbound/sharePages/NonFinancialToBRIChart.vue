@@ -82,6 +82,10 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比

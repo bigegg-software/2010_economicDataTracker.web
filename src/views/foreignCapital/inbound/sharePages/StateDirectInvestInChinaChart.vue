@@ -107,6 +107,10 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "年度部分国家/地区对华直接投资", en: "xxxxxxxxxxx" },
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'企业数',
+          en:'XXX'
+        },
         series: [],
         updatedDate: ""
       },
