@@ -43,8 +43,8 @@ export default {
         },
         {
           name: "flowsByDestinationChart",
-          chinese: "按国家和地区统计",
-          english: "China’s FDI flows by destination"
+          chinese: "按国家/地区统计",
+          english: "China's FDI outflows by destination"
         },
         {
           name: "flowsTwentyDestinationChart",

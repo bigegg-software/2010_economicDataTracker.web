@@ -342,14 +342,16 @@ export default {
             nameTextStyle: {
               rich: {
                 diven: {
+                  align: 'left',
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0,2,-38]
+                  padding: [2, 0,0,-40]
                 },
                 div: {
+                  align: 'left',
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0,2,-50]
+                  padding: [2, 0, 0, -40]
                 }
               }
             },

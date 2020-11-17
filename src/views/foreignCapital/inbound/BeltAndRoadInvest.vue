@@ -35,12 +35,12 @@ export default {
         {
           name: "numEnterprisesBRIChart",
           chinese: "企业数",
-          english: "XXXXXXXXXXX"
+          english: "Number of enterprises"
         },
         {
           name: "inflowsToChinaBRIChart",
           chinese: "实际投入外资金额",
-          english: "XXXXXXXXXXX"
+          english: "Foreign investment from BRI countries"
         }
       ],
 

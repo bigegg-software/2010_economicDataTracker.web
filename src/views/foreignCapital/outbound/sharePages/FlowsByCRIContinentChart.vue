@@ -114,7 +114,7 @@ export default {
           },
           {
             ch: "南美洲",
-            en: "South_America"
+            en: "South America"
           },
           {
             ch: "欧洲",
@@ -122,7 +122,7 @@ export default {
           },
           {
             ch: "北美洲",
-            en: "North_America"
+            en: "North America"
           },
           {
             ch: "南极洲",

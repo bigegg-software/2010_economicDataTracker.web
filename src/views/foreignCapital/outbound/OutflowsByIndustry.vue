@@ -46,7 +46,7 @@ export default {
         {
           name: "economyByIndustryChart",
           chinese: "中国对主要经济体投资按行业统计",
-          english: "XXXXXXXXXXXXXXXX"
+          english: "China's investment in main economies"
         }
       ],
 

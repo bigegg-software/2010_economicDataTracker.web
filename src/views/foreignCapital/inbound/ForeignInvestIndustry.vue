@@ -39,8 +39,8 @@ export default {
         },
         {
           name: "inflowsToChinaChart",
-          chinese: "实际使用外资金额",
-          english: "FDI inflows to China"
+          chinese: "实际使用外资金额按行业统计",
+          english: "Foreign investment by industry"
         }
       ],
 

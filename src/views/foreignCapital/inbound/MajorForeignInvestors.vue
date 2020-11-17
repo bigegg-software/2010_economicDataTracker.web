@@ -34,18 +34,18 @@ export default {
       tabList: [
         {
           name: "investProportionInChinaChart",
-          chinese: "国家和地区对华投资比重",
-          english: "XXXXXXXXX"
+          chinese: "国家/地区投资比重",
+          english: "Share of foreign investment by country/region"
         },
         {
           name: "stateDirectInvestInChinaChart",
-          chinese: "年度部分国家/地区对华直接投资",
-          english: "XXXXXXXXX"
+          chinese: "按部分国家/地区统计",
+          english: "By major country/region"
         },
         {
           name: "topFifteenCountriesChart",
-          chinese: "前15位国家/地区",
-          english: "XXXXXXXXX"
+          chinese: "前15位对华投资国家/地区",
+          english: "Top 15 investors"
         }
       ],
 

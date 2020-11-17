@@ -40,8 +40,8 @@ export default {
       tabList: [
         {
           name: "nonFinancialToBRIChart",
-          chinese: "中国对“一带一路”沿线国家非金融类直接投资情况",
-          english: " China’s non-financial FDI outflows to BRI countries"
+          chinese: "中国对“一带一路”沿线国家非金融类直接投资",
+          english: "Non-financial FDI outflows to BRI countries"
         },
         {
           name: "newContractAmountToBRIChart",
@@ -51,7 +51,7 @@ export default {
         {
           name: "amountGrowthToBRIChart",
           chinese: "完成营业额",
-          english: "Total value of new contract y-o-y growth"
+          english: "Revenue of completed contract"
         }
       ],
 

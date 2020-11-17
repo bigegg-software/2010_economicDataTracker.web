@@ -35,7 +35,7 @@ export default {
         {
           name: "inflowsChart",
           chinese: "实际使用外资",
-          english: "China's FDI inflows"
+          english: "FDI inflows"
         }
       ],
 
