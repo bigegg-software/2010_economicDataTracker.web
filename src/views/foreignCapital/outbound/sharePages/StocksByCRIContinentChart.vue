@@ -98,7 +98,7 @@ export default {
       },
       selectOption: {
         ch: "大洲",
-        en: "xxxxxx",
+        en: "Continent",
         value: {
           ch: "亚洲",
           en: "Asia"
