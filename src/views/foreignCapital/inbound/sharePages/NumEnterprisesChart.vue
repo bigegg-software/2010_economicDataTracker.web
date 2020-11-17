@@ -490,8 +490,8 @@ export default {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }
-    .status {
-      padding: 0.104167rem;
+    .status { 
+      padding: 0.052083rem 0.104167rem;
     }
   }
 }

@@ -4,7 +4,7 @@
     <input
         v-model="name"
         type="text"
-        placeholder="keywords 关键字"
+        placeholder="Keywords 关键词"
     />
     <div class="iconfont icon-search">&#xe6a6;</div>
 </div>
@@ -114,6 +114,10 @@ export default {
         outline: none;
         padding-left: 0.05rem;
         box-sizing: border-box;
+        &::-webkit-input-placeholder { /* WebKit browsers */ 
+            color: #999999; 
+            font-size:18px;
+        } 
       }
       .icon-search {
         padding: 0 0.05rem;
@@ -132,9 +136,19 @@ export default {
        color:#999999;
        z-index: 10;
        .menu-link{
-           p{
+           p{   font-size: 0.104167rem;
                 white-space: nowrap;
                 margin-bottom:0.026667rem;
+            }
+            p:first-child{
+               font-family:Calibri;
+            }
+            p:last-child{
+                font-size: 0.0625rem;
+               font-family:SimHei,'黑体';
+            }
+            &:hover{
+                color:#186497;
             }
        }
        .menu-link:not(:last-child){
