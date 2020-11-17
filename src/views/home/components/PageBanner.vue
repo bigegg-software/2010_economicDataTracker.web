@@ -85,11 +85,13 @@ export default {
         padding: 0 0.15rem;
         height: 100%;
         color: #fff;
+        font-family:SimHei,'黑体';
         font-size: 0.083333rem;
         .nav-text:first-child {
           height: 50%;
           line-height: 0.24rem;
           font-size: 0.125rem;
+          font-family:Calibri;
         }
         &:hover {
           cursor: pointer;

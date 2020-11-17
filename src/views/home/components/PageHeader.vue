@@ -153,20 +153,29 @@ export default {
   .list-time {
     padding: 0.041667rem 0.057292rem;
     border-bottom: 1.5px solid #efefef;
+    color: #333;
+    font-size: 0.072917rem;
+    font-family: SimHei,'黑体';
   }
   .list-text-block {
     padding: 0.114583rem 0.083333rem 0.072917rem;
     :hover {
-      color: #1d3f6b;
+      color: #186496;
     }
     .list-text {
       cursor: pointer;
-      margin-bottom: 0.045833rem;
+      margin-bottom:0.09375rem; 
+      font-size: 0.083333rem;
+      font-family: Calibri;
       &:last-child {
         margin-bottom: 0;
       }
+      div:last-child{
+        font-size: 0.072917rem;
+        font-family: SimHei,'黑体';
+      }
       div {
-        line-height: 26px;
+        line-height: 0.104167rem;
       }
     }
   }
@@ -201,7 +210,7 @@ export default {
         border-radius: 50%;
         text-align: center;
         font-size: 0.0625rem;
-        line-height: 0.083333rem;
+        line-height: 0.094rem;
         color: #fff;
         background-color: #df2323;
       }

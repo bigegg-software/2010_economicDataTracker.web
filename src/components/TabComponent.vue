@@ -39,7 +39,7 @@ export default {
   align-items: center;
   width: 100%;
   .tab-item {
-    width: 30%;
+    // width: 30%;
     position: relative;
     color: #898989;
     cursor: pointer;
@@ -57,8 +57,10 @@ export default {
       -webkit-line-clamp: 1;
       overflow: hidden;
       width: 100%;
+      font-family:Calibri-Bold;
       font-size: 0.104167rem;
       &:last-child {
+        font-family:SimHei,'黑体';
         font-size: 0.083333rem;
       }
     }

@@ -108,9 +108,11 @@ export default {
   cursor: pointer;
   .text {
     padding: 0.052083rem 0;
+    font-family:SimHei,'黑体';
     font-size: 0.083333rem;
     & div:first-child {
       font-size: 0.114583rem;
+      font-family:Calibri;
     }
   }
   .arrow-icon {
@@ -128,6 +130,9 @@ export default {
     box-sizing: border-box;
     color: #999999;
     cursor: pointer;
+    &:hover{
+      background:#e0eef7;
+    }
     .text {
       width: 100%;
       padding: 0 0.041667rem;
@@ -136,11 +141,13 @@ export default {
       li {
         &:first-child {
           padding: 0.03125rem 0 0.010417rem;
-          font-size: 0.104167rem;
+          font-size:  0.114583rem;
+          font-family:Calibri;
         }
         &:last-child {
           padding: 0.010417rem 0 0.03125rem;
           font-size: 0.083333rem;
+          font-family:SimHei,'黑体';
         }
       }
     }
