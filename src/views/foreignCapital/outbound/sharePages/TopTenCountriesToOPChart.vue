@@ -150,7 +150,7 @@ export default {
         {
           checked: false,
           ch: "同比",
-          en: "xxx"
+          en: "Year on year"
         }
       ],
       selectOption: {
