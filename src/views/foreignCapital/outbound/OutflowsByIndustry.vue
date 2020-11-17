@@ -46,7 +46,7 @@ export default {
         {
           name: "economyByIndustryChart",
           chinese: "中国对主要经济体投资按行业统计",
-          english: "XXXXXXXXXXXXXXXX"
+          english: "China's investment in main economies"
         }
       ],
 
@@ -98,7 +98,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }

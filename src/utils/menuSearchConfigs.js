@@ -86,27 +86,27 @@ let foreignCapitalMenuLists = [  //外资模块
       {
         name: "inflows",
         ch: "实际使用外资",
-        en: "China's FDI inflows",
+        en: "FDI inflows",
         cloudFun:['InwardFDI'],
-        splitList: ['实', '际', '使', '用', '外', '资', 'China', "China's", 'FDI', 'inflows'],
+        splitList: ['实', '际', '使', '用', '外', '资','FDI', 'inflows'],
         active: false,
         isIndent:true
       },
       {
         name: "majorForeignInvestors",
         ch: "主要对华投资国家/地区",
-        en: "Major foreign investors of China",
+        en: "Major foreign investors",
         cloudFun:['MajorInvestors','MajorTop15Investors'],
-        splitList: ['主', '要', '对', '华', '投', '资', '国', '家', '地', '区', 'Major', 'foreign', 'investors', 'of', 'China'],
+        splitList: ['主', '要', '对', '华', '投', '资', '国', '家', '地', '区', 'Major', 'foreign', 'investors'],
         active: false,
         isIndent:true
       },
       {
         name: "foreignInvestIndustry",
         ch: "外商直接投资主要行业",
-        en: "Foreign investment to China by industry",
+        en: "Foreign investment by industry",
         cloudFun:['ForeignInvestmentMainIndustries'],
-        splitList: ['外', '商', '直', '接', '投', '资', '主', '要', '行', '业', 'Foreign', 'investment', 'to', 'China', ' by', ' industry'],
+        splitList: ['外', '商', '直', '接', '投', '资', '主', '要', '行', '业', 'Foreign', 'investment',' by', ' industry'],
         active: false,
         isIndent:true
       },
@@ -133,15 +133,15 @@ let foreignCapitalMenuLists = [  //外资模块
   {
     name: "twoWayInvestment",
     ch: "双向直接投资",
-    en: "China's FDI outflows vs. inflows",
+    en: "FDI outflows vs. inflows",
     active: false,
     children: [
       {
         name: "outflowsVsInflows",
         ch: "双向直接投资",
-        en: "China's FDI outflows vs. inflows",
+        en: "FDI outflows vs. inflows",
         cloudFun:['FDIOutflowsInflows','FDIOutflow','InwardFDI'],
-        splitList: ['双', '向', '直', '接', '投', '资', 'China', "China's", 'FDI', 'outflows', 'vs', 'inflows'],
+        splitList: ['双', '向', '直', '接', '投', '资', 'China', 'FDI', 'outflows', 'vs', 'inflows'],
         active: false,
         isIndent:true
       }

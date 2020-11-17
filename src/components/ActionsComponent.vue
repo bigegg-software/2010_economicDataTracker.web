@@ -100,13 +100,13 @@ export default {
       if (name == "share" && i == 1) {
         this.sharetoFacebook();
       }
-      if (name == "share" && i == 3) {
+      if (name == "share" && i == 2) {
         this.sharetoWeChat();
       }
-      if (name == "share" && i == 4) {
+      if (name == "share" && i == 3) {
         this.sharetoSina();
       }
-      if (name == "share" && i == 5) {
+      if (name == "share" && i == 4) {
         this.sharetoEmail();
       }
     },

@@ -42,22 +42,22 @@ export default {
         {
           name: "tradeVolumeChart",
           chinese: "派出人数",
-          english: "Total trade volume"
+          english: "Number of overseas workers"
         },
         {
           name: "topTenDestOfWorkersChart",
           chinese: "年度派出各类劳务人员前10位目的地国家",
-          english: "Top 10 destinations of workers sent overseas"
+          english: "Top 10 destinations of overseas workers"
         },
         {
           name: "topTenDestOfNumOfWorkersChart",
           chinese: "12月末在外各类劳务人员前10位国家",
-          english: "Top 10 desinations of total number of workers overseas"
+          english: "Year-end number of workers in top 10 destinations"
         },
         {
           name: "industryOfWorkersNumChart",
           chinese: "派出人数主要行业",
-          english: "XXXXXXXX"
+          english: "Overseas workers by industry"
         }
       ],
 
@@ -109,7 +109,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }

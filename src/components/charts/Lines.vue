@@ -344,14 +344,16 @@ export default {
             nameTextStyle: {
               rich: {
                 div: {
+                  align: 'left',
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0, 0, -45]
+                  padding: [2, 0,0,-40]
                 },
                 divch: {
+                  align: 'left',
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0, 2, -58]
+                  padding: [2, 0, 0, -40]
                 }
               }
             },

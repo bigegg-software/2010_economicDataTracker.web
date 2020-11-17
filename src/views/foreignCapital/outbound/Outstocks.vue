@@ -40,7 +40,7 @@ export default {
         {
           name: "flowsAndStocksChart",
           chinese: "中国对外直接投资流量与存量",
-          english: "China's outward FDI flows vs. Stocks"
+          english: "China's FDI outflows vs. stocks"
         }
       ],
       actionsList: [
@@ -91,7 +91,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }

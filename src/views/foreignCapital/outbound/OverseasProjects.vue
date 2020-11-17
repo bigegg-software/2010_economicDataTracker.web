@@ -34,7 +34,7 @@ export default {
         {
           name: "amountGrowthToOPChart",
           chinese: "完成营业额",
-          english: "Total value of new contract y-o-y growth"
+          english: "Revenue of completed contract"
         },
         {
           name: "newContractAmountToOPChart",
@@ -44,12 +44,12 @@ export default {
         {
           name: "topTenCountriesToOPChart",
           chinese: "前十国别（市场）",
-          english: "XXXXXXXX"
+          english: "Top 10 market"
         },
         {
           name: "topTenProjectToOPChart",
           chinese: "前十项目",
-          english: "XXXXXXXX"
+          english: "Top 10 project"
         }
       ],
 
@@ -102,7 +102,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }

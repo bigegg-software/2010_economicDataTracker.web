@@ -170,9 +170,11 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     .year {
-      width: 0.208333rem;
-      height: 0.208333rem;
+      font-size: 0.09375rem;
+      width: 0.23rem;
+      height: 0.23rem;
       margin: 0.05rem;
+      line-height: 0.23rem;
       text-align: center;
       border-radius: 0.02rem;
       // background-color: #eee;
@@ -199,7 +201,7 @@ export default {
   width: 75%;
   height: 0.197917rem;
   line-height: 0.197917rem;
-  font-size: 0.072917rem;
+  font-size:0.083333rem;
   border: 0.007813rem solid #cacaca;
   border-radius: 0.026042rem;
   background-color: #fff;

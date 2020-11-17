@@ -78,6 +78,7 @@ export default {
     },
     jumpPage(data) {
       this.$router.push({name:data.name});
+      this.$store.commit('setInitScreen');
       // console.log(data, "最新数据");
       this.show = false;
     },

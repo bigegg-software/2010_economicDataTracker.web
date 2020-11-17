@@ -83,7 +83,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        y2Name: { ch: "单位：家", en: "unit:xxxx" },
+        y2Name: { ch: "家", en: "xxxx" },
         title: {
           text: "前15位国家/地区",
           subtext: "XXXXXXXXXX"

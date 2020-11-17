@@ -70,7 +70,7 @@ export default {
         dataSources:outstocksByDestinationDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          ch: "中国对wwww外直接投资存量按大洲统计",
+          ch: "中国对外直接投资存量按大洲统计",
           en: "China’s FDI outstocks by continent"
         },
         xData: [],

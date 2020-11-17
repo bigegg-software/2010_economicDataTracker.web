@@ -151,7 +151,7 @@ export default {
       // 金额
       let stocks = [];
       res.forEach(item => {
-        Xname.push(item.country);
+        Xname.push(item.countryEN+'\n'+item.country);
         stocks.push(item.stocksMillion);
       });
       this.chartBar.xData = Xname;

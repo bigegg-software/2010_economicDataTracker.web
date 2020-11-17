@@ -114,7 +114,7 @@ export default {
           },
           {
             ch: "南美洲",
-            en: "South_America"
+            en: "South America"
           },
           {
             ch: "欧洲",
@@ -122,7 +122,7 @@ export default {
           },
           {
             ch: "北美洲",
-            en: "North_America"
+            en: "North America"
           },
           {
             ch: "南极洲",
@@ -188,7 +188,7 @@ export default {
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_qqww",
+          name: item.country + "_" + item.countryEN,
           value: item.stocksMillion
         });
       });
