@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {ForeignInvestIndustryDescribe} from '@/utils/describe.js'
+import { ForeignInvestIndustryDescribe } from "@/utils/describe.js";
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -95,24 +95,24 @@ export default {
       },
       timer: null,
       randomColor: [
-        "#8DC32E",
-        "#FF800C",
-        "#0CF6FF",
-        "#DB9800",
-        "#8D6CE3",
-        "#FFBD0C",
-        "#111BFF",
-        "#FF0CC5",
-        "#2992AE",
-        "#0C9AFF",
-        "#C4D225",
-        "#E39145",
-        "#0CFFCB",
-        "#CF90FF",
-        "#FF0000",
-        "#101010",
-        "#D04747",
-        "#7B0CFF"
+        "#a65783",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#61a0a9",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
       ],
       showTimeFrame: false,
       isShowLineChart: false,
@@ -129,7 +129,7 @@ export default {
           text: "开办企业数",
           subtext: "Number of enterprises"
         },
-        updatedDate:'',
+        updatedDate: "",
         xData: [],
         series: []
       },
@@ -139,9 +139,10 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "开办企业数", en: "Number of enterprises" },
         xData: [],
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           // {
@@ -151,7 +152,7 @@ export default {
           //   yearOnYear: []
           // }
         ],
-        updatedDate:''
+        updatedDate: ""
       },
       status: [
         {
@@ -296,7 +297,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
-      let industryAddYoYData=[];
+      let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -318,30 +319,30 @@ export default {
           }
         }
       }
-      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
-               return b.year-a.year;
+      industryAddYoYData = industryAddYoYData.sort((a, b) => {
+        return b.year - a.year;
       });
-      if(this.status[0].checked){
-        let tableInfo={
-            fileName: '开办企业数',
-            tHeader:[
-                "年份",
-                '行业',
-                '单位',
-                '企业数',
-                '企业数同比'
-            ],
-            filterVal:['year','industry','unitMillion','enterprisesNumber','numberYOYGrowth'],
-            tableData:[...industryAddYoYData]
-            }
-            this.$store.commit('saveChartTable',tableInfo);
+      if (this.status[0].checked) {
+        let tableInfo = {
+          fileName: "开办企业数",
+          tHeader: ["年份", "行业", "单位", "企业数", "企业数同比"],
+          filterVal: [
+            "year",
+            "industry",
+            "unitMillion",
+            "enterprisesNumber",
+            "numberYOYGrowth"
+          ],
+          tableData: [...industryAddYoYData]
+        };
+        this.$store.commit("saveChartTable", tableInfo);
       }
       //
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getForeignInvestIndustryData(aug,1);
-         console.log(res)
+      let { res } = await request.getForeignInvestIndustryData(aug, 1);
+      console.log(res);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -349,9 +350,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -447,7 +448,7 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
-      this.mainGetChartsData('yearly');
+      this.mainGetChartsData("yearly");
     }
   }
 };

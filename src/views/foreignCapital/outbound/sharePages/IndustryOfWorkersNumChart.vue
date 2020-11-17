@@ -16,7 +16,7 @@
 </template>
  
 <script>
-import {internationalLaborDescribe} from '@/utils/describe.js'
+import { internationalLaborDescribe } from "@/utils/describe.js";
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -141,11 +141,17 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getIndustryOfWorkersNumChart(aug);
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.totalDatas.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.totalDatas.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       res.forEach(item => {
-        Xname.push({ value: item.variousTypesPerNum, name: item.industry+'_'+item.industryEn});
+        Xname.push({
+          value: item.variousTypesPerNum,
+          name: item.industry + "_" + item.industryEn,
+          valueName:"在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+          proportionName:"比重_Share of overseas workers by industries",
+          proportion:item.industryPercent
+        });
       });
       this.totalDatas.seriesData = Xname;
     },

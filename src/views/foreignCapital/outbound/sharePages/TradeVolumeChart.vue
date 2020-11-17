@@ -96,7 +96,7 @@ export default {
           },
           {
             name: "劳务合作项下派人数_Workers under labor service cooperation",
-            color: "#8CFF0C",
+            color: "#73a083",
             data: []
           }
         ],

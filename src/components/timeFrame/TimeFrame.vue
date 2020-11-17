@@ -109,6 +109,8 @@ export default {
   width: 100%;
   .tab-list-item {
     flex: 1;
+    padding:0 0.02rem;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     cursor: pointer;

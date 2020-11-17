@@ -92,13 +92,13 @@ export default {
       },
       option: {
         ch: "年度",
-        en: "yearly",
+        en: "Yearly",
         frame: "",
         value: ""
       },
       selectOption: {
         ch: "大洲",
-        en: "xxxxxx",
+        en: "Continent",
         value: {
           ch: "亚洲",
           en: "yazhou"
@@ -188,7 +188,7 @@ export default {
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_qqww",
+          name: item.country + "_"+ item.countryEn ,
           value: item.outflowMillion
         });
       });

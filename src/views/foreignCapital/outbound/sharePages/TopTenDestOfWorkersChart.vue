@@ -149,7 +149,7 @@ export default {
       // 年度派出各类劳务人员人数
       let variousTypesPerNum = [];
       res.forEach(item => {
-        Xname.push(item.destinationsEn+'\n'+item.destinations);
+        Xname.push(item.destinationEn+'\n'+item.destinations);
         variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;

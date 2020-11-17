@@ -77,37 +77,37 @@ export default {
         series: [
           {
             name: "亚洲_Asia",
-            color: "#8CBEB2",
+            color: "#b8a597",
             data: []
           },
           {
             name: "欧洲_Europe",
-            color: "#F06060",
+            color: "#72a083",
             data: []
           },
           {
             name: "大洋洲_Oceania",
-            color: "#A8C545",
+            color: "#c96470",
             data: []
           },
           {
             name: "北美洲_North America",
-            color: "#F3B562",
+            color: "#a65783",
             data: []
           },
           {
             name: "南极洲_Antarctica",
-            color: "#34308F",
+            color: "#d38265",
             data: []
           },
           {
             name: "南美洲_South America",
-            color: "#8C2B59",
+            color: "#86a1b0",
             data: []
           },
           {
             name: "非洲_Africa",
-            color: "#8C8474",
+            color: "#9d9930",
             data: []
           }
         ],

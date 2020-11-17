@@ -2,6 +2,16 @@ import Parse from '../index'
 import chartDataFun from "@/utils/chartDataFun";
 import store from '@/vuexStore'
 export default {
+     //数据格式化
+     formatNum(value) {
+        if (!value && value !== 0) return "";
+        let strs = value.toFixed(1)
+        let str = strs.toString();
+        let reg =
+            str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+
+        return str.replace(reg, "$1,");
+    },
     // 带年度月度季度的折线图使用
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据
         chartDataFun.getInThreeDays(-3);  

@@ -48,7 +48,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download =this.totalData.title.ch;; //下载图片的名称
+      aLink.download = this.totalData.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -61,7 +61,7 @@ export default {
         type: "png",
         pixelRatio: 5, //清晰度
         backgroundColor: "#fff",
-        border:'none'
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -96,19 +96,26 @@ export default {
           }
         },
         tooltip: {
-          confine:true,
+          confine: true,
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let year = `<div style="color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;margin-bottom:0.02rem;">${this.value}</div>`;
             let a = `<div style="color:#666;font-size:0.09375rem">${
-              params.name.split("_")[1]
+              params.data.valueName.split("_")[1]
             }</div>`;
             let b = `<div style="color:#666;font-size:0.072917rem">${
-              params.name.split("_")[0]
+              params.data.valueName.split("_")[0]
             }</div>`;
-            let c = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
-            let dom = year + a + b + c;
+            let c = `<div style="color:#666;font-size:0.09375rem">${
+              params.data.proportionName.split("_")[1]
+            }</div>`;
+            let d = `<div style="color:#666;font-size:0.072917rem">${
+              params.data.proportionName.split("_")[0]
+            }</div>`;
+            let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
+            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.data.proportion.toFixed(1)}%</div>`;
+            let dom = year + a + b + e + c + d + f;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
         },

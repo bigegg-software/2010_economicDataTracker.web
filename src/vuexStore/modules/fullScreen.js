@@ -5,6 +5,9 @@ const fullScreen = {
   mutations: {
     fullScreen(state){
         state.isFullScreen =!state.isFullScreen
+    },
+    setInitScreen(state){
+        state.isFullScreen=true;
     }
   },
 

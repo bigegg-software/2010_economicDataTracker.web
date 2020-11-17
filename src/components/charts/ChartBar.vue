@@ -132,7 +132,7 @@ export default {
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
             lineStyle: {
-              color: '#f00fff',
+              color: '#c33531',
               width: 1.5,
               type: "dashed"
             },
@@ -385,7 +385,18 @@ export default {
               this.chartBarData.y2Name ? `{divch|${this.chartBarData.y2Name.ch}}`: ""
             ].join("\n"),
             nameTextStyle: {
-              color: "#333"
+              rich: {
+                div: {
+                  color: "#666",
+                  fontSize: this.$fz(0.18),
+                  padding: [2, 0,2,40]
+                },
+                divch: {
+                  color: "#666",
+                  fontSize: this.$fz(0.14),
+                  padding: [2, 0,2,25]
+                }
+              }
             },
             splitLine: {
               show: true,

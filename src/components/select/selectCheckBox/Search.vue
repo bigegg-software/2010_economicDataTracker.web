@@ -1,6 +1,6 @@
 <template>
   <div class="search-block">
-    <input :value="value" placeholder="keywords" @input="onInput" />
+    <input :value="value" placeholder="Keywords" @input="onInput" />
     <div class="iconfont search-icon">&#xe6a6;</div>
   </div>
 </template>

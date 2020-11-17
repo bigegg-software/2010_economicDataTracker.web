@@ -150,7 +150,7 @@ export default {
       this.totalDatas.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalDatas.seriesData.data, index, {
-          name: item.country + "_QQQQQQQ",
+          name: item.country + "_"+item.countryEn,
           actual: "实际投入外资金额_XXXXXXXXXXXXXXXX",
           value: item.FDIInflowsMillion,
           proportion: "金额比重_QQQQQQQQQ",
