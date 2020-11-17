@@ -18,8 +18,8 @@ export default {
     }
   },
   watch: {
-     "$store.state.fullScreen.isFullScreen"() {
-       this.initChart()
+    "$store.state.fullScreen.isFullScreen"() {
+      this.initChart();
     },
     chartBarData: {
       handler(newName, oldName) {
@@ -63,7 +63,7 @@ export default {
         type: "png",
         pixelRatio: 5, //清晰度
         backgroundColor: "#fff",
-        border:'none'
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -81,8 +81,8 @@ export default {
     },
     formatNum(value) {
       if (!value && value !== 0) return 0;
-      let strs = value.toFixed(1) 
-      let str = strs.toString() ;
+      let strs = value.toFixed(1);
+      let str = strs.toString();
       let reg =
         str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
       return str.replace(reg, "$1,");
@@ -127,13 +127,20 @@ export default {
             data: this.chartBarData.series[j].data
           },
           {
-            name: this.chartBarData.spliceCon?this.chartBarData.series[j].name.split('_')[0]+this.chartBarData.spliceCon.ch+'_'+this.chartBarData.series[j].name.split('_')[1]+' '+this.chartBarData.spliceCon.en:this.chartBarData.series[j].name,
+            name: this.chartBarData.spliceCon
+              ? this.chartBarData.series[j].name.split("_")[0] +
+                this.chartBarData.spliceCon.ch +
+                "_" +
+                this.chartBarData.series[j].name.split("_")[1] +
+                " " +
+                this.chartBarData.spliceCon.en
+              : this.chartBarData.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
             smooth: true, //平滑曲线显示
             lineStyle: {
-              color: '#c33531',
+              color: "#c33531",
               width: 1.5,
               type: "dashed"
             },
@@ -164,16 +171,16 @@ export default {
             fontSize: this.$fz(0.18)
           }
         },
-        legend:{
+        legend: {
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
-            if(!this.chartBarData.hideLegend){
+            if (!this.chartBarData.hideLegend) {
               return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
-              "\n"
+                "\n"
               );
-            }else{
-              return []
+            } else {
+              return [];
             }
           },
           top: "13%",
@@ -184,6 +191,16 @@ export default {
           }
         },
         graphic: [
+          {
+            type: "image",
+            style: {
+              image: "",
+              x: 100,
+              y: 200,
+              width: 230,
+              height: 400
+            }
+          },
           {
             type: "group",
             left: this.$fz(0.15) * 1.5,
@@ -260,7 +277,7 @@ export default {
           }
         ],
         tooltip: {
-          confine:true,
+          confine: true,
           trigger: "axis",
           backgroundColor: "rgba(225,225,255,0)",
           axisPointer: {
@@ -273,7 +290,9 @@ export default {
             let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">
               <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
-                params[0].name.includes("\n")?params[0].name.split("\n")[1]:''
+                params[0].name.includes("\n")
+                  ? params[0].name.split("\n")[1]
+                  : ""
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {
@@ -290,19 +309,27 @@ export default {
                 }
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value?this.formatNum(params[i].value)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') :"-"
-                }</div>`;
+                !!params[i].value
+                  ? this.formatNum(params[i].value) +
+                    (params[i].seriesName.includes("占比") ||
+                    params[i].seriesName.includes("同比")
+                      ? "%"
+                      : "")
+                  : "-"
+              }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
           }
         },
         grid: {
-          top: this.chartBarData.grid?this.chartBarData.grid.top:"23%",
-          left: this.chartBarData.left?this.chartBarData.grid.left:"3%",
-          right: this.chartBarData.right?this.chartBarData.grid.right:"4%",
-          bottom: this.chartBarData.bottom?this.chartBarData.grid.bottom:"10%",
-          containLabel: true 
+          top: this.chartBarData.grid ? this.chartBarData.grid.top : "23%",
+          left: this.chartBarData.left ? this.chartBarData.grid.left : "3%",
+          right: this.chartBarData.right ? this.chartBarData.grid.right : "4%",
+          bottom: this.chartBarData.bottom
+            ? this.chartBarData.grid.bottom
+            : "10%",
+          containLabel: true
         },
         xAxis: [
           {
@@ -342,13 +369,13 @@ export default {
             nameTextStyle: {
               rich: {
                 diven: {
-                  align: 'left',
+                  align: "left",
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0,0,-40]
+                  padding: [2, 0, 0, -40]
                 },
                 div: {
-                  align: 'left',
+                  align: "left",
                   color: "#666",
                   fontSize: this.$fz(0.14),
                   padding: [2, 0, 0, -40]
@@ -384,20 +411,24 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.en}}`: "",
-              this.chartBarData.y2Name ? `{divch|${this.chartBarData.y2Name.ch}}`: ""
+              this.chartBarData.y2Name
+                ? `{div|${this.chartBarData.y2Name.en}}`
+                : "",
+              this.chartBarData.y2Name
+                ? `{divch|${this.chartBarData.y2Name.ch}}`
+                : ""
             ].join("\n"),
             nameTextStyle: {
               rich: {
                 div: {
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0,2,40]
+                  padding: [2, 0, 2, 40]
                 },
                 divch: {
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0,2,25]
+                  padding: [2, 0, 2, 25]
                 }
               }
             },
@@ -419,9 +450,11 @@ export default {
             },
             axisLabel: {
               show: true,
-              formatter: "{value}" +
+              formatter:
+                "{value}" +
                 `${
-                  this.chartBarData.unit2Symbol == "" || this.chartBarData.unit2Symbol
+                  this.chartBarData.unit2Symbol == "" ||
+                  this.chartBarData.unit2Symbol
                     ? " " + this.chartBarData.unit2Symbol
                     : " %"
                 }`, //右侧Y轴文字显示

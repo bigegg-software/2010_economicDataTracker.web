@@ -4,7 +4,7 @@
       <div class="titleCh">{{this.totalData.title.en}}</div>
       <div class="titleEn">{{this.totalData.title.ch}}</div>
     </div>
-    <span style="position:absolute;top:0.2rem">
+    <span style="position:absolute;top:0.24rem;line-height:0.08rem">
       {{this.totalData.unit?this.totalData.unit.ch:''}}
       <br />
       {{this.totalData.unit?this.totalData.unit.en:''}}
