@@ -9,13 +9,31 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark: false
+      watermark: false,
+      canvas:null
     };
   },
   props: {
     options: {}
   },
-  mounted() {
+  async mounted() {
+
+// 
+     let ofWidth=document.getElementById(this.options.id).offsetWidth;
+      let ofHeight=document.getElementById(this.options.id).offsetHeight;
+      let canvas = document.createElement('canvas');
+      let img = await new Image();
+      img.src=require('../../assets/img/waterMark.png');
+      canvas.width =  ofWidth;
+      canvas.height = ofWidth;
+      let ctx = await canvas.getContext('2d');
+      ctx.textAlign = 'center';
+      // ctx.globalAlpha = 0.5;
+     await ctx.drawImage(img,ofWidth/3,ofHeight/3,ofWidth/2,ofHeight/2);
+      ctx.rotate(-Math.PI / 4);
+      this.canvas=await canvas;
+// 
+
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -43,10 +61,10 @@ export default {
     }
   },
   methods: {
-    downloadFile() {
+    async downloadFile() {
       //添加水印
       this.watermark = true;
-      this.initChart();
+      await this.initChart();
       let aLink = document.createElement("a");
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
@@ -161,6 +179,11 @@ export default {
 
       // 绘制图表
       let option = {
+        backgroundColor: {
+            type: 'pattern',
+            image: this.canvas,
+            repeat: 'no-repeat'
+        },
         title: {
           text: this.options.title.en,
           textStyle: {
