@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="container"> -->
-  <div id="treemap" style="width:100%;height:100%;"></div>
+  <div ref="treeMap" id="treemap" style="width:100%;height:100%;"></div>
   <!-- </div> -->
 </template>
 
@@ -79,6 +79,7 @@ export default {
     },
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
+      let that = this;
       let option = {
         tooltip: {
           backgroundColor: "rgba(255, 255, 255,0)",
@@ -98,9 +99,7 @@ export default {
               (params.data.actual || "").split("_")[0]
             }</div>`;
             let value = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-              !!params.data.value
-                ? params.data.value.toLocaleString()
-                : ""
+              !!params.data.value ? params.data.value.toLocaleString() : ""
             }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -224,6 +223,17 @@ export default {
           }
         ],
         graphic: [
+           {
+            type: "image",
+            left: that.$refs.treeMap.offsetWidth/3,
+            top: that.$refs.treeMap.offsetHeight/2.6 ,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.treeMap.offsetWidth/2.8,
+              height: that.$refs.treeMap.offsetHeight/2.8
+            }
+          },
           {
             type: "group",
             left: "center",
@@ -361,8 +371,8 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  width: this.$fz(0.15) * 75,
-                  height: this.$fz(0.15) * 8.2
+                  width: that.$refs.treeMap.offsetWidth,
+                  height: this.$fz(1.25)
                 },
                 style: {
                   fill: "#fff"
@@ -372,8 +382,8 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  width: this.$fz(0.15) * 1.5,
-                  height: this.$fz(0.15) * 50
+                  width: that.$refs.treeMap.offsetWidth * 0.02,
+                  height: that.$refs.treeMap.offsetHeight
                 },
                 style: {
                   fill: "#fff"
@@ -388,10 +398,9 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  x: this.$fz(0.15) * 73.6,
-                  y: 0,
-                  width: this.$fz(0.15) * 1.5,
-                  height: this.$fz(0.15) * 50
+                  x: that.$refs.treeMap.offsetWidth * 0.98,
+                  width: that.$refs.treeMap.offsetWidth * 0.02,
+                  height: that.$refs.treeMap.offsetHeight
                 },
                 style: {
                   fill: "#fff"
@@ -401,9 +410,9 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  y: this.$fz(0.15) * 46,
-                  width: this.$fz(0.15) * 74,
-                  height: this.$fz(0.15) * 5
+                  y: that.$refs.treeMap.offsetHeight * 0.925,
+                  width: that.$refs.treeMap.offsetWidth,
+                  height: that.$refs.treeMap.offsetHeight * 0.08
                 },
                 style: {
                   fill: "#fff"

@@ -185,7 +185,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20.4%;
+  width: 20.23%;
   height: 0.296875rem;
   border-bottom: 2px solid #cbcbcb;
   border-right: 2px solid #cbcbcb;
@@ -197,7 +197,7 @@ export default {
     border-left: 2px solid #cbcbcb;
   }
   &:last-child {
-    width: 19.2%;
+    width: 19.05%;
   }
   .icon-action {
     font-size: 0.145833rem;

@@ -1,5 +1,6 @@
 <template>
-  <div :ref="totalData.id" id="pieChart" style="width:100%;
+<!-- :ref="totalData.id" -->
+  <div ref="pieChart" id="pieChart" style="width:100%;
     height:100%"></div>
 </template>
 
@@ -79,6 +80,7 @@ export default {
     },
     drawPie() {
       this.chart = echarts.init(document.getElementById("pieChart"));
+      let that = this;
       // 绘制图表
       let option = {
         title: {
@@ -114,7 +116,9 @@ export default {
               params.data.proportionName.split("_")[0]
             }</div>`;
             let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
-            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.data.proportion.toFixed(1)}%</div>`;
+            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.data.proportion.toFixed(
+              1
+            )}%</div>`;
             let dom = year + a + b + e + c + d + f;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
@@ -149,6 +153,17 @@ export default {
           }
         ],
         graphic: [
+          {
+            type: "image",
+            left: that.$refs.pieChart.offsetWidth / 3.1,
+            top: that.$refs.pieChart.offsetHeight / 2.98,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.pieChart.offsetWidth / 2.8,
+              height: that.$refs.pieChart.offsetHeight / 2.8
+            }
+          },
           {
             type: "group",
             left: this.$fz(0.15) * 1.5,

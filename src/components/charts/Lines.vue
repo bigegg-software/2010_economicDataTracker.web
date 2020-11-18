@@ -1,5 +1,5 @@
 <template>
-  <div :id="options.id" style="width:100%;height:100%;"></div>
+  <div :id="options.id" ref="lineChart" style="width:100%;height:100%;"></div>
 </template>
 
 <script>
@@ -18,21 +18,6 @@ export default {
   },
   async mounted() {
 
-// 
-     let ofWidth=document.getElementById(this.options.id).offsetWidth;
-      let ofHeight=document.getElementById(this.options.id).offsetHeight;
-      let canvas = document.createElement('canvas');
-      let img = await new Image();
-      img.src=require('../../assets/img/waterMark.png');
-      canvas.width =  ofWidth;
-      canvas.height = ofWidth;
-      let ctx = await canvas.getContext('2d');
-      ctx.textAlign = 'center';
-      // ctx.globalAlpha = 0.5;
-     await ctx.drawImage(img,ofWidth/3,ofHeight/3,ofWidth/2,ofHeight/2);
-      ctx.rotate(-Math.PI / 4);
-      this.canvas=await canvas;
-// 
 
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
@@ -110,6 +95,7 @@ export default {
     initChart() {
       // 基于准备好的dom，初始化echarts实例
       this.chart = echarts.init(document.getElementById(this.options.id));
+      let that=this;
       //找出y轴数值最大最小值
       let totalArray = [];
       let yearArray = [];
@@ -179,11 +165,6 @@ export default {
 
       // 绘制图表
       let option = {
-        backgroundColor: {
-            type: 'pattern',
-            image: this.canvas,
-            repeat: 'no-repeat'
-        },
         title: {
           text: this.options.title.en,
           textStyle: {
@@ -205,6 +186,17 @@ export default {
           bottom: "11%"
         },
         graphic: [
+           {
+            type: "image",
+            left: that.$refs.lineChart.offsetWidth/3,
+            top: that.$refs.lineChart.offsetHeight/2.6 ,
+            z: -1,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.lineChart.offsetWidth/2.8,
+              height: that.$refs.lineChart.offsetHeight/2.8
+            }
+          },
           {
             type: "group",
             left: this.$fz(0.15) * 1.5,

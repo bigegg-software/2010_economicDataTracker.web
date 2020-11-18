@@ -156,6 +156,7 @@ export default {
           }
         });
       }
+      let that=this;
       let option = {
         title: {
           text: this.chartBarData.title.subtext,
@@ -193,12 +194,13 @@ export default {
         graphic: [
           {
             type: "image",
+            left: that.$refs.chartBar.offsetWidth/3,
+            top: that.$refs.chartBar.offsetHeight/3 ,
+            z: 9999,
             style: {
-              image: "",
-              x: 100,
-              y: 200,
-              width: 230,
-              height: 400
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.chartBar.offsetWidth/2.8,
+              height: that.$refs.chartBar.offsetHeight/2.8
             }
           },
           {
