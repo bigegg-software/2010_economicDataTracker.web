@@ -111,6 +111,8 @@ export default {
   margin: 0.06rem 0;
   font-size: 0.072917rem;
   border: 1px solid #ddd;
+  background: url("../../assets/img/waterMark.png") no-repeat center center;
+  background-size: 50%;
   .tableTitle {
     display: flex;
     padding-right: 0.04rem;
@@ -132,8 +134,6 @@ export default {
   }
   .tableBody {
     overflow: auto;
-    background: url("../../assets/img/waterMark.png") no-repeat center center;
-    background-size: 50%;
   }
   .tableBody::-webkit-scrollbar {
     width: 0.04rem;
