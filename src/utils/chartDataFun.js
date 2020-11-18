@@ -237,7 +237,7 @@ export default {
     },
     formatPer(value) {
         let strs = value.toFixed(1);
-        let res = parseFloat(strs) + '%'
+        let res = strs + '%'
         return res;
     },
     conversionTable: function (tableTitle, tableData) {
