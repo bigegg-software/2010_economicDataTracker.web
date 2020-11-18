@@ -59,7 +59,7 @@ export default {
         for (let i = 0; i < range.length; i++) {
             if(sourceData.nameArr.indexOf(range[i])>-1){
                 let index=sourceData.nameArr.indexOf(range[i]);
-                newDate.push(sourceData.numArr[index]);
+                newDate.push(sourceData.numArr[index]?sourceData.numArr[index]:'');
             }else{
                 newDate.push('');
             }
