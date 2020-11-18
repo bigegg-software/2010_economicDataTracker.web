@@ -1,5 +1,5 @@
 <template>
-  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+  <div class="unselectable" :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <div class="title">
       <div class="titleCh">{{this.totalData.title.en}}</div>
       <div class="titleEn">{{this.totalData.title.ch}}</div>
@@ -54,6 +54,13 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.unselectable{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
 .container {
   width: 5.875rem;
   height: 3.916667rem;
@@ -113,6 +120,8 @@ export default {
   }
   .tableBody {
     overflow: auto;
+    background: url('../../assets/img/waterMark.png') no-repeat center center;
+    background-size:50%;
   }
   .tableBody::-webkit-scrollbar {
     width: 0.04rem;
