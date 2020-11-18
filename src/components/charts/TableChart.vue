@@ -1,14 +1,16 @@
 <template>
-  <div class="unselectable" :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+  <div
+    class="unselectable"
+    :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+  >
     <div class="title">
       <div class="titleCh">{{this.totalData.title.en}}</div>
       <div class="titleEn">{{this.totalData.title.ch}}</div>
     </div>
-    <span style="position:absolute;top:0.24rem;line-height:0.08rem">
-      {{this.totalData.unit?this.totalData.unit.ch:''}}
-      <br />
-      {{this.totalData.unit?this.totalData.unit.en:''}}
-    </span>
+    <div class="unit">
+      <div>{{this.totalData.unit?this.totalData.unit.en:''}}</div>
+      <div>{{this.totalData.unit?this.totalData.unit.ch:''}}</div>
+    </div>
     <div class="tableChart" ref="box">
       <div class="tableTitle">
         <div
@@ -54,7 +56,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.unselectable{
+.unselectable {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -91,6 +93,16 @@ export default {
     color: #999;
   }
 }
+.unit {
+  position: absolute;
+  top: 0.24rem;
+  line-height: 0.08rem;
+  font-size:0.09375rem;
+  color: #666;
+  & div:last-child {
+    font-size: 0.072917rem !important; 
+  }
+}
 .tableChart {
   display: flex;
   flex-flow: column nowrap;
@@ -120,8 +132,8 @@ export default {
   }
   .tableBody {
     overflow: auto;
-    background: url('../../assets/img/waterMark.png') no-repeat center center;
-    background-size:50%;
+    background: url("../../assets/img/waterMark.png") no-repeat center center;
+    background-size: 50%;
   }
   .tableBody::-webkit-scrollbar {
     width: 0.04rem;
@@ -140,8 +152,8 @@ export default {
   align-items: center;
   font-size: 0.09375rem;
   color: #666;
-  font-family:'黑体' Calibri ;
-  .updatedCh{
+  font-family: "黑体" Calibri;
+  .updatedCh {
     font-size: 0.072917rem;
   }
   .updatedDate {
