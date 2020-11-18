@@ -66,11 +66,13 @@ export default {
           },
           BRINumber: {
             text: "一带一路企业数_Number of BRI enterprises",
-            width: "40%"
+            width: "40%",
+            formatNum:true
           },
           BRIPercent: {
             text: "占外资企业比重_Share of total number of foreign enterprises",
-            width: "40%"
+            width: "40%",
+            formatPer:true
           }
         },
         tableData: [],

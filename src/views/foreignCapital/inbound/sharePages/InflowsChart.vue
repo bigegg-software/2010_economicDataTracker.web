@@ -69,11 +69,13 @@ export default {
           },
           inwardFDIConMillion: {
             text: "实际使用外资_China’s inward FDI",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           inwardFDIConYOY: {
             text: "实际使用外资同比_xxxxxxx",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

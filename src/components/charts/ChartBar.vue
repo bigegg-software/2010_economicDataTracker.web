@@ -80,12 +80,8 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(value) {
-      if (!value && value !== 0) return 0;
       let strs = value.toFixed(1);
-      let str = strs.toString();
-      let reg =
-        str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
-      return str.replace(reg, "$1,");
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     initChart() {
       //找出y轴数值最大最小值
@@ -156,7 +152,7 @@ export default {
           }
         });
       }
-      let that=this;
+      let that = this;
       let option = {
         title: {
           text: this.chartBarData.title.subtext,
@@ -194,13 +190,13 @@ export default {
         graphic: [
           {
             type: "image",
-            left: that.$refs.chartBar.offsetWidth/3,
-            top: that.$refs.chartBar.offsetHeight/3 ,
+            left: that.$refs.chartBar.offsetWidth / 3,
+            top: that.$refs.chartBar.offsetHeight / 3,
             z: 9999,
             style: {
               image: require("../../assets/img/waterMark.png"),
-              width: that.$refs.chartBar.offsetWidth/2.8,
-              height: that.$refs.chartBar.offsetHeight/2.8
+              width: that.$refs.chartBar.offsetWidth / 2.8,
+              height: that.$refs.chartBar.offsetHeight / 2.8
             }
           },
           {

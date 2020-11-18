@@ -74,19 +74,23 @@ export default {
           },
           completedAmountCon: {
             text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%"
+            width: "35%",
+            formatNum: true
           },
           completedAmountConYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%"
+            width: "35%",
+            formatPer: true
           },
           completedAmount: {
             text: "完成营业额折合(RMB)_unit",
-            width: "35%"
+            width: "35%",
+            formatNum: true
           },
           completedAmountYOY: {
             text: "完成营业额折合同比_type",
-            width: "35%"
+            width: "35%",
+            formatPer: true
           }
         },
         tableData: [],
@@ -106,9 +110,10 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           {
@@ -131,9 +136,10 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           {
@@ -236,8 +242,8 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -334,9 +340,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.RMB.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.RMB.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 

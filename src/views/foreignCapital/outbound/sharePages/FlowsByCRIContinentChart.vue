@@ -67,7 +67,8 @@ export default {
           },
           outflowMillion: {
             text: "中国对外直接投资流量_China's FDI outflow",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           }
         },
         tableData: [],

@@ -52,15 +52,16 @@ export default {
           },
           economies: {
             text: "经济体_Economies",
-            width: "20%"
+            width: "30%"
           },
           industry: {
             text: "行业_industry",
-            width: "20%"
+            width: "30%"
           },
           outflowsMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
-            width: "20%"
+            width: "30%",
+            formatNum:true
           }
         },
         tableData: [],

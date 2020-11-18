@@ -56,11 +56,13 @@ export default {
           variousTypesPerNum: {
             text:
               "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
-            width: "30%"
+            width: "30%",
+            formatNum:true
           },
           industryPercent: {
             text: "比重_Share of overseas workers by industries",
-            width: "30%"
+            width: "30%",
+            formatPer:true
           }
         },
         tableData: [],

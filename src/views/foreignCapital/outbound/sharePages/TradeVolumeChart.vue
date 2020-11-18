@@ -59,15 +59,18 @@ export default {
           },
           variousTypesPerNum: {
             text: "各类劳务人员_Workers sent overseas",
-            width: "35%"
+            width: "35%" ,
+            formatNum:true
           },
           contractProject: {
             text: "承包工程项下派人数_Workers under contracted projects",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           laborCooperation: {
             text: "劳务合作项下派人数_Workers under labor service cooperation",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           }
         },
         tableData: [],

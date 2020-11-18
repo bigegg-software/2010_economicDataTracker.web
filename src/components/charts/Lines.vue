@@ -10,15 +10,13 @@ export default {
       timer: null,
       chart: null,
       watermark: false,
-      canvas:null
+      canvas: null
     };
   },
   props: {
     options: {}
   },
   async mounted() {
-
-
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -85,17 +83,13 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(value) {
-      if (!value && value !== 0) return 0;
-      let strs = value.toFixed(1) 
-      let str = strs.toString() ;
-      let reg =
-        str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
-      return str.replace(reg, "$1,");
+      let strs = value.toFixed(1);
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
       this.chart = echarts.init(document.getElementById(this.options.id));
-      let that=this;
+      let that = this;
       //找出y轴数值最大最小值
       let totalArray = [];
       let yearArray = [];
@@ -140,7 +134,14 @@ export default {
             symbol: "circle", //拐点样式
             symbolSize: 4, //拐点大小
             color: this.options.series[j].color,
-            name: this.options.spliceCon?this.options.series[j].name.split('_')[0]+this.options.spliceCon.ch+'_'+this.options.series[j].name.split('_')[1]+' '+this.options.spliceCon.en:this.options.series[j].name,
+            name: this.options.spliceCon
+              ? this.options.series[j].name.split("_")[0] +
+                this.options.spliceCon.ch +
+                "_" +
+                this.options.series[j].name.split("_")[1] +
+                " " +
+                this.options.spliceCon.en
+              : this.options.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: true,
@@ -186,15 +187,15 @@ export default {
           bottom: "11%"
         },
         graphic: [
-           {
+          {
             type: "image",
-            left: that.$refs.lineChart.offsetWidth/3,
-            top: that.$refs.lineChart.offsetHeight/2.6 ,
+            left: that.$refs.lineChart.offsetWidth / 3,
+            top: that.$refs.lineChart.offsetHeight / 2.6,
             z: -1,
             style: {
               image: require("../../assets/img/waterMark.png"),
-              width: that.$refs.lineChart.offsetWidth/2.8,
-              height: that.$refs.lineChart.offsetHeight/2.8
+              width: that.$refs.lineChart.offsetWidth / 2.8,
+              height: that.$refs.lineChart.offsetHeight / 2.8
             }
           },
           {
@@ -278,7 +279,7 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            console.log(params)
+            console.log(params);
             let a = "";
             let b = "";
             let c = "";
@@ -295,7 +296,13 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? this.formatNum(params[i].value)+ ((params[i].seriesName).includes('占比') || (params[i].seriesName).includes('同比')?'%':'') : "-"
+                !!params[i].value
+                  ? this.formatNum(params[i].value) +
+                    (params[i].seriesName.includes("占比") ||
+                    params[i].seriesName.includes("同比")
+                      ? "%"
+                      : "")
+                  : "-"
               }</div>`;
               dom = dom + a + b + c;
             }
@@ -359,13 +366,13 @@ export default {
             nameTextStyle: {
               rich: {
                 div: {
-                  align: 'left',
+                  align: "left",
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0,0,-40]
+                  padding: [2, 0, 0, -40]
                 },
                 divch: {
-                  align: 'left',
+                  align: "left",
                   color: "#666",
                   fontSize: this.$fz(0.14),
                   padding: [2, 0, 0, -40]

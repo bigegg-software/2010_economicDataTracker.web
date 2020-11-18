@@ -68,11 +68,13 @@ export default {
           },
           newConAmountCon: {
             text: "新签合同额_Total value of new contract",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

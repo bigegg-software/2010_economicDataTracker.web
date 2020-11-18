@@ -54,7 +54,8 @@ export default {
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
-            width: "85%"
+            width: "85%",
+            formatNum:true
           }
         },
         tableData: [],

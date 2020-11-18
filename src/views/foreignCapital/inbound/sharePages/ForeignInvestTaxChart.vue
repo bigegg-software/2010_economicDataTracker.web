@@ -64,15 +64,18 @@ export default {
           },
           taxMillion: {
             text: "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
-            width: "40%"
+            width: "40%",
+            formatNum:true
           },
           YOYGrowth: {
             text: "增幅_Y-o-y growth",
-            width: "25%"
+            width: "25%",
+            formatPer:true
           },
           percentInCountry: {
             text: "全国占比_Share of national tax revenue",
-            width: "25%"
+            width: "25%",
+            formatPer:true
           }
         },
         tableData: [],

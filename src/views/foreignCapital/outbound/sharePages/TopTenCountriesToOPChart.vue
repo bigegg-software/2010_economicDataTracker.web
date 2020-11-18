@@ -70,11 +70,13 @@ export default {
           },
           amount: {
             text: "新签合同额_Total value of new contract ",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           amountYOY: {
             text: "新签合同额同比_Y-o-y growth of new contract value ",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
@@ -104,11 +106,13 @@ export default {
           },
           amount: {
             text: "完成营业额_Revenue of completed contract",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           amountYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

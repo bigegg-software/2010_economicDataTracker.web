@@ -87,11 +87,13 @@ export default {
           },
           outflowsMillion: {
             text: "流量_outflows",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           yOY: {
             text: "同比_xxxxxxxx",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

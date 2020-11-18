@@ -68,12 +68,14 @@ export default {
           },
           investConversionMillion: {
             text: "非金融类直接投资_non-financial FDI outflows",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           conversionYOY: {
             text:
               "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

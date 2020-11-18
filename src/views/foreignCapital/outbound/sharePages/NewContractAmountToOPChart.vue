@@ -71,19 +71,23 @@ export default {
           },
           newConAmountConMillion: {
             text: "新签合同额(USD)_Total value of new contract",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           },
           newConAmountMillion: {
             text: "新签合同额折合（RMB）_xxx",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           newConAmountYOY: {
             text: "新签合同额折合同比_xxx",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

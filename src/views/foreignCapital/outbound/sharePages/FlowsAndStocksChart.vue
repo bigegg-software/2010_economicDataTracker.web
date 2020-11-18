@@ -50,11 +50,13 @@ export default {
           },
           outward_FDI_flows: {
             text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           unit: {
             text: "单位_unit",

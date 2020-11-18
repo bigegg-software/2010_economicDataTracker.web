@@ -78,19 +78,23 @@ export default {
           },
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
-            width: "10%"
+            width: "10%",
+            formatNum:true
           },
           enterprisePercent: {
             text: "比重_Share of foreign investment enterprises",
-            width: "15%"
+            width: "15%",
+            formatPer:true
           },
           FDIInflowsMillion: {
             text: "实际投入外资金额_FDI inflows to China",
-            width: "15%"
+            width: "15%",
+            formatNum:true
           },
           inflowsPercent: {
             text: "比重_Share of total FDI inflows to China",
-            width: "10%"
+            width: "10%",
+            formatPer:true
           }
         },
         tableData: [],

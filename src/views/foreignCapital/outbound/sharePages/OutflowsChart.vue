@@ -73,11 +73,13 @@ export default {
           },
           investConversionMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           conversionYOY: {
             text: "中国对外直接投资流量同比_xxxxxxxx",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           },
           outFlowTypeCH: {
             text: "类型_type",

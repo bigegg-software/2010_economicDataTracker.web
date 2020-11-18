@@ -65,11 +65,13 @@ export default {
           },
           BRIAmountMillion: {
             text: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
-            width: "40%"
+            width: "40%",
+            formatNum:true
           },
           BRIAmountPercent: {
             text: "占总外资金额比重_Share of total FDI inflows to China",
-            width: "40%"
+            width: "40%",
+            formatPer:true
           }
         },
         tableData: [],

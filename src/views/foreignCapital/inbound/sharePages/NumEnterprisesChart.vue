@@ -83,11 +83,13 @@ export default {
           },
           enterprisesNumber: {
             text: "企业数_Number of enterprises",
-            width: "30%"
+            width: "30%",
+            formatNum:true
           },
           numberYOYGrowth: {
             text: "企业数同比_Number of enterprises y-o-y growth",
-            width: "30%"
+            width: "30%",
+            formatPer:true
           }
         },
         tableData: [],

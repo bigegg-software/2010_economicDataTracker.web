@@ -77,6 +77,10 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
+     formatNum(value) {
+      let strs = value.toFixed(1);
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    },
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
       let that = this;
@@ -99,7 +103,7 @@ export default {
               (params.data.actual || "").split("_")[0]
             }</div>`;
             let value = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-              !!params.data.value ? params.data.value.toLocaleString() : ""
+              !!params.data.value ?this.formatNum(params.data.value) : ""
             }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -149,7 +153,7 @@ export default {
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{a|${
                     !!params.data.value
-                      ? params.data.value.toLocaleString()
+                      ? this.formatNum(params.data.value)
                       : ""
                   }}`,
                   `{a|${(params.data.proportion || "").split("_")[1]}}`,
@@ -164,7 +168,7 @@ export default {
                     : [
                         `{a|${
                           !!params.data.value
-                            ? params.data.value.toLocaleString()
+                            ? this.formatNum(params.data.value)
                             : ""
                         }}`
                       ])

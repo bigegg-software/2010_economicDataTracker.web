@@ -50,12 +50,14 @@ export default {
           },
           variousTypesPerNumMillion: {
             text: "年度派出各类劳务人员人数_Number of workers sent overseas",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           destinationPercent: {
             text:
               "年度派出各类劳务人员比重_Share of workers sent overseas by destinations",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

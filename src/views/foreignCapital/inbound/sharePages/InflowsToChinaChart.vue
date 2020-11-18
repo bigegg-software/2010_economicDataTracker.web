@@ -83,11 +83,13 @@ export default {
           },
           inflowsFDIMillion: {
             text: "实际使用外资金额_FDI inflows to China",
-            width: "30%"
+            width: "30%",
+            formatNum:true
           },
           inflowsYOYGrowth: {
             text: "实际使用外资金额同比_FDI inflows to China y-o-y growth",
-            width: "30%"
+            width: "30%",
+            formatPer:true
           }
         },
         tableData: [],

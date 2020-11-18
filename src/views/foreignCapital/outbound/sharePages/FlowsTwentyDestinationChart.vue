@@ -54,12 +54,14 @@ export default {
           outflowMillion: {
             text:
               "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflow in top 20 destinations",
-            width: "25%"
+            width: "25%",
+            formatNum:true
           },
           outflowPercent: {
             text:
               "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflow",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],

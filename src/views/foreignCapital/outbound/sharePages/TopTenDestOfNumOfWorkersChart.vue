@@ -50,12 +50,14 @@ export default {
           },
           variousTypesPerNumMillion: {
             text: "12月末在外各类劳务人员人数_Total number of workers overseas",
-            width: "25%"
+            width: "25%",
+            formatNum:true
           },
           destinationPercent: {
             text:
               "12月末在外各类劳务人员比重_Share of total number of workers by destinations",
-            width: "25%"
+            width: "25%",
+            formatPer:true
           }
         },
         tableData: [],

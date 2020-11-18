@@ -54,12 +54,14 @@ export default {
           stocksMillion: {
             text:
               "中国对外直接投资存量前20位国家（地区）投资额_China's FDI stocks in top 20 destinations",
-            width: "25%"
+            width: "25%",
+            formatNum:true
           },
           stockPercent: {
             text:
               "中国对外直接投资存量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI stocks",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
