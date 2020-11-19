@@ -84,6 +84,7 @@ sumSameYearData:async (sourceData,field,name)=> {
             item.show=true;
             return item;
         });
+        res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
         return res;
     },
     getOutFlowsChartsData:async function(params) {// 获取中国对外直接投资流量数据函数接口

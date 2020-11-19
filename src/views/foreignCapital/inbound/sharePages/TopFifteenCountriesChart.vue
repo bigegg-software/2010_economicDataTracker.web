@@ -99,6 +99,7 @@ export default {
           ch:'企业数',
           en:'XXX'
         },
+        hideLegend:true,
         series: [
           {
             name:'投资金额_xxxxx',
