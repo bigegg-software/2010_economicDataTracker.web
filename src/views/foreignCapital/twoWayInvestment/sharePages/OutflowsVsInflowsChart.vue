@@ -417,13 +417,14 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
+        let QMDefaultTime=await chartDataFun.getQMDefaultTime(end,1);
         if (key == "quarterly") {
-          obj.list.start.value = `${start}-03`;
-          obj.list.end.value = `${end}-12`;
+          obj.list.start.value = QMDefaultTime.Q.start;
+          obj.list.end.value = QMDefaultTime.Q.end;
           this.$set(this.options, "quarterly", obj);
         } else if (key == "monthly") {
-          obj.list.start.value = `${start}-01`;
-          obj.list.end.value = `${end}-12`;
+          obj.list.start.value = QMDefaultTime.M.start;
+          obj.list.end.value = QMDefaultTime.M.end;
           this.$set(this.options, "monthly", obj);
         }
       }

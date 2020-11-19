@@ -11,7 +11,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
       <div class="status" v-if="$store.getters.showOperate">
         <check-box
@@ -192,6 +192,12 @@ export default {
     let arrmaxmin = res.split("_");
     this.options.yearly.list.start.value=arrmaxmin[0];
     this.options.yearly.list.end.value=arrmaxmin[1];
+    // 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -332,6 +338,10 @@ export default {
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
