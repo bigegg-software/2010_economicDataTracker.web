@@ -24,9 +24,9 @@
           <div  class="iconfont icon-logout">
             &#xe620;
           </div>
-          <div class="logout-text">退出</div>
+          <div class="logout-text">Log Out</div>
         </div>
-        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">登录</div>
+        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">Log In</div>
       </div>
       <!-- 下拉框 -->
       <div v-if="show" class="data-list" @mouseleave="hiddenDataList">

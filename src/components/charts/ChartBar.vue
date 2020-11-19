@@ -323,7 +323,7 @@ export default {
         grid: {
           top: this.chartBarData.grid ? this.chartBarData.grid.top : "23%",
           left: this.chartBarData.left ? this.chartBarData.grid.left : "3%",
-          right: this.chartBarData.right ? this.chartBarData.grid.right : "4%",
+          right: this.chartBarData.Yearonshow?this.chartBarData.yearOnYear ?  '3%': '-2%':'4%',
           bottom: this.chartBarData.bottom
             ? this.chartBarData.grid.bottom
             : "10%",

@@ -183,7 +183,7 @@ export default {
         grid: {
           top: "23%",
           left: "8%",
-          right: "4%",
+          right: this.options.yearOnYear ? '6%' : '4%',
           bottom: "11%"
         },
         graphic: [

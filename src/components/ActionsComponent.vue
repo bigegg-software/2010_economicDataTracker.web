@@ -124,7 +124,7 @@ export default {
       window.open(
         //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
-          encodeURIComponent(window.location.href)
+          encodeURIComponent(window.location.href)+ '&text=' + encodeURIComponent(title)
       );
     },
     //分享到 facebook
