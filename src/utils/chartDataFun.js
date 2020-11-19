@@ -58,7 +58,8 @@ export default {
                 }
             } else if (aug.type == 'monthly') {
                 for (let u = 1; u <= 12; u++) {
-                    newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
+                  //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
+                    newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
                 }
             }
         }
@@ -75,8 +76,10 @@ export default {
             if (item['month'] % 3 == 0) {
                 item.Q = `${item['year']}.Q${item['month'] / 3}`;
             }
-            item.M = `${item['year']}.${String(item['month']).length == 1 ? '0' + item['month'] : item['month']}`
+        //原来是2020.01、2020.02    // item.M = `${item['year']}.${String(item['month']).length == 1 ? '0' + item['month'] : item['month']}`
+            item.M = `${item['year']}.1-${item['month']}` // 现在是2020.1-1 ，2020.1-2
         });
+        console.log(data)
     },
     completionDate: async (sourceData, range) => {  //补全数据
         // console.log(sourceData,range)
