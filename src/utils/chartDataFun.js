@@ -11,6 +11,31 @@ export default {
             return `${res.data[0].min}_${res.data[0].max}`
         }
     },
+    //计算当前季度和月度
+    getQMDefaultTime(currentY=dayjs().format('YYYY'),beforeY=1) {
+        currentY=currentY.toString();
+        let dateRes={
+            Q:{
+                start:'',
+                end:''
+            },
+            M:{
+                start:'',
+                end:''
+            }
+        }
+        let currentTime=new Date();
+        // 计算当前月份对应的季度月份
+        let currentQ=Math.ceil((currentTime.getMonth()+1)/3)*3;
+          if(currentQ.length<2){
+              currentQ='0'+currentQ;
+          }
+        dateRes.Q.start=dayjs(currentY).format('YYYY')-beforeY+'-'+currentQ;
+        dateRes.Q.end=dayjs(currentY).format('YYYY')+'-'+currentQ;
+        dateRes.M.start=dayjs(currentY).format('YYYY')-beforeY+'-'+dayjs().format('MM');
+        dateRes.M.end=dayjs(currentY).format('YYYY')+'-'+dayjs().format('MM');
+        return dateRes;
+    },
     objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
         // nameArr内部存储柱状图折线图y轴名称信息
         var nameArr = [];
