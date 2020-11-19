@@ -102,7 +102,7 @@ export default {
         series: [
           {
             name:'投资金额_xxxxx',
-            color: ["#0C9AFF"],
+            color: ["#71a6c2"],
             data: [],
             yearOnYear:[]
           }

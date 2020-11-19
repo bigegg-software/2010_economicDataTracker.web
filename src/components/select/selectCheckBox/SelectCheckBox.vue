@@ -5,9 +5,7 @@
       <div class="label-row">{{ option.ch }}</div>
     </div>
     <div class="select-block" @click="handleClick" @mouseleave="mouseleave">
-      <div class="text">
-        {{ `(${result.length})` }}
-      </div>
+      <div class="text">{{ `(${result.length})` }}</div>
       <div class="iconfont icon-arrow">&#xe609;</div>
       <!-- 弹出框 -->
       <fade-in-out>
@@ -18,21 +16,13 @@
             </div>
             <div class="list-block">
               <template v-for="(op, index) in option.op">
-              <check-box
-                v-if="op.show"
-                :key="index"
-                :option="op"
-                @change="change(op, index)"
-              ></check-box>
+                <check-box v-if="op.show" :key="index" :option="op" @change="change(op, index)"></check-box>
               </template>
-              
             </div>
           </div>
           <div class="right">
             <div class="action-block">
-              <div class="iconfont close-icon" @click.stop="close">
-                &#xe608;
-              </div>
+              <div class="iconfont close-icon" @click.stop="close">&#xe608;</div>
             </div>
             <div class="list-block">
               <div
@@ -94,9 +84,9 @@ export default {
         ? className + " rotate "
         : className + " _rotate";
     },
-    changeSelected(item,index) {
-      item.checked=false;
-      this.result.splice(index,1);
+    changeSelected(item, index) {
+      item.checked = false;
+      this.result.splice(index, 1);
     },
     change(op, index) {
       this.$emit("change", op);
@@ -197,9 +187,12 @@ export default {
     box-shadow: darkgrey 0px 0px 5px 1px;
   }
   .label-block {
-    .label-row {
-      height: 0.104167rem;
-      line-height: 0.104167rem;
+    line-height: 0.104167rem;
+    font-size: 0.072917rem;
+    color: #666;
+    & div:first-child {
+      font-size: 0.09375rem;
+      font-family: Calibri;
     }
   }
   .select-block {

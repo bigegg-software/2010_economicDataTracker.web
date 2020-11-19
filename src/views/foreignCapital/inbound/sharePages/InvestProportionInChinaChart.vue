@@ -98,7 +98,7 @@ export default {
       },
       option: {
         ch: "年度",
-        en: "yearly",
+        en: " Yearly",
         frame: "",
         value: ""
       }

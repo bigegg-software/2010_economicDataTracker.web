@@ -115,8 +115,8 @@ export default {
             let d = `<div style="color:#666;font-size:0.072917rem">${
               params.data.proportionName.split("_")[0]
             }</div>`;
-            let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
-            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.data.proportion.toFixed(
+            let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.value}</div>`;
+            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.data.proportion.toFixed(
               1
             )}%</div>`;
             let dom = year + a + b + e + c + d + f;
@@ -155,13 +155,13 @@ export default {
         graphic: [
           {
             type: "image",
-            left: that.$refs.pieChart.offsetWidth / 3.1,
-            top: that.$refs.pieChart.offsetHeight / 2.98,
+            left: that.$refs.pieChart.offsetWidth / 2.86,
+            top: that.$refs.pieChart.offsetHeight / 2.56,
             z: 9999,
             style: {
               image: require("../../assets/img/waterMark.png"),
-              width: that.$refs.pieChart.offsetWidth / 2.8,
-              height: that.$refs.pieChart.offsetHeight / 2.8
+              width: that.$refs.pieChart.offsetWidth / 3.33,
+              height: that.$refs.pieChart.offsetWidth / 4.55
             }
           },
           {
@@ -195,7 +195,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]

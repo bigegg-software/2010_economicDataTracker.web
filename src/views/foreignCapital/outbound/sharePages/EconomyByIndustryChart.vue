@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {outflowsByIndustryDescribe} from '@/utils/describe.js'
+import { outflowsByIndustryDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -61,7 +61,7 @@ export default {
           outflowsMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
             width: "30%",
-            formatNum:true
+            formatNum: true
           }
         },
         tableData: [],
@@ -69,28 +69,28 @@ export default {
       },
       timer: null,
       randomColor: [
-        "#8DC32E",
-        "#FF800C",
-        "#0CF6FF",
-        "#DB9800",
-        "#8D6CE3",
-        "#FFBD0C",
-        "#111BFF",
-        "#FF0CC5",
-        "#2992AE",
-        "#0C9AFF",
-        "#C4D225",
-        "#E39145",
-        "#0CFFCB",
-        "#CF90FF",
-        "#FF0000",
-        "#101010",
-        "#D04747",
-        "#7B0CFF"
+        "#61a0a9",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#a65783",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
       ],
       showTimeFrame: false,
       chartBar: {
-        dataSources:outflowsByIndustryDescribe.dataSources,
+        dataSources: outflowsByIndustryDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           text: "中国对东盟直接投资的主要行业",
@@ -114,7 +114,7 @@ export default {
       },
       selectOption: {
         ch: "经济体",
-        en: "xxxxxx",
+        en: "Xxxxxx",
         value: {
           id: 1,
           ch: "中国香港",
@@ -181,7 +181,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
-    console.log(res)
+    console.log(res);
     let arrmaxmin = res.split("_");
     this.option.value = arrmaxmin[1];
     await this.getChartsData({
@@ -211,8 +211,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIMajorEconomiesIndustry(aug);
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       let outflows = [];
       let colors = [];

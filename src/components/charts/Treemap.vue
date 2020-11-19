@@ -92,21 +92,21 @@ export default {
             let name = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.083333rem">${
               (params.name || "").split("_")[1]
             }</div>`;
-            let nameCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding:0.026042rem 0 0.15rem;color:#7C7C7C;font-size:0.072917rem">${
+            let nameCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.072917rem">${
               (params.name || "").split("_")[0]
             }</div>`;
             //实际投入外资金额
-            let actual = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+            let actual = `<div style="height:0.09375rem;margin-top:0.065rem;color:#3E3E3E;font-size:0.072917rem">${
               (params.data.actual || "").split("_")[1]
             }</div>`;
             let actualCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
               (params.data.actual || "").split("_")[0]
             }</div>`;
-            let value = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+            let value = `<div style="margin-top:0.055rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
               !!params.data.value ?this.formatNum(params.data.value) : ""
             }</div>`;
             //金额比重
-            let proportion = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+            let proportion = `<div style="height:0.09375rem;margin-top:0.06rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
               (params.data.proportion || "").split("_")[1]
             }</div>`;
             let proportionCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
@@ -149,14 +149,14 @@ export default {
               letterSpacing: "10",
               formatter: params => {
                 let www = [
-                  `{a|${(params.data.actual || "").split("_")[1]}}`,
+                  `{d|${(params.data.actual || "").split("_")[1]}}`,
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
-                  `{a|${
+                  `{c|${
                     !!params.data.value
                       ? this.formatNum(params.data.value)
                       : ""
                   }}`,
-                  `{a|${(params.data.proportion || "").split("_")[1]}}`,
+                  `{d|${(params.data.proportion || "").split("_")[1]}}`,
                   `{a|${(params.data.proportion || "").split("_")[0]}}`,
                   `{c|${params.data.proportionValue}%}`
                 ];
@@ -183,8 +183,15 @@ export default {
                 c: {
                   color: "#FFF",
                   fontSize: this.$fz(0.18),
-                  lineHeight: this.$fz(0.2)
-                }
+                  lineHeight: this.$fz(0.28)
+                },
+                d: {
+                  color: "#FFF",
+                  fontSize: this.$fz(0.16),
+                  padding:[0,0,6,0]
+                  // margin:[this.$fz(0.5),0,0,0]
+                  // lineHeight: this.$fz(0.5)
+                },
               }
             },
             itemStyle: {
@@ -227,15 +234,15 @@ export default {
           }
         ],
         graphic: [
-           {
+            {
             type: "image",
-            left: that.$refs.treeMap.offsetWidth/3,
-            top: that.$refs.treeMap.offsetHeight/2.6 ,
+            left: that.$refs.treeMap.offsetWidth / 2.86,
+            top: that.$refs.treeMap.offsetHeight / 2.56,
             z: 9999,
             style: {
               image: require("../../assets/img/waterMark.png"),
-              width: that.$refs.treeMap.offsetWidth/2.8,
-              height: that.$refs.treeMap.offsetHeight/2.8
+              width: that.$refs.treeMap.offsetWidth / 3.33,
+              height: that.$refs.treeMap.offsetWidth / 4.55
             }
           },
           {
@@ -250,7 +257,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.en,
-                  font: `${this.$fz(0.26)}px Calibri bolder`
+                  font: `bold ${this.$fz(0.26)}px Calibri-Bold `,
                 }
               },
               {
@@ -261,7 +268,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.ch,
-                  font: `${this.$fz(0.19)}px 黑体`
+                  font: `bold ${this.$fz(0.18)}px SimHei`
                 }
               }
             ]
@@ -297,7 +304,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]
