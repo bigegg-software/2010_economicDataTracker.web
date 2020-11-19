@@ -189,13 +189,13 @@ export default {
         graphic: [
           {
             type: "image",
-            left: that.$refs.lineChart.offsetWidth / 3,
-            top: that.$refs.lineChart.offsetHeight / 2.6,
-            z: -1,
+            left: that.$refs.lineChart.offsetWidth / 2.86,
+            top: that.$refs.lineChart.offsetHeight / 2.56,
+            z: 9999,
             style: {
               image: require("../../assets/img/waterMark.png"),
-              width: that.$refs.lineChart.offsetWidth / 2.8,
-              height: that.$refs.lineChart.offsetHeight / 2.8
+              width: that.$refs.lineChart.offsetWidth / 3.33,
+              height: that.$refs.lineChart.offsetWidth / 4.55
             }
           },
           {
@@ -229,7 +229,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]
@@ -291,11 +291,11 @@ export default {
                 }</div>`;
               }
               if (params[i].seriesName.split("_")[0]) {
-                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#666;font-size:0.072917rem">${
+                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${
                   params[i].seriesName.split("_")[0]
                 }</div>`;
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+              c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                 !!params[i].value
                   ? this.formatNum(params[i].value) +
                     (params[i].seriesName.includes("占比") ||

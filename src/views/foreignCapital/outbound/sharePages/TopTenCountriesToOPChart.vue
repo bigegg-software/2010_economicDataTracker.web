@@ -137,7 +137,7 @@ export default {
         series: [
           {
             name:'新签合同额_Total value of new contract',
-            color: ["#0C9AFF"],
+            color: ["#71a6c2"],
             data: [],
             yearOnYear: []
           }

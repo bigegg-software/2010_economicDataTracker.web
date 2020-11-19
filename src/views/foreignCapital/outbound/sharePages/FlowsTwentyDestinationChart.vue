@@ -80,7 +80,7 @@ export default {
         series: [
           {
             // name:'存量_xxxxx',
-            color: ["#0C9AFF"],
+            color: ["#71a6c2"],
             data: []
           }
         ],

@@ -19,8 +19,8 @@
             :style="getCheckedStyle(item)"
             @click="change(item)"
           >
-            <div>{{ item.ch }}</div>
             <div>{{ item.en }}</div>
+            <div>{{ item.ch }}</div>
           </div>
         </div>
       </fade-in-out>
@@ -105,16 +105,24 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 0.09375rem;
       cursor: pointer;
       & div:first-child {
         margin-right: 0.052083rem;
       }
+      & div:last-child {
+        font-family: " SimHei ";
+        font-size: 0.083333rem;
+      }
     }
   }
   .label-block {
-    .label-row {
-      height: 0.104167rem;
-      line-height: 0.104167rem;
+    line-height: 0.104167rem;
+    font-size: 0.072917rem;
+    color: #666;
+    & div:first-child {
+      font-size: 0.09375rem;
+      font-family: Calibri;
     }
   }
   .select-block {
@@ -129,7 +137,7 @@ export default {
     border: 2px solid #ccc;
     border-radius: 0.026042rem;
     cursor: pointer;
-    background:#fff;
+    background: #fff;
     .text {
       display: flex;
       align-items: center;
