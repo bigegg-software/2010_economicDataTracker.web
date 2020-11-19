@@ -369,8 +369,8 @@ export default {
 
       let i = await this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      this.USD.series = [];
-      await this.mainGetChartsData("yearly");
+      // this.USD.series = [];
+      // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
       //搜索

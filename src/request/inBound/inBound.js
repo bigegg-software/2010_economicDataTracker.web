@@ -100,6 +100,7 @@ export default {
             item.show = true;
             return item;
         });
+        res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
         return res;
     },
     getInflowsChartsData: async function (params) {// 实际使用外资（实际使用外资）  折线图
