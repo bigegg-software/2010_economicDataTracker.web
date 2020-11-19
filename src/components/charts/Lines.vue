@@ -366,16 +366,16 @@ export default {
             nameTextStyle: {
               rich: {
                 div: {
-                  align: "left",
+                  align: "right",
                   color: "#666",
                   fontSize: this.$fz(0.18),
-                  padding: [2, 0, 0, -40]
+                  padding: [2, 60, 0, 0]
                 },
                 divch: {
-                  align: "left",
+                  align: "right",
                   color: "#666",
                   fontSize: this.$fz(0.14),
-                  padding: [2, 0, 0, -40]
+                  padding: [2, 60, 0,0]   
                 }
               }
             },
