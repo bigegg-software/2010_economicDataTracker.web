@@ -134,14 +134,7 @@ export default {
             symbol: "circle", //拐点样式
             symbolSize: 4, //拐点大小
             color: this.options.series[j].color,
-            name: this.options.spliceCon
-              ? this.options.series[j].name.split("_")[0] +
-                this.options.spliceCon.ch +
-                "_" +
-                this.options.series[j].name.split("_")[1] +
-                " " +
-                this.options.spliceCon.en
-              : this.options.series[j].name,
+            name: this.options.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: true,
@@ -162,6 +155,7 @@ export default {
             color: this.options.series[j].color
           }
         });
+        console.log(legend);
       }
 
       // 绘制图表
@@ -182,8 +176,8 @@ export default {
         },
         grid: {
           top: "23%",
-          left: "8%",
-          right: this.options.yearOnYear ? '6%' : '4%',
+          left: "8.4%",
+          right: this.options.yearOnYear ? "6%" : "4%",
           bottom: "11%"
         },
         graphic: [
@@ -279,31 +273,60 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            console.log(params);
             let a = "";
             let b = "";
             let c = "";
             let dom = `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            // c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+            //   !!params[i].value
+            //     ? this.formatNum(params[i].value) +
+            //       (params[i].seriesName.includes("占比") ||
+            //       params[i].seriesName.includes("同比")
+            //         ? "%"
+            //         : "")
+            //     : "-"
+            // }</div>`;
+
             for (let i = 0; i < params.length; i++) {
-              if (params[i].seriesName.split("_")[1]) {
-                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                  params[i].seriesName.split("_")[1]
+              if (
+                this.options.yearOnYear == false ||
+                this.options.yearOnYear == undefined ||
+                i % 2 == 0
+              ) {
+                if (params[i].seriesName.split("_")[1]) {
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                    params[i].seriesName.split("_")[1]
+                  }</div>`;
+                }
+                if (params[i].seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${
+                    params[i].seriesName.split("_")[0]
+                  }</div>`;
+                }
+                c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                  !!params[i].value ? this.formatNum(params[i].value) : "-"
+                }</div>`;
+              } else {
+                if (params[i].seriesName.split("_")[1]) {
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${params[
+                    i
+                  ].seriesName.split("_")[1] +
+                    " " +
+                    this.options.spliceCon.en}</div>`;
+                }
+                if (params[i].seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${params[
+                    i
+                  ].seriesName.split("_")[0] +
+                    this.options.spliceCon.ch}</div>`;
+                }
+                c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                  !!params[i].value
+                    ? this.formatNum(params[i].value) +
+                      (this.options.y2Name ? "" : "%")
+                    : "-"
                 }</div>`;
               }
-              if (params[i].seriesName.split("_")[0]) {
-                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${
-                  params[i].seriesName.split("_")[0]
-                }</div>`;
-              }
-              c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value
-                  ? this.formatNum(params[i].value) +
-                    (params[i].seriesName.includes("占比") ||
-                    params[i].seriesName.includes("同比")
-                      ? "%"
-                      : "")
-                  : "-"
-              }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;
@@ -335,9 +358,8 @@ export default {
         xAxis: {
           data: this.options.xData, // x轴
           axisLine: {
-            show: true,
             lineStyle: {
-              color: "#ccc",
+              color: "#8c8c8c",
               type: "solid"
             }
           },
@@ -364,18 +386,15 @@ export default {
               `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
+              align: "right",
+              padding: [0, 7, 0, 0],
+              color: "#666",
               rich: {
                 div: {
-                  align: "right",
-                  color: "#666",
-                  fontSize: this.$fz(0.18),
-                  padding: [2, 60, 0, 0]
+                  fontSize: this.$fz(0.18)
                 },
                 divch: {
-                  align: "right",
-                  color: "#666",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 60, 0,0]   
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -408,15 +427,19 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.options.y2Name ? `{div|${this.options.y2Name.ch}}` : "",
-              this.options.y2Name ? `{div|${this.options.y2Name.en}}` : ""
+              this.options.y2Name ? `{div|${this.options.y2Name.en}}` : "",
+              this.options.y2Name ? `{divch|${this.options.y2Name.ch}}` : ""
             ].join("\n"),
             nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, 7],
+              color: "#666",
               rich: {
                 div: {
-                  color: "#333",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.18)
+                },
+                divch: {
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -446,8 +469,8 @@ export default {
                     : " %"
                 }`, //右侧Y轴文字显示
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           }

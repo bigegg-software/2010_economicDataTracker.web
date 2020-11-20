@@ -121,6 +121,7 @@ export default {
       timer: null,
       showTimeFrame: false,
       chartBar: {
+        Yearonshow:true,//是否有左柱状图右折线图的展示          
         dataSources: BeltAndRoadInvestDescribe.dataSources,
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },

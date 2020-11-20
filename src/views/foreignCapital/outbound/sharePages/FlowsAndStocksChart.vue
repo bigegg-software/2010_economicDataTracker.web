@@ -73,7 +73,6 @@ export default {
         id: "USD",
         dataSources:outstocksDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国对外直接投资流量与存量",
           en: "China's outward FDI flows vs. Stocks"

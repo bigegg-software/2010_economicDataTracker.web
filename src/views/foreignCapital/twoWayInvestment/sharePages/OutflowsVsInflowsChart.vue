@@ -107,7 +107,6 @@ export default {
         id: "RMB",
         dataSources: OutflowsVsInflowsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         spliceCon: {
@@ -135,8 +134,7 @@ export default {
         id: "USD",
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         series: [
           {

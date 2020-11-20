@@ -101,7 +101,26 @@ export default {
         updatedDate: ""
       },
       timer: null,
-      randomColor: [],
+      randomColor: [
+        "#a65783",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#61a0a9",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
+      ],
       showTimeFrame: false,
       USD: {
         id: "USD",
@@ -180,7 +199,8 @@ export default {
     }
   },
   async created() {
-    this.randomColor = await chartDataFun.randomColor(221);
+    let rand = await chartDataFun.randomColor(203);
+    this.randomColor= [...this.randomColor,...rand];
     await this.getAllCountryName();
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");

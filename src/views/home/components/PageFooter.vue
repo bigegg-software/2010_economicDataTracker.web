@@ -5,7 +5,7 @@
     <div>
       Registration Number: 130349
       <img style="width:0.17rem;heigth:0.17rem" src="../../../assets/img/a-2.jpg" alt />
-      <img src="http://cn.chinadaily.com.cn/image/2017/gwab.png" alt />
+      <img src="../../../assets/img/gwab.png" alt />
       京公网安备 11010502032503号
     </div>
     <div>
