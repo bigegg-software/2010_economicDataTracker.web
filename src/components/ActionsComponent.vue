@@ -51,7 +51,7 @@
         </fade-in-out>
       </div>
     </template>
-    <a-modal v-model="visible" title="请使用微信扫描下方二维码" footer >
+    <a-modal v-model="visible" title="请使用微信扫描下方二维码" footer>
       <div id="qrcodeMark"></div>
     </a-modal>
   </div>
@@ -124,7 +124,7 @@ export default {
       window.open(
         //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
-          encodeURIComponent(window.location.href)
+          encodeURIComponent(window.location.href) 
       );
     },
     //分享到 facebook
@@ -185,11 +185,11 @@ export default {
   justify-content: center;
   align-items: center;
 }
-/deep/ .ant-modal-title{
-   font-size: 0.09375rem;
+/deep/ .ant-modal-title {
+  font-size: 0.09375rem;
 }
-/deep/ .ant-modal-close{
-   font-size: 0.083333rem;
+/deep/ .ant-modal-close {
+  font-size: 0.083333rem;
 }
 .actions-block {
   position: relative;

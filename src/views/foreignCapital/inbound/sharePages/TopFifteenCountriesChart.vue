@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
+import { MajorForeignInvestorsDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -38,12 +38,12 @@ export default {
   name: "topFifteenCountriesChart",
   data() {
     return {
-       totalData: {
+      totalData: {
         title: {
           ch: "国家/地区对华投资比重",
           en: "Proportion of national and regional investment in China"
         },
-        unit:{
+        unit: {
           ch: "百万美元",
           en: "USD min"
         },
@@ -59,22 +59,22 @@ export default {
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
             width: "10%",
-            formatNum:true
+            formatNum: true
           },
           enterprisePercent: {
             text: "比重_Share of foreign investment enterprises",
             width: "20%",
-            formatPer:true
+            formatPer: true
           },
-          FDIInflowsMillion:{
+          FDIInflowsMillion: {
             text: "实际投入外资金额_FDI inflows to China",
             width: "20%",
-            formatNum:true
+            formatNum: true
           },
-          inflowsPercent:{
+          inflowsPercent: {
             text: "比重_Share of total FDI inflows to China",
             width: "10%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -83,7 +83,8 @@ export default {
       showTimeFrame: false,
       chartBar: {
         watermark: false,
-        unit2Symbol:'',
+        Yearonshow:true,//是否有左柱状图右折线图的展示
+        unit2Symbol: "",
         yearOnYear: false, //通过修改这个值来显示同比
         dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
@@ -95,20 +96,21 @@ export default {
         xData: [
           // "蒙古\nMongolia"
         ],
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'企业数',
-          en:'XXX'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "企业数",
+          en: "XXX"
         },
         hideLegend:true,
         series: [
           {
-            name:'投资金额_xxxxx',
+            name: "投资金额_xxxxx",
             color: ["#71a6c2"],
             data: [],
-            yearOnYear:[]
+            yearOnYear: []
           }
         ],
-        updatedDate:""
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -131,19 +133,22 @@ export default {
       default: false
     }
   },
-    computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -157,15 +162,15 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.option.value=arrmaxmin[1];
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
       descending: "inflowsPercent", //比重降序
       limit: 15,
       year: Number(arrmaxmin[1])
     });
   },
-    
-  components: { ChartBar, Year,CheckBox,TableChart },
+
+  components: { ChartBar, Year, CheckBox, TableChart },
   methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -177,15 +182,15 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getTopFifteenCountriesChart(aug);
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let FDIInflows = [];
       let FDIInflowsYOY = [];
       res.forEach(item => {
-        console.log(item)
-        Xname.push(item.countryEn+'\n'+item.country);
+        console.log(item);
+        Xname.push(item.countryEn + "\n" + item.country);
         FDIInflows.push(item.FDIInflowsMillion);
         FDIInflowsYOY.push(item.enterpriseNumber);
       });
@@ -201,13 +206,13 @@ export default {
         year: Number(year)
       });
     },
-     // 复选框
+    // 复选框
     changeSelect(index) {
       this.status[index].checked = !this.status[index].checked;
       if (index == 0) {
         this.status[index].checked
-          ? this.chartBar.yearOnYear=true
-          : this.chartBar.yearOnYear=false
+          ? (this.chartBar.yearOnYear = true)
+          : (this.chartBar.yearOnYear = false);
       }
     }
   }
@@ -240,7 +245,7 @@ export default {
     }
   }
   .select-block {
-       width: 1.74667rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
@@ -251,7 +256,7 @@ export default {
     }
     .status {
       padding: 0.104167rem;
-      .checkbox{
+      .checkbox {
         padding: 0;
       }
     }

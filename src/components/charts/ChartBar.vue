@@ -323,7 +323,11 @@ export default {
         grid: {
           top: this.chartBarData.grid ? this.chartBarData.grid.top : "23%",
           left: this.chartBarData.left ? this.chartBarData.grid.left : "3%",
-          right: this.chartBarData.right ? this.chartBarData.grid.right : "4%",
+          right: this.chartBarData.Yearonshow
+            ? this.chartBarData.yearOnYear
+              ? "3%"
+              : "-2%"
+            : "4%",
           bottom: this.chartBarData.bottom
             ? this.chartBarData.grid.bottom
             : "10%",
@@ -365,18 +369,15 @@ export default {
               `{div|${this.chartBarData.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
+              align: "right",
+              padding: [0, 7, 0, 0],
+              color: "#666",
               rich: {
                 diven: {
-                  align: "left",
-                  color: "#666",
-                  fontSize: this.$fz(0.18),
-                  padding: [2, 0, 0, -40]
+                  fontSize: this.$fz(0.18)
                 },
                 div: {
-                  align: "left",
-                  color: "#666",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0, 0, -40]
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -396,8 +397,8 @@ export default {
             axisLabel: {
               show: true,
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           },
@@ -417,16 +418,15 @@ export default {
                 : ""
             ].join("\n"),
             nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, 7],
+              color: "#666",
               rich: {
                 div: {
-                  color: "#666",
-                  fontSize: this.$fz(0.18),
-                  padding: [2, 0, 2, 40]
+                  fontSize: this.$fz(0.18)
                 },
                 divch: {
-                  color: "#666",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0, 2, 25]
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -457,8 +457,8 @@ export default {
                     : " %"
                 }`, //右侧Y轴文字显示
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           }

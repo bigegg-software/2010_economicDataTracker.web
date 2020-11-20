@@ -83,7 +83,6 @@ export default {
         dataSources: internationalLaborDescribe.dataSources,
         id: "person",
         yName: { ch: "万人", en: "xxxxxx" },
-        yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         series: [

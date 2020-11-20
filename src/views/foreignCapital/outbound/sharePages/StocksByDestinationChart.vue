@@ -104,8 +104,7 @@ export default {
         id: "USD",
         dataSources: outstocksByDestinationDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //通过修改这个值来显示同比
-        title: {
+         title: {
           ch: "中国对外直接投资流量按国家和地区统计",
           en: "China’s FDI outflows by destination"
         },
