@@ -43,6 +43,8 @@ export default {
           //   "China's investment in " +
           //   this.selectOption.value.en +
           //   " by industry"
+          ch:'',
+          en:''
         },
         unit: {
           ch: "百万美元",
@@ -96,8 +98,8 @@ export default {
         dataSources: outflowsByIndustryDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国对中国香港直接投资的主要行业",
-          subtext: "China's investment in Hong Kong, China by industry"
+          text: "",
+          subtext: ""
         },
         xData: [2020],
         series: [
@@ -180,6 +182,20 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+      },
+      deep:true
+    },
+    selectOption:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+      },
+      deep:true
     }
   },
   async created() {
@@ -246,11 +262,6 @@ export default {
         },
         year: Number(this.option.value)
       });
-      this.chartBar.title = {
-        text: "中国对" + this.selectOption.value.ch + "直接投资的主要行业",
-        subtext:
-          "China's investment in " + this.selectOption.value.en + " by industry"
-      };
     }
   }
 };

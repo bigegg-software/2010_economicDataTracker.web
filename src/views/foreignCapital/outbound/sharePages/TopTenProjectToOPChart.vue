@@ -72,6 +72,15 @@ export default {
       default: false
     }
   },
+  watch:{
+    option:{
+      handler() {
+          this.totalData.title.ch=`${this.option.value}中国年度对外承包工程新签合同额前十项目`;
+          this.totalData.title.en=`${this.option.value} China's top 10 overseas project by contract value`;
+      },
+      deep:true
+    },
+  },
   mounted() {},
   async created() {
     let res = await this.getMaxMinDate();

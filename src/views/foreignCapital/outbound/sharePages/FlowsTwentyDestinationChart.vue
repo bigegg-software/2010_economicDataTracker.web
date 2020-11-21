@@ -118,8 +118,8 @@ export default {
     },
     option:{
       handler() {
-          this.chartBar.title.subtext=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资流量历年前20位国家`;
-          this.chartBar.title.text=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI outflows`;
+          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资流量历年前20位国家`;
+          this.chartBar.title.subtext=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI outflows`;
       },
       deep:true
     },

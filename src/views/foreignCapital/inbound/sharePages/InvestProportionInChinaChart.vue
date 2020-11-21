@@ -39,8 +39,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "国家/地区对华投资比重",
-          en: "Proportion of national and regional investment in China"
+          ch: "",
+          en: ""
         },
         tableTitle: {
           year: {
@@ -83,8 +83,8 @@ export default {
       totalDatas: {
         dataSources: MajorForeignInvestorsDescribe.dataSources,
         title: {
-          ch: "按各洲内国家/地区统计",
-          en: "Statistics by continent country / Region"
+          ch: "",
+          en: ""
         },
         yName: {
           ch: "百万美元",
@@ -120,6 +120,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年国家/地区对华投资比重`;
+          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} Proportion of national and regional investment in China`;
+      },
+      deep:true
     }
   },
   mounted() {

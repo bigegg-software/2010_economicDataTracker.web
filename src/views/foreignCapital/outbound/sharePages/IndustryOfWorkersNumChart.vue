@@ -37,8 +37,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "年度派出人数主要行业",
-          en: "Overseas workers by industry"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "万人",
@@ -78,8 +78,8 @@ export default {
       totalDatas: {
         dataSources: internationalLaborDescribe.dataSources,
         title: {
-          ch: "年度派出人数主要行业",
-          en: "Overseas workers by industry"
+          ch: "",
+          en: ""
         },
         seriesData: [
           // {
@@ -114,6 +114,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年年度派出人数主要行业`;
+          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} Overseas workers by industry`;
+      },
+      deep:true
     }
   },
   mounted() {

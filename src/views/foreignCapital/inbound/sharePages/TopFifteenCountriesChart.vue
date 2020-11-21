@@ -40,8 +40,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "国家/地区对华投资比重",
-          en: "Proportion of national and regional investment in China"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -90,8 +90,8 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         y2Name: { ch: "家", en: "Enterprise" },
         title: {
-          text: "前15位国家/地区",
-          subtext: "XXXXXXXXXX"
+          text: "",
+          subtext: ""
         },
         grid:{
           top:"23%",
@@ -153,6 +153,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位国家/地区`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Top 15 investors`;
+      },
+      deep:true
     }
   },
   mounted() {

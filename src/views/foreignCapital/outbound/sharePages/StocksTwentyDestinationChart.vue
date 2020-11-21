@@ -30,8 +30,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "中国对外直接投资存量历年前20位国家",
-          en: "Top 20 destinations of China's FDI stocks"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -73,8 +73,8 @@ export default {
         dataSources:outstocksByDestinationDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国对外直接投资存量历年前20位国家",
-          subtext: "Top 20 destinations of China's FDI stocks"
+          text: "",
+          subtext: ""
         },
         xData: [],
         series: [
@@ -125,6 +125,13 @@ export default {
         this.$set(this.tableTotalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}中国对外直接投资存量历年前20位国家`;
+          this.chartBar.title.subtext=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI stocks`;
+      },
+      deep:true
     }
   },
   mounted() {

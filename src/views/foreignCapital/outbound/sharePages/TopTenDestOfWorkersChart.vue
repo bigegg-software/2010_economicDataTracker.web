@@ -31,8 +31,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "万人",
@@ -115,6 +115,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年年度派出各类劳务人员前10位目的地国家`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Top 10 destinations of workers sent overseas`;
+      },
+      deep:true
     }
   },
   components: { ChartBar, Year, TableChart },
