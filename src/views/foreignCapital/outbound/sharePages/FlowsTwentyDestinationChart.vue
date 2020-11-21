@@ -30,8 +30,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "中国对外直接投资流量历年前20位国家",
-          en: "Top 20 destinations of China's FDI outflows"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -73,8 +73,8 @@ export default {
         dataSources: outflowsByDestinationDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国对外直接投资流量历年前20位国家",
-          subtext: "Top 20 destinations of China's FDI outflows"
+          text: "",
+          subtext: ""
         },
         xData: [],
         series: [
@@ -115,7 +115,14 @@ export default {
         this.$set(this.tableTotalData, "tableData", resoult);
       },
       deep: true
-    }
+    },
+    option:{
+      handler() {
+          this.chartBar.title.subtext=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资流量历年前20位国家`;
+          this.chartBar.title.text=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI outflows`;
+      },
+      deep:true
+    },
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
