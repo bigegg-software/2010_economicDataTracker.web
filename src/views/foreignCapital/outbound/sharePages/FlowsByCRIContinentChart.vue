@@ -154,7 +154,7 @@ export default {
       deep: true
     },
     option:{
-      handler() {中国对外直接投资流量按各州内国家/地区统计
+      handler() {
           this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
           this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
       },
