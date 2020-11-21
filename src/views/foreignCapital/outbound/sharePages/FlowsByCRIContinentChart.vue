@@ -45,8 +45,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "按各洲内国家/地区统计",
-          en: "By country/region within a continent"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -78,8 +78,8 @@ export default {
       totalData: {
         dataSources: outflowsByDestinationDescribe.dataSources,
         title: {
-          ch: "按各洲内国家/地区统计",
-          en: "Statistics by continent country / Region"
+          ch: "",
+          en: ""
         },
         yName: {
           ch: "百万美元",
@@ -102,7 +102,7 @@ export default {
         en: "Continent",
         value: {
           ch: "亚洲",
-          en: "yazhou"
+          en: "Asia"
         },
         op: [
           {
@@ -152,6 +152,20 @@ export default {
         this.$set(this.tableTotalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
+    },
+    selectOption:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
     }
   },
   mounted() {
