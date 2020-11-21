@@ -31,8 +31,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "12月末在外各类劳务人员前10位国家",
-          en: "Year-end number of workers in top 10 destinations"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "万人",
@@ -68,8 +68,8 @@ export default {
         dataSources: internationalLaborDescribe.dataSources,
         yName: { ch: "万人", en: "XXX" },
         title: {
-          text: "12月末在外各类劳务人员前10位国家",
-          subtext: "Year-end number of workers in top 10 destinations"
+          text: "",
+          subtext: ""
         },
         xData: [],
         series: [
@@ -111,6 +111,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年12月末在外各类劳务人员前10位国家`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Year-end number of workers in top 10 destinations`;
+      },
+      deep:true
     }
   },
   mounted() {

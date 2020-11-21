@@ -45,8 +45,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "中国对外直接投资存量按各洲内国家/地区统计",
-          en: "China's FDI stocks by country/region within a continent"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -78,8 +78,8 @@ export default {
       totalData: {
         dataSources: outstocksByDestinationDescribe.dataSources,
         title: {
-          ch: "中国对外直接投资存量按各洲内国家/地区统计",
-          en: "China's FDI stocks by country/region within a continent"
+          ch: "",
+          en: ""
         },
         yName: {
           ch: "百万美元",
@@ -152,6 +152,20 @@ export default {
         this.$set(this.tableTotalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
+    },
+    selectOption:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
     }
   },
   mounted() {
