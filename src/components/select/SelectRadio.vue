@@ -88,7 +88,7 @@ export default {
     position: absolute;
     right: 0px;
     top: 0.229167rem;
-    width: ceil(170%);
+    // width: ceil(170%);//显示不全
     height: 1.09375rem;
     overflow: auto;
     border-radius: 0.026042rem;
@@ -99,10 +99,11 @@ export default {
     }
     .drop-down-item {
       display: flex;
-      align-items: center;
+      flex-flow: column nowrap;
+      // align-items: center;
       width: 100%;
-      padding: 6px 10px;
-      overflow: hidden;
+      padding: 0.01rem 0.052083rem;
+      // overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: 0.09375rem;
@@ -111,8 +112,10 @@ export default {
         margin-right: 0.052083rem;
       }
       & div:last-child {
-        font-family: " SimHei ";
-        font-size: 0.083333rem;
+        // font-family: " SimHei ";
+        font-size: 0.072917rem;
+        margin-top: -0.06rem;
+
       }
     }
   }
@@ -134,7 +137,7 @@ export default {
     height: 0.197917rem;
     line-height: 0.197917rem;
     padding: 0 0.052083rem;
-    border: 2px solid #ccc;
+    border: 1px solid #cacaca;
     border-radius: 0.026042rem;
     cursor: pointer;
     background: #fff;

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {internationalLaborDescribe} from '@/utils/describe.js'
+import { internationalLaborDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -51,13 +51,13 @@ export default {
           variousTypesPerNumMillion: {
             text: "12月末在外各类劳务人员人数_Total number of workers overseas",
             width: "25%",
-            formatNum:true
+            formatNum: true
           },
           destinationPercent: {
             text:
               "12月末在外各类劳务人员比重_Share of total number of workers by destinations",
             width: "25%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -70,6 +70,10 @@ export default {
         title: {
           text: "",
           subtext: ""
+        },
+        grid: {
+          top: "23%",
+          left: "4%"
         },
         xData: [],
         series: [
@@ -112,12 +116,12 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年12月末在外各类劳务人员前10位国家`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Year-end number of workers in top 10 destinations`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年12月末在外各类劳务人员前10位国家`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} Year-end number of workers in top 10 destinations`;
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -155,13 +159,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getLaborServiceTop10AnnualRankChart(aug);
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 年度派出各类劳务人员人数
       let variousTypesPerNum = [];
       res.forEach(item => {
-        Xname.push(item.destinationEn+'\n'+item.destinations);
+        Xname.push(item.destinationEn + "\n" + item.destinations);
         variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;

@@ -125,7 +125,8 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         grid: {
           //图表上下左右的padding
-          top: "40%"
+          top: "40%",
+          left:"3%"
         },
         title: {
           text: "实际使用外资金额",

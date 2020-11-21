@@ -95,7 +95,7 @@ export default {
         },
         grid:{
           top:"23%",
-          left:"2%"
+          left:"1%"
         },
         xData: [
           // "蒙古\nMongolia"

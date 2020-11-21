@@ -73,9 +73,10 @@ export default {
           subtext: "Top 10 destinations of workers sent overseas"
         },
         xData: [],
-        // grid:{
-
-        // },
+        grid:{
+          top:"23%",
+          left:"5%"
+        },
         series: [
           {
             // name:'存量_xxxxx',

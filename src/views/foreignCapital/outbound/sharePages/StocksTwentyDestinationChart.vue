@@ -76,6 +76,10 @@ export default {
           text: "",
           subtext: ""
         },
+        grid:{
+          top:"23%",
+          left:"1%"
+        },
         xData: [],
         series: [
           {

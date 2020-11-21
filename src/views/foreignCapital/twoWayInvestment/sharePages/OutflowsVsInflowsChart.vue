@@ -74,7 +74,7 @@ export default {
       totalData: {
         title: {
           ch: "双向直接投资",
-          en: "xxx"
+          en: "China's FDI outflows vs. inflows"
         },
         unit: {
           ch: "百万美元",

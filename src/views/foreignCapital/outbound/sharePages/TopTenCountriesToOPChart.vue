@@ -29,7 +29,7 @@
         ></check-box>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>

@@ -391,7 +391,7 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, 0, 0, -60],
+              padding: [0, 0, 0, -67],
               color: "#666",
               rich: {
                 div: {
