@@ -31,7 +31,7 @@ export default {
       tableTotalData: {
         title: {
           ch: "中国对外直接投资流量历年前20位国家",
-          en: "Top 20 destinations of China's FDI flows"
+          en: "Top 20 destinations of China's FDI outflows"
         },
         unit: {
           ch: "百万美元",
@@ -74,7 +74,7 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           text: "中国对外直接投资流量历年前20位国家",
-          subtext: "Top 20 destinations of China's FDI outflow"
+          subtext: "Top 20 destinations of China's FDI outflows"
         },
         xData: [],
         series: [

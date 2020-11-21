@@ -88,7 +88,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        y2Name: { ch: "家", en: "xxxx" },
+        y2Name: { ch: "家", en: "Enterprise" },
         title: {
           text: "前15位国家/地区",
           subtext: "XXXXXXXXXX"
@@ -99,7 +99,7 @@ export default {
         spliceCon: {
           // toolTip里面插入同比和同比英文
           ch: "企业数",
-          en: "XXX"
+          en: "Number of enterprises"
         },
         hideLegend:true,
         series: [
@@ -122,7 +122,7 @@ export default {
         {
           checked: false,
           ch: "企业数",
-          en: "xxx"
+          en: "Number of enterprises"
         }
       ]
     };

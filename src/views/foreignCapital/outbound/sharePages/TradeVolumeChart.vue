@@ -41,12 +41,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "派出人数",
-          en: "Total trade volume"
+          ch: "中国对外劳务合作派出人数",
+          en: "Number of workers sent overseas"
         },
         unit: {
           ch: "万人",
-          en: "xxx"
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {
@@ -82,8 +82,8 @@ export default {
       Person: {
         dataSources: internationalLaborDescribe.dataSources,
         id: "person",
-        yName: { ch: "万人", en: "xxxxxx" },
-        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+        yName: { ch: "万人", en: "10,000 persons" },
+        title: { ch: "中国对外劳务合作派出人数", en: "Number of workers sent overseas" },
         xData: [],
         series: [
           {

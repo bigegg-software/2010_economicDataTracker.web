@@ -48,8 +48,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "前十国别（市场）",
-          en: "xxx"
+          ch: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          en: "Top 10 market of China's overseas projects by revenue"
         },
         unit: {
           ch: "百万美元",
@@ -84,8 +84,8 @@ export default {
       },
       totalData2: {
         title: {
-          ch: "前十国别（市场）",
-          en: "xxx"
+          ch: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          en: "Top 10 market of China's overseas projects by revenue"
         },
         unit: {
           ch: "百万美元",
@@ -126,8 +126,8 @@ export default {
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "新签合同额",
-          subtext: "Total value of new contract"
+          text: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          subtext: "Top 10 market of China's overseas projects by revenue"
         },
         xData: [],
         hideLegend:true,

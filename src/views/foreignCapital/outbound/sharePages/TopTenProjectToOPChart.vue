@@ -26,8 +26,8 @@ export default {
       showTimeFrame: false,
       totalData: {
         title: {
-          ch: "前十项目",
-          en: "XXXXXXXXXXXXXXXXXXXXX"
+          ch: "中国年度对外承包工程新签合同额前十项目",
+          en: "China's top 10 overseas project by contract value"
         },
         tableTitle: {
           rank: {

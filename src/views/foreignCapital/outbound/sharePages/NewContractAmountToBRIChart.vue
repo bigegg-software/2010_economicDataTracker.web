@@ -50,8 +50,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "新签合同额",
-          en: "Total value of new contract"
+          ch: "中国企业在“一带一路”沿线国家新签合同额",
+          en: "Total value of new contract signed by Chinese enterprises in BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -87,12 +87,12 @@ export default {
         dataSources: outflowsBeltAndRoadDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签合同额", en: "Total value of new contract" },
+        title: { ch: "中国企业在“一带一路”沿线国家新签合同额", en: "Total value of new contract signed by Chinese enterprises in BRI countries" },
         xData: [],
         hideLegend: true,
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'同比',
-          en:'year on year'
+          en:'Y-o-y'
         },
         series: [
           {

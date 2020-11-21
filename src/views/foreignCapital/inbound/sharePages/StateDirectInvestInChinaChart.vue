@@ -60,8 +60,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "国家/地区对华投资比重",
-          en: "Proportion of national and regional investment in China"
+          ch: "部分国家/地区对华直接投资",
+          en: "China's FDI inflows by major country/region"
         },
         tableTitle: {
           year: {
@@ -129,11 +129,11 @@ export default {
         y2Name: { ch: "家", en: "xxxx" },
         unit2Symbol: "",
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "年度部分国家/地区对华直接投资", en: "xxxxxxxxxxx" },
+        title: { ch: "部分国家/地区对华直接投资", en: "China's FDI inflows by major country/region" },
         xData: [],
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'企业数',
-          en:'XXX'
+          en:'Number of enterprises'
         },
         series: [],
         updatedDate: ""
@@ -142,7 +142,7 @@ export default {
         {
           checked: false,
           ch: "企业数",
-          en: "xxx"
+          en: "Number of enterprises"
         }
       ],
       result: [],

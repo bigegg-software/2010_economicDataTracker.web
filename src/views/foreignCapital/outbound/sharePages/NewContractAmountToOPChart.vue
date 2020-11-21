@@ -53,8 +53,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "新签合同额",
-          en: "Total value of new contract"
+          ch: "中国对外承包工程新签合同额",
+          en: "Total value of new contract from China's overseas projects"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -101,7 +101,7 @@ export default {
         dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签合同额", en: "Total value of new contract" },
+        title: { ch: "中国对外承包工程新签合同额", en: "Total value of new contract from China's overseas projects" },
         xData: [],
         hideLegend: true,
         spliceCon:{// toolTip里面插入同比和同比英文
@@ -123,7 +123,7 @@ export default {
         dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签合同额", en: "Total value of new contract" },
+        title: { ch: "中国对外承包工程新签合同额", en: "Total value of new contract from China's overseas projects" },
         xData: [],
         hideLegend: true,
         spliceCon:{// toolTip里面插入同比和同比英文

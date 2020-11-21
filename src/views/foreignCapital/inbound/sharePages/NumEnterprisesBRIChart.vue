@@ -52,12 +52,12 @@ export default {
     return {
           totalData: {
         title: {
-          ch: "企业数",
-          en: "Number of enterprises"
+          ch: "“一带一路”沿线国家对华投资企业数",
+          en: "Number of enterprises from BRI countries investing in China"
         },
         unit:{
           ch: "家",
-          en: "xxx"
+          en: "Enterprise"
         },
         tableTitle: {
           year: {
@@ -83,14 +83,14 @@ export default {
       USD: {
         id: "USD",
         dataSources: BeltAndRoadInvestDescribe.dataSources,
-        yName: { ch: "家", en: "XXXX" },
+        yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "企业数", en: "XXXXXXXX" },
+        title: { ch: "“一带一路”沿线国家对华投资企业数", en: "Number of enterprises from BRI countries investing in China" },
         xData: [],
         hideLegend: true,
         spliceCon:{// toolTip里面插入占比和占比英文
-          ch:'占比',
-          en:'xxxxx'
+          ch:'占外资企业比重',
+          en:'Share of total number of oreign enterprises'
         },
         series: [
           {
@@ -105,8 +105,8 @@ export default {
       status: [
         {
           checked: false,
-          ch: "占比",
-          en: "XXXXXXX"
+          ch: "占外资企业比重",
+          en: "Share of total number of oreign enterprises"
         }
       ],
       options: {

@@ -155,9 +155,9 @@ export default {
       res.forEach((item, index) => {
         this.$set(this.totalDatas.seriesData.data, index, {
           name: item.country + "_"+item.countryEn,
-          actual: "实际投入外资金额_XXXXXXXXXXXXXXXX",
+          actual: "实际投入外资金额_FDI inflows",
           value: item.FDIInflowsMillion,
-          proportion: "金额比重_QQQQQQQQQ",
+          proportion: "金额比重_Share of China's FDI inflows",
           proportionValue: (item.inflowsPercent).toFixed(1)
         });
       });

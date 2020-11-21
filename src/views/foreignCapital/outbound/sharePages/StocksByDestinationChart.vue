@@ -49,8 +49,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "按国家和地区统计",
-          en: "China’s FDI stocks by destination"
+          ch: "中国对外直接投资存量按国家/地区统计",
+          en: "China's FDI stocks by destination"
         },
         unit: {
           ch: "百万美元",
@@ -105,8 +105,8 @@ export default {
         dataSources: outstocksByDestinationDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
          title: {
-          ch: "中国对外直接投资流量按国家和地区统计",
-          en: "China’s FDI outflows by destination"
+          ch: "中国对外直接投资存量按国家/地区统计",
+          en: "China's FDI stocks by destination"
         },
         xData: [],
         series: [],

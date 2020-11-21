@@ -50,8 +50,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          ch: "中国企业在“一带一路”沿线国家完成营业额",
+          en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
         },
         tableTitle: {
           year: {
@@ -84,8 +84,8 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth"
+          ch: "中国企业在“一带一路”沿线国家完成营业额",
+          en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
         },
         xData: [],
         hideLegend: true,

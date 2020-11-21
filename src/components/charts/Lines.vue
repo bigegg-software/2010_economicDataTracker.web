@@ -299,28 +299,27 @@ export default {
                   }</div>`;
                 }
                 if (params[i].seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.05rem;color:#666;font-size:0.072917rem">${
                     params[i].seriesName.split("_")[0]
                   }</div>`;
                 }
-                c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                c = `<div style="padding:0.08rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                   !!params[i].value ? this.formatNum(params[i].value) : "-"
                 }</div>`;
               } else {
                 if (params[i].seriesName.split("_")[1]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${params[
-                    i
-                  ].seriesName.split("_")[1] +
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
+                    .options.spliceCon.en +
                     " " +
-                    this.options.spliceCon.en}</div>`;
+                    params[i].seriesName.split("_")[1]}</div>`; 
                 }
                 if (params[i].seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.01rem;color:#666;font-size:0.072917rem">${params[
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.05rem;color:#666;font-size:0.072917rem">${params[
                     i
                   ].seriesName.split("_")[0] +
                     this.options.spliceCon.ch}</div>`;
                 }
-                c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                c = `<div style="padding:0.08rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                   !!params[i].value
                     ? this.formatNum(params[i].value) +
                       (this.options.y2Name ? "" : "%")

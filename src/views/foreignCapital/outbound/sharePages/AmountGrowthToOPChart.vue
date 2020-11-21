@@ -56,8 +56,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth"
+          ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -105,8 +105,8 @@ export default {
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth "
+          ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
         },
         xData: [],
         hideLegend: true,
@@ -131,8 +131,8 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth "
+           ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
         },
         xData: [],
         hideLegend: true,

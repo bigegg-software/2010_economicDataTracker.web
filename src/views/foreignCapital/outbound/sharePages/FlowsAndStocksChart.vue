@@ -81,12 +81,12 @@ export default {
         series: [
           {
             name:
-              "对外直接投资流量（FDI流出）_Outward FDI flows (FDI outflows)",
+              "对外直接投资流量_FDI outflows",
             color: "#6AA3CD",
             data: []
           },
           {
-            name: "中国对外直接投资存量_China’s FDI stocks",
+            name: "对外直接投资存量_Outward FDI stocks",
             color: "#FF3F3F",
             data: []
           }

@@ -45,8 +45,8 @@ export default {
     return {
       tableTotalData: {
         title: {
-          ch: "按各洲内国家/地区统计",
-          en: "By country/region within a continent"
+          ch: "中国对外直接投资存量按各洲内国家/地区统计",
+          en: "China's FDI stocks by country/region within a continent"
         },
         unit: {
           ch: "百万美元",
@@ -78,8 +78,8 @@ export default {
       totalData: {
         dataSources: outstocksByDestinationDescribe.dataSources,
         title: {
-          ch: "按各洲内国家/地区统计",
-          en: "Statistics by continent country / Region"
+          ch: "中国对外直接投资存量按各洲内国家/地区统计",
+          en: "China's FDI stocks by country/region within a continent"
         },
         yName: {
           ch: "百万美元",

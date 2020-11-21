@@ -50,7 +50,7 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对“一带一路”沿线国家非金融类直接投资情况",
+          ch: "中国对“一带一路”沿线国家非金融类直接投资",
           en: "China’s non-financial FDI outflows to BRI countries"
         },
         unit: {
@@ -87,20 +87,20 @@ export default {
         id: "USD",
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'同比',
-          en:'year on year'
+          en:'Y-o-y'
         },
         dataSources: outflowsBeltAndRoadDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "11中国对”一带一路“沿线国家非金融类直接投资",
+          ch: "中国对“一带一路”沿线国家非金融类直接投资",
           en: "China's non-financial FDI outflows to BRI countires"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "投资金额_xxx",
+            name: "投资金额_FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []

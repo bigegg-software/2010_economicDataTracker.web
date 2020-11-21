@@ -51,8 +51,8 @@ export default {
     return {
        totalData: {
         title: {
-          ch: "实际投入外资",
-          en: "Actual foreign investment"
+          ch: "实际投入外资金额",
+          en: "Foreign investment from BRI countries"
         },
         unit:{
           ch: "百万美元",
@@ -84,12 +84,12 @@ export default {
         dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "实际投入外资金额", en: "XXXXXXXX" },
+        title: { ch: "实际投入外资金额", en: "Foreign investment from BRI countries" },
         xData: [],
         hideLegend: true,
         spliceCon:{// toolTip里面插入占比和占比英文
           ch:'占比',
-          en:'xxxxx'
+          en:'Share of total number of oreign enterprises'
         },
         series: [
           {
@@ -104,8 +104,8 @@ export default {
       status: [
         {
           checked: false,
-          ch: "占比",
-          en: "XXXXXXX"
+          ch: "占外资企业比重",
+          en: "Share of total number of oreign enterprises"
         }
       ],
       options: {

@@ -38,8 +38,11 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对主要经济体投资按行业统计",
-          en: "XXXXXXXXXXX"
+          // ch: "中国对" + this.selectOption.value.ch + "直接投资的主要行业",
+          // en:
+          //   "China's investment in " +
+          //   this.selectOption.value.en +
+          //   " by industry"
         },
         unit: {
           ch: "百万美元",
@@ -93,8 +96,8 @@ export default {
         dataSources: outflowsByIndustryDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国对东盟直接投资的主要行业",
-          subtext: "XXXXXXXXXXXXXXXXXXXXXX"
+          text: "中国对中国香港直接投资的主要行业",
+          subtext: "China's investment in Hong Kong, China by industry"
         },
         xData: [2020],
         series: [
@@ -114,42 +117,42 @@ export default {
       },
       selectOption: {
         ch: "经济体",
-        en: "Xxxxxx",
+        en: "Economies",
         value: {
           id: 1,
           ch: "中国香港",
-          en: "aaaaa"
+          en: "Hong Kong, China"
         },
         op: [
           {
             id: 1,
             ch: "中国香港",
-            en: "aaaaa"
+            en: "Hong Kong, China"
           },
           {
             id: 2,
             ch: "东盟",
-            en: "bbb"
+            en: "ASEAN"
           },
           {
             id: 3,
             ch: "欧盟",
-            en: "ccc"
+            en: "European Union"
           },
           {
             id: 4,
             ch: "美国",
-            en: "ddd"
+            en: "United States"
           },
           {
             id: 5,
             ch: "澳大利亚",
-            en: "eee"
+            en: "Australia"
           },
           {
             id: 6,
             ch: "俄罗斯联邦",
-            en: "fff"
+            en: "Russia"
           }
         ]
       }
@@ -244,8 +247,9 @@ export default {
         year: Number(this.option.value)
       });
       this.chartBar.title = {
-        text: this.selectOption.value.ch,
-        subtext: this.selectOption.value.en
+        text: "中国对" + this.selectOption.value.ch + "直接投资的主要行业",
+        subtext:
+          "China's investment in " + this.selectOption.value.en + " by industry"
       };
     }
   }

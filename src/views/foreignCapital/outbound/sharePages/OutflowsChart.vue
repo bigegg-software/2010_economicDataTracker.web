@@ -101,13 +101,13 @@ export default {
         xData: [],
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "中国对外全行业直接投资_All-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_xxx",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows",
             color: "#FF0000",
             data: [],
             yearOnYear: []
@@ -124,17 +124,17 @@ export default {
         xData: [],
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'同比',
-          en:'year on year'
+          en:'Y-o-y'
         },
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "中国对外全行业直接投资_All-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_xxx",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows",
             color: "#FF0000",
             data: [],
             yearOnYear: []

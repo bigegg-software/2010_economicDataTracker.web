@@ -268,7 +268,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.ch,
-                  font: `bold ${this.$fz(0.18)}px SimHei`
+                  font: ` ${this.$fz(0.18)}px 微软雅黑`
                 }
               }
             ]

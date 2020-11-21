@@ -32,7 +32,7 @@ export default {
       totalData: {
         title: {
           ch: "12月末在外各类劳务人员前10位国家",
-          en: "Top 10 desinations of total number of workers overseas"
+          en: "Year-end number of workers in top 10 destinations"
         },
         unit: {
           ch: "万人",
@@ -69,7 +69,7 @@ export default {
         yName: { ch: "万人", en: "XXX" },
         title: {
           text: "12月末在外各类劳务人员前10位国家",
-          subtext: "Top 10 desinations of total number of workers overseas"
+          subtext: "Year-end number of workers in top 10 destinations"
         },
         xData: [],
         series: [
