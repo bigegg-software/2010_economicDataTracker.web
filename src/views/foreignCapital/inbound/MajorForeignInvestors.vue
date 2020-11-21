@@ -39,8 +39,8 @@ export default {
         },
         {
           name: "stateDirectInvestInChinaChart",
-          chinese: "按部分国家/地区统计",
-          english: "By major country/region"
+          chinese: "部分国家/地区对华直接投资",
+          english: "China's FDI inflows by major country/region"
         },
         {
           name: "topFifteenCountriesChart",

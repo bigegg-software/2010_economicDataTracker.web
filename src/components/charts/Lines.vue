@@ -112,6 +112,7 @@ export default {
       }
       let series = [];
       let legend = [];
+      console.log(this.options.yearOnYear);
       for (let j = 0; j < this.options.series.length; j++) {
         series.push(
           {
@@ -177,7 +178,11 @@ export default {
         grid: {
           top: "23%",
           left: "8.4%",
-          right: this.options.yearOnYear ? "6%" : "4%",
+          right: this.options.yearOnYear
+            ? this.options.grid
+              ? this.options.grid.right
+              : "7%"
+            : "4%",
           bottom: "11%"
         },
         graphic: [
@@ -311,7 +316,7 @@ export default {
                   a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
                     .options.spliceCon.en +
                     " " +
-                    params[i].seriesName.split("_")[1]}</div>`; 
+                    params[i].seriesName.split("_")[1]}</div>`;
                 }
                 if (params[i].seriesName.split("_")[0]) {
                   b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.05rem;color:#666;font-size:0.072917rem">${params[
@@ -385,8 +390,8 @@ export default {
               `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
-              align: "right",
-              padding: [0, 7, 0, 0],
+              align: "left",
+              padding: [0, 0, 0, -60],
               color: "#666",
               rich: {
                 div: {

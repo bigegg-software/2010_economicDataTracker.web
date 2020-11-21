@@ -93,6 +93,10 @@ export default {
           text: "前15位国家/地区",
           subtext: "XXXXXXXXXX"
         },
+        grid:{
+          top:"23%",
+          left:"2%"
+        },
         xData: [
           // "蒙古\nMongolia"
         ],
@@ -104,7 +108,7 @@ export default {
         hideLegend:true,
         series: [
           {
-            name: "投资金额_xxxxx",
+            name: "投资金额_FDI outflows",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []

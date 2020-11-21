@@ -323,6 +323,7 @@ export default {
         grid: {
           top: this.chartBarData.grid ? this.chartBarData.grid.top : "23%",
           left: this.chartBarData.left ? this.chartBarData.grid.left : "3%",
+          // left: this.chartBarData.grid ? this.chartBarData.grid.left : "3%",
           right: this.chartBarData.Yearonshow
             ? this.chartBarData.yearOnYear
               ? "3%"
@@ -369,8 +370,8 @@ export default {
               `{div|${this.chartBarData.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
-              align: "right",
-              padding: [0, 7, 0, 0],
+              align: "left",
+              padding: [0, 0, 0, -60],
               color: "#666",
               rich: {
                 diven: {

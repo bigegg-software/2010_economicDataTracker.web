@@ -365,7 +365,6 @@ export default {
                 type: "text",
                 z: 100,
                 top: this.$fz(0.15) * 1.2,
-                left:this.$fz(0.15),
                 style: {
                   fill: "#666",
                   text: this.totalData.yName.ch,

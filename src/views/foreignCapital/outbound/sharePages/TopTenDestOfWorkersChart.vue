@@ -36,7 +36,7 @@ export default {
         },
         unit: {
           ch: "万人",
-          en: "xxx"
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {
@@ -67,12 +67,15 @@ export default {
       chartBar: {
         watermark: false,
         dataSources: internationalLaborDescribe.dataSources,
-        yName: { ch: "万人", en: "XXXX" },
+        yName: { ch: "万人", en: "10,000 persons" },
         title: {
           text: "年度派出各类劳务人员前10位目的地国家",
           subtext: "Top 10 destinations of workers sent overseas"
         },
         xData: [],
+        // grid:{
+
+        // },
         series: [
           {
             // name:'存量_xxxxx',

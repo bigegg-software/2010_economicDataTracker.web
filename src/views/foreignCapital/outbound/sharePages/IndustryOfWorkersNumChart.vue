@@ -42,7 +42,7 @@ export default {
         },
         unit: {
           ch: "万人",
-          en: "XXXXX"
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {

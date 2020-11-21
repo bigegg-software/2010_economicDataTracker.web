@@ -36,7 +36,7 @@ export default {
         },
         unit: {
           ch: "万人",
-          en: "xxx"
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {
@@ -66,7 +66,7 @@ export default {
       showTimeFrame: false,
       chartBar: {
         dataSources: internationalLaborDescribe.dataSources,
-        yName: { ch: "万人", en: "XXX" },
+        yName: { ch: "万人", en: "10,000 persons" },
         title: {
           text: "12月末在外各类劳务人员前10位国家",
           subtext: "Year-end number of workers in top 10 destinations"
