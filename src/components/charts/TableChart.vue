@@ -97,10 +97,10 @@ export default {
   position: absolute;
   top: 0.24rem;
   line-height: 0.08rem;
-  font-size:0.09375rem;
+  font-size: 0.09375rem;
   color: #666;
   & div:last-child {
-    font-size: 0.072917rem !important; 
+    font-size: 0.072917rem !important;
   }
 }
 .tableChart {
@@ -146,15 +146,16 @@ export default {
   }
 }
 .updated {
-  transform: scale(0.9, 0.9);
+  // transform: scale(0.9, 0.9);
   transform-origin: left top;
   display: flex;
   align-items: center;
   font-size: 0.09375rem;
   color: #666;
-  font-family: "黑体" Calibri;
+  font-family: Calibri;
   .updatedCh {
     font-size: 0.072917rem;
+    font-family: SimHei;
   }
   .updatedDate {
     margin-left: 0.07rem;
