@@ -129,24 +129,24 @@ export default {
             }
           }
         },
-        quarterly: {
-          ch: "季度",
-          en: "Quarterly",
-          list: {
-            start: {
-              ch: "开始",
-              en: "Start",
-              frame: "",
-              value: ""
-            },
-            end: {
-              ch: "结束",
-              en: "End",
-              frame: "",
-              value: ""
-            }
-          }
-        },
+        // quarterly: {
+        //   ch: "季度",
+        //   en: "Quarterly",
+        //   list: {
+        //     start: {
+        //       ch: "开始",
+        //       en: "Start",
+        //       frame: "",
+        //       value: ""
+        //     },
+        //     end: {
+        //       ch: "结束",
+        //       en: "End",
+        //       frame: "",
+        //       value: ""
+        //     }
+        //   }
+        // },
         monthly: {
           ch: "月度",
           en: "Monthly",
@@ -193,8 +193,8 @@ export default {
     this.options.yearly.list.end.value=arrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
-    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
     this.options.monthly.list.start.value=QMDefaultTime.M.start;
     this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({

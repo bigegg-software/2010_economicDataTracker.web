@@ -7,7 +7,7 @@
       <div class="latest-data" @click="showDataList">
         <div class="icon-block">
           <div class="iconfont icon-msg">&#xe60a;</div>
-          <div class="data-num" v-if="dataList&&dataList.allreadySetMenus">{{ dataList.allreadySetMenus.length }}</div>
+          <div class="data-num" v-if="dataList&&dataList.allreadySetMenus&&dataList.allreadySetMenus.length">{{ dataList.allreadySetMenus.length }}</div>
         </div>
         <div class="text-block">
           <div class="text-english">Latest data</div>
@@ -24,12 +24,18 @@
           <div  class="iconfont icon-logout">
             &#xe620;
           </div>
-          <div class="logout-text">Log Out</div>
+          <div class="logout-text">
+            <p style="margin:0">Log Out</p>
+          <p style="margin:0">退出</p>
+          </div>
         </div>
-        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">Log In</div>
+        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">
+          <p style="margin:0">Log In</p>
+          <p style="margin:0">登录</p>
+          </div>
       </div>
       <!-- 下拉框 -->
-      <div v-if="show" class="data-list" @mouseleave="hiddenDataList">
+      <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
         <div v-for="item in dataList" :key="item.activityTime">
           <div class="list-time">{{ item.activityTime }}</div>
           <div class="list-text-block">
@@ -85,16 +91,17 @@ export default {
     logout() {
       let tthis=this;
       this.$confirm({
-        title: '确认要退出吗?',
+        title: 'Are you sure you want to exit?',
+        content: '确认要退出吗?',
         onOk() {
           // 退出后删除所有信息
           user.logOut();
           tthis.$storage.clear();
           tthis.$store.commit('setUserInfo',{});
         },
-        okText: '确定',
+        okText:'Yes\n确定',
         okType: 'danger',
-        cancelText: '取消',
+        cancelText: 'Cancel\n取消',
         onCancel() {
           
         }
