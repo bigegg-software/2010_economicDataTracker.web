@@ -60,6 +60,7 @@
 <script>
 import QRCode from "qrcodejs2";
 import FadeInOut from "@/components/animations/FadeInOut";
+import chartDataFun from "@/utils/chartDataFun";
 
 export default {
   props: {
@@ -69,8 +70,23 @@ export default {
     FadeInOut
   },
   data() {
-    return { visible: false, timer: null, sty: { width: "2rem" } };
+    return {
+      visible: false,
+      timer: null,
+      sty: { width: "2rem" },
+      urlTitle: ""
+    };
   },
+
+  async created() {
+    let arr = await chartDataFun.getAllMenuItem();
+    this.urlTitle = arr.filter(item => {
+      return item.name == this.$route.name;
+    });
+    console.log(this.urlTitle);
+    console.log(this.urlTitle[0].en+this.urlTitle[0].ch)
+  },
+
   mounted() {
     document.addEventListener("click", () => {
       if (document.getElementById("qrcode")) {
@@ -124,11 +140,15 @@ export default {
       window.open(
         //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
-          encodeURIComponent(window.location.href) 
+          encodeURIComponent(window.location.href) +
+          "&text=" +encodeURIComponent(this.urlTitle[0].en+this.urlTitle[0].ch),
+          "",
+        "left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0"
       );
     },
     //分享到 facebook
     sharetoFacebook() {
+      7;
       window.open(
         "http://www.facebook.com/sharer/sharer.php?u=" +
           encodeURIComponent(window.location.href)

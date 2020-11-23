@@ -482,7 +482,7 @@ export default {
         series: series
       };
 
-      this.chart.setOption(option, true);
+      this.chart.setOption(option);
     },
     //计算最大值
     calMax(arr) {

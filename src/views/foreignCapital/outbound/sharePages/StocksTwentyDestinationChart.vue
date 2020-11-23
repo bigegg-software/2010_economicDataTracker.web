@@ -132,7 +132,7 @@ export default {
     },
     option:{
       handler() {
-          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}中国对外直接投资存量历年前20位国家`;
+          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}中国对外直接投资存量历年前20位国家/地区`;
           this.chartBar.title.subtext=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI stocks`;
       },
       deep:true
