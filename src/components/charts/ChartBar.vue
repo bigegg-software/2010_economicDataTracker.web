@@ -8,7 +8,8 @@ export default {
   data() {
     return {
       timer: null,
-      myChartBar: Object
+      myChartBar: Object,
+      selected:{},
     };
   },
   props: {
@@ -169,6 +170,7 @@ export default {
           }
         },
         legend: {
+          selected:this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
@@ -466,7 +468,11 @@ export default {
         series: series
       };
       this.myChartBar = echarts.init(this.$refs.chartBar);
-      this.myChartBar.setOption(option);
+       this.myChartBar.off('legendselectchanged');
+        this.myChartBar.on('legendselectchanged',(param)=> {
+         this.selected=param.selected;
+       })
+      this.myChartBar.setOption(option,true);
       this.myChartBar.resize();
     },
     //计算最大值

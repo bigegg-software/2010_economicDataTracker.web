@@ -10,7 +10,8 @@ export default {
       timer: null,
       chart: null,
       watermark: false,
-      canvas: null
+      canvas: null,
+      selected:{},
     };
   },
   props: {
@@ -112,7 +113,6 @@ export default {
       }
       let series = [];
       let legend = [];
-      console.log(this.options.yearOnYear);
       for (let j = 0; j < this.options.series.length; j++) {
         series.push(
           {
@@ -178,11 +178,7 @@ export default {
         grid: {
           top: "23%",
           left: "8.4%",
-          right: this.options.yearOnYear
-            ? this.options.grid
-              ? this.options.grid.right
-              : "7%"
-            : "4%",
+          right: this.options.yearOnYear ? "6%" : "4%",
           bottom: "11%"
         },
         graphic: [
@@ -316,7 +312,7 @@ export default {
                   a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
                     .options.spliceCon.en +
                     " " +
-                    params[i].seriesName.split("_")[1]}</div>`;
+                    params[i].seriesName.split("_")[1]}</div>`; 
                 }
                 if (params[i].seriesName.split("_")[0]) {
                   b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${params[
@@ -341,6 +337,7 @@ export default {
         },
         // color: ["#1DD6CF", "#ED8DD0"], // 控制 lengend icon 的颜色
         legend: {
+          selected:this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
@@ -390,8 +387,8 @@ export default {
               `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
-              align: "left",
-              padding: [0, 0, 0, -67],
+              align: "right",
+              padding: [0, 7, 0, 0],
               color: "#666",
               rich: {
                 div: {
@@ -481,8 +478,12 @@ export default {
         ],
         series: series
       };
-
-      this.chart.setOption(option);
+        this.chart.off('legendselectchanged');
+        this.chart.on('legendselectchanged',(param)=> {
+         console.log(param)
+         this.selected=param.selected;
+       })
+      this.chart.setOption(option, true);
     },
     //计算最大值
     calMax(arr) {
