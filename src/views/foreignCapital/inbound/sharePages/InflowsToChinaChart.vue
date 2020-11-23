@@ -69,8 +69,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "实际使用外资金额",
-          en: "FDI inflows to China"
+          ch: "实际使用外资金额按行业统计",
+          en: "Foreign investment by industry"
         },
         tableTitle: {
           year: {
@@ -129,8 +129,8 @@ export default {
           left:"3%"
         },
         title: {
-          text: "实际使用外资金额",
-          subtext: "FDI inflows to China"
+          text: "实际使用外资金额按行业统计",
+          subtext: "Foreign investment by industry"
         },
         xData: [],
         series: [],
@@ -140,7 +140,7 @@ export default {
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "实际使用外资金额", en: "FDI inflows to China" },
+        title: { ch: "实际使用外资金额按行业统计", en: "Foreign investment by industry" },
         xData: [],
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'同比',

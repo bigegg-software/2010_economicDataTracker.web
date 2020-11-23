@@ -84,7 +84,7 @@ export default {
       return item.name == this.$route.name;
     });
     console.log(this.urlTitle);
-    console.log(this.urlTitle[0].en+this.urlTitle[0].ch)
+    console.log(this.urlTitle[0].en + this.urlTitle[0].ch);
   },
 
   mounted() {
@@ -141,14 +141,14 @@ export default {
         //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
           encodeURIComponent(window.location.href) +
-          "&text=" +encodeURIComponent(this.urlTitle[0].en+this.urlTitle[0].ch),
-          "",
+          "&text=" +
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
+        "",
         "left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0"
       );
     },
     //分享到 facebook
     sharetoFacebook() {
-      7;
       window.open(
         "http://www.facebook.com/sharer/sharer.php?u=" +
           encodeURIComponent(window.location.href)
