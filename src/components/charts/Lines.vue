@@ -156,7 +156,6 @@ export default {
             color: this.options.series[j].color
           }
         });
-        console.log(legend);
       }
 
       // 绘制图表

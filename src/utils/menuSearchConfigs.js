@@ -9,7 +9,7 @@ let foreignCapitalMenuLists = [  //外资模块
         name: "outflows",
         ch: "中国对外直接投资流量",
         en: "FDI outflows",
-        cloudFun:['FDIOutflow'],
+        cloudFun:['FDIOutflowYear','FDIOutflow'],
         splitList: ['中', '国', '对', '外', '直', '接', '投', '资', '流', '量', 'FDI', 'outflows'],
         active: false,
       },

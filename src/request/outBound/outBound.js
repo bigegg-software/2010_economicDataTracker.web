@@ -87,14 +87,14 @@ sumSameYearData:async (sourceData,field,name)=> {
         res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
         return res;
     },
-    getOutFlowsChartsData:async function(params) {// 获取中国对外直接投资流量数据函数接口
+    getOutFlowsChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
         // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
         // if (FDIOutflow.code == 200) {
         //     console.log(FDIOutflow.data)
         //     return FDIOutflow.data;
         // }
            let type = params.type;
-           let res=await this.manualQueryData('FDIOutflow',params);
+           let res=await this.manualQueryData(tableName,params);
             res = res.map(item=>{
                 item=item.toJSON()
                 if(item.outFlowType==1){
@@ -112,7 +112,9 @@ sumSameYearData:async (sourceData,field,name)=> {
                 return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
             })
             tableres=tableres.reverse();
-            let tableInfo={
+            let tableInfo={};
+            if(type!='yearly'){
+                 tableInfo ={
             fileName:'中国对外直接投资流量',
             tHeader:[
                 "年",
@@ -124,6 +126,20 @@ sumSameYearData:async (sourceData,field,name)=> {
             ],
             filterVal:['year','month','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'],
             tableData:[...tableres]
+            }
+            }else{
+                tableInfo={
+                fileName:'中国对外直接投资流量',
+                tHeader:[
+                    "年",
+                    '单位',
+                    '中国对外直接投资流量',
+                    '中国对外直接投资流量同比',
+                    '类型'
+                ],
+                filterVal:['year','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'],
+                tableData:[...tableres]
+                }
             }
             store.commit('saveChartTable',tableInfo);
             let allIndustry = res.filter(item=>{
