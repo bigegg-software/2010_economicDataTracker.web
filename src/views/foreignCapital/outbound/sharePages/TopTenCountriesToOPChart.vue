@@ -3,24 +3,16 @@
   <div class="topTenCountriesToOP-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
-        <TableChart :totalData="totalData"></TableChart>
+        <TableChart v-if="selectOption.value.id==1" :totalData="totalData"></TableChart>
+        <TableChart v-if="selectOption.value.id==2" :totalData="totalData2"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <SelectRadio
         class="status"
@@ -28,7 +20,7 @@
         :value="selectOption.value"
         @change="changeRadioSelect($event)"
       ></SelectRadio>
-      <div class="status">
+      <div class="status"  v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -37,10 +29,11 @@
         ></check-box>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>
+import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -55,8 +48,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "前十国别（市场）",
-          en: "xxx"
+          ch: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          en: "Top 10 market of China's overseas projects by revenue"
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -73,20 +70,26 @@ export default {
           },
           amount: {
             text: "新签合同额_Total value of new contract ",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           amountYOY: {
             text: "新签合同额同比_Y-o-y growth of new contract value ",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       totalData2: {
         title: {
-          ch: "前十国别（市场）",
-          en: "xxx"
+          ch: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          en: "Top 10 market of China's overseas projects by revenue"
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -103,36 +106,44 @@ export default {
           },
           amount: {
             text: "完成营业额_Revenue of completed contract",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           amountYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
       chartBar: {
-        dataSources: "中国人民网",
+        Yearonshow:true,//是否有左柱状图右折线图的展示          
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "新签合同额",
-          subtext: "Total value of new contract"
+          text: "中国年度对外承包工程完成营业额前十大国别/地区市场",
+          subtext: "Top 10 market of China's overseas projects by revenue"
         },
         xData: [],
+        hideLegend:true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
-            // name:'存量_xxxxx',
-            color: ["#0C9AFF"],
+            name:'新签合同额_Total value of new contract',
+            color: ["#71a6c2"],
             data: [],
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -144,7 +155,7 @@ export default {
         {
           checked: false,
           ch: "同比",
-          en: "xxx"
+          en: "Year on year"
         }
       ],
       selectOption: {
@@ -185,11 +196,16 @@ export default {
     tableDatas: {
       handler() {
         let resoult = chartDataFun.conversionTable(
-          this.totalData.tableTitle,
+          this.selectOption.value.id == 1
+            ? this.totalData.tableTitle
+            : this.totalData2.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
-        this.$set(this.totalData, "tableData", resoult);
+        if (this.selectOption.value.id == 1) {
+          this.$set(this.totalData, "tableData", resoult);
+        } else if (this.selectOption.value.id == 2) {
+          this.$set(this.totalData2, "tableData", resoult);
+        }
       },
       deep: true
     }
@@ -225,12 +241,15 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getTopTenCountriesToOPChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.totalData2.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 新签合同额,完成营业额，新签合同额同比，完成营业额同比
       let amount = [],
         amountYOY = [];
       res.forEach(item => {
-        Xname.push(item.country + "\n" + item.countryEn);
+        Xname.push(item.countryEn + "\n" + item.country);
         amount.push(item.amountMillion);
         amountYOY.push(item.amountYOY);
       });
@@ -274,6 +293,7 @@ export default {
         text: this.selectOption.value.ch,
         subtext: this.selectOption.value.en
       };
+      this.chartBar.series[0].name = this.selectOption.value.ch+'_'+this.selectOption.value.en;
     }
   }
 };
@@ -300,9 +320,14 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
     width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

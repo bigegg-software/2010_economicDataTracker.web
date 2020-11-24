@@ -2,16 +2,18 @@
   <!-- 外商投资企业税收统计-外商投资企业税收统计chart -->
   <div class="foreign-invest-taxChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
-       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -24,12 +26,15 @@
 </template>
 
 <script>
+import {ForeignInvestTaxDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,18 +42,52 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "foreignInvestTaxChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "外商投资企业税收统计",
+          en: "Tax statistics of foreign invested enterprises"
+        },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          taxMillion: {
+            text: "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
+            width: "40%",
+            formatNum:true
+          },
+          YOYGrowth: {
+            text: "增幅_Y-o-y growth",
+            width: "25%",
+            formatPer:true
+          },
+          percentInCountry: {
+            text: "全国占比_Share of national tax revenue",
+            width: "25%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
       showTimeFrame: false,
       yearOnYearData: 0,
       percentData: 0,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: ForeignInvestTaxDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         percent: false, //通过修改这个值来显示同比
@@ -58,6 +97,10 @@ export default {
         },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name:
@@ -68,12 +111,13 @@ export default {
             percent: []
           }
         ],
+        updatedDate:''
       },
       status: [
         {
           checked: false,
           ch: "同比",
-          en: "XXXXXXX"
+          en: "Year on year"
         },
         {
           checked: false,
@@ -84,7 +128,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -103,9 +147,26 @@ export default {
       }
     };
   },
+   computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -180,6 +241,8 @@ export default {
       let dataAttr = ["taxMillion", "YOYGrowth", "percentInCountry"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -221,12 +284,20 @@ export default {
         }
       }
       if (index == 0) {
+        this.USD.spliceCon={// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        };
         this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
       if (index == 1) {
+        this.USD.spliceCon={// toolTip里面插入占比和占比英文
+          ch:'占比',
+          en:'xxxxx'
+        },
         this.USD.series[0]["yearOnYear"] = this.percentData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
@@ -251,9 +322,9 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
-     .container {
+    .container {
       width: 5.875rem;
       height: 3.916667rem;
     }

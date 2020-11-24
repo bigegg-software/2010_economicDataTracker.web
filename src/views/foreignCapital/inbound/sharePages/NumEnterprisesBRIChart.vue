@@ -2,16 +2,18 @@
   <!-- “一带一路”沿线国家对中国投资情况-企业数chart -->
   <div class="numEnterprises-BRI-Chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -24,12 +26,15 @@
 </template>
 
 <script>
+import {BeltAndRoadInvestDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {},
@@ -38,21 +43,55 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "numEnterprisesBRIChart",
   data() {
     return {
+          totalData: {
+        title: {
+          ch: "“一带一路”沿线国家对华投资企业数",
+          en: "Number of enterprises from BRI countries investing in China"
+        },
+        unit:{
+          ch: "家",
+          en: "Enterprise"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "20%"
+          },
+          BRINumber: {
+            text: "一带一路企业数_Number of BRI enterprises",
+            width: "40%",
+            formatNum:true
+          },
+          BRIPercent: {
+            text: "占外资企业比重_Share of total number of foreign enterprises",
+            width: "40%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
-        yName: { ch: "家", en: "XXXX" },
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
+        yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "企业数", en: "XXXXXXXX" },
+        title: { ch: "“一带一路”沿线国家对华投资企业数", en: "Number of enterprises from BRI countries investing in China" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入占比和占比英文
+          ch:'占外资企业比重',
+          en:'Share of total number of oreign enterprises'
+        },
         series: [
           {
             name: "企业数_xxx",
@@ -60,19 +99,20 @@ export default {
             data: [],
             yearOnYear: []
           }
-        ]
+        ],
+        updatedDate:""
       },
       status: [
         {
           checked: false,
-          ch: "占比",
-          en: "XXXXXXX"
+          ch: "占外资企业比重",
+          en: "Share of total number of oreign enterprises"
         }
       ],
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -91,12 +131,29 @@ export default {
       }
     };
   },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   async mounted() {
     console.log(this.isFullScreen);
     console.log(this.isShowTable);
 
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -161,13 +218,15 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getNonFinancialToBRIChartsData(aug);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug,2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["BRINumber", "BRIPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -226,7 +285,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
@@ -246,6 +305,9 @@ export default {
     .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
+    }
+    .noneFrame{
+      display: none;
     }
     .status {
       padding: 0.104167rem;

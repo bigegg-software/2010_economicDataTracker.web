@@ -7,37 +7,46 @@
       <div class="latest-data" @click="showDataList">
         <div class="icon-block">
           <div class="iconfont icon-msg">&#xe60a;</div>
-          <div class="data-num">{{ 2 }}</div>
+          <div class="data-num" v-if="dataList&&dataList.allreadySetMenus&&dataList.allreadySetMenus.length">{{ dataList.allreadySetMenus.length }}</div>
         </div>
         <div class="text-block">
           <div class="text-english">Latest data</div>
           <div class="text-chinese">最新数据</div>
         </div>
       </div>
-      <div class="user-actions">
+      <div class="user-actions" v-if="reload">
         <div class="user-info">
           <img src="../../../assets/img/avatar.png" class="user-avatar" />
-          <div class="user-name">{{ "用户名" }}</div>
+          <div class="user-name">{{ userInfo.nickname?userInfo.nickname:userInfo&&!userInfo.nickname&&userInfo.username?userInfo.username:''}}</div>
         </div>
         <div class="line"></div>
-        <div class="logout" @click="logout">
-          <div class="iconfont icon-logout">&#xe620;</div>
-          <div class="logout-text">{{ true ? "退出" : "登录" }}</div>
+        <div class="logout" v-if="userInfo.sessionToken" @click="logout">
+          <div  class="iconfont icon-logout">
+            &#xe620;
+          </div>
+          <div class="logout-text">
+            <p style="margin:0">Log Out</p>
+          <p style="margin:0">退出</p>
+          </div>
         </div>
+        <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">
+          <p style="margin:0">Log In</p>
+          <p style="margin:0">登录</p>
+          </div>
       </div>
       <!-- 下拉框 -->
-      <div v-if="show" class="data-list" @mouseleave="hiddenDataList">
-        <div v-for="(item, key) in dataList" :key="key">
-          <div class="list-time">{{ key }}</div>
+      <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
+        <div v-for="item in dataList" :key="item.activityTime">
+          <div class="list-time">{{ item.activityTime }}</div>
           <div class="list-text-block">
             <div
-              v-for="(data, index) in item"
-              :key="index"
+              v-for="data in item.menus"
+              :key="data.name"
               class="list-text"
               @click="jumpPage(data)"
             >
-              <div>{{ data.ch }}</div>
               <div>{{ data.en }}</div>
+              <div>{{ data.ch }}</div>
             </div>
           </div>
         </div>
@@ -47,19 +56,24 @@
 </template>
 
 <script>
+import user from '@/request/user'
 export default {
   name: "PageHeader",
   data() {
     return {
-      dataList: {
-        "2020-10-01": [
-          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" },
-          { ch: "国对外直接投资流量与存量", en: "xxxxxxx" }
-        ],
-        "2020-10-02": [{ ch: "国对外直接投资流量与存量", en: "xxxxxxx" }]
-      },
+      reload:true,
       show: false
     };
+  },
+  mounted() {
+  },
+  computed:{
+     userInfo() {
+       return this.$store.getters.userInfo;
+     },
+     dataList() {
+       return this.$store.getters.latestNews;
+     }
   },
   methods: {
     showDataList() {
@@ -69,10 +83,37 @@ export default {
       this.show = false;
     },
     jumpPage(data) {
-      console.log(data, "最新数据");
+      this.$router.push({name:data.name});
+      this.$store.commit('setInitScreen');
+      // console.log(data, "最新数据");
       this.show = false;
     },
-    logout() {}
+    logout() {
+      let tthis=this;
+      this.$confirm({
+        title: 'Are you sure you want to exit?',
+        content: '确认要退出吗?',
+        onOk() {
+          // 退出后删除所有信息
+          user.logOut();
+          tthis.$storage.clear();
+          tthis.$store.commit('setUserInfo',{});
+        },
+        okText:'Yes\n确定',
+        okType: 'danger',
+        cancelText: 'Cancel\n取消',
+        onCancel() {
+          
+        }
+      });
+    },
+    logInfo() {
+      console.log(this.$route)
+      this.$router.push({
+        path:'/login',
+        query:{redirect:this.$route.fullPath}
+      });
+    }
   }
 };
 </script>
@@ -105,10 +146,12 @@ export default {
 }
 .data-list {
   position: absolute;
-  right: 1.5rem;
+  right: 1.2rem;
   top: 110px;
-  z-index: 2;
-  width: 1.53125rem;
+  z-index: 10;
+  max-height: 4rem;
+  overflow: auto;
+  // width: 1.53125rem;
   padding: 0.020833rem 0;
   box-shadow: darkgrey 0px 0px 5px 1px;
   color: rgba(153, 153, 153, 1);
@@ -118,20 +161,29 @@ export default {
   .list-time {
     padding: 0.041667rem 0.057292rem;
     border-bottom: 1.5px solid #efefef;
+    color: #333;
+    font-size: 0.072917rem;
+    font-family: SimHei,'黑体';
   }
   .list-text-block {
     padding: 0.114583rem 0.083333rem 0.072917rem;
     :hover {
-      color: #1d3f6b;
+      color: #186496;
     }
     .list-text {
       cursor: pointer;
-      margin-bottom: 0.145833rem;
+      margin-bottom:0.09375rem; 
+      font-size: 0.083333rem;
+      font-family: Calibri;
       &:last-child {
         margin-bottom: 0;
       }
+      div:last-child{
+        font-size: 0.072917rem;
+        font-family: SimHei,'黑体';
+      }
       div {
-        line-height: 20px;
+        line-height: 0.104167rem;
       }
     }
   }
@@ -161,12 +213,12 @@ export default {
         position: absolute;
         right: 0.052083rem;
         top: 0.0625rem;
-        width: 0.084rem;
-        height: 0.084rem;
+        width: 0.094rem;
+        height: 0.094rem;
         border-radius: 50%;
         text-align: center;
         font-size: 0.0625rem;
-        line-height: 0.083333rem;
+        line-height: 0.094rem;
         color: #fff;
         background-color: #df2323;
       }
@@ -215,6 +267,9 @@ export default {
         font-size: 0.09375rem;
         margin-right: 0.041667rem;
       }
+    }
+    .logout-text{
+      cursor: pointer;
     }
   }
 }

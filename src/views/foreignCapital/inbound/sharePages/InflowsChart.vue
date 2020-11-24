@@ -2,16 +2,18 @@
   <!-- 实际使用外资-实际使用外资chart -->
   <div class="Inflows-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+         <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -24,12 +26,15 @@
 </template>
 
 <script>
+import {InflowsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,21 +42,59 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "Inflows-chart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "实际使用外资",
+          en: "China’s inward FDI"
+        },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_Monthly",
+            width: "20%"
+          },
+          inwardFDIConMillion: {
+            text: "实际使用外资_China’s inward FDI",
+            width: "35%",
+            formatNum:true
+          },
+          inwardFDIConYOY: {
+            text: "实际使用外资同比_xxxxxxx",
+            width: "35%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources:InflowsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "实际使用外资", en: "China’s FDI inflows" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           {
             name: "实际使用外资_China’s FDI inflows",
@@ -60,6 +103,7 @@ export default {
             yearOnYear: []
           }
         ],
+        updatedDate: ""
       },
       status: [
         {
@@ -71,7 +115,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -89,7 +133,7 @@ export default {
         },
         quarterly: {
           ch: "季度",
-          en: "quarterly",
+          en: "Quarterly",
           list: {
             start: {
               ch: "开始",
@@ -107,7 +151,7 @@ export default {
         },
         monthly: {
           ch: "月度",
-          en: "monthly",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -126,10 +170,32 @@ export default {
       }
     };
   },
-
+ computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
+    // 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -209,12 +275,15 @@ export default {
     async getChartsData(aug) {
       //改变横轴 获取数据
       let { res } = await request.getInflowsChartsData(aug);
+
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["inwardFDIConMillion", "inwardFDIConYOY"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 
@@ -267,6 +336,10 @@ export default {
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
@@ -286,7 +359,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     // border-right: none;
     .container {

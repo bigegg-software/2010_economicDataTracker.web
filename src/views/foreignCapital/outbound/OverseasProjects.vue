@@ -1,24 +1,20 @@
 <template>
   <!-- 中国对外承包工程 -->
-  <div class="container">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <share-body
-      :tabComponent="tabComponent"
-      :isShowTable="actionsList[0].checked"
-    ></share-body>
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -27,16 +23,18 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData: BeltAndRoadInvestDescribe,
       tabComponent: "amountGrowthToOPChart",
       tabList: [
         {
           name: "amountGrowthToOPChart",
           chinese: "完成营业额",
-          english: "Total value of new contract y-o-y growth"
+          english: "Revenue of completed contract"
         },
         {
           name: "newContractAmountToOPChart",
@@ -46,12 +44,12 @@ export default {
         {
           name: "topTenCountriesToOPChart",
           chinese: "前十国别（市场）",
-          english: "XXXXXXXX"
+          english: "Top 10 market"
         },
         {
           name: "topTenProjectToOPChart",
           chinese: "前十项目",
-          english: "XXXXXXXX"
+          english: "Top 10 project"
         }
       ],
 
@@ -62,6 +60,7 @@ export default {
           en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
+          hide:false,
           toggle: true
         },
         {
@@ -103,7 +102,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -113,8 +111,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -122,12 +121,18 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
     }
   },
   mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
+      if(name=='topTenProjectToOPChart'){
+           this.actionsList[0].hide=true;
+      }else{
+        this.actionsList[0].hide=false;
+      }
     },
 
     initActionsList() {
@@ -145,7 +150,10 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+      }
+       if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -156,7 +164,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }
@@ -167,5 +175,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

@@ -5,24 +5,15 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="USD"
-        ></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -35,6 +26,7 @@
 </template>
 
 <script>
+import {outflowsBeltAndRoadDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -58,8 +50,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "新签合同额",
-          en: "Total value of new contract"
+          ch: "中国企业在“一带一路”沿线国家新签合同额",
+          en: "Total value of new contract signed by Chinese enterprises in BRI countries"
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -70,28 +66,34 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          newConAmount: {
+          newConAmountCon: {
             text: "新签合同额_Total value of new contract",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
-          newConAmountYOY: {
+          newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: outflowsBeltAndRoadDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "新签qq合同额", en: "Total value of new contract" },
+        title: { ch: "中国企业在“一带一路”沿线国家新签合同额", en: "Total value of new contract signed by Chinese enterprises in BRI countries" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'Y-o-y'
+        },
         series: [
           {
             name: "新签合同额_Total value of new contract",
@@ -100,7 +102,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       status: [
         {
@@ -112,7 +114,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -128,27 +130,27 @@ export default {
             }
           }
         },
-        quarterly: {
-          ch: "季度",
-          en: "quarterly",
-          list: {
-            start: {
-              ch: "开始",
-              en: "Start",
-              frame: "",
-              value: ""
-            },
-            end: {
-              ch: "结束",
-              en: "End",
-              frame: "",
-              value: ""
-            }
-          }
-        },
+        // quarterly: {
+        //   ch: "季度",
+        //   en: "Quarterly",
+        //   list: {
+        //     start: {
+        //       ch: "开始",
+        //       en: "Start",
+        //       frame: "",
+        //       value: ""
+        //     },
+        //     end: {
+        //       ch: "结束",
+        //       en: "End",
+        //       frame: "",
+        //       value: ""
+        //     }
+        //   }
+        // },
         monthly: {
           ch: "月度",
-          en: "monthly",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -188,6 +190,14 @@ export default {
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
+    // 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -267,13 +277,15 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug);
+      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 
@@ -326,6 +338,10 @@ export default {
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
@@ -352,9 +368,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

@@ -5,31 +5,21 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div v-if="isShowLineChart" class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="USD"
-        ></lines-chart>
+      <div
+        v-if="isShowLineChart"
+        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+      >
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
-      <div v-else class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div v-else :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -37,7 +27,7 @@
           @change="changeSelect(index)"
         ></check-box>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <select-check-box
           v-if="status[0].checked"
           :option="checkBox"
@@ -51,6 +41,7 @@
 </template>
 
 <script>
+import {outflowsByIndustryDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -81,6 +72,10 @@ export default {
           ch: "中国对外直接投资流量行业分布情况",
           en: "China's FDI outflows by industry"
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -90,56 +85,61 @@ export default {
             text: "行业_industry",
             width: "20%"
           },
-          outflows: {
+          outflowsMillion: {
             text: "流量_outflows",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           yOY: {
             text: "同比_xxxxxxxx",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
-        "#8DC32E",
-        "#FF800C",
-        "#0CF6FF",
-        "#DB9800",
-        "#8D6CE3",
-        "#FFBD0C",
-        "#111BFF",
-        "#FF0CC5",
-        "#2992AE",
-        "#0C9AFF",
-        "#C4D225",
-        "#E39145",
-        "#0CFFCB",
-        "#CF90FF",
-        "#FF0000",
-        "#101010",
-        "#D04747",
-        "#7B0CFF"
+        "#a65783",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#61a0a9",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
       ],
       showTimeFrame: false,
       isShowLineChart: false,
       chartBar: {
         watermark: false,
-        dataSources: "中国人民网",
+        dataSources: outflowsByIndustryDescribe.dataSources,
         showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
         grid: {
           //图表上下左右的padding
-          top: "40%"
+          top: "40%",
+          left:"3%"
+
         },
         title: {
           text: "中国对外直接投资流量行业分布情况",
           subtext: "China’s FDI outflows by industry"
         },
         xData: [],
-        series: []
+        series: [],
+        updatedDate: ""
       },
       USD: {
         id: "USD",
@@ -150,6 +150,10 @@ export default {
           en: "China’s FDI outflows by industry"
         },
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'year on year'
+        },
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",
@@ -157,7 +161,8 @@ export default {
           //   data: [],
           //   yearOnYear: []
           // }
-        ]
+        ],
+        updatedDate: ""
       },
       status: [
         {
@@ -175,7 +180,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -208,7 +213,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -230,12 +234,12 @@ export default {
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.start.value = (Number(arrmaxmin[1])-1).toString();
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
-      start: Number(arrmaxmin[0]),
+      start: Number(arrmaxmin[1])-1,
       end: Number(arrmaxmin[1])
     });
   },
@@ -300,6 +304,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       this.USD.series = [];
+      let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.chartBar.series, i, {
@@ -310,6 +315,8 @@ export default {
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
+            // 为了保存同比下的行业分布情况在表格中展示
+            industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["outflowsMillion"],
@@ -320,6 +327,25 @@ export default {
           }
         }
       }
+      industryAddYoYData = industryAddYoYData.sort((a, b) => {
+        return b.year - a.year;
+      });
+      if (this.status[0].checked) {
+        let tableInfo = {
+          fileName: "中国对外直接投资流量行业分布情况",
+          tHeader: ["年份", "行业", "流量", "同比", "单位"],
+          filterVal: [
+            "year",
+            "industry",
+            "outflowsMillion",
+            "yOY",
+            "unitMillion"
+          ],
+          tableData: [...industryAddYoYData]
+        };
+        this.$store.commit("saveChartTable", tableInfo);
+      }
+
       //
     },
     async getChartsData(aug) {
@@ -333,6 +359,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
+       this.USD.updatedDate=this.$store.getters.latestTime;
+       this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -348,8 +377,8 @@ export default {
 
       let i = await this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      this.USD.series = [];
-      await this.mainGetChartsData("yearly");
+      // this.USD.series = [];
+      // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
       //搜索
@@ -428,6 +457,8 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
+      // 重新去获取数据再判断表格切换数据时展示行业筛选后的还是全部行业的
+      this.mainGetChartsData("yearly");
     }
   }
 };
@@ -455,9 +486,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

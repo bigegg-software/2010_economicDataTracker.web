@@ -4,7 +4,28 @@
     <router-view />
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
 
+    }
+  },
+  created() {
+    window.addEventListener('beforeunload',()=>{
+         if(this.$store.getters.userInfo.sessionToken){
+           this.$storage.setItem('user',this.$store.getters.userInfo);
+         }
+    });
+    window.addEventListener('load',()=>{
+         if(this.$storage.getItem('user')){
+           this.$store.commit('setUserInfo',this.$storage.getItem('user'));
+           this.$storage.removeItem('user');
+         }
+    });
+  }
+}
+</script>
 <style lang="less">
 * {
   margin: 0;

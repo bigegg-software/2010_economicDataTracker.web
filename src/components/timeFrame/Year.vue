@@ -6,11 +6,7 @@
     </div>
     <div class="time-block" @click="openCalendar">
       <div class="text">{{ value ? value : "请选择" }}</div>
-      <div
-        class="icon iconfont"
-        @mouseenter="mouseenter"
-        @mouseleave="closeCalendar"
-      >
+      <div class="icon iconfont" @mouseenter="mouseenter" @mouseleave="closeCalendar">
         <div>&#xe72a;</div>
         <fade-in-out>
           <div v-if="show" class="calendar-block">
@@ -25,9 +21,7 @@
                 class="year"
                 :class="item == option.value ? 'current' : ''"
                 @click="handleClick(item)"
-              >
-                {{ item }}
-              </div>
+              >{{ item }}</div>
             </div>
           </div>
         </fade-in-out>
@@ -170,11 +164,14 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     .year {
-      width: 0.208333rem;
-      height: 0.208333rem;
+      width: 0.23rem;
+      height: 0.23rem;
       margin: 0.05rem;
+      line-height: 0.23rem;
       text-align: center;
       border-radius: 0.02rem;
+      font-size: 0.104167rem;
+      font-family: "Calibri";
       // background-color: #eee;
       cursor: pointer;
     }
@@ -187,8 +184,10 @@ export default {
 .label-block {
   line-height: 0.104167rem;
   font-size: 0.072917rem;
-  & div:first-child{
-  font-size: 0.09375rem;
+  color: #666;
+  & div:first-child {
+    font-size: 0.09375rem;
+    font-family: Calibri;
   }
 }
 .time-block {
@@ -199,7 +198,7 @@ export default {
   width: 75%;
   height: 0.197917rem;
   line-height: 0.197917rem;
-  font-size: 0.072917rem;
+  font-size: 0.083333rem;
   border: 0.007813rem solid #cacaca;
   border-radius: 0.026042rem;
   background-color: #fff;

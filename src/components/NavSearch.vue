@@ -1,7 +1,7 @@
 <template>
   <div class="nav-search">
     <div class="input-block">
-      <input v-model="name" type="text" placeholder="关键字 keywords" />
+      <input v-model="name" type="text" placeholder="Keywords 关键词" />
       <div class="iconfont icon-search">&#xe6a6;</div>
     </div>
     <section class="result" v-if="name.replace(/(^\s*)/g, '') != ''">
@@ -12,8 +12,8 @@
           @click="gotoPage(tem)"
           class="menu-link"
         >
-          <p>{{ tem.ch }}</p>
           <p>{{ tem.en }}</p>
+          <p>{{ tem.ch }}</p>
         </div>
       </template>
       <div v-if="name.replace(/(^\s*)/g, '') != '' && noData">暂无数据</div>
@@ -28,13 +28,17 @@ export default {
     return {
       noData: false,
       name: "",
-      menuFileList: searchMenuLists
+      menuFileList: searchMenuLists,
+      timer: null
     };
   },
   watch: {
     name: {
       handler() {
-        this.fileDataList();
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+          this.fileDataList();
+        }, 500);
       },
       immediate: true,
       deep: true
@@ -117,6 +121,11 @@ export default {
       outline: none;
       padding-left: 0.05rem;
       box-sizing: border-box;
+      &::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999999;
+        font-size: 18px;
+      }
     }
     .icon-search {
       padding: 0 0.05rem;
@@ -132,11 +141,23 @@ export default {
     max-height: 4rem;
     overflow-y: auto;
     border: 1px solid #eee;
-    z-index: 1;
+    color: #999999;
+    z-index: 10;
     .menu-link {
       p {
+        font-size: 0.104167rem;
         white-space: nowrap;
         margin-bottom: 0.026667rem;
+      }
+      p:first-child {
+        font-family: Calibri;
+      }
+      p:last-child {
+        font-size: 0.0625rem;
+        font-family: SimHei, "黑体";
+      }
+      &:hover {
+        color: #186497;
       }
     }
     .menu-link:not(:last-child) {

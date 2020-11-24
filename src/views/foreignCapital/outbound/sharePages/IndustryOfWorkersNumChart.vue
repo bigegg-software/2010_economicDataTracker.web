@@ -2,9 +2,11 @@
   <!-- 中国对外劳务合作---派出人数主要行业chart -->
   <div class="industry-of-workersNumChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
-        <PieChart ref="pie" :totalData="totalData" :value="option.value"></PieChart>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <PieChart v-if="!isShowTable" ref="pie" :totalData="totalDatas" :value="option.value"></PieChart>
       </div>
     </div>
     <div class="select-block">
@@ -12,16 +14,20 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
+import { internationalLaborDescribe } from "@/utils/describe.js";
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   components: {
     PieChart,
-    Yearly
+    Yearly,
+    TableChart
   },
   props: {
     isShowTable: {}
@@ -29,18 +35,51 @@ export default {
   name: "industryOfWorkersNumChart",
   data() {
     return {
-      showTimeFrame:false,
+      totalData: {
+        title: {
+          ch: "",
+          en: ""
+        },
+        unit: {
+          ch: "万人",
+          en: "10,000 persons"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          industry: {
+            text: "类别_Industry category",
+            width: "30%"
+          },
+          variousTypesPerNum: {
+            text:
+              "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+            width: "30%",
+            formatNum:true
+          },
+          industryPercent: {
+            text: "比重_Share of overseas workers by industries",
+            width: "30%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
+      showTimeFrame: false,
       option: {
         ch: "年度",
         en: "Yearly",
         frame: "",
         value: ""
       },
-      totalData: {
-        dataSources: "中国人民网",
+      totalDatas: {
+        dataSources: internationalLaborDescribe.dataSources,
         title: {
-          ch: "年度派出人数主要行业",
-          en: "Overseas workers by industry"
+          ch: "",
+          en: ""
         },
         seriesData: [
           // {
@@ -55,23 +94,48 @@ export default {
           // { value: 0.8, name: "科教文卫体业_xxxxxxx" },
           // { value: 14.2, name: "其他行业_xxxxxxx" }
         ],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       }
     };
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年年度派出人数主要行业`;
+          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} Overseas workers by industry`;
+      },
+      deep:true
+    }
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.pie.downloadFile();
     });
   },
- async created() {
+  async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.option.value=arrmaxmin[1];
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
       year: Number(arrmaxmin[1])
     });
- },
+  },
   beforeDestroy() {
     this.$EventBus.$off("downLoadImg");
   },
@@ -79,23 +143,32 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("LaborServiceIndustry");
-        this.$set(this.option, 'frame', res);
+      this.$set(this.option, "frame", res);
       this.showTimeFrame = true;
       return res;
     },
-    async getChartsData(aug) {  //年份 获取数据
-      let {res} = await request.getIndustryOfWorkersNumChart(aug);
-      let Xname=[];
-          res.forEach(item => {
-              Xname.push({value:item.variousTypesPerNumMillion,name:item.industry});
-          });
-          this.totalData.seriesData=Xname;
+    async getChartsData(aug) {
+      //年份 获取数据
+      let { res } = await request.getIndustryOfWorkersNumChart(aug);
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.totalDatas.updatedDate = this.$store.getters.latestTime;
+      let Xname = [];
+      res.forEach(item => {
+        Xname.push({
+          value: item.variousTypesPerNum,
+          name: item.industry + "_" + item.industryEn,
+          valueName:"在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+          proportionName:"比重_Share of overseas workers by industries",
+          proportion:item.industryPercent
+        });
+      });
+      this.totalDatas.seriesData = Xname;
     },
     async changeValue(value) {
       this.option.value = value;
       await this.getChartsData({
-            year: Number(value)
-          });
+        year: Number(value)
+      });
     }
   }
 };
@@ -115,15 +188,18 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
     }
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

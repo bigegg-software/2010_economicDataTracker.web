@@ -1,6 +1,6 @@
 <template>
   <!-- 中国对外劳务合作 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component
       :tabList="tabList"
       :tabComponent="tabComponent"
@@ -15,10 +15,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -27,32 +30,34 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
+
   },
   data() {
     return {
+      describeData:internationalLaborDescribe,
       tabComponent: "tradeVolumeChart",
-      isShowTable: false,
       tabList: [
         {
           name: "tradeVolumeChart",
           chinese: "派出人数",
-          english: "Total trade volume"
+          english: "Number of overseas workers"
         },
         {
           name: "topTenDestOfWorkersChart",
           chinese: "年度派出各类劳务人员前10位目的地国家",
-          english: "Top 10 destinations of workers sent overseas"
+          english: "Top 10 destinations of overseas workers"
         },
         {
           name: "topTenDestOfNumOfWorkersChart",
           chinese: "12月末在外各类劳务人员前10位国家",
-          english: "Top 10 desinations of total number of workers overseas"
+          english: "Year-end number of workers in top 10 destinations"
         },
         {
           name: "industryOfWorkersNumChart",
           chinese: "派出人数主要行业",
-          english: "XXXXXXXX"
+          english: "Overseas workers by industry"
         }
       ],
 
@@ -104,7 +109,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -114,8 +118,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -123,6 +128,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
     }
   },
   mounted() {},
@@ -146,7 +152,10 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+      }
+        if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -157,7 +166,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }

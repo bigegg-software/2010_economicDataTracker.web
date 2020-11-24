@@ -8,7 +8,8 @@ export default {
   data() {
     return {
       timer: null,
-      myChartBar: Object
+      myChartBar: Object,
+      selected:{},
     };
   },
   props: {
@@ -18,8 +19,8 @@ export default {
     }
   },
   watch: {
-     "$store.state.fullScreen.isFullScreen"() {
-       this.initChart()
+    "$store.state.fullScreen.isFullScreen"() {
+      this.initChart();
     },
     chartBarData: {
       handler(newName, oldName) {
@@ -50,7 +51,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.chartBarData.title.text; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -62,7 +63,8 @@ export default {
       return this.myChartBar.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -77,6 +79,10 @@ export default {
         uInt8Array[i] = raw.charCodeAt(i);
       }
       return new Blob([uInt8Array], { type: contentType });
+    },
+    formatNum(value) {
+      let strs = value.toFixed(1);
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     initChart() {
       //找出y轴数值最大最小值
@@ -118,12 +124,20 @@ export default {
             data: this.chartBarData.series[j].data
           },
           {
-            name: this.chartBarData.series[j].name,
+            name: this.chartBarData.spliceCon
+              ? this.chartBarData.series[j].name.split("_")[0] +
+                this.chartBarData.spliceCon.ch +
+                "_" +
+                this.chartBarData.series[j].name.split("_")[1] +
+                " " +
+                this.chartBarData.spliceCon.en
+              : this.chartBarData.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: false,
+            smooth: true, //平滑曲线显示
             lineStyle: {
-              color: this.chartBarData.series[j].color,
+              color: "#c33531",
               width: 1.5,
               type: "dashed"
             },
@@ -139,6 +153,7 @@ export default {
           }
         });
       }
+      let that = this;
       let option = {
         title: {
           text: this.chartBarData.title.subtext,
@@ -154,16 +169,17 @@ export default {
             fontSize: this.$fz(0.18)
           }
         },
-        legend:{
+        legend: {
+          selected:this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
-            if(!this.chartBarData.hideLegend){
-              return [`${name.split("_")[0]}`, `${name.split("_")[1]}`].join(
-              "\n"
+            if (!this.chartBarData.hideLegend) {
+              return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
+                "\n"
               );
-            }else{
-              return []
+            } else {
+              return [];
             }
           },
           top: "13%",
@@ -174,6 +190,17 @@ export default {
           }
         },
         graphic: [
+          {
+            type: "image",
+            left: that.$refs.chartBar.offsetWidth / 2.86,
+            top: that.$refs.chartBar.offsetHeight / 2.56,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.chartBar.offsetWidth / 3.33,
+              height: that.$refs.chartBar.offsetWidth / 4.55
+            }
+          },
           {
             type: "group",
             left: this.$fz(0.15) * 1.5,
@@ -205,7 +232,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]
@@ -250,6 +277,7 @@ export default {
           }
         ],
         tooltip: {
+          confine: true,
           trigger: "axis",
           backgroundColor: "rgba(225,225,255,0)",
           axisPointer: {
@@ -259,36 +287,52 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; font-size:0.09375rem; font-weight:bold;color:#666;">
-              <span>${params[0].name.split("\n")[1]}</span><br/>
+            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">
+              <span>${params[0].name.split("\n")[0]}</span><br/>
               <span style="font-size:0.072917rem; font-weight:normal;">${
-                params[0].name.split("\n")[0]
+                params[0].name.includes("\n")
+                  ? params[0].name.split("\n")[1]
+                  : ""
               }</span>
             </div>`;
             for (let i = 0; i < params.length; i++) {
               if (params[i].seriesName.includes("_")) {
-                if (params[i].seriesName.split("_")[0]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
-                    params[i].seriesName.split("_")[0]
-                  }</div>`;
-                }
                 if (params[i].seriesName.split("_")[1]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
                     params[i].seriesName.split("_")[1]
                   }</div>`;
                 }
+                if (params[i].seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;padding-top:0.01rem;line-height:0.09375rem;color:#7C7C7C;font-size:0.0625rem">${
+                    params[i].seriesName.split("_")[0]
+                  }</div>`;
+                }
               }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#333;font-size:0.114583rem;font-weight:bold;">${!!params[i].value?params[i].value :"-"}</div>`;
+              c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+                !!params[i].value
+                  ? this.formatNum(params[i].value) +
+                    (params[i].seriesName.includes("占比") ||
+                    params[i].seriesName.includes("同比")
+                      ? "%"
+                      : "")
+                  : "-"
+              }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
           }
         },
         grid: {
-          top: this.chartBarData.grid?this.chartBarData.grid.top:"23%",
-          left: this.chartBarData.left?this.chartBarData.grid.left:"3%",
-          right: this.chartBarData.right?this.chartBarData.grid.right:"4%",
-          bottom: this.chartBarData.bottom?this.chartBarData.grid.bottom:"10%",
+          top: this.chartBarData.grid ? this.chartBarData.grid.top : "23%",
+          left: this.chartBarData.grid ? this.chartBarData.grid.left : "3%",
+          right: this.chartBarData.Yearonshow
+            ? this.chartBarData.yearOnYear
+              ? "3%"
+              : "-2%"
+            : "4%",
+          bottom: this.chartBarData.bottom
+            ? this.chartBarData.grid.bottom
+            : "10%",
           containLabel: true
         },
         xAxis: [
@@ -327,16 +371,15 @@ export default {
               `{div|${this.chartBarData.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, -67],
+              color: "#666",
               rich: {
                 diven: {
-                  color: "#666",
-                  fontSize: this.$fz(0.18),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.18)
                 },
                 div: {
-                  color: "#666",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -356,8 +399,8 @@ export default {
             axisLabel: {
               show: true,
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           },
@@ -369,11 +412,25 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.ch}}` : "",
-              this.chartBarData.y2Name ? `{div|${this.chartBarData.y2Name.en}}` : ""
+              this.chartBarData.y2Name
+                ? `{div|${this.chartBarData.y2Name.en}}`
+                : "",
+              this.chartBarData.y2Name
+                ? `{divch|${this.chartBarData.y2Name.ch}}`
+                : ""
             ].join("\n"),
             nameTextStyle: {
-              color: "#333"
+              align: "left",
+              padding: [0, 0, 0, 7],
+              color: "#666",
+              rich: {
+                div: {
+                  fontSize: this.$fz(0.18)
+                },
+                divch: {
+                  fontSize: this.$fz(0.14)
+                }
+              }
             },
             splitLine: {
               show: true,
@@ -393,15 +450,17 @@ export default {
             },
             axisLabel: {
               show: true,
-              formatter: "{value}" +
+              formatter:
+                "{value}" +
                 `${
-                  this.chartBarData.unit2Symbol == "" || this.chartBarData.unit2Symbol
+                  this.chartBarData.unit2Symbol == "" ||
+                  this.chartBarData.unit2Symbol
                     ? " " + this.chartBarData.unit2Symbol
                     : " %"
                 }`, //右侧Y轴文字显示
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           }
@@ -409,7 +468,11 @@ export default {
         series: series
       };
       this.myChartBar = echarts.init(this.$refs.chartBar);
-      this.myChartBar.setOption(option);
+       this.myChartBar.off('legendselectchanged');
+        this.myChartBar.on('legendselectchanged',(param)=> {
+         this.selected=param.selected;
+       })
+      this.myChartBar.setOption(option,true);
       this.myChartBar.resize();
     },
     //计算最大值

@@ -70,8 +70,8 @@ export default {
         if (!err) {
           try {
             let user = await Parse.logIn(values);
-            window.sessionStorage.setItem("user", JSON.stringify(user));
-            this.$router.push("/");
+            this.$store.commit('setUserInfo',user);
+            this.$router.push({path:this.$route.query.redirect});
           } catch (error) {
             this.$message.warning({
               content: "用户名或密码错误",
@@ -81,7 +81,9 @@ export default {
         }
       });
     },
-    goBack() {}
+    goBack() {
+      this.$router.push({path:this.$route.query.redirect?this.$route.query.redirect:'/'});
+    }
   }
 };
 </script>

@@ -5,22 +5,13 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
       <SelectRadio
         class="status"
@@ -33,6 +24,7 @@
 </template>
 
 <script>
+import { outflowsByIndustryDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -46,8 +38,17 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          // ch: "中国对" + this.selectOption.value.ch + "直接投资的主要行业",
+          // en:
+          //   "China's investment in " +
+          //   this.selectOption.value.en +
+          //   " by industry"
+          ch:'',
+          en:''
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -56,44 +57,49 @@ export default {
           },
           economies: {
             text: "经济体_Economies",
-            width: "20%"
+            width: "30%"
           },
           industry: {
             text: "行业_industry",
-            width: "20%"
+            width: "30%"
+          },
+          outflowsMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "30%",
+            formatNum: true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       randomColor: [
-        "#8DC32E",
-        "#FF800C",
-        "#0CF6FF",
-        "#DB9800",
-        "#8D6CE3",
-        "#FFBD0C",
-        "#111BFF",
-        "#FF0CC5",
-        "#2992AE",
-        "#0C9AFF",
-        "#C4D225",
-        "#E39145",
-        "#0CFFCB",
-        "#CF90FF",
-        "#FF0000",
-        "#101010",
-        "#D04747",
-        "#7B0CFF"
+        "#61a0a9",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#a65783",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
       ],
       showTimeFrame: false,
       chartBar: {
-        dataSources: "中国人民网",
+        dataSources: outflowsByIndustryDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国对东盟直接投资的主要行业",
-          subtext: "XXXXXXXXXXXXXXXXXXXXXX"
+          text: "",
+          subtext: ""
         },
         xData: [2020],
         series: [
@@ -103,7 +109,7 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -113,22 +119,42 @@ export default {
       },
       selectOption: {
         ch: "经济体",
-        en: "xxxxxx",
+        en: "Economies",
         value: {
           id: 1,
-          ch: "欧盟",
-          en: "xxxxxx"
+          ch: "中国香港",
+          en: "Hong Kong, China"
         },
         op: [
           {
             id: 1,
-            ch: "欧盟",
-            en: "xxxxxx"
+            ch: "中国香港",
+            en: "Hong Kong, China"
           },
           {
             id: 2,
-            ch: "亚太经合组织",
-            en: "yyyyy"
+            ch: "东盟",
+            en: "ASEAN"
+          },
+          {
+            id: 3,
+            ch: "欧盟",
+            en: "European Union"
+          },
+          {
+            id: 4,
+            ch: "美国",
+            en: "United States"
+          },
+          {
+            id: 5,
+            ch: "澳大利亚",
+            en: "Australia"
+          },
+          {
+            id: 6,
+            ch: "俄罗斯联邦",
+            en: "Russia"
           }
         ]
       }
@@ -156,10 +182,25 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+      },
+      deep:true
+    },
+    selectOption:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+      },
+      deep:true
     }
   },
   async created() {
     let res = await this.getMaxMinDate();
+    console.log(res);
     let arrmaxmin = res.split("_");
     this.option.value = arrmaxmin[1];
     await this.getChartsData({
@@ -189,11 +230,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIMajorEconomiesIndustry(aug);
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       let outflows = [];
       let colors = [];
       res.forEach((item, i) => {
-        Xname.push(item.industry + "\n" + item.industryEN);
+        Xname.push(item.industryEN + "\n" + item.industry);
         outflows.push(item.outflowsMillion);
         colors.push(this.randomColor[i]);
       });
@@ -219,10 +262,6 @@ export default {
         },
         year: Number(this.option.value)
       });
-      this.chartBar.title = {
-        text: this.selectOption.value.ch,
-        subtext: this.selectOption.value.en
-      };
     }
   }
 };
@@ -249,9 +288,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

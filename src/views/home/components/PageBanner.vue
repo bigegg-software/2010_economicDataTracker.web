@@ -29,13 +29,13 @@ export default {
       navList: [
         {
           Chinese: "外资",
-          English: "Foreign Direct Investment (FDI)",
+          English: "FOREIGN DIRECT INVESTMENT",
           name: "foreignCapital"
         },
-        { Chinese: "外贸", English: "Trade", name: "foreignTrade" },
+        { Chinese: "外贸", English: "TRADE", name: "foreignTrade" },
         {
           Chinese: "宏观经济指标",
-          English: "Macro-economic indicators",
+          English: "MACRO-ECONOMIC INDICATORS",
           name: "economicIndicators"
         }
       ],
@@ -85,11 +85,13 @@ export default {
         padding: 0 0.15rem;
         height: 100%;
         color: #fff;
+        font-family:SimHei,'黑体';
         font-size: 0.083333rem;
         .nav-text:first-child {
           height: 50%;
           line-height: 0.24rem;
           font-size: 0.125rem;
+          font-family:Calibri;
         }
         &:hover {
           cursor: pointer;

@@ -2,16 +2,18 @@
   <!-- 主要对话投资国家和地区统计-年度部分国家/地区对华直接投资chart -->
   <div class="state-DirectInvest-InChinaChart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -19,7 +21,7 @@
           @change="changeSelect(index)"
         ></check-box>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <select-check-box
           :option="checkBox"
           :result="result"
@@ -32,6 +34,7 @@
 </template>
 
 <script>
+import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -39,6 +42,8 @@ import SelectCheckBox from "@/components/select/selectCheckBox/SelectCheckBox";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -47,42 +52,112 @@ export default {
     TimeFrame,
     LinesChart,
     SelectCheckBox,
-    CheckBox
+    CheckBox,
+    TableChart
   },
   name: "stateDirectInvestInChinaChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "部分国家/地区对华直接投资",
+          en: "China's FDI inflows by major country/region"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          continent: {
+            text: "区域_xxxxxx",
+            width: "20%"
+          },
+          country: {
+            text: "国家/地区_Country/Region",
+            width: "20%"
+          },
+          enterpriseNumber: {
+            text: "企业数_Number of enterprises",
+            width: "10%",
+            formatNum:true
+          },
+          enterprisePercent: {
+            text: "比重_Share of foreign investment enterprises",
+            width: "15%",
+            formatPer:true
+          },
+          FDIInflowsMillion: {
+            text: "实际投入外资金额_FDI inflows to China",
+            width: "15%",
+            formatNum:true
+          },
+          inflowsPercent: {
+            text: "比重_Share of total FDI inflows to China",
+            width: "10%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
-      randomColor: [],
+      randomColor: [
+        "#a65783",
+        "#c68821",
+        "#b8a597",
+        "#72a083",
+        "#c96470",
+        "#61a0a9",
+        "#2b4659",
+        "#d38265",
+        "#d2da90",
+        "#6e6e70",
+        "#c2cdd3",
+        "#c03838",
+        "#9d9930",
+        "#9a8ccc",
+        "#d4a04d",
+        "#ca849f",
+        "#b7d9bc",
+        "#dfdc90"
+      ],
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: MajorForeignInvestorsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        y2Name: { ch: "单位：家", en: "unit:xxxx" },
+        y2Name: { ch: "家", en: "Enterprise" },
         unit2Symbol: "",
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "年度部分国家/地区对华直接投资", en: "xxxxxxxxxxx" },
+        title: { ch: "部分国家/地区对华直接投资", en: "China's FDI inflows by major country/region" },
         xData: [],
-        series: []
+        grid: {
+          right: "9%",
+        },
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'企业数',
+          en:'Number of enterprises'
+        },
+        series: [],
+        updatedDate: ""
       },
       status: [
         {
           checked: false,
           ch: "企业数",
-          en: "xxx"
+          en: "Number of enterprises"
         }
       ],
       result: [],
       checkBox: {
         ch: "国家",
-        en: "country",
+        en: "Country",
         op: []
       },
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -101,17 +176,34 @@ export default {
       }
     };
   },
-  watch:{
-    result:{
-      async handler() {
-          this.USD.series=[];
-          await this.mainGetChartsData("yearly");
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
+    },
+    result: {
+      async handler() {
+        this.USD.series = [];
+        await this.mainGetChartsData("yearly");
+      },
+      deep: true
     }
   },
   async created() {
-    this.randomColor = await chartDataFun.randomColor(221);
+    let rand = await chartDataFun.randomColor(203);
+    this.randomColor= [...this.randomColor,...rand];
     await this.getAllCountryName();
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
@@ -222,6 +314,8 @@ export default {
       let dataAttr = ["FDIInflowsMillion", "enterpriseNumber"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -279,8 +373,8 @@ export default {
 
       let i = await this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      this.USD.series = [];
-      await this.mainGetChartsData("yearly");
+      // this.USD.series = [];
+      // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
       //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
@@ -340,7 +434,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
@@ -352,7 +446,7 @@ export default {
     }
   }
   .select-block {
-     width: 1.74667rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
@@ -363,8 +457,8 @@ export default {
     }
     .status {
       padding: 0.104167rem;
-      .checkbox{
-        padding:0;
+      .checkbox {
+        padding: 0;
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <div id="treemap" style="width:100%;height:100%;"></div>
-  </div>
+  <!-- <div class="container"> -->
+  <div ref="treeMap" id="treemap" style="width:100%;height:100%;"></div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -15,10 +15,10 @@ export default {
   props: {
     totalData: {}
   },
-   watch: {
-      "$store.state.fullScreen.isFullScreen"() {
-       this.drawTreemap();
-        this.chart.resize();
+  watch: {
+    "$store.state.fullScreen.isFullScreen"() {
+      this.drawTreemap();
+      this.chart.resize();
     },
     totalData: {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
@@ -48,7 +48,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.totalData.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -60,7 +60,8 @@ export default {
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -76,21 +77,57 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
+     formatNum(value) {
+      let strs = value.toFixed(1);
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    },
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
+      let that = this;
       let option = {
         tooltip: {
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let a = `<div style="color:#333;font-size:0.072917rem">${
-              params.name.split("_")[0]
+            //国家或地区
+            let name = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.083333rem">${
+              (params.name || "").split("_")[1]
             }</div>`;
-            let b = `<div style="color:#ccc;font-size:0.0625rem">${
-              params.name.split("_")[1]
+            let nameCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.072917rem">${
+              (params.name || "").split("_")[0]
             }</div>`;
-            let c = `<div style="color:#333;font-size: 0.114583rem;font-weight:bold;">${params.value}</div>`;
-            let dom = a + b + c;
-            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
+            //实际投入外资金额
+            let actual = `<div style="height:0.09375rem;margin-top:0.065rem;color:#3E3E3E;font-size:0.072917rem">${
+              (params.data.actual || "").split("_")[1]
+            }</div>`;
+            let actualCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+              (params.data.actual || "").split("_")[0]
+            }</div>`;
+            let value = `<div style="margin-top:0.055rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+              !!params.data.value ?this.formatNum(params.data.value) : ""
+            }</div>`;
+            //金额比重
+            let proportion = `<div style="height:0.09375rem;margin-top:0.06rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+              (params.data.proportion || "").split("_")[1]
+            }</div>`;
+            let proportionCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${
+              (params.data.proportion || "").split("_")[0]
+            }</div>`;
+
+            let proportionValue = `<div style="padding:0.052083rem 0 0.01rem;color:#333;font-size:0.114583rem;font-weight:bold;">${params.data.proportionValue}%</div>`;
+
+            let dom =
+              name +
+              nameCh +
+              actual +
+              actualCh +
+              value +
+              proportion +
+              proportionCh +
+              proportionValue;
+            let basic = name + nameCh + value;
+            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${
+              params.data.actual ? dom : basic
+            }</div>`;
           }
         },
         series: [
@@ -109,23 +146,52 @@ export default {
               show: true,
               fontSize: 14,
               position: "insideTopLeft",
+              letterSpacing: "10",
               formatter: params => {
+                let www = [
+                  `{d|${(params.data.actual || "").split("_")[1]}}`,
+                  `{a|${(params.data.actual || "").split("_")[0]}}`,
+                  `{c|${
+                    !!params.data.value
+                      ? this.formatNum(params.data.value)
+                      : ""
+                  }}`,
+                  `{d|${(params.data.proportion || "").split("_")[1]}}`,
+                  `{a|${(params.data.proportion || "").split("_")[0]}}`,
+                  `{c|${params.data.proportionValue}%}`
+                ];
                 return [
-                  `{a|${params.name.split("_")[0]}}`,
-                  `{a|${params.name.split("_")[1]}}`,
-                  `{c|${params.value}}`
+                  `{a|${(params.data.name || "").split("_")[1]}}`,
+                  `{a|${(params.data.name || "").split("_")[0]}}`,
+                  ...(params.data.actual
+                    ? www
+                    : [
+                        `{a|${
+                          !!params.data.value
+                            ? this.formatNum(params.data.value)
+                            : ""
+                        }}`
+                      ])
                 ].join("\n");
               },
               rich: {
                 a: {
                   color: "#FFF",
-                  lineHeight: this.$fz(0.16)
+                  fontSize: this.$fz(0.16),
+                  lineHeight: this.$fz(0.2)
                 },
                 c: {
                   color: "#FFF",
                   fontSize: this.$fz(0.18),
-                  lineHeight: this.$fz(0.2)
-                }
+                  lineHeight: this.$fz(0.28)
+                },
+                d: {
+                  color: "#FFF",
+                  fontSize: this.$fz(0.16),
+                  padding:[0,0,6,0]
+                  // margin:[this.$fz(0.5),0,0,0]
+                  // lineHeight: this.$fz(0.5)
+                },
               }
             },
             itemStyle: {
@@ -145,6 +211,7 @@ export default {
             //面包屑 没用可删
             breadcrumb: {
               show: false,
+              top:"center",
               left: "center",
               itemStyle: {
                 normal: {
@@ -168,6 +235,17 @@ export default {
           }
         ],
         graphic: [
+            {
+            type: "image",
+            left: that.$refs.treeMap.offsetWidth / 2.86,
+            top: that.$refs.treeMap.offsetHeight / 2.56,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.treeMap.offsetWidth / 3.33,
+              height: that.$refs.treeMap.offsetWidth / 4.55
+            }
+          },
           {
             type: "group",
             left: "center",
@@ -180,7 +258,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.en,
-                  font: `${this.$fz(0.26)}px Calibri bolder`
+                  font: `bold ${this.$fz(0.26)}px Calibri-Bold `,
                 }
               },
               {
@@ -191,14 +269,14 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.ch,
-                  font: `${this.$fz(0.19)}px 黑体`
+                  font: ` ${this.$fz(0.18)}px 微软雅黑`
                 }
               }
             ]
           },
           {
             type: "group",
-            left: this.$fz(0.15) *1.5,
+            left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
             children: [
               {
@@ -214,7 +292,7 @@ export default {
               }
             ]
           },
-           {
+          {
             type: "group",
             left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15),
@@ -227,7 +305,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]
@@ -281,7 +359,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: this.totalData.yName.en,
-                  font: `${this.$fz(0.20)}px Calibri`
+                  font: `${this.$fz(0.2)}px Calibri`
                 }
               },
               {
@@ -305,8 +383,8 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  width: this.$fz(0.15) * 75,
-                  height: this.$fz(0.15) * 8.2
+                  width: that.$refs.treeMap.offsetWidth,
+                  height: this.$fz(1.25)
                 },
                 style: {
                   fill: "#fff"
@@ -316,8 +394,8 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  width: this.$fz(0.15) * 1.5,
-                  height: this.$fz(0.15) * 50
+                  width: that.$refs.treeMap.offsetWidth * 0.02,
+                  height: that.$refs.treeMap.offsetHeight
                 },
                 style: {
                   fill: "#fff"
@@ -332,10 +410,9 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  x: this.$fz(0.15) * 73.6,
-                  y: 0,
-                  width: this.$fz(0.15) * 1.5,
-                  height: this.$fz(0.15) * 50
+                  x: that.$refs.treeMap.offsetWidth * 0.98,
+                  width: that.$refs.treeMap.offsetWidth * 0.02,
+                  height: that.$refs.treeMap.offsetHeight
                 },
                 style: {
                   fill: "#fff"
@@ -345,9 +422,9 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  y: this.$fz(0.15) * 46,
-                  width: this.$fz(0.15) * 74,
-                  height: this.$fz(0.15) * 5
+                  y: that.$refs.treeMap.offsetHeight * 0.925,
+                  width: that.$refs.treeMap.offsetWidth,
+                  height: that.$refs.treeMap.offsetHeight * 0.08
                 },
                 style: {
                   fill: "#fff"
@@ -363,9 +440,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.container {
-  width: 100%;
-  height: 100%;
-}
+// .container {
+//   width: 100%;
+//   height: 100%;
+// }
 </style>
 

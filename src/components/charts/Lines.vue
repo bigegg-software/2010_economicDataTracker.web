@@ -1,5 +1,5 @@
 <template>
-  <div :id="options.id" style="width:100%;height:100%;"></div>
+  <div :id="options.id" ref="lineChart" style="width:100%;height:100%;"></div>
 </template>
 
 <script>
@@ -9,13 +9,15 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark: false
+      watermark: false,
+      canvas: null,
+      selected:{},
     };
   },
   props: {
     options: {}
   },
-  mounted() {
+  async mounted() {
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -43,27 +45,29 @@ export default {
     }
   },
   methods: {
-    downloadFile() {
+    async downloadFile() {
       //添加水印
       this.watermark = true;
-      this.initChart();
+      await this.initChart();
       let aLink = document.createElement("a");
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.options.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
       this.watermark = false;
       this.initChart();
     },
+
     exportImg() {
       //echart返回一个 base64 的 URL
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -79,9 +83,14 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
+    formatNum(value) {
+      let strs = value.toFixed(1);
+      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
       this.chart = echarts.init(document.getElementById(this.options.id));
+      let that = this;
       //找出y轴数值最大最小值
       let totalArray = [];
       let yearArray = [];
@@ -130,6 +139,7 @@ export default {
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
             showSymbol: true,
+            smooth: true, //平滑曲线显示
             lineStyle: {
               color: this.options.series[j].color,
               width: 1.5,
@@ -165,10 +175,23 @@ export default {
           left: "center"
         },
         grid: {
-          top: "25%",
+          top: "23%",
+          left: "8.4%",
+          right: this.options.yearOnYear ? "6%" : "4%",
           bottom: "11%"
         },
         graphic: [
+          {
+            type: "image",
+            left: that.$refs.lineChart.offsetWidth / 2.86,
+            top: that.$refs.lineChart.offsetHeight / 2.56,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.lineChart.offsetWidth / 3.33,
+              height: that.$refs.lineChart.offsetWidth / 4.55
+            }
+          },
           {
             type: "group",
             left: this.$fz(0.15) * 1.5,
@@ -200,7 +223,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]
@@ -247,26 +270,62 @@ export default {
 
         tooltip: {
           trigger: "axis",
+          confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem  0 0.125rem;font-size:0.104167rem;font-weight:bold;color:#1D3F6C;">${params[0].name}</div>`;
+            let dom = `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            // c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+            //   !!params[i].value
+            //     ? this.formatNum(params[i].value) +
+            //       (params[i].seriesName.includes("占比") ||
+            //       params[i].seriesName.includes("同比")
+            //         ? "%"
+            //         : "")
+            //     : "-"
+            // }</div>`;
+
             for (let i = 0; i < params.length; i++) {
-              if (params[i].seriesName.split("_")[1]) {
-                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                  params[i].seriesName.split("_")[1]
+              if (
+                this.options.yearOnYear == false ||
+                this.options.yearOnYear == undefined ||
+                i % 2 == 0
+              ) {
+                if (params[i].seriesName.split("_")[1]) {
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                    params[i].seriesName.split("_")[1]
+                  }</div>`;
+                }
+                if (params[i].seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
+                    params[i].seriesName.split("_")[0]
+                  }</div>`;
+                }
+                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                  !!params[i].value ? this.formatNum(params[i].value) : "-"
+                }</div>`;
+              } else {
+                if (params[i].seriesName.split("_")[1]) {
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
+                    .options.spliceCon.en +
+                    " " +
+                    params[i].seriesName.split("_")[1]}</div>`; 
+                }
+                if (params[i].seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${params[
+                    i
+                  ].seriesName.split("_")[0] +
+                    this.options.spliceCon.ch}</div>`;
+                }
+                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                  !!params[i].value
+                    ? this.formatNum(params[i].value) +
+                      (this.options.y2Name ? "" : "%")
+                    : "-"
                 }</div>`;
               }
-              if (params[i].seriesName.split("_")[0]) {
-                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#666;font-size:0.072917rem">${
-                  params[i].seriesName.split("_")[0]
-                }</div>`;
-              }
-              c = `<div style="padding:0.052083rem 0 0.078125rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value : "-"
-              }</div>`;
               dom = dom + a + b + c;
             }
             return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;
@@ -277,6 +336,7 @@ export default {
         },
         // color: ["#1DD6CF", "#ED8DD0"], // 控制 lengend icon 的颜色
         legend: {
+          selected:this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
@@ -298,9 +358,8 @@ export default {
         xAxis: {
           data: this.options.xData, // x轴
           axisLine: {
-            show: true,
             lineStyle: {
-              color: "#ccc",
+              color: "#8c8c8c",
               type: "solid"
             }
           },
@@ -327,16 +386,15 @@ export default {
               `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, -68],
+              color: "#666",
               rich: {
                 div: {
-                  color: "#666",
-                  fontSize: this.$fz(0.18),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.18)
                 },
                 divch: {
-                  color: "#666",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -369,15 +427,19 @@ export default {
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              this.options.y2Name ? `{div|${this.options.y2Name.ch}}` : "",
-              this.options.y2Name ? `{div|${this.options.y2Name.en}}` : ""
+              this.options.y2Name ? `{div|${this.options.y2Name.en}}` : "",
+              this.options.y2Name ? `{divch|${this.options.y2Name.ch}}` : ""
             ].join("\n"),
             nameTextStyle: {
+              align: "left",
+              padding: [0, 0, 0, 7],
+              color: "#666",
               rich: {
                 div: {
-                  color: "#333",
-                  fontSize: this.$fz(0.14),
-                  padding: [2, 0]
+                  fontSize: this.$fz(0.18)
+                },
+                divch: {
+                  fontSize: this.$fz(0.14)
                 }
               }
             },
@@ -407,15 +469,19 @@ export default {
                     : " %"
                 }`, //右侧Y轴文字显示
               textStyle: {
-                color: "#333",
-                fontSize: this.$fz(0.14)
+                color: "#666",
+                fontSize: this.$fz(0.16)
               }
             }
           }
         ],
         series: series
       };
-
+        this.chart.off('legendselectchanged');
+        this.chart.on('legendselectchanged',(param)=> {
+         console.log(param)
+         this.selected=param.selected;
+       })
       this.chart.setOption(option, true);
     },
     //计算最大值

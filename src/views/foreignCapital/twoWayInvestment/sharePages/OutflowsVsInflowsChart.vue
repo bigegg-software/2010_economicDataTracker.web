@@ -2,18 +2,29 @@
   <!-- 双向直接投资chart-->
   <div class="outflows-chart">
     <div class="echart-block">
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="totalData"></TableChart>
+      </div>
       <!-- <div v-if="isShowTable" class="table-block"></div> -->
       <div
-        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
         v-show="!isShowRMB"
       >
-        <lines-chart v-if="!isShowRMB" ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowRMB && !isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
       <div
-        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
         v-show="isShowRMB"
       >
-        <lines-chart v-if="isShowRMB" ref="lines2Chart" :options="RMB"></lines-chart>
+        <lines-chart v-if="isShowRMB && !isShowTable" ref="lines2Chart" :options="RMB"></lines-chart>
       </div>
     </div>
     <div class="select-block">
@@ -39,12 +50,14 @@
 </template>
 
 <script>
+import { OutflowsVsInflowsDescribe } from "@/utils/describe.js";
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/twoWayInvestment/twoWayInvestment";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
     isShowTable: {}
@@ -52,22 +65,55 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
   },
   name: "outflowsChart",
   data() {
     return {
+      totalData: {
+        title: {
+          ch: "双向直接投资",
+          en: "China's FDI outflows vs. inflows"
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "20%"
+          },
+          outward_FDI_flows: {
+            text: "对外直接投资流量_xxx",
+            width: "30%",
+            formatNum: true
+          },
+          inward_FDI_flows: {
+            text: "外国直接投资流入_xxx",
+            width: "50%",
+            formatNum: true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
       activeKey: "yearly",
       RMB: {
         id: "RMB",
-        dataSources: "中国人民网",
+        dataSources: OutflowsVsInflowsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
+        },
         series: [
           {
             name: "实际使用外资_xxx",
@@ -81,28 +127,29 @@ export default {
             data: [],
             yearOnYear: []
           }
-        ]
+        ],
+        updatedDate: ""
       },
       USD: {
         id: "USD",
         dataSources: "中国人民网",
         yName: { ch: "百万美元", en: "USD min" },
-        yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         series: [
           {
             name:
-              "对外直接投资流量（FDI流出）_Outward FDI flows (FDI outflows)",
+              "实际使用外资_FDI inflows",
             color: "#6AA3CD",
             data: []
           },
           {
-            name: "外国直接投资流入（FDI流入）_Inward FDI flows (FDI inflows)",
+            name: "对外直接投资流量_FDI outflows",
             color: "#FF0000",
             data: []
           }
-        ]
+        ],
+        updatedDate: ""
       },
       status: [
         {
@@ -114,7 +161,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -132,7 +179,7 @@ export default {
         },
         quarterly: {
           ch: "季度",
-          en: "quarterly",
+          en: "Quarterly",
           list: {
             start: {
               ch: "开始",
@@ -150,7 +197,7 @@ export default {
         },
         monthly: {
           ch: "月度",
-          en: "monthly",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -168,6 +215,24 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async created() {
     let res = await this.getMaxMinDate();
@@ -240,7 +305,52 @@ export default {
 
       //
     },
+    updateTableTitle(type) {
+      switch (type) {
+        case 1:
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "20%"
+            },
+            outward_FDI_flows: {
+              text: "对外直接投资流量_xxx",
+              width: "30%",
+              formatNum:true
+            },
+            inward_FDI_flows: {
+              text: "外国直接投资流入_xxx",
+              width: "50%",
+              formatNum:true
+            }
+          };
+          break;
+        case 2:
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "20%"
+            },
+            month: {
+              text: "月份_Year",
+              width: "20%"
+            },
+            inwardFDIConMillion: {
+              text: "实际使用外资_xxx",
+              width: "30%",
+              formatNum: true
+            },
+            inwardFDIConYOY: {
+              text: "实际使用外资同比_xxx",
+              width: "30%",
+              formatPer: true
+            }
+          };
+          break;
+      }
+    },
     async getChartsData(aug) {
+      this.updateTableTitle(1);
       //改变横轴 获取数据
       let { res } = await request.getOutflowsVsInflowsChartData(aug);
 
@@ -250,6 +360,8 @@ export default {
       let dataAttr = ["outward_FDI_flows", "inward_FDI_flows"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -303,13 +415,14 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
+        let QMDefaultTime=await chartDataFun.getQMDefaultTime(end,1);
         if (key == "quarterly") {
-          obj.list.start.value = `${start}-03`;
-          obj.list.end.value = `${end}-12`;
+          obj.list.start.value = QMDefaultTime.Q.start;
+          obj.list.end.value = QMDefaultTime.Q.end;
           this.$set(this.options, "quarterly", obj);
         } else if (key == "monthly") {
-          obj.list.start.value = `${start}-01`;
-          obj.list.end.value = `${end}-12`;
+          obj.list.start.value = QMDefaultTime.M.start;
+          obj.list.end.value = QMDefaultTime.M.end;
           this.$set(this.options, "monthly", obj);
         }
       }
@@ -355,6 +468,7 @@ export default {
       this.RMB.series[1]["yearOnYear"] = allIndustrydata.conversionYOY;
     },
     async getChartsDataQM(aug) {
+      this.updateTableTitle(2);
       //改变横轴 获取数据
       let {
         allIndustry,
@@ -368,6 +482,8 @@ export default {
       let dataAttr = ["inwardFDIConMillion", "inwardFDIConYOY"];
       let XNameAttr = "year";
       this.RMB.xData = range;
+      this.RMB.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(allIndustry);
       await chartDataFun.addOtherCategory(res);
@@ -477,7 +593,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;

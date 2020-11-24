@@ -1,5 +1,6 @@
 <template>
-  <div :ref="totalData.id" id="pieChart" style="width:100%;
+<!-- :ref="totalData.id" -->
+  <div ref="pieChart" id="pieChart" style="width:100%;
     height:100%"></div>
 </template>
 
@@ -48,7 +49,7 @@ export default {
       let blob = this.base64ToBlob();
       let evt = document.createEvent("HTMLEvents");
       evt.initEvent("click", true, true);
-      aLink.download = "zhangsan"; //下载图片的名称
+      aLink.download = this.totalData.title.ch; //下载图片的名称
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
@@ -60,7 +61,8 @@ export default {
       return this.chart.getDataURL({
         type: "png",
         pixelRatio: 5, //清晰度
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        border: "none"
       });
     },
     base64ToBlob() {
@@ -78,6 +80,7 @@ export default {
     },
     drawPie() {
       this.chart = echarts.init(document.getElementById("pieChart"));
+      let that = this;
       // 绘制图表
       let option = {
         title: {
@@ -95,18 +98,28 @@ export default {
           }
         },
         tooltip: {
+          confine: true,
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;margin-bottom:0.02rem;">${this.value}</div>`;
+            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;margin-bottom:0.02rem;">${this.value}</div>`;
             let a = `<div style="color:#666;font-size:0.09375rem">${
-              params.name.split("_")[1]
+              params.data.valueName.split("_")[1]
             }</div>`;
             let b = `<div style="color:#666;font-size:0.072917rem">${
-              params.name.split("_")[0]
+              params.data.valueName.split("_")[0]
             }</div>`;
-            let c = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.05rem 0;">${params.value}</div>`;
-            let dom = year + a + b + c;
+            let c = `<div style="color:#666;font-size:0.09375rem">${
+              params.data.proportionName.split("_")[1]
+            }</div>`;
+            let d = `<div style="color:#666;font-size:0.072917rem">${
+              params.data.proportionName.split("_")[0]
+            }</div>`;
+            let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.value}</div>`;
+            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.data.proportion.toFixed(
+              1
+            )}%</div>`;
+            let dom = year + a + b + e + c + d + f;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
         },
@@ -141,6 +154,17 @@ export default {
         ],
         graphic: [
           {
+            type: "image",
+            left: that.$refs.pieChart.offsetWidth / 2.86,
+            top: that.$refs.pieChart.offsetHeight / 2.56,
+            z: 9999,
+            style: {
+              image: require("../../assets/img/waterMark.png"),
+              width: that.$refs.pieChart.offsetWidth / 3.33,
+              height: that.$refs.pieChart.offsetWidth / 4.55
+            }
+          },
+          {
             type: "group",
             left: this.$fz(0.15) * 1.5,
             bottom: this.$fz(0.15) * 2.2,
@@ -171,7 +195,7 @@ export default {
                 style: {
                   fill: "#666",
                   text: "数据最后更新时间",
-                  font: `${this.$fz(0.14)}px 黑体`
+                  font: `${this.$fz(0.14)}px SimHei`
                 }
               }
             ]

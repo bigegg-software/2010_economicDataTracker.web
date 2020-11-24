@@ -1,6 +1,6 @@
 <template>
   <!-- 中国对外直接投资流量行业分布情况 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component
       :tabList="tabList"
       :tabComponent="tabComponent"
@@ -15,10 +15,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {outflowsByIndustryDescribe} from '@/utils/describe.js'
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -27,12 +30,13 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:outflowsByIndustryDescribe,
       tabComponent: "outflowsByIndustryChart",
-      isShowTable: false,
       tabList: [
         {
           name: "outflowsByIndustryChart",
@@ -42,7 +46,7 @@ export default {
         {
           name: "economyByIndustryChart",
           chinese: "中国对主要经济体投资按行业统计",
-          english: "XXXXXXXXXXXXXXXX"
+          english: "China's investment in main economies by industry"
         }
       ],
 
@@ -94,7 +98,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -104,8 +107,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -113,6 +117,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
     }
   },
   mounted() {},
@@ -136,7 +141,10 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+      }
+       if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -146,7 +154,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+       this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }
@@ -157,5 +165,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

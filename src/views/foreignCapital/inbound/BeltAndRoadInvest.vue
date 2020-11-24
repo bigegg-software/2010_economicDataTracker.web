@@ -8,33 +8,39 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {BeltAndRoadInvestDescribe} from '@/utils/describe.js'
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
+import Describe from "@/components/Describe";
+
 export default {
   name: "beltAndRoadInvest",
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:BeltAndRoadInvestDescribe,
       tabComponent: "numEnterprisesBRIChart",
       tabList: [
         {
           name: "numEnterprisesBRIChart",
           chinese: "企业数",
-          english: "XXXXXXXXXXX"
+          english: "Number of enterprises"
         },
         {
           name: "inflowsToChinaBRIChart",
           chinese: "实际投入外资金额",
-          english: "XXXXXXXXXXX"
+          english: "Foreign investment from BRI countries"
         }
       ],
 
@@ -86,7 +92,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -102,6 +107,12 @@ export default {
         }
       ]
     };
+  },
+  watch: {
+    tabComponent() {
+      this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
+    }
   },
   mounted() {},
   methods: {
@@ -124,7 +135,7 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        // this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
       }
       if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
@@ -139,6 +150,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
+        this.$store.commit('downloadExcel');
       }
 
       this.initActionsList();

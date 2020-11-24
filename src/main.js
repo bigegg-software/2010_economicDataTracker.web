@@ -3,6 +3,7 @@ import App from './App.vue'
 import Parse from '@/request'
 import router from './router'
 import store from '@/vuexStore'
+import storage from '@/storage/storage'
 // economic data tracker 项目名
 import './utils/lib-flexible' // 根据屏幕宽度，自动设置html的font-size
 import './assets/font/iconfont.css'
@@ -17,7 +18,7 @@ Vue.prototype.$fz = fontSize
 Vue.prototype.$Parse = Parse
 Vue.prototype.$EventBus = new Vue()
 Vue.config.productionTip = false
-
+Vue.prototype.$storage=storage;
 new Vue({
   router,
   store,

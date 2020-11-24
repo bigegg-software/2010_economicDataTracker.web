@@ -5,28 +5,20 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <chart-bar
-          v-if="!isShowTable"
-          ref="barChart"
-          :chartBarData="chartBar"
-        ></chart-bar>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <year
-          v-if="showTimeFrame"
-          :option="option"
-          :value="option.value"
-          @change="yearChange"
-        ></year>
+        <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -39,8 +31,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资流量",
-          en: "China's FDI outflows"
+          ch: "",
+          en: ""
+        },
+        unit: {
+          ch: "万人",
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {
@@ -52,37 +48,43 @@ export default {
               "年度派出各类劳务人员国家_Top 10 destinations of workers sent overseas",
             width: "20%"
           },
-          variousTypesPerNum: {
+          variousTypesPerNumMillion: {
             text: "年度派出各类劳务人员人数_Number of workers sent overseas",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           destinationPercent: {
             text:
               "年度派出各类劳务人员比重_Share of workers sent overseas by destinations",
-            width: "35%"
+            width: "35%",
+            formatPer:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       showTimeFrame: false,
       chartBar: {
         watermark: false,
-        dataSources: "中国人民网",
-        yName: { ch: "万人", en: "XXXXXXXXXX" },
+        dataSources: internationalLaborDescribe.dataSources,
+        yName: { ch: "万人", en: "10,000 persons" },
         title: {
           text: "年度派出各类劳务人员前10位目的地国家",
           subtext: "Top 10 destinations of workers sent overseas"
         },
         xData: [],
+        grid:{
+          top:"23%",
+          left:"5%"
+        },
         series: [
           {
             // name:'存量_xxxxx',
-            color: ["#0C9AFF"],
+            color: ["#71a6c2"],
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -114,6 +116,13 @@ export default {
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年年度派出各类劳务人员前10位目的地国家`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Top 10 destinations of workers sent overseas`;
+      },
+      deep:true
     }
   },
   components: { ChartBar, Year, TableChart },
@@ -147,12 +156,14 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getLaborServiceTop10AnnualRankChart(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.chartBar.updatedDate=this.$store.getters.latestTime;
       let Xname = [];
       // 年度派出各类劳务人员人数
       let variousTypesPerNum = [];
       res.forEach(item => {
-        Xname.push(item.destinations);
-        variousTypesPerNum.push(item.variousTypesPerNum);
+        Xname.push(item.destinationEn+'\n'+item.destinations);
+        variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;
       this.chartBar.series[0].data = variousTypesPerNum;
@@ -184,15 +195,19 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

@@ -2,16 +2,19 @@
   <!-- 双向直接投资 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent"></share-body>
+    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked" ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import Describe from "@/components/Describe";
+import {OutflowsVsInflowsDescribe} from '@/utils/describe.js'
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -20,16 +23,19 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
+
   },
   data() {
     return {
+      describeData:OutflowsVsInflowsDescribe,
       tabComponent: "outflowsVsInflowsChart",
       tabList: [
         {
           name: "outflowsVsInflowsChart",
           chinese: "双向直接投资",
-          english: "China's FDI outflows vs. inflows"
+          english: "FDI outflows vs. inflows"
         }
       ],
 
@@ -81,7 +87,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -91,8 +96,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -120,6 +126,9 @@ export default {
        if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
+      if (item.name == "chart") {
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -130,6 +139,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
+        this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }

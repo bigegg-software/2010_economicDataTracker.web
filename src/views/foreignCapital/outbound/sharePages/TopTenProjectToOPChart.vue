@@ -3,17 +3,12 @@
   <div class="topTenProject-To-OPChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <TableChart :totalData="totalData"></TableChart>
       </div>
     </div>
     <div class="select-block">
-      <year
-        v-if="showTimeFrame"
-        :option="option"
-        :value="option.value"
-        @change="yearChange"
-      ></year>
+      <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
     </div>
   </div>
 </template>
@@ -31,11 +26,11 @@ export default {
       showTimeFrame: false,
       totalData: {
         title: {
-          ch: "前十项目",
-          en: "XXXXXXXXXXXXXXXXXXXXX"
+          ch: "中国年度对外承包工程新签合同额前十项目",
+          en: "China's top 10 overseas project by contract value"
         },
         tableTitle: {
-          key: {
+          rank: {
             text: "排名_Rank",
             width: "10%"
           },
@@ -43,17 +38,25 @@ export default {
             text: "国家(地区)_Country/Region",
             width: "20%"
           },
+          projectEn: {
+            text: "项目名称翻译_Project name translation",
+            width: "35%"
+          },
           project: {
             text: "项目名称_Project",
             width: "35%"
           },
-          enterprise: {
+          contractingEnterpriseEn: {
+            text: "签约企业名称翻译_Contracting enterprise name translation",
+            width: "35%"
+          },
+          contractingEnterprise: {
             text: "签约企业_Contracting enterprise",
             width: "35%"
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       option: {
         ch: "年度",
@@ -69,10 +72,20 @@ export default {
       default: false
     }
   },
+  watch:{
+    option:{
+      handler() {
+          this.totalData.title.ch=`${this.option.value}中国年度对外承包工程新签合同额前十项目`;
+          this.totalData.title.en=`${this.option.value} China's top 10 overseas project by contract value`;
+      },
+      deep:true
+    },
+  },
   mounted() {},
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.option.value=arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
       limit: 20,
@@ -90,23 +103,32 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getForeignContractNewConRank(aug);
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       this.totalData.tableData = [];
       res.forEach(item => {
         this.totalData.tableData.push({
-          key: {
+          rank: {
             text: item.rank + "_",
             width: "10%"
           },
           country: {
-            text: item.country + "_3424",
+            text: item.country + "_" + item.countryEn,
             width: "20%"
           },
-          project: {
-            text: item.project + "_3424",
+          projectEn: {
+            text: item.projectEn + "_",
             width: "35%"
           },
-          enterprise: {
-            text: item.contractingEnterprise + "_3424",
+          project: {
+            text: item.project + "_",
+            width: "35%"
+          },
+          contractingEnterpriseEn: {
+            text: item.contractingEnterpriseEn + "_",
+            width: "35%"
+          },
+          contractingEnterprise: {
+            text: item.contractingEnterprise + "_",
             width: "35%"
           }
         });
@@ -144,9 +166,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

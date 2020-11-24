@@ -1,58 +1,66 @@
 <template>
   <div class="actions-block" id="actions-block">
-    <div
-      v-for="(item, index) in actionsList"
-      :key="index"
-      class="action"
-      :class="{ active: item.checked }"
-      @mouseleave="mouseleave"
-      @click.stop="handleClickAction(item, index)"
-    >
-      <div class="iconfont icon-action">{{ handelText(item.toggle, item.checked, item.icon) }}</div>
-      <div class="text">
-        <div>{{ handelText(item.toggle, item.checked, item.en) }}</div>
-        <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
+    <template v-for="(item, index) in actionsList">
+      <div
+        v-if="!item.hide && ((item.name!='download'&&item.name!='embed')||((item.name=='download'||item.name=='embed')&&$store.getters.userInfo.sessionToken))"
+        :key="index"
+        class="action"
+        :class="{ active: item.checked }"
+        @mouseleave="mouseleave"
+        @click.stop="handleClickAction(item, index)"
+      >
+        <div class="iconfont icon-action">{{ handelText(item.toggle, item.checked, item.icon) }}</div>
+        <div class="text">
+          <div>{{ handelText(item.toggle, item.checked, item.en) }}</div>
+          <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
+        </div>
+        <fade-in-out>
+          <!-- 下载 -->
+          <div v-if="item.popup && item.name == 'download' && item.checked" class="download-block">
+            <template v-for="(action, i) in item.children">
+              <div
+                v-if="actionsList[0].checked!=true || action.name!='image'&&actionsList[0].checked==true"
+                :key="i"
+                class="download"
+                @click.stop="choose(index, i,item.name)"
+              >
+                <div>{{ action.en }}</div>
+                <div>{{ action.ch }}</div>
+              </div>
+            </template>
+          </div>
+          <!-- 嵌入 -->
+          <div v-if="item.popup && item.name == 'embed' && item.checked" class="embed-block">
+            <div v-for="(action, i) in item.children" :key="i" class="embed">
+              <div>{{ action.en }}</div>
+              <div>{{ action.ch }}</div>
+              <div>{{ action.src }}</div>
+            </div>
+          </div>
+          <!-- 分享 -->
+          <div v-if="item.popup && item.name == 'share' && item.checked" class="share-block">
+            <div
+              v-for="(action, i) in item.children"
+              :key="i"
+              class="share"
+              @click.stop="choose(index, i,item.name)"
+            >
+              <img :src="require('../assets/img/' + action.img)" alt />
+            </div>
+          </div>
+        </fade-in-out>
       </div>
-      <fade-in-out>
-        <!-- 下载 -->
-        <div v-if="item.popup && item.name == 'download' && item.checked" class="download-block">
-          <div
-            v-for="(action, i) in item.children"
-            :key="i"
-            class="download"
-            @click.stop="choose(index, i,item.name)"
-          >
-            <div>{{ action.en }}</div>
-            <div>{{ action.ch }}</div>
-          </div>
-        </div>
-        <!-- 嵌入 -->
-        <div v-if="item.popup && item.name == 'embed' && item.checked" class="embed-block">
-          <div v-for="(action, i) in item.children" :key="i" class="embed">
-            <div>{{ action.en }}</div>
-            <div>{{ action.ch }}</div>
-            <div>{{ action.src }}</div>
-          </div>
-        </div>
-        <!-- 分享 -->
-        <div v-if="item.popup && item.name == 'share' && item.checked" class="share-block">
-          <div
-            v-for="(action, i) in item.children"
-            :key="i"
-            class="share"
-            @click.stop="choose(index, i,item.name)"
-          >
-            <img :src="require('../assets/img/' + action.img)" alt />
-          </div>
-        </div>
-      </fade-in-out>
-    </div>
+    </template>
+    <a-modal v-model="visible" title="请使用微信扫描下方二维码" footer>
+      <div id="qrcodeMark"></div>
+    </a-modal>
   </div>
 </template>
 
 <script>
 import QRCode from "qrcodejs2";
 import FadeInOut from "@/components/animations/FadeInOut";
+import chartDataFun from "@/utils/chartDataFun";
 
 export default {
   props: {
@@ -62,15 +70,30 @@ export default {
     FadeInOut
   },
   data() {
-    return { timer: null };
+    return {
+      visible: false,
+      timer: null,
+      sty: { width: "2rem" },
+      urlTitle: ""
+    };
   },
+
+  async created() {
+    let arr = await chartDataFun.getAllMenuItem();
+    this.urlTitle = arr.filter(item => {
+      return item.name == this.$route.name;
+    });
+    console.log(this.urlTitle);
+    console.log(this.urlTitle[0].en + this.urlTitle[0].ch);
+  },
+
   mounted() {
     document.addEventListener("click", () => {
       if (document.getElementById("qrcode")) {
         document.getElementById("qrcode").remove();
       }
       this.actionsList.forEach(item => {
-        if (item.name != "chart") {
+        if (item.name != "chart" && item.name != "enlarge") {
           item.checked = false;
         }
       });
@@ -96,13 +119,13 @@ export default {
       if (name == "share" && i == 1) {
         this.sharetoFacebook();
       }
-      if (name == "share" && i == 3) {
+      if (name == "share" && i == 2) {
         this.sharetoWeChat();
       }
-      if (name == "share" && i == 4) {
+      if (name == "share" && i == 3) {
         this.sharetoSina();
       }
-      if (name == "share" && i == 5) {
+      if (name == "share" && i == 4) {
         this.sharetoEmail();
       }
     },
@@ -117,7 +140,11 @@ export default {
       window.open(
         //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
-          encodeURIComponent(window.location.href)
+          encodeURIComponent(window.location.href) +
+          "&text=" +
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
+        "",
+        "left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0"
       );
     },
     //分享到 facebook
@@ -129,20 +156,16 @@ export default {
     },
     // 分享到微信
     sharetoWeChat() {
-      let qrcodeDiv = document.createElement("div");
-      qrcodeDiv.id = "qrcode";
-      qrcodeDiv.style.position = "absolute";
-      qrcodeDiv.style.bottom = "0.36rem";
-      qrcodeDiv.style.left = "4.68rem";
-      qrcodeDiv.style.zIndex = "4";
-      qrcodeDiv.style.boxShadow = "darkgrey 0px 0px 10px 1px";
-      let container = document.getElementById("actions-block");
-      container.insertBefore(qrcodeDiv, container.firstChild);
-      let qrcode = new QRCode("qrcode", {
-        width: 100,
-        height: 100,
-        text: encodeURIComponent(window.location.href) // 设置二维码内容或跳转地址
-      });
+      this.visible = true;
+      setTimeout(() => {
+        let container = document.getElementById("qrcodeMark");
+        container.innerHTML = "";
+        let qrcode = new QRCode("qrcodeMark", {
+          width: 160,
+          height: 160,
+          text: encodeURIComponent(window.location.href) // 设置二维码内容或跳转地址
+        });
+      }, 0);
     },
     //点击此元素之外的地方  隐藏
     HideOther(thisDiv) {
@@ -170,18 +193,36 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/deep/ .ant-modal-content {
+  margin: auto;
+  width: 1.8rem;
+}
+/deep/ .ant-modal-body {
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+/deep/ .ant-modal-title {
+  font-size: 0.09375rem;
+}
+/deep/ .ant-modal-close {
+  font-size: 0.083333rem;
+}
 .actions-block {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .action {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20.4%;
+  width: 20.24%;
   height: 0.296875rem;
   border-bottom: 2px solid #cbcbcb;
   border-right: 2px solid #cbcbcb;
@@ -189,11 +230,11 @@ export default {
   cursor: pointer;
   user-select: none;
   &:first-child {
-    color: #186497 !important; // 让第一个常亮
+    // color: #186497 !important; // 让第一个常亮
     border-left: 2px solid #cbcbcb;
   }
   &:last-child {
-    width: 19.2%;
+    width: 19.05%;
   }
   .icon-action {
     font-size: 0.145833rem;
@@ -202,22 +243,23 @@ export default {
   .text {
     font-size: 0.104167rem;
     line-height: 0.09375rem;
-    & :last-child{
+    & :last-child {
       font-size: 0.072917rem;
     }
   }
   .download-block {
     position: absolute;
-    top: -0.59375rem;
+    bottom: 0.325rem;
     left: 0;
     z-index: 5;
+    width: 100%;
     box-shadow: darkgrey 0px 0px 10px 1px;
     .download {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 0.604167rem;
-      height:0.276042rem;
+      // width: 0.604167rem;
+      height: 0.276042rem;
       padding: 0 0.083333rem;
       line-height: 0.104167rem;
       background-color: #f5f5f5;
@@ -250,9 +292,9 @@ export default {
     color: #666;
     .embed {
       line-height: 0.114583rem;
-      font-size:0.072917rem;
+      font-size: 0.072917rem;
       div {
-        &:first-child{
+        &:first-child {
           font-size: 0.09375rem;
           font-family: "Calibri";
         }
@@ -291,4 +333,7 @@ export default {
 .active {
   color: #186497;
 }
+// .ant-modal-content{
+//   width: 2rem !important;
+// }
 </style>

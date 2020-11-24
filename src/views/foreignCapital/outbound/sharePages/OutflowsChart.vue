@@ -5,18 +5,21 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart v-if="!isShowTable"  ref="lineChart" :options="USD"></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="lineChart" :options="USD"></lines-chart>
       </div>
-      <div v-if="isShowRMB" class="container">
+      <div
+        v-if="isShowRMB"
+        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+      >
         <lines-chart :options="RMB"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+import {outflowsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -54,90 +58,73 @@ export default {
           ch: "中国对外直接投资流量",
           en: "China's FDI outflows"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          investConversion: {
-            text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%"
-          },
-          conversionYOY: {
-            text: "中国对外直接投资流量同比_xxxxxxxx",
-            width: "35%"
-          },
-          conversionUnit: {
-            text: "单位_unit",
-            width: "35%"
-          },
-          outFlowTypeCH:{
-            text: "类型_type",
-            width: "35%"
-          }
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
+        tableTitle: {},
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ''
       },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
       RMB: {
         id: "RMB",
-        dataSources: "中国人民网",
+        dataSources: outflowsDescribe.dataSources,
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [],
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "中国对外全行业直接投资_All-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_xxx",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows",
             color: "#FF0000",
             data: [],
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ''
       },
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources:  outflowsDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [],
+        spliceCon:{// toolTip里面插入同比和同比英文
+          ch:'同比',
+          en:'Y-o-y'
+        },
         series: [
           {
-            name: "中国对外全行业直接投资_xxx",
+            name: "中国对外全行业直接投资_All-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_xxx",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows",
             color: "#FF0000",
             data: [],
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ''
       },
       status: [
         {
           checked: false,
           ch: "同比",
           en: "Year on year"
-        },
+        }
         // {
         //   checked: false,
         //   ch: "人民币计价",
@@ -147,7 +134,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -165,7 +152,7 @@ export default {
         },
         quarterly: {
           ch: "季度",
-          en: "quarterly",
+          en: "Quarterly",
           list: {
             start: {
               ch: "开始",
@@ -183,7 +170,7 @@ export default {
         },
         monthly: {
           ch: "月度",
-          en: "monthly",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -202,28 +189,42 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   async mounted() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate("FDIOutflowYear");
+    let res = await this.getMaxMinDate("FDIOutflow");
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=Yarrmaxmin[0];
+    this.options.yearly.list.end.value=Yarrmaxmin[1];
+    // 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1])
     });
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.lineChart.downloadFile();
@@ -258,15 +259,19 @@ export default {
         });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflow");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if(tableName=='FDIOutflowYear'&&key=='yearly'){
+          this.$set(this.options, 'yearly', obj);
+        }else if(tableName=='FDIOutflow'&&key!='yearly'){
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
       return res;
@@ -321,8 +326,57 @@ export default {
       //
     },
     async getChartsData(aug) {
+      if(aug.type=='yearly'){
+        aug.noMonth=true;
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          investConversionMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "35%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text: "中国对外直接投资流量同比_xxxxxxxx",
+            width: "35%",
+            formatPer:true
+          },
+          outFlowTypeCH: {
+            text: "类型_type",
+            width: "35%"
+          }
+        };
+      }else {
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month:{
+            text: "月份_month",
+            width: "20%"
+          },
+          investConversionMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "35%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text: "中国对外直接投资流量同比_xxxxxxxx",
+            width: "35%",
+            formatPer:true
+          },
+          outFlowTypeCH: {
+            text: "类型_type",
+            width: "35%"
+          }
+        };
+      }
       //改变横轴 获取数据
       let { allIndustry, nonFinancial } = await request.getOutFlowsChartsData(
+        aug.type=='yearly'?'FDIOutflowYear':'FDIOutflow',
         aug
       );
       // 完整的区间
@@ -337,6 +391,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
+      this.RMB.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       console.log(allIndustry, nonFinancial);
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(allIndustry);
@@ -408,6 +465,10 @@ export default {
           ? (this.isShowRMB = true)
           : (this.isShowRMB = false);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
@@ -433,9 +494,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

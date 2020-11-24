@@ -5,27 +5,21 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="USD"
-        ></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
-      <div v-if="isShowRMB" class="container">
+      <div
+        v-if="isShowRMB &&!isShowTable"
+        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+      >
         <lines-chart :options="RMB"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -38,6 +32,7 @@
 </template>
 
 <script>
+import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -61,8 +56,12 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth"
+          ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
+        },
+        unit: {
+          ch: "百万美元/百万人民币",
+          en: "USD min/RMB min"
         },
         tableTitle: {
           year: {
@@ -73,40 +72,49 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          completedAmount: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%"
-          },
-          completedAmountYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%"
-          },
           completedAmountCon: {
-            text: "完成营业额折合(RMB)_unit",
-            width: "35%"
+            text: "完成营业额(USD)_Revenue of completed contract",
+            width: "35%",
+            formatNum: true
           },
           completedAmountConYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%",
+            formatPer: true
+          },
+          completedAmount: {
+            text: "完成营业额折合(RMB)_unit",
+            width: "35%",
+            formatNum: true
+          },
+          completedAmountYOY: {
             text: "完成营业额折合同比_type",
-            width: "35%"
+            width: "35%",
+            formatPer: true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
       RMB: {
         id: "RMB",
-        dataSources: "中国人民网",
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth "
+          ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
         },
         xData: [],
         hideLegend: true,
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
+        },
         series: [
           {
             name: "完成营业额_Total value of new contract y-o-y growth ",
@@ -115,19 +123,24 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "完成营业额",
-          en: "Total value of new contract y-o-y growth "
+           ch: "中国对外承包工程完成营业额",
+          en: "Revenue of completed contract from China's overseas projects"
         },
         xData: [],
         hideLegend: true,
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
+        },
         series: [
           {
             name: "完成营业额_Total value of new contract y-o-y growth ",
@@ -136,7 +149,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       status: [
         {
@@ -153,7 +166,7 @@ export default {
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -169,27 +182,27 @@ export default {
             }
           }
         },
-        quarterly: {
-          ch: "季度",
-          en: "quarterly",
-          list: {
-            start: {
-              ch: "开始",
-              en: "Start",
-              frame: "",
-              value: ""
-            },
-            end: {
-              ch: "结束",
-              en: "End",
-              frame: "",
-              value: ""
-            }
-          }
-        },
+        // quarterly: {
+        //   ch: "季度",
+        //   en: "Quarterly",
+        //   list: {
+        //     start: {
+        //       ch: "开始",
+        //       en: "Start",
+        //       frame: "",
+        //       value: ""
+        //     },
+        //     end: {
+        //       ch: "结束",
+        //       en: "End",
+        //       frame: "",
+        //       value: ""
+        //     }
+        //   }
+        // },
         monthly: {
           ch: "月度",
-          en: "monthly",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -229,6 +242,14 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
+    // 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -311,7 +332,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug);
+      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -325,6 +346,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.RMB.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 
@@ -388,6 +412,10 @@ export default {
           ? (this.isShowRMB = true)
           : (this.isShowRMB = false);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
@@ -413,9 +441,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

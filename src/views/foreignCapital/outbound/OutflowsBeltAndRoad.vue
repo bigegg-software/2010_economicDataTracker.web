@@ -1,6 +1,6 @@
 <template>
   <!-- 中国对“一带一路”沿线国家投资情况 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component
       :tabList="tabList"
       :tabComponent="tabComponent"
@@ -15,10 +15,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {outflowsBeltAndRoadDescribe} from '@/utils/describe.js'
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -27,17 +30,18 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:outflowsBeltAndRoadDescribe,
       tabComponent: "nonFinancialToBRIChart",
-      isShowTable: false,
       tabList: [
         {
           name: "nonFinancialToBRIChart",
-          chinese: "中国对“一带一路”沿线国家非金融类直接投资情况",
-          english: " China’s non-financial FDI outflows to BRI countries"
+          chinese: "中国对“一带一路”沿线国家非金融类直接投资",
+          english: "Non-financial FDI outflows to BRI countries"
         },
         {
           name: "newContractAmountToBRIChart",
@@ -47,7 +51,7 @@ export default {
         {
           name: "amountGrowthToBRIChart",
           chinese: "完成营业额",
-          english: "Total value of new contract y-o-y growth"
+          english: "Revenue of completed contract"
         }
       ],
 
@@ -99,7 +103,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -109,8 +112,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -118,6 +122,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
+      this.$store.commit('setShowOperate',true);
     }
   },
   mounted() {},
@@ -141,7 +146,10 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.isShowTable = !this.isShowTable;
+        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+      }
+        if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
@@ -152,7 +160,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$EventBus.$emit("downLoadImg");
+       this.$store.commit('downloadExcel');
       }
       this.initActionsList();
     }
@@ -163,5 +171,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

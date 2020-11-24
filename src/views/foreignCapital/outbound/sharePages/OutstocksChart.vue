@@ -5,7 +5,7 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {outstocksDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -42,6 +43,10 @@ export default {
           ch: "中国对外直接投资存量",
           en: "China's FDI stocks"
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -49,23 +54,20 @@ export default {
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
-            width: "35%"
-          },
-          unit: {
-            text: "单位_unit",
-            width: "35%"
+            width: "85%",
+            formatNum:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
-        yName: { ch: "百万美元", en: "xxxxxx" },
+        dataSources:outstocksDescribe.dataSources,
+        yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资存量", en: "China’s FDI stocks" },
         xData: [],
@@ -76,12 +78,12 @@ export default {
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -100,18 +102,21 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -125,6 +130,8 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -184,7 +191,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getoutstocksChartsData(aug,1);
+      let { res } = await request.getoutstocksChartsData(aug, 1);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -192,6 +199,8 @@ export default {
       let dataAttr = ["outward_FDI_stocks"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -245,12 +254,16 @@ export default {
     }
     // border-right: none;
     .container {
-    width: 5.875rem;
-    height: 3.916667rem;
+      width: 5.875rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;

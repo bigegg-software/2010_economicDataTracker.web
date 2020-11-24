@@ -2,9 +2,11 @@
   <!-- 中国对外直接投资流量按各洲内国家/地区统计chart -->
   <div class="flows-by-CRI-continent-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
-      <div class="container">
-        <treemap-chart ref="treemapChart" :totalData="totalData"></treemap-chart>
+      <div v-if="isShowTable" class="table-block">
+        <TableChart :totalData="tableTotalData"></TableChart>
+      </div>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <treemap-chart v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
     <div class="select-block">
@@ -21,31 +23,63 @@
 </template>
 
 <script>
-
+import {outflowsByDestinationDescribe} from '@/utils/describe.js'
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
-
+import TableChart from "@/components/charts/TableChart";
 export default {
-   components: {
+  components: {
     TreemapChart,
     Yearly,
-    SelectRadio
+    SelectRadio,
+    TableChart
   },
-   props: {
+  props: {
     isShowTable: {}
   },
   name: "flowsByCRIContinentChart",
-   data() {
+  data() {
     return {
+      tableTotalData: {
+        title: {
+          ch: "",
+          en: ""
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          continent: {
+            text: "大洲_Continent",
+            width: "35%"
+          },
+          country: {
+            text: "国家_Country/Region",
+            width: "35%"
+          },
+          outflowMillion: {
+            text: "中国对外直接投资流量_China's FDI outflow",
+            width: "35%",
+            formatNum:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       showTimeFrame: false,
       totalData: {
-        dataSources: "中国人民网",
+        dataSources: outflowsByDestinationDescribe.dataSources,
         title: {
-          ch: "111按各洲内国家/地区统计",
-          en: "Statistics by continent country / Region"
+          ch: "",
+          en: ""
         },
         yName: {
           ch: "百万美元",
@@ -55,20 +89,20 @@ export default {
           all: "全部_ALL",
           data: []
         },
-        updatedDate:"2020-10-23", 
+        updatedDate: ""
       },
       option: {
         ch: "年度",
-        en: "yearly",
+        en: "Yearly",
         frame: "",
         value: ""
       },
       selectOption: {
         ch: "大洲",
-        en: "xxxxxx",
+        en: "Continent",
         value: {
           ch: "亚洲",
-          en: "yazhou"
+          en: "Asia"
         },
         op: [
           {
@@ -81,7 +115,7 @@ export default {
           },
           {
             ch: "南美洲",
-            en: "South_America"
+            en: "South America"
           },
           {
             ch: "欧洲",
@@ -89,7 +123,7 @@ export default {
           },
           {
             ch: "北美洲",
-            en: "North_America"
+            en: "North America"
           },
           {
             ch: "南极洲",
@@ -102,6 +136,37 @@ export default {
         ]
       }
     };
+  },
+  computed: {
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch: {
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.tableTotalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.tableTotalData, "tableData", resoult);
+      },
+      deep: true
+    },
+    option:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
+    },
+    selectOption:{
+      handler() {
+          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+      },
+      deep:true
+    }
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
@@ -122,7 +187,7 @@ export default {
     });
     this.option.value = Number(arrmaxmin[1]);
   },
-   methods: {
+  methods: {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIOutflowDestination");
@@ -133,11 +198,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIOutflowDestination(aug);
+      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_qqww",
-          value: item.outflow
+          name: item.country + "_"+ item.countryEn ,
+          value: item.outflowMillion
         });
       });
     },
@@ -165,7 +232,7 @@ export default {
 
 <style lang="less" scoped>
 .flows-by-CRI-continent-chart {
- display: flex;
+  display: flex;
   .echart-block {
     position: relative;
     background-color: #fff;
@@ -177,15 +244,19 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
     .container {
       width: 5.875rem;
-    height: 3.916667rem;
+      height: 3.916667rem;
+    }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
     }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     padding: 0.078125rem;
     box-sizing: border-box;

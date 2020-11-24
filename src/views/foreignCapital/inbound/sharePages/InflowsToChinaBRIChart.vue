@@ -2,16 +2,18 @@
   <!-- “一带一路”沿线国家对中国投资情况-实际投入外资金额chart -->
   <div class="Inflowsto-chinaBRI-chart">
     <div class="echart-block">
-      <div v-if="isShowTable" class="table-block"></div>
+      <div v-if="isShowTable" class="table-block">
+          <TableChart :totalData="totalData"></TableChart>
+      </div>
        <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -24,12 +26,15 @@
 </template>
 
 <script>
+import {BeltAndRoadInvestDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
+import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {}
@@ -37,21 +42,55 @@ export default {
   components: {
     TimeFrame,
     CheckBox,
-    LinesChart
+    LinesChart,
+    TableChart
+
   },
   name: "inflowsToChinaBRIChart",
   data() {
     return {
+       totalData: {
+        title: {
+          ch: "实际投入外资金额",
+          en: "Foreign investment from BRI countries"
+        },
+        unit:{
+          ch: "百万美元",
+          en: "USD min"
+        },
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "20%"
+          },
+          BRIAmountMillion: {
+            text: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
+            width: "40%",
+            formatNum:true
+          },
+          BRIAmountPercent: {
+            text: "占总外资金额比重_Share of total FDI inflows to China",
+            width: "40%",
+            formatPer:true
+          }
+        },
+        tableData: [],
+        updatedDate: ""
+      },
       timer: null,
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: BeltAndRoadInvestDescribe.dataSources,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "实际投入外资金额", en: "XXXXXXXX" },
+        title: { ch: "实际投入外资金额", en: "Foreign investment from BRI countries" },
         xData: [],
         hideLegend: true,
+        spliceCon:{// toolTip里面插入占比和占比英文
+          ch:'占比',
+          en:'Share of total number of oreign enterprises'
+        },
         series: [
           {
             name: "实际投入外资金额_xxx",
@@ -60,18 +99,19 @@ export default {
             yearOnYear: []
           }
         ],
+        updatedDate:""
       },
       status: [
         {
           checked: false,
-          ch: "占比",
-          en: "XXXXXXX"
+          ch: "占外资企业比重",
+          en: "Share of total number of oreign enterprises"
         }
       ],
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
           list: {
             start: {
               ch: "开始",
@@ -90,9 +130,26 @@ export default {
       }
     };
   },
+  computed:{
+    tableDatas() {
+      return this.$store.getters.chartInfo;
+    }
+  },
+  watch:{
+    tableDatas:{
+      handler() {
+        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
+            console.log(resoult);
+            this.$set(this.totalData,'tableData',resoult);
+      },
+      deep:true
+    }
+  },
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
+    this.options.yearly.list.start.value=arrmaxmin[0];
+    this.options.yearly.list.end.value=arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -157,13 +214,15 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getNonFinancialToBRIChartsData(aug);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug,1);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["BRIAmountMillion", "BRIAmountPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
+      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -222,7 +281,7 @@ export default {
       z-index: 3;
       width: 100%;
       height: 100%;
-      background-color: #ccc;
+      background-color: #fff;
     }
      .container {
       width: 5.875rem;

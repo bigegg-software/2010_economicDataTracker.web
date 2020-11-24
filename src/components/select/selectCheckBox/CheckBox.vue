@@ -32,11 +32,12 @@ export default {
 .checkbox {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
   width: 100%;
   padding: 0.0625rem 0;
 }
 .icon-block {
+  margin-right: 0.08rem;
   width: 0.114583rem;
   height: 0.114583rem;
   line-height: 0.114583rem;

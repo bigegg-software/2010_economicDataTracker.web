@@ -1,6 +1,6 @@
 <template>
   <div class="timeFrame">
-    <div class="tab-list">
+    <div class="tab-list"  v-if="(options.monthly || options.quarterly)&&$store.getters.showOperate">
       <div
         v-for="(item, key) in options"
         :key="key"
@@ -8,31 +8,21 @@
         :class="key == activeKey ? 'active' : ''"
         @click="changeActiveKey(key)"
       >
-        <div class="ch">{{ item.en }}</div>
-        <div class="en">{{ item.ch }}</div>
+        <div>
+          <div class="ch">{{ item.en }}</div>
+          <div class="en">{{ item.ch }}</div>
+        </div>
       </div>
     </div>
     <div class="tab-area">
       <div v-if="activeKey == 'yearly'">
-        <div
-          v-for="(option, key) in options[activeKey].list"
-          :key="key"
-          class="tab-area-item"
-        >
-          <year-component
-            :option="option"
-            :value="option.value"
-            @change="changeValue(key, $event)"
-          ></year-component>
+        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
+          <year-component :option="option" :value="option.value" @change="changeValue(key, $event)"></year-component>
         </div>
       </div>
 
       <div v-if="activeKey == 'quarterly'">
-        <div
-          v-for="(option, key) in options[activeKey].list"
-          :key="key"
-          class="tab-area-item"
-        >
+        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
           <quarter-component
             :option="option"
             :value="option.value"
@@ -41,11 +31,7 @@
         </div>
       </div>
       <div v-if="activeKey == 'monthly'">
-        <div
-          v-for="(option, key) in options[activeKey].list"
-          :key="key"
-          class="tab-area-item"
-        >
+        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
           <month-component
             :option="option"
             :value="option.value"
@@ -54,11 +40,7 @@
         </div>
       </div>
     </div>
-    <progress-bar
-      :options="options[activeKey]"
-      :activeKey="activeKey"
-      @change="changeProgress"
-    ></progress-bar>
+    <progress-bar :options="options[activeKey]" :activeKey="activeKey" @change="changeProgress"></progress-bar>
   </div>
 </template>
 
@@ -114,7 +96,7 @@ export default {
 }
 .tab-area {
   width: 100%;
-  padding-top: 0.072917rem;
+  // padding-top: 0.072917rem;
   .tab-area-item {
     padding: 0.072917rem 0;
   }
@@ -123,17 +105,20 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.072917rem;
   width: 100%;
   .tab-list-item {
     flex: 1;
+    padding:0 0.02rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     font-size: 0.072917rem;
-    text-align: center;
     border-right: 1.5px solid #d8d8d8;
     border: 1.5px solid #d8d8d8;
     border-right: none;
     background-color: #fff;
-
     &:first-child {
       border-top-left-radius: 0.026042rem;
       border-bottom-left-radius: 0.026042rem;

@@ -1,6 +1,6 @@
 <template>
   <!-- 中国对外直接投资存量 -->
-  <div class="container">
+  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
@@ -8,10 +8,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
+    <Describe :describeData="describeData"></Describe>
   </div>
 </template>
 
 <script>
+import {outstocksDescribe} from '@/utils/describe.js'
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -20,10 +23,12 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
+      describeData:outstocksDescribe,
       tabComponent: "outstocksChart",
       isShowTable: false, // 控制每个 tab 里 table 是否显示
       tabList: [
@@ -35,7 +40,7 @@ export default {
         {
           name: "flowsAndStocksChart",
           chinese: "中国对外直接投资流量与存量",
-          english: "China's outward FDI flows vs. Stocks"
+          english: "China's FDI outflows vs. stocks"
         }
       ],
       actionsList: [
@@ -86,7 +91,6 @@ export default {
           children: [
             { name: "", img: "twitter.png" },
             { name: "", img: "facebook.png" },
-            { name: "", img: "instgram.png" },
             { name: "", img: "wechat.png" },
             { name: "", img: "sina.png" },
             { name: "", img: "email.png" }
@@ -96,8 +100,9 @@ export default {
           name: "enlarge",
           ch: "全屏_取消全屏",
           en: "Full screen_Cancel the full screen",
-          icon: "\ue600",
-          checked: false
+          icon: "\ue600_\ue605",
+          checked: false,
+          toggle: true
         }
       ]
     };
@@ -130,6 +135,9 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
+      if (item.name == "enlarge") {
+        this.$store.commit("fullScreen");
+      }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
@@ -150,5 +158,8 @@ export default {
 <style lang="less" scoped>
 .container {
   width: 7.28125rem;
+}
+.FullContainer {
+  width: 9.166667rem;
 }
 </style>

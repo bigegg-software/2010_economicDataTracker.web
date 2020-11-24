@@ -5,29 +5,21 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div class="container">
-        <lines-chart
-          v-if="!isShowTable"
-          ref="linesChart"
-          :options="Person"
-        ></lines-chart>
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="Person"></lines-chart>
       </div>
     </div>
 
     <div class="select-block">
       <div class="frame">
-        <time-frame
-          v-if="showTimeFrame"
-          :options="options"
-          @change="change"
-          @update="update"
-        ></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {internationalLaborDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -49,43 +41,49 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "派出人数",
-          en: "Total trade volume"
+          ch: "中国对外劳务合作派出人数",
+          en: "Number of workers sent overseas"
+        },
+        unit: {
+          ch: "万人",
+          en: "10,000 persons"
         },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          rank: {
-            text: "排名_Rank",
+          month: {
+            text: "月份_Month",
             width: "20%"
           },
           variousTypesPerNum: {
             text: "各类劳务人员_Workers sent overseas",
-            width: "35%"
+            width: "35%" ,
+            formatNum:true
           },
           contractProject: {
             text: "承包工程项下派人数_Workers under contracted projects",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           },
           laborCooperation: {
             text: "劳务合作项下派人数_Workers under labor service cooperation",
-            width: "35%"
+            width: "35%",
+            formatNum:true
           }
         },
         tableData: [],
-        updatedDate: "2020-10-23"
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
       isShowRMB: false,
       Person: {
-        dataSources: "中国人民网",
+        dataSources: internationalLaborDescribe.dataSources,
         id: "person",
-        yName: { ch: "万人", en: "xxxxxx" },
-        yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+        yName: { ch: "万人", en: "10,000 persons" },
+        title: { ch: "中国对外劳务合作派出人数", en: "Number of workers sent overseas" },
         xData: [],
         series: [
           {
@@ -95,21 +93,39 @@ export default {
           },
           {
             name: "承包工程项下派人数_Workers under contracted projects",
-            color: "#666",
+            color: "#FF0000",
             data: []
           },
           {
             name: "劳务合作项下派人数_Workers under labor service cooperation",
-            color: "#999",
+            color: "#73a083",
             data: []
           }
         ],
-        updatedDate: "2020-11-6"
+        updatedDate: ""
       },
       options: {
         yearly: {
           ch: "年度",
-          en: "yearly",
+          en: "Yearly",
+          list: {
+            start: {
+              ch: "开始",
+              en: "Start",
+              frame: "",
+              value: ""
+            },
+            end: {
+              ch: "结束",
+              en: "End",
+              frame: "",
+              value: ""
+            }
+          }
+        },
+        monthly: {
+          ch: "月度",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -150,7 +166,10 @@ export default {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    this.options.yearly.list.end.value = arrmaxmin[1];// 初始化日期月度季度赋值
+    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -169,11 +188,27 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-      await this.getChartsData({
-        type,
-        start: Number(start.value),
-        end: Number(end.value)
-      });
+      if (type == "yearly") {
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
+      } else if (type == "quarterly" || type == "monthly") {
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]);
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          type,
+          start: quarterStart,
+          end: quarterEnd,
+          startMonth: quarterStartMonth,
+          endMonth: quarterEndMonth
+        });
+      }
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -218,7 +253,6 @@ export default {
     async getChartsData(aug) {
       //改变横轴 获取数据
       let { res } = await request.getTradeVolumeChartChartsData(aug);
-
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
@@ -229,6 +263,21 @@ export default {
       ];
       let XNameAttr = "year";
       this.Person.xData = range;
+      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.Person.updatedDate=this.$store.getters.latestTime;
+      //添加额外的Q和M属性
+      await chartDataFun.addOtherCategory(res);
+
+      if (aug.type == "yearly") {
+        // 年
+        XNameAttr = "year";
+      } else if (aug.type == "quarterly") {
+        //季度
+        XNameAttr = "Q";
+      } else if ((aug.type = "monthly")) {
+        //月度
+        XNameAttr = "M";
+      }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -259,6 +308,9 @@ export default {
       ) {
         this.mainGetChartsData(activeKey);
       }
+    },// 改变年度季度月度时：
+    async changeActiveKey(ev) {
+        await this.mainGetChartsData(ev);
     }
   }
 };
@@ -284,9 +336,13 @@ export default {
       width: 5.875rem;
       height: 3.916667rem;
     }
+    .fullContainer {
+      width: 7.4rem;
+      height: 4.933333rem;
+    }
   }
   .select-block {
-    width: 1.40625rem;
+    width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
