@@ -386,8 +386,8 @@ export default {
               `{divch|${this.options.yName.ch}}`
             ].join("\n"),
             nameTextStyle: {
-              align: "right",
-              padding: [0, 7, 0, 0],
+              align: "left",
+              padding: [0, 0, 0, -68],
               color: "#666",
               rich: {
                 div: {

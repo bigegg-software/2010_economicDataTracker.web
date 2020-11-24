@@ -211,6 +211,7 @@ export default {
             //面包屑 没用可删
             breadcrumb: {
               show: false,
+              top:"center",
               left: "center",
               itemStyle: {
                 normal: {
