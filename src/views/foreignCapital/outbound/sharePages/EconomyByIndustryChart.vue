@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import { outflowsByIndustryDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -95,7 +94,7 @@ export default {
       ],
       showTimeFrame: false,
       chartBar: {
-        dataSources: outflowsByIndustryDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           text: "",
@@ -164,7 +163,8 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   computed: {
     tableDatas() {

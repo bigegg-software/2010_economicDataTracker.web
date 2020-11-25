@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import {outflowsBeltAndRoadDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -37,7 +36,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -79,7 +79,7 @@ export default {
       timer: null,
       showTimeFrame: false,
       USD: {
-        dataSources: outflowsBeltAndRoadDescribe.dataSources,
+        dataSources: this.describeData,
         id: "USD",
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比

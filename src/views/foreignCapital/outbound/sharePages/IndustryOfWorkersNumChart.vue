@@ -16,7 +16,6 @@
 </template>
  
 <script>
-import { internationalLaborDescribe } from "@/utils/describe.js";
 import PieChart from "@/components/charts/PieChart";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -30,7 +29,8 @@ export default {
     TableChart
   },
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   name: "industryOfWorkersNumChart",
   data() {
@@ -76,7 +76,7 @@ export default {
         value: ""
       },
       totalDatas: {
-        dataSources: internationalLaborDescribe.dataSources,
+        dataSources: this.describeData,
         title: {
           ch: "",
           en: ""

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {internationalLaborDescribe} from '@/utils/describe.js'
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -66,7 +65,7 @@ export default {
       showTimeFrame: false,
       chartBar: {
         watermark: false,
-        dataSources: internationalLaborDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "万人", en: "10,000 persons" },
         title: {
           text: "年度派出各类劳务人员前10位目的地国家",
@@ -98,7 +97,8 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   computed: {
     tableDatas() {

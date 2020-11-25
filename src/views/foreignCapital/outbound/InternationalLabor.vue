@@ -1,12 +1,9 @@
 <template>
   <!-- 中国对外劳务合作 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>
@@ -15,12 +12,12 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import {internationalLaborDescribe} from '@/utils/describe.js'
+import describeList from "@/utils/describe.js";
 import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
@@ -32,11 +29,10 @@ export default {
     ShareBody,
     ActionsComponent,
     Describe
-
   },
   data() {
     return {
-      describeData:internationalLaborDescribe,
+      describeList,
       tabComponent: "tradeVolumeChart",
       tabList: [
         {
@@ -128,7 +124,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit('setShowOperate',true);
+      this.$store.commit("setShowOperate", true);
     }
   },
   mounted() {},
@@ -152,9 +148,9 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
-        if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       this.initActionsList();
@@ -166,7 +162,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

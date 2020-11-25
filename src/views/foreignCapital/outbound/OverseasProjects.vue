@@ -2,18 +2,18 @@
   <!-- 中国对外承包工程 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body :describeData="describeList[tabComponent]['dataSources']" :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
+import describeList from "@/utils/describe.js";
 import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      describeData: BeltAndRoadInvestDescribe,
+      describeList,
       tabComponent: "amountGrowthToOPChart",
       tabList: [
         {

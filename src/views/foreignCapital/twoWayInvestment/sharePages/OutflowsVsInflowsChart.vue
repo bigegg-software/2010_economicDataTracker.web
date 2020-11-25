@@ -60,7 +60,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -105,7 +106,7 @@ export default {
       activeKey: "yearly",
       RMB: {
         id: "RMB",
-        dataSources: OutflowsVsInflowsDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
@@ -132,7 +133,7 @@ export default {
       },
       USD: {
         id: "USD",
-        dataSources: "中国人民网",
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
          title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],

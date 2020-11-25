@@ -2,18 +2,22 @@
   <!-- 中国对外直接投资流量 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import {outflowsDescribe} from '@/utils/describe.js'
+import describeList from "@/utils/describe.js";
 import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
@@ -29,7 +33,7 @@ export default {
   },
   data() {
     return {
-      describeData:outflowsDescribe,
+      describeList,
       tabComponent: "outflowsChart",
       tabList: [
         {
@@ -122,7 +126,7 @@ export default {
         item.children[0].src = `<iframe src="${window.location.host}/#/${this.tabComponent}" width="100%" height="100%">`;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
       if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
@@ -153,7 +157,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         // console.log("下载表格");
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

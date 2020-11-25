@@ -2,18 +2,18 @@
   <!-- 中国对外直接投资存量按国家和地区统计 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body :describeData="describeList[tabComponent]['dataSources']" :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import { outstocksByDestinationDescribe } from "@/utils/describe.js";
+import describeList from "@/utils/describe.js";
 import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      describeData: outstocksByDestinationDescribe,
+      describeList,
       tabComponent: "stocksByContinentChart",
       isShowTable: false,
       tabList: [
@@ -123,7 +123,8 @@ export default {
       this.$set(this.actionsList[0], "checked", false);
     }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
@@ -146,7 +147,7 @@ export default {
       if (item.name == "chart") {
         this.isShowTable = !this.isShowTable;
       }
-       if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       this.initActionsList();

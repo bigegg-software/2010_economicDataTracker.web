@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import { outstocksByDestinationDescribe } from "@/utils/describe.js";
 import TreemapChart from "@/components/charts/Treemap";
 import Year from "@/components/timeFrame/Year";
 import SelectRadio from "@/components/select/SelectRadio";
@@ -38,7 +37,8 @@ export default {
     TableChart
   },
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   name: "stocksByCRIContinentChart",
   data() {
@@ -76,7 +76,7 @@ export default {
       },
       showTimeFrame: false,
       totalData: {
-        dataSources: outstocksByDestinationDescribe.dataSources,
+        dataSources:this.describeData,
         title: {
           ch: "",
           en: ""

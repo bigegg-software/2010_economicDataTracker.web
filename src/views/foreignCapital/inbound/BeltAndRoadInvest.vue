@@ -2,18 +2,22 @@
   <!-- "一带一路"沿线国家对华投资情况 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import {BeltAndRoadInvestDescribe} from '@/utils/describe.js'
+import describeList from "@/utils/describe.js";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -29,7 +33,7 @@ export default {
   },
   data() {
     return {
-      describeData:BeltAndRoadInvestDescribe,
+      describeList,
       tabComponent: "numEnterprisesBRIChart",
       tabList: [
         {
@@ -111,13 +115,14 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit('setShowOperate',true);
+      this.$store.commit("setShowOperate", true);
     }
   },
   mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
+      // this.tabComponent = name+"Describe";
     },
 
     initActionsList() {
@@ -135,7 +140,7 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
       if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
@@ -150,7 +155,7 @@ export default {
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
 
       this.initActionsList();

@@ -2,19 +2,23 @@
   <!-- 双向直接投资 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked" ></share-body>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
 import Describe from "@/components/Describe";
-import {OutflowsVsInflowsDescribe} from '@/utils/describe.js'
+import describeList from "@/utils/describe.js";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -25,11 +29,10 @@ export default {
     ShareBody,
     ActionsComponent,
     Describe
-
   },
   data() {
     return {
-      describeData:OutflowsVsInflowsDescribe,
+      describeList,
       tabComponent: "outflowsVsInflowsChart",
       tabList: [
         {
@@ -123,23 +126,23 @@ export default {
             <iframe src="${window.location.host}/#/${this.tabComponent}" width="600" height="400">
         `;
       }
-       if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
       this.initActionsList();
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
-     choose(index, i, name) {
+    choose(index, i, name) {
       if (name == "download" && i == 0) {
         console.log("下载图片");
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
         console.log("下载表格");
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

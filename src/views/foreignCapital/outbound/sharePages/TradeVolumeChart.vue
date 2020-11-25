@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import {internationalLaborDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -29,7 +28,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -80,7 +80,7 @@ export default {
       showTimeFrame: false,
       isShowRMB: false,
       Person: {
-        dataSources: internationalLaborDescribe.dataSources,
+        dataSources: this.describeData,
         id: "person",
         yName: { ch: "万人", en: "10,000 persons" },
         title: { ch: "中国对外劳务合作派出人数", en: "Number of workers sent overseas" },
