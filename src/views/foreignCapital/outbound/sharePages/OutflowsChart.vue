@@ -62,30 +62,7 @@ export default {
           ch: "百万美元",
           en: "USD min"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          investConversionMillion: {
-            text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%",
-            formatNum:true
-          },
-          conversionYOY: {
-            text: "中国对外直接投资流量同比_xxxxxxxx",
-            width: "35%",
-            formatPer:true
-          },
-          outFlowTypeCH: {
-            text: "类型_type",
-            width: "35%"
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ''
       },
@@ -231,10 +208,12 @@ export default {
     }
   },
   async mounted() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate("FDIOutflowYear");
+    let res = await this.getMaxMinDate("FDIOutflow");
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value=Yarrmaxmin[0];
+    this.options.yearly.list.end.value=Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
     this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
@@ -244,8 +223,8 @@ export default {
 
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1])
     });
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.lineChart.downloadFile();
@@ -280,15 +259,19 @@ export default {
         });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflow");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if(tableName=='FDIOutflowYear'&&key=='yearly'){
+          this.$set(this.options, 'yearly', obj);
+        }else if(tableName=='FDIOutflow'&&key!='yearly'){
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
       return res;
@@ -343,8 +326,57 @@ export default {
       //
     },
     async getChartsData(aug) {
+      if(aug.type=='yearly'){
+        aug.noMonth=true;
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          investConversionMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "35%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text: "中国对外直接投资流量同比_xxxxxxxx",
+            width: "35%",
+            formatPer:true
+          },
+          outFlowTypeCH: {
+            text: "类型_type",
+            width: "35%"
+          }
+        };
+      }else {
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month:{
+            text: "月份_month",
+            width: "20%"
+          },
+          investConversionMillion: {
+            text: "中国对外直接投资流量_China's FDI outflows",
+            width: "35%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text: "中国对外直接投资流量同比_xxxxxxxx",
+            width: "35%",
+            formatPer:true
+          },
+          outFlowTypeCH: {
+            text: "类型_type",
+            width: "35%"
+          }
+        };
+      }
       //改变横轴 获取数据
       let { allIndustry, nonFinancial } = await request.getOutFlowsChartsData(
+        aug.type=='yearly'?'FDIOutflowYear':'FDIOutflow',
         aug
       );
       // 完整的区间

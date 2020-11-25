@@ -87,14 +87,14 @@ sumSameYearData:async (sourceData,field,name)=> {
         res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
         return res;
     },
-    getOutFlowsChartsData:async function(params) {// 获取中国对外直接投资流量数据函数接口
+    getOutFlowsChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
         // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
         // if (FDIOutflow.code == 200) {
         //     console.log(FDIOutflow.data)
         //     return FDIOutflow.data;
         // }
            let type = params.type;
-           let res=await this.manualQueryData('FDIOutflow',params);
+           let res=await this.manualQueryData(tableName,params);
             res = res.map(item=>{
                 item=item.toJSON()
                 if(item.outFlowType==1){
@@ -116,13 +116,13 @@ sumSameYearData:async (sourceData,field,name)=> {
             fileName:'中国对外直接投资流量',
             tHeader:[
                 "年",
-                "月份",
+                type!='yearly'?"月份":'',
                 '单位',
                 '中国对外直接投资流量',
                 '中国对外直接投资流量同比',
                 '类型'
-            ],
-            filterVal:['year','month','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'],
+            ].filter(item=>item!=''),
+            filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'].filter(item=>item!=''),
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -169,12 +169,12 @@ sumSameYearData:async (sourceData,field,name)=> {
                 fileName:'中国对“一带一路”沿线国家非金融类直接投资情况',
                 tHeader:[
                     "年份",
-                    "月份",
+                    type!='yearly'?"月份":'',
                     '非金融类直接投资',
                     '非金融类直接投资同比',
                     '单位'
-                ],
-                filterVal:['year','month','investConversionMillion','conversionYOY','unitMillion'],
+                ].filter(item=>item!=''),
+                filterVal:['year',type!='yearly'?'month':'','investConversionMillion','conversionYOY','unitMillion'].filter(item=>item!=''),
                 tableData:[...tableres]
                 }
                 store.commit('saveChartTable',tableInfo);
@@ -184,12 +184,12 @@ sumSameYearData:async (sourceData,field,name)=> {
                 fileName:'中国对“一带一路”沿线国家投资情况-新签合同额',
                 tHeader:[
                     "年份",
-                    "月份",
+                    type!='yearly'?"月份":'',
                     '新签合同额',
                     '新签合同额同比',
                     '单位'
-                ],
-                filterVal:['year','month','newConAmountConMillion','newConAmountConYOY','unitMillion'],
+                ].filter(item=>item!=''),
+                filterVal:['year',type!='yearly'?'month':'','newConAmountConMillion','newConAmountConYOY','unitMillion'].filter(item=>item!=''),
                 tableData:[...tableres]
                 }
                 store.commit('saveChartTable',tableInfo);
@@ -199,12 +199,12 @@ sumSameYearData:async (sourceData,field,name)=> {
                 fileName:'中国对“一带一路”沿线国家投资情况-完成营业额',
                 tHeader:[
                     "年份",
-                    "月份",
+                    type!='yearly'?"月份":'',
                     '完成营业额',
                     '完成营业额同比',
                     '单位'
-                ],
-                filterVal:['year','month','completedAmountConMillion','completedAmountConYOY','unitMillion'],
+                ].filter(item=>item!=''),
+                filterVal:['year',type!='yearly'?'month':'','completedAmountConMillion','completedAmountConYOY','unitMillion'].filter(item=>item!=''),
                 tableData:[...tableres]
                 }
                 store.commit('saveChartTable',tableInfo);
