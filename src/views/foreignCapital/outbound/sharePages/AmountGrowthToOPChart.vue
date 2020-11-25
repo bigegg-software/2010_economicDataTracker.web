@@ -63,36 +63,7 @@ export default {
           ch: "百万美元/百万人民币",
           en: "USD min/RMB min"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_unit",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_type",
-            width: "35%",
-            formatPer: true
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
@@ -331,6 +302,7 @@ export default {
       //
     },
     async getChartsData(aug) {
+      await this.setTableConfig(aug);
       //改变横轴 获取数据
       let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
 
@@ -364,6 +336,67 @@ export default {
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+    },
+    async setTableConfig(aug) {
+         if(aug.type=='yearly'){
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          completedAmountCon: {
+            text: "完成营业额(USD)_Revenue of completed contract",
+            width: "25%",
+            formatNum: true
+          },
+          completedAmountConYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "25%",
+            formatPer: true
+          },
+          completedAmount: {
+            text: "完成营业额折合(RMB)_unit",
+            width: "20%",
+            formatNum: true
+          },
+          completedAmountYOY: {
+            text: "完成营业额折合同比_type",
+            width: "20%",
+            formatPer: true
+          }
+        }
+      }else{
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_month",
+            width: "20%"
+          },
+          completedAmountCon: {
+            text: "完成营业额(USD)_Revenue of completed contract",
+            width: "35%",
+            formatNum: true
+          },
+          completedAmountConYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%",
+            formatPer: true
+          },
+          completedAmount: {
+            text: "完成营业额折合(RMB)_unit",
+            width: "35%",
+            formatNum: true
+          },
+          completedAmountYOY: {
+            text: "完成营业额折合同比_type",
+            width: "35%",
+            formatPer: true
+          }
+        }
+      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {

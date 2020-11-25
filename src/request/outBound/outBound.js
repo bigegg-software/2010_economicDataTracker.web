@@ -240,15 +240,15 @@ sumSameYearData:async (sourceData,field,name)=> {
                 fileName:'完成营业额',
                 tHeader:[
                     "年份",
-                    "月份",
+                    type!='yearly'?"月份":'',
                     '单位',
                     '完成营业额',
                     '完成营业额同比',
                     '单位',
                     '完成营业额折合(RMB)',
                     '完成营业额折合同比'
-                ],
-                filterVal:['year','month','unitConMillion','completedAmountConMillion','completedAmountConYOY','unitMillion','completedAmountMillion','completedAmountYOY'],
+                ].filter(item=>item!=''),
+                filterVal:['year',type!='yearly'?'month':'','unitConMillion','completedAmountConMillion','completedAmountConYOY','unitMillion','completedAmountMillion','completedAmountYOY'].filter(item=>item!=''),
                 tableData:[...tableres]
                 }
                 store.commit('saveChartTable',tableInfo);
@@ -258,15 +258,15 @@ sumSameYearData:async (sourceData,field,name)=> {
         fileName:'新签合同额',
         tHeader:[
             "年份",
-            "月份",
+            type!='yearly'?"月份":'',
             '单位',
             '新签合同额',
             '新签合同额同比',
+            '折合单位',
             '新签合同额折合(RMB)',
-            '新签合同额折合同比',
-            '单位'
-        ],
-        filterVal:['year','month','unitConMillion','newConAmountConMillion','newConAmountConYOY','unitMillion','newConAmountMillion','newConAmountYOY'],
+            '新签合同额折合同比'
+        ].filter(item=>item!=''),
+        filterVal:['year',type!='yearly'?'month':'','unitConMillion','newConAmountConMillion','newConAmountConYOY','unitMillion','newConAmountMillion','newConAmountYOY'].filter(item=>item!=''),
         tableData:[...tableres]
         }
         store.commit('saveChartTable',tableInfo);
@@ -291,13 +291,13 @@ getTradeVolumeChartChartsData:async function(params) {//获取中国对外劳务
         fileName:'派出人数',
         tHeader:[
             "年份",
-            "月份",
+            type!='yearly'?"月份":'',
             '各类劳务人员',
             '承包工程项下派人数',
             '劳务合作项下派人数',
             '单位'
-        ],
-        filterVal:['year','month','variousTypesPerNum','contractProject','laborCooperation','unit'],
+        ].filter(item=>item!=''),
+        filterVal:['year',type!='yearly'?'month':'','variousTypesPerNum','contractProject','laborCooperation','unit'].filter(item=>item!=''),
         tableData:[...tableres]
         }
         store.commit('saveChartTable',tableInfo);
