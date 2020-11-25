@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import {outstocksDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -28,7 +27,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -66,7 +66,7 @@ export default {
       isShowRMB: false,
       USD: {
         id: "USD",
-        dataSources:outstocksDescribe.dataSources,
+        dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资存量", en: "China’s FDI stocks" },

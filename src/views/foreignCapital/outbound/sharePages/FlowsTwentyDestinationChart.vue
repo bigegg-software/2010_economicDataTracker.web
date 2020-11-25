@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {outflowsByDestinationDescribe} from '@/utils/describe.js'
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -70,7 +69,7 @@ export default {
       showTimeFrame: false,
       chartBar: {
         watermark: false,
-        dataSources: outflowsByDestinationDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           text: "",
@@ -98,7 +97,8 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   computed: {
     tableDatas() {

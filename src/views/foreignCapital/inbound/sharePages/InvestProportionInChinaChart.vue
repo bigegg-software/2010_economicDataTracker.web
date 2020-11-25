@@ -32,7 +32,8 @@ export default {
     TableChart
   },
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   name: "investProportionInChinaChart",
   data() {
@@ -81,7 +82,7 @@ export default {
       },
       showTimeFrame: false,
       totalDatas: {
-        dataSources: MajorForeignInvestorsDescribe.dataSources,
+        dataSources: this.describeData,
         title: {
           ch: "",
           en: ""

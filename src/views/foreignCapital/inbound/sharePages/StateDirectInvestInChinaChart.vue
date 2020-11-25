@@ -46,7 +46,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -124,7 +125,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: MajorForeignInvestorsDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         y2Name: { ch: "家", en: "Enterprise" },
         unit2Symbol: "",

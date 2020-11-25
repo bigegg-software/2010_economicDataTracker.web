@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { outstocksByDestinationDescribe } from "@/utils/describe.js";
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
@@ -27,7 +26,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -68,7 +68,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources:outstocksByDestinationDescribe.dataSources,
+        dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           ch: "中国对外直接投资存量按大洲统计",

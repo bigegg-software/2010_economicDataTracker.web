@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { BeltAndRoadInvestDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
@@ -122,7 +121,7 @@ export default {
       showTimeFrame: false,
       chartBar: {
         Yearonshow:true,//是否有左柱状图右折线图的展示          
-        dataSources: BeltAndRoadInvestDescribe.dataSources,
+        dataSources: this.describeData,
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
@@ -185,7 +184,8 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   computed: {
     tableDatas() {

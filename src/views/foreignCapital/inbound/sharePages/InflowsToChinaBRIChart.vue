@@ -37,7 +37,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -81,7 +82,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: BeltAndRoadInvestDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "实际投入外资金额", en: "Foreign investment from BRI countries" },

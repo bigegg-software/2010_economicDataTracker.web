@@ -38,7 +38,8 @@ import TableChart from "@/components/charts/TableChart";
 export default {
   props: {
     isShowTable: {},
-    isFullScreen: {}
+    isFullScreen: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -82,7 +83,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        dataSources: BeltAndRoadInvestDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "“一带一路”沿线国家对华投资企业数", en: "Number of enterprises from BRI countries investing in China" },

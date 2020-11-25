@@ -37,7 +37,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -87,7 +88,7 @@ export default {
       percentData: 0,
       USD: {
         id: "USD",
-        dataSources: ForeignInvestTaxDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
         percent: false, //通过修改这个值来显示同比

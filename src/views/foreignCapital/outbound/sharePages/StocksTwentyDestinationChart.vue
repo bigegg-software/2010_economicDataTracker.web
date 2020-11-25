@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { outstocksByDestinationDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import request from "@/request/outBound/outBound";
@@ -55,13 +54,13 @@ export default {
             text:
               "中国对外直接投资存量前20位国家（地区）投资额_China's FDI stocks in top 20 destinations",
             width: "25%",
-            formatNum:true
+            formatNum: true
           },
           stockPercent: {
             text:
               "中国对外直接投资存量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI stocks",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -70,15 +69,15 @@ export default {
       showTimeFrame: false,
       chartBar: {
         watermark: false,
-        dataSources:outstocksByDestinationDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
           text: "",
           subtext: ""
         },
-        grid:{
-          top:"23%",
-          left:"1%"
+        grid: {
+          top: "23%",
+          left: "1%"
         },
         xData: [],
         series: [
@@ -102,12 +101,13 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.option.value=arrmaxmin[1];
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
       limit: 20,
@@ -130,12 +130,12 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}中国对外直接投资存量历年前20位国家/地区`;
-          this.chartBar.title.subtext=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI stocks`;
+        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}中国对外直接投资存量历年前20位国家/地区`;
+        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} Top 20 destinations of China's FDI stocks`;
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -158,13 +158,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getStocksTwentyDestinationChart(aug);
-      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.tableTotalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let stocks = [];
       res.forEach(item => {
-        Xname.push(item.countryEN+'\n'+item.country);
+        Xname.push(item.countryEN + "\n" + item.country);
         stocks.push(item.stocksMillion);
       });
       this.chartBar.xData = Xname;

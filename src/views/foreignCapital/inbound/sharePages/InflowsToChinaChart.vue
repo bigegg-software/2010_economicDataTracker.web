@@ -54,7 +54,8 @@ import TableChart from "@/components/charts/TableChart";
 
 export default {
   props: {
-    isShowTable: {}
+    isShowTable: {},
+    describeData: {}
   },
   components: {
     TimeFrame,
@@ -120,7 +121,7 @@ export default {
       isShowLineChart: false,
       chartBar: {
         watermark: false,
-        dataSources: ForeignInvestIndustryDescribe.dataSources,
+        dataSources: this.describeData,
         showAxisLabel: false,
         yName: { ch: "百万美元", en: "USD min" },
         grid: {

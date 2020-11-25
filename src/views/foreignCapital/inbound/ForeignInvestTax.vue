@@ -2,18 +2,18 @@
   <!-- 外商投资企业税收统计 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body :describeData="describeList[tabComponent]['dataSources']" :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <Describe :describeData="describeData"></Describe>
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-import {ForeignInvestTaxDescribe} from '@/utils/describe.js'
+import describeList from '@/utils/describe.js'
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      describeData:ForeignInvestTaxDescribe,
+      describeList,
       tabComponent: "foreignInvestTaxChart",
       tabList: [
         {

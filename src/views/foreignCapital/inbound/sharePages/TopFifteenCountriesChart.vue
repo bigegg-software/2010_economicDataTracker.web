@@ -86,7 +86,7 @@ export default {
         Yearonshow:true,//是否有左柱状图右折线图的展示
         unit2Symbol: "",
         yearOnYear: false, //通过修改这个值来显示同比
-        dataSources: MajorForeignInvestorsDescribe.dataSources,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         y2Name: { ch: "家", en: "Enterprise" },
         title: {
@@ -135,7 +135,8 @@ export default {
     isShowTable: {
       type: Boolean,
       default: false
-    }
+    },
+    describeData: {}
   },
   computed: {
     tableDatas() {

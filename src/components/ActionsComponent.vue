@@ -138,20 +138,23 @@ export default {
     //分享到 Twitter
     sharetoTwitter() {
       window.open(
-        //twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
+        // twitter.com/share?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '',
         "http://twitter.com/share?url=" +
           encodeURIComponent(window.location.href) +
           "&text=" +
           encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
-        "",
-        "left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0"
-      );
+        "",)
+
     },
     //分享到 facebook
     sharetoFacebook() {
       window.open(
         "http://www.facebook.com/sharer/sharer.php?u=" +
-          encodeURIComponent(window.location.href)
+          encodeURIComponent(window.location.href) +
+          "&t=" +
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
+        "sharer",
+        "toolbar=0,status=0,width=626,height=436"
       );
     },
     // 分享到微信

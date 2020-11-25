@@ -204,7 +204,7 @@ export default {
     height: 0.197917rem;
     line-height: 0.15625rem;
     padding: 0 0.052083rem;
-    border: 2px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 0.026042rem;
     cursor: pointer;
     .text {
