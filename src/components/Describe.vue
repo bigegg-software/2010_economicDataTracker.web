@@ -10,13 +10,17 @@
       <div class="conceptDetail">
         <div class="enTitle">{{describeData.concept.enTitle}}</div>
         <div class="enText">{{describeData.concept.enText}}</div>
-        <div class="enText">{{describeData.concept.enTextEnd}}</div>
-        <div class="enItalic">{{describeData.concept.enItalic}}</div>
+        <div class="enTitle">{{describeData.concept.enTitleSecond}}</div>
+        <div class="enText">{{describeData.concept.enTextSecond}}</div>
+        <div class="enSource">
+          <a :href="describeData.concept.enLink">{{describeData.concept.enSource}}</a>
+        </div>
         <div class="chTitle">{{describeData.concept.chTitle}}</div>
         <div class="chText">{{describeData.concept.chText}}</div>
-        <div class="chText">{{describeData.concept.chTextEnd}}</div>
-        <div class="chItalic">
-          <a :href="describeData.concept.conceptLink">{{describeData.concept.chItalic}}</a>
+        <div class="chTitle">{{describeData.concept.chTitleSecond}}</div>
+        <div class="chText">{{describeData.concept.chTextSecond}}</div>
+        <div class="chSource">
+          <a :href="describeData.concept.chtLink">{{describeData.concept.chSource}}</a>
         </div>
       </div>
     </div>
@@ -27,7 +31,17 @@
           <div class="ch">数据来源</div>
         </div>
         <div class="sourceContent">
-          <a href="http://">{{describeData.dataSources}}</a>
+          <a :href="describeData.dataSources.en">
+            <div>{{describeData.dataSources.en}}</div>
+            <div class="noteSecond">{{describeData.dataSources.enSecond}}</div>
+            <div class="noteSecond">{{describeData.dataSources.enThird}}</div>
+            </a>
+        </div>
+        <div class="chSourceContent">
+          <a :href="describeData.dataSources.ch">
+            <div>{{describeData.dataSources.ch}}</div>
+            <div class="noteSecond">{{describeData.dataSources.chSecond}}</div>
+            <div class="noteSecond">{{describeData.dataSources.chThird}}</div></a>
         </div>
       </div>
       <div class="dataSources">
@@ -35,7 +49,14 @@
           <div class="en">Note</div>
           <div class="ch">备注</div>
         </div>
-        <div class="noteContent">{{describeData.noteContent}}</div>
+        <div class="noteContent">
+          <div>{{describeData.noteContent.en}}</div>
+          <div class="noteSecond">{{describeData.noteContent.enSecond}}</div>
+        </div>
+        <div class="enNoteContent">
+          <div>{{describeData.noteContent.ch}}</div>
+          <div class="noteSecond">{{describeData.noteContent.chSecond}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -61,7 +82,7 @@ export default {
   justify-content: space-between;
   margin-top: 0.14rem;
 }
-.fullContainer{
+.fullContainer {
   display: none;
 }
 .subhead {
@@ -102,10 +123,12 @@ export default {
       line-height: 0.13rem;
       color: #666;
     }
-    .enItalic {
-      font-style: oblique;
-      font-size: 0.09375rem;
-      color: #999;
+    .enSource {
+      a {
+        font-style: oblique;
+        font-size: 0.09375rem;
+        color: #999;
+      }
     }
     .chTitle {
       margin: 0.15rem 0 0.1rem;
@@ -119,7 +142,7 @@ export default {
       line-height: 0.14rem;
       color: #666;
     }
-    .chItalic {
+    .chSource {
       a {
         font-style: oblique;
         font-size: 0.083333rem;
@@ -139,6 +162,14 @@ export default {
     box-sizing: border-box;
     .sourceContent {
       margin-top: 0.06rem;
+      font-size: 0.09375rem;
+      a {
+        text-decoration: underline;
+        color: #006599;
+      }
+    }
+    .chSourceContent {
+      margin-top: 0.06rem;
       font-size: 0.083333rem;
       a {
         text-decoration: underline;
@@ -146,10 +177,19 @@ export default {
       }
     }
     .noteContent {
+      font-family: "Calibri";
       margin-top: 0.06rem;
-      font-size: 0.083333rem;
+      font-size: 0.09375rem;
       color: #666;
+      line-height: 0.14rem;
+    }
+    .enNoteContent {
+      margin-top: 0.08rem;
+      font-size: 0.083333rem;
     }
   }
+}
+.noteSecond{
+  margin-top: 0.04rem;
 }
 </style>
