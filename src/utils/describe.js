@@ -147,13 +147,14 @@ export default {
     outflowsByIndustryChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of Industrial classification for national economic activities, GB/T 4757-2011. ",
+            enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境内投资者根据中华人民共和国《国民经济行业分类》(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》",
@@ -175,13 +176,14 @@ export default {
     economyByIndustryChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of Industrial classification for national economic activities, GB/T 4757-2011. ",
+            enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境内投资者根据中华人民共和国《国民经济行业分类》(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",            
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》",
@@ -302,10 +304,10 @@ export default {
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "1. 商务部2003年至今月度简明统计数据-工程承包",
-            enSecond: "2. 商务部1979至今年对外承包工程统计",
-            ch: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
-            chSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce"
+            en: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
+            enSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce",
+            ch: "1. 商务部2003年至今月度简明统计数据-工程承包",
+            chSecond: "2. 商务部1979至今年对外承包工程统计",
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
@@ -332,10 +334,10 @@ export default {
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "1. 商务部2003年至今月度简明统计数据-工程承包",
-            enSecond: "2. 商务部1979至今年对外承包工程统计",
-            ch: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
-            chSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce"
+            en: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
+            enSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce",
+            ch: "1. 商务部2003年至今月度简明统计数据-工程承包",
+            chSecond: "2. 商务部1979至今年对外承包工程统计",
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
@@ -803,13 +805,14 @@ export default {
     numEnterprisesChart: {
         concept: {
             enTitle: "Industrial classification ",
-            enText: "Industrial classification of foreign investors are based on Industrial classification for national economic activities, GB/T 4757-2011. ",
+            enText: "Industrial classification of foreign investors are based on _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境外企业分类参照中华人民共和国《国民经济行业分类》(GB/T 4754-2011) 执行",
+            chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
+            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
@@ -831,13 +834,14 @@ export default {
     inflowsToChinaChart: {
         concept: {
             enTitle: "Industrial classification ",
-            enText: "Industrial classification of foreign investors are based on Industrial classification for national economic activities, GB/T 4757-2011. ",
+            enText: "Industrial classification of foreign investors are based on _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境外企业分类参照中华人民共和国《国民经济行业分类》(GB/T 4754-2011) 执行",
+            chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
+            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
@@ -959,10 +963,10 @@ export default {
         dataSources: {
             en: "1. UNCTAD 2019 World Investment Report",
             enSecond: "2. Monthly Summary Statistics - Outbound Investment, 2003 to present, Ministry of Commerce and State Administration of Foreign Exchange",
-            enThird:" 3. Monthly statistics of foreign investment, 2004 to present, Ministry of Commerce",
+            enThird: " 3. Monthly statistics of foreign investment, 2004 to present, Ministry of Commerce",
             ch: "1. 联合国贸发会议《2019世界投资报告》",
             chSecond: "2. 商务部、外汇管理局2003年至今月度简明统计数据-境外投资",
-            chThird:"3. 商务部2004年至今吸收外商直接投资月报"
+            chThird: "3. 商务部2004年至今吸收外商直接投资月报"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {

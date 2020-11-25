@@ -9,14 +9,26 @@
       <!-- 内容 -->
       <div class="conceptDetail">
         <div class="enTitle">{{describeData.concept.enTitle}}</div>
-        <div class="enText">{{describeData.concept.enText}}</div>
+        <div class="enText">
+          {{describeData.concept.enText.split("_")[0]}}
+          <a
+            :href="describeData.concept.textLink"
+          >{{describeData.concept.enText.split("_")[1]}}</a>
+          {{describeData.concept.enText.split("_")[2]}}
+        </div>
         <div class="enTitle">{{describeData.concept.enTitleSecond}}</div>
         <div class="enText">{{describeData.concept.enTextSecond}}</div>
         <div class="enSource">
           <a :href="describeData.concept.enLink">{{describeData.concept.enSource}}</a>
         </div>
         <div class="chTitle">{{describeData.concept.chTitle}}</div>
-        <div class="chText">{{describeData.concept.chText}}</div>
+        <div class="chText">
+          {{describeData.concept.chText.split("_")[0]}}
+          <a
+            :href="describeData.concept.textLink"
+          >{{describeData.concept.chText.split("_")[1]}}</a>
+          {{describeData.concept.chText.split("_")[2]}}
+        </div>
         <div class="chTitle">{{describeData.concept.chTitleSecond}}</div>
         <div class="chText">{{describeData.concept.chTextSecond}}</div>
         <div class="chSource">
@@ -35,13 +47,14 @@
             <div>{{describeData.dataSources.en}}</div>
             <div class="noteSecond">{{describeData.dataSources.enSecond}}</div>
             <div class="noteSecond">{{describeData.dataSources.enThird}}</div>
-            </a>
+          </a>
         </div>
         <div class="chSourceContent">
           <a :href="describeData.dataSources.ch">
             <div>{{describeData.dataSources.ch}}</div>
             <div class="noteSecond">{{describeData.dataSources.chSecond}}</div>
-            <div class="noteSecond">{{describeData.dataSources.chThird}}</div></a>
+            <div class="noteSecond">{{describeData.dataSources.chThird}}</div>
+          </a>
         </div>
       </div>
       <div class="dataSources">
@@ -122,6 +135,9 @@ export default {
       font-size: 0.104167rem;
       line-height: 0.13rem;
       color: #666;
+      a{
+        color: #666;
+      }
     }
     .enSource {
       a {
@@ -141,6 +157,9 @@ export default {
       font-size: 0.09375rem;
       line-height: 0.14rem;
       color: #666;
+      a {
+        color: #666;
+      }
     }
     .chSource {
       a {
@@ -189,7 +208,7 @@ export default {
     }
   }
 }
-.noteSecond{
+.noteSecond {
   margin-top: 0.04rem;
 }
 </style>

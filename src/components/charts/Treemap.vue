@@ -77,7 +77,7 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
-     formatNum(value) {
+    formatNum(value) {
       let strs = value.toFixed(1);
       return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
@@ -103,7 +103,7 @@ export default {
               (params.data.actual || "").split("_")[0]
             }</div>`;
             let value = `<div style="margin-top:0.055rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-              !!params.data.value ?this.formatNum(params.data.value) : ""
+              !!params.data.value ? this.formatNum(params.data.value) : ""
             }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;margin-top:0.06rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -152,9 +152,7 @@ export default {
                   `{d|${(params.data.actual || "").split("_")[1]}}`,
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{c|${
-                    !!params.data.value
-                      ? this.formatNum(params.data.value)
-                      : ""
+                    !!params.data.value ? this.formatNum(params.data.value) : ""
                   }}`,
                   `{d|${(params.data.proportion || "").split("_")[1]}}`,
                   `{a|${(params.data.proportion || "").split("_")[0]}}`,
@@ -188,10 +186,10 @@ export default {
                 d: {
                   color: "#FFF",
                   fontSize: this.$fz(0.16),
-                  padding:[0,0,6,0]
+                  padding: [0, 0, 6, 0]
                   // margin:[this.$fz(0.5),0,0,0]
                   // lineHeight: this.$fz(0.5)
-                },
+                }
               }
             },
             itemStyle: {
@@ -211,7 +209,7 @@ export default {
             //面包屑 没用可删
             breadcrumb: {
               show: false,
-              top:"center",
+              top: "center",
               left: "center",
               itemStyle: {
                 normal: {
@@ -235,7 +233,7 @@ export default {
           }
         ],
         graphic: [
-            {
+          {
             type: "image",
             left: that.$refs.treeMap.offsetWidth / 2.86,
             top: that.$refs.treeMap.offsetHeight / 2.56,
@@ -258,7 +256,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.en,
-                  font: `bold ${this.$fz(0.26)}px Calibri-Bold `,
+                  font: `bold ${this.$fz(0.26)}px Calibri-Bold `
                 }
               },
               {
@@ -330,8 +328,8 @@ export default {
           },
           {
             type: "group",
-            right: this.$fz(0.15) * 1,
-            bottom: this.$fz(0.15) * 1.5,
+            right: this.$fz(0.15),
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -339,9 +337,28 @@ export default {
                 left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: this.totalData.watermark
-                    ? "数据来源:" + this.totalData.dataSources
+                    ? "Data Sources:" +
+                      (this.totalData.dataSources.en.length > 80
+                        ? this.totalData.dataSources.en.slice(0, 80) + "..."
+                        : this.totalData.dataSources.en)
+                    : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.$fz(0.12),
+                style: {
+                  fill: "#666",
+                  text: this.totalData.watermark
+                    ? "数据来源:" +
+                      (this.totalData.dataSources.ch.length > 80
+                        ? this.totalData.dataSources.ch.slice(0, 80) + "..."
+                        : this.totalData.dataSources.ch)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }

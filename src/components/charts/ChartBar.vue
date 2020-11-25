@@ -9,7 +9,7 @@ export default {
     return {
       timer: null,
       myChartBar: Object,
-      selected:{},
+      selected: {}
     };
   },
   props: {
@@ -170,7 +170,7 @@ export default {
           }
         },
         legend: {
-          selected:this.selected,
+          selected: this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
@@ -257,8 +257,8 @@ export default {
           },
           {
             type: "group",
-            right: this.$fz(0.15) * 1,
-            bottom: this.$fz(0.15) * 1.5,
+            right: this.$fz(0.15),
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -266,9 +266,28 @@ export default {
                 left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: this.chartBarData.watermark
-                    ? "数据来源:" + this.chartBarData.dataSources
+                    ? "Data Sources:" +
+                      (this.chartBarData.dataSources.en.length > 80
+                        ? this.chartBarData.dataSources.en.slice(0, 80) + "..."
+                        : this.chartBarData.dataSources.en)
+                    : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.$fz(0.12),
+                style: {
+                  fill: "#666",
+                  text: this.chartBarData.watermark
+                    ? "数据来源:" +
+                      (this.chartBarData.dataSources.ch.length > 80
+                        ? this.chartBarData.dataSources.ch.slice(0, 80) + "..."
+                        : this.chartBarData.dataSources.ch)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -468,11 +487,11 @@ export default {
         series: series
       };
       this.myChartBar = echarts.init(this.$refs.chartBar);
-       this.myChartBar.off('legendselectchanged');
-        this.myChartBar.on('legendselectchanged',(param)=> {
-         this.selected=param.selected;
-       })
-      this.myChartBar.setOption(option,true);
+      this.myChartBar.off("legendselectchanged");
+      this.myChartBar.on("legendselectchanged", param => {
+        this.selected = param.selected;
+      });
+      this.myChartBar.setOption(option, true);
       this.myChartBar.resize();
     },
     //计算最大值

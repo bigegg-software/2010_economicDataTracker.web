@@ -1,5 +1,5 @@
 <template>
-<!-- :ref="totalData.id" -->
+  <!-- :ref="totalData.id" -->
   <div ref="pieChart" id="pieChart" style="width:100%;
     height:100%"></div>
 </template>
@@ -220,8 +220,8 @@ export default {
           },
           {
             type: "group",
-            right: this.$fz(0.15) * 1,
-            bottom: this.$fz(0.15) * 1.5,
+            right: this.$fz(0.15),
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -229,9 +229,28 @@ export default {
                 left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: this.totalData.watermark
-                    ? "数据来源:" + this.totalData.dataSources
+                    ? "Data Sources:" +
+                      (this.totalData.dataSources.en.length > 80
+                        ? this.totalData.dataSources.en.slice(0, 80) + "..."
+                        : this.totalData.dataSources.en)
+                    : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.$fz(0.12),
+                style: {
+                  fill: "#666",
+                  text: this.totalData.watermark
+                    ? "数据来源:" +
+                      (this.totalData.dataSources.ch.length > 80
+                        ? this.totalData.dataSources.ch.slice(0, 80) + "..."
+                        : this.totalData.dataSources.ch)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }

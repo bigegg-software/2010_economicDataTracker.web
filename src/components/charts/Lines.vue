@@ -11,7 +11,7 @@ export default {
       chart: null,
       watermark: false,
       canvas: null,
-      selected:{},
+      selected: {}
     };
   },
   props: {
@@ -248,8 +248,8 @@ export default {
           },
           {
             type: "group",
-            right: this.$fz(0.15) * 1,
-            bottom: this.$fz(0.15) * 1.5,
+            right: this.$fz(0.15),
+            bottom: this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -257,9 +257,28 @@ export default {
                 left: "right",
                 top: "middle",
                 style: {
-                  fill: "#333",
+                  fill: "#666",
                   text: this.watermark
-                    ? "数据来源:" + this.options.dataSources
+                    ? "Data Sources:" +
+                      (this.options.dataSources.en.length > 80
+                        ? this.options.dataSources.en.slice(0, 80) + "..."
+                        : this.options.dataSources.en)
+                    : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.$fz(0.12),
+                style: {
+                  fill: "#666",
+                  text: this.watermark
+                    ? "数据来源:" +
+                      (this.options.dataSources.ch.length > 80
+                        ? this.options.dataSources.ch.slice(0, 80) + "..."
+                        : this.options.dataSources.ch)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -311,7 +330,7 @@ export default {
                   a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
                     .options.spliceCon.en +
                     " " +
-                    params[i].seriesName.split("_")[1]}</div>`; 
+                    params[i].seriesName.split("_")[1]}</div>`;
                 }
                 if (params[i].seriesName.split("_")[0]) {
                   b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${params[
@@ -336,7 +355,7 @@ export default {
         },
         // color: ["#1DD6CF", "#ED8DD0"], // 控制 lengend icon 的颜色
         legend: {
-          selected:this.selected,
+          selected: this.selected,
           data: legend,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
@@ -477,11 +496,11 @@ export default {
         ],
         series: series
       };
-        this.chart.off('legendselectchanged');
-        this.chart.on('legendselectchanged',(param)=> {
-         console.log(param)
-         this.selected=param.selected;
-       })
+      this.chart.off("legendselectchanged");
+      this.chart.on("legendselectchanged", param => {
+        console.log(param);
+        this.selected = param.selected;
+      });
       this.chart.setOption(option, true);
     },
     //计算最大值
