@@ -48,31 +48,7 @@ export default {
           ch: "万人",
           en: "10,000 persons"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "20%"
-          },
-          variousTypesPerNum: {
-            text: "各类劳务人员_Workers sent overseas",
-            width: "35%" ,
-            formatNum:true
-          },
-          contractProject: {
-            text: "承包工程项下派人数_Workers under contracted projects",
-            width: "35%",
-            formatNum:true
-          },
-          laborCooperation: {
-            text: "劳务合作项下派人数_Workers under labor service cooperation",
-            width: "35%",
-            formatNum:true
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
@@ -251,6 +227,7 @@ export default {
       //
     },
     async getChartsData(aug) {
+      await this.getTableConfig(aug);
       //改变横轴 获取数据
       let { res } = await request.getTradeVolumeChartChartsData(aug);
       // 完整的区间
@@ -280,6 +257,57 @@ export default {
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+    },
+    async getTableConfig(aug){
+             if(aug.type=='yearly'){
+                this.totalData.tableTitle={
+                  year: {
+                    text: "年份_Year",
+                    width: "10%"
+                  },
+                  variousTypesPerNum: {
+                    text: "各类劳务人员_Workers sent overseas",
+                    width: "30%" ,
+                    formatNum:true
+                  },
+                  contractProject: {
+                    text: "承包工程项下派人数_Workers under contracted projects",
+                    width: "30%",
+                    formatNum:true
+                  },
+                  laborCooperation: {
+                    text: "劳务合作项下派人数_Workers under labor service cooperation",
+                    width: "30%",
+                    formatNum:true
+                  }
+                }
+             }else{
+               this.totalData.tableTitle={
+                  year: {
+                    text: "年份_Year",
+                    width: "10%"
+                  },
+                  month: {
+                    text: "月份_Month",
+                    width: "20%"
+                  },
+                  variousTypesPerNum: {
+                    text: "各类劳务人员_Workers sent overseas",
+                    width: "35%" ,
+                    formatNum:true
+                  },
+                  contractProject: {
+                    text: "承包工程项下派人数_Workers under contracted projects",
+                    width: "35%",
+                    formatNum:true
+                  },
+                  laborCooperation: {
+                    text: "劳务合作项下派人数_Workers under labor service cooperation",
+                    width: "35%",
+                    formatNum:true
+                  }
+                }
+             }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
