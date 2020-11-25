@@ -53,26 +53,7 @@ export default {
           ch: "中国企业在“一带一路”沿线国家完成营业额",
           en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          completedAmountConMillion: {
-            text: "完成营业额_Revenue of completed contract",
-            width: "35%",
-            formatNum:true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer:true
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
@@ -274,6 +255,7 @@ export default {
       this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
     },
     async getChartsData(aug) {
+      await this.setTableConfig(aug);
       //改变横轴 获取数据
       let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 3);
       // 完整的区间
@@ -299,6 +281,47 @@ export default {
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+    },
+    async setTableConfig(aug) {
+       if(aug.type=='yearly'){
+         this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          completedAmountConMillion: {
+            text: "完成营业额_Revenue of completed contract",
+            width: "45%",
+            formatNum:true
+          },
+          completedAmountConYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "45%",
+            formatPer:true
+          }
+        }
+       }else{
+          this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_month",
+            width: "20%"
+          },
+          completedAmountConMillion: {
+            text: "完成营业额_Revenue of completed contract",
+            width: "35%",
+            formatNum:true
+          },
+          completedAmountConYOY: {
+            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            width: "35%",
+            formatPer:true
+          }
+        }
+       }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {

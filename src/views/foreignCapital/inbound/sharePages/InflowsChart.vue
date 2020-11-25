@@ -58,26 +58,7 @@ export default {
           ch: "百万美元",
           en: "USD min"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Monthly",
-            width: "20%"
-          },
-          inwardFDIConMillion: {
-            text: "实际使用外资_China’s inward FDI",
-            width: "35%",
-            formatNum:true
-          },
-          inwardFDIConYOY: {
-            text: "实际使用外资同比_xxxxxxx",
-            width: "35%",
-            formatPer:true
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
@@ -273,6 +254,45 @@ export default {
       this.USD.series[0]["yearOnYear"] = data.inwardFDIConYOY;
     },
     async getChartsData(aug) {
+      if(aug.type=='yearly') {
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          inwardFDIConMillion: {
+            text: "实际使用外资_China’s inward FDI",
+            width: "45%",
+            formatNum:true
+          },
+          inwardFDIConYOY: {
+            text: "实际使用外资同比_xxxxxxx",
+            width: "45%",
+            formatPer:true
+          }
+        }
+      }else{
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_Monthly",
+            width: "20%"
+          },
+          inwardFDIConMillion: {
+            text: "实际使用外资_China’s inward FDI",
+            width: "35%",
+            formatNum:true
+          },
+          inwardFDIConYOY: {
+            text: "实际使用外资同比_xxxxxxx",
+            width: "35%",
+            formatPer:true
+          }
+        }
+      }
       //改变横轴 获取数据
       let { res } = await request.getInflowsChartsData(aug);
 

@@ -57,27 +57,7 @@ export default {
           ch: "百万美元",
           en: "USD min"
         },
-        tableTitle: {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          investConversionMillion: {
-            text: "非金融类直接投资_non-financial FDI outflows",
-            width: "35%",
-            formatNum:true
-          },
-          conversionYOY: {
-            text:
-              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
-            width: "35%",
-            formatPer:true
-          }
-        },
+        tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
@@ -280,6 +260,7 @@ export default {
       this.USD.series[0]["yearOnYear"] = data.conversionYOY;
     },
     async getChartsData(aug) {
+      await this.setTableConfig(aug);
       //改变横轴 获取数据
       let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 1);
       // 完整的区间
@@ -305,6 +286,49 @@ export default {
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+    },
+    async setTableConfig(aug) {
+      if(aug.type=='yearly'){
+          this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          investConversionMillion: {
+            text: "非金融类直接投资_non-financial FDI outflows",
+            width: "45%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text:
+              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
+            width: "45%",
+            formatPer:true
+          }
+        }
+      }else{
+        this.totalData.tableTitle={
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_month",
+            width: "20%"
+          },
+          investConversionMillion: {
+            text: "非金融类直接投资_non-financial FDI outflows",
+            width: "35%",
+            formatNum:true
+          },
+          conversionYOY: {
+            text:
+              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
+            width: "35%",
+            formatPer:true
+          }
+        }
+      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {

@@ -124,12 +124,12 @@ export default {
             fileName: '实际使用外资',
             tHeader: [
                 "年份",
-                "月份",
+                type!='yearly'?"月份":'',
                 '实际使用外资',
                 '实际使用外资同比',
                 '单位'
-            ],
-            filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY', 'unitMillion'],
+            ].filter(item=>item!=''),
+            filterVal: ['year', type!='yearly'?'month':'', 'inwardFDIConMillion', 'inwardFDIConYOY', 'unitMillion'].filter(item=>item!=''),
             tableData: [...tableres]
         }
         store.commit('saveChartTable', tableInfo);
