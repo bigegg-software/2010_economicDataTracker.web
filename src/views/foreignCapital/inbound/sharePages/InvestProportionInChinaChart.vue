@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import TreemapChart from "@/components/charts/Treemap";
 import Yearly from "@/components/timeFrame/Year";
 import request from "@/request/inBound/inBound";

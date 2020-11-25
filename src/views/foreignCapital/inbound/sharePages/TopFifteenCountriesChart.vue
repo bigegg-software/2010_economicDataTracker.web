@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import { MajorForeignInvestorsDescribe } from "@/utils/describe.js";
 import ChartBar from "@/components/charts/ChartBar";
 import Year from "@/components/timeFrame/Year";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";

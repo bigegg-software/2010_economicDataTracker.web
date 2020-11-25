@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import {ForeignInvestIndustryDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";

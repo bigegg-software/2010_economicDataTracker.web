@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import {MajorForeignInvestorsDescribe} from '@/utils/describe.js'
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
