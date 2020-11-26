@@ -235,7 +235,8 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        return console.log("开始时间不得大于结束时间");
+        this.$message.warn('开始时间不得大于结束时间');
+        return;
       }
       this.options[activeKey].list[key].value = value;
       // 获取数据入口  zp  开始和结束都有值再去查
