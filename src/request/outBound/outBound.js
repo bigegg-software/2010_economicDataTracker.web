@@ -378,9 +378,13 @@ getOutflowsOutstocksByDestinationChartsData:async function(tableName,params,file
             return item.continent == '非洲'
         })
         Africa=await this.sumSameYearData(Africa,filed,'非洲');
+        let Latin_America = res.filter(item=>{
+            return item.continent == '拉丁美洲'
+        })
+        Latin_America=await this.sumSameYearData(Latin_America,filed,'拉丁美洲');
            
 // 处理table数据
-let tableres=await JSON.parse(JSON.stringify([...Asia,...Europe,...Oceania,...North_America,...Antarctica,...South_America,...Africa]));
+let tableres=await JSON.parse(JSON.stringify([...Asia,...Europe,...Oceania,...North_America,...Antarctica,...South_America,...Africa,...Latin_America]));
         tableres=tableres.sort((a,b)=>{
              return b.year-a.year;
         });
@@ -398,8 +402,7 @@ let tableres=await JSON.parse(JSON.stringify([...Asia,...Europe,...Oceania,...No
                 }
                 store.commit('saveChartTable',tableInfo);
         // }
-// 
-        return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa};
+        return {Asia,Europe,Oceania,North_America,Antarctica,South_America,Africa,Latin_America};
 },///
 getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,tabIndex) {//获取中国对外直接投资流量|存量按国家和地区统计-按国家和地区统计  //折线图
     let res=await this.manualQueryData(tableName,params);
