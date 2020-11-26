@@ -306,39 +306,55 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">
-              <span>${params[0].name.split("\n")[0]}</span><br/>
-              <span style="font-size:0.072917rem; font-weight:normal;">${
-                params[0].name.includes("\n")
-                  ? params[0].name.split("\n")[1]
-                  : ""
-              }</span>
+            let dom = "";
+            let rowCount = 6; //一列允许的最大行数
+            let lineCount = parseInt(params.length / rowCount) + 1; //列数
+            dom += `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">`;
+            dom += "<table>";
+            dom += `<div style="padding:0.052rem 0 0.055rem 0; line-height:0.12rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">
+            <span>${params[0].name.split("\n")[0]}</span><br/>
+               <span style="font-size:0.072917rem; font-weight:normal;">${
+                 params[0].name.includes("\n")
+                   ? params[0].name.split("\n")[1]
+                   : ""
+               }</span>
             </div>`;
-            for (let i = 0; i < params.length; i++) {
-              if (params[i].seriesName.includes("_")) {
-                if (params[i].seriesName.split("_")[1]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
-                    params[i].seriesName.split("_")[1]
-                  }</div>`;
+            for (let i = 0; i < rowCount; i++) {
+              dom += "<tr>";
+              for (
+                let j = 0;
+                j < lineCount && j * rowCount + i < params.length;
+                j++
+              ) {
+                let it = params[j * rowCount + i];
+                if (it.seriesName.includes("_")) {
+                  if (it.seriesName.split("_")[1]) {
+                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
+                      it.seriesName.split("_")[1]
+                    }</div>`;
+                  }
+                  if (it.seriesName.split("_")[0]) {
+                    b = `<div style="height:0.09375rem;padding-top:0.01rem;line-height:0.09375rem;color:#7C7C7C;font-size:0.0625rem">${
+                      it.seriesName.split("_")[0]
+                    }</div>`;
+                  }
                 }
-                if (params[i].seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;padding-top:0.01rem;line-height:0.09375rem;color:#7C7C7C;font-size:0.0625rem">${
-                    params[i].seriesName.split("_")[0]
-                  }</div>`;
-                }
+                c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
+                  !!it.value
+                    ? this.formatNum(it.value) +
+                      (it.seriesName.includes("占比") ||
+                      it.seriesName.includes("同比")
+                        ? "%"
+                        : "")
+                    : "-"
+                }</div>`;
+                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
               }
-              c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value
-                  ? this.formatNum(params[i].value) +
-                    (params[i].seriesName.includes("占比") ||
-                    params[i].seriesName.includes("同比")
-                      ? "%"
-                      : "")
-                  : "-"
-              }</div>`;
-              dom = dom + a + b + c;
+              dom += "</tr>";
             }
-            return `<div style="width:auto;max-height:height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgray 0px 0px 10px 3px;">${dom}</div>`;
+            dom += "</table>";
+            dom += `</div>`;
+            return dom;
           }
         },
         grid: {

@@ -69,7 +69,7 @@ export default {
           },
           {
             name: "承包工程项下派人数_Workers under contracted projects",
-            color: "#FF0000",
+            color: "#d43838",
             data: []
           },
           {

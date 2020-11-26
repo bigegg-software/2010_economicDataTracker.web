@@ -123,7 +123,7 @@ export default {
           },
           {
             name: "对外直接投资流量_FDI outflows",
-            color: "#FF0000",
+            color: "#d43838",
             data: [],
             yearOnYear: []
           }
@@ -145,7 +145,7 @@ export default {
           },
           {
             name: "对外直接投资流量_FDI outflows",
-            color: "#FF0000",
+            color: "#d43838",
             data: []
           }
         ],

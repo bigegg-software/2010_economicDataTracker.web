@@ -292,63 +292,79 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
+            let dom = "";
+            let rowCount = 6; //一列允许的最大行数
+            let lineCount = parseInt(params.length / rowCount) + 1; //列数
             let a = "";
             let b = "";
             let c = "";
-            let dom = `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
-            // c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-            //   !!params[i].value
-            //     ? this.formatNum(params[i].value) +
-            //       (params[i].seriesName.includes("占比") ||
-            //       params[i].seriesName.includes("同比")
-            //         ? "%"
-            //         : "")
-            //     : "-"
-            // }</div>`;
-
-            for (let i = 0; i < params.length; i++) {
-              if (
-                this.options.yearOnYear == false ||
-                this.options.yearOnYear == undefined ||
-                i % 2 == 0
+            dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
+            dom += "<table>";
+            dom += `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            for (let i = 0; i < rowCount; i++) {
+              dom += `<tr>`;
+              for (
+                let j = 0;
+                j < lineCount && j * rowCount + i < params.length;
+                j++
               ) {
-                if (params[i].seriesName.split("_")[1]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                    params[i].seriesName.split("_")[1]
+                let it = params[j * rowCount + i];
+                if (
+                  this.options.yearOnYear == false ||
+                  this.options.yearOnYear == undefined ||
+                  i % 2 === 0
+                ) {
+                  if (it.seriesName.split("_")[1]) {
+                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                      it.seriesName.split("_")[1]
+                    }</div>`;
+                  }
+                  if (it.seriesName.split("_")[0]) {
+                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
+                      it.seriesName.split("_")[0]
+                    }</div>`;
+                  }
+                  c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                    !!it.value ? this.formatNum(it.value) : "-"
+                  }</div>`;
+                } else {
+                  if (it.seriesName.split("_")[1]) {
+                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
+                      .options.spliceCon.en +
+                      " " +
+                      it.seriesName.split("_")[1]}</div>`;
+                  }
+                  if (it.seriesName.split("_")[0]) {
+                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${it.seriesName.split(
+                      "_"
+                    )[0] + this.options.spliceCon.ch}</div>`;
+                  }
+                  c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                    !!it.value
+                      ? this.formatNum(it.value) +
+                        (this.options.y2Name ? "" : "%")
+                      : "-"
                   }</div>`;
                 }
-                if (params[i].seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
-                    params[i].seriesName.split("_")[0]
-                  }</div>`;
-                }
-                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !!params[i].value ? this.formatNum(params[i].value) : "-"
-                }</div>`;
-              } else {
-                if (params[i].seriesName.split("_")[1]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
-                    .options.spliceCon.en +
-                    " " +
-                    params[i].seriesName.split("_")[1]}</div>`;
-                }
-                if (params[i].seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${params[
-                    i
-                  ].seriesName.split("_")[0] +
-                    this.options.spliceCon.ch}</div>`;
-                }
-                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !!params[i].value
-                    ? this.formatNum(params[i].value) +
-                      (this.options.y2Name ? "" : "%")
-                    : "-"
-                }</div>`;
+                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
               }
-              dom = dom + a + b + c;
+              dom += `</tr>`;
             }
-            return `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">${dom}</div>`;
+            dom += "</table>";
+            dom += `</div>`;
+            return dom;
           },
+
+          // c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+          //   !!params[i].value
+          //     ? this.formatNum(params[i].value) +
+          //       (params[i].seriesName.includes("占比") ||
+          //       params[i].seriesName.includes("同比")
+          //         ? "%"
+          //         : "")
+          //     : "-"
+          // }</div>`;
+
           axisPointer: {
             label: { show: false }
           }

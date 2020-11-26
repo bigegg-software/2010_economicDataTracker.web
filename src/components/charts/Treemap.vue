@@ -96,7 +96,7 @@ export default {
               (params.name || "").split("_")[0]
             }</div>`;
             //实际投入外资金额
-            let actual = `<div style="height:0.09375rem;margin-top:0.065rem;color:#3E3E3E;font-size:0.072917rem">${
+            let actual = `<div style="height:0.09375rem;margin-top:0.12rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
               (params.data.actual || "").split("_")[1]
             }</div>`;
             let actualCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.0625rem">${

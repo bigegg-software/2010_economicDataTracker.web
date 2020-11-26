@@ -85,7 +85,7 @@ export default {
           },
           {
             name: "中国对外非金融类直接投资_Non-financial FDI outflows",
-            color: "#FF0000",
+            color: "#d43838",
             data: [],
             yearOnYear: []
           }
@@ -112,7 +112,7 @@ export default {
           },
           {
             name: "中国对外非金融类直接投资_Non-financial FDI outflows",
-            color: "#FF0000",
+            color: "#d43838",
             data: [],
             yearOnYear: []
           }
