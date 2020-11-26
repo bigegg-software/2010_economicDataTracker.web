@@ -138,6 +138,7 @@ export default {
       },
       USD: {
         id: "USD",
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "实际使用外资金额按行业统计", en: "Foreign investment by industry" },

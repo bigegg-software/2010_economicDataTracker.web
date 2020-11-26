@@ -143,8 +143,8 @@ export default {
           encodeURIComponent(window.location.href) +
           "&text=" +
           encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
-        "",)
-
+        ""
+      );
     },
     //分享到 facebook
     sharetoFacebook() {
@@ -166,9 +166,28 @@ export default {
         let qrcode = new QRCode("qrcodeMark", {
           width: 160,
           height: 160,
-          text: encodeURIComponent(window.location.href) // 设置二维码内容或跳转地址
+          text: encodeURIComponent(window.location.href)
+           // 设置二维码内容或跳转地址
         });
       }, 0);
+    },
+    // 分享到微博
+    sharetoSina() {
+      window.open(
+        "http://service.weibo.com/share/share.php?url=" +
+          encodeURIComponent(window.location.href) +
+          "title" +
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch)
+      );
+    },
+    //分享到邮箱
+    sharetoEmail() {
+      window.open(
+        "mailto:?cc=&bcc=&subject=" +
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch) +
+          "&body=" +
+          encodeURIComponent(window.location.href)
+      );
     },
     //点击此元素之外的地方  隐藏
     HideOther(thisDiv) {
@@ -177,19 +196,6 @@ export default {
           thisDiv.style.display = "none";
         }
       });
-    },
-    sharetoSina() {
-      window.open(
-        "http://service.weibo.com/share/share.php?url=" +
-          encodeURIComponent(window.location.href)
-      );
-    },
-    //分享到邮箱
-    sharetoEmail() {
-      window.open(
-        "mailto:?cc=&bcc=&subject=&body=" +
-          encodeURIComponent(window.location.href)
-      );
     }
   }
 };
