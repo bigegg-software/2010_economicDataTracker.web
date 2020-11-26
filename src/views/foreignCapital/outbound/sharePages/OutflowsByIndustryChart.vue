@@ -142,6 +142,7 @@ export default {
       },
       USD: {
         id: "USD",
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {

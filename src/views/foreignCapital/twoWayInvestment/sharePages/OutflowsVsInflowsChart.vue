@@ -116,13 +116,13 @@ export default {
         },
         series: [
           {
-            name: "实际使用外资_xxx",
+            name: "实际使用外资_FDI inflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对全行业直接投资_xxx",
+            name: "对外直接投资流量_FDI outflows",
             color: "#FF0000",
             data: [],
             yearOnYear: []
