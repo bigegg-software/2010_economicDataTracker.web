@@ -29,7 +29,6 @@
       </div>
       <div class="status" v-if="$store.getters.showOperate">
         <select-check-box
-          v-if="status[0].checked"
           :option="checkBox"
           :result="result"
           @change="changeOption"
@@ -213,7 +212,7 @@ export default {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
       },
-      deep: true
+      // deep: true
     }
   },
   async created() {
@@ -298,18 +297,19 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
+      this.chartBar.series=[];
       this.USD.series = [];
       let industryAddYoYData=[];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
-        this.$set(this.chartBar.series, i, {
-          name: `${res[i][0].industry}_${res[i][0].industryEn}`,
-          data: data["inflowsFDIMillion"],
-          color: [this.randomColor[i]]
-        });
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
+            this.chartBar.series.push({
+              name: `${res[i][0].industry}_${res[i][0].industryEn}`,
+              data: data["inflowsFDIMillion"],
+              color: [this.randomColor[p]]
+            });
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
@@ -451,6 +451,8 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
+      this.chartBar.series=[];
+      this.USD.series=[];
       this.mainGetChartsData('yearly');
     }
   }

@@ -88,7 +88,7 @@ export default {
         return res;
     },
     getAllCountryName: async function () {  // 获取所有国家对华
-        let q = new Parse.Query('Country'); // 待调整 40成个国家的表
+        let q = new Parse.Query('MainCountry'); // 已经调整成40个国家的表
         q.limit(500);
         let res = await q.find();
         res = res.map(item => {
