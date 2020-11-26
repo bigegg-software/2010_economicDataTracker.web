@@ -47,6 +47,7 @@ export default {
   name: "stocksByDestinationChart",
   data() {
     return {
+      searchTimer:null,
       tableTotalData: {
         title: {
           ch: "按国家和地区统计",
@@ -146,7 +147,7 @@ export default {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
       },
-      deep: true
+      // deep: true
     },
     tableDatas: {
       handler() {
@@ -326,6 +327,8 @@ export default {
       // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
+      clearTimeout(this.searchTimer);
+      this.searchTimer=setTimeout(async()=>{
       //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
       let regz = /[\u4e00-\u9fa5]/gi;
       let reg = /\s+/;
@@ -346,7 +349,7 @@ export default {
       }
       if (value.replace(/(^\s*)/g, "") == "") {
         for (let y = 0; y < this.checkBox.op.length; y++) {
-          this.checkBox.op[y].show = true;
+            this.checkBox.op[y].show = true;
         }
       } else {
         for (let i = 0; i < this.checkBox.op.length; i++) {
@@ -361,10 +364,11 @@ export default {
               active = false;
             }
           }
-          this.checkBox.op[i].show = active;
+            this.checkBox.op[i].show = active;
         }
       }
-    }
+      },600);
+    }///
   }
 };
 </script>
