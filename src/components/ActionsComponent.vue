@@ -19,7 +19,7 @@
           <div v-if="item.popup && item.name == 'download' && item.checked" class="download-block">
             <template v-for="(action, i) in item.children">
               <div
-                v-if="actionsList[0].checked!=true || action.name!='image'&&actionsList[0].checked==true"
+                v-if="isShow(action)"
                 :key="i"
                 class="download"
                 @click.stop="choose(index, i,item.name)"
@@ -101,6 +101,12 @@ export default {
   },
 
   methods: {
+    isShow(action) {
+      return (
+        (!this.actionsList[0].hide && !this.actionsList[0].checked) ||
+        action.name != "image"
+      );
+    },
     handelText(toggle, checked, text) {
       return toggle && checked ? text.split("_")[1] : text.split("_")[0];
     },
@@ -167,7 +173,7 @@ export default {
           width: 160,
           height: 160,
           text: encodeURIComponent(window.location.href)
-           // 设置二维码内容或跳转地址
+          // 设置二维码内容或跳转地址
         });
       }, 0);
     },
