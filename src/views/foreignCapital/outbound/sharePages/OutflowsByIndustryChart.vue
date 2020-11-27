@@ -66,6 +66,7 @@ export default {
   name: "outflowsChart",
   data() {
     return {
+      searchTimer:null,
       totalData: {
         title: {
           ch: "中国对外直接投资流量行业分布情况",
@@ -382,6 +383,8 @@ export default {
       // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
+     clearTimeout(this.searchTimer);
+      this.searchTimer=setTimeout(async()=>{
       //搜索
       //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
       let regz = /[\u4e00-\u9fa5]/gi;
@@ -421,6 +424,7 @@ export default {
           this.checkBox.op[i].show = active;
         }
       }
+    },600);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {

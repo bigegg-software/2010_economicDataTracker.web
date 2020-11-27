@@ -47,6 +47,7 @@ export default {
   name: "stocksByDestinationChart",
   data() {
     return {
+      searchTimer:null,
       tableTotalData: {
         title: {
           ch: "中国对外直接投资存量按国家/地区统计",
@@ -151,7 +152,7 @@ export default {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
       },
-      deep: true
+      // deep: true
     },
     tableDatas: {
       handler() {
@@ -325,6 +326,8 @@ export default {
       await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
+      clearTimeout(this.searchTimer);
+      this.searchTimer=setTimeout(async()=>{
       //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
       let regz = /[\u4e00-\u9fa5]/gi;
       let reg = /\s+/;
@@ -363,6 +366,7 @@ export default {
           this.checkBox.op[i].show = active;
         }
       }
+    },600);
     }
   }
 };

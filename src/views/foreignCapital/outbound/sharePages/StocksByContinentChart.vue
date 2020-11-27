@@ -75,43 +75,7 @@ export default {
           en: "China’s FDI outstocks by continent"
         },
         xData: [],
-        series: [
-          {
-            name: "亚洲_Asia",
-            color: "#8CBEB2",
-            data: []
-          },
-          {
-            name: "欧洲_Europe",
-            color: "#F06060",
-            data: []
-          },
-          {
-            name: "大洋洲_Oceania",
-            color: "#A8C545",
-            data: []
-          },
-          {
-            name: "北美洲_North America",
-            color: "#F3B562",
-            data: []
-          },
-          {
-            name: "南极洲_Antarctica",
-            color: "#34308F",
-            data: []
-          },
-          {
-            name: "南美洲_South America",
-            color: "#8C2B59",
-            data: []
-          },
-          {
-            name: "非洲_Africa",
-            color: "#8C8474",
-            data: []
-          }
-        ],
+        series: [],
         updatedDate: ""
       },
       options: {
@@ -223,13 +187,21 @@ export default {
       Antarctica,
       South_America,
       Africa,
+      Latin_America,
       XNameAttr,
       dataAttr,
       range
     ) {
+      this.USD.series=[];
       //亚洲
       let dataAsia = await this.getItemData(Asia, XNameAttr, dataAttr, range);
-      this.USD.series[0]["data"] = dataAsia.mount;
+      if(Asia.length){
+        this.USD.series.push({
+            name: "亚洲_Asia",
+            color: "#b8a597",
+            data: dataAsia.mount
+          });
+      }
       //欧洲
       let dataEurope = await this.getItemData(
         Europe,
@@ -237,7 +209,13 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[1]["data"] = dataEurope.mount;
+      if(Europe.length){
+        this.USD.series.push({
+            name: "欧洲_Europe",
+            color: "#72a083",
+            data: dataEurope.mount
+          });
+      }
       //大洋洲 Oceania
       let dataOceania = await this.getItemData(
         Oceania,
@@ -245,7 +223,13 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[2]["data"] = dataOceania.mount;
+      if(Oceania.length){
+        this.USD.series.push({
+            name: "大洋洲_Oceania",
+            color: "#c96470",
+            data: dataOceania.mount
+          });
+      }
       //North_America 北美洲
       let dataNorth_America = await this.getItemData(
         North_America,
@@ -253,7 +237,13 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[3]["data"] = dataNorth_America.mount;
+      if(North_America.length){
+        this.USD.series.push({
+            name: "北美洲_North America",
+            color: "#a65783",
+            data: dataNorth_America.mount
+          });
+      }
       //Antarctica 南极洲
       let dataAntarctica = await this.getItemData(
         Antarctica,
@@ -261,7 +251,13 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[4]["data"] = dataAntarctica.mount;
+      if(Antarctica.length){
+        this.USD.series.push({
+            name: "南极洲_Antarctica",
+            color: "#d38265",
+            data: dataAntarctica.mount
+          });
+      }
       //South_America 南美洲
       let dataSouth_America = await this.getItemData(
         South_America,
@@ -269,7 +265,13 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[5]["data"] = dataSouth_America.mount;
+      if(South_America.length){
+        this.USD.series.push({
+            name: "南美洲_South America",
+            color: "#86a1b0",
+            data: dataSouth_America.mount
+          });
+      }
       //Africa 非洲
       let dataAfrica = await this.getItemData(
         Africa,
@@ -277,7 +279,27 @@ export default {
         dataAttr,
         range
       );
-      this.USD.series[6]["data"] = dataAfrica.mount;
+      if(Africa.length){
+        this.USD.series.push({
+            name: "非洲_Africa",
+            color: "#9d9930",
+            data: dataAfrica.mount
+          });
+      }
+      //拉丁美洲
+      let dataLatin_America = await this.getItemData(
+        Latin_America,
+        XNameAttr,
+        dataAttr,
+        range
+      );
+      if(Latin_America.length){
+        this.USD.series.push({
+            name: "拉丁美洲_Latin America",
+            color: "#288b99",
+            data: dataLatin_America.mount
+          });
+      }
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
@@ -288,7 +310,8 @@ export default {
         North_America,
         Antarctica,
         South_America,
-        Africa
+        Africa,
+        Latin_America
       } = await request.getOutflowsOutstocksByDestinationChartsData(
         "FDIStock",
         aug,
@@ -312,6 +335,7 @@ export default {
         Antarctica,
         South_America,
         Africa,
+        Latin_America,
         XNameAttr,
         dataAttr,
         range
