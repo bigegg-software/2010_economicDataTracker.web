@@ -342,12 +342,12 @@ export default {
             formatPer:true
           },
           newConAmountMillion: {
-            text: "新签合同额折合（RMB）_xxx",
+            text: "新签合同额折合（RMB）_Xxx",
             width: "20%",
             formatNum:true
           },
           newConAmountYOY: {
-            text: "新签合同额折合同比_xxx",
+            text: "新签合同额折合同比_Xxx",
             width: "25%",
             formatPer:true
           }
@@ -359,7 +359,7 @@ export default {
             width: "10%"
           },
           month: {
-            text: "月份_month",
+            text: "月份_Month",
             width: "20%"
           },
           newConAmountConMillion: {
@@ -373,12 +373,12 @@ export default {
             formatPer:true
           },
           newConAmountMillion: {
-            text: "新签合同额折合（RMB）_xxx",
+            text: "新签合同额折合（RMB）_Xxx",
             width: "35%",
             formatNum:true
           },
           newConAmountYOY: {
-            text: "新签合同额折合同比_xxx",
+            text: "新签合同额折合同比_Xxx",
             width: "35%",
             formatPer:true
           }

@@ -9,7 +9,7 @@
         <treemap-chart v-if="!isShowTable" ref="treemapChart" :totalData="totalData"></treemap-chart>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="year-select">
         <Yearly v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></Yearly>
       </div>
@@ -29,6 +29,8 @@ import SelectRadio from "@/components/select/SelectRadio";
 import request from "@/request/outBound/outBound";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
+import Parse from "@/request";
+
 export default {
   components: {
     TreemapChart,
@@ -68,7 +70,7 @@ export default {
           outflowMillion: {
             text: "中国对外直接投资流量_China's FDI outflow",
             width: "35%",
-            formatNum:true
+            formatNum: true
           }
         },
         tableData: [],
@@ -97,6 +99,7 @@ export default {
         frame: "",
         value: ""
       },
+
       selectOption: {
         ch: "大洲",
         en: "Continent",
@@ -104,37 +107,38 @@ export default {
           ch: "亚洲",
           en: "Asia"
         },
-        op: [
-          {
-            ch: "非洲",
-            en: "Africa"
-          },
-          {
-            ch: "亚洲",
-            en: "Asia"
-          },
-          {
-            ch: "南美洲",
-            en: "South America"
-          },
-          {
-            ch: "欧洲",
-            en: "Europe"
-          },
-          {
-            ch: "北美洲",
-            en: "North America"
-          },
-          {
-            ch: "南极洲",
-            en: "Antarctica"
-          },
-          {
-            ch: "大洋洲",
-            en: "Oceania"
-          }
-        ]
-      }
+        op: []
+      },
+      allContinent: [
+        {
+          ch: "非洲",
+          en: "Africa"
+        },
+        {
+          ch: "亚洲",
+          en: "Asia"
+        },
+        {
+          ch: "拉丁美洲",
+          en: "Latin America"
+        },
+        {
+          ch: "欧洲",
+          en: "Europe"
+        },
+        {
+          ch: "北美洲",
+          en: "North America"
+        },
+        {
+          ch: "南极洲",
+          en: "Antarctica"
+        },
+        {
+          ch: "大洋洲",
+          en: "Oceania"
+        }
+      ]
     };
   },
   computed: {
@@ -153,19 +157,19 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
-          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
       },
-      deep:true
+      deep: true
     },
-    selectOption:{
+    selectOption: {
       handler() {
-          this.totalData.title.ch=this.tableTotalData.title.ch=`${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
-          this.totalData.title.en=this.tableTotalData.title.en=`${this.option.value} By country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
+        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -186,8 +190,25 @@ export default {
       }
     });
     this.option.value = Number(arrmaxmin[1]);
+    this.getContinent();
   },
   methods: {
+    //获取大洲
+    async getContinent() {
+      let q = await new Parse.Query("FDIOutflowDestination");
+      await q.limit(await q.count());
+      let continent = await q.find();
+      continent = continent.map(item => {
+        return item.toJSON().continent;
+      });
+      let res = Array.from(new Set(continent));
+      console.log(res);
+      for (let i = 0; i < this.allContinent.length; i++) {
+        if (res.includes(this.allContinent[i].ch)) {
+          this.selectOption.op.push(this.allContinent[i]);
+        }
+      }
+    },
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIOutflowDestination");
@@ -198,12 +219,12 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFDIOutflowDestination(aug);
-      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.tableTotalData.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_"+ item.countryEn ,
+          name: item.country + "_" + item.countryEn,
           value: item.outflowMillion
         });
       });
@@ -255,7 +276,7 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     padding: 0.078125rem;
@@ -263,9 +284,18 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .year-select {
-      margin-bottom: 0.078125rem;
-    }
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto; 
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+    padding: 0.078125rem;
+    box-sizing: border-box;
+  }
+  .year-select {
+    margin-bottom: 0.078125rem;
   }
 }
 </style>

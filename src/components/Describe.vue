@@ -19,7 +19,11 @@
         <div class="enTitle">{{describeData.concept.enTitleSecond}}</div>
         <div class="enText">{{describeData.concept.enTextSecond}}</div>
         <div class="enSource">
-          <a :href="describeData.concept.enLink">{{describeData.concept.enSource}}</a>
+          {{describeData.concept.enSource.split("_")[0]}}
+          <a
+            :href="describeData.concept.enLink"
+          >{{describeData.concept.enSource.split("_")[1]}}</a>
+          {{describeData.concept.enSource.split("_")[2]}}
         </div>
         <div class="chTitle">{{describeData.concept.chTitle}}</div>
         <div class="chText">
@@ -32,7 +36,11 @@
         <div class="chTitle">{{describeData.concept.chTitleSecond}}</div>
         <div class="chText">{{describeData.concept.chTextSecond}}</div>
         <div class="chSource">
-          <a :href="describeData.concept.chtLink">{{describeData.concept.chSource}}</a>
+          {{describeData.concept.chSource.split("_")[0]}}
+          <a
+            :href="describeData.concept.chtLink"
+          >{{describeData.concept.chSource.split("_")[1]}}</a>
+          {{describeData.concept.chSource.split("_")[2]}}
         </div>
       </div>
     </div>
@@ -43,18 +51,50 @@
           <div class="ch">数据来源</div>
         </div>
         <div class="sourceContent">
-          <a :href="describeData.dataSources.en">
-            <div>{{describeData.dataSources.en}}</div>
-            <div class="noteSecond">{{describeData.dataSources.enSecond}}</div>
-            <div class="noteSecond">{{describeData.dataSources.enThird}}</div>
-          </a>
+          <div>
+            {{describeData.dataSources.en.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.en"
+            >{{describeData.dataSources.en.split("_")[1]}}</a>
+            {{describeData.dataSources.en.split("_")[2]}}
+          </div>
+          <div class="noteSecond" v-if="describeData.dataSources.enSecond">
+            {{describeData.dataSources.enSecond.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.en"
+            >{{describeData.dataSources.enSecond.split("_")[1]}}</a>
+            {{describeData.dataSources.enSecond.split("_")[2]}}
+          </div>
+          <div class="noteSecond" v-if="describeData.dataSources.enThird">
+            {{describeData.dataSources.enThird.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.en"
+            >{{describeData.dataSources.enThird.split("_")[1]}}</a>
+            {{describeData.dataSources.enThird.split("_")[2]}}
+          </div>
         </div>
         <div class="chSourceContent">
-          <a :href="describeData.dataSources.ch">
-            <div>{{describeData.dataSources.ch}}</div>
-            <div class="noteSecond">{{describeData.dataSources.chSecond}}</div>
-            <div class="noteSecond">{{describeData.dataSources.chThird}}</div>
-          </a>
+          <div>
+            {{describeData.dataSources.ch.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.ch"
+            >{{describeData.dataSources.ch.split("_")[1]}}</a>
+            {{describeData.dataSources.ch.split("_")[2]}}
+          </div>
+          <div class="noteSecond" v-if="describeData.dataSources.chSecond">
+            {{describeData.dataSources.chSecond.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.ch"
+            >{{describeData.dataSources.chSecond.split("_")[1]}}</a>
+            {{describeData.dataSources.chSecond.split("_")[2]}}
+          </div>
+          <div class="noteSecond" v-if="describeData.dataSources.chThird">
+            {{describeData.dataSources.chThird.split("_")[0]}}
+            <a
+              :href="describeData.dataSources.ch"
+            >{{describeData.dataSources.chThird.split("_")[1]}}</a>
+            {{describeData.dataSources.chThird.split("_")[2]}}
+          </div>
         </div>
       </div>
       <div class="dataSources">
@@ -135,15 +175,18 @@ export default {
       font-size: 0.104167rem;
       line-height: 0.13rem;
       color: #666;
-      a{
+      a {
         color: #666;
+        border-bottom: 1px solid #999;
       }
     }
     .enSource {
+      font-style: oblique;
+      font-size: 0.09375rem;
+      color: #999;
       a {
-        font-style: oblique;
-        font-size: 0.09375rem;
         color: #999;
+        border-bottom: 1px solid #999;
       }
     }
     .chTitle {
@@ -159,13 +202,16 @@ export default {
       color: #666;
       a {
         color: #666;
+        border-bottom: 1px solid #999;
       }
     }
     .chSource {
+      font-style: oblique;
+      font-size: 0.083333rem;
+      color: #999;
       a {
-        font-style: oblique;
-        font-size: 0.083333rem;
         color: #999;
+        border-bottom: 1px solid #999;
       }
     }
   }
@@ -182,6 +228,7 @@ export default {
     .sourceContent {
       margin-top: 0.06rem;
       font-size: 0.09375rem;
+      color: #006599;
       a {
         text-decoration: underline;
         color: #006599;
@@ -190,6 +237,7 @@ export default {
     .chSourceContent {
       margin-top: 0.06rem;
       font-size: 0.083333rem;
+      color: #006599;
       a {
         text-decoration: underline;
         color: #006599;

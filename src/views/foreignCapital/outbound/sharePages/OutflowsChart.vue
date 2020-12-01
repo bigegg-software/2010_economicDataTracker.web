@@ -339,12 +339,12 @@ export default {
             formatNum:true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_xxxxxxxx",
+            text: "中国对外直接投资流量同比_Xxxxxxxx",
             width: "35%",
             formatPer:true
           },
           outFlowTypeCH: {
-            text: "类型_type",
+            text: "类型_Type",
             width: "35%"
           }
         };
@@ -355,7 +355,7 @@ export default {
             width: "10%"
           },
           month:{
-            text: "月份_month",
+            text: "月份_Month",
             width: "20%"
           },
           investConversionMillion: {
@@ -364,12 +364,12 @@ export default {
             formatNum:true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_xxxxxxxx",
+            text: "中国对外直接投资流量同比_Xxxxxxxx",
             width: "35%",
             formatPer:true
           },
           outFlowTypeCH: {
-            text: "类型_type",
+            text: "类型_Type",
             width: "35%"
           }
         };

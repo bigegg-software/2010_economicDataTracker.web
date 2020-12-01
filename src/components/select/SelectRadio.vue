@@ -4,10 +4,10 @@
       <div class="label-row">{{ option.en }}</div>
       <div class="label-row">{{ option.ch }}</div>
     </div>
-    <div class="select-block" @click="handleClick" @mouseleave="mouseleave">
+    <div class="select-block" @click="handleClick" @mouseleave="mouseleave" :style="{'width': (this.option.en=='Type' ? '75%':'64%')}">
       <div class="text">
-        <div>{{ value.ch }}</div>
-        <!-- <div>{{ value.en }}</div> -->
+        <!-- <div>{{ value.ch }}</div> -->
+        {{ value.en }}
       </div>
       <div class="iconfont icon-arrow">&#xe609;</div>
       <fade-in-out>
@@ -103,10 +103,11 @@ export default {
       // align-items: center;
       width: 100%;
       padding: 0.01rem 0.052083rem;
-      // overflow: hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: 0.09375rem;
+      line-height: 0.12rem;
       cursor: pointer;
       & div:first-child {
         margin-right: 0.052083rem;
@@ -114,12 +115,12 @@ export default {
       & div:last-child {
         // font-family: " SimHei ";
         font-size: 0.072917rem;
-        margin-top: -0.06rem;
-
+        // margin-top: -0.06rem;
       }
     }
   }
   .label-block {
+    letter-spacing: -0.003rem;
     line-height: 0.104167rem;
     font-size: 0.072917rem;
     color: #666;
@@ -133,19 +134,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 75%;
+    // width: 75%;//行内
     height: 0.197917rem;
     line-height: 0.197917rem;
+    margin-left: 0.02rem;
     padding: 0 0.052083rem;
     border: 1px solid #cacaca;
     border-radius: 0.026042rem;
     cursor: pointer;
     background: #fff;
     .text {
-      display: flex;
-      align-items: center;
-      width: 70%;
-      height: 100%;
+      width: 80%;
       color: #666;
       font-size: 0.083333rem;
       overflow: hidden;

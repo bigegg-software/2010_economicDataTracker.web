@@ -31,12 +31,15 @@ export default {
   padding: 0 0.052083rem;
   box-sizing: border-box;
   background-color: #fff;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 0.026042rem;
   input {
     width: 80%;
+    height: 100%;
+    line-height: 100%;
     border: none;
     outline: none;
+    font-size: 0.083333rem;
   }
 }
 </style>

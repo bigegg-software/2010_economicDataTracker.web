@@ -9,7 +9,9 @@ import echarts from "echarts";
 export default {
   data() {
     return {
-      chart: ""
+      chart: "",
+      chartDataSourcesEn:"",
+      chartDataSourcesCh:"",
     };
   },
   props: {
@@ -30,6 +32,21 @@ export default {
   },
   onLoad() {},
   mounted() {
+     this.chartDataSourcesEn = (this.totalData.dataSources.enThird
+      ? this.totalData.dataSources.en +
+        this.totalData.dataSources.enSecond +
+        this.totalData.dataSources.enThird
+      : this.totalData.dataSources.enSecond
+      ? this.totalData.dataSources.en + this.totalData.dataSources.enSecond
+      : this.totalData.dataSources.en).replace(/_/g, "");
+    this.chartDataSourcesCh = (this.totalData.dataSources.chThird
+      ? this.totalData.dataSources.ch +
+        this.totalData.dataSources.chSecond +
+        this.totalData.dataSources.chThird
+      : this.totalData.dataSources.chSecond
+      ? this.totalData.dataSources.ch + this.totalData.dataSources.chSecond
+      : this.totalData.dataSources.ch).replace(/_/g, "");
+    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -339,10 +356,10 @@ export default {
                 style: {
                   fill: "#666",
                   text: this.totalData.watermark
-                    ? "Data Sources:" +
-                      (this.totalData.dataSources.en.length > 80
-                        ? this.totalData.dataSources.en.slice(0, 80) + "..."
-                        : this.totalData.dataSources.en)
+                  ? "Data Sources:" +
+                      (this.chartDataSourcesEn.length > 80
+                        ? this.chartDataSourcesEn.slice(0, 80) + "..."
+                        : this.chartDataSourcesEn)
                     : "",
                   font: `${this.$fz(0.18)}px Calibri`
                 }
@@ -356,9 +373,9 @@ export default {
                   fill: "#666",
                   text: this.totalData.watermark
                     ? "数据来源:" +
-                      (this.totalData.dataSources.ch.length > 80
-                        ? this.totalData.dataSources.ch.slice(0, 80) + "..."
-                        : this.totalData.dataSources.ch)
+                      (this.chartDataSourcesCh.length > 80
+                        ? this.chartDataSourcesCh.slice(0, 80) + "..."
+                        : this.chartDataSourcesCh)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }

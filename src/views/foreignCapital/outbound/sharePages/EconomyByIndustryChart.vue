@@ -9,7 +9,7 @@
         <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
@@ -59,7 +59,7 @@ export default {
             width: "30%"
           },
           industry: {
-            text: "行业_industry",
+            text: "行业_Industry",
             width: "30%"
           },
           outflowsMillion: {
@@ -293,19 +293,27 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
+   
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+   
+  } .frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }
     .status {
       padding: 0.052083rem 0.104167rem;
     }
-  }
 }
 </style>

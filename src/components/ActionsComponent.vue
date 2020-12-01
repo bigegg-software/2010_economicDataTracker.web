@@ -181,9 +181,8 @@ export default {
     sharetoSina() {
       window.open(
         "http://service.weibo.com/share/share.php?url=" +
-          encodeURIComponent(window.location.href) +
-          "title" +
-          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch)
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch) +
+          encodeURIComponent(window.location.href)
       );
     },
     //分享到邮箱

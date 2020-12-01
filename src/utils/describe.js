@@ -7,18 +7,18 @@ export default {
             enText: "China's outward foreign direct investment refers to Chinese enterprises (also called domestic investors) investing in foreign countries, Hong Kong, Macao and Taiwan in cash, real goods and intangible assets. Such economic activities focus on controlling the operation and management of foreign enterprises.",
             enTitleSecond: "FDI outflows",
             enTextSecond: "China's outward foreign direct investment flows, or FDI outflows, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China during a given period.",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资",
             chText: "对外直接投资是指中国企业、团体等(也称境内投资者) 在国外及港澳台地区以现金、实物、 无形资产等方式投资，并以控制国 ( 境 ) 外企业的经营管理权为核心的经济活动。",
             chTitleSecond: "对外直接投资流量",
             chTextSecond: "对外直接投资流量又称对外投资净额，等于当期对外直接投资总额减去当期境外企业对境内投资者的反向投资。",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》  ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_  ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Report",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Report_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -37,18 +37,18 @@ export default {
             enText: "China's outward foreign direct investment flows, or FDI outflows, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China during a given period.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量又称对外投资净额，等于当期对外直接投资总额减去当期境外企业对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -65,18 +65,18 @@ export default {
             enText: "China's outward foreign direct investment flows, or FDI outflows, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China during a given period.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量又称对外投资净额，等于当期对外直接投资总额减去当期境外企业对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -93,18 +93,18 @@ export default {
             enText: "China's outward foreign direct investment flows, or FDI outflows, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China during a given period.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量又称对外投资净额，等于当期对外直接投资总额减去当期境外企业对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -121,18 +121,18 @@ export default {
             enText: "China's outward foreign direct investment flows, or FDI outflows, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China during a given period.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量又称对外投资净额，等于当期对外直接投资总额减去当期境外企业对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -150,19 +150,19 @@ export default {
             enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
             textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -179,19 +179,19 @@ export default {
             enText: "Domestic investors are classified by the industry to which their product generates the largest revenue belongs. Industrial classification is based on Apprendix 1 of _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
             textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",            
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局2003-2019年《中国对外直接投资统计公报》"
+            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
@@ -209,18 +209,18 @@ export default {
             enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
-            enSource: 'What is "Belt and Road" Initiative? Belt and Road Portal',
+            enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部《中国对外承包工程发展报告2018-2019》",
+            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: 'Serving "Belt and Road" - Statistics, 2015 to present, Ministry of Commerce ',
-            ch: "商务部2015年至今服务“一带一路”统计数据"
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
@@ -237,18 +237,18 @@ export default {
             enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
-            enSource: 'What is "Belt and Road" Initiative? Belt and Road Portal',
+            enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部《中国对外承包工程发展报告2018-2019》",
+            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: 'Serving "Belt and Road" - Statistics, 2015 to present, Ministry of Commerce ',
-            ch: "商务部2015年至今服务“一带一路”统计数据"
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
@@ -265,18 +265,18 @@ export default {
             enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
-            enSource: 'What is "Belt and Road" Initiative? Belt and Road Portal',
+            enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部《中国对外承包工程发展报告2018-2019》",
+            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: 'Serving "Belt and Road" - Statistics, 2015 to present, Ministry of Commerce ',
-            ch: "商务部2015年至今服务“一带一路”统计数据"
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
@@ -294,20 +294,20 @@ export default {
             enText: "Overseas projects refer to Chinese enterprises contracting foreign construction projects, including consulting, exploration, design, supervision, bidding, costing, procurement, construction, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
-            enSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce",
-            ch: "1. 商务部2003年至今月度简明统计数据-工程承包",
-            chSecond: "2. 商务部1979至今年对外承包工程统计",
+            en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
+            enSecond: "2._Overseas Project Statistics, 1979 to present_, Ministry of Commerce",
+            ch: "1. 商务部_2003年至今月度简明统计数据-工程承包_",
+            chSecond: "2. 商务部_1979至今年对外承包工程统计_",
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
@@ -324,20 +324,20 @@ export default {
             enText: "Overseas projects refer to Chinese enterprises contracting foreign construction projects, including consulting, exploration, design, supervision, bidding, costing, procurement, construction, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "1. Monthly Summary Statistics - Overseas Project, 2003 to present, Ministry of Commerce",
-            enSecond: "2.Overseas Project Statistics, 1979 to present, Ministry of Commerce",
-            ch: "1. 商务部2003年至今月度简明统计数据-工程承包",
-            chSecond: "2. 商务部1979至今年对外承包工程统计",
+            en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
+            enSecond: "2._Overseas Project Statistics, 1979 to present_, Ministry of Commerce",
+            ch: "1. 商务部_2003年至今月度简明统计数据-工程承包_",
+            chSecond: "2. 商务部_1979至今年对外承包工程统计_",
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
@@ -354,18 +354,18 @@ export default {
             enText: "Overseas projects refer to Chinese enterprises contracting foreign construction projects, including consulting, exploration, design, supervision, bidding, costing, procurement, construction, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "2017 to 2019 Annual Report on China International Project Contracting, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部2017-2019年《中国对外承包工程发展报告》"
+            en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
+            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -382,18 +382,18 @@ export default {
             enText: "Overseas projects refer to Chinese enterprises contracting foreign construction projects, including consulting, exploration, design, supervision, bidding, costing, procurement, construction, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
         },
         dataSources: {
-            en: "2017 to 2019 Annual Report on China International Project Contracting, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部2017-2019年《中国对外承包工程发展报告》"
+            en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
+            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -411,18 +411,18 @@ export default {
             enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "International labor statistics, 2012 to present, Ministry of Commerce ",
-            ch: "商务部2012 至今年对外劳务合作统计"
+            en: "_International labor statistics, 2012 to present_, Ministry of Commerce ",
+            ch: "商务部_2012至今年对外劳务合作统计_"
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forlaborcoop.shtml",
         noteContent: {
@@ -439,18 +439,18 @@ export default {
             enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "2017 to 2019 Annual Report on China International Labour Cooperation, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部2017-2019年《中国对外劳务合作发展报告》"
+            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -467,18 +467,18 @@ export default {
             enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "2017 to 2019 Annual Report on China International Labour Cooperation, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部2017-2019年《中国对外劳务合作发展报告》"
+            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -495,18 +495,18 @@ export default {
             enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '"Go global" Public Service Platform - Policies, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部“走出去”公共服务平台-政策法规及业务指南",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "2017 to 2019 Annual Report on China International Labour Cooperation, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部2017-2019年《中国对外劳务合作发展报告》"
+            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -524,18 +524,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -552,18 +552,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -581,18 +581,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -609,18 +609,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -637,18 +637,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -665,18 +665,18 @@ export default {
             enText: "China's outward foreign direct investment stocks, or outward FDI stocks, are equal to Chinese investors' total investment in foreign countries minus the reverse investment from foreign investors in China at a given point in time, usually the end of a year. It measures the total level of direct investment at that time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量又称对外直接投资累计净额，指年末中国对外直接投资总额减去境外企业累计对境内投资者的反向投资。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD 2019 World Investment Repo",
-            ch: "联合国贸发会议《2019世界投资报告》"
+            en: "UNCTAD _2019 World Investment Repo_",
+            ch: "联合国贸发会议_《2019世界投资报告》_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {
@@ -694,18 +694,18 @@ export default {
             enText: "Foreign investment refers to the capital paid by foreign investors to Chinese companies according to contract.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Footnote 1 of 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
+            enSource: "Footnote 1 of _2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
             enLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142",
             chTitle: "实际使用外资",
             chText: "实际使用外资金额指外方投资者根据外商投资企业的合同(章程)之规定实际缴付的出资额。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2019年中国外资统计公报》注释1",
+            chSource: "商务部_《2019年中国外资统计公报》_注释1",
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "Monthly statistics of foreign investment, 2004 to present, Ministry of Commerce",
-            ch: "商务部2004年至今吸收外商直接投资月报"
+            en: "_Monthly statistics of foreign investment, 2004 to present_, Ministry of Commerce",
+            ch: "商务部_2004年至今吸收外商直接投资月报_"
         },
         sourceLink: "http://data.mofcom.gov.cn/lywz/inmr.shtml",
         noteContent: {
@@ -723,18 +723,18 @@ export default {
             enText: "Foreign investment refers to the capital paid by foreign investors to Chinese companies according to contract.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Footnote 1 of 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
+            enSource: "Footnote 1 of _2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
             enLink: "ttp://www.fdi.gov.cn/come-datatongji-con.html?id=142",
             chTitle: "实际使用外资",
             chText: "实际使用外资金额指外方投资者根据外商投资企业的合同(章程)之规定实际缴付的出资额。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2019年中国外资统计公报》注释1",
+            chSource: "商务部_《2019年中国外资统计公报》_注释1",
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -751,18 +751,18 @@ export default {
             enText: "Foreign investment refers to the capital paid by foreign investors to Chinese companies according to contract.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Footnote 1 of 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
+            enSource: "Footnote 1 of _2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
             enLink: "ttp://www.fdi.gov.cn/come-datatongji-con.html?id=142",
             chTitle: "实际使用外资",
             chText: "实际使用外资金额指外方投资者根据外商投资企业的合同(章程)之规定实际缴付的出资额。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2019年中国外资统计公报》注释1",
+            chSource: "商务部_《2019年中国外资统计公报》_注释1",
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -779,18 +779,18 @@ export default {
             enText: "Foreign investment refers to the capital paid by foreign investors to Chinese companies according to contract.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Footnote 1 of 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
+            enSource: "Footnote 1 of _2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
             enLink: "ttp://www.fdi.gov.cn/come-datatongji-con.html?id=142",
             chTitle: "实际使用外资",
             chText: "实际使用外资金额指外方投资者根据外商投资企业的合同(章程)之规定实际缴付的出资额。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2019年中国外资统计公报》注释1",
+            chSource: "商务部_《2019年中国外资统计公报》_注释1",
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -808,19 +808,19 @@ export default {
             enText: "Industrial classification of foreign investors are based on _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
             textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -837,19 +837,19 @@ export default {
             enText: "Industrial classification of foreign investors are based on _Industrial classification for national economic activities_, GB/T 4757-2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment, Ministry of Commerce",
+            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
             textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》 ",
+            chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -866,18 +866,18 @@ export default {
             enText: "Tax by foreign enterprises refers to taxes paid by foreign investment companies to the Chinese government, excluding customs duties and ship tonnage tax.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
+            enSource: "_2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
             enLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142",
             chTitle: "外商投资企业税收",
             chText: "外商投资企业税收是指外商投资企业对中国政府所缴的各项税款，不含关税、船舶吨税。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "商务部《2019年中国外资统计公报》",
+            chSource: "商务部_《2019年中国外资统计公报》_",
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -895,18 +895,18 @@ export default {
             enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
-            enSource: 'What is "Belt and Road" Initiative? Belt and Road Portal',
+            enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部《中国对外承包工程发展报告2018-2019》",
+            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce',
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -923,18 +923,18 @@ export default {
             enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
-            enSource: 'What is "Belt and Road" Initiative? Belt and Road Portal',
+            enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部《中国对外承包工程发展报告2018-2019》",
+            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '2011 to 2019 Statistical Bulletin of FDI in China, Ministry of Commerce',
-            ch: "商务部、国家统计局、外汇管理局2011-2019年《中国外资统计公报》"
+            en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
+            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
@@ -961,12 +961,12 @@ export default {
             chLink: ""
         },
         dataSources: {
-            en: "1. UNCTAD 2019 World Investment Report",
-            enSecond: "2. Monthly Summary Statistics - Outbound Investment, 2003 to present, Ministry of Commerce and State Administration of Foreign Exchange",
-            enThird: " 3. Monthly statistics of foreign investment, 2004 to present, Ministry of Commerce",
-            ch: "1. 联合国贸发会议《2019世界投资报告》",
-            chSecond: "2. 商务部、外汇管理局2003年至今月度简明统计数据-境外投资",
-            chThird: "3. 商务部2004年至今吸收外商直接投资月报"
+            en: "1. UNCTAD _2019 World Investment Report_",
+            enSecond: "2. _Monthly Summary Statistics - Outbound Investment, 2003 to present_, Ministry of Commerce and State Administration of Foreign Exchange",
+            enThird: " 3. _Monthly statistics of foreign investment, 2004 to present_, Ministry of Commerce",
+            ch: "1. 联合国贸发会议_《2019世界投资报告》_",
+            chSecond: "2. 商务部、外汇管理局_2003年至今月度简明统计数据-境外投资_",
+            chThird: "3. 商务部_2004年至今吸收外商直接投资月报_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
         noteContent: {

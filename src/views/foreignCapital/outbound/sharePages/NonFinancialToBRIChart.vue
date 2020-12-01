@@ -295,7 +295,7 @@ export default {
             width: "10%"
           },
           investConversionMillion: {
-            text: "非金融类直接投资_non-financial FDI outflows",
+            text: "非金融类直接投资_Non-financial FDI outflows",
             width: "45%",
             formatNum:true
           },
@@ -313,11 +313,11 @@ export default {
             width: "10%"
           },
           month: {
-            text: "月份_month",
+            text: "月份_Month",
             width: "20%"
           },
           investConversionMillion: {
-            text: "非金融类直接投资_non-financial FDI outflows",
+            text: "非金融类直接投资_Non-financial FDI outflows",
             width: "35%",
             formatNum:true
           },

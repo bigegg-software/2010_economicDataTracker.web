@@ -50,7 +50,7 @@ export default {
     height: 100%;
     font-size: 0.083333rem;
     border-radius: 0.010417rem;
-    background-color: rgba(145, 173, 195);
+    background-color: #91adc3;
   }
   .icon-square {
     width: 100%;
@@ -76,6 +76,6 @@ export default {
   }
 }
 .active {
-  color: rgba(145, 173, 195);
+  color: #91adc3;
 }
 </style>

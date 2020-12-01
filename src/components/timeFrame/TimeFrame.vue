@@ -109,7 +109,7 @@ export default {
   width: 100%;
   .tab-list-item {
     flex: 1;
-    padding:0 0.02rem;
+    padding:0.01rem 0.02rem;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -130,7 +130,7 @@ export default {
     }
     .ch {
       color: #333;
-      font-size: 0.09375rem;
+      font-size: 0.083333rem;
     }
     .en {
       color: #999;
@@ -141,7 +141,7 @@ export default {
     background-color: #91adc3;
     .ch {
       color: #fff;
-      font-size: 0.09375rem;
+      font-size: 0.083333rem;
     }
     .en {
       color: #fff;

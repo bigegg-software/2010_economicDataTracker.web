@@ -82,16 +82,16 @@ export default {
             width: "10%"
           },
           industry: {
-            text: "行业_industry",
+            text: "行业_Industry",
             width: "20%"
           },
           outflowsMillion: {
-            text: "流量_outflows",
+            text: "流量_Outflows",
             width: "35%",
             formatNum:true
           },
           yOY: {
-            text: "同比_xxxxxxxx",
+            text: "同比_Xxxxxxxx",
             width: "35%",
             formatPer:true
           }

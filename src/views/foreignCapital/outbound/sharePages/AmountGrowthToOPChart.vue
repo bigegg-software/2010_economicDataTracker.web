@@ -355,12 +355,12 @@ export default {
             formatPer: true
           },
           completedAmount: {
-            text: "完成营业额折合(RMB)_unit",
+            text: "完成营业额折合(RMB)_Unit",
             width: "20%",
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额折合同比_type",
+            text: "完成营业额折合同比_Type",
             width: "20%",
             formatPer: true
           }
@@ -372,7 +372,7 @@ export default {
             width: "10%"
           },
           month: {
-            text: "月份_month",
+            text: "月份_Month",
             width: "20%"
           },
           completedAmountCon: {
@@ -386,12 +386,12 @@ export default {
             formatPer: true
           },
           completedAmount: {
-            text: "完成营业额折合(RMB)_unit",
+            text: "完成营业额折合(RMB)_Unit",
             width: "35%",
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额折合同比_type",
+            text: "完成营业额折合同比_Type",
             width: "35%",
             formatPer: true
           }

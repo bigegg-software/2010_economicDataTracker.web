@@ -10,7 +10,7 @@
         <chart-bar v-if="!isShowTable" ref="barChart" :chartBarData="chartBar"></chart-bar>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
@@ -20,7 +20,7 @@
         :value="selectOption.value"
         @change="changeRadioSelect($event)"
       ></SelectRadio>
-      <div class="status"  v-if="$store.getters.showOperate">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -29,7 +29,7 @@
         ></check-box>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -70,12 +70,12 @@ export default {
           amount: {
             text: "新签合同额_Total value of new contract ",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           amountYOY: {
             text: "新签合同额同比_Y-o-y growth of new contract value ",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -106,12 +106,12 @@ export default {
           amount: {
             text: "完成营业额_Revenue of completed contract",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           amountYOY: {
             text: "完成营业额同比_Y-o-y growth of completed contract revenue",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -120,7 +120,7 @@ export default {
       timer: null,
       showTimeFrame: false,
       chartBar: {
-        Yearonshow:true,//是否有左柱状图右折线图的展示          
+        Yearonshow: true, //是否有左柱状图右折线图的展示
         dataSources: this.describeData,
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
@@ -129,14 +129,15 @@ export default {
           subtext: "Top 10 market of China's overseas projects by revenue"
         },
         xData: [],
-        hideLegend:true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        hideLegend: true,
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           {
-            name:'新签合同额_Total value of new contract',
+            name: "新签合同额_Total value of new contract",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []
@@ -159,7 +160,7 @@ export default {
       ],
       selectOption: {
         ch: "类型",
-        en: "xxxxxx",
+        en: "Type",
         value: {
           id: 1,
           ch: "新签合同额",
@@ -241,9 +242,9 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getTopTenCountriesToOPChart(aug);
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.totalData2.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.totalData2.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 新签合同额,完成营业额，新签合同额同比，完成营业额同比
       let amount = [],
@@ -293,7 +294,8 @@ export default {
         text: this.selectOption.value.ch,
         subtext: this.selectOption.value.en
       };
-      this.chartBar.series[0].name = this.selectOption.value.ch+'_'+this.selectOption.value.en;
+      this.chartBar.series[0].name =
+        this.selectOption.value.ch + "_" + this.selectOption.value.en;
     }
   }
 };
@@ -317,7 +319,7 @@ export default {
     }
     // border-right: none;
     .container {
-      width: 5.875rem;
+      width: 5.874rem;
       height: 3.916667rem;
     }
     .fullContainer {
@@ -325,20 +327,26 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
-    width: 1.40625rem;
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
-      padding: 0.104167rem;
-      border-bottom: 1.5px solid #cacaca;
-    }
-    .status {
-      padding: 0.052083rem 0.104167rem;
-    }
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+  }
+  .frame {
+    padding: 0.104167rem;
+    border-bottom: 1.5px solid #cacaca;
+  }
+  .status {
+    padding: 0.052083rem 0.104167rem;
   }
 }
 </style>

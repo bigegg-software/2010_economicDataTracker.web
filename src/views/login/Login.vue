@@ -6,12 +6,7 @@
         <div class="title-en">CHINA ECONOMIC DATA TRACKER</div>
         <div class="title-ch">中国对外经济数据追踪器</div>
       </div>
-      <a-form
-        id="loginForm"
-        :form="form"
-        class="login-form"
-        @submit="handleSubmit"
-      >
+      <a-form id="loginForm" :form="form" class="login-form" @submit="handleSubmit">
         <a-form-item>
           <a-input
             v-decorator="[
@@ -40,13 +35,9 @@
           </a-input>
         </a-form-item>
         <a-form-item>
-          <a-button type="primary" html-type="submit" class="login-form-button">
-            登录 Log in
-          </a-button>
+          <a-button type="primary" html-type="submit" class="login-form-button">登录 Log in</a-button>
         </a-form-item>
-        <div class="go-back" @click="goBack">
-          返回数据页面
-        </div>
+        <div class="go-back" @click="goBack">返回数据页面</div>
       </a-form>
     </div>
   </div>
@@ -70,8 +61,8 @@ export default {
         if (!err) {
           try {
             let user = await Parse.logIn(values);
-            this.$store.commit('setUserInfo',user);
-            this.$router.push({path:this.$route.query.redirect});
+            this.$store.commit("setUserInfo", user);
+            this.$router.push({ path: this.$route.query.redirect });
           } catch (error) {
             this.$message.warning({
               content: "用户名或密码错误",
@@ -82,7 +73,9 @@ export default {
       });
     },
     goBack() {
-      this.$router.push({path:this.$route.query.redirect?this.$route.query.redirect:'/'});
+      this.$router.push({
+        path: this.$route.query.redirect ? this.$route.query.redirect : "/"
+      });
     }
   }
 };
@@ -129,11 +122,12 @@ export default {
       width: 100%;
       height: 0.260417rem;
       border: none;
-      background: rgb(68, 107, 144);
+      background: #446b90;
+      // background: rgb(68, 107, 144);
     }
     .go-back {
       cursor: pointer;
-      font-size: 14px;
+      font-size: 0.072917rem;
       color: rgb(68, 107, 144);
     }
   }

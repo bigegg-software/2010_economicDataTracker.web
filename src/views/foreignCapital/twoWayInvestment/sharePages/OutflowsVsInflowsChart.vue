@@ -314,12 +314,12 @@ export default {
               width: "20%"
             },
             outward_FDI_flows: {
-              text: "对外直接投资流量_xxx",
+              text: "对外直接投资流量_Xxx",
               width: "30%",
               formatNum:true
             },
             inward_FDI_flows: {
-              text: "外国直接投资流入_xxx",
+              text: "外国直接投资流入_Xxx",
               width: "50%",
               formatNum:true
             }
@@ -336,12 +336,12 @@ export default {
               width: "20%"
             },
             inwardFDIConMillion: {
-              text: "实际使用外资_xxx",
+              text: "实际使用外资_Xxx",
               width: "30%",
               formatNum: true
             },
             inwardFDIConYOY: {
-              text: "实际使用外资同比_xxx",
+              text: "实际使用外资同比_Xxx",
               width: "30%",
               formatPer: true
             }

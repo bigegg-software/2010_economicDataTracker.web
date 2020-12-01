@@ -9,7 +9,9 @@ export default {
     return {
       timer: null,
       myChartBar: Object,
-      selected: {}
+      selected: {},
+      chartDataSourcesEn: "",
+      chartDataSourcesCh: ""
     };
   },
   props: {
@@ -31,6 +33,25 @@ export default {
   },
   created() {},
   mounted() {
+    this.chartDataSourcesEn = (this.chartBarData.dataSources.enThird
+      ? this.chartBarData.dataSources.en +
+        this.chartBarData.dataSources.enSecond +
+        this.chartBarData.dataSources.enThird
+      : this.chartBarData.dataSources.enSecond
+      ? this.chartBarData.dataSources.en +
+        this.chartBarData.dataSources.enSecond
+      : this.chartBarData.dataSources.en
+    ).replace(/_/g, "");
+    this.chartDataSourcesCh = (this.chartBarData.dataSources.chThird
+      ? this.chartBarData.dataSources.ch +
+        this.chartBarData.dataSources.chSecond +
+        this.chartBarData.dataSources.chThird
+      : this.chartBarData.dataSources.chSecond
+      ? this.chartBarData.dataSources.ch +
+        this.chartBarData.dataSources.chSecond
+      : this.chartBarData.dataSources.ch
+    ).replace(/_/g, "");
+    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     if (JSON.stringify(this.chartBarData) != "{}") {
       this.initChart();
       this.$EventBus.$on("resize", () => {
@@ -269,9 +290,9 @@ export default {
                   fill: "#666",
                   text: this.chartBarData.watermark
                     ? "Data Sources:" +
-                      (this.chartBarData.dataSources.en.length > 80
-                        ? this.chartBarData.dataSources.en.slice(0, 80) + "..."
-                        : this.chartBarData.dataSources.en)
+                      (this.chartDataSourcesEn.length > 80
+                        ? this.chartDataSourcesEn.slice(0, 80) + "..."
+                        : this.chartDataSourcesEn)
                     : "",
                   font: `${this.$fz(0.18)}px Calibri`
                 }
@@ -285,9 +306,9 @@ export default {
                   fill: "#666",
                   text: this.chartBarData.watermark
                     ? "数据来源:" +
-                      (this.chartBarData.dataSources.ch.length > 80
-                        ? this.chartBarData.dataSources.ch.slice(0, 80) + "..."
-                        : this.chartBarData.dataSources.ch)
+                      (this.chartDataSourcesCh.length > 80
+                        ? this.chartDataSourcesCh.slice(0, 80) + "..."
+                        : this.chartDataSourcesCh)
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -407,13 +428,14 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, 0, 0, -67],
+              padding: [0, 0, -2, -that.$refs.chartBar.offsetWidth * 0.07],
               color: "#666",
               rich: {
                 diven: {
                   fontSize: this.$fz(0.18)
                 },
                 div: {
+                  padding:[0,0,2,0],
                   fontSize: this.$fz(0.14)
                 }
               }

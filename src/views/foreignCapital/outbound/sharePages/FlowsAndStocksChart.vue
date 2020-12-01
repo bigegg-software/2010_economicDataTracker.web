@@ -59,7 +59,7 @@ export default {
             formatNum:true
           },
           unit: {
-            text: "单位_unit",
+            text: "单位_Unit",
             width: "35%"
           }
         },
