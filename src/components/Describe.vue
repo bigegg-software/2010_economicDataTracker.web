@@ -38,7 +38,7 @@
         <div class="chSource">
           {{describeData.concept.chSource.split("_")[0]}}
           <a
-            :href="describeData.concept.chtLink"
+            :href="describeData.concept.chLink"
           >{{describeData.concept.chSource.split("_")[1]}}</a>
           {{describeData.concept.chSource.split("_")[2]}}
         </div>
@@ -54,21 +54,21 @@
           <div>
             {{describeData.dataSources.en.split("_")[0]}}
             <a
-              :href="describeData.dataSources.en"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.en.split("_")[1]}}</a>
             {{describeData.dataSources.en.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.enSecond">
             {{describeData.dataSources.enSecond.split("_")[0]}}
             <a
-              :href="describeData.dataSources.en"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.enSecond.split("_")[1]}}</a>
             {{describeData.dataSources.enSecond.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.enThird">
             {{describeData.dataSources.enThird.split("_")[0]}}
             <a
-              :href="describeData.dataSources.en"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.enThird.split("_")[1]}}</a>
             {{describeData.dataSources.enThird.split("_")[2]}}
           </div>
@@ -77,21 +77,21 @@
           <div>
             {{describeData.dataSources.ch.split("_")[0]}}
             <a
-              :href="describeData.dataSources.ch"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.ch.split("_")[1]}}</a>
             {{describeData.dataSources.ch.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.chSecond">
             {{describeData.dataSources.chSecond.split("_")[0]}}
             <a
-              :href="describeData.dataSources.ch"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.chSecond.split("_")[1]}}</a>
             {{describeData.dataSources.chSecond.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.chThird">
             {{describeData.dataSources.chThird.split("_")[0]}}
             <a
-              :href="describeData.dataSources.ch"
+              :href="describeData.sourceLink"
             >{{describeData.dataSources.chThird.split("_")[1]}}</a>
             {{describeData.dataSources.chThird.split("_")[2]}}
           </div>

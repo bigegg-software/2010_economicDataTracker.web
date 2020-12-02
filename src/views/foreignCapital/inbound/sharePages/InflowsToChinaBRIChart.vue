@@ -3,13 +3,13 @@
   <div class="Inflowsto-chinaBRI-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
-          <TableChart :totalData="totalData"></TableChart>
+        <TableChart :totalData="totalData"></TableChart>
       </div>
-       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
         <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
@@ -44,17 +44,16 @@ export default {
     CheckBox,
     LinesChart,
     TableChart
-
   },
   name: "inflowsToChinaBRIChart",
   data() {
     return {
-       totalData: {
+      totalData: {
         title: {
           ch: "实际投入外资金额",
           en: "Foreign investment from BRI countries"
         },
-        unit:{
+        unit: {
           ch: "百万美元",
           en: "USD min"
         },
@@ -64,14 +63,15 @@ export default {
             width: "20%"
           },
           BRIAmountMillion: {
-            text: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
+            text:
+              "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
             width: "40%",
-            formatNum:true
+            formatNum: true
           },
           BRIAmountPercent: {
             text: "占总外资金额比重_Share of total FDI inflows to China",
             width: "40%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -84,12 +84,16 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "实际投入外资金额", en: "Foreign investment from BRI countries" },
+        title: {
+          ch: "实际投入外资金额",
+          en: "Foreign investment from BRI countries"
+        },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入占比和占比英文
-          ch:'占比',
-          en:'Share of total number of oreign enterprises'
+        spliceCon: {
+          // toolTip里面插入占比和占比英文
+          ch: "占比",
+          en: "Share of total number of oreign enterprises"
         },
         series: [
           {
@@ -99,7 +103,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate:""
+        updatedDate: ""
       },
       status: [
         {
@@ -130,26 +134,29 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -214,15 +221,15 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getNonFinancialToBRIChartsData(aug,1);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug, 1);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["BRIAmountMillion", "BRIAmountPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -243,7 +250,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -284,7 +291,7 @@ export default {
       height: 100%;
       background-color: #fff;
     }
-     .container {
+    .container {
       width: 5.875rem;
       height: 3.916667rem;
     }
@@ -293,19 +300,26 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
-      padding: 0.104167rem;
-      border-bottom: 1.5px solid #cacaca;
-    }
-    .status {
-      padding: 0.104167rem;
-    }
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+  }
+  .frame {
+    padding: 0.104167rem;
+    border-bottom: 1.5px solid #cacaca;
+  }
+  .status {
+    padding: 0.104167rem;
   }
 }
 </style>

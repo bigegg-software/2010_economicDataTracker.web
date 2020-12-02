@@ -9,7 +9,7 @@
         <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
@@ -45,17 +45,16 @@ export default {
     CheckBox,
     LinesChart,
     TableChart
-
   },
   name: "numEnterprisesBRIChart",
   data() {
     return {
-          totalData: {
+      totalData: {
         title: {
           ch: "“一带一路”沿线国家对华投资企业数",
           en: "Number of enterprises from BRI countries investing in China"
         },
-        unit:{
+        unit: {
           ch: "家",
           en: "Enterprise"
         },
@@ -67,12 +66,12 @@ export default {
           BRINumber: {
             text: "一带一路企业数_Number of BRI enterprises",
             width: "40%",
-            formatNum:true
+            formatNum: true
           },
           BRIPercent: {
             text: "占外资企业比重_Share of total number of foreign enterprises",
             width: "40%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -85,12 +84,16 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "“一带一路”沿线国家对华投资企业数", en: "Number of enterprises from BRI countries investing in China" },
+        title: {
+          ch: "“一带一路”沿线国家对华投资企业数",
+          en: "Number of enterprises from BRI countries investing in China"
+        },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入占比和占比英文
-          ch:'占外资企业比重',
-          en:'Share of total number of oreign enterprises'
+        spliceCon: {
+          // toolTip里面插入占比和占比英文
+          ch: "占外资企业比重",
+          en: "Share of total number of oreign enterprises"
         },
         series: [
           {
@@ -100,7 +103,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate:""
+        updatedDate: ""
       },
       status: [
         {
@@ -131,19 +134,22 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     tableDatas() {
       return this.$store.getters.chartInfo;
     }
   },
-  watch:{
-    tableDatas:{
+  watch: {
+    tableDatas: {
       handler() {
-        let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
-            this.$set(this.totalData,'tableData',resoult);
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
       },
-      deep:true
+      deep: true
     }
   },
   async mounted() {
@@ -152,8 +158,8 @@ export default {
 
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -218,15 +224,15 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getNonFinancialToBRIChartsData(aug,2);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug, 2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["BRINumber", "BRIPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -247,7 +253,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -297,22 +303,29 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
-      padding: 0.104167rem;
-      border-bottom: 1.5px solid #cacaca;
-    }
-    .noneFrame{
-      display: none;
-    }
-    .status {
-      padding: 0.104167rem;
-    }
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+  }
+  .frame {
+    padding: 0.104167rem;
+    border-bottom: 1.5px solid #cacaca;
+  }
+  .noneFrame {
+    display: none;
+  }
+  .status {
+    padding: 0.104167rem;
   }
 }
 </style>

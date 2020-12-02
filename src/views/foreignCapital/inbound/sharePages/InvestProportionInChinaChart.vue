@@ -91,7 +91,7 @@ export default {
           en: "USD min"
         },
         seriesData: {
-          all: "全部_ALL",
+          all: "全部国家/地区 All country/region",
           data: []
         },
         updatedDate: ""
@@ -161,7 +161,7 @@ export default {
       this.totalDatas.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalDatas.seriesData.data, index, {
-          name: item.country + "_"+item.countryEn,
+          name: item.countryEn + "_"+item.country,
           actual: "实际投入外资金额_FDI inflows",
           value: item.FDIInflowsMillion,
           proportion: "金额比重_Share of China's FDI inflows",

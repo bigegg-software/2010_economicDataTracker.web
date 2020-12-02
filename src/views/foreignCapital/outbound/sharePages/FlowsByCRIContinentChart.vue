@@ -91,8 +91,8 @@ export default {
           bottom: "16%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
-        seriesData: {
-          all: "全部_ALL",
+       seriesData: {
+          all: "",
           data: []
         },
         updatedDate: ""
@@ -163,6 +163,7 @@ export default {
     },
     option: {
       handler() {
+        this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
         this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
       },
@@ -170,6 +171,7 @@ export default {
     },
     selectOption: {
       handler() {
+        this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
         this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
       },
@@ -228,7 +230,7 @@ export default {
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_" + item.countryEn,
+          name: item.countryEn + "_" + item.country,
           value: item.outflowMillion
         });
       });

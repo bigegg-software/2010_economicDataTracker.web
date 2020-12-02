@@ -146,10 +146,10 @@ export default {
           formatter: params => {
             //国家或地区
             let name = `<div style="height:0.09375rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.083333rem">${
-              (params.name || "").split("_")[1]
+              (params.name || "").split("_")[0]
             }</div>`;
             let nameCh = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.026042rem;color:#7C7C7C;font-size:0.072917rem">${
-              (params.name || "").split("_")[0]
+              (params.name || "").split("_")[1]
             }</div>`;
             //实际投入外资金额
             let actual = `<div style="height:0.09375rem;margin-top:0.12rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -215,8 +215,8 @@ export default {
                   `{c|${params.data.proportionValue}%}`
                 ];
                 return [
-                  `{a|${(params.data.name || "").split("_")[1]}}`,
                   `{a|${(params.data.name || "").split("_")[0]}}`,
+                  `{a|${(params.data.name || "").split("_")[1]}}`,
                   ...(params.data.actual
                     ? www
                     : [
@@ -262,30 +262,19 @@ export default {
                 }
               }
             ],
-            //面包屑 没用可删
-            breadcrumb: {
-              show: false,
-              top: "center",
-              left: "center",
-              itemStyle: {
-                normal: {
-                  color: "#fff",
-                  borderColor: "#999",
-                  borderWidth: 1,
-                  shadowColor: "#999",
-                  shadowBlur: 3,
-                  shadowOffsetX: 0,
-                  shadowOffsetY: 0,
-                  textStyle: {
-                    color: "#1d3f6c",
-                    fontWeight: "bold"
-                  }
-                },
-                emphasis: {
-                  textStyle: {}
-                }
-              }
-            }
+            //面包屑
+            // breadcrumb: {
+            //   top: that.$refs.treeMap.offsetWidth * 0.58,
+            //   left: "center",
+            //   itemStyle: {
+            //     color: "#fff",
+            //     borderColor: "#fff",
+            //     shadowBlur: 0,
+            //     textStyle: {
+            //       color: "#666"
+            //     }
+            //   }
+            // }
           }
         ],
         graphic: [

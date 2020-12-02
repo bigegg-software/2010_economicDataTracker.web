@@ -88,7 +88,7 @@ export default {
           en: "USD min"
         },
         seriesData: {
-          all: "全部_ALL",
+          all: "",
           data: []
         },
         updatedDate: ""
@@ -158,6 +158,7 @@ export default {
     },
     option: {
       handler() {
+        this.totalData.seriesData.all = `${this.selectOption.value.en} ${this.selectOption.value.ch}`;
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
         this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
       },
@@ -165,6 +166,7 @@ export default {
     },
     selectOption: {
       handler() {
+        this.totalData.seriesData.all = `${this.selectOption.value.en} ${this.selectOption.value.ch}`;
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
         this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
       },
@@ -223,7 +225,7 @@ export default {
       this.totalData.seriesData.data = [];
       res.forEach((item, index) => {
         this.$set(this.totalData.seriesData.data, index, {
-          name: item.country + "_" + item.countryEN,
+          name: item.countryEN + "_" + item.country,
           value: item.stocksMillion
         });
       });
@@ -283,7 +285,6 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-   
   }
   .select-block {
     width: 1.385rem;
@@ -293,9 +294,9 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-   
-  } .year-select {
-      margin-bottom: 0.078125rem;
-    }
+  }
+  .year-select {
+    margin-bottom: 0.078125rem;
+  }
 }
 </style>
