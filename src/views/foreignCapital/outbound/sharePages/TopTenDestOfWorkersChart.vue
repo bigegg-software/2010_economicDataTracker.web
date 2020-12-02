@@ -50,13 +50,13 @@ export default {
           variousTypesPerNumMillion: {
             text: "年度派出各类劳务人员人数_Number of workers sent overseas",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           destinationPercent: {
             text:
               "年度派出各类劳务人员比重_Share of workers sent overseas by destinations",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -72,9 +72,11 @@ export default {
           subtext: "Top 10 destinations of workers sent overseas"
         },
         xData: [],
-        grid:{
-          top:"23%",
-          left:"5%"
+        grid: {
+          top: "23%",
+          left: "5%",
+          bottom: "10%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         series: [
           {
@@ -117,12 +119,12 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年年度派出各类劳务人员前10位目的地国家`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Top 10 destinations of workers sent overseas`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年年度派出各类劳务人员前10位目的地国家`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} Top 10 destinations of workers sent overseas`;
       },
-      deep:true
+      deep: true
     }
   },
   components: { ChartBar, Year, TableChart },
@@ -156,13 +158,13 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getLaborServiceTop10AnnualRankChart(aug);
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 年度派出各类劳务人员人数
       let variousTypesPerNum = [];
       res.forEach(item => {
-        Xname.push(item.destinationEn+'\n'+item.destinations);
+        Xname.push(item.destinationEn + "\n" + item.destinations);
         variousTypesPerNum.push(item.variousTypesPerNumMillion);
       });
       this.chartBar.xData = Xname;

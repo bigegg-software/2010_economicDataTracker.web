@@ -57,12 +57,12 @@ export default {
             text:
               "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
             width: "30%",
-            formatNum:true
+            formatNum: true
           },
           industryPercent: {
             text: "比重_Share of overseas workers by industries",
             width: "30%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -80,6 +80,10 @@ export default {
         title: {
           ch: "",
           en: ""
+        },
+        grid: {
+          bottom: "10%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         seriesData: [
           // {
@@ -115,12 +119,12 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年年度派出人数主要行业`;
-          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} Overseas workers by industry`;
+        this.totalData.title.ch = this.totalDatas.title.ch = `${this.option.value}年年度派出人数主要行业`;
+        this.totalData.title.en = this.totalDatas.title.en = `${this.option.value} Overseas workers by industry`;
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -157,9 +161,10 @@ export default {
         Xname.push({
           value: item.variousTypesPerNum,
           name: item.industry + "_" + item.industryEn,
-          valueName:"在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
-          proportionName:"比重_Share of overseas workers by industries",
-          proportion:item.industryPercent
+          valueName:
+            "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
+          proportionName: "比重_Share of overseas workers by industries",
+          proportion: item.industryPercent
         });
       });
       this.totalDatas.seriesData = Xname;

@@ -94,7 +94,9 @@ export default {
         },
         grid:{
           top:"23%",
-          left:"1%"
+          left:"1%",
+          bottom: "10%",
+          enGapch: this.$fz(0.2)//数据来源中英文间距
         },
         xData: [
           // "蒙古\nMongolia"

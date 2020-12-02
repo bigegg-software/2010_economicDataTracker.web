@@ -11,7 +11,8 @@ export default {
       myChartBar: Object,
       selected: {},
       chartDataSourcesEn: "",
-      chartDataSourcesCh: ""
+      chartDataSourcesCh: "",
+      watermark: false,
     };
   },
   props: {
@@ -33,7 +34,7 @@ export default {
   },
   created() {},
   mounted() {
-    this.chartDataSourcesEn = (this.chartBarData.dataSources.enThird
+    this.chartDataSourcesEn =  "Data Sources:" +(this.chartBarData.dataSources.enThird
       ? this.chartBarData.dataSources.en +
         this.chartBarData.dataSources.enSecond +
         this.chartBarData.dataSources.enThird
@@ -42,6 +43,40 @@ export default {
         this.chartBarData.dataSources.enSecond
       : this.chartBarData.dataSources.en
     ).replace(/_/g, "");
+     let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        console.log("arrDot", arrDot);
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
+
     this.chartDataSourcesCh = (this.chartBarData.dataSources.chThird
       ? this.chartBarData.dataSources.ch +
         this.chartBarData.dataSources.chSecond +
@@ -66,7 +101,7 @@ export default {
   methods: {
     downloadFile() {
       //添加水印
-      this.chartBarData.watermark = true;
+      this.watermark = true;
       this.initChart();
       let aLink = document.createElement("a");
       let blob = this.base64ToBlob();
@@ -76,7 +111,7 @@ export default {
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
-      this.chartBarData.watermark = false;
+      this.watermark = false;
       this.initChart();
     },
     exportImg() {
@@ -279,21 +314,18 @@ export default {
           {
             type: "group",
             right: this.$fz(0.15),
-            bottom: this.$fz(0.15),
+            bottom:  this.chartBarData.bottomDistance
+              ? this.chartBarData.bottomDistance
+              : "0",
             children: [
               {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: "middle",
+                // top: "middle",
                 style: {
                   fill: "#666",
-                  text: this.chartBarData.watermark
-                    ? "Data Sources:" +
-                      (this.chartDataSourcesEn.length > 80
-                        ? this.chartDataSourcesEn.slice(0, 80) + "..."
-                        : this.chartDataSourcesEn)
-                    : "",
+                  text: this.watermark ? this.chartDataSourcesEn : "",
                   font: `${this.$fz(0.18)}px Calibri`
                 }
               },
@@ -301,14 +333,16 @@ export default {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: this.$fz(0.12),
+                top: this.chartBarData.grid
+                  ? this.chartBarData.grid.enGapch
+                  : this.$fz(0.2),
                 style: {
                   fill: "#666",
-                  text: this.chartBarData.watermark
+                  text: this.watermark
                     ? "数据来源:" +
-                      (this.chartDataSourcesCh.length > 80
-                        ? this.chartDataSourcesCh.slice(0, 80) + "..."
-                        : this.chartDataSourcesCh)
+                      (this.chartDataSourcesCh.slice(0, 56) +
+                        "\n" +
+                        this.chartDataSourcesCh.slice(56, 100))
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -386,7 +420,7 @@ export default {
               ? "3%"
               : "-2%"
             : "4%",
-          bottom: this.chartBarData.bottom
+          bottom: this.chartBarData.grid
             ? this.chartBarData.grid.bottom
             : "10%",
           containLabel: true

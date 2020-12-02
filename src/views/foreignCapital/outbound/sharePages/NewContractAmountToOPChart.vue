@@ -14,9 +14,15 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+          @changeActiveKey="changeActiveKey"
+        ></time-frame>
       </div>
-      <div class="status"  v-if="$store.getters.showOperate">
+      <div class="status" v-if="$store.getters.showOperate">
         <check-box
           v-for="(item, index) in status"
           :key="index"
@@ -72,12 +78,16 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万人民币", en: "RMB min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国对外承包工程新签合同额", en: "Total value of new contract from China's overseas projects" },
+        title: {
+          ch: "中国对外承包工程新签合同额",
+          en: "Total value of new contract from China's overseas projects"
+        },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           {
@@ -94,12 +104,20 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国对外承包工程新签合同额", en: "Total value of new contract from China's overseas projects" },
+        title: {
+          ch: "中国对外承包工程新签合同额",
+          en: "Total value of new contract from China's overseas projects"
+        },
         xData: [],
+        grid: {
+          bottom: "14%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           {
@@ -201,14 +219,14 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
     // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
     // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value=QMDefaultTime.M.start;
-    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -305,9 +323,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.RMB.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.RMB.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 
@@ -325,8 +343,8 @@ export default {
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     async setTableConfig(aug) {
-      if(aug.type=='yearly'){
-        this.totalData.tableTitle={
+      if (aug.type == "yearly") {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
@@ -334,26 +352,26 @@ export default {
           newConAmountConMillion: {
             text: "新签合同额(USD)_Total value of new contract",
             width: "20%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
             width: "25%",
-            formatPer:true
+            formatPer: true
           },
           newConAmountMillion: {
             text: "新签合同额折合（RMB）_Xxx",
             width: "20%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountYOY: {
             text: "新签合同额折合同比_Xxx",
             width: "25%",
-            formatPer:true
+            formatPer: true
           }
-        }
-      }else{
-        this.totalData.tableTitle={
+        };
+      } else {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
@@ -365,24 +383,24 @@ export default {
           newConAmountConMillion: {
             text: "新签合同额(USD)_Total value of new contract",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
             width: "35%",
-            formatPer:true
+            formatPer: true
           },
           newConAmountMillion: {
             text: "新签合同额折合（RMB）_Xxx",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountYOY: {
             text: "新签合同额折合同比_Xxx",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
-        }
+        };
       }
     },
     // 时间范围组件 update and change
@@ -402,7 +420,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -436,7 +454,7 @@ export default {
     },
     // 改变年度季度月度时：
     async changeActiveKey(ev) {
-        await this.mainGetChartsData(ev);
+      await this.mainGetChartsData(ev);
     }
   }
 };

@@ -42,8 +42,8 @@ export default {
           //   "China's investment in " +
           //   this.selectOption.value.en +
           //   " by industry"
-          ch:'',
-          en:''
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -101,6 +101,12 @@ export default {
           subtext: ""
         },
         xData: [2020],
+        grid: {
+          top: "22%",
+          left: "3%",
+          bottom: "10%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         series: [
           {
             // name:'存量_xxxxx',
@@ -183,19 +189,19 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
       },
-      deep:true
+      deep: true
     },
-    selectOption:{
+    selectOption: {
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
       },
-      deep:true
+      deep: true
     }
   },
   async created() {
@@ -299,7 +305,6 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-   
   }
   .select-block {
     width: 1.385rem;
@@ -307,13 +312,13 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-   
-  } .frame {
-      padding: 0.104167rem;
-      border-bottom: 1.5px solid #cacaca;
-    }
-    .status {
-      padding: 0.052083rem 0.104167rem;
-    }
+  }
+  .frame {
+    padding: 0.104167rem;
+    border-bottom: 1.5px solid #cacaca;
+  }
+  .status {
+    padding: 0.052083rem 0.104167rem;
+  }
 }
 </style>

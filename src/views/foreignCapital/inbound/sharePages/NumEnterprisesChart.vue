@@ -66,7 +66,7 @@ export default {
   name: "outflowsChart",
   data() {
     return {
-      searchTimer:null,
+      searchTimer: null,
       totalData: {
         title: {
           ch: "开办企业数",
@@ -84,12 +84,12 @@ export default {
           enterprisesNumber: {
             text: "企业数_Number of enterprises",
             width: "30%",
-            formatNum:true
+            formatNum: true
           },
           numberYOYGrowth: {
             text: "企业数同比_Number of enterprises y-o-y growth",
             width: "30%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -126,7 +126,9 @@ export default {
         grid: {
           //图表上下左右的padding
           top: "40%",
-          left:"3%"
+          left: "3%",
+          bottom: "10%",
+          enGapch: this.$fz(0.2)//数据来源中英文间距
         },
         title: {
           text: "开办企业数",
@@ -214,7 +216,7 @@ export default {
       async handler() {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
-      },
+      }
       // deep: true
     }
   },
@@ -229,12 +231,14 @@ export default {
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = (Number(arrmaxmin[1])-1).toString();
+    this.options.yearly.list.start.value = (
+      Number(arrmaxmin[1]) - 1
+    ).toString();
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
-      start: Number(arrmaxmin[1])-1,
+      start: Number(arrmaxmin[1]) - 1,
       end: Number(arrmaxmin[1])
     });
   },
@@ -300,7 +304,7 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      this.chartBar.series=[];
+      this.chartBar.series = [];
       this.USD.series = [];
       let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
@@ -378,47 +382,47 @@ export default {
     },
     async changeInputValue(value) {
       clearTimeout(this.searchTimer);
-      this.searchTimer=setTimeout(async()=>{
-      //搜索
-      //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
-      let regz = /[\u4e00-\u9fa5]/gi;
-      let reg = /\s+/;
-      let ch = value.match(regz) ? value.match(regz) : [];
-      let en = value.replace(regz, "");
-      let arr = en.split(reg);
-      let arrName = Array.from(new Set([...arr, ...ch]));
-      // 去掉数组中的空字符串
-      for (var i = 0; i < arrName.length; i++) {
-        if (
-          arrName[i] == "" ||
-          arrName[i] == null ||
-          typeof arrName[i] == undefined
-        ) {
-          arrName.splice(i, 1);
-          i = i - 1;
-        }
-      }
-      if (value.replace(/(^\s*)/g, "") == "") {
-        for (let y = 0; y < this.checkBox.op.length; y++) {
-            this.checkBox.op[y].show = true;
-        }
-      } else {
-        for (let i = 0; i < this.checkBox.op.length; i++) {
-          let splitList = await this.checkBox.op[i].searchArr
-            .join(",")
-            .toLowerCase()
-            .split(",");
-          console.log(splitList);
-          let active = true;
-          for (let k = 0; k < arrName.length; k++) {
-            if (!splitList.includes(arrName[k].toLowerCase())) {
-              active = false;
-            }
+      this.searchTimer = setTimeout(async () => {
+        //搜索
+        //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+        let regz = /[\u4e00-\u9fa5]/gi;
+        let reg = /\s+/;
+        let ch = value.match(regz) ? value.match(regz) : [];
+        let en = value.replace(regz, "");
+        let arr = en.split(reg);
+        let arrName = Array.from(new Set([...arr, ...ch]));
+        // 去掉数组中的空字符串
+        for (var i = 0; i < arrName.length; i++) {
+          if (
+            arrName[i] == "" ||
+            arrName[i] == null ||
+            typeof arrName[i] == undefined
+          ) {
+            arrName.splice(i, 1);
+            i = i - 1;
           }
-            this.checkBox.op[i].show = active;
         }
-      }
-    },600);
+        if (value.replace(/(^\s*)/g, "") == "") {
+          for (let y = 0; y < this.checkBox.op.length; y++) {
+            this.checkBox.op[y].show = true;
+          }
+        } else {
+          for (let i = 0; i < this.checkBox.op.length; i++) {
+            let splitList = await this.checkBox.op[i].searchArr
+              .join(",")
+              .toLowerCase()
+              .split(",");
+            console.log(splitList);
+            let active = true;
+            for (let k = 0; k < arrName.length; k++) {
+              if (!splitList.includes(arrName[k].toLowerCase())) {
+                active = false;
+              }
+            }
+            this.checkBox.op[i].show = active;
+          }
+        }
+      }, 600);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -437,7 +441,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -457,8 +461,8 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
-      this.chartBar.series=[];
-      this.USD.series=[];
+      this.chartBar.series = [];
+      this.USD.series = [];
       this.mainGetChartsData("yearly");
     }
   }
@@ -501,7 +505,7 @@ export default {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }
-    .status { 
+    .status {
       padding: 0.052083rem 0.104167rem;
     }
   }

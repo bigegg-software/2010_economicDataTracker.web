@@ -17,7 +17,13 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+          @changeActiveKey="changeActiveKey"
+        ></time-frame>
       </div>
       <div class="status" v-if="$store.getters.showOperate">
         <check-box
@@ -64,7 +70,7 @@ export default {
         },
         tableTitle: {},
         tableData: [],
-        updatedDate: ''
+        updatedDate: ""
       },
       timer: null,
       showTimeFrame: false,
@@ -90,7 +96,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ''
+        updatedDate: ""
       },
       USD: {
         id: "USD",
@@ -99,9 +105,14 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国对外直接投资流量", en: "China's FDI outflows" },
         xData: [],
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'Y-o-y'
+        grid: {
+          bottom: "11%",
+          enGapch: this.$fz(0.2) //数据来源中英文间距
+        },
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "Y-o-y"
         },
         series: [
           {
@@ -117,7 +128,7 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ''
+        updatedDate: ""
       },
       status: [
         {
@@ -212,14 +223,14 @@ export default {
     let res = await this.getMaxMinDate("FDIOutflow");
     let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=Yarrmaxmin[0];
-    this.options.yearly.list.end.value=Yarrmaxmin[1];
+    this.options.yearly.list.start.value = Yarrmaxmin[0];
+    this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
-    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value=QMDefaultTime.M.start;
-    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
 
     await this.getChartsData({
       type: "yearly",
@@ -267,9 +278,9 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        if(tableName=='FDIOutflowYear'&&key=='yearly'){
-          this.$set(this.options, 'yearly', obj);
-        }else if(tableName=='FDIOutflow'&&key!='yearly'){
+        if (tableName == "FDIOutflowYear" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "FDIOutflow" && key != "yearly") {
           this.$set(this.options, key, obj);
         }
       }
@@ -326,9 +337,9 @@ export default {
       //
     },
     async getChartsData(aug) {
-      if(aug.type=='yearly'){
-        aug.noMonth=true;
-        this.totalData.tableTitle={
+      if (aug.type == "yearly") {
+        aug.noMonth = true;
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
@@ -336,37 +347,37 @@ export default {
           investConversionMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           conversionYOY: {
             text: "中国对外直接投资流量同比_Xxxxxxxx",
             width: "35%",
-            formatPer:true
+            formatPer: true
           },
           outFlowTypeCH: {
             text: "类型_Type",
             width: "35%"
           }
         };
-      }else {
-        this.totalData.tableTitle={
+      } else {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          month:{
+          month: {
             text: "月份_Month",
             width: "20%"
           },
           investConversionMillion: {
             text: "中国对外直接投资流量_China's FDI outflows",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           conversionYOY: {
             text: "中国对外直接投资流量同比_Xxxxxxxx",
             width: "35%",
-            formatPer:true
+            formatPer: true
           },
           outFlowTypeCH: {
             text: "类型_Type",
@@ -376,7 +387,7 @@ export default {
       }
       //改变横轴 获取数据
       let { allIndustry, nonFinancial } = await request.getOutFlowsChartsData(
-        aug.type=='yearly'?'FDIOutflowYear':'FDIOutflow',
+        aug.type == "yearly" ? "FDIOutflowYear" : "FDIOutflow",
         aug
       );
       // 完整的区间
@@ -391,9 +402,9 @@ export default {
       let XNameAttr = "year";
       this.USD.xData = range;
       this.RMB.xData = range;
-      this.RMB.updatedDate=this.$store.getters.latestTime;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.RMB.updatedDate = this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       console.log(allIndustry, nonFinancial);
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(allIndustry);
@@ -435,7 +446,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -469,7 +480,7 @@ export default {
     },
     // 改变年度季度月度时：
     async changeActiveKey(ev) {
-        await this.mainGetChartsData(ev);
+      await this.mainGetChartsData(ev);
     }
   }
 };

@@ -66,7 +66,7 @@ export default {
   name: "outflowsChart",
   data() {
     return {
-      searchTimer:null,
+      searchTimer: null,
       totalData: {
         title: {
           ch: "实际使用外资金额按行业统计",
@@ -84,19 +84,19 @@ export default {
           inflowsFDIMillion: {
             text: "实际使用外资金额_FDI inflows to China",
             width: "30%",
-            formatNum:true
+            formatNum: true
           },
           inflowsYOYGrowth: {
             text: "实际使用外资金额同比_FDI inflows to China y-o-y growth",
             width: "30%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
         updatedDate: ""
       },
       timer: null,
-     randomColor: [
+      randomColor: [
         "#a65783",
         "#c68821",
         "#b8a597",
@@ -126,7 +126,9 @@ export default {
         grid: {
           //图表上下左右的padding
           top: "40%",
-          left:"3%"
+          left: "3%",
+          bottom: "10%",
+          enGapch: this.$fz(0.2)//数据来源中英文间距
         },
         title: {
           text: "实际使用外资金额按行业统计",
@@ -141,11 +143,15 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "实际使用外资金额按行业统计", en: "Foreign investment by industry" },
+        title: {
+          ch: "实际使用外资金额按行业统计",
+          en: "Foreign investment by industry"
+        },
         xData: [],
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           // {
@@ -213,7 +219,7 @@ export default {
       async handler() {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
-      },
+      }
       // deep: true
     }
   },
@@ -228,12 +234,14 @@ export default {
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = (Number(arrmaxmin[1])-1).toString();
+    this.options.yearly.list.start.value = (
+      Number(arrmaxmin[1]) - 1
+    ).toString();
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
-      start: Number(arrmaxmin[1])-1,
+      start: Number(arrmaxmin[1]) - 1,
       end: Number(arrmaxmin[1])
     });
   },
@@ -299,9 +307,9 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      this.chartBar.series=[];
+      this.chartBar.series = [];
       this.USD.series = [];
-      let industryAddYoYData=[];
+      let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         for (let p = 0; p < this.result.length; p++) {
@@ -323,29 +331,35 @@ export default {
           }
         }
       }
-      industryAddYoYData=industryAddYoYData.sort((a,b)=>{
-               return b.year-a.year;
+      industryAddYoYData = industryAddYoYData.sort((a, b) => {
+        return b.year - a.year;
       });
-      if(this.status[0].checked){
-        let tableInfo={
-                fileName: '实际使用外资金额',
-                tHeader:[
-                    "年份",
-                    '行业',
-                    '单位',
-                    '实际使用外资金额',
-                    '实际使用外资金额同比'
-                ],
-                filterVal:['year','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
-                tableData:[...industryAddYoYData]
-        }
-            this.$store.commit('saveChartTable',tableInfo);
+      if (this.status[0].checked) {
+        let tableInfo = {
+          fileName: "实际使用外资金额",
+          tHeader: [
+            "年份",
+            "行业",
+            "单位",
+            "实际使用外资金额",
+            "实际使用外资金额同比"
+          ],
+          filterVal: [
+            "year",
+            "industry",
+            "unitMillion",
+            "inflowsFDIMillion",
+            "inflowsYOYGrowth"
+          ],
+          tableData: [...industryAddYoYData]
+        };
+        this.$store.commit("saveChartTable", tableInfo);
       }
       //
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getForeignInvestIndustryData(aug,2);
+      let { res } = await request.getForeignInvestIndustryData(aug, 2);
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
@@ -354,9 +368,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -377,47 +391,47 @@ export default {
     },
     async changeInputValue(value) {
       clearTimeout(this.searchTimer);
-      this.searchTimer=setTimeout(async()=>{
-      //搜索
-      //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
-      let regz = /[\u4e00-\u9fa5]/gi;
-      let reg = /\s+/;
-      let ch = value.match(regz) ? value.match(regz) : [];
-      let en = value.replace(regz, "");
-      let arr = en.split(reg);
-      let arrName = Array.from(new Set([...arr, ...ch]));
-      // 去掉数组中的空字符串
-      for (var i = 0; i < arrName.length; i++) {
-        if (
-          arrName[i] == "" ||
-          arrName[i] == null ||
-          typeof arrName[i] == undefined
-        ) {
-          arrName.splice(i, 1);
-          i = i - 1;
-        }
-      }
-      if (value.replace(/(^\s*)/g, "") == "") {
-        for (let y = 0; y < this.checkBox.op.length; y++) {
-            this.checkBox.op[y].show = true;
-        }
-      } else {
-        for (let i = 0; i < this.checkBox.op.length; i++) {
-          let splitList = await this.checkBox.op[i].searchArr
-            .join(",")
-            .toLowerCase()
-            .split(",");
-          console.log(splitList);
-          let active = true;
-          for (let k = 0; k < arrName.length; k++) {
-            if (!splitList.includes(arrName[k].toLowerCase())) {
-              active = false;
-            }
+      this.searchTimer = setTimeout(async () => {
+        //搜索
+        //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+        let regz = /[\u4e00-\u9fa5]/gi;
+        let reg = /\s+/;
+        let ch = value.match(regz) ? value.match(regz) : [];
+        let en = value.replace(regz, "");
+        let arr = en.split(reg);
+        let arrName = Array.from(new Set([...arr, ...ch]));
+        // 去掉数组中的空字符串
+        for (var i = 0; i < arrName.length; i++) {
+          if (
+            arrName[i] == "" ||
+            arrName[i] == null ||
+            typeof arrName[i] == undefined
+          ) {
+            arrName.splice(i, 1);
+            i = i - 1;
           }
-            this.checkBox.op[i].show = active;
         }
-      }
-    },600);
+        if (value.replace(/(^\s*)/g, "") == "") {
+          for (let y = 0; y < this.checkBox.op.length; y++) {
+            this.checkBox.op[y].show = true;
+          }
+        } else {
+          for (let i = 0; i < this.checkBox.op.length; i++) {
+            let splitList = await this.checkBox.op[i].searchArr
+              .join(",")
+              .toLowerCase()
+              .split(",");
+            console.log(splitList);
+            let active = true;
+            for (let k = 0; k < arrName.length; k++) {
+              if (!splitList.includes(arrName[k].toLowerCase())) {
+                active = false;
+              }
+            }
+            this.checkBox.op[i].show = active;
+          }
+        }
+      }, 600);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -436,7 +450,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -456,9 +470,9 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
-      this.chartBar.series=[];
-      this.USD.series=[];
-      this.mainGetChartsData('yearly');
+      this.chartBar.series = [];
+      this.USD.series = [];
+      this.mainGetChartsData("yearly");
     }
   }
 };

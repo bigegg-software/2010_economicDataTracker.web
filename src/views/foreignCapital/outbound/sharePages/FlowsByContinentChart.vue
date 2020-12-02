@@ -75,6 +75,10 @@ export default {
           en: "China's FDI stocks by continent"
         },
         xData: [],
+         grid: {
+         bottom:"14%",
+          enGapch:this.$fz(0.4),//数据来源中英文间距
+        },
         series: [],
         updatedDate: ""
       },

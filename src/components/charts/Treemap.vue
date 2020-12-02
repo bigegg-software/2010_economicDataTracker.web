@@ -10,8 +10,9 @@ export default {
   data() {
     return {
       chart: "",
-      chartDataSourcesEn:"",
-      chartDataSourcesCh:"",
+      watermark: false,
+      chartDataSourcesEn: "",
+      chartDataSourcesCh: ""
     };
   },
   props: {
@@ -32,20 +33,58 @@ export default {
   },
   onLoad() {},
   mounted() {
-     this.chartDataSourcesEn = (this.totalData.dataSources.enThird
-      ? this.totalData.dataSources.en +
-        this.totalData.dataSources.enSecond +
-        this.totalData.dataSources.enThird
-      : this.totalData.dataSources.enSecond
-      ? this.totalData.dataSources.en + this.totalData.dataSources.enSecond
-      : this.totalData.dataSources.en).replace(/_/g, "");
+    this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.totalData.dataSources.enThird
+        ? this.totalData.dataSources.en +
+          this.totalData.dataSources.enSecond +
+          this.totalData.dataSources.enThird
+        : this.totalData.dataSources.enSecond
+        ? this.totalData.dataSources.en + this.totalData.dataSources.enSecond
+        : this.totalData.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        console.log("arrDot", arrDot);
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
+
     this.chartDataSourcesCh = (this.totalData.dataSources.chThird
       ? this.totalData.dataSources.ch +
         this.totalData.dataSources.chSecond +
         this.totalData.dataSources.chThird
       : this.totalData.dataSources.chSecond
       ? this.totalData.dataSources.ch + this.totalData.dataSources.chSecond
-      : this.totalData.dataSources.ch).replace(/_/g, "");
+      : this.totalData.dataSources.ch
+    ).replace(/_/g, "");
     console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
@@ -59,7 +98,7 @@ export default {
   methods: {
     downloadFile() {
       //添加水印
-      this.totalData.watermark = true;
+      this.watermark = true;
       this.drawTreemap();
       let aLink = document.createElement("a");
       let blob = this.base64ToBlob();
@@ -69,7 +108,7 @@ export default {
       aLink.href = URL.createObjectURL(blob);
       aLink.click();
       //消除水印
-      this.totalData.watermark = false;
+      this.watermark = false;
       this.drawTreemap();
     },
     exportImg() {
@@ -346,21 +385,16 @@ export default {
           {
             type: "group",
             right: this.$fz(0.15),
-            bottom: this.$fz(0.15),
+            bottom: "0",
             children: [
               {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: "middle",
+                // top: "middle",
                 style: {
                   fill: "#666",
-                  text: this.totalData.watermark
-                  ? "Data Sources:" +
-                      (this.chartDataSourcesEn.length > 80
-                        ? this.chartDataSourcesEn.slice(0, 80) + "..."
-                        : this.chartDataSourcesEn)
-                    : "",
+                  text: this.watermark ? this.chartDataSourcesEn : "",
                   font: `${this.$fz(0.18)}px Calibri`
                 }
               },
@@ -368,14 +402,16 @@ export default {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: this.$fz(0.12),
+                top: this.totalData.grid
+                  ? this.totalData.grid.enGapch
+                  : this.$fz(0.2),
                 style: {
                   fill: "#666",
-                  text: this.totalData.watermark
+                  text: this.watermark
                     ? "数据来源:" +
-                      (this.chartDataSourcesCh.length > 80
-                        ? this.chartDataSourcesCh.slice(0, 80) + "..."
-                        : this.chartDataSourcesCh)
+                      (this.chartDataSourcesCh.slice(0, 56) +
+                        "\n" +
+                        this.chartDataSourcesCh.slice(56, 100))
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -456,9 +492,14 @@ export default {
                 type: "rect",
                 z: 99,
                 shape: {
-                  y: that.$refs.treeMap.offsetHeight * 0.925,
+                  // y: that.$refs.treeMap.offsetHeight * 0.925,
+                  y: this.watermark
+                    ? this.totalData.grid
+                      ? that.$refs.treeMap.offsetHeight * 0.9
+                      : that.$refs.treeMap.offsetHeight * 0.925
+                    : that.$refs.treeMap.offsetHeight * 0.925,
                   width: that.$refs.treeMap.offsetWidth,
-                  height: that.$refs.treeMap.offsetHeight * 0.08
+                  height: that.$refs.treeMap.offsetHeight * 0.5
                 },
                 style: {
                   fill: "#fff"

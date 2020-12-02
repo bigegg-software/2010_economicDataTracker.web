@@ -12,28 +12,66 @@ export default {
       watermark: false,
       canvas: null,
       selected: {},
-      chartDataSourcesEn:"",
-      chartDataSourcesCh:"",
+      chartDataSourcesEn: "",
+      chartDataSourcesCh: ""
     };
   },
   props: {
     options: {}
   },
   async mounted() {
-    this.chartDataSourcesEn = (this.options.dataSources.enThird
-      ? this.options.dataSources.en +
-        this.options.dataSources.enSecond +
-        this.options.dataSources.enThird
-      : this.options.dataSources.enSecond
-      ? this.options.dataSources.en + this.options.dataSources.enSecond
-      : this.options.dataSources.en).replace(/_/g, "");
+    this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.options.dataSources.enThird
+        ? this.options.dataSources.en +
+          this.options.dataSources.enSecond +
+          this.options.dataSources.enThird
+        : this.options.dataSources.enSecond
+        ? this.options.dataSources.en + this.options.dataSources.enSecond
+        : this.options.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        console.log("arrDot", arrDot);
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
+
     this.chartDataSourcesCh = (this.options.dataSources.chThird
       ? this.options.dataSources.ch +
         this.options.dataSources.chSecond +
         this.options.dataSources.chThird
       : this.options.dataSources.chSecond
       ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch).replace(/_/g, "");
+      : this.options.dataSources.ch
+    ).replace(/_/g, "");
     console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
@@ -62,20 +100,22 @@ export default {
     }
   },
   methods: {
-    async downloadFile() {
+    downloadFile() {
       //添加水印
       this.watermark = true;
-      await this.initChart();
-      let aLink = document.createElement("a");
-      let blob = this.base64ToBlob();
-      let evt = document.createEvent("HTMLEvents");
-      evt.initEvent("click", true, true);
-      aLink.download = this.options.title.ch; //下载图片的名称
-      aLink.href = URL.createObjectURL(blob);
-      aLink.click();
+      this.initChart();
+      setTimeout(() => {
+        let aLink = document.createElement("a");
+        let blob = this.base64ToBlob();
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("click", true, true);
+        aLink.download = this.options.title.ch; //下载图片的名称
+        aLink.href = URL.createObjectURL(blob);
+        aLink.click();
       //消除水印
       this.watermark = false;
       this.initChart();
+      }, 250);
     },
 
     exportImg() {
@@ -195,7 +235,11 @@ export default {
           top: "23%",
           left: "8.4%",
           right: this.options.yearOnYear ? "6%" : "4%",
-          bottom: "11%"
+          bottom: this.watermark
+            ? this.options.grid
+              ? this.options.grid.bottom
+              : "11%"
+            : "11%"
         },
         graphic: [
           {
@@ -266,21 +310,17 @@ export default {
           {
             type: "group",
             right: this.$fz(0.15),
-            bottom: this.$fz(0.15),
+            bottom: this.options.bottomDistance
+              ? this.options.bottomDistance
+              : "0",
             children: [
               {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: "middle",
                 style: {
                   fill: "#666",
-                  text: this.watermark
-                    ? "Data Sources:" +
-                      (this.chartDataSourcesEn.length > 80
-                        ? this.chartDataSourcesEn.slice(0, 80) + "..."
-                        : this.chartDataSourcesEn)
-                    : "",
+                  text: this.watermark ? this.chartDataSourcesEn : "",
                   font: `${this.$fz(0.18)}px Calibri`
                 }
               },
@@ -288,14 +328,16 @@ export default {
                 type: "text",
                 z: 100,
                 left: "right",
-                top: this.$fz(0.12),
+                top: this.options.grid
+                  ? this.options.grid.enGapch
+                  : this.$fz(0.2),
                 style: {
                   fill: "#666",
                   text: this.watermark
                     ? "数据来源:" +
-                      (this.chartDataSourcesCh.length > 50
-                        ? this.chartDataSourcesCh.slice(0, 50) + "..."
-                        : this.chartDataSourcesCh)
+                      (this.chartDataSourcesCh.slice(0, 54) +
+                        "\n" +
+                        this.chartDataSourcesCh.slice(54, 100))
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -446,7 +488,7 @@ export default {
                   fontSize: this.$fz(0.18)
                 },
                 divch: {
-                  padding:[0,0,2,0],
+                  padding: [0, 0, 2, 0],
                   fontSize: this.$fz(0.14)
                 }
               }
@@ -485,7 +527,7 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, 0, 0, 7],
+              padding: [0, 0, 0, -that.$refs.lineChart.offsetWidth * 0.03],
               color: "#666",
               rich: {
                 div: {

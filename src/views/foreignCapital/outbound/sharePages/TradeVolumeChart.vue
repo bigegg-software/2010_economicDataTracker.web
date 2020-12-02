@@ -60,7 +60,7 @@ export default {
         id: "person",
         yName: { ch: "万人", en: "10,000 persons" },
         title: { ch: "中国对外劳务合作派出人数", en: "Number of workers sent overseas" },
-        xData: [],
+        xData: [],   
         series: [
           {
             name: "各类劳务人员_Workers sent overseas",

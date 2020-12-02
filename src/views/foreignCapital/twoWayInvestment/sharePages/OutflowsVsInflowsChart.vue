@@ -134,12 +134,16 @@ export default {
         id: "USD",
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
-         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+        title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
+        grid: {
+          bottom: "18%",
+          enGapch: this.$fz(0.58) //数据来源中英文间距
+        },
+        bottomDistance: this.$fz(0.15),
         series: [
           {
-            name:
-              "实际使用外资_FDI inflows",
+            name: "实际使用外资_FDI inflows",
             color: "#6AA3CD",
             data: []
           },
@@ -316,12 +320,12 @@ export default {
             outward_FDI_flows: {
               text: "对外直接投资流量_Xxx",
               width: "30%",
-              formatNum:true
+              formatNum: true
             },
             inward_FDI_flows: {
               text: "外国直接投资流入_Xxx",
               width: "50%",
-              formatNum:true
+              formatNum: true
             }
           };
           break;
@@ -415,7 +419,7 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        let QMDefaultTime=await chartDataFun.getQMDefaultTime(end,1);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(end, 1);
         if (key == "quarterly") {
           obj.list.start.value = QMDefaultTime.Q.start;
           obj.list.end.value = QMDefaultTime.Q.end;
@@ -551,7 +555,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;

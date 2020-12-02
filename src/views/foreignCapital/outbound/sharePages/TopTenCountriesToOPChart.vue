@@ -129,6 +129,12 @@ export default {
           subtext: "Top 10 market of China's overseas projects by revenue"
         },
         xData: [],
+        grid: {
+          top: "23%",
+          left: "3%",
+          bottom: "11%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         hideLegend: true,
         spliceCon: {
           // toolTip里面插入同比和同比英文

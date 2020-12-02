@@ -87,6 +87,10 @@ export default {
           ch: "百万美元",
           en: "USD min"
         },
+        grid: {
+          bottom: "16%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         seriesData: {
           all: "全部_ALL",
           data: []
@@ -287,7 +291,7 @@ export default {
   }
   .select-block {
     width: 1.385rem;
-    height: auto; 
+    height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;

@@ -47,7 +47,7 @@ export default {
   name: "stocksByDestinationChart",
   data() {
     return {
-      searchTimer:null,
+      searchTimer: null,
       tableTotalData: {
         title: {
           ch: "按国家和地区统计",
@@ -73,14 +73,14 @@ export default {
           outflowMillion: {
             text: "中国对外直接投资流量_China's FDI outflow",
             width: "35%",
-            formatNum:true
+            formatNum: true
           }
         },
         tableData: [],
         updatedDate: ""
       },
       timer: null,
-        randomColor: [
+      randomColor: [
         "#a65783",
         "#c68821",
         "#b8a597",
@@ -110,6 +110,10 @@ export default {
           en: "China’s FDI outflows by destination"
         },
         xData: [],
+        grid: {
+          bottom: "14%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         series: [],
         updatedDate: ""
       },
@@ -146,7 +150,7 @@ export default {
       async handler() {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
-      },
+      }
       // deep: true
     },
     tableDatas: {
@@ -167,7 +171,7 @@ export default {
   },
   async created() {
     let rand = await chartDataFun.randomColor(203);
-    this.randomColor= [...this.randomColor,...rand];
+    this.randomColor = [...this.randomColor, ...rand];
     await this.getAllCountryName();
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
@@ -277,8 +281,8 @@ export default {
       let dataAttr = ["outflowMillion"];
       let XNameAttr = "year";
       this.USD.xData = range;
-      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
-      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.tableTotalData.updatedDate = this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -299,7 +303,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -328,47 +332,47 @@ export default {
     },
     async changeInputValue(value) {
       clearTimeout(this.searchTimer);
-      this.searchTimer=setTimeout(async()=>{
-      //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
-      let regz = /[\u4e00-\u9fa5]/gi;
-      let reg = /\s+/;
-      let ch = value.match(regz) ? value.match(regz) : [];
-      let en = value.replace(regz, "");
-      let arr = en.split(reg);
-      let arrName = Array.from(new Set([...arr, ...ch]));
-      // 去掉数组中的空字符串
-      for (var i = 0; i < arrName.length; i++) {
-        if (
-          arrName[i] == "" ||
-          arrName[i] == null ||
-          typeof arrName[i] == undefined
-        ) {
-          arrName.splice(i, 1);
-          i = i - 1;
-        }
-      }
-      if (value.replace(/(^\s*)/g, "") == "") {
-        for (let y = 0; y < this.checkBox.op.length; y++) {
-            this.checkBox.op[y].show = true;
-        }
-      } else {
-        for (let i = 0; i < this.checkBox.op.length; i++) {
-          let splitList = await this.checkBox.op[i].searchArr
-            .join(",")
-            .toLowerCase()
-            .split(",");
-          console.log(splitList);
-          let active = true;
-          for (let k = 0; k < arrName.length; k++) {
-            if (!splitList.includes(arrName[k].toLowerCase())) {
-              active = false;
-            }
+      this.searchTimer = setTimeout(async () => {
+        //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+        let regz = /[\u4e00-\u9fa5]/gi;
+        let reg = /\s+/;
+        let ch = value.match(regz) ? value.match(regz) : [];
+        let en = value.replace(regz, "");
+        let arr = en.split(reg);
+        let arrName = Array.from(new Set([...arr, ...ch]));
+        // 去掉数组中的空字符串
+        for (var i = 0; i < arrName.length; i++) {
+          if (
+            arrName[i] == "" ||
+            arrName[i] == null ||
+            typeof arrName[i] == undefined
+          ) {
+            arrName.splice(i, 1);
+            i = i - 1;
           }
-            this.checkBox.op[i].show = active;
         }
-      }
-      },600);
-    }///
+        if (value.replace(/(^\s*)/g, "") == "") {
+          for (let y = 0; y < this.checkBox.op.length; y++) {
+            this.checkBox.op[y].show = true;
+          }
+        } else {
+          for (let i = 0; i < this.checkBox.op.length; i++) {
+            let splitList = await this.checkBox.op[i].searchArr
+              .join(",")
+              .toLowerCase()
+              .split(",");
+            console.log(splitList);
+            let active = true;
+            for (let k = 0; k < arrName.length; k++) {
+              if (!splitList.includes(arrName[k].toLowerCase())) {
+                active = false;
+              }
+            }
+            this.checkBox.op[i].show = active;
+          }
+        }
+      }, 600);
+    } ///
   }
 };
 </script>

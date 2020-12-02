@@ -134,6 +134,8 @@ export default {
         xData: [],
         grid: {
           right: "9%",
+          bottom:"11%",
+          enGapch:this.$fz(0.2),//数据来源中英文间距
         },
         spliceCon:{// toolTip里面插入同比和同比英文
           ch:'企业数',

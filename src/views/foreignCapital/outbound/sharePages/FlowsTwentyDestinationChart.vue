@@ -54,13 +54,13 @@ export default {
             text:
               "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflow in top 20 destinations",
             width: "25%",
-            formatNum:true
+            formatNum: true
           },
           outflowPercent: {
             text:
               "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflow",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -76,6 +76,12 @@ export default {
           subtext: ""
         },
         xData: [],
+        grid: {
+          top: "23%",
+          left: "3%",
+          bottom: "11%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         series: [
           {
             // name:'存量_xxxxx',
@@ -116,13 +122,13 @@ export default {
       },
       deep: true
     },
-    option:{
+    option: {
       handler() {
-          this.chartBar.title.text=this.tableTotalData.title.ch=`${this.option.value}年中国对外直接投资流量历年前20位国家/地区`;
-          this.chartBar.title.subtext=this.tableTotalData.title.en=`${this.option.value} Top 20 destinations of China's FDI outflows`;
+        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资流量历年前20位国家/地区`;
+        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} Top 20 destinations of China's FDI outflows`;
       },
-      deep:true
-    },
+      deep: true
+    }
   },
   mounted() {
     this.$EventBus.$on("downLoadImg", () => {
@@ -135,7 +141,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.option.value=arrmaxmin[1];
+    this.option.value = arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
       limit: 20,
@@ -154,8 +160,8 @@ export default {
     async getChartsData(aug) {
       //年份 获取数据
       let { res } = await request.getFlowsTwentyDestinationChart(aug);
-      this.tableTotalData.updatedDate=this.$store.getters.latestTime;
-      this.chartBar.updatedDate=this.$store.getters.latestTime;
+      this.tableTotalData.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
       let Xname = [];
       // 金额
       let outflow = [];

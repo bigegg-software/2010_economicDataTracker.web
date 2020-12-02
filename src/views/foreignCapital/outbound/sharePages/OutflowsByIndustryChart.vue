@@ -66,7 +66,7 @@ export default {
   name: "outflowsChart",
   data() {
     return {
-      searchTimer:null,
+      searchTimer: null,
       totalData: {
         title: {
           ch: "中国对外直接投资流量行业分布情况",
@@ -88,12 +88,12 @@ export default {
           outflowsMillion: {
             text: "流量_Outflows",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           yOY: {
             text: "同比_Xxxxxxxx",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
         },
         tableData: [],
@@ -130,8 +130,9 @@ export default {
         grid: {
           //图表上下左右的padding
           top: "40%",
-          left:"3%"
-
+          left: "3%",
+          bottom: "11%",
+          enGapch: this.$fz(0.4) //中英文数据来源间距
         },
         title: {
           text: "中国对外直接投资流量行业分布情况",
@@ -151,9 +152,14 @@ export default {
           en: "China’s FDI outflows by industry"
         },
         xData: [],
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
+        grid: {
+          bottom: "14%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
+        spliceCon: {
+          // toolTip里面插入同比和同比英文
+          ch: "同比",
+          en: "year on year"
         },
         series: [
           // {
@@ -205,7 +211,7 @@ export default {
       async handler() {
         this.USD.series = [];
         await this.mainGetChartsData("yearly");
-      },
+      }
       // deep: true
     },
     tableDatas: {
@@ -235,12 +241,14 @@ export default {
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = (Number(arrmaxmin[1])-1).toString();
+    this.options.yearly.list.start.value = (
+      Number(arrmaxmin[1]) - 1
+    ).toString();
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
-      start: Number(arrmaxmin[1])-1,
+      start: Number(arrmaxmin[1]) - 1,
       end: Number(arrmaxmin[1])
     });
   },
@@ -304,7 +312,7 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      this.chartBar.series=[];
+      this.chartBar.series = [];
       this.USD.series = [];
       let industryAddYoYData = [];
       for (let i = 0; i < res.length; i++) {
@@ -312,7 +320,7 @@ export default {
         for (let p = 0; p < this.result.length; p++) {
           let item = this.result[p];
           if (item.ch == res[i][0].industry) {
-            this.chartBar.series.push( {
+            this.chartBar.series.push({
               name: `${res[i][0].industry}_${res[i][0].industryEn}`,
               data: data["outflowsMillion"],
               color: [this.randomColor[p]]
@@ -361,9 +369,9 @@ export default {
       let XNameAttr = "year";
       this.chartBar.xData = range;
       this.USD.xData = range;
-       this.USD.updatedDate=this.$store.getters.latestTime;
-       this.chartBar.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.chartBar.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -383,48 +391,48 @@ export default {
       // await this.mainGetChartsData("yearly");
     },
     async changeInputValue(value) {
-     clearTimeout(this.searchTimer);
-      this.searchTimer=setTimeout(async()=>{
-      //搜索
-      //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
-      let regz = /[\u4e00-\u9fa5]/gi;
-      let reg = /\s+/;
-      let ch = value.match(regz) ? value.match(regz) : [];
-      let en = value.replace(regz, "");
-      let arr = en.split(reg);
-      let arrName = Array.from(new Set([...arr, ...ch]));
-      // 去掉数组中的空字符串
-      for (var i = 0; i < arrName.length; i++) {
-        if (
-          arrName[i] == "" ||
-          arrName[i] == null ||
-          typeof arrName[i] == undefined
-        ) {
-          arrName.splice(i, 1);
-          i = i - 1;
-        }
-      }
-      if (value.replace(/(^\s*)/g, "") == "") {
-        for (let y = 0; y < this.checkBox.op.length; y++) {
-          this.checkBox.op[y].show = true;
-        }
-      } else {
-        for (let i = 0; i < this.checkBox.op.length; i++) {
-          let splitList = await this.checkBox.op[i].searchArr
-            .join(",")
-            .toLowerCase()
-            .split(",");
-          console.log(splitList);
-          let active = true;
-          for (let k = 0; k < arrName.length; k++) {
-            if (!splitList.includes(arrName[k].toLowerCase())) {
-              active = false;
-            }
+      clearTimeout(this.searchTimer);
+      this.searchTimer = setTimeout(async () => {
+        //搜索
+        //输入的字符串中文英文拆分 中文匹配到字 英文匹配到词
+        let regz = /[\u4e00-\u9fa5]/gi;
+        let reg = /\s+/;
+        let ch = value.match(regz) ? value.match(regz) : [];
+        let en = value.replace(regz, "");
+        let arr = en.split(reg);
+        let arrName = Array.from(new Set([...arr, ...ch]));
+        // 去掉数组中的空字符串
+        for (var i = 0; i < arrName.length; i++) {
+          if (
+            arrName[i] == "" ||
+            arrName[i] == null ||
+            typeof arrName[i] == undefined
+          ) {
+            arrName.splice(i, 1);
+            i = i - 1;
           }
-          this.checkBox.op[i].show = active;
         }
-      }
-    },600);
+        if (value.replace(/(^\s*)/g, "") == "") {
+          for (let y = 0; y < this.checkBox.op.length; y++) {
+            this.checkBox.op[y].show = true;
+          }
+        } else {
+          for (let i = 0; i < this.checkBox.op.length; i++) {
+            let splitList = await this.checkBox.op[i].searchArr
+              .join(",")
+              .toLowerCase()
+              .split(",");
+            console.log(splitList);
+            let active = true;
+            for (let k = 0; k < arrName.length; k++) {
+              if (!splitList.includes(arrName[k].toLowerCase())) {
+                active = false;
+              }
+            }
+            this.checkBox.op[i].show = active;
+          }
+        }
+      }, 600);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -443,7 +451,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -463,8 +471,8 @@ export default {
           ? (this.isShowLineChart = true)
           : (this.isShowLineChart = false);
       }
-      this.chartBar.series=[];
-      this.USD.series=[];
+      this.chartBar.series = [];
+      this.USD.series = [];
       // 重新去获取数据再判断表格切换数据时展示行业筛选后的还是全部行业的
       this.mainGetChartsData("yearly");
     }
