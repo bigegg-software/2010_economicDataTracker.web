@@ -216,7 +216,7 @@ export default {
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
             chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
         },
         dataSources: {
             en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
@@ -244,7 +244,7 @@ export default {
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
             chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
             en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
@@ -272,7 +272,7 @@ export default {
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
             chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
             en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
@@ -902,7 +902,7 @@ export default {
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
             chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
             en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
@@ -930,7 +930,7 @@ export default {
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
             chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml；http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
             en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
