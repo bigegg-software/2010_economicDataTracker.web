@@ -189,7 +189,7 @@ export default {
         series: [
           {
             top: "16.5%",
-            bottom: "6%",
+            bottom: this.watermark?"10%":"6%",
             left: "2%",
             right: "2%",
             name: this.totalData.seriesData.all,

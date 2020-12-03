@@ -215,8 +215,8 @@ export default {
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
+            chSource: "发改委、商务部、外交部_《推动共建丝绸之路经济带和21世纪海上丝绸之路的愿景与行动》_",
+            chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
             en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
@@ -243,7 +243,7 @@ export default {
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
+            chSource: "发改委、商务部、外交部_《推动共建丝绸之路经济带和21世纪海上丝绸之路的愿景与行动》_",
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
@@ -271,7 +271,7 @@ export default {
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
+            chSource: "发改委、商务部、外交部_《推动共建丝绸之路经济带和21世纪海上丝绸之路的愿景与行动》_",
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
@@ -892,7 +892,7 @@ export default {
     numEnterprisesBRIChart: {
         concept: {
             enTitle: "Belt and Road Initiative",
-            enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
+            enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road."',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
             enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
@@ -901,7 +901,7 @@ export default {
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
+            chSource: "发改委、商务部、外交部_《推动共建丝绸之路经济带和21世纪海上丝绸之路的愿景与行动》_",
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
@@ -920,7 +920,7 @@ export default {
     inflowsToChinaBRIChart: {
         concept: {
             enTitle: "Belt and Road Initiative",
-            enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road.',
+            enText: 'The Belt and Road Initiative is a development framework proposed by Chinese President Xi Jinping in September and October 2013, during his state visits to several central Asian and southeast Asian countries. The initiative focuses on connectivity and cooperation among countries primarily between China and the rest of Eurasia. The framework consists of two main components, the land-based "Silk Road Economic Belt" and the oceangoing "Maritime Silk Road."',
             enTitleSecond: "Belt and Road Initiative countries",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
             enSource: '_What is "Belt and Road" Initiative?_ Belt and Road Portal',
@@ -929,7 +929,7 @@ export default {
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
             chTextSecond: "“一带一路”建设面向所有国家开放，国家范围并没有设限。截至2019年底，中国已累计同137个国家、30个国际㢟签署了政府间共建“一带一路”合作文件。",
-            chSource: "商务部_《中国对外承包工程发展报告2018-2019》_",
+            chSource: "发改委、商务部、外交部_《推动共建丝绸之路经济带和21世纪海上丝绸之路的愿景与行动》_",
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
@@ -969,6 +969,8 @@ export default {
             chThird: "3. 商务部_2004年至今吸收外商直接投资月报_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLinkSecond:"http://fec.mofcom.gov.cn/article/tjsj/ydjm/jwtz/",
+        sourceLinkThird:"http://data.mofcom.gov.cn/lywz/inmr.shtml",
         noteContent: {
             en: "-",
             enSecond: "",
