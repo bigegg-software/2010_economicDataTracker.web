@@ -121,13 +121,13 @@ export default {
       chartBar: {
         watermark: false,
         dataSources: this.describeData,
-        showAxisLabel: false,
+        showAxisLabel: true,
         yName: { ch: "百万美元", en: "USD min" },
         grid: {
           //图表上下左右的padding
           top: "40%",
           left: "3%",
-          bottom: "10%",
+          bottom: "8%",
           enGapch: this.$fz(0.2)//数据来源中英文间距
         },
         title: {
