@@ -61,7 +61,7 @@ export default {
 }
 .label-block {
   color: #666;
-  width: 70%;
+  width: 82%;
   .label-row {
     width: 100%;
     height: 24px;

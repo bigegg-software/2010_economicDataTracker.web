@@ -6,17 +6,15 @@
     </div>
     <section class="result" v-if="name.replace(/(^\s*)/g, '') != ''">
       <template v-for="tem in menuFileList">
-        <div
-          :key="tem.name"
-          v-if="tem.active"
-          @click="gotoPage(tem)"
-          class="menu-link"
-        >
+        <div :key="tem.name" v-if="tem.active" @click="gotoPage(tem)" class="menu-link">
           <p>{{ tem.en }}</p>
           <p>{{ tem.ch }}</p>
         </div>
       </template>
-      <div v-if="name.replace(/(^\s*)/g, '') != '' && noData">暂无数据</div>
+      <div v-if="name.replace(/(^\s*)/g, '') != '' && noData">
+        <p>No results</p>
+        <p>暂无数据</p>
+      </div>
     </section>
   </div>
 </template>

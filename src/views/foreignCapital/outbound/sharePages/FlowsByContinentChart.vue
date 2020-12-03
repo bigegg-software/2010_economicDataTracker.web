@@ -39,8 +39,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国对外直接投资存量按大洲统计",
-          en: "China's FDI stocks by continent"
+          ch: "中国对外直接投资流量按大洲统计",
+          en: "China's FDI outflows by continent"
         },
         unit: {
           ch: "百万美元",
@@ -71,8 +71,8 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          ch: "中国对外直接投资存量按大洲统计",
-          en: "China's FDI stocks by continent"
+          ch: "中国对外直接投资流量按大洲统计",
+          en: "China's FDI outflows by continent"
         },
         xData: [],
          grid: {

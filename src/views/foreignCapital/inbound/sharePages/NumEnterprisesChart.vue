@@ -126,7 +126,7 @@ export default {
         grid: {
           //图表上下左右的padding
           top: "40%",
-          left: "3%",
+          left: "4%",
           bottom: "8%",
           enGapch: this.$fz(0.2)//数据来源中英文间距
         },

@@ -12,7 +12,7 @@
         <div class="enText">
           {{describeData.concept.enText.split("_")[0]}}
           <a
-            :href="describeData.concept.textLink"
+            :href="describeData.concept.textLink"  target="_blank"
           >{{describeData.concept.enText.split("_")[1]}}</a>
           {{describeData.concept.enText.split("_")[2]}}
         </div>
@@ -21,7 +21,7 @@
         <div class="enSource">
           {{describeData.concept.enSource.split("_")[0]}}
           <a
-            :href="describeData.concept.enLink"
+            :href="describeData.concept.enLink"  target="_blank"
           >{{describeData.concept.enSource.split("_")[1]}}</a>
           {{describeData.concept.enSource.split("_")[2]}}
         </div>
@@ -29,7 +29,7 @@
         <div class="chText">
           {{describeData.concept.chText.split("_")[0]}}
           <a
-            :href="describeData.concept.textLink"
+            :href="describeData.concept.textLink"  target="_blank"
           >{{describeData.concept.chText.split("_")[1]}}</a>
           {{describeData.concept.chText.split("_")[2]}}
         </div>
@@ -38,7 +38,7 @@
         <div class="chSource">
           {{describeData.concept.chSource.split("_")[0]}}
           <a
-            :href="describeData.concept.chLink"
+            :href="describeData.concept.chLink"  target="_blank"
           >{{describeData.concept.chSource.split("_")[1]}}</a>
           {{describeData.concept.chSource.split("_")[2]}}
         </div>
@@ -54,21 +54,21 @@
           <div>
             {{describeData.dataSources.en.split("_")[0]}}
             <a
-              :href="describeData.sourceLink"
+              :href="describeData.sourceLink"  target="_blank"
             >{{describeData.dataSources.en.split("_")[1]}}</a>
             {{describeData.dataSources.en.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.enSecond">
             {{describeData.dataSources.enSecond.split("_")[0]}}
             <a
-              :href="describeData.sourceLinkSecond"
+              :href="describeData.sourceLinkSecond"  target="_blank"
             >{{describeData.dataSources.enSecond.split("_")[1]}}</a>
             {{describeData.dataSources.enSecond.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.enThird">
             {{describeData.dataSources.enThird.split("_")[0]}}
             <a
-              :href="describeData.sourceLinkThird"
+              :href="describeData.sourceLinkThird"  target="_blank"
             >{{describeData.dataSources.enThird.split("_")[1]}}</a>
             {{describeData.dataSources.enThird.split("_")[2]}}
           </div>
@@ -77,21 +77,21 @@
           <div>
             {{describeData.dataSources.ch.split("_")[0]}}
             <a
-              :href="describeData.sourceLink"
+              :href="describeData.sourceLink"  target="_blank"
             >{{describeData.dataSources.ch.split("_")[1]}}</a>
             {{describeData.dataSources.ch.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.chSecond">
             {{describeData.dataSources.chSecond.split("_")[0]}}
             <a
-              :href="describeData.sourceLinkSecond"
+              :href="describeData.sourceLinkSecond"  target="_blank"
             >{{describeData.dataSources.chSecond.split("_")[1]}}</a>
             {{describeData.dataSources.chSecond.split("_")[2]}}
           </div>
           <div class="noteSecond" v-if="describeData.dataSources.chThird">
             {{describeData.dataSources.chThird.split("_")[0]}}
             <a
-              :href="describeData.sourceLinkThird"
+              :href="describeData.sourceLinkThird"  target="_blank"
             >{{describeData.dataSources.chThird.split("_")[1]}}</a>
             {{describeData.dataSources.chThird.split("_")[2]}}
           </div>
