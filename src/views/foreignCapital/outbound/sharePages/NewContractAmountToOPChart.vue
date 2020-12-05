@@ -84,14 +84,9 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "新签合同额_Total value of new contract",
+            name: "新签合同额（RMB）_Total value of new contract (RMB）|新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -114,14 +109,9 @@ export default {
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "新签合同额_Total value of new contract",
+            name: "新签合同额(USD)_Total value of new contract|新签合同额同比_Total value of new contract y-o-y growth",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -360,12 +350,12 @@ export default {
             formatPer: true
           },
           newConAmountMillion: {
-            text: "新签合同额折合（RMB）_Xxx",
+            text: "新签合同额（RMB）_Total value of new contract (RMB）",
             width: "20%",
             formatNum: true
           },
           newConAmountYOY: {
-            text: "新签合同额折合同比_Xxx",
+            text: "新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
             width: "25%",
             formatPer: true
           }
@@ -391,12 +381,12 @@ export default {
             formatPer: true
           },
           newConAmountMillion: {
-            text: "新签合同额折合（RMB）_Xxx",
+            text: "新签合同额（RMB）_Total value of new contract (RMB）",
             width: "35%",
             formatNum: true
           },
           newConAmountYOY: {
-            text: "新签合同额折合同比_Xxx",
+            text: "新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
             width: "35%",
             formatPer: true
           }

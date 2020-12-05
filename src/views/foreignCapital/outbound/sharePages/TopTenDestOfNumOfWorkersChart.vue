@@ -79,7 +79,7 @@ export default {
         xData: [],
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'',
             color: ["#71a6c2"],
             data: []
           }
@@ -120,8 +120,8 @@ export default {
     },
     option: {
       handler() {
-        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年12月末在外各类劳务人员前10位国家`;
-        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} Year-end number of workers in top 10 destinations`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年12月末在外各类劳务人员前10位国家/地区`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} year-end number of workers in top 10 destinations`;
       },
       deep: true
     }

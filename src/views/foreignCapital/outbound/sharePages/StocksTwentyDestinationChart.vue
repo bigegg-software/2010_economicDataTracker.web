@@ -42,7 +42,7 @@ export default {
             width: "5%"
           },
           rank: {
-            text: "序号_Rank",
+            text: "排名_Rank",
             width: "5%"
           },
           country: {
@@ -84,7 +84,7 @@ export default {
         xData: [],
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'',
             color: ["#71a6c2"],
             data: []
           }
@@ -134,8 +134,8 @@ export default {
     },
     option: {
       handler() {
-        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}中国对外直接投资存量历年前20位国家/地区`;
-        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} Top 20 destinations of China's FDI stocks`;
+        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量前20位国家/地区`;
+        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} top 20 destinations of China's FDI stocks`;
       },
       deep: true
     }

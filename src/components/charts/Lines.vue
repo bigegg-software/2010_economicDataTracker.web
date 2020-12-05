@@ -112,9 +112,9 @@ export default {
         aLink.download = this.options.title.ch; //下载图片的名称
         aLink.href = URL.createObjectURL(blob);
         aLink.click();
-      //消除水印
-      this.watermark = false;
-      this.initChart();
+        //消除水印
+        this.watermark = false;
+        this.initChart();
       }, 250);
     },
 
@@ -140,9 +140,19 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
-    formatNum(value) {
-      let strs = value.toFixed(1);
-      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    formatNum(it) {
+      // if (it.seriesName.search("企业数") == 0) {
+      //   return (
+      //     it.value &&
+      //     it.value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
+      //   );
+      // }
+      // {
+      //   let value = it.value.toFixed(1);
+      //   return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+      // }
+      let value = it.value.toFixed(1);
+      return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
@@ -351,6 +361,7 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
+            console.log(params);
             let dom = "";
             let rowCount = 6; //一列允许的最大行数
             let lineCount = parseInt(params.length / rowCount) + 1; //列数
@@ -368,39 +379,39 @@ export default {
                 j++
               ) {
                 let it = params[j * rowCount + i];
+                console.log(it);
                 if (
                   this.options.yearOnYear == false ||
                   this.options.yearOnYear == undefined ||
                   i % 2 === 0
                 ) {
-                  if (it.seriesName.split("_")[1]) {
+                  if (it.seriesName.split("|")[0].split("_")[1]) {
                     a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[1]
+                      it.seriesName.split("|")[0].split("_")[1]
                     }</div>`;
                   }
-                  if (it.seriesName.split("_")[0]) {
+                  if (it.seriesName.split("|")[0].split("_")[0]) {
                     b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[0]
+                      it.seriesName.split("|")[0].split("_")[0]
                     }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value ? this.formatNum(it.value) : "-"
+                    !!it.value ? this.formatNum(it) : "-"
                   }</div>`;
                 } else {
-                  if (it.seriesName.split("_")[1]) {
-                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${this
-                      .options.spliceCon.en +
-                      " " +
-                      it.seriesName.split("_")[1]}</div>`;
+                  if (it.seriesName.split("|")[0].split("_")[1]) {
+                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                      it.seriesName.split("|")[1].split("_")[1]
+                    }</div>`;
                   }
-                  if (it.seriesName.split("_")[0]) {
-                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${it.seriesName.split(
-                      "_"
-                    )[0] + this.options.spliceCon.ch}</div>`;
+                  if (it.seriesName.split("|")[0].split("_")[0]) {
+                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
+                      it.seriesName.split("|")[1].split("_")[0]
+                    }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                     !!it.value
-                      ? this.formatNum(it.value) +
+                      ? this.formatNum(it) +
                         (this.options.y2Name ? "" : "%")
                       : "-"
                   }</div>`;
@@ -435,9 +446,10 @@ export default {
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if (!this.options.hideLegend) {
-              return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
-                "\n"
-              );
+              return [
+                `${name.split("|")[0].split("_")[1]}`,
+                `${name.split("|")[0].split("_")[0]}`
+              ].join("\n");
             } else {
               return [];
             }

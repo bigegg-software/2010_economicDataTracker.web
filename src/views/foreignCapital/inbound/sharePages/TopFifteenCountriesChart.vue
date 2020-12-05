@@ -58,10 +58,10 @@ export default {
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
             width: "10%",
-            formatNum: true
+            formatInt: true
           },
           enterprisePercent: {
-            text: "比重_Share of foreign investment enterprises",
+            text: "占外资企业数比重_Share of foreign investment enterprises",
             width: "20%",
             formatPer: true
           },
@@ -71,7 +71,7 @@ export default {
             formatNum: true
           },
           inflowsPercent: {
-            text: "比重_Share of total FDI inflows to China",
+            text: "占实际投入外资金额_Share of total FDI inflows to China",
             width: "10%",
             formatPer: true
           }
@@ -81,6 +81,7 @@ export default {
       },
       showTimeFrame: false,
       chartBar: {
+        
         watermark: false,
         Yearonshow:true,//是否有左柱状图右折线图的展示
         unit2Symbol: "",
@@ -101,15 +102,10 @@ export default {
         xData: [
           // "蒙古\nMongolia"
         ],
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "企业数",
-          en: "Number of enterprises"
-        },
         hideLegend:true,
         series: [
           {
-            name: "投资金额_FDI outflows",
+            name: "实际投入外资金额_FDI inflows to China|企业数_Number of enterprises",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []
@@ -159,7 +155,7 @@ export default {
     option:{
       handler() {
           this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位国家/地区`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} Top 15 investors`;
+          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} top 15 investors`;
       },
       deep:true
     }

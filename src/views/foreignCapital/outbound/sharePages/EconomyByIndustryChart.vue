@@ -109,7 +109,7 @@ export default {
         },
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'',
             color: [],
             data: []
           }

@@ -12,7 +12,7 @@ export default {
       selected: {},
       chartDataSourcesEn: "",
       chartDataSourcesCh: "",
-      watermark: false,
+      watermark: false
     };
   },
   props: {
@@ -34,16 +34,18 @@ export default {
   },
   created() {},
   mounted() {
-    this.chartDataSourcesEn =  "Data Sources:" +(this.chartBarData.dataSources.enThird
-      ? this.chartBarData.dataSources.en +
-        this.chartBarData.dataSources.enSecond +
-        this.chartBarData.dataSources.enThird
-      : this.chartBarData.dataSources.enSecond
-      ? this.chartBarData.dataSources.en +
-        this.chartBarData.dataSources.enSecond
-      : this.chartBarData.dataSources.en
-    ).replace(/_/g, "");
-     let str = this.chartDataSourcesEn;
+    this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.chartBarData.dataSources.enThird
+        ? this.chartBarData.dataSources.en +
+          this.chartBarData.dataSources.enSecond +
+          this.chartBarData.dataSources.enThird
+        : this.chartBarData.dataSources.enSecond
+        ? this.chartBarData.dataSources.en +
+          this.chartBarData.dataSources.enSecond
+        : this.chartBarData.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
     let result = "";
     let curlen = 0;
     let arrValues = str.split(" ");
@@ -136,9 +138,20 @@ export default {
       }
       return new Blob([uInt8Array], { type: contentType });
     },
-    formatNum(value) {
-      let strs = value.toFixed(1);
-      return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    formatNum(it) {
+      // console.log(it)
+      // if (it.seriesName.search("企业数") == 0) {
+      //   return (
+      //     it.value &&
+      //     it.value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
+      //   );
+      // }
+      // {
+      //   let value = it.value.toFixed(1);
+      //   return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+      // }
+      let value = it.value.toFixed(1);
+        return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     initChart() {
       //找出y轴数值最大最小值
@@ -166,7 +179,9 @@ export default {
       for (let j = 0; j < this.chartBarData.series.length; j++) {
         series.push(
           {
-            name: this.chartBarData.series[j].name,
+            name: this.chartBarData.series[j].name.split("|")[0]
+              ? this.chartBarData.series[j].name.split("|")[0]
+              : this.chartBarData.series[j].name,
             type: "bar",
             // barWidth: "30%",
             itemStyle: {
@@ -180,13 +195,16 @@ export default {
             data: this.chartBarData.series[j].data
           },
           {
-            name: this.chartBarData.spliceCon
-              ? this.chartBarData.series[j].name.split("_")[0] +
-                this.chartBarData.spliceCon.ch +
-                "_" +
-                this.chartBarData.series[j].name.split("_")[1] +
-                " " +
-                this.chartBarData.spliceCon.en
+            // name: this.chartBarData.spliceCon
+            //   ? this.chartBarData.series[j].name.split("_")[0] +
+            //     this.chartBarData.spliceCon.ch +
+            //     "_" +
+            //     this.chartBarData.series[j].name.split("_")[1] +
+            //     " " +
+            //     this.chartBarData.spliceCon.en
+            //   : this.chartBarData.series[j].name,
+            name: this.chartBarData.series[j].name.split("|")[1]
+              ? this.chartBarData.series[j].name.split("|")[1]
               : this.chartBarData.series[j].name,
             type: "line",
             yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用
@@ -314,7 +332,7 @@ export default {
           {
             type: "group",
             right: this.$fz(0.15),
-            bottom:  this.chartBarData.bottomDistance
+            bottom: this.chartBarData.bottomDistance
               ? this.chartBarData.bottomDistance
               : "0",
             children: [
@@ -396,7 +414,7 @@ export default {
                 }
                 c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
                   !!it.value
-                    ? this.formatNum(it.value) +
+                    ? this.formatNum(it) +
                       (it.seriesName.includes("占比") ||
                       it.seriesName.includes("同比")
                         ? "%"
@@ -469,7 +487,7 @@ export default {
                   fontSize: this.$fz(0.18)
                 },
                 div: {
-                  padding:[0,0,2,0],
+                  padding: [0, 0, 2, 0],
                   fontSize: this.$fz(0.14)
                 }
               }

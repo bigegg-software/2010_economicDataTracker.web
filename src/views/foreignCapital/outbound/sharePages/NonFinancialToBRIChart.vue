@@ -65,10 +65,6 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'Y-o-y'
-        },
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
@@ -80,7 +76,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "投资金额_FDI outflows",
+            name: "非金融类直接投资金额_Non-financial FDI outflows|非金融类直接投资同比_Y-o-y non-financial FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -301,7 +297,7 @@ export default {
           },
           conversionYOY: {
             text:
-              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
+              "非金融类直接投资同比_Y-o-y non-financial FDI outflows",
             width: "45%",
             formatPer:true
           }

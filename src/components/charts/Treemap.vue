@@ -189,7 +189,7 @@ export default {
         series: [
           {
             top: "16.5%",
-            bottom: this.watermark?"10%":"6%",
+            bottom: this.watermark ? "10%" : "6%",
             left: "2%",
             right: "2%",
             name: this.totalData.seriesData.all,
@@ -261,7 +261,7 @@ export default {
                   }
                 }
               }
-            ],
+            ]
             //面包屑
             // breadcrumb: {
             //   top: that.$refs.treeMap.offsetWidth * 0.58,
@@ -301,7 +301,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.en,
-                  font: `bold ${this.$fz(0.26)}px Calibri-Bold `
+                  font: `bold ${this.$fz(0.26)}px sans-serif`
                 }
               },
               {
@@ -312,7 +312,7 @@ export default {
                 style: {
                   fill: "#333",
                   text: this.totalData.title.ch,
-                  font: ` ${this.$fz(0.18)}px 微软雅黑`
+                  font: ` ${this.$fz(0.18)}px sans-serif`
                 }
               }
             ]

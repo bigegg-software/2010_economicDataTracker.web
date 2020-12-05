@@ -125,8 +125,8 @@ export default {
         yearOnYear: false,
         yName: { ch: "百万美元", en: "USD min" },
         title: {
-          text: "中国年度对外承包工程完成营业额前十大国别/地区市场",
-          subtext: "Top 10 market of China's overseas projects by revenue"
+          text: "",
+          subtext: ""
         },
         xData: [],
         grid: {
@@ -136,14 +136,9 @@ export default {
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "新签合同额_Total value of new contract",
+            name: "新签合同额_Total value of new contract|新签合同额同比_Y-o-y growth of new contract value",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []
@@ -181,7 +176,7 @@ export default {
           {
             id: 2,
             ch: "完成营业额",
-            en: "Total value of new contract y-o-y growth "
+            en: "Revenue of completed contract"
           }
         ]
       }
@@ -213,6 +208,13 @@ export default {
         } else if (this.selectOption.value.id == 2) {
           this.$set(this.totalData2, "tableData", resoult);
         }
+      },
+      deep: true
+    },
+    option: {
+      handler() {
+        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程完成营业额前十大国别/地区市场`;
+        this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `${this.option.value} top 10 market of China's overseas projects by revenue`;
       },
       deep: true
     }
@@ -290,6 +292,7 @@ export default {
     //选择类型新签合同额还是完成营业额
     async changeRadioSelect(item) {
       this.selectOption.value = item;
+      let Yoy=item.ch=='新签合同额'?'新签合同额同比_Y-o-y growth of new contract value':'完成营业额同比_Y-o-y growth of completed contract revenue'
       await this.getChartsData({
         type: item.id,
         ascending: "rank",
@@ -301,7 +304,7 @@ export default {
         subtext: this.selectOption.value.en
       };
       this.chartBar.series[0].name =
-        this.selectOption.value.ch + "_" + this.selectOption.value.en;
+        this.selectOption.value.ch + "_" + this.selectOption.value.en+'|'+Yoy;
     }
   }
 };

@@ -174,7 +174,96 @@ const routes = [{
   {
     path: 'foreignTrade',
     name: 'foreignTrade',
+    redirect: {
+      name: 'goodsTotal'
+    },
+    meta: {
+      title: '外贸'
+    },
     component: () => import('@/views/foreignTrade/ForeignTrade.vue'),
+    children: [{
+      path: 'goodsTrade',
+      name: 'goodsTrade',
+      meta: {
+        title: '货物贸易'
+      },
+      component: () => import('@/views/foreignTrade/goodsTrade'),
+      children: [{
+        path: 'goodsTotal',
+        name: 'goodsTotal',
+        meta: {
+          title: '中国货物进出口总值'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/GoodsTotal')
+      },
+      {
+        path: 'goodsByOrigin',
+        name: 'goodsByOrigin',
+        meta: {
+          title: '货物进出口总值按国别/地区统计'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/GoodsByOrigin')
+      },
+      {
+        path: 'goodsByCommodity',
+        name: 'goodsByCommodity',
+        meta: {
+          title: '货物进出口总值按商品类别统计'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/GoodsByCommodity')
+      },
+      {
+        path: 'goodsByEnterpriseType',
+        name: 'goodsByEnterpriseType',
+        meta: {
+          title: '货物进出口按企业性质统计'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/GoodsByEnterpriseType')
+      },
+      {
+        path: 'goodsByCustomRegime',
+        name: 'goodsByCustomRegime',
+        meta: {
+          title: '货物进出口总值按贸易方式统计'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/GoodsByCustomRegime')
+      },
+      {
+        path: 'foreignInvestedEnterprises',
+        name: 'foreignInvestedEnterprises',
+        meta: {
+          title: '外商投资企业进出口总值'
+        },
+        component: () => import('@/views/foreignTrade/goodsTrade/ForeignInvestedEnterprises')
+      },
+      ]
+    },
+    {
+      path: 'servicesTrade',
+      name: 'servicesTrade',
+      meta: {
+        title: '服务贸易'
+      },
+      component: () => import('@/views/foreignTrade/servicesTrade'),
+      children: [{
+        path: 'servicesTotal',
+        name: 'servicesTotal',
+        meta: {
+          title: '中国服务贸易进出口总值'
+        },
+        component: () => import('@/views/foreignTrade/servicesTrade/ServicesTotal')
+      },
+      {
+        path: 'serviceType',
+        name: 'serviceType',
+        meta: {
+          title: '服务贸易分类统计'
+        },
+        component: () => import('@/views/foreignTrade/servicesTrade/ServiceType')
+      },
+      ]
+    }
+    ]
   },
   {
     path: 'economicIndicators',
@@ -488,7 +577,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  store.commit('setShowOperate',true);
+  store.commit('setShowOperate', true);
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
     if (true) { // 判断当前的token是否存在
       next();
@@ -503,6 +592,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  
+
 });
 export default router

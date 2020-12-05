@@ -32,16 +32,15 @@
 
 <script>
 import FadeIn from "@/components/animations/FadeIn";
-import { foreignCapitalMenuLists } from "@/utils/menuSearchConfigs.js";
 export default {
-  props: {},
+  props: {
+    navList: {}
+  },
   components: {
     FadeIn
   },
   data() {
-    return {
-      navList: foreignCapitalMenuLists
-    };
+    return {};
   },
   mounted() {
     for (let i = 0; i < this.navList.length; i++) {
@@ -108,11 +107,11 @@ export default {
   cursor: pointer;
   .text {
     padding: 0.052083rem 0;
-    font-family:SimHei,'黑体';
+    font-family: SimHei, "黑体";
     font-size: 0.083333rem;
     & div:first-child {
       font-size: 0.114583rem;
-      font-family:Calibri;
+      font-family: Calibri;
     }
   }
   .arrow-icon {
@@ -130,8 +129,8 @@ export default {
     box-sizing: border-box;
     color: #999999;
     cursor: pointer;
-    &:hover{
-      background:#e0eef7;
+    &:hover {
+      background: #e0eef7;
     }
     .text {
       width: 100%;
@@ -141,13 +140,13 @@ export default {
       li {
         &:first-child {
           padding: 0.03125rem 0 0.010417rem;
-          font-size:  0.114583rem;
-          font-family:Calibri;
+          font-size: 0.114583rem;
+          font-family: Calibri;
         }
         &:last-child {
           padding: 0.010417rem 0 0.03125rem;
           font-size: 0.083333rem;
-          font-family:SimHei,'黑体';
+          font-family: SimHei, "黑体";
         }
       }
     }

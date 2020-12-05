@@ -42,13 +42,17 @@ export default {
           ch: "",
           en: ""
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "100px"
           },
           continent: {
-            text: "区域_xxxxxx",
+            text: "区域_Area",
             width: "200px"
           },
           country: {
@@ -58,7 +62,7 @@ export default {
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
             width: "20%",
-            formatNum:true
+            formatInt:true
           },
           enterprisePercent: {
             text: "比重_Share of foreign investment enterprises",
@@ -124,7 +128,7 @@ export default {
     option:{
       handler() {
           this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年国家/地区对华投资比重`;
-          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} Proportion of national and regional investment in China`;
+          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} share of foreign investment in China by country/region`;
       },
       deep:true
     }

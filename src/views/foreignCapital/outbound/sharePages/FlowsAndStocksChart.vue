@@ -43,6 +43,10 @@ export default {
           ch: "中国对外直接投资流量与存量",
           en: "China's outward FDI flows vs. Stocks"
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -50,17 +54,13 @@ export default {
           },
           outward_FDI_flows: {
             text: "中国对外直接投资流量_China's FDI outflows",
-            width: "35%",
+            width: "40%",
             formatNum:true
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
-            width: "35%",
+            width: "40%",
             formatNum:true
-          },
-          unit: {
-            text: "单位_Unit",
-            width: "35%"
           }
         },
         tableData: [],

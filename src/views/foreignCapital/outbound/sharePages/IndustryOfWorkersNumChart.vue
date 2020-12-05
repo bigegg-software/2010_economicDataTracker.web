@@ -60,7 +60,7 @@ export default {
             formatNum: true
           },
           industryPercent: {
-            text: "比重_Share of overseas workers by industries",
+            text: "各行业派出人数占比_Share of overseas workers by industries",
             width: "30%",
             formatPer: true
           }
@@ -163,7 +163,7 @@ export default {
           name: item.industry + "_" + item.industryEn,
           valueName:
             "在外各类劳务人员行业构成人数（万人）_Number of overseas workers by industries",
-          proportionName: "比重_Share of overseas workers by industries",
+          proportionName: "各行业派出人数占比_Share of overseas workers by industries",
           proportion: item.industryPercent
         });
       });

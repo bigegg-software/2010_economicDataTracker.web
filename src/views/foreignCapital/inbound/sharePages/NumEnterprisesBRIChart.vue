@@ -66,7 +66,7 @@ export default {
           BRINumber: {
             text: "一带一路企业数_Number of BRI enterprises",
             width: "40%",
-            formatNum: true
+            formatInt: true
           },
           BRIPercent: {
             text: "占外资企业比重_Share of total number of foreign enterprises",
@@ -90,14 +90,9 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入占比和占比英文
-          ch: "占外资企业比重",
-          en: "Share of total number of oreign enterprises"
-        },
         series: [
           {
-            name: "企业数_xxx",
+            name: "一带一路企业数_Number of BRI enterprises|占外资企业比重_Share of total number of foreign enterprises",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []

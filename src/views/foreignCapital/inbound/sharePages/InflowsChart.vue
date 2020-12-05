@@ -52,7 +52,7 @@ export default {
        totalData: {
         title: {
           ch: "实际使用外资",
-          en: "China’s inward FDI"
+          en: "China's inward FDI"
         },
         unit:{
           ch: "百万美元",
@@ -69,16 +69,12 @@ export default {
         dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "实际使用外资", en: "China’s FDI inflows" },
+        title: { ch: "实际使用外资", en: "China's FDI inflows" },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
-        },
         series: [
           {
-            name: "实际使用外资_China’s FDI inflows",
+            name: "实际使用外资_China's FDI inflows|实际使用外资同比_Y-o-y China's FDI inflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -261,12 +257,12 @@ export default {
             width: "10%"
           },
           inwardFDIConMillion: {
-            text: "实际使用外资_China’s inward FDI",
+            text: "实际使用外资_China's inward FDI",
             width: "45%",
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_xxxxxxx",
+            text: "实际使用外资同比_Y-o-y China's inward FDI",
             width: "45%",
             formatPer:true
           }
@@ -282,12 +278,12 @@ export default {
             width: "20%"
           },
           inwardFDIConMillion: {
-            text: "实际使用外资_China’s inward FDI",
+            text: "实际使用外资_China's inward FDI",
             width: "35%",
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_xxxxxxx",
+            text: "实际使用外资同比_Y-o-y China's inward FDI",
             width: "35%",
             formatPer:true
           }

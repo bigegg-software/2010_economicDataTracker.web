@@ -71,13 +71,9 @@ export default {
         title: { ch: "中国企业在“一带一路”沿线国家新签合同额", en: "Total value of new contract signed by Chinese enterprises in BRI countries" },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'Y-o-y'
-        },
         series: [
           {
-            name: "新签合同额_Total value of new contract",
+            name: "新签合同额_Total value of new contract|新签合同额同比_Y-o-y total value of new contract",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -297,7 +293,7 @@ export default {
             formatNum:true
           },
           newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+            text: "新签合同额同比_Y-o-y total value of new contract",
             width: "45%",
             formatPer:true
           }

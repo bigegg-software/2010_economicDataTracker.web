@@ -158,25 +158,25 @@ export default {
           trigger: "item",
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            let year = `<div style="color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;margin-bottom:0.02rem;">${this.value}</div>`;
-            let a = `<div style="color:#666;font-size:0.09375rem">${
+            let year = `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${this.value}</div>`;
+            let a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
               params.data.valueName.split("_")[1]
             }</div>`;
-            let b = `<div style="color:#666;font-size:0.072917rem">${
+            let b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
               params.data.valueName.split("_")[0]
             }</div>`;
-            let c = `<div style="color:#666;font-size:0.09375rem">${
+            let c = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
               params.data.proportionName.split("_")[1]
             }</div>`;
-            let d = `<div style="color:#666;font-size:0.072917rem">${
+            let d = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
               params.data.proportionName.split("_")[0]
             }</div>`;
-            let e = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.value}</div>`;
-            let f = `<div style="color:#000;font-size: 0.114583rem;font-weight:bold;margin:0.02rem 0 0.05rem;">${params.data.proportion.toFixed(
+            let e = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${params.value}</div>`;
+            let f = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;"">${params.data.proportion.toFixed(
               1
             )}%</div>`;
             let dom = year + a + b + e + c + d + f;
-            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0.052083rem 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
+            return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }
         },
         series: [

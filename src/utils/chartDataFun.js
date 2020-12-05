@@ -12,28 +12,28 @@ export default {
         }
     },
     //计算当前季度和月度
-    getQMDefaultTime(currentY=dayjs().format('YYYY'),beforeY=1) {
-        currentY=currentY.toString();
-        let dateRes={
-            Q:{
-                start:'',
-                end:''
+    getQMDefaultTime(currentY = dayjs().format('YYYY'), beforeY = 1) {
+        currentY = currentY.toString();
+        let dateRes = {
+            Q: {
+                start: '',
+                end: ''
             },
-            M:{
-                start:'',
-                end:''
+            M: {
+                start: '',
+                end: ''
             }
         }
-        let currentTime=new Date();
+        let currentTime = new Date();
         // 计算当前月份对应的季度月份
-        let currentQ=Math.ceil((currentTime.getMonth()+1)/3)*3;
-          if(currentQ.length<2){
-              currentQ='0'+currentQ;
-          }
-        dateRes.Q.start=dayjs(currentY).format('YYYY')-beforeY+'-'+currentQ;
-        dateRes.Q.end=dayjs(currentY).format('YYYY')+'-'+currentQ;
-        dateRes.M.start=dayjs(currentY).format('YYYY')-beforeY+'-'+dayjs().format('MM');
-        dateRes.M.end=dayjs(currentY).format('YYYY')+'-'+dayjs().format('MM');
+        let currentQ = Math.ceil((currentTime.getMonth() + 1) / 3) * 3;
+        if (currentQ.length < 2) {
+            currentQ = '0' + currentQ;
+        }
+        dateRes.Q.start = dayjs(currentY).format('YYYY') - beforeY + '-' + currentQ;
+        dateRes.Q.end = dayjs(currentY).format('YYYY') + '-' + currentQ;
+        dateRes.M.start = dayjs(currentY).format('YYYY') - beforeY + '-' + dayjs().format('MM');
+        dateRes.M.end = dayjs(currentY).format('YYYY') + '-' + dayjs().format('MM');
         return dateRes;
     },
     objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
@@ -58,7 +58,7 @@ export default {
                 }
             } else if (aug.type == 'monthly') {
                 for (let u = 1; u <= 12; u++) {
-                  //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
+                    //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
                     newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
                 }
             }
@@ -76,7 +76,7 @@ export default {
             if (item['month'] % 3 == 0) {
                 item.Q = `${item['year']}.Q${item['month'] / 3}`;
             }
-        //原来是2020.01、2020.02    // item.M = `${item['year']}.${String(item['month']).length == 1 ? '0' + item['month'] : item['month']}`
+            //原来是2020.01、2020.02    // item.M = `${item['year']}.${String(item['month']).length == 1 ? '0' + item['month'] : item['month']}`
             item.M = `${item['year']}.1-${item['month']}` // 现在是2020.1-1 ，2020.1-2
         });
         console.log(data)
@@ -268,6 +268,10 @@ export default {
         let res = strs + '%'
         return res;
     },
+    //转换成整数
+    formatInt(value) {
+        return value && value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+    },
     conversionTable: function (tableTitle, tableData) {
         let res = [];
         tableData.forEach(item => {
@@ -281,6 +285,11 @@ export default {
                 } else if ('formatPer' in tableTitle[i]) {
                     itemObj[i] = {
                         text: item[i] ? (this.formatPer(item[i])) + '_' : '',
+                        width: tableTitle[i].width
+                    }
+                } else if ('formatInt' in tableTitle[i]) {
+                    itemObj[i] = {
+                        text: item[i] ? (this.formatInt(item[i])) + '_' : '',
                         width: tableTitle[i].width
                     }
                 } else {

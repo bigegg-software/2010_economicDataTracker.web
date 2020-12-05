@@ -86,13 +86,13 @@ export default {
             width: "20%"
           },
           outward_FDI_flows: {
-            text: "对外直接投资流量_xxx",
-            width: "30%",
+            text: "实际使用外资_FDI inflows",
+            width: "40%",
             formatNum: true
           },
           inward_FDI_flows: {
-            text: "外国直接投资流入_xxx",
-            width: "50%",
+            text: "对外直接投资流量_FDI outflows",
+            width: "40%",
             formatNum: true
           }
         },
@@ -109,20 +109,15 @@ export default {
         yName: { ch: "百万美元", en: "USD min" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "实际使用外资_FDI inflows",
+            name: "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "对外直接投资流量_FDI outflows",
+            name: "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
             color: "#d43838",
             data: [],
             yearOnYear: []
@@ -143,12 +138,12 @@ export default {
         bottomDistance: this.$fz(0.15),
         series: [
           {
-            name: "实际使用外资_FDI inflows",
+            name: "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
             color: "#6AA3CD",
             data: []
           },
           {
-            name: "对外直接投资流量_FDI outflows",
+            name: "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
             color: "#d43838",
             data: []
           }
@@ -318,13 +313,13 @@ export default {
               width: "20%"
             },
             outward_FDI_flows: {
-              text: "对外直接投资流量_Xxx",
-              width: "30%",
+              text: "实际使用外资_FDI inflows",
+              width: "40%",
               formatNum: true
             },
             inward_FDI_flows: {
-              text: "外国直接投资流入_Xxx",
-              width: "50%",
+              text: "对外直接投资流量_FDI outflows",
+              width: "40%",
               formatNum: true
             }
           };
@@ -340,12 +335,12 @@ export default {
               width: "20%"
             },
             inwardFDIConMillion: {
-              text: "实际使用外资_Xxx",
+              text: "实际使用外资_FDI inflows",
               width: "30%",
               formatNum: true
             },
             inwardFDIConYOY: {
-              text: "实际使用外资同比_Xxx",
+              text: "实际使用外资同比_Y-o-y China's inward FDI",
               width: "30%",
               formatPer: true
             }

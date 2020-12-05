@@ -2,7 +2,7 @@
   <div class="foreignCapital">
     <!-- 左侧导航栏 -->
     <div class="slide" v-if="$store.state.fullScreen.isFullScreen">
-      <menu-component></menu-component>
+      <menu-component :navList="navList"></menu-component>
     </div>
     <!-- 右侧内容 -->
     <div class="main">
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { foreignCapitalMenuLists } from "@/utils/menuSearchConfigs.js";
+
 import MenuComponent from "@/components/MenuComponent";
 export default {
   name: "ForeignCapital",
@@ -19,7 +21,7 @@ export default {
     MenuComponent
   },
   data() {
-    return {};
+    return { navList: foreignCapitalMenuLists };
   },
   methods: {}
 };

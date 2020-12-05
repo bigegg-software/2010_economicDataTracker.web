@@ -85,6 +85,7 @@ export default {
   width: 100%;
   user-select: none;
   .drop-down {
+    z-index:9;
     position: absolute;
     right: 0px;
     top: 0.229167rem;

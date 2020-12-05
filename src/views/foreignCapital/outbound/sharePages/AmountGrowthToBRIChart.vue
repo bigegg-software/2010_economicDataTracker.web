@@ -53,6 +53,10 @@ export default {
           ch: "中国企业在“一带一路”沿线国家完成营业额",
           en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {},
         tableData: [],
         updatedDate: ""
@@ -70,13 +74,9 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'同比',
-          en:'year on year'
-        },
         series: [
           {
-            name: "完成营业额_Total value of new contract y-o-y growth",
+            name: "完成营业额_Revenue of completed contract|完成营业额同比_Y-o-y growth of completed contract revenue",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []

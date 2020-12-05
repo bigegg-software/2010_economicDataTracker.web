@@ -42,23 +42,23 @@ export default {
             width: "5%"
           },
           rank: {
-            text: "序号_Rank",
+            text: "排名_Rank",
             width: "5%"
           },
           country: {
             text:
-              "中国对外直接投资流量前20位国家（地区）_Top 20 destinations of China's FDI outflow",
+              "中国对外直接投资流量前20位国家（地区）_Top 20 destinations of China's FDI outflows",
             width: "25%"
           },
           outflowMillion: {
             text:
-              "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflow in top 20 destinations",
+              "中国对外直接投资流量前20位国家（地区）投资额_China's FDI outflows in top 20 destinations",
             width: "25%",
             formatNum: true
           },
           outflowPercent: {
             text:
-              "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflow",
+              "中国对外直接投资流量前20位国家（地区）占总额比重_Top 20 destinations' shares of China's FDI outflows",
             width: "35%",
             formatPer: true
           }
@@ -84,7 +84,7 @@ export default {
         },
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'',
             color: ["#71a6c2"],
             data: []
           }
@@ -125,7 +125,7 @@ export default {
     option: {
       handler() {
         this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资流量历年前20位国家/地区`;
-        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} Top 20 destinations of China's FDI outflows`;
+        this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} top 20 destinations of China's FDI outflows`;
       },
       deep: true
     }

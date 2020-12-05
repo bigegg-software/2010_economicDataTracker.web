@@ -1,5 +1,5 @@
 <template>
-  <!-- 外商直接投资主要行业---实际使用外资金额chart -->
+  <!-- 外商直接投资主要行业---实际使用外资金额按行业统计chart -->
   <div class="outflows-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
@@ -71,6 +71,10 @@ export default {
         title: {
           ch: "实际使用外资金额按行业统计",
           en: "Foreign investment by industry"
+        },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
@@ -148,11 +152,6 @@ export default {
           en: "Foreign investment by industry"
         },
         xData: [],
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",
@@ -322,7 +321,7 @@ export default {
             });
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["inflowsFDIMillion"],
               yearOnYear: data["inflowsYOYGrowth"],
               color: [this.randomColor[p]]

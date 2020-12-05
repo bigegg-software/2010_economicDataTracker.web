@@ -72,6 +72,10 @@ export default {
           ch: "开办企业数",
           en: "Number of enterprises set up"
         },
+        unit: {
+          ch: "家",
+          en: "Enterprise"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
@@ -84,7 +88,7 @@ export default {
           enterprisesNumber: {
             text: "企业数_Number of enterprises",
             width: "30%",
-            formatNum: true
+            formatInt: true
           },
           numberYOYGrowth: {
             text: "企业数同比_Number of enterprises y-o-y growth",
@@ -122,7 +126,7 @@ export default {
         watermark: false,
         dataSources: this.describeData,
         showAxisLabel: true,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "家", en: "Enterprise" },
         grid: {
           //图表上下左右的padding
           top: "40%",
@@ -145,11 +149,6 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "开办企业数", en: "Number of enterprises" },
         xData: [],
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           // {
           //   name: "中国对外全行业直接投资_xxx",
@@ -158,7 +157,7 @@ export default {
           //   yearOnYear: []
           // }
         ],
-        updatedDate: ""
+        updatedDate: "",
       },
       status: [
         {
@@ -319,7 +318,7 @@ export default {
             });
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["enterprisesNumber"],
               yearOnYear: data["numberYOYGrowth"],
               color: [this.randomColor[p]]

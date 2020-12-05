@@ -64,18 +64,20 @@ export default {
           },
           taxMillion: {
             text:
-              "外商投资企业税收额_Tax reveune of Foreign Investment Enterprises",
-            width: "40%",
+              "外商投资企业税收额_Tax revenue of foreign investment enterprises ",
+            width: "30%",
             formatNum: true
           },
           YOYGrowth: {
-            text: "增幅_Y-o-y growth",
-            width: "25%",
+            text:
+              "外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises",
+            width: "30%",
             formatPer: true
           },
           percentInCountry: {
-            text: "全国占比_Share of national tax revenue",
-            width: "25%",
+            text:
+              "外商投资企业税收占全国税收比重_Share of national tax revenue",
+            width: "30%",
             formatPer: true
           }
         },
@@ -98,11 +100,6 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
             name:
@@ -290,23 +287,18 @@ export default {
         }
       }
       if (index == 0) {
-        this.USD.spliceCon = {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        };
+        this.USD.series[0].name =
+          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises";
         this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
       }
       if (index == 1) {
-        (this.USD.spliceCon = {
-          // toolTip里面插入占比和占比英文
-          ch: "占比",
-          en: "xxxxx"
-        }),
-          (this.USD.series[0]["yearOnYear"] = this.percentData);
+        this.USD.series[0].name =
+          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收占全国税收比重_Share of national tax revenue";
+        this.USD.series[0]["yearOnYear"] = this.percentData;
+
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);

@@ -87,14 +87,9 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "完成营业额_Total value of new contract y-o-y growth ",
+            name: "完成营业额折合(RMB)_Unit|完成营业额折合同比_Type ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -117,20 +112,15 @@ export default {
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "year on year"
-        },
         series: [
           {
-            name: "完成营业额_Total value of new contract y-o-y growth ",
+            name: "完成营业额(USD)_Revenue of completed contract|完成营业额同比_Y-o-y growth of completed contract revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: ""  
       },
       status: [
         {

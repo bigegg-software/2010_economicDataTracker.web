@@ -68,8 +68,8 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "万人", en: "10,000 persons" },
         title: {
-          text: "年度派出各类劳务人员前10位目的地国家",
-          subtext: "Top 10 destinations of workers sent overseas"
+          text: "",
+          subtext: ""
         },
         xData: [],
         grid: {
@@ -80,7 +80,7 @@ export default {
         },
         series: [
           {
-            // name:'存量_xxxxx',
+            name:'',
             color: ["#71a6c2"],
             data: []
           }
@@ -121,8 +121,8 @@ export default {
     },
     option: {
       handler() {
-        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年年度派出各类劳务人员前10位目的地国家`;
-        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} Top 10 destinations of workers sent overseas`;
+        this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年年度派出各类劳务人员前10位目的地国家/地区`;
+        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} top 10 destinations of workers sent overseas`;
       },
       deep: true
     }

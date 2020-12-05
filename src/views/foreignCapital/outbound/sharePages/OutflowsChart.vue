@@ -109,20 +109,15 @@ export default {
           bottom: "11%",
           enGapch: this.$fz(0.2) //数据来源中英文间距
         },
-        spliceCon: {
-          // toolTip里面插入同比和同比英文
-          ch: "同比",
-          en: "Y-o-y"
-        },
         series: [
           {
-            name: "中国对外全行业直接投资_All-sector FDI outflows",
+            name: "中国对外全行业直接投资_All-sector FDI outflows|中国对外全行业直接投资同比_Y-o-y all-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_Non-financial FDI outflows",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows|中国对外非金融类直接投资同比_Y-o-y non-financial FDI outflows",
             color: "#d43838",
             data: [],
             yearOnYear: []
@@ -350,7 +345,7 @@ export default {
             formatNum: true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_Xxxxxxxx",
+            text: "中国对外直接投资流量同比_Y-o-y China's FDI outflows",
             width: "35%",
             formatPer: true
           },

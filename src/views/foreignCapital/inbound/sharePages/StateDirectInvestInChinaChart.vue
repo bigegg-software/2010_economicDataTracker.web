@@ -1,5 +1,5 @@
 <template>
-  <!-- 主要对话投资国家和地区统计-年度部分国家/地区对华直接投资chart -->
+  <!-- 主要对华投资国家和地区统计-年度部分国家/地区对华直接投资chart -->
   <div class="state-DirectInvest-InChinaChart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
@@ -64,26 +64,30 @@ export default {
           ch: "部分国家/地区对华直接投资",
           en: "China's FDI inflows by major country/region"
         },
+        unit: {
+          ch: "百万美元",
+          en: "USD min"
+        },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "10%"
           },
           continent: {
-            text: "区域_xxxxxx",
+            text: "区域_Area",
             width: "20%"
           },
           country: {
             text: "国家/地区_Country/Region",
-            width: "20%"
+            width: "15%"
           },
           enterpriseNumber: {
             text: "企业数_Number of enterprises",
             width: "10%",
-            formatNum:true
+            formatInt:true
           },
           enterprisePercent: {
-            text: "比重_Share of foreign investment enterprises",
+            text: "占外资企业数比重_Share of foreign investment enterprises",
             width: "15%",
             formatPer:true
           },
@@ -93,8 +97,8 @@ export default {
             formatNum:true
           },
           inflowsPercent: {
-            text: "比重_Share of total FDI inflows to China",
-            width: "10%",
+            text: "占实际投入外资金额_Share of total FDI inflows to China",
+            width: "15%",
             formatPer:true
           }
         },
@@ -136,10 +140,6 @@ export default {
           right: "9%",
           bottom:"11%",
           enGapch:this.$fz(0.2),//数据来源中英文间距
-        },
-        spliceCon:{// toolTip里面插入同比和同比英文
-          ch:'企业数',
-          en:'Number of enterprises'
         },
         series: [],
         updatedDate: ""
@@ -296,7 +296,7 @@ export default {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         console.log(data["enterpriseNumber"]);
         this.$set(this.USD.series, i, {
-          name: `${this.result[i].ch}_${this.result[i].en}`,
+          name: `${this.result[i].ch}_${this.result[i].en}|企业数_Number of enterprises`,
           data: data["FDIInflowsMillion"],
           yearOnYear: data["enterpriseNumber"],
           color: this.randomColor[i]

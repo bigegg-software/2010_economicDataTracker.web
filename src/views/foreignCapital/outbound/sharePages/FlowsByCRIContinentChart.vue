@@ -164,16 +164,16 @@ export default {
     option: {
       handler() {
         this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
-        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资流量按国家/地区统计`;
+        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI outflows by country/region within ${this.selectOption.value.en}`;
       },
       deep: true
     },
     selectOption: {
       handler() {
         this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
-        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年${this.selectOption.value.ch}内国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} By country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资流量按国家/地区统计`;
+        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI outflows by country/region within ${this.selectOption.value.en}`;
       },
       deep: true
     }
@@ -187,6 +187,7 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   async created() {
+    this.getContinent();
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
     await this.getChartsData({
@@ -196,7 +197,6 @@ export default {
       }
     });
     this.option.value = Number(arrmaxmin[1]);
-    this.getContinent();
   },
   methods: {
     //获取大洲

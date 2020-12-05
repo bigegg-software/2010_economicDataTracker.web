@@ -39,19 +39,19 @@ export default {
             width: "20%"
           },
           projectEn: {
-            text: "项目名称翻译_Project name translation",
+            text: "项目名称（英文）_Project (English)",
             width: "35%"
           },
           project: {
-            text: "项目名称_Project",
+            text: "项目名称（中文）_Project (Chinese)",
             width: "35%"
           },
           contractingEnterpriseEn: {
-            text: "签约企业名称翻译_Contracting enterprise name translation",
+            text: "签约企业（英文）_Contracting enterprise (English)",
             width: "35%"
           },
           contractingEnterprise: {
-            text: "签约企业_Contracting enterprise",
+            text: "签约企业（中文）_Contracting enterprise(Chinese)",
             width: "35%"
           }
         },

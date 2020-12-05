@@ -90,14 +90,9 @@ export default {
         },
         xData: [],
         hideLegend: true,
-        spliceCon: {
-          // toolTip里面插入占比和占比英文
-          ch: "占比",
-          en: "Share of total number of oreign enterprises"
-        },
         series: [
           {
-            name: "实际投入外资金额_xxx",
+            name: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China|占总外资金额比重_Share of total FDI inflows to China",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -108,8 +103,8 @@ export default {
       status: [
         {
           checked: false,
-          ch: "占外资企业比重",
-          en: "Share of total number of oreign enterprises"
+          ch: "占总外资金额比重",
+          en: "Share of total FDI inflows to China"
         }
       ],
       options: {
