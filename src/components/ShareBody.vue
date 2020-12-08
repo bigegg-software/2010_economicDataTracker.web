@@ -1,5 +1,10 @@
 <template>
-  <component :is="tabComponent" :isShowTable="isShowTable" :isFullScreen="isFullScreen" :describeData="describeData"></component>
+  <component
+    :is="tabComponent"
+    :isShowTable="isShowTable"
+    :isFullScreen="isFullScreen"
+    :describeData="describeData"
+  ></component>
 </template>
 
 <script>
@@ -55,6 +60,9 @@ import inflowsToChinaBRIChart from "@/views/foreignCapital/inbound/sharePages/In
 // 双向直接投资模块
 // 双向直接投资
 import outflowsVsInflowsChart from "@/views/foreignCapital/twoWayInvestment/sharePages/OutflowsVsInflowsChart";
+// ------------------------外贸模块-------------------------
+//中国货物进出口总值
+import goodsTotalXX from "@/views/foreignTrade/goodsTrade/sharePages/goodsTotalXX";
 
 export default {
   props: {
@@ -63,8 +71,8 @@ export default {
       required: true
     },
     isShowTable: {},
-    isFullScreen:{},
-    describeData:{}
+    isFullScreen: {},
+    describeData: {}
   },
   data() {
     return {};
@@ -121,7 +129,11 @@ export default {
 
     // 双向直接投资模块
     //双向直接投资
-    outflowsVsInflowsChart //双向直接投资
+    outflowsVsInflowsChart, //双向直接投资
+    // ----------------外贸模块----------------
+    // 货物贸易
+    //中国货物进出口总值
+    goodsTotalXX //中国货物进出口总值
   }
 };
 </script>

@@ -64,11 +64,11 @@ export default {
   width: 82%;
   .label-row {
     width: 100%;
-    height: 24px;
-    line-height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    // height: 24px;
+    // line-height: 24px;
+    // overflow: hidden;//文字超出...
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
     font-size: 0.09375rem;
   }
   & :last-child {

@@ -124,6 +124,7 @@ export default {
       isShowLineChart: false,
       chartBar: {
         watermark: false,
+        dataInt:true,//图表展示企业数为整数        
         dataSources: this.describeData,
         showAxisLabel: true,
         yName: { ch: "家", en: "Enterprise" },
@@ -132,7 +133,7 @@ export default {
           top: "40%",
           left: "4%",
           bottom: "8%",
-          enGapch: this.$fz(0.2)//数据来源中英文间距
+          enGapch: this.$fz(0.2) //数据来源中英文间距
         },
         title: {
           text: "开办企业数",
@@ -144,8 +145,9 @@ export default {
       },
       USD: {
         id: "USD",
+        dataInt:true,//点击功能区企业数为整数        
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "家", en: "Enterprise" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: { ch: "开办企业数", en: "Number of enterprises" },
         xData: [],
@@ -157,7 +159,7 @@ export default {
           //   yearOnYear: []
           // }
         ],
-        updatedDate: "",
+        updatedDate: ""
       },
       status: [
         {
@@ -318,7 +320,9 @@ export default {
             });
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${
+                res[i][0].industry
+              }同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["enterprisesNumber"],
               yearOnYear: data["numberYOYGrowth"],
               color: [this.randomColor[p]]

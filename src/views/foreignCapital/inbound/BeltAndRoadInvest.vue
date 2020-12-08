@@ -122,7 +122,6 @@ export default {
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
-      // this.tabComponent = name+"Describe";
     },
 
     initActionsList() {

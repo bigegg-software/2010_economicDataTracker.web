@@ -81,7 +81,7 @@ export default {
       },
       showTimeFrame: false,
       chartBar: {
-        
+        yearInt:true,//点击功能区企业数为整数        
         watermark: false,
         Yearonshow:true,//是否有左柱状图右折线图的展示
         unit2Symbol: "",

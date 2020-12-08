@@ -141,18 +141,13 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      // if (it.seriesName.search("企业数") == 0) {
-      //   return (
-      //     it.value &&
-      //     it.value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
-      //   );
-      // }
-      // {
-      //   let value = it.value.toFixed(1);
-      //   return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      // }
       let value = it.value.toFixed(1);
       return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    },
+    //企业数 转换成整数
+    formatInt(it) {
+      let value = it.value;
+        return value && value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
     },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
@@ -379,7 +374,6 @@ export default {
                 j++
               ) {
                 let it = params[j * rowCount + i];
-                console.log(it);
                 if (
                   this.options.yearOnYear == false ||
                   this.options.yearOnYear == undefined ||
@@ -396,7 +390,7 @@ export default {
                     }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value ? this.formatNum(it) : "-"
+                    !!it.value ? (this.options.dataInt?this.formatInt(it):this.formatNum(it)) : "-"
                   }</div>`;
                 } else {
                   if (it.seriesName.split("|")[0].split("_")[1]) {
@@ -411,7 +405,7 @@ export default {
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                     !!it.value
-                      ? this.formatNum(it) +
+                      ? (this.options.yearInt?this.formatInt(it):this.formatNum(it)) +
                         (this.options.y2Name ? "" : "%")
                       : "-"
                   }</div>`;
@@ -538,7 +532,7 @@ export default {
               this.options.y2Name ? `{divch|${this.options.y2Name.ch}}` : ""
             ].join("\n"),
             nameTextStyle: {
-              align: "left",
+               align: "left",
               padding: [0, 0, 0, -that.$refs.lineChart.offsetWidth * 0.03],
               color: "#666",
               rich: {

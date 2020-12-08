@@ -81,6 +81,7 @@ export default {
       showTimeFrame: false,
       USD: {
         id: "USD",
+        dataInt:true,//图表展示企业数为整数        
         dataSources: this.describeData,
         yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比

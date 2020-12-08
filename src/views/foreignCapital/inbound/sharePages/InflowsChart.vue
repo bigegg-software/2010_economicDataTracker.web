@@ -68,6 +68,7 @@ export default {
         id: "USD",
         dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD min" },
+        // y2Name:{ch: "----同比", en: "----Year-on-year"},
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "实际使用外资", en: "China's FDI inflows" },
         xData: [],

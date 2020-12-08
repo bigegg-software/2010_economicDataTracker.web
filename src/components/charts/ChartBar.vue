@@ -139,19 +139,16 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      // console.log(it)
-      // if (it.seriesName.search("企业数") == 0) {
-      //   return (
-      //     it.value &&
-      //     it.value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
-      //   );
-      // }
-      // {
-      //   let value = it.value.toFixed(1);
-      //   return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      // }
       let value = it.value.toFixed(1);
-        return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+      return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+    },
+    //企业数 转换成整数
+    formatInt(it) {
+      let value = it.value;
+      return (
+        value &&
+        value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
+      );
     },
     initChart() {
       //找出y轴数值最大最小值
@@ -414,7 +411,11 @@ export default {
                 }
                 c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
                   !!it.value
-                    ? this.formatNum(it) +
+                    ? (this.chartBarData.dataInt ||
+                      (this.chartBarData.yearInt &&
+                        it.seriesName.includes("企业数"))
+                        ? this.formatInt(it)
+                        : this.formatNum(it)) +
                       (it.seriesName.includes("占比") ||
                       it.seriesName.includes("同比")
                         ? "%"
@@ -460,9 +461,7 @@ export default {
               }
             },
             axisTick: {
-              alignWithLabel: true
-            },
-            axisTick: {
+              alignWithLabel: true,
               show: false
             }
           }

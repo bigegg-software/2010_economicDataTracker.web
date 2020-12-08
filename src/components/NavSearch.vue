@@ -30,6 +30,13 @@ export default {
       timer: null
     };
   },
+  mounted() {
+    document.addEventListener("click", () => {
+      if (!event.target.closest(".nav-search")) {
+        this.name=""
+      }
+    });
+  },
   watch: {
     name: {
       handler() {

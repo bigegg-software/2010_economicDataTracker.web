@@ -141,6 +141,7 @@ export default {
           bottom:"11%",
           enGapch:this.$fz(0.2),//数据来源中英文间距
         },
+        yearInt:true,//点击功能区企业数为整数
         series: [],
         updatedDate: ""
       },
@@ -294,7 +295,6 @@ export default {
       console.log(res);
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
-        console.log(data["enterpriseNumber"]);
         this.$set(this.USD.series, i, {
           name: `${this.result[i].ch}_${this.result[i].en}|企业数_Number of enterprises`,
           data: data["FDIInflowsMillion"],
