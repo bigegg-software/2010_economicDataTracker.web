@@ -106,18 +106,21 @@ export default {
       RMB: {
         id: "RMB",
         dataSources: this.describeData,
+        yearOnYear: false, //通过修改这个值来显示同比
         yName: { ch: "百万美元", en: "USD min" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         series: [
           {
-            name: "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
+            name:
+              "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
+            name:
+              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
             color: "#d43838",
             data: [],
             yearOnYear: []
@@ -138,12 +141,14 @@ export default {
         bottomDistance: this.$fz(0.15),
         series: [
           {
-            name: "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
+            name:
+              "实际使用外资_FDI inflows|实际使用外资同比_Y-o-y China's inward FDI",
             color: "#6AA3CD",
             data: []
           },
           {
-            name: "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
+            name:
+              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
             color: "#d43838",
             data: []
           }

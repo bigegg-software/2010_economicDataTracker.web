@@ -1,26 +1,24 @@
 <template>
-  <!-- 外商投资企业税收统计-外商投资企业税收统计chart -->
-  <div class="foreign-invest-taxChart">
+  <!--服务贸易分类统计chart -->
+  <div class="Inflowsto-chinaBRI-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
+        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD" :selectOption="selectOption.value"></lines-chart>
       </div>
     </div>
     <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
-      <div class="status" v-if="$store.getters.showOperate">
-        <check-box
-          v-for="(item, index) in status"
-          :key="index"
-          :option="item"
-          @change="changeSelect(index)"
-        ></check-box>
-      </div>
+      <SelectRadio
+        class="status"
+        :option="selectOption"
+        :value="selectOption.value"
+        @change="changeRadioSelect($event)"
+      ></SelectRadio>
     </div>
   </div>
 </template>
@@ -28,11 +26,11 @@
 <script>
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
-import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import LinesChart from "@/components/charts/Lines";
 import request from "@/request/inBound/inBound";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
+import SelectRadio from "@/components/select/SelectRadio";
 
 export default {
   props: {
@@ -41,43 +39,36 @@ export default {
   },
   components: {
     TimeFrame,
-    CheckBox,
     LinesChart,
-    TableChart
+    TableChart,
+    SelectRadio
   },
-  name: "foreignInvestTaxChart",
+  name: "inflowsToChinaBRIChart",
   data() {
     return {
       totalData: {
         title: {
-          ch: "外商投资企业税收统计",
-          en: "Tax statistics of foreign invested enterprises"
+          ch: "中国服务贸易分类统计",
+          en: "China's trade volume by service type"
         },
         unit: {
-          ch: "百万人民币",
-          en: "RMB min"
+          ch: "百万美元",
+          en: "USD min"
         },
         tableTitle: {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "20%"
           },
-          taxMillion: {
+          BRIAmountMillion: {
             text:
-              "外商投资企业税收额_Tax revenue of foreign investment enterprises ",
-            width: "30%",
+              "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
+            width: "40%",
             formatNum: true
           },
-          YOYGrowth: {
-            text:
-              "外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises",
-            width: "30%",
-            formatPer: true
-          },
-          percentInCountry: {
-            text:
-              "外商投资企业税收占全国税收比重_Share of national tax revenue",
-            width: "30%",
+          BRIAmountPercent: {
+            text: "占总外资金额比重_Share of total FDI inflows to China",
+            width: "40%",
             formatPer: true
           }
         },
@@ -86,44 +77,33 @@ export default {
       },
       timer: null,
       showTimeFrame: false,
-      yearOnYearData: 0,
-      percentData: 0,
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万人民币", en: "RMB min" },
+        yName: { ch: "百万美元", en: "USD min" },
         yearOnYear: false, //通过修改这个值来显示同比
-        percent: false, //通过修改这个值来显示同比
         title: {
-          ch: "外商投资企业税收统计",
-          en: "Tax revenue from foreign investment enterprises"
+          ch: "中国服务贸易分类统计",
+          en: "China's trade volume by service type"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name:
-              "外商投资企业税收统计_Tax revenue from foreign investment enterprises",
-            color: "#6AA3CD",
-            data: [],
-            yearOnYear: [],
-            percent: []
+            name: "进口_Import|进口同比_Y-o-y import",
+            color: "#c23531",
+            data: [420, 380, 480, 350, 290],
+            yearOnYear: [1, 2.8, 1, -1, -1.2]
+          },
+          {
+            name: "出口_Export|出口同比_Y-o-y export",
+            color: "#61a0a8",
+            data: [720, 380, 580, 960, 390],
+            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
           }
         ],
         updatedDate: ""
       },
-      status: [
-        {
-          checked: false,
-          ch: "同比",
-          en: "Year on year"
-        },
-        {
-          checked: false,
-          ch: "全国税收占比",
-          en: "Share of national tax revenue"
-        }
-      ],
       options: {
         yearly: {
           ch: "年度",
@@ -143,6 +123,27 @@ export default {
             }
           }
         }
+      },
+      selectOption: {
+        ch: "服务类别",
+        en: "Service type",
+        value: {
+          id: 1,
+          ch: "产品1",
+          en: "Xxxxxxx"
+        },
+        op: [
+          {
+            id: 1,
+            ch: "产品1",
+            en: "Xxxxxxxx"
+          },
+          {
+            id: 2,
+            ch: "产品2",
+            en: "Xxxxxxx"
+          }
+        ]
       }
     };
   },
@@ -175,7 +176,6 @@ export default {
       start: Number(arrmaxmin[0]),
       end: Number(arrmaxmin[1])
     });
-
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -196,7 +196,7 @@ export default {
     },
     async getMaxMinDate() {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignInvestment");
+      let res = await chartDataFun.getMaxMinDate("BRIInvestors");
       console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
@@ -227,26 +227,48 @@ export default {
     },
     // 获取当前页面的每条线数据
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //外商投资企业税收统计
+      //对华一带一路 投入实际金额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      this.USD.series[0]["data"] = data.taxMillion;
-      this.yearOnYearData = JSON.parse(JSON.stringify(data.YOYGrowth));
-      this.percentData = JSON.parse(JSON.stringify(data.percentInCountry));
-      this.USD.series[0]["yearOnYear"] = data.YOYGrowth;
+      this.USD.series[0]["data"] = data.BRIAmountMillion;
+      this.USD.series[0]["yearOnYear"] = data.BRIAmountPercent;
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getForeignInvestTaxChartsData(aug);
+      let { res } = await request.getNonFinancialToBRIChartsData(aug, 1);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["taxMillion", "YOYGrowth", "percentInCountry"];
+      let dataAttr = ["BRIAmountMillion", "BRIAmountPercent"];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+    },
+    //选择类型新签合同额还是完成营业额
+    async changeRadioSelect(item) {
+      this.selectOption.value = item;
+      let Yoy =
+        item.ch == "新签合同额"
+          ? "新签合同额同比_Y-o-y growth of new contract value"
+          : "完成营业额同比_Y-o-y growth of completed contract revenue";
+      await this.getChartsData({
+        type: item.id,
+        ascending: "rank",
+        limit: 10,
+        year: Number(this.option.value)
+      });
+      this.chartBar.title = {
+        text: this.selectOption.value.ch,
+        subtext: this.selectOption.value.en
+      };
+      this.chartBar.series[0].name =
+        this.selectOption.value.ch +
+        "_" +
+        this.selectOption.value.en +
+        "|" +
+        Yoy;
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -276,40 +298,13 @@ export default {
       ) {
         this.mainGetChartsData(activeKey);
       }
-    },
-    // 复选框
-    changeSelect(index) {
-      for (let i = 0; i < this.status.length; i++) {
-        if (i == index) {
-          this.status[index].checked = !this.status[index].checked;
-        } else {
-          this.status[i].checked = false;
-        }
-      }
-      if (index == 0) {
-        this.USD.series[0].name =
-          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises";
-        this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
-        this.status[index].checked
-          ? this.$set(this.USD, "yearOnYear", true)
-          : this.$set(this.USD, "yearOnYear", false);
-      }
-      if (index == 1) {
-        this.USD.series[0].name =
-          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收占全国税收比重_Share of national tax revenue";
-        this.USD.series[0]["yearOnYear"] = this.percentData;
-
-        this.status[index].checked
-          ? this.$set(this.USD, "yearOnYear", true)
-          : this.$set(this.USD, "yearOnYear", false);
-      }
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.foreign-invest-taxChart {
+.Inflowsto-chinaBRI-chart {
   display: flex;
   .echart-block {
     position: relative;

@@ -175,14 +175,14 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByCommodity",
         ch: "货物进出口总值按商品类别统计",
-        en: "Import and export by commodity",
+        en: "Import and export by commodity (HS section)",
         cloudFun: [],
-        splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity'],
+        splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity','HS','section'],
         active: false,
       },
       {
         name: "goodsByEnterpriseType",
-        ch: "货物进出口按企业性质统计",
+        ch: "货物进出口总值按企业性质统计",
         en: "Import and export by enterprise type",
         cloudFun: [],
         splitList: ['货', '物', '进', '出', '口', '按', '企', '业', '性', '质', '统', '计', 'Import', 'and', 'export', 'by', 'enterprise', 'type'],
@@ -196,7 +196,7 @@ let foreignTradeMenuLists = [  //外贸模块
         active: false,
       }, {
         name: "foreignInvestedEnterprises",
-        ch: "外商投资企业进出口总值",
+        ch: "外商投资企业进出口总值",   
         en: "Trade volume of foreign-invested enterprises",
         cloudFun: [],
         splitList: ["外", "商", "投", "资", "企", "业", "进", "出", "口", "总", "值", "Trade", "volume", "of", "foreign-invested", "enterprises"],
@@ -212,7 +212,7 @@ let foreignTradeMenuLists = [  //外贸模块
     children: [
       {
         name: "servicesTotal",
-        ch: "中国服务贸易进出口总值",
+        ch: "中国服务贸易进出口总值", 
         en: "Total trade volume of services",
         cloudFun: [],
         splitList: ["中", "国", "服", "务", "贸", "易", "进", "出", "口", "总", "值", "Total", "trade", "volume", "of", "services"],
@@ -220,7 +220,7 @@ let foreignTradeMenuLists = [  //外贸模块
       },
       {
         name: "serviceType",
-        ch: "服务贸易分类统计",
+        ch: "服务贸易分类统计",   
         en: "Trade volume by service type",
         cloudFun: [],
         splitList: ["服", "务", "贸", "易", "分", "类", "统", "计", "Trade", "volume", "by", "service", "type"],

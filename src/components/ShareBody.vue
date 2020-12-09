@@ -62,7 +62,23 @@ import inflowsToChinaBRIChart from "@/views/foreignCapital/inbound/sharePages/In
 import outflowsVsInflowsChart from "@/views/foreignCapital/twoWayInvestment/sharePages/OutflowsVsInflowsChart";
 // ------------------------外贸模块-------------------------
 //中国货物进出口总值
-import goodsTotalXX from "@/views/foreignTrade/goodsTrade/sharePages/goodsTotalXX";
+import goodsTotal from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTotal";
+//中国货物进出口贸易差额
+import goodsTradeBalance from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTradeBalance";
+//货物出口总值(国家/地区)
+import tradeByOrigin from "@/views/foreignTrade/goodsTrade/sharePages/TradeByOrigin";
+//货物出口总值(商品类别)
+import tradeByCommodity from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCommodity";
+//货物出口总值(企业性质)
+import tradeByEnterpriseType from "@/views/foreignTrade/goodsTrade/sharePages/TradeByEnterpriseType";
+//货物出口总值(贸易方式)
+import tradeByCustomRegime from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCustomRegime";
+//外商投资企业进出口总值
+import foreignInvestedEnterprises from "@/views/foreignTrade/goodsTrade/sharePages/ForeignInvestedEnterprises";
+// 中国服务贸易进出口总值
+import totalTradeInServices from "@/views/foreignTrade/servicesTrade/sharePages/TotalTradeInServices";
+// 服务贸易分类统计
+import volumeByServiceType from "@/views/foreignTrade/servicesTrade/sharePages/VolumeByServiceType";
 
 export default {
   props: {
@@ -133,7 +149,16 @@ export default {
     // ----------------外贸模块----------------
     // 货物贸易
     //中国货物进出口总值
-    goodsTotalXX //中国货物进出口总值
+    goodsTotal, //中国货物进出口总值
+    goodsTradeBalance, //中国货物进出口贸易差额
+    tradeByOrigin, //货物出口总值按国家和地区统计
+    tradeByCommodity, //货物出口总值(商品类别)
+    tradeByEnterpriseType, //货物出口总值(企业性质)
+    tradeByCustomRegime, //货物出口总值(贸易方式)
+    foreignInvestedEnterprises, //外商投资企业进出口总值
+    //服务贸易
+    totalTradeInServices, // 中国服务贸易进出口总值
+    volumeByServiceType // 服务贸易分类统计
   }
 };
 </script>

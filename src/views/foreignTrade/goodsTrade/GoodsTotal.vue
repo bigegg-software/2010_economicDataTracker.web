@@ -4,11 +4,11 @@
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
     <share-body  :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
-    <!-- <actions-component
+    <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
-    ></actions-component> -->
+    ></actions-component>
     <!-- <Describe :describeData="describeList[tabComponent]"></Describe> -->
   </div>
 </template>
@@ -18,27 +18,27 @@
 // import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
-// import ActionsComponent from "@/components/ActionsComponent";
+import ActionsComponent from "@/components/ActionsComponent";
 export default {
   name: "overseasProjects",
   components: {
     TabComponent,
     ShareBody,
-    // ActionsComponent,
+    ActionsComponent,
     // Describe
   },
   data() {
     return {
       // describeList,
-      tabComponent: "goodsTotalXX",
+      tabComponent: "goodsTotal",
       tabList: [
         {
-          name: "goodsTotalXX",
+          name: "goodsTotal",
           chinese: "中国货物进出口总值",
-          english: "xxx"
+          english: "Total trade volume of goods"
         },
         {
-          name: "goodsTotalxxaa",
+          name: "goodsTradeBalance",
           chinese: "中国货物进出口贸易差额",
           english: "xxx"
         }

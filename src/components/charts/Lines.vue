@@ -17,7 +17,8 @@ export default {
     };
   },
   props: {
-    options: {}
+    options: {},
+    selectOption:{}//展示功能区选择的选项（外贸）
   },
   async mounted() {
     this.chartDataSourcesEn =
@@ -365,7 +366,12 @@ export default {
             let c = "";
             dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += "<table>";
-            dom += `<div style="padding:0.052rem  0 0.125rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+             if(this.selectOption){//判断功能区是否有筛选
+            dom += `<div style="padding:0.052rem  0 0; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+              dom += `<div style="color:#1D3F6C;font-weight: bold;"><p style="font-size:0.104167rem;font-family: Calibri;">${this.selectOption.en}</p><p style="font-size:0.083333rem;margin-top:-0.1rem;font-family: SimHei;">${this.selectOption.ch}</p></div>`;
+            }else{
+            dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            }
             for (let i = 0; i < rowCount; i++) {
               dom += `<tr>`;
               for (
@@ -418,16 +424,6 @@ export default {
             dom += `</div>`;
             return dom;
           },
-
-          // c = `<div style="padding:0.03rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-          //   !!params[i].value
-          //     ? this.formatNum(params[i].value) +
-          //       (params[i].seriesName.includes("占比") ||
-          //       params[i].seriesName.includes("同比")
-          //         ? "%"
-          //         : "")
-          //     : "-"
-          // }</div>`;
 
           axisPointer: {
             label: { show: false }
