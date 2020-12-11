@@ -44,7 +44,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -87,7 +87,7 @@ export default {
         unit2Symbol: "",
         yearOnYear: false, //通过修改这个值来显示同比
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         y2Name: { ch: "家", en: "Enterprise" },
         title: {
           text: "",
@@ -154,7 +154,7 @@ export default {
     },
     option:{
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位国家/地区`;
+          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位对华投资国家/地区`;
           this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} top 15 investors`;
       },
       deep:true

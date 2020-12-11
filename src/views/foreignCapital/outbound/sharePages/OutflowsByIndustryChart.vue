@@ -74,7 +74,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -126,7 +126,7 @@ export default {
         watermark: false,
         dataSources: this.describeData,
         showAxisLabel: true,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         grid: {
           //图表上下左右的padding
           top: "40%",
@@ -145,7 +145,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国对外直接投资流量行业分布情况",

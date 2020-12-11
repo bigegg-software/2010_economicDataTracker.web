@@ -171,7 +171,7 @@ export default {
       result: [],
       checkBox: {
         ch: "行业",
-        en: "industry",
+        en: "Industry",
         op: []
       },
       options: {

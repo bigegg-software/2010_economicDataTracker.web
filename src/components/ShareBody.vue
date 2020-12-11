@@ -79,6 +79,33 @@ import foreignInvestedEnterprises from "@/views/foreignTrade/goodsTrade/sharePag
 import totalTradeInServices from "@/views/foreignTrade/servicesTrade/sharePages/TotalTradeInServices";
 // 服务贸易分类统计
 import volumeByServiceType from "@/views/foreignTrade/servicesTrade/sharePages/VolumeByServiceType";
+// ------------------------宏观经济指标模块-------------------------
+//国内生产总值
+import grossDomesticProduct from "@/views/economicIndicators/sharePages/GrossDomesticProduct";
+//消费者价格指数
+import consumerPriceIndex from "@/views/economicIndicators/sharePages/ConsumerPriceIndex";
+//采购经理人指数
+import purchasingManagersIndex from "@/views/economicIndicators/sharePages/PurchasingManagersIndex";
+//登记失业率
+import unemployRegister from "@/views/economicIndicators/sharePages/UnemployRegister";
+//调查失业率
+import unemployExamine from "@/views/economicIndicators/sharePages/UnemployExamine";
+//工业生产者出厂价格指数
+import producerPriceIndex from "@/views/economicIndicators/sharePages/ProducerPriceIndex";
+//工业增加值
+import industryAddValue from "@/views/economicIndicators/sharePages/IndustryAddValue";
+//工业企业利润
+import industrialProfits from "@/views/economicIndicators/sharePages/IndustrialProfits";
+//社会消费品零售总额
+import salesConsumerGoods from "@/views/economicIndicators/sharePages/SalesConsumerGoods";
+//固定资产投资（不含农户）
+import investmentFixedAssets from "@/views/economicIndicators/sharePages/InvestmentFixedAssets";
+//国家财政收支
+import nationalFinance from "@/views/economicIndicators/sharePages/NationalFinance";
+//货币供应量 (M2)
+import moneySupply from "@/views/economicIndicators/sharePages/MoneySupply";
+//国家外汇储备
+import foreignCurrencyReserves from "@/views/economicIndicators/sharePages/ForeignCurrencyReserves";
 
 export default {
   props: {
@@ -158,7 +185,35 @@ export default {
     foreignInvestedEnterprises, //外商投资企业进出口总值
     //服务贸易
     totalTradeInServices, // 中国服务贸易进出口总值
-    volumeByServiceType // 服务贸易分类统计
+    volumeByServiceType, // 服务贸易分类统计
+
+    // ------------------------宏观经济指标模块-------------------------
+    //国内生产总值
+    grossDomesticProduct,
+    //消费者价格指数
+    consumerPriceIndex,
+    //采购经理人指数
+    purchasingManagersIndex,
+    //登记失业率
+    unemployRegister,
+    //调查失业率
+    unemployExamine,
+    //工业生产者出厂价格指数
+    producerPriceIndex,
+    //工业增加值
+    industryAddValue,
+    //工业企业利润
+    industrialProfits,
+    //社会消费品零售总额
+    salesConsumerGoods,
+    //固定资产投资（不含农户）
+    investmentFixedAssets,
+    //国家财政收支
+    nationalFinance,
+    //货币供应量 (M2)
+    moneySupply,
+    //国家外汇储备
+    foreignCurrencyReserves
   }
 };
 </script>

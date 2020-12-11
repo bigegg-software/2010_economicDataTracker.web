@@ -156,9 +156,8 @@ export default {
     sharetoFacebook() {
       window.open(
         "http://www.facebook.com/sharer/sharer.php?u=" +
-          encodeURIComponent(window.location.href) +
-          "&t=" +
-          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
+          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch) +
+          encodeURIComponent(window.location.href),
         "sharer",
         "toolbar=0,status=0,width=626,height=436"
       );

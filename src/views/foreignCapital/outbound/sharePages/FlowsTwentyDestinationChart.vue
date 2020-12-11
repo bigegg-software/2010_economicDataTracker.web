@@ -34,7 +34,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -70,7 +70,7 @@ export default {
       chartBar: {
         watermark: false,
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         title: {
           text: "",
           subtext: ""
@@ -124,7 +124,7 @@ export default {
     },
     option: {
       handler() {
-        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资流量历年前20位国家/地区`;
+        this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资流量前20位国家/地区`;
         this.chartBar.title.subtext = this.tableTotalData.title.en = `${this.option.value} top 20 destinations of China's FDI outflows`;
       },
       deep: true

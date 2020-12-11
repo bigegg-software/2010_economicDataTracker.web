@@ -177,7 +177,7 @@ let foreignTradeMenuLists = [  //外贸模块
         ch: "货物进出口总值按商品类别统计",
         en: "Import and export by commodity (HS section)",
         cloudFun: [],
-        splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity','HS','section'],
+        splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity', 'HS', 'section'],
         active: false,
       },
       {
@@ -196,7 +196,7 @@ let foreignTradeMenuLists = [  //外贸模块
         active: false,
       }, {
         name: "foreignInvestedEnterprises",
-        ch: "外商投资企业进出口总值",   
+        ch: "外商投资企业进出口总值",
         en: "Trade volume of foreign-invested enterprises",
         cloudFun: [],
         splitList: ["外", "商", "投", "资", "企", "业", "进", "出", "口", "总", "值", "Trade", "volume", "of", "foreign-invested", "enterprises"],
@@ -212,7 +212,7 @@ let foreignTradeMenuLists = [  //外贸模块
     children: [
       {
         name: "servicesTotal",
-        ch: "中国服务贸易进出口总值", 
+        ch: "中国服务贸易进出口总值",
         en: "Total trade volume of services",
         cloudFun: [],
         splitList: ["中", "国", "服", "务", "贸", "易", "进", "出", "口", "总", "值", "Total", "trade", "volume", "of", "services"],
@@ -220,7 +220,7 @@ let foreignTradeMenuLists = [  //外贸模块
       },
       {
         name: "serviceType",
-        ch: "服务贸易分类统计",   
+        ch: "服务贸易分类统计",
         en: "Trade volume by service type",
         cloudFun: [],
         splitList: ["服", "务", "贸", "易", "分", "类", "统", "计", "Trade", "volume", "by", "service", "type"],
@@ -229,21 +229,113 @@ let foreignTradeMenuLists = [  //外贸模块
     ]
   }
 ];
+let economicIndicatorsMenuLists = [  //宏观经济指标模块
+  {
+    name: "grossDomesticProduct",
+    ch: "国内生产总值",
+    en: "Gross Domestic Product (GDP)",
+    cloudFun: [],//所需的数据库表名
+    splitList: ["国", "内", "生", "产", "总", "值", "Gross", "Domestic", "Product", "GDP"],
+    active: false,
+  },
+  {
+    name: "consumerPriceIndex",
+    ch: "消费者价格指数",
+    en: "Consumer Price Index (CPI)",
+    cloudFun: [],
+    splitList: ["消", "费", "者", "价", "格", "指", "数", "Consumer", "Price", "Index", "CPI"],
+    active: false,
+  },
+  {
+    name: "purchasingManagersIndex",
+    ch: "采购经理人指数",
+    en: "Purchasing Managers’ Index (PMI)",
+    cloudFun: [],
+    splitList: ["采", "购", "经", "理", "人", "指", "数", "Purchasing", "Managers’", "Index", "PMI"],
+    active: false,
+  },
+  {
+    name: "unemployment",
+    ch: "失业率",
+    en: "Unemployment",
+    cloudFun: [],
+    splitList: ["失", "业", "率", "Unemployment"],
+    active: false,
+  }, {
+    name: "producerPriceIndex",
+    ch: "工业生产者出厂价格指数",
+    en: "Producer Price Index (PPI)",
+    cloudFun: [],
+    splitList: ["工", "业", "生", "产", "者", "出", "厂", "价", "格", "指", "数", "Producer", "Price", "Index", "PPI"],
+    active: false,
+  }, {
+    name: "industryAddValue",
+    ch: "工业增加值",
+    en: "Growth of industry value-added",
+    cloudFun: [],
+    splitList: ["工", "业", "增", "加", "值", "Growth", "of", "industry", "value-added"],
+    active: false,
+  }, {
+    name: "industrialProfits",
+    ch: "工业企业利润",
+    en: "Industrial profits",
+    cloudFun: [],
+    splitList: ["工", "业", "企", "业", "利", "润", "Industrial", "profits"],
+    active: false,
+  }, {
+    name: "salesConsumerGoods",
+    ch: "社会消费品零售总额",
+    en: "Total retail sales of consumer goods",
+    cloudFun: [],
+    splitList: ["社", "会", "消", "费", "品", "零", "售", "总", "额", "Total", "retail", "sales", "of", "consumer", "goods"],
+    active: false,
+  }, {
+    name: "investmentFixedAssets",
+    ch: "固定资产投资（不含农户）",
+    en: "Investment in fixed assets (Excluding rural households)",
+    cloudFun: [],
+    splitList: ["固", "定", "资", "产", "投", "资", "不", "含", "农", "户", "Investment", "in", "fixed", "assets", "Excluding", "rural", "households"],
+    active: false,
+  }, {
+    name: "nationalFinance",
+    ch: "国家财政收支",
+    en: "National revenue and expenditure",
+    cloudFun: [],
+    splitList: ["国", "家", "财", "政", "收", "支", "National", "revenue", "and", "expenditure"],
+    active: false,
+  }, {
+    name: "moneySupply",
+    ch: "货币供应量 (M2)",
+    en: "Money supply (M2)",
+    cloudFun: [],
+    splitList: ["货", "币", "供", "应", "量", "M2", "Money", "supply", "(M2)"],
+    active: false,
+  }, {
+    name: "foreignCurrencyReserves",
+    ch: "国家外汇储备",
+    en: "Foreign currency reserves",
+    cloudFun: [],
+    splitList: ["国", "家", "外", "汇", "储", "备", "Foreign", "currency", "reserves"],
+    active: false,
+  }
+];
 let getsearchMenuLists = function () {
   let menu2Nav = [];
   let allMenu1Nav = [];
   let MenuLists = JSON.parse(JSON.stringify(foreignCapitalMenuLists));
   let MenuListsTrade = JSON.parse(JSON.stringify(foreignTradeMenuLists));
+  let MenuListSeconomic = JSON.parse(JSON.stringify(economicIndicatorsMenuLists));
   allMenu1Nav = [...MenuLists, ...MenuListsTrade];
   allMenu1Nav.map(async (item) => {
     if (item.children) {
       menu2Nav = [...menu2Nav, ...item.children]
     }
   });
+  menu2Nav = [...menu2Nav, ...MenuListSeconomic];
   return menu2Nav;
 }
 let searchMenuLists = getsearchMenuLists();
 console.log(searchMenuLists)
 
 
-export { foreignCapitalMenuLists, foreignTradeMenuLists, searchMenuLists };
+export { foreignCapitalMenuLists, foreignTradeMenuLists, searchMenuLists, economicIndicatorsMenuLists };

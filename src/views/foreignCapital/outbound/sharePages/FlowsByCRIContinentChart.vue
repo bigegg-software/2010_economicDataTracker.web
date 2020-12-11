@@ -52,7 +52,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -85,7 +85,7 @@ export default {
         },
         yName: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         grid: {
           bottom: "16%",

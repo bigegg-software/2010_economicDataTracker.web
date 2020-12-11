@@ -44,7 +44,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -92,7 +92,7 @@ export default {
         },
         yName: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         seriesData: {
           all: "全部国家/地区 All country/region",

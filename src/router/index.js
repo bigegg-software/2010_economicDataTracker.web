@@ -268,7 +268,109 @@ const routes = [{
   {
     path: 'economicIndicators',
     name: 'economicIndicators',
+    redirect: {
+      name: 'grossDomesticProduct'//////
+    },
+    meta: {
+      title: '宏观经济指标'
+    },
     component: () => import('@/views/economicIndicators/EconomicIndicators.vue'),
+    children: [
+      {
+        path: 'grossDomesticProduct',
+        name: 'grossDomesticProduct',
+        meta: {
+          title: '国内生产总值'
+        },
+        component: () => import('@/views/economicIndicators/GrossDomesticProduct')
+      },
+      {
+        path: 'consumerPriceIndex',
+        name: 'consumerPriceIndex',
+        meta: {
+          title: '消费者价格指数'
+        },
+        component: () => import('@/views/economicIndicators/ConsumerPriceIndex')
+      },
+      {
+        path: 'purchasingManagersIndex',
+        name: 'purchasingManagersIndex',
+        meta: {
+          title: '采购经理人指数'
+        },
+        component: () => import('@/views/economicIndicators/PurchasingManagersIndex')
+      },
+      {
+        path: 'unemployment',
+        name: 'unemployment',
+        meta: {
+          title: '失业率'
+        },
+        component: () => import('@/views/economicIndicators/Unemployment')
+      },
+      {
+        path: 'producerPriceIndex',
+        name: 'producerPriceIndex',
+        meta: {
+          title: '工业生产者出厂价格指数'
+        },
+        component: () => import('@/views/economicIndicators/ProducerPriceIndex')
+      },
+      {
+        path: 'industryAddValue',
+        name: 'industryAddValue',
+        meta: {
+          title: '工业增加值'
+        },
+        component: () => import('@/views/economicIndicators/IndustryAddValue')
+      },
+      {
+        path: 'industrialProfits',
+        name: 'industrialProfits',
+        meta: {
+          title: '工业企业利润'
+        },
+        component: () => import('@/views/economicIndicators/IndustrialProfits')
+      },
+      {
+        path: 'salesConsumerGoods',
+        name: 'salesConsumerGoods',
+        meta: {
+          title: '社会消费品零售总额'
+        },
+        component: () => import('@/views/economicIndicators/SalesConsumerGoods')
+      },
+      {
+        path: 'investmentFixedAssets',
+        name: 'investmentFixedAssets',
+        meta: {
+          title: '固定资产投资（不含农户）'
+        },
+        component: () => import('@/views/economicIndicators/InvestmentFixedAssets')
+      },
+      {
+        path: 'nationalFinance',
+        name: 'nationalFinance',
+        meta: {
+          title: '国家财政收支'
+        },
+        component: () => import('@/views/economicIndicators/NationalFinance')
+      }, {
+        path: 'moneySupply',
+        name: 'moneySupply',
+        meta: {
+          title: '货币供应量 (M2)'
+        },
+        component: () => import('@/views/economicIndicators/MoneySupply')
+      }, {
+        path: 'foreignCurrencyReserves',
+        name: 'foreignCurrencyReserves',
+        meta: {
+          title: '国家外汇储备'
+        },
+        component: () => import('@/views/economicIndicators/ForeignCurrencyReserves')
+      },
+    ]
   },
 
   ]

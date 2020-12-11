@@ -105,7 +105,7 @@ export default {
         {
           checked: false,
           ch: "占外资企业比重",
-          en: "Share of total number of oreign enterprises"
+          en: "Share of total number of foreign enterprises"
         }
       ],
       options: {

@@ -55,7 +55,7 @@ export default {
         },
         unit: {
           ch: "百万人民币",
-          en: "RMB min"
+          en: "RMB mln"
         },
         tableTitle: {
           year: {
@@ -91,7 +91,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万人民币", en: "RMB min" },
+        yName: { ch: "百万人民币", en: "RMB mln" },
         yearOnYear: false, //通过修改这个值来显示同比
         percent: false, //通过修改这个值来显示同比
         title: {

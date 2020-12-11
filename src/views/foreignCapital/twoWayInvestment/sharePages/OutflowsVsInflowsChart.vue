@@ -78,7 +78,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -107,7 +107,7 @@ export default {
         id: "RMB",
         dataSources: this.describeData,
         yearOnYear: false, //通过修改这个值来显示同比
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         series: [
@@ -131,7 +131,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
         xData: [],
         grid: {

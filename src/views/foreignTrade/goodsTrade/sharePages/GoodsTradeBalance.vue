@@ -54,7 +54,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {},
         tableData: [],
@@ -66,7 +66,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: { ch: "中国货物进出口贸易差额", en: "China's trade balance" },
         xData: [],

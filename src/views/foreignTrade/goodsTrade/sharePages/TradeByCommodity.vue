@@ -66,7 +66,7 @@ export default {
         },
         unit: {
           ch: "百万美元/百万人民币",
-          en: "USD min/RMB min"
+          en: "USD mln/RMB mln"
         },
         tableTitle: {},
         tableData: [],
@@ -78,7 +78,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国货物进出口总值按商品类别统计",
@@ -92,19 +92,19 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进出口_Trade volume|进出口同比_Y-o-y trade",
+            name: "累计进出口_Trade volume|累计进出口同比_Y-o-y trade",
             color: "#91c7ae",
             data: [420, 680, 240, 460, 490],
             yearOnYear: [1.5, 2.8, -2.5, 1.2, -1.2]
           },
           {
-            name: "进口_Import|进口同比_Y-o-y import",
+            name: "累计进口_Import|累计进口同比_Y-o-y import",
             color: "#c23531",
             data: [420, 380, 480, 350, 290],
             yearOnYear: [1, 2.8, 1, -1, -1.2]
           },
           {
-            name: "出口_Export|出口同比_Y-o-y export",
+            name: "累计出口_Export|累计出口同比_Y-o-y export",
             color: "#61a0a8",
             data: [720, 380, 580, 960, 390],
             yearOnYear: [2.2, 3.8, -2, 1, -0.2]

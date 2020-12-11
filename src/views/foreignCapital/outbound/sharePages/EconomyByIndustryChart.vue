@@ -47,7 +47,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -95,7 +95,7 @@ export default {
       showTimeFrame: false,
       chartBar: {
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         title: {
           text: "",
           subtext: ""

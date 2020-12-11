@@ -29,7 +29,7 @@ export default {
       });
     }
   },
-    beforeDestroy() {
+  beforeDestroy() {
     this.$EventBus.$off("resize");
   },
   watch: {
@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-     downloadFile() {
+    downloadFile() {
       //添加水印
       this.watermark = true;
       this.drawChart();
@@ -123,23 +123,31 @@ export default {
       for (var j = 0; j < this.options.series.length; j++) {
         series.push(
           {
-            name: this.options.series[j].name.split("|")[0],
+            name: this.options.onlyQuarter
+              ? ""
+              : this.options.series[j].name.split("|")[0],
             type: "bar",
             yAxisIndex: 0,
             itemStyle: {
               normal: {
-                show: true,
-                borderWidth: 0
+                show: true
+                // color:this.options.series[j].color
               }
             },
-            data: this.options.series[j].data
+            data: !this.options.onlyQuarter ? this.options.series[j].data : ""
           },
           {
             // clip: true,
-            name: this.options.series[j].name.split("|")[1],
+            name:this.options.yearOnYear?this.options.series[j].name.split("|")[1]:"",
             type: "line",
             yAxisIndex: 1,
             // symbolSize: 6,
+            //  itemStyle: {
+            //   normal: {
+            //     show: true,
+            //     color:this.options.series[j].color
+            //   }
+            // },
             data: this.options.yearOnYear
               ? this.options.series[j].yearOnYear
               : "[]"
@@ -183,7 +191,8 @@ export default {
             dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += "<table>";
             dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
-            if(this.selectOption){//判断功能区是否有筛选
+            if (this.selectOption) {
+              //判断功能区是否有筛选
               dom += `<div style="color:#1D3F6C;font-weight: bold;"><p style="font-size:0.104167rem;font-family: Calibri;">${this.selectOption.value.en}</p><p style="font-size:0.083333rem;margin-top:-0.1rem;font-family: SimHei;">${this.selectOption.value.ch}</p></div>`;
             }
 
@@ -250,10 +259,12 @@ export default {
         // 	年度完成率和季度完成率颜色
         // color: ["#071960", "#1740B4", "#1962CA", ],
         grid: {
-          left: "3%",
-           right: this.options.yearOnYear ? "6%" : "4%",
+          left: this.options.onlyQuarter ? "0" : "3%",
+          // left: "3%",
+
+          right: this.options.yearOnYear ? "4%" : "4%",
           top: "20%",
-           bottom: this.watermark
+          bottom: this.watermark
             ? this.options.grid
               ? this.options.grid.bottom
               : "11%"
@@ -282,13 +293,14 @@ export default {
               alignWithLabel: true,
               show: false
             },
-            data: this.options.xData,
+            data: this.options.xData
           }
         ],
         // legend:[]
         yAxis: [
           {
             type: "value",
+            show: this.options.onlyQuarter ? false : true,
             min: Min1,
             max: Max1,
             splitNumber: 5,
@@ -334,6 +346,7 @@ export default {
           },
           {
             show: this.options.yearOnYear,
+            position: this.options.onlyQuarter ? "left" : "right",
             min: Min2,
             max: Max2,
             splitNumber: 5,
@@ -370,7 +383,7 @@ export default {
             }
           }
         ],
-         graphic: [
+        graphic: [
           {
             type: "image",
             left: that.$refs.barLine.offsetWidth / 2.86,
@@ -435,7 +448,7 @@ export default {
                 }
               }
             ]
-          },
+          }
           // {
           //   type: "group",
           //   right: this.$fz(0.15),

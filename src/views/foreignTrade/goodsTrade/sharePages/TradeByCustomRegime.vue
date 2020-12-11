@@ -66,7 +66,7 @@ export default {
         },
         unit: {
           ch: "百万美元/百万人民币",
-          en: "USD min/RMB min"
+          en: "USD mln/RMB mln"
         },
         tableTitle: {},
         tableData: [],
@@ -78,7 +78,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国货物进出口总值按商品类别统计",

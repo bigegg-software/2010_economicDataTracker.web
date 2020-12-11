@@ -52,7 +52,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -88,7 +88,7 @@ export default {
         },
         unit: {
           ch: "百万美元",
-          en: "USD min"
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -123,7 +123,7 @@ export default {
         Yearonshow: true, //是否有左柱状图右折线图的展示
         dataSources: this.describeData,
         yearOnYear: false,
-        yName: { ch: "百万美元", en: "USD min" },
+        yName: { ch: "百万美元", en: "USD mln" },
         title: {
           text: "",
           subtext: ""
