@@ -42,7 +42,7 @@ export default {
         {
           name: "producerPriceIndex",
           chinese: "工业生产者出厂价格指数",
-          english: "XXXxxx"
+          english: "Producer Price Index (PPI)"
         }
       ],
 

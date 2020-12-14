@@ -11,6 +11,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
+        <!-- 时间选择为  月度选择 -->
         <year v-if="showTimeFrame" :option="option" :value="option.value" @change="yearChange"></year>
       </div>
     </div>

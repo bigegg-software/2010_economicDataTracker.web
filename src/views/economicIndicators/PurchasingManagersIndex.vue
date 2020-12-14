@@ -42,7 +42,7 @@ export default {
         {
           name: "purchasingManagersIndex",
           chinese: "采购经理人指数",
-          english: "XXXxxx"
+          english: "Purchasing Managers' Index (PMI)"
         }
       ],
 

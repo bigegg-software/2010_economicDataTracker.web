@@ -42,7 +42,7 @@ export default {
         {
           name: "foreignCurrencyReserves",
           chinese: "国家外汇储备",
-          english: "XXXxxx"
+          english: "Foreign currency reserve"
         }
       ],
 

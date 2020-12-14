@@ -39,15 +39,15 @@ export default {
   components: {
     TimeFrame,
     BarLine,
-    TableChart,
+    TableChart
   },
   name: "TradeByOrigin",
   data() {
     return {
       totalData: {
         title: {
-          ch: "中国进出口贸易总额",
-          en: "China's import and export by origin"
+          ch: "固定资产投资（不含农户）",
+          en: "Investment in fixed assests (Excluding rural households)"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -65,8 +65,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
-          ch: "中国货物进出口总值",
-          en: "China's total trade volume of goods"
+          ch: "固定资产投资（不含农户）",
+          en: "Investment in fixed assests (Excluding rural households)"
         },
         xData: ["2016", "2017", "2018", "2019", "2020"],
         grid: {
@@ -126,7 +126,7 @@ export default {
             }
           }
         }
-      },
+      }
     };
   },
   computed: {

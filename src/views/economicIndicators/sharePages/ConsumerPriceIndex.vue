@@ -47,7 +47,7 @@ export default {
       totalData: {
         title: {
           ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          en: "Consumer Price Index"
         },
         unit: {
           ch: "百万美元",
@@ -66,7 +66,7 @@ export default {
        
         title: {
           ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          en: "Consumer Price Index"
         },
         xData: [],
         hideLegend: false,

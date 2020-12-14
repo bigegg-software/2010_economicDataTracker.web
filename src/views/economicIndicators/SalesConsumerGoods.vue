@@ -42,7 +42,7 @@ export default {
         {
           name: "salesConsumerGoods",
           chinese: "社会消费品零售总额",
-          english: "XXXxxx"
+          english: "Total retail sales of consumer goods"
         }
       ],
 

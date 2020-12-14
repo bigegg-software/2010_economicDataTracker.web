@@ -10,7 +10,8 @@
       </div>
     </div>
     <div class="select-block">
-         <div class="frame">
+      <div class="frame">
+        <!-- 时间选择为  月度选择 -->
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
@@ -33,7 +34,7 @@ export default {
   components: {
     TimeFrame,
     BarLine,
-    TableChart,
+    TableChart
   },
   name: "TradeByCommodity",
   data() {
@@ -41,7 +42,7 @@ export default {
       totalData: {
         title: {
           ch: "工业企业利润",
-          en: "XXXxxx"
+          en: "Industrial profit"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -60,7 +61,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "工业企业利润",
-          en: "XXXxxx"
+          en: "Industrial profit"
         },
         xData: ["2016", "2017", "2018", "2019", "2020"],
         grid: {
@@ -78,8 +79,9 @@ export default {
         ],
         updatedDate: ""
       },
-     options: {
-        yearly: {//!!!!!!!!应为月度选择
+      options: {
+        yearly: {
+          //!!!!!!!!应为月度选择
           ch: "年度",
           en: "Yearly",
           list: {
@@ -97,9 +99,7 @@ export default {
             }
           }
         }
-      },
-
-     
+      }
     };
   },
   computed: {

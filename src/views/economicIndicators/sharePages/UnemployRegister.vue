@@ -46,8 +46,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "登记失业率",
-          en: "XXXxxx"
+          ch: "城镇登记失业率",
+          en: "Urban registered unemployment rate"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -66,7 +66,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "城镇登记失业率",
-          en: "XXXxxx"
+          en: "Urban registered unemployment rate"
         },
         xData: ["2016", "2017", "2018", "2019", "2020"],
         grid: {

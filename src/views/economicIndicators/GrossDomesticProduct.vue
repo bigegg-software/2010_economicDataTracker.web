@@ -42,7 +42,7 @@ export default {
         {
           name: "grossDomesticProduct",
           chinese: "国内生产总值GDP",
-          english: "XXXXxxx"
+          english: "Gross Domestic Product"
         },
       ],
 

@@ -42,7 +42,7 @@ export default {
         {
           name: "investmentFixedAssets",
           chinese: "固定资产投资（不含农户）",
-          english: "XXXxxx"
+          english: "Investment in fixed assests (Excluding rural households)"
         }
       ],
 

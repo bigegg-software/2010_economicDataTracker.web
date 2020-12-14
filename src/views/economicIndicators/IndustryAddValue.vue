@@ -42,7 +42,7 @@ export default {
         {
           name: "industryAddValue",
           chinese: "工业增加值",
-          english: "XXXxxx"
+          english: "Growth of industrial value-added"
         }
       ],
 

@@ -668,6 +668,166 @@ const routes = [{
   },
   component: () => import('@/views/foreignCapital/twoWayInvestment/sharePages/OutflowsVsInflowsChart')
 },
+//外贸模块
+{
+  path: '/foreignInvestedEnterprises',
+  name: 'foreignInvestedEnterprises',
+  meta: {
+    title: '外商投资企业进出口总值'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/ForeignInvestedEnterprises')
+},
+{
+  path: '/goodsTotal',
+  name: 'goodsTotal',
+  meta: {
+    title: '中国货物进出口总值'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/GoodsTotal')
+},
+{
+  path: '/goodsTradeBalance',
+  name: 'goodsTradeBalance',
+  meta: {
+    title: '中国货物进出口贸易差额chart'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/GoodsTradeBalance')
+},
+{
+  path: '/tradeByCommodity',
+  name: 'tradeByCommodity',
+  meta: {
+    title: '货物进出口总值（商品类别）'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/TradeByCommodity')
+}, {
+  path: '/tradeByCustomRegime',
+  name: 'tradeByCustomRegime',
+  meta: {
+    title: '货物进出口总值按贸易方式统计'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/TradeByCustomRegime')
+}, {
+  path: '/tradeByEnterpriseType',
+  name: 'tradeByEnterpriseType',
+  meta: {
+    title: '货物进出口总值（企业性质）'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/TradeByEnterpriseType')
+}, {
+  path: '/tradeByOrigin',
+  name: 'tradeByOrigin',
+  meta: {
+    title: '中国货物进出口总值按国别/地区统计'
+  },
+  component: () => import('@/views/foreignTrade/goodsTrade/sharePages/TradeByOrigin')
+}, {
+  path: '/totalTradeInServices',
+  name: 'totalTradeInServices',
+  meta: {
+    title: '中国服务贸易进出口总值'
+  },
+  component: () => import('@/views/foreignTrade/servicesTrade/sharePages/TotalTradeInServices')
+}, {
+  path: '/volumeByServiceType',
+  name: 'volumeByServiceType',
+  meta: {
+    title: '服务贸易分类统计'
+  },
+  component: () => import('@/views/foreignTrade/servicesTrade/sharePages/VolumeByServiceType')
+}, {//宏观经济指标
+  path: '/consumerPriceIndex',
+  name: 'consumerPriceIndex',
+  meta: {
+    title: '消费者价格指数CPI'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/ConsumerPriceIndex')
+}, {
+  path: '/foreignCurrencyReserves',
+  name: 'foreignCurrencyReserves',
+  meta: {
+    title: '国家外汇储备'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/ForeignCurrencyReserves')
+}, {
+  path: '/grossDomesticProduct',
+  name: 'grossDomesticProduct',
+  meta: {
+    title: '国内生产总值GDP'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/GrossDomesticProduct')
+}, {
+  path: '/industrialProfits',
+  name: 'industrialProfits',
+  meta: {
+    title: '工业企业利润'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/IndustrialProfits')
+}, {
+  path: '/industryAddValue',
+  name: 'industryAddValue',
+  meta: {
+    title: '工业增加值chart'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/IndustryAddValue')
+}, {
+  path: '/investmentFixedAssets',
+  name: 'investmentFixedAssets',
+  meta: {
+    title: '固定资产投资（不含农户）'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/InvestmentFixedAssets')
+}, {
+  path: '/moneySupply',
+  name: 'moneySupply',
+  meta: {
+    title: '货币供应量 (M2) '
+  },
+  component: () => import('@/views/economicIndicators/sharePages/MoneySupply')
+}, {
+  path: '/nationalFinance',
+  name: 'nationalFinance',
+  meta: {
+    title: '国家财政收支'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/NationalFinance')
+},
+{
+  path: '/producerPriceIndex',
+  name: 'producerPriceIndex',
+  meta: {
+    title: '工业生产者出厂价格指数'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/ProducerPriceIndex')
+}, {
+  path: '/purchasingManagersIndex',
+  name: 'purchasingManagersIndex',
+  meta: {
+    title: '采购经理人指数PMI'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/PurchasingManagersIndex')
+}, {
+  path: '/salesConsumerGoods',
+  name: 'salesConsumerGoods',
+  meta: {
+    title: '社会消费品零售总额'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/SalesConsumerGoods')
+}, {
+  path: '/unemployExamine',
+  name: 'unemployExamine',
+  meta: {
+    title: '调查失业率'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/UnemployExamine')
+}, {
+  path: '/unemployRegister',
+  name: 'unemployRegister',
+  meta: {
+    title: '登记失业率'
+  },
+  component: () => import('@/views/economicIndicators/sharePages/UnemployRegister')
+},
 {
   path: '/test',
   name: '',

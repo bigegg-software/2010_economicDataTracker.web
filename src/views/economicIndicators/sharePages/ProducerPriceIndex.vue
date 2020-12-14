@@ -46,8 +46,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          ch: "工业生产者出厂价格指数",
+          en: "Producer Price Index (PPI)"
         },
         unit: {
           ch: "百万美元",
@@ -65,8 +65,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
        
         title: {
-          ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          ch: "工业生产者出厂价格指数",
+          en: "Producer Price Index (PPI)"
         },
         xData: [],
         hideLegend: false,

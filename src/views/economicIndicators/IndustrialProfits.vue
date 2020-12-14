@@ -38,7 +38,7 @@ export default {
         {
           name: "industrialProfits",
           chinese: "工业企业利润",
-          english: "XXXxxx"
+          english: "Industrial profit"
         }
       ],
 

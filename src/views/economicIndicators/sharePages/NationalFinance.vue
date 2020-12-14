@@ -55,8 +55,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "中国进出口贸易总额",
-          en: "China's import and export by origin"
+          ch: "财政收支情况",
+          en: "National revenue and expenditure"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -75,8 +75,8 @@ export default {
       monthScreen: false,
         yearOnYear:true, //通过修改这个值来显示同比
         title: {
-          ch: "中国货物进出口总值",
-          en: "China's total trade volume of goods"
+          ch: "财政收支情况",
+          en: "National revenue and expenditure"
         },
         xData: ["2016", "2017", "2018", "2019", "2020"],
         grid: {

@@ -46,8 +46,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "国内生产总值",
-          en: "XXXxxx"
+          ch: "国内生产总值 GDP",
+          en: "Gross Domestic Product"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -65,8 +65,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
-          ch: "国内生产总值",
-          en: "XXXxxx"
+          ch: "国内生产总值 GDP",
+          en: "Gross Domestic Product"
         },
         xData: ["2016", "2017", "2018", "2019", "2020"],
         grid: {

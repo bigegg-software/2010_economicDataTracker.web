@@ -42,7 +42,7 @@ export default {
         {
           name: "nationalFinance",
           chinese: "国家财政收支",
-          english: "XXXxxx"
+          english: "National revenue and expenditure"
         }
       ],
 

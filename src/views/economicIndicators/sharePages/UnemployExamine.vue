@@ -12,6 +12,7 @@
 
     <div class="select-block">
       <div class="frame">
+        <!-- 时间选择为  月度选择 -->
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
@@ -41,7 +42,7 @@ export default {
       totalData: {
         title: {
           ch: "调查失业率",
-          en: "xxxxxxxxxxxxxxxxxxxxx"
+          en: "Urban surveyed unemployment rate"
         },
         unit: {
           ch: "调查失业率(%)",
@@ -75,8 +76,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         monthOnMonth: false, //通过修改这个值来显示环比
         title: {
-          ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          ch: "调查失业率",
+          en: "Urban surveyed unemployment rate"
         },
         xData: [],
         hideLegend: false,

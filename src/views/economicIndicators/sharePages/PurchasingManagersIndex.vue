@@ -11,6 +11,7 @@
     </div>
     <div class="select-block">
       <div class="frame">
+        <!-- 时间选择为  月度选择 -->
         <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
       </div>
     </div>
@@ -40,8 +41,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          ch: "采购经理人指数PMI",
+          en: "Purchasing Managers' Index (PMI)"
         },
         unit: {
           ch: "百万美元",
@@ -59,8 +60,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         monthOnMonth: false, //通过修改这个值来显示环比
         title: {
-          ch: "消费者价格指数CPI",
-          en: "xxxxxxxxxxxx"
+          ch: "采购经理人指数PMI",
+          en: "Purchasing Managers' Index (PMI)"
         },
         xData: [],
         hideLegend: false,

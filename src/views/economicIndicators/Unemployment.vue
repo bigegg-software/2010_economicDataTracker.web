@@ -42,12 +42,12 @@ export default {
         {
           name: "unemployRegister",
           chinese: "登记失业率",
-          english: "XXXxxx"
+          english: "Urban registered unemployment rate"
         },
         {
           name: "unemployExamine",
           chinese: "调查失业率",
-          english: "XXXxxx"
+          english: "Urban surveyed unemployment rate"
         }
       ],
 

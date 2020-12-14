@@ -42,7 +42,7 @@ export default {
         {
           name: "consumerPriceIndex",
           chinese: "消费者价格指数CPI",
-          english: "XXXxxx"
+          english: "Consumer Price Index"
         }
       ],
 
