@@ -63,6 +63,10 @@ export default {
             text: "排名_Rank",
             width: "20%"
           },
+          countryEn: {
+            text: "国别（英文）_Country/Region",
+            width: "35%"
+          },
           country: {
             text: "国别_Country/Region",
             width: "35%"
@@ -98,6 +102,10 @@ export default {
           rank: {
             text: "排名_Rank",
             width: "20%"
+          },
+          countryEn: {
+            text: "国别（英文）_Country/Region",
+            width: "35%"
           },
           country: {
             text: "国别_Country/Region",

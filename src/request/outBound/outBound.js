@@ -62,6 +62,7 @@ sumSameYearData:async (sourceData,field,name)=> {
             }
         }
         resD.push({
+        nameEn:sourceData[0].continentEn,
         name,
         unit:sourceData[0].unit,
         unitMillion:'百万美元',
@@ -98,9 +99,11 @@ sumSameYearData:async (sourceData,field,name)=> {
             res = res.map(item=>{
                 item=item.toJSON()
                 if(item.outFlowType==1){
-                    item.outFlowTypeCH='全行业'
+                    item.outFlowTypeCH='中国对外全行业直接投资';
+                    item.outFlowTypeEN='All-sector FDI outflows';
                 }else if(item.outFlowType==2){
-                    item.outFlowTypeCH='非金融'
+                    item.outFlowTypeCH='中国对外非金融直接投资'
+                    item.outFlowTypeEN='Non-financial FDI outflows'
                 }
                 item.investAmountMillion = item.investAmount * 100;
                 item.investConversionMillion = item.investConversion * 100;
@@ -120,9 +123,10 @@ sumSameYearData:async (sourceData,field,name)=> {
                 '单位',
                 '中国对外直接投资流量',
                 '中国对外直接投资流量同比',
+                '类型（英文）',
                 '类型'
             ].filter(item=>item!=''),
-            filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeCH'].filter(item=>item!=''),
+            filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeEN','outFlowTypeCH'].filter(item=>item!=''),
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -393,11 +397,12 @@ let tableres=await JSON.parse(JSON.stringify([...Asia,...Europe,...Oceania,...No
                 fileName: tabIndex==1?'中国对外直接投资存量按大洲统计':'中国对外直接投资流量按大洲统计',
                 tHeader:[
                     "年份",
+                    '大洲（英文）',
                     '大洲',
                     tabIndex==1?'中国对外直接投资存量':'中国对外直接投资流量',
                     '单位'
                 ],
-                filterVal:['year','name','mount','unitMillion'],
+                filterVal:['year','nameEn','name','mount','unitMillion'],
                 tableData:[...tableres]
                 }
                 store.commit('saveChartTable',tableInfo);
@@ -427,15 +432,17 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
      let tableres=await JSON.parse(JSON.stringify(res));
      tableres=tableres.reverse();
         let tableInfo={
-            fileName: '按各洲内国家/地区统计',
+            fileName: '按国家/地区统计',
             tHeader:[
                 "年份",
+                '大洲（英文）',
                 '大洲',
+                '国家（英文）',
                 '国家',
                 tabIndex==1?'中国对外直接投资存量':'中国对外直接投资流量',
                 '单位'
             ],
-            filterVal:['year','continent','country',filed+'Million','unitMillion'],
+            filterVal:['year','continentEn','continent',tabIndex==1?'countryEN':'countryEn','country',filed+'Million','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -494,12 +501,13 @@ getTopTenCountriesToOPChart:async function(params) {
             tHeader:[
                 "年份",
                 '排名',
+                '国别（英文）',
                 '国别',
                 params.type==1?'新签合同额':'完成营业额',
                 params.type==1?'新签合同额同比':'完成营业额同比',
                 '单位'
             ],
-            filterVal:['year','rank','country','amountMillion','amountYOY','unitMillion'],
+            filterVal:['year','rank','countryEn','country','amountMillion','amountYOY','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -520,11 +528,12 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
         tHeader:[
             "年份",
             '单位',
+            params.type==1?'年度派出各类劳务人员国家/地区（英文）':'12月末在外各类劳务人员国家/地区（英文）',
             params.type==1?'年度派出各类劳务人员国家/地区':'12月末在外各类劳务人员国家/地区',
             params.type==1?'年度派出各类劳务人员人数':'12月末在外各类劳务人员人数',
             params.type==1?'年度派出各类劳务人员比重':'12月末在外各类劳务人员比重'
         ],
-        filterVal:['year','unitMillion','destinations','variousTypesPerNumMillion','destinationPercent'],
+        filterVal:['year','unitMillion','destinationEn','destinations','variousTypesPerNumMillion','destinationPercent'],
         tableData:[...tableres]
         }
         store.commit('saveChartTable',tableInfo);
@@ -543,11 +552,12 @@ getIndustryOfWorkersNumChart:async function(params) {
         fileName: '年度派出人数主要行业',
         tHeader:[
             "年份",
+            '类别（英文）',
             '类别',
             '在外各类劳务人员行业构成人数（万人）',
             '比重'
         ],
-        filterVal:['year','industry','unit','variousTypesPerNum','industryPercent'],
+        filterVal:['year','industryEn','industry','unit','variousTypesPerNum','industryPercent'],
         tableData:[...tableres]
         }
         store.commit('saveChartTable',tableInfo);
@@ -568,13 +578,14 @@ getFlowsTwentyDestinationChart:async function(params) {
             tHeader:[
                 "年份",
                 '序号',
+                '中国对外直接投资流量前20位国家（地区）英文',
                 '中国对外直接投资流量前20位国家（地区）',
                 '单位',
                 '中国对外直接投资流量前20位国家（地区）投资额',
                 '中国对外直接投资流量前20位国家（地区）占总额比重',
                 
             ],
-            filterVal:['year','rank','country','unitMillion','outflowMillion','outflowPercent'],
+            filterVal:['year','rank','countryEn','country','unitMillion','outflowMillion','outflowPercent'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -595,13 +606,14 @@ getStocksTwentyDestinationChart:async function(params) {
             tHeader:[
                 "年份",
                 '排名',
+                '中国对外直接投资存量前20位国家（地区）英文',
                 '中国对外直接投资存量前20位国家（地区）',
                 '单位',
                 '中国对外直接投资存量前20位国家（地区）投资额',
                 '中国对外直接投资存量前20位国家（地区）占总额比重',
                 
             ],
-            filterVal:['year','rank','country','unitMillion','stocksMillion','stockPercent'],
+            filterVal:['year','rank','countryEN','country','unitMillion','stocksMillion','stockPercent'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -647,12 +659,13 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
             fileName: '中国对外直接投资流量行业分布情况',
             tHeader:[
                 "年份",
+                '行业（英文）',
                 '行业',
                 '流量',
                 '同比',
                 '单位'
             ],
-            filterVal:['year','industry','outflowsMillion','yOY','unitMillion'],
+            filterVal:['year','industryEn','industry','outflowsMillion','yOY','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -688,12 +701,14 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
             fileName: '按各洲内国家/地区统计',
             tHeader:[
                 "年份",
+                '大洲（英文）',
                 '大洲',
+                '国家（英文）',
                 '国家',
                 '中国对外直接投资存量',
                 '单位'
             ],
-            filterVal:['year','continent','country','stocksMillion','unitMillion'],
+            filterVal:['year','continentEn','continent','countryEN','country','stocksMillion','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -713,12 +728,14 @@ getFDIOutflowDestination: async function (params) {
             fileName: '按各洲内国家/地区统计',
             tHeader:[
                 "年份",
+                '大洲（英文）',
                 '大洲',
+                '国家（英文）',
                 '国家',
                 '中国对外直接投资流量',
                 '单位'
             ],
-            filterVal:['year','continent','country','outflowMillion','unitMillion'],
+            filterVal:['year','continentEn','continent','countryEn','country','outflowMillion','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);
@@ -735,16 +752,57 @@ getFDIMajorEconomiesIndustry: async function (params) {
         return item;
     });
     let tableres=await JSON.parse(JSON.stringify(res));
+       let op=[
+          {
+            id: 1,
+            ch: "中国香港",
+            en: "Hong Kong, China"
+          },
+          {
+            id: 2,
+            ch: "东盟",
+            en: "ASEAN"
+          },
+          {
+            id: 3,
+            ch: "欧盟",
+            en: "European Union"
+          },
+          {
+            id: 4,
+            ch: "美国",
+            en: "United States"
+          },
+          {
+            id: 5,
+            ch: "澳大利亚",
+            en: "Australia"
+          },
+          {
+            id: 6,
+            ch: "俄罗斯联邦",
+            en: "Russia"
+          }
+        ];
+        tableres.forEach((item)=>{
+            op.forEach((it)=>{
+                if(item.economies==it.ch){
+                    item.economiesEn=it.en;
+                }
+            });
+        });
         let tableInfo={
             fileName: '中国对主要经济体投资按行业统计',
             tHeader:[
                 "年份",
+                '经济体（英文）',
                 '经济体',
+                '行业（英文）',
                 '行业',
                 '中国对外直接投资流量',
                 '单位'
             ],
-            filterVal:['year','economies','industry','outflowsMillion','unitMillion'],
+            filterVal:['year','economiesEn','economies','industryEN','industry','outflowsMillion','unitMillion'],
             tableData:[...tableres]
             }
             store.commit('saveChartTable',tableInfo);

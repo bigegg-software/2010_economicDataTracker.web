@@ -51,6 +51,10 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          nameEn: {
+            text: "大洲（英文）_Continent",
+            width: "35%"
+          },
           name: {
             text: "大洲_Continent",
             width: "35%"

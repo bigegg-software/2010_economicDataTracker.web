@@ -81,6 +81,10 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          industryEn: {
+            text: "行业（英文）_Industry",
+            width: "30%"
+          },
           industry: {
             text: "行业_Industry",
             width: "30%"

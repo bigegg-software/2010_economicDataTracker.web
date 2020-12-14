@@ -349,6 +349,10 @@ export default {
             width: "35%",
             formatPer: true
           },
+          outFlowTypeEN:{
+            text: "类型（英文）_Type",
+            width: "35%"
+          },
           outFlowTypeCH: {
             text: "类型_Type",
             width: "35%"
@@ -373,6 +377,10 @@ export default {
             text: "中国对外直接投资流量同比_Xxxxxxxx",
             width: "35%",
             formatPer: true
+          },
+          outFlowTypeEN:{
+            text: "类型（英文）_Type",
+            width: "35%"
           },
           outFlowTypeCH: {
             text: "类型_Type",

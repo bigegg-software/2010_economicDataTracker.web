@@ -45,6 +45,11 @@ export default {
             text: "排名_Rank",
             width: "5%"
           },
+          countryEn: {
+            text:
+              "中国对外直接投资流量前20位国家（地区）英文_Top 20 destinations of China's FDI outflows",
+            width: "25%"
+          },
           country: {
             text:
               "中国对外直接投资流量前20位国家（地区）_Top 20 destinations of China's FDI outflows",

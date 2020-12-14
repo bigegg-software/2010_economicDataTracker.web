@@ -42,6 +42,11 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          destinationEn: {
+            text:
+              "12月末在外各类劳务人员国家/地区（英文）_Top 10 desinations of total number of workers overseas",
+            width: "40%"
+          },
           destinations: {
             text:
               "12月末在外各类劳务人员国家/地区_Top 10 desinations of total number of workers overseas",

@@ -1,5 +1,5 @@
 <template>
-  <!-- 中国对外直接投资存量按国家和地区统计chart -->
+  <!-- 中国对外直接投资流量按国家和地区统计chart -->
   <div class="stocks-by-destination-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
@@ -62,12 +62,20 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          continentEn: {
+            text: "大洲（英文）_Continent",
+            width: "35%"
+          },
           continent: {
             text: "大洲_Continent",
             width: "35%"
           },
+          countryEn: {
+            text: "国家/地区（英文）_Country/Region",
+            width: "35%"
+          },
           country: {
-            text: "国家_Country/Region",
+            text: "国家/地区_Country/Region",
             width: "35%"
           },
           outflowMillion: {

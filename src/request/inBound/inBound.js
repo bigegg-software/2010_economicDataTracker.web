@@ -236,7 +236,9 @@ export default {
             fileName: '年度部分国家/地区对华直接投资',
             tHeader: [
                 "年份",
+                "区域（英文）",
                 "区域",
+                '国家/地区（英文）',
                 '国家/地区',
                 '单位',
                 '企业数',
@@ -245,7 +247,7 @@ export default {
                 '实际投入外资金额',
                 '实际投入外资金额比重'
             ],
-            filterVal: ['year', 'continent', 'country','unit','enterpriseNumber','enterprisePercent','unitMillion',filed+'Million','inflowsPercent'],
+            filterVal: ['year', 'continentEn','continent', 'countryEn','country','unit','enterpriseNumber','enterprisePercent','unitMillion',filed+'Million','inflowsPercent'],
             tableData: [...tableres]
         }
         store.commit('saveChartTable', tableInfo);
@@ -269,7 +271,9 @@ export default {
             fileName: '国家和地区对华投资比重',
             tHeader: [
                 "年份",
+                "区域（英文）",
                 "区域",
+                '国家/地区（英文）',
                 '国家/地区',
                 '单位',
                 '企业数',
@@ -278,7 +282,7 @@ export default {
                 '实际投入外资金额',
                 '实际投入外资金额比重'
             ],
-            filterVal: ['year', 'continent', 'country','unit','enterpriseNumber','enterprisePercent','unitMillion','FDIInflowsMillion','inflowsPercent'],
+            filterVal: ['year', 'continentEn','continent', 'countryEn','country','unit','enterpriseNumber','enterprisePercent','unitMillion','FDIInflowsMillion','inflowsPercent'],
             tableData: [...tableres]
         }
         store.commit('saveChartTable', tableInfo);
@@ -304,12 +308,13 @@ export default {
                 fileName: '开办企业数',
                 tHeader:[
                     "年份",
+                    '行业（英文）',
                     '行业',
                     '单位',
                     '企业数',
                     '企业数同比'
                 ],
-                filterVal:['year','industry','enterprisesNumberUnit','enterprisesNumber','numberYOYGrowth'],
+                filterVal:['year','industryEn','industry','enterprisesNumberUnit','enterprisesNumber','numberYOYGrowth'],
                 tableData:[...tableres]
                 }
             store.commit('saveChartTable',tableInfo);
@@ -319,12 +324,13 @@ export default {
                 fileName: '实际使用外资金额',
                 tHeader:[
                     "年份",
+                    '行业（英文）',
                     '行业',
                     '单位',
                     '实际使用外资金额',
                     '实际使用外资金额同比'
                 ],
-                filterVal:['year','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
+                filterVal:['year','industryEn','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
                 tableData:[...tableres]
                 }
             store.commit('saveChartTable',tableInfo);
@@ -367,6 +373,7 @@ export default {
             fileName: '主要对华投资前15位国家/地区',
             tHeader: [
                 "年份",
+                "国家/地区（英文）",
                 "国家/地区",
                 '企业数',
                 '比重',
@@ -374,7 +381,7 @@ export default {
                 '比重',
                 '单位'
             ],
-            filterVal: ['year', 'country', 'enterpriseNumber', 'enterprisePercent', 'FDIInflowsMillion', 'inflowsPercent', 'unitMillion'],
+            filterVal: ['year', 'countryEn','country', 'enterpriseNumber', 'enterprisePercent', 'FDIInflowsMillion', 'inflowsPercent', 'unitMillion'],
             tableData: [...tableres]
         }
         store.commit('saveChartTable', tableInfo);

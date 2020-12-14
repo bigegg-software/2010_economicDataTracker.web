@@ -73,9 +73,17 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          continentEn: {
+            text: "区域（英文）_Area",
+            width: "20%"
+          },
           continent: {
             text: "区域_Area",
             width: "20%"
+          },
+          countryEn: {
+            text: "国家/地区（英文）_Country/Region",
+            width: "15%"
           },
           country: {
             text: "国家/地区_Country/Region",

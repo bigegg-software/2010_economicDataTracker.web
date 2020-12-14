@@ -42,6 +42,11 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          destinationEn: {
+            text:
+              "年度派出各类劳务人员国家（英文）_Top 10 destinations of workers sent overseas",
+            width: "20%"
+          },
           destinations: {
             text:
               "年度派出各类劳务人员国家_Top 10 destinations of workers sent overseas",

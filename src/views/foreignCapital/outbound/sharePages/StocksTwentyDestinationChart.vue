@@ -45,6 +45,11 @@ export default {
             text: "排名_Rank",
             width: "5%"
           },
+           countryEN: {
+            text:
+              "中国对外直接投资存量前20位国家（地区）英文_Top 20 destinations of China's FDI stocks",
+            width: "25%"
+          },
           country: {
             text:
               "中国对外直接投资存量前20位国家（地区）_Top 20 destinations of China's FDI stocks",

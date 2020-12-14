@@ -54,8 +54,16 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
+          economiesEn: {
+            text: "经济体（英文）_Economies",
+            width: "30%"
+          },
           economies: {
             text: "经济体_Economies",
+            width: "30%"
+          },
+          industryEN: {
+            text: "行业（英文）_Industry",
             width: "30%"
           },
           industry: {
