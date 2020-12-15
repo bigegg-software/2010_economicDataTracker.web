@@ -9,7 +9,7 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark: true,
+      watermark: false,
       canvas: null,
       selected: {},
       chartDataSourcesEn: "",
@@ -357,47 +357,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top:this.options.isLongTitle?this.$fz(0.46):this.$fz(0.15),
-            children: [
-              {
-                type: "text",
-                z: 100,
-                left: 0,
-                style: {
-                  fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "Value" : "",
-                  font: `${this.$fz(0.16)}px Calibri`
-                }
-              },
-              {
-                type: "text",
-                z: 100,
-                left: 0,
-                top: this.$fz(0.16),
-                style: {
-                  fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "金额" : "",
-                  font: `${this.$fz(0.14)}px 黑体`
-                }
-              },
-              {
-                type: "text",
-                z: 100,
-                left: this.$fz(0.6),
-                top: this.$fz(0.09),
-                style: {
-                  fill: "#999",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "———" : "",
-                  font: `${this.$fz(0.14)}px 黑体`
-                }
-              }
-            ]
-          },
-          {
-            //右上角水印
-            type: "group",
-            right: this.$fz(0.2),
-            top: this.options.isLongTitle?this.$fz(0.8):this.$fz(0.5),
+            top: this.options.isLongTitle ? this.$fz(0.46) : this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -406,8 +366,10 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.options.yearOnYear && this.options.legendMark
-                      ? this.options.legendMark.en
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "Value"
                       : "",
                   font: `${this.$fz(0.16)}px Calibri`
                 }
@@ -423,7 +385,70 @@ export default {
                     this.watermark &&
                     this.options.yearOnYear &&
                     this.options.legendMark
-                      ? this.options.legendMark.ch
+                      ? "金额"
+                      : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.options.legendMark
+                  ? this.options.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
+                top: this.$fz(0.09),
+                style: {
+                  fill: "#999",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "———"
+                      : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            //右上角水印
+            type: "group",
+            right: this.$fz(0.2),
+            top: this.options.isLongTitle ? this.$fz(0.8) : this.$fz(0.5),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark && this.options.legendMark
+                      ? this.options.percent&&this.options.yearOnYear
+                        ? this.options.shareLegendMark.en
+                        : this.options.yearOnYear
+                        ? this.options.legendMark.en
+                        : ""
+                      : "",
+                  font: `${this.$fz(0.16)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                top: this.$fz(0.16),
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark && this.options.legendMark
+                      ? this.options.percent&&this.options.yearOnYear
+                        ? this.options.shareLegendMark.ch
+                        : this.options.yearOnYear
+                        ? this.options.legendMark.ch
+                        : ""
                       : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -436,7 +461,9 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.options.yearOnYear && this.options.legendMark
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
                       ? this.options.legendMark.doSymbol
                       : "",
                   font: `${this.$fz(0.14)}px Calibri`
@@ -445,11 +472,20 @@ export default {
               {
                 type: "text",
                 z: 100,
-                left: this.$fz(0.6),
+                left: this.options.legendMark
+                  ? this.options.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
                 top: this.$fz(0.09),
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "- - - - - -" : "",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "- - - - - -"
+                      : "",
                   font: `${this.$fz(0.14)}px Calibri`
                 }
               }

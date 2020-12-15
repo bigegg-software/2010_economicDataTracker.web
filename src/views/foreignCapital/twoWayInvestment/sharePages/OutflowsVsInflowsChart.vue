@@ -109,6 +109,10 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         yName: { ch: "百万美元", en: "USD mln" },
         title: { ch: "双向直接投资", en: "China's FDI outflows vs. inflows" },
+        grid: {
+          bottom: "18%",
+          enGapch: this.$fz(0.58) //数据来源中英文间距
+        },
         xData: [],
         series: [
           {
@@ -126,7 +130,13 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        legendMark: {
+          //右上角水印
+          en: "Y-o-y",
+          ch: "同比",
+          doSymbol: "(%)"
+        },
       },
       USD: {
         id: "USD",
@@ -153,7 +163,8 @@ export default {
             data: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        
       },
       status: [
         {

@@ -151,7 +151,12 @@ export default {
         },
         yearInt:true,//点击功能区企业数为整数
         series: [],
-        updatedDate: ""
+        updatedDate: "",
+        legendMark: {
+          //右上角水印
+          en: "Enterprise",
+          ch: "企业数",
+        },
       },
       status: [
         {
