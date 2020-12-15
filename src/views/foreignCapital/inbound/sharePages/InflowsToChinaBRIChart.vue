@@ -98,7 +98,12 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        legendMark: {//右上角水印
+          en: "Share",
+          ch: "占比",
+          doSymbol: "(%)"
+        }
       },
       status: [
         {

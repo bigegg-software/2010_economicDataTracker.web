@@ -1,5 +1,5 @@
  <template>
-  <!-- 货物进出口总值按贸易方式统计 -->
+  <!-- Chart -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <!-- :describeData="describeList[tabComponent]['dataSources']" -->
@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "tradeByCustomRegime",
+      tabComponent: "tradeByCustomRegimeChart",
       tabList: [
         {
-          name: "tradeByCustomRegime",
+          name: "tradeByCustomRegimeChart",
           chinese: "货物进出口总值按贸易方式统计",
           english: "Import and export by custom regime"
         }

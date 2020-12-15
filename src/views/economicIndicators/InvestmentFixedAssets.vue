@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "investmentFixedAssets",
+      tabComponent: "investmentFixedAssetsChart",
       tabList: [
         {
-          name: "investmentFixedAssets",
+          name: "investmentFixedAssetsChart",
           chinese: "固定资产投资（不含农户）",
           english: "Investment in fixed assests (Excluding rural households)"
         }

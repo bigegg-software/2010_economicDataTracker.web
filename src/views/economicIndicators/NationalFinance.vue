@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "nationalFinance",
+      tabComponent: "nationalFinanceChart",
       tabList: [
         {
-          name: "nationalFinance",
+          name: "nationalFinanceChart",
           chinese: "国家财政收支",
           english: "National revenue and expenditure"
         }

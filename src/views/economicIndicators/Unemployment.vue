@@ -37,15 +37,15 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "unemployRegister",
+      tabComponent: "unemployRegisterChart",
       tabList: [
         {
-          name: "unemployRegister",
+          name: "unemployRegisterChart",
           chinese: "登记失业率",
           english: "Urban registered unemployment rate"
         },
         {
-          name: "unemployExamine",
+          name: "unemployExamineChart",
           chinese: "调查失业率",
           english: "Urban surveyed unemployment rate"
         }

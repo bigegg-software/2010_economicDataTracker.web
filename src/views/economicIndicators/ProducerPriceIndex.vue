@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "producerPriceIndex",
+      tabComponent: "producerPriceIndexChart",
       tabList: [
         {
-          name: "producerPriceIndex",
+          name: "producerPriceIndexChart",
           chinese: "工业生产者出厂价格指数",
           english: "Producer Price Index (PPI)"
         }

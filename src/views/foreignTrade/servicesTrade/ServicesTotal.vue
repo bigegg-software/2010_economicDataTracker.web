@@ -31,10 +31,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "totalTradeInServices",
+      tabComponent: "totalTradeInServicesChart",
       tabList: [
         {
-          name: "totalTradeInServices",
+          name: "totalTradeInServicesChart",
           chinese: "中国服务贸易进出口总值",
           english: "Total trade volume of services"
         }

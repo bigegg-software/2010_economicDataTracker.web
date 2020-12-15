@@ -12,7 +12,7 @@ export default {
       selected: {},
       chartDataSourcesEn: "",
       chartDataSourcesCh: "",
-      watermark: false
+      watermark: true
     };
   },
   props: {
@@ -360,6 +360,108 @@ export default {
                         this.chartDataSourcesCh.slice(56, 100))
                     : "",
                   font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            //右上角水印
+            type: "group",
+            right: this.$fz(0.2),
+            top:this.chartBarData.isLongTitle?this.$fz(0.46):this.$fz(0.15),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark ? "Value" : "",
+                  font: `${this.$fz(0.16)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                top: this.$fz(0.16),
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark ? "金额" : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.6),
+                top: this.$fz(0.09),
+                style: {
+                  fill: "#999",
+                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark? "———" : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            //右上角水印
+            type: "group",
+            right: this.$fz(0.2),
+            top: this.chartBarData.isLongTitle?this.$fz(0.8):this.$fz(0.5),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark
+                      ? this.chartBarData.legendMark.en
+                      : "",
+                  font: `${this.$fz(0.16)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                top: this.$fz(0.16),
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
+                      ? this.chartBarData.legendMark.ch
+                      : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.32),
+                top: this.$fz(0.1),
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark
+                      ? this.chartBarData.legendMark.doSymbol
+                      : "",
+                  font: `${this.$fz(0.14)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.6),
+                top: this.$fz(0.09),
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark? "- - - - - -" : "",
+                  font: `${this.$fz(0.14)}px Calibri`
                 }
               }
             ]

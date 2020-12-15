@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "consumerPriceIndex",
+      tabComponent: "consumerPriceIndexChart",
       tabList: [
         {
-          name: "consumerPriceIndex",
+          name: "consumerPriceIndexChart",
           chinese: "消费者价格指数CPI",
           english: "Consumer Price Index"
         }

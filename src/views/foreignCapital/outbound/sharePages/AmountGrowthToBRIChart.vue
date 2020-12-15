@@ -82,7 +82,13 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        isLongTitle: true, //标题是否过长
+        legendMark: {//右上角水印
+          en: "Y-o-y",
+          ch: "同比",
+          doSymbol: "(%)"
+        }
       },
       status: [
         {

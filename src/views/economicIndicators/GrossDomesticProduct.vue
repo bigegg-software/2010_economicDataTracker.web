@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "grossDomesticProduct",
+      tabComponent: "grossDomesticProductChart",
       tabList: [
         {
-          name: "grossDomesticProduct",
+          name: "grossDomesticProductChart",
           chinese: "国内生产总值GDP",
           english: "Gross Domestic Product"
         },

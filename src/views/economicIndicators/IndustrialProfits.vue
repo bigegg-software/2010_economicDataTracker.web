@@ -33,10 +33,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "industrialProfits",
+      tabComponent: "industrialProfitsChart",
       tabList: [
         {
-          name: "industrialProfits",
+          name: "industrialProfitsChart",
           chinese: "工业企业利润",
           english: "Industrial profit"
         }

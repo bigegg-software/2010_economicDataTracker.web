@@ -11,7 +11,13 @@
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+          @changeActiveKey="changeActiveKey"
+        ></time-frame>
       </div>
       <div class="status" v-if="$store.getters.showOperate">
         <check-box
@@ -51,7 +57,8 @@ export default {
       totalData: {
         title: {
           ch: "中国企业在“一带一路”沿线国家新签合同额",
-          en: "Total value of new contract signed by Chinese enterprises in BRI countries"
+          en:
+            "Total value of new contract signed by Chinese enterprises in BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -68,18 +75,29 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国企业在“一带一路”沿线国家新签合同额", en: "Total value of new contract signed by Chinese enterprises in BRI countries" },
+        title: {
+          ch: "中国企业在“一带一路”沿线国家新签合同额",
+          en:
+            "Total value of new contract signed by Chinese enterprises in BRI countries"
+        },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "新签合同额_Total value of new contract|新签合同额同比_Y-o-y total value of new contract",
+            name:
+              "新签合同额_Total value of new contract|新签合同额同比_Y-o-y total value of new contract",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        isLongTitle: true, //标题是否过长
+        legendMark: {//右上角水印
+          en: "Y-o-y",
+          ch: "同比",
+          doSymbol: "(%)"
+        }
       },
       status: [
         {
@@ -167,14 +185,14 @@ export default {
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
     // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
     // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value=QMDefaultTime.M.start;
-    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
@@ -262,8 +280,8 @@ export default {
       let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
       let XNameAttr = "year";
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(res);
 
@@ -281,8 +299,8 @@ export default {
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     async setTableConfig(aug) {
-       if(aug.type=='yearly'){
-         this.totalData.tableTitle={
+      if (aug.type == "yearly") {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
@@ -290,16 +308,16 @@ export default {
           newConAmountCon: {
             text: "新签合同额_Total value of new contract",
             width: "45%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Y-o-y total value of new contract",
             width: "45%",
-            formatPer:true
+            formatPer: true
           }
-        }
-       }else{
-          this.totalData.tableTitle={
+        };
+      } else {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
@@ -311,15 +329,15 @@ export default {
           newConAmountCon: {
             text: "新签合同额_Total value of new contract",
             width: "35%",
-            formatNum:true
+            formatNum: true
           },
           newConAmountConYOY: {
             text: "新签合同额同比_Total value of new contract y-o-y growth",
             width: "35%",
-            formatPer:true
+            formatPer: true
           }
-        }
-       }
+        };
+      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -338,7 +356,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -361,7 +379,7 @@ export default {
     },
     // 改变年度季度月度时：
     async changeActiveKey(ev) {
-        await this.mainGetChartsData(ev);
+      await this.mainGetChartsData(ev);
     }
   }
 };

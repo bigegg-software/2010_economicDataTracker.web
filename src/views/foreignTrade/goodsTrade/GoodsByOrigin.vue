@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "tradeByOrigin",
+      tabComponent: "tradeByOriginChart",
       tabList: [
         {
-          name: "tradeByOrigin",
+          name: "tradeByOriginChart",
           chinese: "货物进出口总值(国别/地区)",
           english: "Import and export by origin"
         },

@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "salesConsumerGoods",
+      tabComponent: "salesConsumerGoodsChart",
       tabList: [
         {
-          name: "salesConsumerGoods",
+          name: "salesConsumerGoodsChart",
           chinese: "社会消费品零售总额",
           english: "Total retail sales of consumer goods"
         }

@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "volumeByServiceType",
+      tabComponent: "volumeByServiceTypeChart",
       tabList: [
         {
-          name: "volumeByServiceType",
+          name: "volumeByServiceTypeChart",
           chinese: "服务贸易分类统计",
           english: "Trade volume by service type"
         }

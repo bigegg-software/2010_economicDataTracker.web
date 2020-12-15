@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "purchasingManagersIndex",
+      tabComponent: "purchasingManagersIndexChart",
       tabList: [
         {
-          name: "purchasingManagersIndex",
+          name: "purchasingManagersIndexChart",
           chinese: "采购经理人指数",
           english: "Purchasing Managers' Index (PMI)"
         }

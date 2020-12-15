@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "industryAddValue",
+      tabComponent: "industryAddValueChart",
       tabList: [
         {
-          name: "industryAddValue",
+          name: "industryAddValueChart",
           chinese: "工业增加值",
           english: "Growth of industrial value-added"
         }

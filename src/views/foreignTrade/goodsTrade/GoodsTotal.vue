@@ -30,15 +30,15 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "goodsTotal",
+      tabComponent: "goodsTotalChart",
       tabList: [
         {
-          name: "goodsTotal",
+          name: "goodsTotalChart",
           chinese: "中国货物进出口总值",
           english: "Total trade volume of goods"
         },
         {
-          name: "goodsTradeBalance",
+          name: "goodsTradeBalanceChart",
           chinese: "中国货物进出口贸易差额",
           english: "xxx"
         }

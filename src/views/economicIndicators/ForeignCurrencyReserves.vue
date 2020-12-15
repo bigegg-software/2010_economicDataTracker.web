@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "foreignCurrencyReserves",
+      tabComponent: "foreignCurrencyReservesChart",
       tabList: [
         {
-          name: "foreignCurrencyReserves",
+          name: "foreignCurrencyReservesChart",
           chinese: "国家外汇储备",
           english: "Foreign currency reserve"
         }

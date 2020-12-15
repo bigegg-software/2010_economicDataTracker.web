@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "moneySupply",
+      tabComponent: "moneySupplyChart",
       tabList: [
         {
-          name: "moneySupply",
+          name: "moneySupplyChart",
           chinese: "货币供应量 (M2)",
           english: "XXXxxx"
         }

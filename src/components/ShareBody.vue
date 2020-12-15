@@ -62,50 +62,50 @@ import inflowsToChinaBRIChart from "@/views/foreignCapital/inbound/sharePages/In
 import outflowsVsInflowsChart from "@/views/foreignCapital/twoWayInvestment/sharePages/OutflowsVsInflowsChart";
 // ------------------------外贸模块-------------------------
 //中国货物进出口总值
-import goodsTotal from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTotal";
+import goodsTotalChart from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTotalChart";
 //中国货物进出口贸易差额
-import goodsTradeBalance from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTradeBalance";
+import goodsTradeBalanceChart from "@/views/foreignTrade/goodsTrade/sharePages/GoodsTradeBalanceChart";
 //货物出口总值(国家/地区)
-import tradeByOrigin from "@/views/foreignTrade/goodsTrade/sharePages/TradeByOrigin";
+import tradeByOriginChart from "@/views/foreignTrade/goodsTrade/sharePages/TradeByOriginChart";
 //货物出口总值(商品类别)
-import tradeByCommodity from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCommodity";
+import tradeByCommodityChart from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCommodityChart";
 //货物出口总值(企业性质)
-import tradeByEnterpriseType from "@/views/foreignTrade/goodsTrade/sharePages/TradeByEnterpriseType";
+import tradeByEnterpriseTypeChart from "@/views/foreignTrade/goodsTrade/sharePages/TradeByEnterpriseTypeChart";
 //货物出口总值(贸易方式)
-import tradeByCustomRegime from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCustomRegime";
+import tradeByCustomRegimeChart from "@/views/foreignTrade/goodsTrade/sharePages/TradeByCustomRegimeChart";
 //外商投资企业进出口总值
-import foreignInvestedEnterprises from "@/views/foreignTrade/goodsTrade/sharePages/ForeignInvestedEnterprises";
+import foreignInvestedEnterprisesChart from "@/views/foreignTrade/goodsTrade/sharePages/ForeignInvestedEnterprisesChart";
 // 中国服务贸易进出口总值
-import totalTradeInServices from "@/views/foreignTrade/servicesTrade/sharePages/TotalTradeInServices";
+import totalTradeInServicesChart from "@/views/foreignTrade/servicesTrade/sharePages/TotalTradeInServicesChart";
 // 服务贸易分类统计
-import volumeByServiceType from "@/views/foreignTrade/servicesTrade/sharePages/VolumeByServiceType";
+import volumeByServiceTypeChart from "@/views/foreignTrade/servicesTrade/sharePages/VolumeByServiceTypeChart";
 // ------------------------宏观经济指标模块-------------------------
 //国内生产总值
-import grossDomesticProduct from "@/views/economicIndicators/sharePages/GrossDomesticProduct";
+import grossDomesticProductChart from "@/views/economicIndicators/sharePages/GrossDomesticProductChart";
 //消费者价格指数
-import consumerPriceIndex from "@/views/economicIndicators/sharePages/ConsumerPriceIndex";
+import consumerPriceIndexChart from "@/views/economicIndicators/sharePages/ConsumerPriceIndexChart";
 //采购经理人指数
-import purchasingManagersIndex from "@/views/economicIndicators/sharePages/PurchasingManagersIndex";
+import purchasingManagersIndexChart from "@/views/economicIndicators/sharePages/PurchasingManagersIndexChart";
 //登记失业率
-import unemployRegister from "@/views/economicIndicators/sharePages/UnemployRegister";
+import unemployRegisterChart from "@/views/economicIndicators/sharePages/UnemployRegisterChart";
 //调查失业率
-import unemployExamine from "@/views/economicIndicators/sharePages/UnemployExamine";
+import unemployExamineChart from "@/views/economicIndicators/sharePages/UnemployExamineChart";
 //工业生产者出厂价格指数
-import producerPriceIndex from "@/views/economicIndicators/sharePages/ProducerPriceIndex";
+import producerPriceIndexChart from "@/views/economicIndicators/sharePages/ProducerPriceIndexChart";
 //工业增加值
-import industryAddValue from "@/views/economicIndicators/sharePages/IndustryAddValue";
+import industryAddValueChart from "@/views/economicIndicators/sharePages/IndustryAddValueChart";
 //工业企业利润
-import industrialProfits from "@/views/economicIndicators/sharePages/IndustrialProfits";
+import industrialProfitsChart from "@/views/economicIndicators/sharePages/IndustrialProfitsChart";
 //社会消费品零售总额
-import salesConsumerGoods from "@/views/economicIndicators/sharePages/SalesConsumerGoods";
+import salesConsumerGoodsChart from "@/views/economicIndicators/sharePages/SalesConsumerGoodsChart";
 //固定资产投资（不含农户）
-import investmentFixedAssets from "@/views/economicIndicators/sharePages/InvestmentFixedAssets";
+import investmentFixedAssetsChart from "@/views/economicIndicators/sharePages/InvestmentFixedAssetsChart";
 //国家财政收支
-import nationalFinance from "@/views/economicIndicators/sharePages/NationalFinance";
+import nationalFinanceChart from "@/views/economicIndicators/sharePages/NationalFinanceChart";
 //货币供应量 (M2)
-import moneySupply from "@/views/economicIndicators/sharePages/MoneySupply";
+import moneySupplyChart from "@/views/economicIndicators/sharePages/MoneySupplyChart";
 //国家外汇储备
-import foreignCurrencyReserves from "@/views/economicIndicators/sharePages/ForeignCurrencyReserves";
+import foreignCurrencyReservesChart from "@/views/economicIndicators/sharePages/ForeignCurrencyReservesChart";
 
 export default {
   props: {
@@ -176,44 +176,44 @@ export default {
     // ----------------外贸模块----------------
     // 货物贸易
     //中国货物进出口总值
-    goodsTotal, //中国货物进出口总值
-    goodsTradeBalance, //中国货物进出口贸易差额
-    tradeByOrigin, //货物出口总值按国家和地区统计
-    tradeByCommodity, //货物出口总值(商品类别)
-    tradeByEnterpriseType, //货物出口总值(企业性质)
-    tradeByCustomRegime, //货物出口总值(贸易方式)
-    foreignInvestedEnterprises, //外商投资企业进出口总值
+    goodsTotalChart, //中国货物进出口总值
+    goodsTradeBalanceChart, //中国货物进出口贸易差额
+    tradeByOriginChart, //货物出口总值按国家和地区统计
+    tradeByCommodityChart, //货物出口总值(商品类别)
+    tradeByEnterpriseTypeChart, //货物出口总值(企业性质)
+    tradeByCustomRegimeChart, //货物出口总值(贸易方式)
+    foreignInvestedEnterprisesChart, //外商投资企业进出口总值
     //服务贸易
-    totalTradeInServices, // 中国服务贸易进出口总值
-    volumeByServiceType, // 服务贸易分类统计
+    totalTradeInServicesChart, // 中国服务贸易进出口总值
+    volumeByServiceTypeChart, // 服务贸易分类统计
 
     // ------------------------宏观经济指标模块-------------------------
     //国内生产总值
-    grossDomesticProduct,
+    grossDomesticProductChart,
     //消费者价格指数
-    consumerPriceIndex,
+    consumerPriceIndexChart,
     //采购经理人指数
-    purchasingManagersIndex,
+    purchasingManagersIndexChart,
     //登记失业率
-    unemployRegister,
+    unemployRegisterChart,
     //调查失业率
-    unemployExamine,
+    unemployExamineChart,
     //工业生产者出厂价格指数
-    producerPriceIndex,
+    producerPriceIndexChart,
     //工业增加值
-    industryAddValue,
+    industryAddValueChart,
     //工业企业利润
-    industrialProfits,
+    industrialProfitsChart,
     //社会消费品零售总额
-    salesConsumerGoods,
+    salesConsumerGoodsChart,
     //固定资产投资（不含农户）
-    investmentFixedAssets,
+    investmentFixedAssetsChart,
     //国家财政收支
-    nationalFinance,
+    nationalFinanceChart,
     //货币供应量 (M2)
-    moneySupply,
+    moneySupplyChart,
     //国家外汇储备
-    foreignCurrencyReserves
+    foreignCurrencyReservesChart
   }
 };
 </script>

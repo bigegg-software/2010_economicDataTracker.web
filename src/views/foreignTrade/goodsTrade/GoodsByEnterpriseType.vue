@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "tradeByEnterpriseType",
+      tabComponent: "tradeByEnterpriseTypeChart",
       tabList: [
         {
-          name: "tradeByEnterpriseType",
+          name: "tradeByEnterpriseTypeChart",
           chinese: "货物进出口总值按企业性质统计",
           english: "Import and export by enterprise type"
         }

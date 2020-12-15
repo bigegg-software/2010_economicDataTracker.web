@@ -82,7 +82,13 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+         //右上角水印
+        legendMark:{
+          en:"Y-o-y",
+          ch:"同比",
+          doSymbol:"(%)"
+        }
       },
       status: [
         {

@@ -30,10 +30,10 @@ export default {
   data() {
     return {
       // describeList,
-      tabComponent: "foreignInvestedEnterprises",
+      tabComponent: "foreignInvestedEnterprisesChart",
       tabList: [
         {
-          name: "foreignInvestedEnterprises",
+          name: "foreignInvestedEnterprisesChart",
           chinese: "外商投资企业进出口总值",
           english: "Trade volume of foreign-invested enterprises"
         }

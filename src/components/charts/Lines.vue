@@ -9,7 +9,7 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark: false,
+      watermark: true,
       canvas: null,
       selected: {},
       chartDataSourcesEn: "",
@@ -18,7 +18,7 @@ export default {
   },
   props: {
     options: {},
-    selectOption:{}//展示功能区选择的选项（外贸）
+    selectOption: {} //展示功能区选择的选项（外贸）
   },
   async mounted() {
     this.chartDataSourcesEn =
@@ -148,7 +148,10 @@ export default {
     //企业数 转换成整数
     formatInt(it) {
       let value = it.value;
-        return value && value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+      return (
+        value &&
+        value.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, "$&,")
+      );
     },
     initChart() {
       // 基于准备好的dom，初始化echarts实例
@@ -349,6 +352,108 @@ export default {
                 }
               }
             ]
+          },
+          {
+            //右上角水印
+            type: "group",
+            right: this.$fz(0.2),
+            top:this.options.isLongTitle?this.$fz(0.46):this.$fz(0.15),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "Value" : "",
+                  font: `${this.$fz(0.16)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                top: this.$fz(0.16),
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "金额" : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.6),
+                top: this.$fz(0.09),
+                style: {
+                  fill: "#999",
+                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "———" : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
+          },
+          {
+            //右上角水印
+            type: "group",
+            right: this.$fz(0.2),
+            top: this.options.isLongTitle?this.$fz(0.8):this.$fz(0.5),
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&this.options.yearOnYear && this.options.legendMark
+                      ? this.options.legendMark.en
+                      : "",
+                  font: `${this.$fz(0.16)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: 0,
+                top: this.$fz(0.16),
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? this.options.legendMark.ch
+                      : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.35),
+                top: this.$fz(0.1),
+                style: {
+                  fill: "#666",
+                  text:
+                    this.watermark &&this.options.yearOnYear && this.options.legendMark
+                      ? this.options.legendMark.doSymbol
+                      : "",
+                  font: `${this.$fz(0.14)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: this.$fz(0.6),
+                top: this.$fz(0.09),
+                style: {
+                  fill: "#666",
+                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "- - - - - -" : "",
+                  font: `${this.$fz(0.14)}px Calibri`
+                }
+              }
+            ]
           }
         ],
 
@@ -366,11 +471,12 @@ export default {
             let c = "";
             dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += "<table>";
-             if(this.selectOption){//判断功能区是否有筛选
-            dom += `<div style="padding:0.052rem  0 0; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            if (this.selectOption) {
+              //判断功能区是否有筛选
+              dom += `<div style="padding:0.052rem  0 0; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
               dom += `<div style="color:#1D3F6C;font-weight: bold;"><p style="font-size:0.104167rem;font-family: Calibri;">${this.selectOption.en}</p><p style="font-size:0.083333rem;margin-top:-0.1rem;font-family: SimHei;">${this.selectOption.ch}</p></div>`;
-            }else{
-            dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
+            } else {
+              dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
             }
             for (let i = 0; i < rowCount; i++) {
               dom += `<tr>`;
@@ -396,7 +502,11 @@ export default {
                     }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value ? (this.options.dataInt?this.formatInt(it):this.formatNum(it)) : "-"
+                    !!it.value
+                      ? this.options.dataInt
+                        ? this.formatInt(it)
+                        : this.formatNum(it)
+                      : "-"
                   }</div>`;
                 } else {
                   if (it.seriesName.split("|")[0].split("_")[1]) {
@@ -411,7 +521,9 @@ export default {
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
                     !!it.value
-                      ? (this.options.yearInt?this.formatInt(it):this.formatNum(it)) +
+                      ? (this.options.yearInt
+                          ? this.formatInt(it)
+                          : this.formatNum(it)) +
                         (this.options.y2Name ? "" : "%")
                       : "-"
                   }</div>`;
@@ -528,7 +640,7 @@ export default {
               this.options.y2Name ? `{divch|${this.options.y2Name.ch}}` : ""
             ].join("\n"),
             nameTextStyle: {
-               align: "left",
+              align: "left",
               padding: [0, 0, 0, -that.$refs.lineChart.offsetWidth * 0.03],
               color: "#666",
               rich: {

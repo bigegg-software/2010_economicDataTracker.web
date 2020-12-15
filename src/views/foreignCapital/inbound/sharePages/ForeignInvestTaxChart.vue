@@ -93,7 +93,7 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万人民币", en: "RMB mln" },
         yearOnYear: false, //通过修改这个值来显示同比
-        percent: false, //通过修改这个值来显示同比
+        percent: false, //通过修改这个值来显示同占比
         title: {
           ch: "外商投资企业税收统计",
           en: "Tax revenue from foreign investment enterprises"
@@ -110,7 +110,12 @@ export default {
             percent: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        legendMark: {//右上角水印
+          en: "Y-o-y",
+          ch: "同比",
+          doSymbol: "(%)"
+        }
       },
       status: [
         {
