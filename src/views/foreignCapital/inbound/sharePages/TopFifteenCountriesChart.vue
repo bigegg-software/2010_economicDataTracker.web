@@ -115,7 +115,12 @@ export default {
             yearOnYear: []
           }
         ],
-        updatedDate: ""
+        updatedDate: "",
+        legendMark: {
+          //右上角水印
+          en: "Enterprise",
+          ch: "企业数",
+        },
       },
       option: {
         ch: "年度",

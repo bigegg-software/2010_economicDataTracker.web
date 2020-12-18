@@ -9,7 +9,7 @@ export default {
     return {
       timer: null,
       chart: null,
-      watermark: true,
+      watermark: false,
       canvas: null,
       selected: {},
       chartDataSourcesEn: "",
@@ -390,7 +390,11 @@ export default {
               {
                 type: "text",
                 z: 100,
-                left: this.$fz(0.6),
+                left: this.options.legendMark
+                  ? this.options.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
                 top: this.$fz(0.09),
                 style: {
                   fill: "#999",
@@ -418,10 +422,19 @@ export default {
                 style: {
                   fill: "#666",
                   text:
+<<<<<<< HEAD
                     this.watermark &&
                     this.options.yearOnYear &&
                     this.options.legendMark
                       ? this.options.legendMark.en
+=======
+                    this.watermark && this.options.legendMark
+                      ? this.options.percent&&this.options.yearOnYear
+                        ? this.options.shareLegendMark.en
+                        : this.options.yearOnYear
+                        ? this.options.legendMark.en
+                        : ""
+>>>>>>> fc4a09a7723899503b38ea21dde5718c3adc5723
                       : "",
                   font: `${this.$fz(0.16)}px Calibri`
                 }
@@ -434,10 +447,12 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&
-                    this.options.yearOnYear &&
-                    this.options.legendMark
-                      ? this.options.legendMark.ch
+                    this.watermark && this.options.legendMark
+                      ? this.options.percent&&this.options.yearOnYear
+                        ? this.options.shareLegendMark.ch
+                        : this.options.yearOnYear
+                        ? this.options.legendMark.ch
+                        : ""
                       : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
@@ -461,7 +476,11 @@ export default {
               {
                 type: "text",
                 z: 100,
-                left: this.$fz(0.6),
+                left: this.options.legendMark
+                  ? this.options.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
                 top: this.$fz(0.09),
                 style: {
                   fill: "#666",

@@ -12,7 +12,7 @@ export default {
       selected: {},
       chartDataSourcesEn: "",
       chartDataSourcesCh: "",
-      watermark: true
+      watermark: false
     };
   },
   props: {
@@ -368,7 +368,9 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top:this.chartBarData.isLongTitle?this.$fz(0.46):this.$fz(0.15),
+            top: this.chartBarData.isLongTitle
+              ? this.$fz(0.46)
+              : this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -376,7 +378,12 @@ export default {
                 left: 0,
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark ? "Value" : "",
+                  text:
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
+                      ? "Value"
+                      : "",
                   font: `${this.$fz(0.16)}px Calibri`
                 }
               },
@@ -387,18 +394,32 @@ export default {
                 top: this.$fz(0.16),
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark ? "金额" : "",
+                  text:
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
+                      ? "金额"
+                      : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
               },
               {
                 type: "text",
                 z: 100,
-                left: this.$fz(0.6),
+               left: this.chartBarData.legendMark
+                  ? this.chartBarData.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
                 top: this.$fz(0.09),
                 style: {
                   fill: "#999",
-                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark? "———" : "",
+                  text:
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
+                      ? "———"
+                      : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
               }
@@ -408,7 +429,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top: this.chartBarData.isLongTitle?this.$fz(0.8):this.$fz(0.5),
+            top: this.chartBarData.isLongTitle ? this.$fz(0.8) : this.$fz(0.5),
             children: [
               {
                 type: "text",
@@ -417,7 +438,9 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
                       ? this.chartBarData.legendMark.en
                       : "",
                   font: `${this.$fz(0.16)}px Calibri`
@@ -447,7 +470,9 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
                       ? this.chartBarData.legendMark.doSymbol
                       : "",
                   font: `${this.$fz(0.14)}px Calibri`
@@ -456,11 +481,20 @@ export default {
               {
                 type: "text",
                 z: 100,
-                left: this.$fz(0.6),
+                left: this.chartBarData.legendMark
+                  ? this.chartBarData.legendMark.en == "Enterprise"
+                    ? this.$fz(0.73)
+                    : this.$fz(0.6)
+                  : "",
                 top: this.$fz(0.09),
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.chartBarData.yearOnYear && this.chartBarData.legendMark? "- - - - - -" : "",
+                  text:
+                    this.watermark &&
+                    this.chartBarData.yearOnYear &&
+                    this.chartBarData.legendMark
+                      ? "- - - - - -"
+                      : "",
                   font: `${this.$fz(0.14)}px Calibri`
                 }
               }

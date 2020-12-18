@@ -111,10 +111,16 @@ export default {
           }
         ],
         updatedDate: "",
-        legendMark: {//右上角水印
+        legendMark: {
+          //右上角水印
           en: "Y-o-y",
           ch: "同比",
           doSymbol: "(%)"
+        },
+        shareLegendMark: {
+          //右上角水印
+          en: "Share",
+          ch: "占比"
         }
       },
       status: [
@@ -298,6 +304,7 @@ export default {
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
+        this.USD.percent = false;
       }
       if (index == 1) {
         this.USD.series[0].name =
@@ -307,6 +314,7 @@ export default {
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
           : this.$set(this.USD, "yearOnYear", false);
+        this.USD.percent = this.status[1].checked;
       }
     }
   }
