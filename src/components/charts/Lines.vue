@@ -422,19 +422,12 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-<<<<<<< HEAD
-                    this.watermark &&
-                    this.options.yearOnYear &&
-                    this.options.legendMark
-                      ? this.options.legendMark.en
-=======
                     this.watermark && this.options.legendMark
-                      ? this.options.percent&&this.options.yearOnYear
+                      ? this.options.percent && this.options.yearOnYear
                         ? this.options.shareLegendMark.en
                         : this.options.yearOnYear
                         ? this.options.legendMark.en
                         : ""
->>>>>>> fc4a09a7723899503b38ea21dde5718c3adc5723
                       : "",
                   font: `${this.$fz(0.16)}px Calibri`
                 }
@@ -448,7 +441,7 @@ export default {
                   fill: "#666",
                   text:
                     this.watermark && this.options.legendMark
-                      ? this.options.percent&&this.options.yearOnYear
+                      ? this.options.percent && this.options.yearOnYear
                         ? this.options.shareLegendMark.ch
                         : this.options.yearOnYear
                         ? this.options.legendMark.ch
