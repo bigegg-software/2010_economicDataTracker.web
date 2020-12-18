@@ -2,27 +2,37 @@
   <div class="actions-block" id="actions-block">
     <template v-for="(item, index) in actionsList">
       <div
-        v-if="!item.hide && ((item.name!='download'&&item.name!='embed')||((item.name=='download'||item.name=='embed')&&$store.getters.userInfo.sessionToken))"
+        v-if="
+          !item.hide &&
+            ((item.name != 'download' && item.name != 'embed') ||
+              ((item.name == 'download' || item.name == 'embed') &&
+                $store.getters.userInfo.sessionToken))
+        "
         :key="index"
         class="action"
         :class="{ active: item.checked }"
         @mouseleave="mouseleave"
         @click.stop="handleClickAction(item, index)"
       >
-        <div class="iconfont icon-action">{{ handelText(item.toggle, item.checked, item.icon) }}</div>
+        <div class="iconfont icon-action">
+          {{ handelText(item.toggle, item.checked, item.icon) }}
+        </div>
         <div class="text">
           <div>{{ handelText(item.toggle, item.checked, item.en) }}</div>
           <div>{{ handelText(item.toggle, item.checked, item.ch) }}</div>
         </div>
         <fade-in-out>
           <!-- 下载 -->
-          <div v-if="item.popup && item.name == 'download' && item.checked" class="download-block">
+          <div
+            v-if="item.popup && item.name == 'download' && item.checked"
+            class="download-block"
+          >
             <template v-for="(action, i) in item.children">
               <div
                 v-if="isShow(action)"
                 :key="i"
                 class="download"
-                @click.stop="choose(index, i,item.name)"
+                @click.stop="choose(index, i, item.name)"
               >
                 <div>{{ action.en }}</div>
                 <div>{{ action.ch }}</div>
@@ -30,7 +40,10 @@
             </template>
           </div>
           <!-- 嵌入 -->
-          <div v-if="item.popup && item.name == 'embed' && item.checked" class="embed-block">
+          <div
+            v-if="item.popup && item.name == 'embed' && item.checked"
+            class="embed-block"
+          >
             <div v-for="(action, i) in item.children" :key="i" class="embed">
               <div>{{ action.en }}</div>
               <div>{{ action.ch }}</div>
@@ -38,12 +51,15 @@
             </div>
           </div>
           <!-- 分享 -->
-          <div v-if="item.popup && item.name == 'share' && item.checked" class="share-block">
+          <div
+            v-if="item.popup && item.name == 'share' && item.checked"
+            class="share-block"
+          >
             <div
               v-for="(action, i) in item.children"
               :key="i"
               class="share"
-              @click.stop="choose(index, i,item.name)"
+              @click.stop="choose(index, i, item.name)"
             >
               <img :src="require('../assets/img/' + action.img)" alt />
             </div>
@@ -83,8 +99,6 @@ export default {
     this.urlTitle = arr.filter(item => {
       return item.name == this.$route.name;
     });
-    console.log(this.urlTitle);
-    console.log(this.urlTitle[0].en + this.urlTitle[0].ch);
   },
 
   mounted() {

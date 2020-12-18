@@ -1,9 +1,22 @@
 <template>
   <!-- 中国对外承包工程 -->
-  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-   <!-- :describeData="describeList[tabComponent]['dataSources']" -->
-    <share-body  :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+  <div
+    :class="
+      $store.state.fullScreen.isFullScreen == false
+        ? 'fullContainer'
+        : 'container'
+    "
+  >
+    <tab-component
+      :tabList="tabList"
+      :tabComponent="tabComponent"
+      @change="changeTabCompnent"
+    ></tab-component>
+    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
+    <share-body
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -24,25 +37,25 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent,
+    ActionsComponent
     // Describe
   },
   data() {
     return {
       // describeList,
-      tabComponent: "goodsTotalChart",
-      tabList: [
-        {
-          name: "goodsTotalChart",
-          chinese: "中国货物进出口总值",
-          english: "Total trade volume of goods"
-        },
-        {
-          name: "goodsTradeBalanceChart",
-          chinese: "中国货物进出口贸易差额",
-          english: "xxx"
-        }
-      ],
+      tabComponent: "goodsTotalChart",
+      tabList: [
+        {
+          name: "goodsTotalChart",
+          chinese: "中国货物进出口总值",
+          english: "Total trade volume of goods"
+        },
+        {
+          name: "goodsTradeBalanceChart",
+          chinese: "中国货物进出口贸易差额",
+          english: "China's trade balance"
+        }
+      ],
 
       actionsList: [
         {
@@ -51,7 +64,7 @@ export default {
           en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
-          hide:false,
+          hide: false,
           toggle: true
         },
         {
@@ -112,17 +125,17 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit('setShowOperate',true);
+      this.$store.commit("setShowOperate", true);
     }
   },
   mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
-      if(name=='topTenProjectToOPChart'){
-           this.actionsList[0].hide=true;
-      }else{
-        this.actionsList[0].hide=false;
+      if (name == "topTenProjectToOPChart") {
+        this.actionsList[0].hide = true;
+      } else {
+        this.actionsList[0].hide = false;
       }
     },
 
@@ -141,9 +154,9 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
-       if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       this.initActionsList();
@@ -155,7 +168,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

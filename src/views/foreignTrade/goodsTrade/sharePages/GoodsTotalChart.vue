@@ -5,12 +5,22 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
+      <div
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
+      >
         <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
       </div>
       <div
-        v-if="isShowRMB &&!isShowTable"
-        :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+        v-if="isShowRMB && !isShowTable"
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
       >
         <bar-line :options="RMB"></bar-line>
       </div>
@@ -18,7 +28,6 @@
     <div class="select-block">
       <div class="frame">
         <time-frame
-          v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
@@ -34,7 +43,7 @@
         ></check-box>
       </div>
       <SelectRadio
-        v-if="monthScreen"
+        v-if="activeKey == 'monthly'"
         class="status"
         :option="selectOption"
         :value="selectOption.value"
@@ -45,11 +54,12 @@
 </template>
 
 <script>
+//  年度月度分两张表
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import CheckBox from "@/components/select/selectCheckBox/CheckBox";
 import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import request from "@/request/goodsTrade/goodsTrade";
 import SelectRadio from "@/components/select/SelectRadio";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
@@ -69,23 +79,26 @@ export default {
   name: "goodsTotal",
   data() {
     return {
+      activeKey: "yearly",
+      tableName: {
+        yearly: "TotalTradeGoods",
+        monthly: "TotalTradeGoodsMonth"
+      },
       totalData: {
         title: {
           ch: "中国进出口贸易总额",
           en: "Revenue of completed contract from China's overseas projects"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "百万美元/亿人民币",
+          en: "USD mln/RMB 100 mln"
         },
         tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
       timer: null,
-      showTimeFrame: false,
       isShowRMB: false,
-      monthScreen: false,
       USD: {
         id: "USD",
         dataSources: this.describeData,
@@ -95,7 +108,7 @@ export default {
           ch: "中国货物进出口总值",
           en: "China's total trade volume of goods"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
@@ -105,20 +118,20 @@ export default {
           {
             name: "进出口_Trade volume|进出口同比_Y-o-y trade",
             color: "#91c7ae",
-            data: [420, 680, 240, 460, 490],
-            yearOnYear: [1.5, 2.8, -2.5, 1.2, -1.2]
+            data: [],
+            yearOnYear: []
           },
           {
             name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
-            data: [420, 380, 480, 350, 290],
-            yearOnYear: [1, 2.8, 1, -1, -1.2]
+            data: [],
+            yearOnYear: []
           },
           {
             name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
+            data: [],
+            yearOnYear: []
           }
         ],
         updatedDate: ""
@@ -126,13 +139,13 @@ export default {
       RMB: {
         id: "RMB",
         dataSources: this.describeData,
-        yName: { ch: "百万人民币", en: "RMB mln" },
+        yName: { ch: "亿元人民币", en: "RMB 100 mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国货物进出口总值",
           en: "China's total trade volume of goods"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "14%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
@@ -142,30 +155,25 @@ export default {
           {
             name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
-            data: [420, 380, 480, 350, 290],
-            yearOnYear: [1, 2.8, 1, -1, -1.2]
+            data: [],
+            yearOnYear: []
           },
           {
             name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
+            data: [],
+            yearOnYear: []
           },
           {
             name: "进出口_Trade volume|进出口同比_Y-o-y trade",
             color: "#91c7ae",
-            data: [420, 680, 240, 460, 490],
-            yearOnYear: [1.5, 2.8, -2.5, 1.2, -1.2]
+            data: [],
+            yearOnYear: []
           }
         ],
         updatedDate: ""
       },
       status: [
-        // {
-        //   checked: true,
-        //   ch: "同比",
-        //   en: "Year-on-year"
-        // },
         {
           checked: false,
           ch: "人民币计价",
@@ -180,14 +188,14 @@ export default {
             start: {
               ch: "开始",
               en: "Start",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "End",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             }
           }
         },
@@ -239,37 +247,22 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let result = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    }
   },
   async created() {
-    let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
-    // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
-    });
+    await this.getMaxMinDate();
+    this.mainGetChartsData();
   },
   mounted() {
-    //下载图片
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barLine.downloadFile();
     });
@@ -278,53 +271,67 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    //选择当月或累计月份
-    async changeRadioSelect(item) {
-      this.selectOption.value = item;
-    },
-    async mainGetChartsData(type) {
-      //条件改变时获取数据
-      let { start, end } = this.options[type].list;
-      if (type == "yearly") {
-        this.monthScreen = false; //月份选择组件隐藏
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
-      } else if (type == "quarterly" || type == "monthly") {
-        this.monthScreen = true; //月份选择组件显示
-        // let startTimeArr = start.value.split("-");
-        // let endTimeArr = end.value.split("-");
-        // let quarterStart = parseInt(startTimeArr[0]);
-        // let quarterStartMonth = parseInt(startTimeArr[1]);
-        // let quarterEnd = parseInt(endTimeArr[0]);
-        // let quarterEndMonth = parseInt(endTimeArr[1]);
-        // await this.getChartsData({
-        //   type,
-        //   start: quarterStart,
-        //   end: quarterEnd,
-        //   startMonth: quarterStartMonth,
-        //   endMonth: quarterEndMonth
-        // });
+    async mainGetChartsData() {
+      let { start, end } = this.options[this.activeKey].list;
+      if (this.activeKey == "yearly") {
+        await this.getChartsData({
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
+          start: Number(start.value),
+          end: Number(end.value),
+          noMonth: true
+        });
+      }
+      if (this.activeKey == "monthly") {
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]);
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
+          start: quarterStart,
+          end: quarterEnd,
+          startMonth: quarterStartMonth,
+          endMonth: quarterEndMonth,
+          dataType: this.selectOption.value.id // 1当月 / 2累计
+        });
       }
     },
+    // 获取最大年最小年
     async getMaxMinDate() {
-      // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
-      for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
+      let res = await chartDataFun.getMaxMinDate(
+        this.tableName[this.activeKey]
+      );
+      let arrmaxmin = res.split("_");
+      if (this.activeKey == "yearly") {
+        let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        this.$set(this.options, "yearly", obj);
+        this.options.yearly.list.start.value = arrmaxmin[1] - 11;
+        this.options.yearly.list.end.value = arrmaxmin[1];
       }
-      this.showTimeFrame = true;
-      return res;
+      if (this.activeKey == "monthly") {
+        let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, "monthly", obj);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+          arrmaxmin[1],
+          1
+        );
+        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.end.value = QMDefaultTime.M.end;
+      }
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
       //根据字段获取数据
-      let resoult = {};
+      let result = {};
       for (let i = 0; i < Ayis.length; i++) {
         let item = Ayis[i];
         // 转换图标数据数组和横轴名称数组
@@ -335,115 +342,338 @@ export default {
         );
         // 补全数据
         let data = await chartDataFun.completionDate(dataArr, range);
-        resoult[item] = data;
+        result[item] = data;
       }
-      return resoult;
+      return result;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
-      // this.RMB.series[0]["data"] = data.completedAmountMillion;
-      // this.RMB.series[0]["yearOnYear"] = data.completedAmountYOY;
-      //
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      if (this.activeKey == "monthly" && this.selectOption.value.id == 2) {
+        this.USD.series[0]["data"] = data.USD_cumulativeTradeVolume;
+        this.USD.series[0]["yearOnYear"] = data.USD_yoyCumulativeTrade;
+        this.USD.series[1]["data"] = data.USD_cumulativeImport;
+        this.USD.series[1]["yearOnYear"] = data.USD_yoyCumulativeImport;
+        this.USD.series[2]["data"] = data.USD_cumulativeExport;
+        this.USD.series[2]["yearOnYear"] = data.USD_yoyCumulativeExport;
+        this.RMB.series[0]["data"] = data.RMB_cumulativeTradeVolume;
+        this.RMB.series[0]["yearOnYear"] = data.RMB_yoyCumulativeTrade;
+        this.RMB.series[1]["data"] = data.RMB_cumulativeImport;
+        this.RMB.series[1]["yearOnYear"] = data.RMB_yoyCumulativeImport;
+        this.RMB.series[2]["data"] = data.RMB_cumulativeExport;
+        this.RMB.series[2]["yearOnYear"] = data.RMB_yoyCumulativeExport;
+        return;
+      }
+      this.USD.series[0]["data"] = data.USD_tradeVolume;
+      this.USD.series[0]["yearOnYear"] = data.USD_yoyTrade;
+      this.USD.series[1]["data"] = data.USD_import;
+      this.USD.series[1]["yearOnYear"] = data.USD_yoyImport;
+      this.USD.series[2]["data"] = data.USD_export;
+      this.USD.series[2]["yearOnYear"] = data.USD_yoyExport;
+      this.RMB.series[0]["data"] = data.RMB_tradeVolume;
+      this.RMB.series[0]["yearOnYear"] = data.RMB_yoyTrade;
+      this.RMB.series[1]["data"] = data.RMB_import;
+      this.RMB.series[1]["yearOnYear"] = data.RMB_yoyImport;
+      this.RMB.series[2]["data"] = data.RMB_export;
+      this.RMB.series[2]["yearOnYear"] = data.RMB_yoyExport;
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
-      //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
+      let data;
+      let dataAttr;
+      let range;
 
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      if (this.activeKey == "yearly") {
+        data = await request.getTotalTradeGoods(aug);
+        dataAttr = [
+          "USD_tradeVolume",
+          "USD_yoyTrade",
+          "USD_import",
+          "USD_yoyImport",
+          "USD_export",
+          "USD_yoyExport",
+          "RMB_tradeVolume",
+          "RMB_yoyTrade",
+          "RMB_import",
+          "RMB_yoyImport",
+          "RMB_export",
+          "RMB_yoyExport"
+        ];
+        range = await chartDataFun.getXRange(aug);
+        await chartDataFun.addOtherCategory(data);
+      }
+      if (this.activeKey == "monthly") {
+        data = await request.getTotalTradeGoodsMonth(aug);
+        // 当月
+        if (this.selectOption.value.id == 1) {
+          dataAttr = [
+            "USD_tradeVolume",
+            "USD_yoyTrade",
+            "USD_import",
+            "USD_yoyImport",
+            "USD_export",
+            "USD_yoyExport",
+            "RMB_tradeVolume",
+            "RMB_yoyTrade",
+            "RMB_import",
+            "RMB_yoyImport",
+            "RMB_export",
+            "RMB_yoyExport"
+          ];
+          range = await chartDataFun.getXRangeCurrentMonth(aug);
+          await chartDataFun.addOtherCategoryCurrentMonth(data);
+        }
+        // 累计
+        if (this.selectOption.value.id == 2) {
+          dataAttr = [
+            "USD_cumulativeTradeVolume",
+            "USD_yoyCumulativeTrade",
+            "USD_cumulativeImport",
+            "USD_yoyCumulativeImport",
+            "USD_cumulativeExport",
+            "USD_yoyCumulativeExport",
+            "RMB_cumulativeTradeVolume",
+            "RMB_yoyCumulativeTrade",
+            "RMB_cumulativeImport",
+            "RMB_yoyCumulativeImport",
+            "RMB_cumulativeExport",
+            "RMB_yoyCumulativeExport"
+          ];
+          range = await chartDataFun.getXRange(aug);
+          await chartDataFun.addOtherCategory(data);
+        }
+      }
       // 要换取纵轴数据的字段属性
-      let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
-      ];
+
       let XNameAttr = "year";
-      // this.USD.xData = range;
-      // this.RMB.xData = range;
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
+      this.RMB.xData = range;
       this.RMB.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
-      //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
 
       if (aug.type == "yearly") {
-        // 年
         XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
-      } else if ((aug.type = "monthly")) {
-        //月度
+      }
+      if (aug.type == "monthly") {
         XNameAttr = "M";
       }
       // 获取当前页面所有线
-      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+      await this.getItemCategoryData(data, XNameAttr, dataAttr, range);
     },
     async setTableConfig(aug) {
       if (aug.type == "yearly") {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "100px"
           },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "25%",
+          USD_tradeVolume: {
+            text: "进出口(USD)_Trade volume(USD)",
+            width: "100px",
             formatNum: true
           },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "25%",
+          USD_yoyTrade: {
+            text: "进出口同比(USD)_Y-o-y trade(USD)",
+            width: "100px",
             formatPer: true
           },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
+          USD_import: {
+            text: "进口(USD)_Import(USD)",
+            width: "100px",
             formatNum: true
           },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
+          USD_yoyImport: {
+            text: "进口同比(USD)_Y-o-y import(USD)",
+            width: "100px",
+            formatPer: true
+          },
+          USD_export: {
+            text: "出口(USD)_Export(USD)",
+            width: "100px",
+            formatNum: true
+          },
+          USD_yoyExport: {
+            text: "出口同比(USD)_Y-o-y export(USD)",
+            width: "100px",
+            formatPer: true
+          },
+          RMB_tradeVolume: {
+            text: "进出口(RMB)_Trade volume(RMB)",
+            width: "100px",
+            formatNum: true
+          },
+          RMB_yoyTrade: {
+            text: "进出口同比(RMB)_Y-o-y trade(RMB)",
+            width: "100px",
+            formatPer: true
+          },
+          RMB_import: {
+            text: "进口(RMB)_Import(RMB)",
+            width: "100px",
+            formatNum: true
+          },
+          RMB_yoyImport: {
+            text: "进口同比(RMB)_Y-o-y import(RMB)",
+            width: "100px",
+            formatPer: true
+          },
+          RMB_export: {
+            text: "出口(RMB)_Export(RMB)",
+            width: "100px",
+            formatNum: true
+          },
+          RMB_yoyExport: {
+            text: "出口同比(RMB)_Y-o-y export(RMB)",
+            width: "100px",
             formatPer: true
           }
         };
       } else {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "20%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "35%",
-            formatPer: true
-          }
-        };
+        if (this.selectOption.value.id == 1) {
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "10%"
+            },
+            month: {
+              text: "月份_Month",
+              width: "20%"
+            },
+            USD_tradeVolume: {
+              text: "当月进出口(USD)_Monthly trade(USD)",
+              width: "25%",
+              formatNum: true
+            },
+            USD_yoyTrade: {
+              text: "当月进出口同比(USD)_Y-o-y monthly trade(USD)",
+              width: "25%",
+              formatPer: true
+            },
+            USD_import: {
+              text: "当月进口(USD)_Monthly import(USD)",
+              width: "20%",
+              formatNum: true
+            },
+            USD_yoyImport: {
+              text: "当月进口同比(USD)_Y-o-y monthly import(USD)",
+              width: "20%",
+              formatPer: true
+            },
+            USD_export: {
+              text: "当月出口(USD)_Monthly export(USD)",
+              width: "20%",
+              formatNum: true
+            },
+            USD_yoyExport: {
+              text: "当月出口同比(USD)_Y-o-y monthly export(USD)",
+              width: "20%",
+              formatPer: true
+            },
+            RMB_tradeVolume: {
+              text: "当月进出口(RMB)_Monthly trade(RMB)",
+              width: "25%",
+              formatNum: true
+            },
+            RMB_yoyTrade: {
+              text: "当月进出口同比(RMB)_Y-o-y monthly trade(RMB)",
+              width: "25%",
+              formatPer: true
+            },
+            RMB_import: {
+              text: "当月进口(RMB)_Monthly import(RMB)",
+              width: "20%",
+              formatNum: true
+            },
+            RMB_yoyImport: {
+              text: "当月进口同比(RMB)_Y-o-y monthly import(RMB)",
+              width: "20%",
+              formatPer: true
+            },
+            RMB_export: {
+              text: "当月出口(RMB)_Monthly export(RMB)",
+              width: "20%",
+              formatNum: true
+            },
+            RMB_yoyExport: {
+              text: "当月出口同比(RMB)_Y-o-y monthly export(RMB)",
+              width: "20%",
+              formatPer: true
+            }
+          };
+        }
+        if (this.selectOption.value.id == 2) {
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "10%"
+            },
+            month: {
+              text: "月份_Month",
+              width: "20%"
+            },
+            USD_cumulativeTradeVolume: {
+              text: "累计进出口(USD)_Cumulative monthly trade(USD)",
+              width: "25%",
+              formatNum: true
+            },
+            USD_yoyCumulativeTrade: {
+              text: "累计进出口同比(USD)_Y-o-y cumulative monthly trade(USD)",
+              width: "25%",
+              formatPer: true
+            },
+            USD_cumulativeImport: {
+              text: "累计进口(USD)_Cumulative monthly import(USD)",
+              width: "20%",
+              formatNum: true
+            },
+            USD_yoyCumulativeImport: {
+              text: "累计进口同比(USD)_Y-o-y cumulative monthly import(USD)",
+              width: "20%",
+              formatPer: true
+            },
+            USD_cumulativeExport: {
+              text: "累计出口(USD)_Cumulative monthly export(USD)",
+              width: "20%",
+              formatNum: true
+            },
+            USD_yoyCumulativeExport: {
+              text: "累计出口同比(USD)_Y-o-y cumulative monthly export(USD)",
+              width: "20%",
+              formatPer: true
+            },
+            RMB_cumulativeTradeVolume: {
+              text: "累计进出口(RMB)_Cumulative monthly trade(RMB)",
+              width: "25%",
+              formatNum: true
+            },
+            RMB_yoyCumulativeTrade: {
+              text: "累计进出口同比(RMB)_Y-o-y cumulative monthly trade(RMB)",
+              width: "25%",
+              formatPer: true
+            },
+            RMB_cumulativeImport: {
+              text: "累计进口(RMB)_Cumulative monthly import(RMB)",
+              width: "20%",
+              formatNum: true
+            },
+            RMB_yoyCumulativeImport: {
+              text: "累计进口同比(RMB)_Y-o-y cumulative monthly import(RMB)",
+              width: "20%",
+              formatPer: true
+            },
+            RMB_cumulativeExport: {
+              text: "累计出口(RMB)_Cumulative monthly export(RMB)",
+              width: "20%",
+              formatNum: true
+            },
+            RMB_yoyCumulativeExport: {
+              text: "累计出口同比(RMB)_Y-o-y cumulative monthly export(RMB)",
+              width: "20%",
+              formatPer: true
+            }
+          };
+        }
       }
     },
     // 时间范围组件 update and change
@@ -472,35 +702,56 @@ export default {
         this.options[activeKey].list["start"].value &&
         this.options[activeKey].list["end"].value
       ) {
-        this.mainGetChartsData(activeKey);
+        this.mainGetChartsData();
       }
-    },
-    // 复选框
+    }, // 复选框
     changeSelect(index) {
       this.status[index].checked = !this.status[index].checked;
       this.status[index].checked
         ? (this.isShowRMB = true)
         : (this.isShowRMB = false);
-      // if (index == 0) {
-      //   this.status[index].checked
-      //     ? (() => {
-      //         this.$set(this.USD, "yearOnYear", true);
-      //         this.$set(this.RMB, "yearOnYear", true);
-      //       })()
-      //     : (() => {
-      //         this.$set(this.USD, "yearOnYear", false);
-      //         this.$set(this.RMB, "yearOnYear", false);
-      //       })();
-      // }
-      // if (index == 0) {
-      // this.status[index].checked
-      // ? (this.isShowRMB = true)
-      // : (this.isShowRMB = false);
-      // }
+    },
+    //选择当月或累计月份
+    async changeRadioSelect(item) {
+      this.selectOption.value = item;
+      this.handleText();
+      await this.mainGetChartsData();
     },
     // 改变年度季度月度时：
-    async changeActiveKey(ev) {
-      await this.mainGetChartsData(ev);
+    async changeActiveKey(activeKey) {
+      this.activeKey = activeKey;
+      await this.getMaxMinDate();
+      this.handleText();
+      await this.mainGetChartsData();
+    },
+    handleText() {
+      let keys = ["USD", "RMB"];
+      for (let i = 0; i < keys.length; i++) {
+        if (this.activeKey == "yearly") {
+          this[keys[i]].series[0].name = "进口_Import|进口同比_Y-o-y import";
+          this[keys[i]].series[1].name = "出口_Export|出口同比_Y-o-y export";
+          this[keys[i]].series[2].name =
+            "进出口_Monthly trade|进出口同比_Y-o-y trade";
+        }
+        if (this.activeKey == "monthly") {
+          if (this.selectOption.value.id == 1) {
+            this[keys[i]].series[0].name =
+              "当月进口_Monthly import|当月进口同比_Y-o-y monthly import";
+            this[keys[i]].series[1].name =
+              "当月出口_Monthly export|当月出口同比_Y-o-y monthly export";
+            this[keys[i]].series[2].name =
+              "当月进出口_Trade volume|当月进出口同比_Y-o-y monthly trade";
+          }
+          if (this.selectOption.value.id == 2) {
+            this[keys[i]].series[0].name =
+              "累计进口_Cumulative monthly import|累计进口同比_Y-o-y cumulative monthly import";
+            this[keys[i]].series[1].name =
+              "累计出口_Cumulative monthly export|累计出口同比_Y-o-y cumulative monthly export";
+            this[keys[i]].series[2].name =
+              "累计进出口_Cumulative monthly trade|累计进出口同比_Y-o-y cumulative monthly trade";
+          }
+        }
+      }
     }
   }
 };

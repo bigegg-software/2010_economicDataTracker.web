@@ -1,6 +1,11 @@
 <template>
   <div class="timeFrame">
-    <div class="tab-list"  v-if="(options.monthly || options.quarterly)&&$store.getters.showOperate">
+    <div
+      class="tab-list"
+      v-if="
+        (options.monthly || options.quarterly) && $store.getters.showOperate
+      "
+    >
       <div
         v-for="(item, key) in options"
         :key="key"
@@ -16,13 +21,25 @@
     </div>
     <div class="tab-area">
       <div v-if="activeKey == 'yearly'">
-        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
-          <year-component :option="option" :value="option.value" @change="changeValue(key, $event)"></year-component>
+        <div
+          v-for="(option, key) in options[activeKey].list"
+          :key="key"
+          class="tab-area-item"
+        >
+          <year-component
+            :option="option"
+            :value="option.value"
+            @change="changeValue(key, $event)"
+          ></year-component>
         </div>
       </div>
 
       <div v-if="activeKey == 'quarterly'">
-        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
+        <div
+          v-for="(option, key) in options[activeKey].list"
+          :key="key"
+          class="tab-area-item"
+        >
           <quarter-component
             :option="option"
             :value="option.value"
@@ -31,7 +48,11 @@
         </div>
       </div>
       <div v-if="activeKey == 'monthly'">
-        <div v-for="(option, key) in options[activeKey].list" :key="key" class="tab-area-item">
+        <div
+          v-for="(option, key) in options[activeKey].list"
+          :key="key"
+          class="tab-area-item"
+        >
           <month-component
             :option="option"
             :value="option.value"
@@ -40,7 +61,11 @@
         </div>
       </div>
     </div>
-    <progress-bar :options="options[activeKey]" :activeKey="activeKey" @change="changeProgress"></progress-bar>
+    <progress-bar
+      :options="options[activeKey]"
+      :activeKey="activeKey"
+      @change="changeProgress"
+    ></progress-bar>
   </div>
 </template>
 
@@ -75,6 +100,7 @@ export default {
   mounted() {},
   methods: {
     changeProgress(value) {
+      // console.log(this.activeKey, value, "111");
       this.$emit("update", this.activeKey, value);
     },
     //  值，这个值是哪个组件的值，
@@ -109,7 +135,7 @@ export default {
   width: 100%;
   .tab-list-item {
     flex: 1;
-    padding:0.01rem 0.02rem;
+    padding: 0.01rem 0.02rem;
     box-sizing: border-box;
     display: flex;
     justify-content: center;

@@ -5,14 +5,29 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
+      <div
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
+      >
+        <lines-chart
+          v-if="!isShowTable"
+          ref="linesChart"
+          :options="USD"
+        ></lines-chart>
       </div>
     </div>
 
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -55,12 +70,12 @@ export default {
           outward_FDI_flows: {
             text: "中国对外直接投资流量_China's FDI outflows",
             width: "40%",
-            formatNum:true
+            formatNum: true
           },
           outward_FDI_stocks: {
             text: "中国对外直接投资存量_China's FDI stocks",
             width: "40%",
-            formatNum:true
+            formatNum: true
           }
         },
         tableData: [],
@@ -71,7 +86,7 @@ export default {
       isShowRMB: false,
       USD: {
         id: "USD",
-        dataSources:this.describeData,
+        dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         title: {
           ch: "中国对外直接投资流量与存量",
@@ -80,8 +95,7 @@ export default {
         xData: [],
         series: [
           {
-            name:
-              "对外直接投资流量_FDI outflows",
+            name: "对外直接投资流量_FDI outflows",
             color: "#6AA3CD",
             data: []
           },
@@ -135,8 +149,8 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
+    this.options.yearly.list.start.value = arrmaxmin[0];
+    this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
       noMonth: true,
       type: "yearly",
@@ -166,13 +180,11 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIOutflowsInflows");
-      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -213,8 +225,8 @@ export default {
       let dataAttr = ["outward_FDI_flows", "outward_FDI_stocks"];
       let XNameAttr = "year";
       this.USD.xData = range;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      this.USD.updatedDate=this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      this.USD.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
@@ -235,7 +247,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;

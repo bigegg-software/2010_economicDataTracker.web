@@ -33,20 +33,28 @@ export default {
       },
       deep: true
     },
-    "options.list.start": {
+    "options.list.start.value": {
       handler(a, b) {
-        let time = Number(a.value.split("-")[0]);
+        let time = Number(`${a}`.split("-")[0]);
         if (time) {
           this.$set(this.frame, 0, time);
         }
       },
       deep: true
     },
-    "options.list.end": {
+    "options.list.end.value": {
       handler(a, b) {
-        let time = Number(a.value.split("-")[0]);
+        let time = Number(`${a}`.split("-")[0]);
         if (time) {
           this.$set(this.frame, 1, time);
+        }
+      },
+      deep: true
+    },
+    "options.list": {
+      handler(a, b) {
+        if (a.start.frame != "" && a.start.value != "") {
+          this.initProgress();
         }
       },
       deep: true
@@ -59,10 +67,12 @@ export default {
     initProgress() {
       this.min = Number(this.options.list.start.frame.split("_")[0]);
       this.max = Number(this.options.list.start.frame.split("_")[1]);
-      this.frame = [this.min, this.max];
+      let start = Number(`${this.options.list.start.value}`.split("-")[0]);
+      let end = Number(`${this.options.list.end.value}`.split("-")[0]);
+      // this.frame = [this.min, this.max];
+      this.frame = [start, end];
     },
     change(val) {
-      console.log(val, "change");
       this.frame = val;
       let result;
       let start = `${val[0]}`;
@@ -93,7 +103,7 @@ export default {
   margin: 0.072917rem 0.052083rem 0.052083rem;
 }
 .ant-slider /deep/ .ant-slider-track {
-  background-color: rgba(145, 173, 195,);
+  background-color: rgba(145, 173, 195);
 }
 .ant-slider /deep/ .ant-slider-handle {
   width: 0.09375rem;

@@ -69,6 +69,14 @@ export default {
       handler(a, b) {
         this.getPageIndex();
       }
+    },
+    option: {
+      handler(a, b) {
+        this.getYears();
+        if (this.value) {
+          this.getPageIndex();
+        }
+      }
     }
   },
   mounted() {
@@ -188,15 +196,15 @@ export default {
     }
     .current {
       color: #fff;
-      background-color: rgba(145, 173, 195,);
+      background-color: rgba(145, 173, 195);
     }
   }
 }
 .label-block {
   line-height: 0.104167rem;
   font-size: 0.072917rem;
-  & div:first-child{
-  font-size: 0.09375rem;
+  & div:first-child {
+    font-size: 0.09375rem;
   }
 }
 .time-block {

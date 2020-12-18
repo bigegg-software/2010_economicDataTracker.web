@@ -16,14 +16,11 @@ export default {
   },
   onLoad() {},
   mounted() {
-    // this.drawChart();
-    console.log(this.options.yearOnYear);
     if (JSON.stringify(this.options) != "{}") {
       this.drawChart();
       this.$EventBus.$on("resize", () => {
         this.timer = null;
         this.timer = setTimeout(async () => {
-          console.log("页面尺寸变化");
           await this.drawChart();
         }, 1000);
       });
@@ -123,9 +120,7 @@ export default {
       for (var j = 0; j < this.options.series.length; j++) {
         series.push(
           {
-            name: this.options.onlyQuarter
-              ? ""
-              : this.options.series[j].name.split("|")[0],
+            name: this.options.series[j].name.split("|")[0],
             type: "bar",
             yAxisIndex: 0,
             itemStyle: {
@@ -134,11 +129,13 @@ export default {
                 // color:this.options.series[j].color
               }
             },
-            data: !this.options.onlyQuarter ? this.options.series[j].data : ""
+            data: this.options.series[j].data
           },
           {
             // clip: true,
-            name:this.options.yearOnYear?this.options.series[j].name.split("|")[1]:"",
+            name: this.options.yearOnYear
+              ? this.options.series[j].name.split("|")[1]
+              : "",
             type: "line",
             yAxisIndex: 1,
             // symbolSize: 6,
@@ -171,7 +168,6 @@ export default {
           }
         },
         backgroundColor: "#fff",
-        // seriesDataName
         tooltip: {
           trigger: "axis",
           confine: true, //限制在区域内
@@ -179,7 +175,6 @@ export default {
             // 坐标轴指示器，坐标轴触发有效
             type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
           },
-
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let dom = "";
@@ -195,7 +190,6 @@ export default {
               //判断功能区是否有筛选
               dom += `<div style="color:#1D3F6C;font-weight: bold;"><p style="font-size:0.104167rem;font-family: Calibri;">${this.selectOption.value.en}</p><p style="font-size:0.083333rem;margin-top:-0.1rem;font-family: SimHei;">${this.selectOption.value.ch}</p></div>`;
             }
-
             for (let i = 0; i < rowCount; i++) {
               dom += `<tr>`;
               for (
@@ -248,6 +242,7 @@ export default {
           }
         },
         legend: {
+          width: "80%",
           top: "13%",
           show: true,
           formatter: name => {
@@ -259,11 +254,9 @@ export default {
         // 	年度完成率和季度完成率颜色
         // color: ["#071960", "#1740B4", "#1962CA", ],
         grid: {
-          left: this.options.onlyQuarter ? "0" : "3%",
-          // left: "3%",
-
-          right: this.options.yearOnYear ? "4%" : "4%",
-          top: "20%",
+          left: "5%",
+          right: "4%",
+          top: "30%",
           bottom: this.watermark
             ? this.options.grid
               ? this.options.grid.bottom
@@ -296,11 +289,10 @@ export default {
             data: this.options.xData
           }
         ],
-        // legend:[]
         yAxis: [
           {
             type: "value",
-            show: this.options.onlyQuarter ? false : true,
+            show: true,
             min: Min1,
             max: Max1,
             splitNumber: 5,
@@ -346,7 +338,7 @@ export default {
           },
           {
             show: this.options.yearOnYear,
-            position: this.options.onlyQuarter ? "left" : "right",
+            position: "right",
             min: Min2,
             max: Max2,
             splitNumber: 5,
@@ -354,7 +346,6 @@ export default {
             name: "比率(%)",
             // 单位 显示位置
             // nameLocation: 'start',
-
             type: "value",
             axisLabel: {
               //坐标轴刻度标签的相关设置。
@@ -487,10 +478,8 @@ export default {
           //   ]
           // }
         ],
-
         series: series
       };
-
       this.chart.setOption(option, true);
       this.chart.resize();
     },
@@ -515,6 +504,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>
-
+<style scoped></style>

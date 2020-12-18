@@ -5,16 +5,31 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <lines-chart v-if="!isShowTable" ref="linesChart" :options="USD"></lines-chart>
+      <div
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
+      >
+        <lines-chart
+          v-show="!isShowTable"
+          ref="linesChart"
+          :options="USD"
+        ></lines-chart>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update" @changeActiveKey="changeActiveKey"></time-frame>
+        <time-frame
+          :options="options"
+          @change="change"
+          @update="update"
+          @changeActiveKey="changeActiveKey"
+        ></time-frame>
       </div>
       <SelectRadio
-        v-if="monthScreen"
+        v-if="activeKey == 'monthly'"
         class="status"
         :option="selectOption"
         :value="selectOption.value"
@@ -25,10 +40,11 @@
 </template>
 
 <script>
+// 年度月度两个表
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import LinesChart from "@/components/charts/Lines";
-import request from "@/request/outBound/outBound";
+import request from "@/request/goodsTrade/goodsTrade";
 import SelectRadio from "@/components/select/SelectRadio";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
@@ -47,10 +63,16 @@ export default {
   name: "goodsTradeBalance",
   data() {
     return {
+      activeKey: "yearly",
+      tableName: {
+        yearly: "TotalTradeGoods",
+        monthly: "TotalTradeGoodsMonth"
+      },
       totalData: {
         title: {
           ch: "中国企业在“一带一路”沿线国家新签合同额",
-          en: "Total value of new contract signed by Chinese enterprises in BRI countries"
+          en:
+            "Total value of new contract signed by Chinese enterprises in BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -61,7 +83,6 @@ export default {
         updatedDate: ""
       },
       timer: null,
-      showTimeFrame: false,
       monthScreen: false,
       USD: {
         id: "USD",
@@ -73,7 +94,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "贸易差额_XXXxxxxxx|新签合同额同比_Y-o-y total value of new contract",
+            name: "贸易差额_Trade balance|",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -81,13 +102,6 @@ export default {
         ],
         updatedDate: ""
       },
-      status: [
-        {
-          checked: false,
-          ch: "同比",
-          en: "Year on year"
-        }
-      ],
       options: {
         yearly: {
           ch: "年度",
@@ -107,24 +121,6 @@ export default {
             }
           }
         },
-        // quarterly: {
-        //   ch: "季度",
-        //   en: "Quarterly",
-        //   list: {
-        //     start: {
-        //       ch: "开始",
-        //       en: "Start",
-        //       frame: "",
-        //       value: ""
-        //     },
-        //     end: {
-        //       ch: "结束",
-        //       en: "End",
-        //       frame: "",
-        //       value: ""
-        //     }
-        //   }
-        // },
         monthly: {
           ch: "月度",
           en: "Monthly",
@@ -144,7 +140,7 @@ export default {
           }
         }
       },
-       selectOption: {
+      selectOption: {
         ch: "月份",
         en: "Monthly",
         value: {
@@ -175,33 +171,20 @@ export default {
   watch: {
     tableDatas: {
       handler() {
-        let resoult = chartDataFun.conversionTable(
+        let result = chartDataFun.conversionTable(
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
-        this.$set(this.totalData, "tableData", resoult);
+        this.$set(this.totalData, "tableData", result);
       },
       deep: true
     }
   },
+  async created() {
+    await this.getMaxMinDate();
+    this.mainGetChartsData();
+  },
   async mounted() {
-    let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value=arrmaxmin[0];
-    this.options.yearly.list.end.value=arrmaxmin[1];
-    // 初始化日期月度季度赋值
-    let QMDefaultTime=await chartDataFun.getQMDefaultTime(arrmaxmin[1],1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value=QMDefaultTime.M.start;
-    this.options.monthly.list.end.value=QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
-    });
-
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -210,22 +193,18 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    //选择当月或累计月份
-    async changeRadioSelect(item) {
-      this.selectOption.value = item;
-    },
-    async mainGetChartsData(type) {
-      //条件改变时获取数据
-      let { start, end } = this.options[type].list;
-      if (type == "yearly") {
-        this.monthScreen = false; //月份选择组件隐藏
+    async mainGetChartsData() {
+      let { start, end } = this.options[this.activeKey].list;
+      if (this.activeKey == "yearly") {
         await this.getChartsData({
-          type,
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
           start: Number(start.value),
-          end: Number(end.value)
+          end: Number(end.value),
+          noMonth: true
         });
-      } else if (type == "quarterly" || type == "monthly") {
-        this.monthScreen = true; //月份选择组件显示
+      }
+      if (this.activeKey == "monthly") {
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
         let quarterStart = parseInt(startTimeArr[0]);
@@ -233,31 +212,48 @@ export default {
         let quarterEnd = parseInt(endTimeArr[0]);
         let quarterEndMonth = parseInt(endTimeArr[1]);
         await this.getChartsData({
-          type,
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
           start: quarterStart,
           end: quarterEnd,
           startMonth: quarterStartMonth,
-          endMonth: quarterEndMonth
+          endMonth: quarterEndMonth,
+          dataType: this.selectOption.value.id // 1当月 / 2累计
         });
       }
     },
+    // 获取最大年最小年
     async getMaxMinDate() {
-      // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflowsBRICountry");
-      console.log(res);
-      for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
+      let res = await chartDataFun.getMaxMinDate(
+        this.tableName[this.activeKey]
+      );
+      let arrmaxmin = res.split("_");
+      if (this.activeKey == "yearly") {
+        let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        this.$set(this.options, "yearly", obj);
+        this.options.yearly.list.start.value = arrmaxmin[1] - 5;
+        this.options.yearly.list.end.value = arrmaxmin[1];
       }
-      this.showTimeFrame = true;
-      return res;
+      if (this.activeKey == "monthly") {
+        let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, "monthly", obj);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+          arrmaxmin[1],
+          1
+        );
+        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.end.value = QMDefaultTime.M.end;
+      }
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
       //根据字段获取数据
-      let resoult = {};
+      let result = {};
       for (let i = 0; i < Ayis.length; i++) {
         let item = Ayis[i];
         // 转换图标数据数组和横轴名称数组
@@ -268,85 +264,108 @@ export default {
         );
         // 补全数据
         let data = await chartDataFun.completionDate(dataArr, range);
-        resoult[item] = data;
+        result[item] = data;
       }
-      return resoult;
+      return result;
     },
-    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    // 获取当前页面的每条线数据（按年度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //一带一路新签合同额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      this.USD.series[0]["data"] = data.newConAmountConMillion;
-      this.USD.series[0]["yearOnYear"] = data.newConAmountConYOY;
+      if (this.activeKey == "monthly" && this.selectOption.value.id == 2) {
+        this.USD.series[0]["data"] = data.USD_cumulativeBalance;
+        return;
+      }
+      this.USD.series[0]["data"] = data.USD_balance;
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
-      //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 2);
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
-      // 要换取纵轴数据的字段属性
-      let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
-      let XNameAttr = "year";
+      let data;
+      let dataAttr;
+      let range;
+      if (this.activeKey == "yearly") {
+        data = await request.getTotalTradeGoodsByBalance(aug);
+        dataAttr = ["USD_balance"];
+        range = await chartDataFun.getXRange(aug);
+        await chartDataFun.addOtherCategory(data);
+      }
+      if (this.activeKey == "monthly") {
+        data = await request.getTotalTradeGoodsMonthByBalance(aug);
+        // 当月
+        if (this.selectOption.value.id == 1) {
+          dataAttr = ["USD_balance"];
+          range = await chartDataFun.getXRangeCurrentMonth(aug);
+          await chartDataFun.addOtherCategoryCurrentMonth(data);
+        }
+        // 累计
+        if (this.selectOption.value.id == 2) {
+          dataAttr = ["USD_cumulativeBalance"];
+          range = await chartDataFun.getXRange(aug);
+          await chartDataFun.addOtherCategory(data);
+        }
+      }
       this.USD.xData = range;
-      this.USD.updatedDate=this.$store.getters.latestTime;
-      this.totalData.updatedDate=this.$store.getters.latestTime;
-      //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
-
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      let XNameAttr;
       if (aug.type == "yearly") {
-        // 年
         XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
       } else if ((aug.type = "monthly")) {
-        //月度
         XNameAttr = "M";
       }
       // 获取当前页面所有线
-      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+      await this.getItemCategoryData(data, XNameAttr, dataAttr, range);
     },
     async setTableConfig(aug) {
-       if(aug.type=='yearly'){
-         this.totalData.tableTitle={
+      if (aug.type == "yearly") {
+        this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
+          USD_balance: {
+            text: "贸易差额_Balance",
             width: "45%",
-            formatNum:true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Y-o-y total value of new contract",
-            width: "45%",
-            formatPer:true
+            formatNum: true
           }
+        };
+      } else {
+        // 如果是当月
+        if (this.selectOption.value.id == 1) {
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "10%"
+            },
+            month: {
+              text: "月份_month",
+              width: "20%"
+            },
+            USD_balance: {
+              text: "当月贸易差额_Monthly balance",
+              width: "35%",
+              formatNum: true
+            }
+          };
         }
-       }else{
-          this.totalData.tableTitle={
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
-            width: "35%",
-            formatNum:true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
-            width: "35%",
-            formatPer:true
-          }
+        // 如果是累计
+        if (this.selectOption.value.id == 2) {
+          this.totalData.tableTitle = {
+            year: {
+              text: "年份_Year",
+              width: "10%"
+            },
+            month: {
+              text: "月份_month",
+              width: "20%"
+            },
+            USD_cumulativeBalance: {
+              text: "累计贸易差额_Cumulative monthly balance",
+              width: "35%",
+              formatNum: true
+            }
+          };
         }
-       }
+      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
@@ -355,8 +374,7 @@ export default {
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
-        // 条件改变时获取数据数据入口  zp
-        this.mainGetChartsData(activeKey);
+        this.mainGetChartsData();
       }, 600);
     },
     change(activeKey, key, value) {
@@ -365,7 +383,7 @@ export default {
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
       let end = key == "end" ? dayjs(`${value}`) : dayjs(`${list.end.value}`);
       if (end.isBefore(start)) {
-        this.$message.warn('开始时间不得大于结束时间');
+        this.$message.warn("开始时间不得大于结束时间");
         return;
       }
       this.options[activeKey].list[key].value = value;
@@ -377,18 +395,31 @@ export default {
         this.mainGetChartsData(activeKey);
       }
     },
-    // 复选框
-    changeSelect(index) {
-      this.status[index].checked = !this.status[index].checked;
-      if (index == 0) {
-        this.status[index].checked
-          ? this.$set(this.USD, "yearOnYear", true)
-          : this.$set(this.USD, "yearOnYear", false);
-      }
+    //选择当月或累计月份
+    async changeRadioSelect(item) {
+      this.selectOption.value = item;
+      this.handleText();
+      await this.mainGetChartsData();
     },
     // 改变年度季度月度时：
-    async changeActiveKey(ev) {
-        await this.mainGetChartsData(ev);
+    async changeActiveKey(activeKey) {
+      this.activeKey = activeKey;
+      this.handleText();
+      await this.getMaxMinDate();
+      await this.mainGetChartsData();
+    },
+    handleText() {
+      if (this.activeKey == "yearly") {
+        this.USD.series[0].name = "贸易差额_Trade balance|";
+      }
+      if (this.activeKey == "monthly") {
+        if (this.selectOption.value.id == 1) {
+          this.USD.series[0].name = "当月贸易差额_Monthly balance|";
+        }
+        if (this.selectOption.value.id == 2) {
+          this.USD.series[0].name = "累计贸易差额_Cumulative monthly balance|";
+        }
+      }
     }
   }
 };

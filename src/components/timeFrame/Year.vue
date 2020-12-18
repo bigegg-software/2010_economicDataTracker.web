@@ -6,7 +6,11 @@
     </div>
     <div class="time-block" @click="openCalendar">
       <div class="text">{{ value ? value : "请选择" }}</div>
-      <div class="icon iconfont" @mouseenter="mouseenter" @mouseleave="closeCalendar">
+      <div
+        class="icon iconfont"
+        @mouseenter="mouseenter"
+        @mouseleave="closeCalendar"
+      >
         <div>&#xe72a;</div>
         <fade-in-out>
           <div v-if="show" class="calendar-block">
@@ -21,7 +25,9 @@
                 class="year"
                 :class="item == option.value ? 'current' : ''"
                 @click="handleClick(item)"
-              >{{ item }}</div>
+              >
+                {{ item }}
+              </div>
             </div>
           </div>
         </fade-in-out>
@@ -53,6 +59,15 @@ export default {
       handler() {
         this.getPageIndex();
       }
+    },
+    option: {
+      handler() {
+        this.getYears();
+        if (this.value) {
+          this.getPageIndex();
+        }
+      },
+      deep: true
     }
   },
   mounted() {

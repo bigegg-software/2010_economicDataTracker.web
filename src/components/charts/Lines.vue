@@ -21,63 +21,60 @@ export default {
     selectOption: {} //展示功能区选择的选项（外贸）
   },
   async mounted() {
-    this.chartDataSourcesEn =
-      "Data Sources:" +
-      (this.options.dataSources.enThird
-        ? this.options.dataSources.en +
-          this.options.dataSources.enSecond +
-          this.options.dataSources.enThird
-        : this.options.dataSources.enSecond
-        ? this.options.dataSources.en + this.options.dataSources.enSecond
-        : this.options.dataSources.en
-      ).replace(/_/g, "");
-    let str = this.chartDataSourcesEn;
-    let result = "";
-    let curlen = 0;
-    let arrValues = str.split(" ");
-    let arrRes = [];
-    for (let index = 0; index < arrValues.length; index++) {
-      const element = arrValues[index];
-      if (element.indexOf(",") >= 0) {
-        let arrDot = element.split(",");
-        console.log("arrDot", arrDot);
-        arrDot.map(item => {
-          if (item.length > 0) {
-            arrRes.push(item);
-            arrRes.push(",");
-          }
-        });
-      } else {
-        arrRes.push(element);
-      }
-      arrRes.push(" ");
-    }
-    for (let i = 0; i < arrRes.length; i++) {
-      const element = arrRes[i];
-      if (curlen + element.length > 96) {
-        curlen = 0;
-        result += "\n";
-        i--;
-      } else {
-        curlen += element.length;
-        result += arrRes[i];
-      }
-    }
-    this.chartDataSourcesEn = result;
+    // this.chartDataSourcesEn =
+    //   "Data Sources:" +
+    //   (this.options.dataSources.enThird
+    //     ? this.options.dataSources.en +
+    //       this.options.dataSources.enSecond +
+    //       this.options.dataSources.enThird
+    //     : this.options.dataSources.enSecond
+    //     ? this.options.dataSources.en + this.options.dataSources.enSecond
+    //     : this.options.dataSources.en
+    //   ).replace(/_/g, "");
+    // let str = this.chartDataSourcesEn;
+    // let result = "";
+    // let curlen = 0;
+    // let arrValues = str.split(" ");
+    // let arrRes = [];
+    // for (let index = 0; index < arrValues.length; index++) {
+    //   const element = arrValues[index];
+    //   if (element.indexOf(",") >= 0) {
+    //     let arrDot = element.split(",");
+    //     arrDot.map(item => {
+    //       if (item.length > 0) {
+    //         arrRes.push(item);
+    //         arrRes.push(",");
+    //       }
+    //     });
+    //   } else {
+    //     arrRes.push(element);
+    //   }
+    //   arrRes.push(" ");
+    // }
+    // for (let i = 0; i < arrRes.length; i++) {
+    //   const element = arrRes[i];
+    //   if (curlen + element.length > 96) {
+    //     curlen = 0;
+    //     result += "\n";
+    //     i--;
+    //   } else {
+    //     curlen += element.length;
+    //     result += arrRes[i];
+    //   }
+    // }
+    // this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.options.dataSources.chThird
-      ? this.options.dataSources.ch +
-        this.options.dataSources.chSecond +
-        this.options.dataSources.chThird
-      : this.options.dataSources.chSecond
-      ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch
-    ).replace(/_/g, "");
-    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
+    // this.chartDataSourcesCh = (this.options.dataSources.chThird
+    //   ? this.options.dataSources.ch +
+    //     this.options.dataSources.chSecond +
+    //     this.options.dataSources.chThird
+    //   : this.options.dataSources.chSecond
+    //   ? this.options.dataSources.ch + this.options.dataSources.chSecond
+    //   : this.options.dataSources.ch
+    // ).replace(/_/g, "");
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
-        console.log("页面尺寸变化");
         this.initChart();
         this.chart.resize();
       }, 1000);
@@ -357,7 +354,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top:this.options.isLongTitle?this.$fz(0.46):this.$fz(0.15),
+            top: this.options.isLongTitle ? this.$fz(0.46) : this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -365,7 +362,12 @@ export default {
                 left: 0,
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "Value" : "",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "Value"
+                      : "",
                   font: `${this.$fz(0.16)}px Calibri`
                 }
               },
@@ -376,7 +378,12 @@ export default {
                 top: this.$fz(0.16),
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark ? "金额" : "",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "金额"
+                      : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
               },
@@ -387,7 +394,12 @@ export default {
                 top: this.$fz(0.09),
                 style: {
                   fill: "#999",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "———" : "",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "———"
+                      : "",
                   font: `${this.$fz(0.14)}px 黑体`
                 }
               }
@@ -397,7 +409,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top: this.options.isLongTitle?this.$fz(0.8):this.$fz(0.5),
+            top: this.options.isLongTitle ? this.$fz(0.8) : this.$fz(0.5),
             children: [
               {
                 type: "text",
@@ -406,7 +418,9 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.options.yearOnYear && this.options.legendMark
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
                       ? this.options.legendMark.en
                       : "",
                   font: `${this.$fz(0.16)}px Calibri`
@@ -436,7 +450,9 @@ export default {
                 style: {
                   fill: "#666",
                   text:
-                    this.watermark &&this.options.yearOnYear && this.options.legendMark
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
                       ? this.options.legendMark.doSymbol
                       : "",
                   font: `${this.$fz(0.14)}px Calibri`
@@ -449,7 +465,12 @@ export default {
                 top: this.$fz(0.09),
                 style: {
                   fill: "#666",
-                  text: this.watermark &&this.options.yearOnYear && this.options.legendMark? "- - - - - -" : "",
+                  text:
+                    this.watermark &&
+                    this.options.yearOnYear &&
+                    this.options.legendMark
+                      ? "- - - - - -"
+                      : "",
                   font: `${this.$fz(0.14)}px Calibri`
                 }
               }
@@ -462,7 +483,6 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            console.log(params);
             let dom = "";
             let rowCount = 6; //一列允许的最大行数
             let lineCount = parseInt(params.length / rowCount) + 1; //列数
@@ -688,7 +708,6 @@ export default {
       };
       this.chart.off("legendselectchanged");
       this.chart.on("legendselectchanged", param => {
-        console.log(param);
         this.selected = param.selected;
       });
       this.chart.setOption(option, true);

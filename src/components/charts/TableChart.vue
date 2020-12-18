@@ -1,33 +1,58 @@
 <template>
   <div
     class="unselectable"
-    :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'"
+    :class="
+      $store.state.fullScreen.isFullScreen == false
+        ? 'fullContainer'
+        : 'container'
+    "
   >
     <div class="title">
-      <div class="titleCh">{{this.totalData.title.en}}</div>
-      <div class="titleEn">{{this.totalData.title.ch}}</div>
+      <div class="titleCh">{{ this.totalData.title.en }}</div>
+      <div class="titleEn">{{ this.totalData.title.ch }}</div>
     </div>
     <div class="unit">
-      <div>{{this.totalData.unit?this.totalData.unit.en:''}}</div>
-      <div>{{this.totalData.unit?this.totalData.unit.ch:''}}</div>
+      <div>{{ this.totalData.unit ? this.totalData.unit.en : "" }}</div>
+      <div>{{ this.totalData.unit ? this.totalData.unit.ch : "" }}</div>
     </div>
     <div class="tableChart" ref="box">
       <div class="tableTitle">
         <div
           class="tableCols"
-          v-for="(item,title) in totalData.tableTitle"
+          v-for="(item, title) in totalData.tableTitle"
           :key="title"
           :style="`width:${item.width}`"
         >
-          <div>{{item.text.split("_")[1]}}</div>
-          <div>{{item.text.split("_")[0]}}</div>
+          <div>{{ item.text.split("_")[1] }}</div>
+          <div>{{ item.text.split("_")[0] }}</div>
         </div>
       </div>
       <div class="tableBody">
-        <div class="tableRow" v-for="(item,index) in totalData.tableData" :key="index">
-          <div class="tableCols" v-for="(items,i) in item" :key="i" :style="`width:${items.width}`">
-            <div>{{items.text.includes('_')&&items.text.split("_")[1]?items.text.split("_")[1]:''}}</div>
-            <div>{{items.text.includes('_')&&items.text.split("_")[0]?items.text.split("_")[0]:''}}</div>
+        <div
+          class="tableRow"
+          v-for="(item, index) in totalData.tableData"
+          :key="index"
+        >
+          <div
+            class="tableCols"
+            v-for="(items, i) in item"
+            :key="i"
+            :style="`width:${items.width}`"
+          >
+            <div>
+              {{
+                items.text.includes("_") && items.text.split("_")[1]
+                  ? items.text.split("_")[1]
+                  : ""
+              }}
+            </div>
+            <div>
+              {{
+                items.text.includes("_") && items.text.split("_")[0]
+                  ? items.text.split("_")[0]
+                  : ""
+              }}
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +62,7 @@
         <div>Data last updated</div>
         <div class="updatedCh">数据最后更新时间</div>
       </div>
-      <div class="updatedDate">{{this.totalData.updatedDate}}</div>
+      <div class="updatedDate">{{ this.totalData.updatedDate }}</div>
     </div>
   </div>
 </template>
@@ -50,8 +75,9 @@ export default {
     };
   },
   props: { totalData: {} },
-  onLoad() {},
-  mounted() {},
+  mounted() {
+    console.log(this.totalData);
+  },
   methods: {}
 };
 </script>
@@ -62,6 +88,7 @@ export default {
   -ms-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  width: 100%;
 }
 .container {
   width: 5.875rem;
@@ -75,6 +102,7 @@ export default {
   padding: 0.1rem;
   box-sizing: border-box;
   .tableChart {
+    width: 100%;
     height: 88%;
   }
 }
@@ -106,6 +134,7 @@ export default {
 .tableChart {
   display: flex;
   flex-flow: column nowrap;
+  width: 100%;
   height: 85%;
   overflow: hidden;
   margin: 0.06rem 0;
@@ -118,6 +147,7 @@ export default {
     padding-right: 0.04rem;
     box-sizing: border-box;
     border-bottom: 1px solid #ddd;
+    width: 100%;
   }
   .tableRow {
     display: flex;
@@ -133,6 +163,7 @@ export default {
     box-sizing: border-box;
   }
   .tableBody {
+    width: 100%;
     overflow: auto;
   }
   .tableBody::-webkit-scrollbar {
@@ -163,4 +194,3 @@ export default {
   }
 }
 </style>
-
