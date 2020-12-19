@@ -68,7 +68,7 @@ export default {
           ch: "国内生产总值 GDP",
           en: "Gross Domestic Product"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
@@ -231,10 +231,10 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
+      //
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      this.USD.series[0]["data"] = data.GDP;
+      this.USD.series[0]["yearOnYear"] = data.yoyGrowth;
       //
     },
     async getChartsData(aug) {
@@ -245,16 +245,15 @@ export default {
         );
 
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
+      console.log(range)
       // 要换取纵轴数据的字段属性
       let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
+        "GDP",
+        "yoyGrowth"
       ];
       let XNameAttr = "year";
-      // this.USD.xData = range;
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
