@@ -173,7 +173,7 @@ export default {
       handler() {
         this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资流量按国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI outflows by country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.en = this.tableTotalData.title.en = `China's FDI outflows by country/region within ${this.selectOption.value.en} in ${this.option.value}`;
       },
       deep: true
     },
@@ -181,7 +181,7 @@ export default {
       handler() {
         this.totalData.seriesData.all=`${this.selectOption.value.en} ${this.selectOption.value.ch}`
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资流量按国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI outflows by country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.en = this.tableTotalData.title.en = `China's FDI outflows by country/region within ${this.selectOption.value.en} in ${this.option.value}`;
       },
       deep: true
     }

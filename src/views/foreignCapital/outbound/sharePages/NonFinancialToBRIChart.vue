@@ -51,7 +51,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对“一带一路”沿线国家非金融类直接投资",
-          en: "China’s non-financial FDI outflows to BRI countries"
+          en: "China's non-financial FDI outflows to BRI countries"
         },
         unit: {
           ch: "百万美元",

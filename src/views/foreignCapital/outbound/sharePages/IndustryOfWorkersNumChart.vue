@@ -126,7 +126,7 @@ export default {
     option: {
       handler() {
         this.totalData.title.ch = this.totalDatas.title.ch = `${this.option.value}年年度派出人数主要行业`;
-        this.totalData.title.en = this.totalDatas.title.en = `${this.option.value} Overseas workers by industry`;
+        this.totalData.title.en = this.totalDatas.title.en = `Overseas workers by industry in ${this.option.value}`;
       },
       deep: true
     }

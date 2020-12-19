@@ -140,7 +140,7 @@ export default {
         },
         title: {
           text: "中国对外直接投资流量行业分布情况",
-          subtext: "China’s FDI outflows by industry"
+          subtext: "China's FDI outflows by industry"
         },
         xData: [],
         series: [],
@@ -153,7 +153,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国对外直接投资流量行业分布情况",
-          en: "China’s FDI outflows by industry"
+          en: "China's FDI outflows by industry"
         },
         xData: [],
         grid: {

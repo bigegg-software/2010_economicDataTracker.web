@@ -45,7 +45,7 @@ export default {
         {
           name: "stocksByDestinationChart",
           chinese: "按国家和地区统计",
-          english: "China’s FDI stocks by destination"
+          english: "China's FDI stocks by destination"
         },
         {
           name: "stocksTwentyDestinationChart",
