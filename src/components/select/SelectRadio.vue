@@ -4,7 +4,12 @@
       <div class="label-row">{{ option.en }}</div>
       <div class="label-row">{{ option.ch }}</div>
     </div>
-    <div class="select-block" @click="handleClick" @mouseleave="mouseleave" :style="{'width': (this.option.en=='Type' ? '75%':'64%')}">
+    <div
+      class="select-block"
+      @click="handleClick"
+      @mouseleave="mouseleave"
+      :style="{ width: this.option.en == 'Type' ? '75%' : '64%' }"
+    >
       <div class="text">
         <!-- <div>{{ value.ch }}</div> -->
         {{ value.en }}
@@ -85,7 +90,7 @@ export default {
   width: 100%;
   user-select: none;
   .drop-down {
-    z-index:9;
+    z-index: 9;
     position: absolute;
     right: 0px;
     top: 0.229167rem;
@@ -145,7 +150,7 @@ export default {
     cursor: pointer;
     background: #fff;
     .text {
-      width: 80%;
+      width: 0.5rem;
       color: #666;
       font-size: 0.083333rem;
       overflow: hidden;

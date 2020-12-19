@@ -128,10 +128,8 @@ export default {
       },
       searchValue: "",
       country: {
-        ch: "澳大利亚",
-        en: "adly"
-        // ch: "中国香港",
-        // en: "Hong Kong, China"
+        ch: "中国香港",
+        en: "Hong Kong, China"
       },
       checkBox: {
         ch: "国家",
@@ -270,20 +268,29 @@ export default {
       let res = await chartDataFun.getMaxMinDate(
         this.tableName[this.activeKey]
       );
-      for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
+      let arrmaxmin = res.split("_");
+      if (this.activeKey == "yearly") {
+        let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        this.$set(this.options, "yearly", obj);
+        this.options.yearly.list.start.value = arrmaxmin[1] - 5;
+        this.options.yearly.list.end.value = arrmaxmin[1];
       }
-      let arrmaxmin = res.split("_");
-      this.options.yearly.list.start.value = arrmaxmin[0];
-      this.options.yearly.list.end.value = arrmaxmin[1];
-      // 初始化日期月度季度赋值
-      let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-      this.options.monthly.list.start.value = QMDefaultTime.M.start;
-      this.options.monthly.list.end.value = QMDefaultTime.M.end;
+      if (this.activeKey == "monthly") {
+        let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, "monthly", obj);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+          arrmaxmin[1],
+          1
+        );
+        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.end.value = QMDefaultTime.M.end;
+      }
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
       //根据字段获取数据
