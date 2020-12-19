@@ -343,6 +343,187 @@ export default {
     store.commit('saveChartTable', tableInfo);
     return res
   },
+  async getImportExportCommodity(params) { //中国货物进出口总值按商品类别统计 年度
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      item._import = item.import / 1000
+      item._export = item.export / 1000
+      item._cumulativeExport = item.cumulativeExport / 1000
+      item._cumulativeImport = item.cumulativeImport / 1000
+      return item
+    })
+    let tableres = await JSON.parse(JSON.stringify(res))
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '中国货物进出口总值按商品类别统计',
+      tHeader: [
+        "年份",
+        '进口',
+        '进口同比',
+        '出口',
+        '出口同比',
+      ],
+      filterVal: ['year', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport'],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return res
+  },
+  async getImportExportCommodityMonth(params) { // 中国货物进出口总值按商品类别统计 月度
+    let dataType = params.dataType
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      item._import = item.import / 1000
+      item._export = item.export / 1000
+      item._cumulativeImport = item.cumulativeImport / 1000
+      item._cumulativeExport = item.cumulativeExport / 1000
+      return item
+    })
+    let tHeader = {
+      1: [
+        "年份",
+        "商品总类",
+        '当月进口',
+        '当月出口',
+      ],
+      2: [
+        "年份",
+        "商品总类",
+        '累计进口',
+        '累计进口同比',
+        '累计出口',
+        '累计出口同比',
+      ]
+    }
+    let field = {
+      1: ['year', 'categoryZH', '_import', '_export', ],
+      2: ['year', 'month', 'categoryZH', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport']
+    }
+    let tableres = await JSON.parse(JSON.stringify(res))
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '中国货物进出口总值按商品类别统计',
+      tHeader: tHeader[dataType],
+      filterVal: field[dataType],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return res
+  },
+  async getImportExportEnterprise(params) { // 货物进出口总值按企业性质统计 年度 月度
+    let enterpriseType = params.enterpriseType
+    let type = params.type
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      item._importForeignInvestedEns = item.importForeignInvestedEns / 1000
+      item._importOtherEns = item.importOtherEns / 1000
+      item._importPrivateOwnedEns = item.importPrivateOwnedEns / 1000
+      item._importStateOwnedEns = item.importStateOwnedEns / 1000
+      return item
+    })
+    let timeArr = res.map(v => `${v.year}-${v.month?v.month:""}`)
+    timeArr = Array.from(new Set(timeArr))
+    let data = []
+    for (let t = 0; t < timeArr.length; t++) {
+      let time = timeArr[t].split('-')
+      let re = res.filter(v => {
+        if (type == 'yearly') {
+          return v.year == time[0]
+        }
+        if (type == 'monthly') {
+          return v.year == time[0] && v.month == time[1]
+        }
+      })
+      let imp = re.filter(v => v.type == 1)[0]
+      let exp = re.filter(v => v.type == 2)[0]
+      let obj = {}
+      for (let key in imp) {
+        obj[`year`] = imp['year']
+        obj[`month`] = imp['month']
+        obj[`IMP${key}`] = imp[key]
+        obj[`EXP${key}`] = exp[key]
+        obj['enterpriseType'] = enterpriseType.ch
+      }
+      data.push(obj)
+    }
+    let field = {
+      yearly: {
+        1: ['year', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
+        2: ['year', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
+        3: ['year', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
+        4: ['year', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+      },
+      monthly: {
+        1: ['year', 'month', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
+        2: ['year', 'month', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
+        3: ['year', 'month', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
+        4: ['year', 'month', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+      }
+    }
+    let tHeader = {
+      yearly: [
+        "年份",
+        '企业性质',
+        '进口',
+        '进口同比',
+        '出口',
+        '出口同比',
+      ],
+      monthly: [
+        "年份",
+        '月份',
+        '企业性质',
+        '进口',
+        '进口同比',
+        '出口',
+        '出口同比',
+      ],
+    }
+    let tableres = await JSON.parse(JSON.stringify(data))
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '中国货物进出口总值按商品类别统计',
+      tHeader: tHeader[type],
+      filterVal: field[type][enterpriseType.id],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return data
+  },
+  async getImportExportCustomRegime(params) { // 货物进出口总值（贸易方式） 年度
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      // item._import = item.import / 1000
+      // item._export = item.export / 1000
+      // item._cumulativeExport = item.cumulativeExport / 1000
+      // item._cumulativeImport = item.cumulativeImport / 1000
+      return item
+    })
+    console.log(res, "res")
+    let tableres = await JSON.parse(JSON.stringify(res))
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '中国货物进出口总值按商品类别统计',
+      tHeader: [
+        "年份",
+        '进口',
+        '进口同比',
+        '出口',
+        '出口同比',
+      ],
+      filterVal: ['year', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport'],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return res
+  },
+  async getImportExportCustomRegimeMonth(params) {
+
+  },
   async getCountryList(searchValue, activeKey) { // 获取所有国家
     let q1 = new Parse.Query('TradeCountry');
     let q2 = new Parse.Query('TradeCountry');

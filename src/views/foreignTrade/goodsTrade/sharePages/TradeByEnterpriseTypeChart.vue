@@ -5,26 +5,37 @@
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
-      <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD" :selectOption="selectOption"></bar-line>
+      <div
+        :class="
+          $store.state.fullScreen.isFullScreen == false
+            ? 'fullContainer'
+            : 'container'
+        "
+      >
+        <bar-line
+          v-if="!isShowTable"
+          ref="barLine"
+          :options="USD"
+          :selectOption="enterpriseType"
+        ></bar-line>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
         <time-frame
-          v-if="showTimeFrame"
           :options="options"
           @change="change"
           @update="update"
           @changeActiveKey="changeActiveKey"
         ></time-frame>
       </div>
-      <SelectRadio
-        class="status"
-        :option="selectOption"
-        :value="selectOption.value"
-        @change="changeRadioSelect($event)"
-      ></SelectRadio>
+      <div class="status">
+        <SelectRadio
+          :option="enterpriseType"
+          :value="enterpriseType.value"
+          @change="changeRadioSelectByEnterpriseType($event)"
+        ></SelectRadio>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +44,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import request from "@/request/goodsTrade/goodsTrade";
 import SelectRadio from "@/components/select/SelectRadio";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
@@ -49,24 +60,28 @@ export default {
     TableChart,
     SelectRadio
   },
-  name: "TradeByCommodity",
+  name: "TradeByOrigin",
   data() {
     return {
+      activeKey: "yearly",
+      tableName: {
+        yearly: "ImportExportEnterprise",
+        monthly: "ImportExportEnterprise"
+      },
       totalData: {
         title: {
           ch: "中国货物进出口总值按企业性质统计",
           en: "China's import and export by enterprise type"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "百万美元",
+          en: "USD mln"
         },
         tableTitle: {},
         tableData: [],
         updatedDate: ""
       },
       timer: null,
-      showTimeFrame: false,
       USD: {
         id: "USD",
         dataSources: this.describeData,
@@ -76,7 +91,7 @@ export default {
           ch: "中国货物进出口总值按企业性质统计",
           en: "China's import and export by enterprise type"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
@@ -86,14 +101,14 @@ export default {
           {
             name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
-            data: [420, 380, 480, 350, 290],
-            yearOnYear: [1, 2.8, 1, -1, -1.2]
+            data: [],
+            yearOnYear: []
           },
           {
             name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
+            data: [],
+            yearOnYear: []
           }
         ],
         updatedDate: ""
@@ -136,36 +151,40 @@ export default {
           }
         }
       },
-
-      selectOption: {
+      enterpriseType: {
         ch: "企业性质",
         en: "Enterprise type",
         value: {
-          id: 1,
           ch: "国有企业",
-          en: "Xxxxxcc"
+          en: "Import by state-owned enterprises ",
+          id: 1
         },
-        op: [
-          {
-            id: 1,
-            ch: "国有企业",
-            en: "Xxxxxcc"
-          },
-          {
-            id: 2,
-            ch: "外商投资企业",
-            en: "Xxxxxxx"
-          },
-          {
-            id: 3,
-            ch: "私营企业",
-            en: "Xxxxxxxaaa"
-          },
-          {
-            id: 4,
-            ch: "其他",
-            en: "Xxxxxxxbbb"
-          }
+        op: chartDataFun.enterpriseType()
+      },
+      field: {
+        1: [
+          "IMP_importStateOwnedEns",
+          "IMPyoyImportStateOwnedEns",
+          "EXP_importStateOwnedEns",
+          "EXPyoyImportStateOwnedEns"
+        ],
+        2: [
+          "IMP_importForeignInvestedEns",
+          "IMPyoyImportForeignInvestedEns",
+          "EXP_importForeignInvestedEns",
+          "EXPyoyImportForeignInvestedEns"
+        ],
+        3: [
+          "IMP_importPrivateOwnedEns",
+          "IMPyoyImportPrivateOwnedEns",
+          "EXP_importPrivateOwnedEns",
+          "EXPyoyImportPrivateOwnedEns"
+        ],
+        4: [
+          "IMP_importOtherEns",
+          "IMPyoyImportForeignInvestedEns",
+          "EXP_importOtherEns",
+          "EXPyoyImportOtherEns"
         ]
       }
     };
@@ -176,37 +195,22 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let result = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    }
   },
   async created() {
-    let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
-    // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
-    });
+    await this.getMaxMinDate();
+    this.mainGetChartsData();
   },
   mounted() {
-    //下载图片
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.barLine.downloadFile();
     });
@@ -215,51 +219,68 @@ export default {
     this.$EventBus.$off("downLoadImg");
   },
   methods: {
-    //选择企业性质
-    async changeRadioSelect(item) {
-      this.selectOption.value = item;
-    },
-    async mainGetChartsData(type) {
-      //条件改变时获取数据
-      let { start, end } = this.options[type].list;
-      if (type == "yearly") {
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
-      } else if (type == "quarterly" || type == "monthly") {
-        // let startTimeArr = start.value.split("-");
-        // let endTimeArr = end.value.split("-");
-        // let quarterStart = parseInt(startTimeArr[0]);
-        // let quarterStartMonth = parseInt(startTimeArr[1]);
-        // let quarterEnd = parseInt(endTimeArr[0]);
-        // let quarterEndMonth = parseInt(endTimeArr[1]);
-        // await this.getChartsData({
-        //   type,
-        //   start: quarterStart,
-        //   end: quarterEnd,
-        //   startMonth: quarterStartMonth,
-        //   endMonth: quarterEndMonth
-        // });
+    async mainGetChartsData() {
+      let { start, end } = this.options[this.activeKey].list;
+      if (this.activeKey == "yearly") {
+        await this.getChartsData({
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
+          start: Number(start.value),
+          end: Number(end.value),
+          noMonth: false,
+          enterpriseType: this.enterpriseType.value
+        });
+      }
+      if (this.activeKey == "monthly") {
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]);
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          tableName: this.tableName[this.activeKey],
+          type: this.activeKey,
+          start: quarterStart,
+          end: quarterEnd,
+          startMonth: quarterStartMonth,
+          endMonth: quarterEndMonth,
+          enterpriseType: this.enterpriseType.value // 企业类别
+        });
       }
     },
+    // 获取最大年最小年
     async getMaxMinDate() {
-      // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
-      for (let key in this.options) {
-        let obj = JSON.parse(JSON.stringify(this.options[key]));
+      let res = await chartDataFun.getMaxMinDate(
+        this.tableName[this.activeKey]
+      );
+      let arrmaxmin = res.split("_");
+      if (this.activeKey == "yearly") {
+        let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        this.$set(this.options, "yearly", obj);
+        this.options.yearly.list.start.value = arrmaxmin[1] - 5;
+        this.options.yearly.list.end.value = arrmaxmin[1];
       }
-      this.showTimeFrame = true;
-      return res;
+      if (this.activeKey == "monthly") {
+        let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
+        for (let k in obj.list) {
+          obj.list[k].frame = res;
+        }
+        this.$set(this.options, "monthly", obj);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+          arrmaxmin[1],
+          1
+        );
+        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.end.value = QMDefaultTime.M.end;
+      }
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
       //根据字段获取数据
-      let resoult = {};
+      let result = {};
       for (let i = 0; i < Ayis.length; i++) {
         let item = Ayis[i];
         // 转换图标数据数组和横轴名称数组
@@ -270,116 +291,81 @@ export default {
         );
         // 补全数据
         let data = await chartDataFun.completionDate(dataArr, range);
-        resoult[item] = data;
+        result[item] = data;
       }
-      return resoult;
+      return result;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
-      //
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      let type = this.field[this.enterpriseType.value.id];
+      this.USD.series[0]["data"] = data[type[0]];
+      this.USD.series[0]["yearOnYear"] = data[type[1]];
+      this.USD.series[1]["data"] = data[type[2]];
+      this.USD.series[1]["yearOnYear"] = data[type[3]];
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
-      //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
-
+      let data = await request.getImportExportEnterprise(aug);
+      let dataAttr = this.field[this.enterpriseType.value.id];
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
-      // 要换取纵轴数据的字段属性
-      let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
-      ];
       let XNameAttr = "year";
-      // this.USD.xData = range;
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
-
+      await chartDataFun.addOtherCategory(data);
       if (aug.type == "yearly") {
-        // 年
         XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
-      } else if ((aug.type = "monthly")) {
-        //月度
+      }
+      if (aug.type == "monthly") {
         XNameAttr = "M";
       }
       // 获取当前页面所有线
-      await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
+      await this.getItemCategoryData(data, XNameAttr, dataAttr, range);
     },
     async setTableConfig(aug) {
-      if (aug.type == "yearly") {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "25%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "25%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
-            formatPer: true
-          }
-        };
-      } else {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "20%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "35%",
-            formatPer: true
-          }
+      let field = this.field[this.enterpriseType.value.id];
+      let obj = {};
+      obj.year = {
+        text: "年份_Year",
+        width: "10%"
+      };
+      if (aug.type == "monthly") {
+        obj.month = {
+          text: "月份_Month",
+          width: "20%"
         };
       }
+      obj.enterpriseType = {
+        text: "企业性质_Enterprise type",
+        width: "20%"
+      };
+      obj[field[0]] = {
+        text: "进口_Import",
+        width: "20%",
+        formatNum: true
+      };
+      obj[field[1]] = {
+        text: "进口同比_Y-o-y import",
+        width: "20%",
+        formatPer: true
+      };
+      obj[field[2]] = {
+        text: "出口_Export",
+        width: "20%",
+        formatNum: true
+      };
+      obj[field[3]] = {
+        text: "出口同比_Y-o-y export",
+        width: "20%",
+        formatPer: true
+      };
+      this.totalData.tableTitle = obj;
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
@@ -406,9 +392,16 @@ export default {
         this.mainGetChartsData(activeKey);
       }
     },
+    // 选择分类
+    changeRadioSelectByEnterpriseType(item) {
+      this.enterpriseType.value = item;
+      this.mainGetChartsData();
+    },
     // 改变年度季度月度时：
-    async changeActiveKey(ev) {
-      await this.mainGetChartsData(ev);
+    async changeActiveKey(activeKey) {
+      this.activeKey = activeKey;
+      await this.getMaxMinDate();
+      await this.mainGetChartsData(activeKey);
     }
   }
 };
