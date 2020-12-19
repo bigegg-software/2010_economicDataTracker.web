@@ -27,7 +27,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -76,7 +76,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "国内生产总值_Export|增值_Y-o-y export",
+            name: "国内生产总值_Export|年度增速_Y-o-y export",
             color: "#61a0a8",
             data: [720, 380, 580, 960, 390],
             yearOnYear: [2.2, 3.8, -2, 1, -0.2]
@@ -145,20 +145,19 @@ export default {
     // }
   },
   async created() {
-    let res = await this.getMaxMinDate();
+    let res = await this.getMaxMinDate('GDP');
     let arrmaxmin = res.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    // let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
     // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
     // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      end: Number(arrmaxmin[1]),
+      noMonth:true
     });
   },
   mounted() {
@@ -175,11 +174,11 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value)
+        });
       } else if (type == "quarterly" || type == "monthly") {
         // let startTimeArr = start.value.split("-");
         // let endTimeArr = end.value.split("-");
@@ -196,15 +195,19 @@ export default {
         // });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if (tableName == "GDP" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "GDPQuarterly" && key != "yearly") {
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
       return res;
@@ -237,7 +240,9 @@ export default {
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
+      let { res } = await request.getGrossDomesticProductChartsData(
+        aug.type == "yearly" ? "GDP" : "GDPQuarterly",aug
+        );
 
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
