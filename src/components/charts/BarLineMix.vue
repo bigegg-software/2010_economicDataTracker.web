@@ -225,11 +225,17 @@ export default {
         legend: {
           width: "80%",
           top: "13%",
-          show: true,
+          show: !this.options.hideLegend,
+          // icon:'none',
           formatter: name => {
             return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
               "\n"
             );
+          },
+          textStyle: {
+            // color: params => {
+            // },
+            fontSize: this.$fz(0.14)
           }
         },
         // 	年度完成率和季度完成率颜色
