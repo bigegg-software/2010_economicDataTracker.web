@@ -247,7 +247,7 @@ export default {
           arrmaxmin[1],
           1
         );
-        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;
         this.options.monthly.list.end.value = QMDefaultTime.M.end;
       }
     },
