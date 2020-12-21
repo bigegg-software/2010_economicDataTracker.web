@@ -56,7 +56,7 @@ export default {
         res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
         return res;
     },
-    getGrossDomesticProductChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
+    getGrossDomesticProductChartsData:async function(tableName,params) {// 获取国内生产总值
            let type = params.type;
            let res=await this.manualQueryData(tableName,params);
            
@@ -103,6 +103,71 @@ export default {
                     tHeader:[
                         "年份",
                         "季度",
+                        '单位',
+                        '当季国内生产总值',
+                        '季度累计国内生产总值',
+                        '当季同比增速',
+                        '季度累计同比增速',
+                        '季度环比增速',
+                    ],
+                    filterVal:['year','quarter','unit','GDP','cumulativeGDP','yoyGrowth','cumulativeYoyGrowth','qoqGDP'],
+                    tableData:[...tableres]
+                }
+            }
+            store.commit('saveChartTable',tableInfo);
+            if (type == 'quarterly'){
+                res = res.filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            console.log(res)
+            return {res};
+    },
+    getConsumerPriceIndexChartsDataasync:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+            res = res.map(item=>{
+                item=item.toJSON();
+                item.unit='亿元人民币';
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=[];
+            if(type=='yearly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start) && (item.year<params.end)
+                })
+            }else if(type == 'monthly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            
+            tableres=tableres.reverse();
+            let tableInfo={}
+            if(type=='yearly'){
+                tableInfo={
+                    fileName:'消费者价格指数 CPI',
+                    tHeader:[
+                        "年份",
+                        '单位',
+                        '消费者价格指数',
+                        '年度增速',
+                    ],
+                    filterVal:['year','unit','CPI','yoyGrowth'],
+                    tableData:[...tableres]
+                }
+            }else if(type=='quarterly'){
+                   tableInfo={
+                    fileName:'国内生产总值（GDP）',
+                    tHeader:[
+                        "年份",
+                        "月度",
                         '单位',
                         '当季国内生产总值',
                         '季度累计国内生产总值',
