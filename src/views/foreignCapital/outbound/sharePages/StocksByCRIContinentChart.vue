@@ -168,7 +168,7 @@ export default {
       handler() {
         this.totalData.seriesData.all = `${this.selectOption.value.en} ${this.selectOption.value.ch}`;
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.en = this.tableTotalData.title.en = `China's FDI stocks by country/region within ${this.selectOption.value.en} in ${this.option.value}`;
       },
       deep: true
     },
@@ -176,7 +176,7 @@ export default {
       handler() {
         this.totalData.seriesData.all = `${this.selectOption.value.en} ${this.selectOption.value.ch}`;
         this.totalData.title.ch = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量${this.selectOption.value.ch}内国家/地区统计`;
-        this.totalData.title.en = this.tableTotalData.title.en = `${this.option.value} China's FDI stocks by country/region within ${this.selectOption.value.en}`;
+        this.totalData.title.en = this.tableTotalData.title.en = `China's FDI stocks by country/region within ${this.selectOption.value.en} in ${this.option.value}`;
       },
       deep: true
     }

@@ -127,7 +127,7 @@ export default {
     option: {
       handler() {
         this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年年度派出各类劳务人员前10位目的地国家/地区`;
-        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} top 10 destinations of workers sent overseas`;
+        this.totalData.title.en = this.chartBar.title.subtext = `Top 10 destinations of workers sent overseas in ${this.option.value}`;
       },
       deep: true
     }

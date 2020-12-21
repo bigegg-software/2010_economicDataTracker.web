@@ -140,7 +140,7 @@ export default {
     option:{
       handler() {
           this.totalData.title.ch=this.totalDatas.title.ch=`${this.option.value}年国家/地区对华投资比重`;
-          this.totalData.title.en=this.totalDatas.title.en=`${this.option.value} share of foreign investment in China by country/region`;
+          this.totalData.title.en=this.totalDatas.title.en=`Share of foreign investment in China by country/region in ${this.option.value}`;
       },
       deep:true
     }

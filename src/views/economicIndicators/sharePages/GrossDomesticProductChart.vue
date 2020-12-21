@@ -6,7 +6,7 @@
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
+        <bar-line-mix v-if="!isShowTable" ref="barLine" :options="USD"></bar-line-mix>
       </div>
     </div>
     <div class="select-block">
@@ -26,8 +26,8 @@
 <script>
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
-import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import BarLineMix from "@/components/charts/BarLineMix";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -38,7 +38,7 @@ export default {
   },
   components: {
     TimeFrame,
-    BarLine,
+    BarLineMix,
     TableChart,
   },
   name: "TradeByCommodity",
@@ -62,25 +62,20 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
+        // yPosition:['left','right'],
         yName: { ch: "百万美元", en: "USD mln" },
-        yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "国内生产总值 GDP",
           en: "Gross Domestic Product"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         hideLegend: true,
         series: [
-          {
-            name: "国内生产总值_Export|增值_Y-o-y export",
-            color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
-          }
+          
         ],
         updatedDate: ""
       },
@@ -145,20 +140,22 @@ export default {
     // }
   },
   async created() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate('GDP');
+    let res = await this.getMaxMinDate('GDPQuarterly');
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    this.options.yearly.list.start.value = Yarrmaxmin[0];
+    this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
+    console.log(QMDefaultTime)
+    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1]),
+      noMonth:true
     });
   },
   mounted() {
@@ -175,38 +172,45 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value),
+          noMonth:true
+        });
       } else if (type == "quarterly" || type == "monthly") {
-        // let startTimeArr = start.value.split("-");
-        // let endTimeArr = end.value.split("-");
-        // let quarterStart = parseInt(startTimeArr[0]);
-        // let quarterStartMonth = parseInt(startTimeArr[1]);
-        // let quarterEnd = parseInt(endTimeArr[0]);
-        // let quarterEndMonth = parseInt(endTimeArr[1]);
-        // await this.getChartsData({
-        //   type,
-        //   start: quarterStart,
-        //   end: quarterEnd,
-        //   startMonth: quarterStartMonth,
-        //   endMonth: quarterEndMonth
-        // });
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1])/3;
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1])/3;
+        console.log(quarterEndMonth)
+        await this.getChartsData({
+          type,
+          start: quarterStart,
+          end: quarterEnd,
+          startQuarter: quarterStartMonth,
+          endQuarter: quarterEndMonth
+        });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if (tableName == "GDP" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "GDPQuarterly" && key != "yearly") {
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
+      console.log(res)
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -228,32 +232,93 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
+      console.log(res, XNameAttr, dataAttr, range)
+      //
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      console.log(data)
+      if(XNameAttr=='year'){
+        this.USD.series=[
+              {
+                  type:'bar',
+                  yAxisIndex:0,//数值
+                  name: "国内生产总值_Export",
+                  color: "#61a0a8",
+                  data: data.GDP
+                },
+                {
+                  type:'line',
+                  yAxisIndex:1,//百分比
+                  name: "年度增速_Y-o-y export",
+                  color: "red",
+                  data: data.yoyGrowth,
+                  percent:true
+                }
+          ]
+      }else{
+        this.USD.series=[
+              {
+                  type:'bar',
+                  yAxisIndex:0,//数值
+                  name: "当季国内生产总值_Export",
+                  color: "#61a0a8",
+                  data: data.GDP
+                },
+                {
+                  type:'line',
+                  yAxisIndex:1,//百分比
+                  name: "当季同比增速_Y-o-y quarterly GDP",
+                  color: "red",
+                  data: data.yoyGrowth,
+                  percent:true
+                },
+                {
+                  type:'bar',
+                  yAxisIndex:0,//数值
+                  name: "季度累计国内生产总值_Cumulative quarterly GDP",
+                  color: "#61a011",
+                  data: data.cumulativeGDP 
+                },
+                {
+                  type:'line',
+                  yAxisIndex:1,//百分比
+                  name: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
+                  color: "pink",
+                  data: data.cumulativeYoyGrowth ,
+                  percent:true
+                },
+                {
+                  type:'line',
+                  yAxisIndex:1,//百分比
+                  name: "季度环比增速_Q-o-q GDP",
+                  color: "green",
+                  data: data.qoqGDP ,
+                  percent:true
+                }
+          ]
+      }
+      
+      // this.USD.series[0]["data"] = data.GDP;
+      // this.USD.series[1]["data"] = data.yoyGrowth;
       //
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
+      let { res } = await request.getGrossDomesticProductChartsData(
+        aug.type == "yearly" ? "GDP" : "GDPQuarterly",aug
+        );
 
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
+      console.log(range)
       // 要换取纵轴数据的字段属性
-      let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
-      ];
+      let dataAttr = aug.type == "yearly"?["GDP","yoyGrowth"]:["GDP","cumulativeGDP","yoyGrowth",'cumulativeYoyGrowth','qoqGDP'];
       let XNameAttr = "year";
-      // this.USD.xData = range;
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
+      await chartDataFun.addOtherCategoryMC(res);
 
       if (aug.type == "yearly") {
         // 年

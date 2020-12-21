@@ -61,24 +61,24 @@ export default {
         newXName.push(Number(aug.start) + i);
       } else if (aug.type == 'quarterly') {
         for (let u = 1; u <= 4; u++) {
-          newXName.push(`${Number(aug.start) + i}.Q${u}`);
+          newXName.push(`${Number(aug.start) + i}.Q${u}`);
         }
       } else if (aug.type == 'monthly') {
         for (let u = 1; u <= 12; u++) {
-          //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
-          newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
+          //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
+          newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
         }
       }
     }
-    if (aug.type == 'quarterly') { // 删除季度多余部分
+    if (aug.type == 'quarterly') { // 删除季度多余部分
       newXName = newXName.slice(aug.startQuarter - 1, newXName.length - (4 - aug.endQuarter));
     }
-    if (aug.type == 'monthly') { // 删除月多余部分
+    if (aug.type == 'monthly') { // 删除月多余部分
       newXName = newXName.slice(aug.startMonth - 1, newXName.length - (12 - aug.endMonth));
     }
     return newXName;
   },
-  addOtherCategoryMC: async (data) => { //添加合并成新的字段  季度时Q   月度M
+  addOtherCategoryMC: async (data) => { //添加合并成新的字段  季度时Q   月度M
     data.forEach(item => {
       item.Q = `${item['year']}.Q${item.quarter}`;
       item.M = `${item['year']}.1-${item['month']}`;

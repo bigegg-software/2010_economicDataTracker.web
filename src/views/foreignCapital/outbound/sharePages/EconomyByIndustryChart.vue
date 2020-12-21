@@ -200,7 +200,7 @@ export default {
     option: {
       handler() {
         this.totalData.title.ch = this.chartBar.title.text = `${this.option.value}年中国对${this.selectOption.value.ch}直接投资的主要行业`;
-        this.totalData.title.en = this.chartBar.title.subtext = `${this.option.value} China's investment in ${this.selectOption.value.en} by industry`;
+        this.totalData.title.en = this.chartBar.title.subtext = `China's investment in ${this.selectOption.value.en} by industry in ${this.option.value}`;
       },
       deep: true
     },
