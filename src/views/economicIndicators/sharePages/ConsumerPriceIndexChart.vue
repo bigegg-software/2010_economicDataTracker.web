@@ -50,8 +50,8 @@ export default {
           en: "Consumer Price Index"
         },
         unit: {
-          ch: "百万美元",
-          en: "USD mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
         tableTitle: {},
         tableData: [],
@@ -62,7 +62,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
        
         title: {
           ch: "消费者价格指数CPI",
