@@ -12,7 +12,12 @@
             : 'container'
         "
       >
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
+        <bar-line
+          v-if="!isShowTable"
+          ref="barLine"
+          :options="USD"
+          :selectOption="checkBox"
+        ></bar-line>
       </div>
     </div>
     <div class="select-block">
@@ -28,7 +33,7 @@
       <div class="status">
         <SelectRadioBySearch
           :option="checkBox"
-          :result="country"
+          :result="checkBox.value"
           @changeInputValue="changeInputValue"
           @changeRadio="changeRadioBySearch"
         ></SelectRadioBySearch>
@@ -127,13 +132,13 @@ export default {
         updatedDate: ""
       },
       searchValue: "",
-      country: {
-        ch: "中国香港",
-        en: "Hong Kong, China"
-      },
       checkBox: {
         ch: "国家",
         en: "country",
+        value: {
+          ch: "中国香港",
+          en: "Hong Kong, China"
+        },
         op: []
       },
       options: {
@@ -238,7 +243,7 @@ export default {
           end: Number(end.value),
           noMonth: true,
           equalTo: {
-            country: this.country.ch
+            country: this.checkBox.value.ch
           }
         });
       }
@@ -258,7 +263,7 @@ export default {
           endMonth: quarterEndMonth,
           dataType: this.selectOption.value.id, // 1当月 / 2累计
           equalTo: {
-            country: this.country.ch
+            country: this.checkBox.value.ch
           }
         });
       }
@@ -275,7 +280,7 @@ export default {
         obj_yearly.list[k].frame = yearly;
       }
       this.$set(this.options, "yearly", obj_yearly);
-      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 11;
+      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;
       this.options.yearly.list.end.value = arrmaxmin_yearly[1];
       //
       let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
@@ -555,7 +560,7 @@ export default {
     },
     // 选择国家
     changeRadioBySearch(val) {
-      this.country = val;
+      this.checkBox.value = val;
       this.mainGetChartsData();
     },
     //选择当月或累计月份

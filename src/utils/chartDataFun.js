@@ -607,5 +607,58 @@ export default {
         ch: '其他',
       }
     ]
+  },
+  tradeServiceIndustry: () => { // 外贸 行业
+    return [{
+        en: 'Manufacturing services',
+        ch: '实物投入的制造服务',
+      },
+      {
+        en: 'Maintenance & repair',
+        ch: '维护与修理',
+      },
+      {
+        en: 'Transport',
+        ch: '运输业',
+      },
+      {
+        en: 'Travel',
+        ch: '旅游业',
+      },
+      {
+        en: 'Construction',
+        ch: '建筑业',
+      },
+      {
+        en: 'Insurance & pension',
+        ch: '保险业 ',
+      },
+      {
+        en: 'Financial services',
+        ch: '金融业 ',
+      },
+      {
+        en: 'Intellectual property',
+        ch: '知识产权费用',
+      },
+      {
+        en: 'Telecommunications & IT',
+        ch: '电信、计算机与信息服务',
+      },
+      {
+        en: 'Business services',
+        ch: '商务服务',
+      },
+      {
+        en: 'Culture & recreation',
+        ch: '个人、文化和娱乐服务',
+      }, {
+        en: 'Government goods & services',
+        ch: '政府服务与货物 ',
+      }, {
+        en: 'Services not allocated',
+        ch: '其他服务',
+      },
+    ]
   }
 }

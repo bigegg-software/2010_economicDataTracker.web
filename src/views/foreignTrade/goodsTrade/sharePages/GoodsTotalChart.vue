@@ -312,7 +312,7 @@ export default {
         obj_yearly.list[k].frame = yearly;
       }
       this.$set(this.options, "yearly", obj_yearly);
-      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 11;
+      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;
       this.options.yearly.list.end.value = arrmaxmin_yearly[1];
       //
       let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
