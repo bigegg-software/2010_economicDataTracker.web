@@ -401,7 +401,9 @@ export default {
       1: ['year', 'categoryZH', '_import', '_export', ],
       2: ['year', 'month', 'categoryZH', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport']
     }
-    let tableres = await JSON.parse(JSON.stringify(res))
+    let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
+      return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
+    })
     tableres = tableres.reverse();
     let tableInfo = {
       fileName: '中国货物进出口总值按商品类别统计',
@@ -493,35 +495,123 @@ export default {
     store.commit('saveChartTable', tableInfo);
     return data
   },
-  async getImportExportCustomRegime(params) { // 货物进出口总值（贸易方式） 年度
+  async getImportExportCustomRegime(params) { // 中国货物进出口总值按贸易方式统计 年度
     let res = await this.manualQueryData(params);
     res = res.map(item => {
       item = item.toJSON()
-      // item._import = item.import / 1000
-      // item._export = item.export / 1000
-      // item._cumulativeExport = item.cumulativeExport / 1000
-      // item._cumulativeImport = item.cumulativeImport / 1000
+      item._monthlyTrade = item.monthlyTrade / 1000
+      item._monthlyImport = item.monthlyImport / 1000
+      item._monthlyExport = item.monthlyExport / 1000
+      item._monthlyCulumativeTrade = item.monthlyCulumativeTrade / 1000
+      item._monthlyCulumativeImport = item.monthlyCulumativeImport / 1000
+      item._monthlyCulumativeExport = item.monthlyCulumativeExport / 1000
       return item
     })
-    console.log(res, "res")
     let tableres = await JSON.parse(JSON.stringify(res))
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按商品类别统计',
+      fileName: '中国货物进出口总值按贸易方式统计',
       tHeader: [
         "年份",
-        '进口',
-        '进口同比',
-        '出口',
-        '出口同比',
+        "贸易方式",
+        "当月进出口",
+        "当月进出口同比",
+        '当月进口',
+        '当月进口同比',
+        '当月出口',
+        '当月出口同比',
       ],
-      filterVal: ['year', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport'],
+      filterVal: ['year', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
       tableData: [...tableres]
     }
     store.commit('saveChartTable', tableInfo);
     return res
   },
-  async getImportExportCustomRegimeMonth(params) {
+  async getImportExportCustomRegimeMonth(params) { // 中国货物进出口总值按贸易方式统计 年度
+    let dataType = params.dataType
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      item._monthlyTrade = item.monthlyTrade / 1000
+      item._monthlyImport = item.monthlyImport / 1000
+      item._monthlyExport = item.monthlyExport / 1000
+      item._monthlyCulumativeTrade = item.monthlyCulumativeTrade / 1000
+      item._monthlyCulumativeImport = item.monthlyCulumativeImport / 1000
+      item._monthlyCulumativeExport = item.monthlyCulumativeExport / 1000
+      return item
+    })
+    let tHeader = {
+      1: [
+        "年份",
+        "贸易方式",
+        "当月进出口",
+        "当月进出口同比",
+        '当月进口',
+        '当月进口同比',
+        '当月出口',
+        '当月出口同比',
+      ],
+      2: [
+        "年份",
+        "贸易方式",
+        "累计进出口",
+        "累计进出口同比",
+        '累计进口',
+        '累计进口同比',
+        '累计出口',
+        '累计出口同比',
+      ]
+    }
+    let field = {
+      1: ['year', 'customRegime', '_monthlyTrade', 'yoyMonthlyTrade', '_monthlyImport', 'yoyMonthlyImport', '_monthlyExport', 'yoyMonthlyExport'],
+      2: ['year', 'customRegime', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
+    }
+    let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
+      return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
+    })
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '中国货物进出口总值按贸易方式统计',
+      tHeader: tHeader[dataType],
+      filterVal: field[dataType],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return res
+  },
+  async getForeignInvestedTradeEns(params) { // 外商投资企业进出口总值 年度
+    let res = await this.manualQueryData(params);
+    res = res.map(item => {
+      item = item.toJSON()
+      item._monthlyTrade = item.monthlyTrade / 1000
+      item._monthlyImport = item.monthlyImport / 1000
+      item._monthlyExport = item.monthlyExport / 1000
+      item._monthlyCulumativeTrade = item.monthlyCulumativeTrade / 1000
+      item._monthlyCulumativeImport = item.monthlyCulumativeImport / 1000
+      item._monthlyCulumativeExport = item.monthlyCulumativeExport / 1000
+      return item
+    })
+    let tableres = await JSON.parse(JSON.stringify(res))
+    tableres = tableres.reverse();
+    let tableInfo = {
+      fileName: '外商投资企业进出口总值',
+      tHeader: [
+        "年份",
+        "贸易方式",
+        "当月进出口",
+        "当月进出口同比",
+        '当月进口',
+        '当月进口同比',
+        '当月出口',
+        '当月出口同比',
+      ],
+      filterVal: ['year', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
+      tableData: [...tableres]
+    }
+    store.commit('saveChartTable', tableInfo);
+    return res
+  },
+  async getForeignInvestedTradeEnsMonth() { // 外商投资企业进出口总值 月度
 
   },
   async getCountryList(searchValue, activeKey) { // 获取所有国家

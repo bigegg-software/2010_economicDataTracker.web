@@ -4,17 +4,15 @@
       <div class="label-row">{{ option.en }}</div>
       <div class="label-row">{{ option.ch }}</div>
     </div>
-    <div
-      class="select-block"
-      @click="handleClick"
-      @mouseleave="mouseleave"
-      :style="{ width: this.option.en == 'Type' ? '75%' : '64%' }"
-    >
+    <div class="select-block" @click="handleClick" @mouseleave="mouseleave">
+      <!-- :style="{ width: this.option.en == 'Type' ? '75%' : '64%' }" -->
       <div class="text">
         <!-- <div>{{ value.ch }}</div> -->
         {{ value.en }}
       </div>
-      <div class="iconfont icon-arrow">&#xe609;</div>
+      <div class="iconfont icon-arrow" :class="show ? 'rotate' : '_rotate'">
+        &#xe609;
+      </div>
       <fade-in-out>
         <div v-if="show" class="drop-down" @mouseenter="mouseenter">
           <div
@@ -56,14 +54,6 @@ export default {
     },
     handleClick() {
       this.show = !this.show;
-      this.rotateArrowIcon();
-    },
-    rotateArrowIcon() {
-      let className = "icon-arrow iconfont";
-      let dom = document.querySelector(".select-block .icon-arrow");
-      dom.className = this.show
-        ? className + " rotate "
-        : className + " _rotate";
     },
     change(item) {
       this.$emit("change", item);
@@ -75,7 +65,6 @@ export default {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         this.show = false;
-        this.rotateArrowIcon();
       }, 300);
     }
   }

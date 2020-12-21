@@ -258,32 +258,30 @@ export default {
     },
     // 获取最大年最小年
     async getMaxMinDate() {
-      let res = await chartDataFun.getMaxMinDate(
-        this.tableName[this.activeKey]
+      let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"]);
+      let monthly = await chartDataFun.getMaxMinDate(this.tableName["monthly"]);
+      let arrmaxmin_yearly = yearly.split("_");
+      let arrmaxmin_monthly = monthly.split("_");
+      //
+      let obj_yearly = JSON.parse(JSON.stringify(this.options["yearly"]));
+      for (let k in obj_yearly.list) {
+        obj_yearly.list[k].frame = yearly;
+      }
+      this.$set(this.options, "yearly", obj_yearly);
+      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 11;
+      this.options.yearly.list.end.value = arrmaxmin_yearly[1];
+      //
+      let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
+      for (let k in obj_monthly.list) {
+        obj_monthly.list[k].frame = monthly;
+      }
+      this.$set(this.options, "monthly", obj_monthly);
+      let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+        arrmaxmin_monthly[1],
+        1
       );
-      let arrmaxmin = res.split("_");
-      if (this.activeKey == "yearly") {
-        let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
-        for (let k in obj.list) {
-          obj.list[k].frame = res;
-        }
-        this.$set(this.options, "yearly", obj);
-        this.options.yearly.list.start.value = arrmaxmin[1] - 5;
-        this.options.yearly.list.end.value = arrmaxmin[1];
-      }
-      if (this.activeKey == "monthly") {
-        let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
-        for (let k in obj.list) {
-          obj.list[k].frame = res;
-        }
-        this.$set(this.options, "monthly", obj);
-        let QMDefaultTime = await chartDataFun.getQMDefaultTime(
-          arrmaxmin[1],
-          1
-        );
-        this.options.monthly.list.start.value = QMDefaultTime.M.start;
-        this.options.monthly.list.end.value = QMDefaultTime.M.end;
-      }
+      this.options.monthly.list.start.value = QMDefaultTime.M.start;
+      this.options.monthly.list.end.value = QMDefaultTime.M.end;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
       //根据字段获取数据
@@ -511,7 +509,6 @@ export default {
     // 改变年度季度月度时：
     async changeActiveKey(activeKey) {
       this.activeKey = activeKey;
-      await this.getMaxMinDate();
       this.handleText();
       await this.mainGetChartsData(activeKey);
     },
