@@ -227,7 +227,7 @@ export default {
     option: {
       handler() {
         this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程完成营业额前十大国别/地区市场`;
-        this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `${this.option.value} top 10 market of China's overseas projects by revenue`;
+        this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `Top 10 market of China's overseas projects by revenue in ${this.option.value}`;
       },
       deep: true
     }

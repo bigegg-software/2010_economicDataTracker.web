@@ -69,11 +69,11 @@ export default {
         dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资存量", en: "China’s FDI stocks" },
+        title: { ch: "中国对外直接投资存量", en: "China's FDI stocks" },
         xData: [],
         series: [
           {
-            name: "中国对外直接投资存量_China’s FDI stocks",
+            name: "中国对外直接投资存量_China's FDI stocks",
             color: "#6AA3CD",
             data: []
           }

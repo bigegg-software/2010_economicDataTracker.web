@@ -164,7 +164,7 @@ export default {
     option:{
       handler() {
           this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位对华投资国家/地区`;
-          this.totalData.title.en=this.chartBar.title.subtext=`${this.option.value} top 15 investors`;
+          this.totalData.title.en=this.chartBar.title.subtext=`Top 15 investors in ${this.option.value}`;
       },
       deep:true
     }
