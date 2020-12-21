@@ -92,6 +92,42 @@ export default {
             console.log(res)
             return {res};
     },
+    getForeignCurrencyReservesChartData:async function(tableName,params) {// 获取国家外汇储备数据函数接口
+        let type = params.type;
+        let res=await this.manualQueryData(tableName,params);
+        console.log(res,12111111)
+         res = res.map(item=>{
+             item=item.toJSON()
+             return item
+         })
+         // 处理存储导出excel数据
+         let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+         })
+         tableres=tableres.reverse();
+         // let tableInfo={
+         // fileName:'中国对外直接投资流量',
+         // tHeader:[
+         //     "年",
+         //     type!='yearly'?"月份":'',
+         //     '单位',
+         //     '中国对外直接投资流量',
+         //     '中国对外直接投资流量同比',
+         //     '类型（英文）',
+         //     '类型'
+         // ].filter(item=>item!=''),
+         // filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeEN','outFlowTypeCH'].filter(item=>item!=''),
+         // tableData:[...tableres]
+         // }
+         // store.commit('saveChartTable',tableInfo);
+         if (type == 'quarterly'){
+             res = res.filter(item=>{
+                 return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+             })
+         }
+         console.log(res)
+         return {res};
+ },
 // 柱状图查询  饼图  暂时不用
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     chartDataFun.getInThreeDays(-3);
