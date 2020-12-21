@@ -59,18 +59,9 @@ export default {
     getGrossDomesticProductChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
            let type = params.type;
            let res=await this.manualQueryData(tableName,params);
+           console.log(res,12111111)
             res = res.map(item=>{
                 item=item.toJSON()
-                if(item.outFlowType==1){
-                    item.outFlowTypeCH='中国对外全行业直接投资';
-                    item.outFlowTypeEN='All-sector FDI outflows';
-                }else if(item.outFlowType==2){
-                    item.outFlowTypeCH='中国对外非金融直接投资'
-                    item.outFlowTypeEN='Non-financial FDI outflows'
-                }
-                item.investAmountMillion = item.investAmount * 100;
-                item.investConversionMillion = item.investConversion * 100;
-                item.conversionUnitMillion='百万美元'
                 return item
             })
             // 处理存储导出excel数据

@@ -80,7 +80,7 @@ export default {
   },
   addOtherCategoryMC: async (data) => { //添加合并成新的字段  季度时Q   月度M
     data.forEach(item => {
-      item.Q = item.quarter;
+      item.Q = `${item['year']}.Q${item.quarter}`;
       item.M = `${item['year']}.1-${item['month']}`;
     });
   },
