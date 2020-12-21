@@ -225,11 +225,17 @@ export default {
         legend: {
           width: "80%",
           top: "13%",
-          show: true,
+          show: !this.options.hideLegend,
+          // icon:'none',
           formatter: name => {
             return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
               "\n"
             );
+          },
+          textStyle: {
+            // color: params => {
+            // },
+            fontSize: this.$fz(0.14)
           }
         },
         // 	年度完成率和季度完成率颜色
@@ -280,8 +286,8 @@ export default {
             splitNumber: 5,
             interval: (Max1 - Min1) / 5,
             name: [
-              `{div|${this.options.yName.en}}`,
-              `{divch|${this.options.yName.ch}}`
+              `{div|${this.options.yName?this.options.yName.en:''}}`,
+              `{divch|${this.options.yName?this.options.yName.ch:''}}`
             ].join("\n"),
             nameTextStyle: {
               align: "left",
@@ -311,7 +317,7 @@ export default {
               show: false
             },
             axisLabel: {
-              show: true,
+              show: this.options.yLabel?this.options.yLabel[0]:true,
               textStyle: {
                 color: "#666",
                 fontSize: this.$fz(0.16)
@@ -325,13 +331,31 @@ export default {
             max: Max2,
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
-            name: "比率(%)",
+            name: [
+              `{div|${this.options.yName2?this.options.yName2.en:''}}`,
+              `{divch|${this.options.yName2?this.options.yName2.ch:''}}`
+            ].join("\n"),
+            nameTextStyle: {
+              align: "left",
+              padding: [0,-2 , 0,-that.$refs.barLineMix.offsetWidth * 0.07 ],
+              color: "#666",
+              rich: {
+                div: {
+                  fontSize: this.$fz(0.18)
+                },
+                divch: {
+                  padding: [0, 0, 2, 0],
+                  fontSize: this.$fz(0.14)
+                }
+              }
+            },
             // 单位 显示位置
             // nameLocation: 'start',
             type: "value",
             axisLabel: {
               //坐标轴刻度标签的相关设置。
               interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
+              show: this.options.yLabel?this.options.yLabel[1]:true,
               formatter: "{value}%",
               textStyle: {
                 color: "#666",

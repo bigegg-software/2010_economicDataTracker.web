@@ -27,7 +27,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import MacroLines from "@/components/charts/MacroLines";
-import request from "@/request/outBound/outBound";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -50,8 +50,8 @@ export default {
           en: "Consumer Price Index"
         },
         unit: {
-          ch: "百万美元",
-          en: "USD mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
         tableTitle: {},
         tableData: [],
@@ -62,7 +62,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
        
         title: {
           ch: "消费者价格指数CPI",
@@ -146,20 +146,21 @@ export default {
     }
   },
   async mounted() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate('CPI');
+    let res = await this.getMaxMinDate('MonthlyCPI');
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    this.options.yearly.list.start.value = Yarrmaxmin[0];
+    this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1]),
+      noMonth:true
     });
 
     this.$EventBus.$on("downLoadImg", () => {
@@ -202,16 +203,20 @@ export default {
         });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflowsBRICountry");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if (tableName == "CPI" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "MonthlyCPI" && key != "yearly") {
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
       return res;
@@ -243,7 +248,7 @@ export default {
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 2);
+      let { res } = await request.getConsumerPriceIndexChartsData(aug, 2);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性

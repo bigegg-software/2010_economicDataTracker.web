@@ -50,8 +50,8 @@ export default {
           en: "Gross Domestic Product"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
         tableTitle: {},
         tableData: [],
@@ -63,7 +63,8 @@ export default {
         id: "USD",
         dataSources: this.describeData,
         // yPosition:['left','right'],
-        yName: { ch: "百万美元", en: "USD mln" },
+        // yLabel:[true,true],
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
           ch: "国内生产总值 GDP",
           en: "Gross Domestic Product"
@@ -73,7 +74,7 @@ export default {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
-        hideLegend: true,
+        // hideLegend: true,
         series: [
           
         ],
@@ -127,17 +128,17 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async created() {
     let Yearres = await this.getMaxMinDate('GDP');
@@ -267,7 +268,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "当季同比增速_Y-o-y quarterly GDP",
-                  color: "red",
+                  color: "#333",
                   data: data.yoyGrowth,
                   percent:true
                 },
@@ -337,27 +338,21 @@ export default {
       if (aug.type == "yearly") {
         this.totalData.tableTitle = {
           year: {
-            text: "年份_Year",
+            text: "年度_Year",
             width: "10%"
           },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+          unit:{
+            text: "单位_unit",
+            width: "25%"
+          },
+          GDP: {
+            text: "国内生产总值_GDP",
             width: "25%",
             formatNum: true
           },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+          yoyGrowth: {
+            text: "年度增速_Y-o-y GDP",
             width: "25%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
             formatPer: true
           }
         };
@@ -367,27 +362,32 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          month: {
-            text: "月份_Month",
+          quarter: {
+            text: "季度_Quarter",
             width: "20%"
           },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+          GDP: {
+            text: "当季国内生产总值_Quarterly GDP",
             width: "35%",
             formatNum: true
           },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+          cumulativeGDP: {
+            text: "季度累计国内生产总值_Cumulative quarterly GDP",
+            width: "35%",
+            formatNum: true
+          },
+          yoyGrowth : {
+            text: "当季同比增速_Y-o-y quarterly GDP",
             width: "35%",
             formatPer: true
           },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
+          cumulativeYoyGrowth : {
+            text: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
             width: "35%",
-            formatNum: true
+            formatPer: true
           },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
+          qoqGDP  : {
+            text: "季度环比增速_Q-o-q GDP",
             width: "35%",
             formatPer: true
           }
