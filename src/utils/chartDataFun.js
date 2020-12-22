@@ -181,81 +181,81 @@ export default {
   },
   industry: () => { //固定的18个行业
     let industrys = [{
-        en: 'Education',
-        ch: '教育'
-      },
-      {
-        en: 'Manufacturing',
-        ch: '制造业'
-      },
-      {
-        en: 'Agriculture',
-        ch: '农林牧渔业'
-      },
-      {
-        en: 'Mining',
-        ch: '采矿业'
-      },
-      {
-        en: 'Energy',
-        ch: '能源业'
-      },
-      {
-        en: 'Construction',
-        ch: '建筑业'
-      },
-      {
-        en: 'Retail & wholesale',
-        ch: '批发和零售业'
-      },
-      {
-        en: 'Transportation',
-        ch: '运输业'
-      },
-      {
-        en: 'Hospitality',
-        ch: '住宿和餐饮业'
-      },
-      {
-        en: 'IT',
-        ch: '信息技术'
-      },
-      {
-        en: 'Finance',
-        ch: '金融业'
-      },
-      {
-        en: 'Real estate',
-        ch: '房地产业'
-      },
-      {
-        en: 'Business service',
-        ch: '商务服务业'
-      },
-      {
-        en: 'Science & technology',
-        ch: '科学技术'
-      },
-      {
-        en: 'Environment',
-        ch: '环境'
-      },
-      {
-        en: 'Residential services',
-        ch: '居民服务业'
-      },
-      {
-        en: 'Healthcare',
-        ch: '医疗卫生'
-      },
-      {
-        en: 'Entertainment ',
-        ch: '文娱业'
-      },
-      {
-        en: 'Social work',
-        ch: '社会组织'
-      }
+      en: 'Education',
+      ch: '教育'
+    },
+    {
+      en: 'Manufacturing',
+      ch: '制造业'
+    },
+    {
+      en: 'Agriculture',
+      ch: '农林牧渔业'
+    },
+    {
+      en: 'Mining',
+      ch: '采矿业'
+    },
+    {
+      en: 'Energy',
+      ch: '能源业'
+    },
+    {
+      en: 'Construction',
+      ch: '建筑业'
+    },
+    {
+      en: 'Retail & wholesale',
+      ch: '批发和零售业'
+    },
+    {
+      en: 'Transportation',
+      ch: '运输业'
+    },
+    {
+      en: 'Hospitality',
+      ch: '住宿和餐饮业'
+    },
+    {
+      en: 'IT',
+      ch: '信息技术'
+    },
+    {
+      en: 'Finance',
+      ch: '金融业'
+    },
+    {
+      en: 'Real estate',
+      ch: '房地产业'
+    },
+    {
+      en: 'Business service',
+      ch: '商务服务业'
+    },
+    {
+      en: 'Science & technology',
+      ch: '科学技术'
+    },
+    {
+      en: 'Environment',
+      ch: '环境'
+    },
+    {
+      en: 'Residential services',
+      ch: '居民服务业'
+    },
+    {
+      en: 'Healthcare',
+      ch: '医疗卫生'
+    },
+    {
+      en: 'Entertainment ',
+      ch: '文娱业'
+    },
+    {
+      en: 'Social work',
+      ch: '社会组织'
+    }
     ]
     industrys = industrys.map(item => {
       item.searchArr = [...item.ch.split(''), ...item.en.split(' ')];
@@ -442,176 +442,176 @@ export default {
   },
   category: () => { // 外贸 商品类别
     let category = [{
-        en: 'Animal products',
-        ch: '动物产品'
-      },
-      {
-        en: 'Vegetable products',
-        ch: '植物产品'
-      },
-      {
-        en: 'Animal & vegetable oils, fats, waxes',
-        ch: '动植物油、脂、蜡'
-      },
-      {
-        en: 'Prepared food, beverages & tobacco',
-        ch: '食品、饮料、烟草'
-      },
-      {
-        en: 'Mineral products',
-        ch: '矿产品'
-      },
-      {
-        en: 'Chemical products',
-        ch: '化工产品'
-      },
-      {
-        en: 'Plastics & rubber',
-        ch: '塑料及橡胶制品'
-      },
-      {
-        en: 'Leather products',
-        ch: '皮革制品'
-      },
-      {
-        en: 'Wood & straw products',
-        ch: '木与编结品'
-      },
-      {
-        en: 'Paper products',
-        ch: '纸制品'
-      },
-      {
-        en: 'Textiles',
-        ch: '纺织品'
-      },
-      {
-        en: 'Footware, headgear, umbrellas & feather products',
-        ch: '鞋、帽、伞、羽毛制品'
-      },
-      {
-        en: 'Stone & glass products',
-        ch: '石头与玻璃制品'
-      },
-      {
-        en: 'Pearls, precious stones & metals',
-        ch: '珍珠、宝石、贵金属制品'
-      },
-      {
-        en: 'Base metal products',
-        ch: '贱金属制品'
-      },
-      {
-        en: 'Machinery & appliances',
-        ch: '机械设备'
-      },
-      {
-        en: 'Transport equipment',
-        ch: '车船航空设备'
-      },
-      {
-        en: 'Optical instruments, clocks & musical instruments ',
-        ch: '光学设备、钟表、乐器'
-      },
-      {
-        en: 'Arms & ammunition',
-        ch: '武器弹药'
-      },
-      {
-        en: 'Miscellaneous',
-        ch: '杂项制品'
-      },
-      {
-        en: 'Art & antiques',
-        ch: '艺术收藏品'
-      },
-      {
-        en: 'Unclassified commedities',
-        ch: '未分类商品'
-      },
+      en: 'Animal products',
+      ch: '动物产品'
+    },
+    {
+      en: 'Vegetable products',
+      ch: '植物产品'
+    },
+    {
+      en: 'Animal & vegetable oils, fats, waxes',
+      ch: '动植物油、脂、蜡'
+    },
+    {
+      en: 'Prepared food, beverages & tobacco',
+      ch: '食品、饮料、烟草'
+    },
+    {
+      en: 'Mineral products',
+      ch: '矿产品'
+    },
+    {
+      en: 'Chemical products',
+      ch: '化工产品'
+    },
+    {
+      en: 'Plastics & rubber',
+      ch: '塑料及橡胶制品'
+    },
+    {
+      en: 'Leather products',
+      ch: '皮革制品'
+    },
+    {
+      en: 'Wood & straw products',
+      ch: '木与编结品'
+    },
+    {
+      en: 'Paper products',
+      ch: '纸制品'
+    },
+    {
+      en: 'Textiles',
+      ch: '纺织品'
+    },
+    {
+      en: 'Footware, headgear, umbrellas & feather products',
+      ch: '鞋、帽、伞、羽毛制品'
+    },
+    {
+      en: 'Stone & glass products',
+      ch: '石头与玻璃制品'
+    },
+    {
+      en: 'Pearls, precious stones & metals',
+      ch: '珍珠、宝石、贵金属制品'
+    },
+    {
+      en: 'Base metal products',
+      ch: '贱金属制品'
+    },
+    {
+      en: 'Machinery & appliances',
+      ch: '机械设备'
+    },
+    {
+      en: 'Transport equipment',
+      ch: '车船航空设备'
+    },
+    {
+      en: 'Optical instruments, clocks & musical instruments ',
+      ch: '光学设备、钟表、乐器'
+    },
+    {
+      en: 'Arms & ammunition',
+      ch: '武器弹药'
+    },
+    {
+      en: 'Miscellaneous',
+      ch: '杂项制品'
+    },
+    {
+      en: 'Art & antiques',
+      ch: '艺术收藏品'
+    },
+    {
+      en: 'Unclassified commedities',
+      ch: '未分类商品'
+    },
     ]
     return category;
   },
   enterpriseType: () => { // 外贸 商品类别
     return [{
-        en: 'Import by state-owned enterprises',
-        ch: '国有企业',
-        id: 1
-      },
-      {
-        en: 'Import by foreign-invested enterprises',
-        ch: '外商投资企业',
-        id: 2
-      },
-      {
-        en: 'Import by private-owned enterprises',
-        ch: '私营企业',
-        id: 3
-      },
-      {
-        en: 'Import by other enterprises',
-        ch: '其他',
-        id: 4
-      }
+      en: 'Import by state-owned enterprises',
+      ch: '国有企业',
+      id: 1
+    },
+    {
+      en: 'Import by foreign-invested enterprises',
+      ch: '外商投资企业',
+      id: 2
+    },
+    {
+      en: 'Import by private-owned enterprises',
+      ch: '私营企业',
+      id: 3
+    },
+    {
+      en: 'Import by other enterprises',
+      ch: '其他',
+      id: 4
+    }
     ]
   },
   customRegime: () => { // 外贸 贸易方式
     return [{
-        en: 'Ordinary Trade',
-        ch: '一般贸易',
-      },
-      {
-        en: 'International aid',
-        ch: '国家间、国际组织无偿援助和赠送的物资',
-      },
-      {
-        en: 'Other donation',
-        ch: '其他捐赠物资',
-      },
-      {
-        en: 'Processing & assembling',
-        ch: '来料加工装配贸易',
-      },
-      {
-        en: 'Processing with imported materials',
-        ch: '进料加工贸易',
-      },
-      {
-        en: 'Border trade',
-        ch: '边境小额贸易 ',
-      },
-      {
-        en: 'Equipment for processing trade',
-        ch: '加工贸易进口设备 ',
-      },
-      {
-        en: 'Contracting projects',
-        ch: '对外承包工程出口货物',
-      },
-      {
-        en: 'Goods on lease',
-        ch: '租赁贸易',
-      },
-      {
-        en: 'Equipment or materials imported as investment by foreign-invested enterprises',
-        ch: '外商投资企业作为投资进口的设备、物品',
-      },
-      {
-        en: 'Duty-free Goods',
-        ch: '免税品',
-      }, {
-        en: 'Customs warehousing trade',
-        ch: '保税监管场所进出境货物 ',
-      }, {
-        en: 'Logistics goods by customs special control area',
-        ch: '海关特殊监管区域物流货物',
-      }, {
-        en: 'Equipment imported into customs special control area',
-        ch: '海关特殊监管区域进口设备',
-      }, {
-        en: 'Other',
-        ch: '其他',
-      }
+      en: 'Ordinary Trade',
+      ch: '一般贸易',
+    },
+    {
+      en: 'International aid',
+      ch: '国家间、国际组织无偿援助和赠送的物资',
+    },
+    {
+      en: 'Other donation',
+      ch: '其他捐赠物资',
+    },
+    {
+      en: 'Processing & assembling',
+      ch: '来料加工装配贸易',
+    },
+    {
+      en: 'Processing with imported materials',
+      ch: '进料加工贸易',
+    },
+    {
+      en: 'Border trade',
+      ch: '边境小额贸易 ',
+    },
+    {
+      en: 'Equipment for processing trade',
+      ch: '加工贸易进口设备 ',
+    },
+    {
+      en: 'Contracting projects',
+      ch: '对外承包工程出口货物',
+    },
+    {
+      en: 'Goods on lease',
+      ch: '租赁贸易',
+    },
+    {
+      en: 'Equipment or materials imported as investment by foreign-invested enterprises',
+      ch: '外商投资企业作为投资进口的设备、物品',
+    },
+    {
+      en: 'Duty-free Goods',
+      ch: '免税品',
+    }, {
+      en: 'Customs warehousing trade',
+      ch: '保税监管场所进出境货物 ',
+    }, {
+      en: 'Logistics goods by customs special control area',
+      ch: '海关特殊监管区域物流货物',
+    }, {
+      en: 'Equipment imported into customs special control area',
+      ch: '海关特殊监管区域进口设备',
+    }, {
+      en: 'Other',
+      ch: '其他',
+    }
     ]
   },
   tradeServiceIndustry: () => { // 外贸 行业

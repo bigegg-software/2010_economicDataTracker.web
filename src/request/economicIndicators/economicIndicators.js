@@ -128,6 +128,114 @@ export default {
             console.log(res)
             return {res};
     },
+    getUnemployRegisterChartsData:async function(tableName,params) {// 获取登记失业率
+        let type = params.type;
+        let res=await this.manualQueryData(tableName,params);
+        
+         res = res.map(item=>{
+             item=item.toJSON();
+             item.unit='亿元人民币';
+             return item
+         })
+         console.log(res,12111111)
+         // 处理存储导出excel数据
+         let tableres=[];
+         if(type=='yearly'){
+             tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                 return (item.year>params.start) && (item.year<params.end)
+             })
+         }else if (type == 'quarterly'){
+             console.log()
+             tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
+                 return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+             })
+         }else  if(type == 'monthly'){
+             tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                 return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+             })
+         }
+         
+         tableres=tableres.reverse();
+         let tableInfo={}
+         if(type=='yearly'){
+             tableInfo={
+                 fileName:'国内生产总值（GDP）',
+                 tHeader:[
+                     "年份",
+                     '单位',
+                     '国内生产总值',
+                     '年度增速',
+                 ],
+                 filterVal:['year','unit','GDP','yoyGrowth'],
+                 tableData:[...tableres]
+             }
+         }else if(type=='quarterly'){
+                tableInfo={
+                 fileName:'国内生产总值（GDP）',
+                 tHeader:[
+                     "年份",
+                     "季度",
+                     '单位',
+                     '当季国内生产总值',
+                     '季度累计国内生产总值',
+                     '当季同比增速',
+                     '季度累计同比增速',
+                     '季度环比增速',
+                 ],
+                 filterVal:['year','quarter','unit','GDP','cumulativeGDP','yoyGrowth','cumulativeYoyGrowth','qoqGDP'],
+                 tableData:[...tableres]
+             }
+         }
+         store.commit('saveChartTable',tableInfo);
+         if (type == 'quarterly'){
+             res = res.filter(item=>{
+                 return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+             })
+         }
+         if(type == 'monthly'){
+             res=res.filter(item=>{
+                 return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+             })
+         }
+         console.log(res)
+         return {res};
+ },
+    getForeignCurrencyReservesChartData:async function(tableName,params) {// 获取国家外汇储备数据函数接口
+        let type = params.type;
+        let res=await this.manualQueryData(tableName,params);
+        console.log(res,12111111)
+         res = res.map(item=>{
+             item=item.toJSON()
+             return item
+         })
+         // 处理存储导出excel数据
+         let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+         })
+         tableres=tableres.reverse();
+         // let tableInfo={
+         // fileName:'中国对外直接投资流量',
+         // tHeader:[
+         //     "年",
+         //     type!='yearly'?"月份":'',
+         //     '单位',
+         //     '中国对外直接投资流量',
+         //     '中国对外直接投资流量同比',
+         //     '类型（英文）',
+         //     '类型'
+         // ].filter(item=>item!=''),
+         // filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeEN','outFlowTypeCH'].filter(item=>item!=''),
+         // tableData:[...tableres]
+         // }
+         // store.commit('saveChartTable',tableInfo);
+         if (type == 'quarterly'){
+             res = res.filter(item=>{
+                 return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+             })
+         }
+         console.log(res)
+         return {res};
+ },
     getConsumerPriceIndexChartsData:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
            let type = params.type;
            let res=await this.manualQueryData(tableName,params);

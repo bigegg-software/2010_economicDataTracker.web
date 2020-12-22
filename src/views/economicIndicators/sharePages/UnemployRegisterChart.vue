@@ -1,3 +1,4 @@
+
 <template>
   <!-- 登记失业率 chart-->
   <div class="goodstotal-chart">
@@ -6,7 +7,7 @@
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
+        <bar-line-mix v-if="!isShowTable" ref="barLine" :options="USD"></bar-line-mix>
       </div>
     </div>
     <div class="select-block">
@@ -26,8 +27,8 @@
 <script>
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
-import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import BarLineMix from "@/components/charts/BarLineMix";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -38,8 +39,8 @@ export default {
   },
   components: {
     TimeFrame,
-    BarLine,
-    TableChart,
+    BarLineMix,
+    TableChart
   },
   name: "TradeByCommodity",
   data() {
@@ -50,8 +51,8 @@ export default {
           en: "Urban registered unemployment rate"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
         tableTitle: {},
         tableData: [],
@@ -62,27 +63,21 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
-        yearOnYear: true, //通过修改这个值来显示同比
+        // yPosition:['left','right'],
+        yLabel:[true,true],
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2: { ch: "失业率", en: "100%" },
         title: {
           ch: "城镇登记失业率",
           en: "Urban registered unemployment rate"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
-        hideLegend: true,
-        onlyQuarter:false,
-        series: [
-          {
-            name: "登记失业人数_xxxxxx|登记失业率_xxxxxxxx",
-            color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
-          }
-        ],
+        // hideLegend: true,
+        series: [],
         updatedDate: ""
       },
       options: {
@@ -121,10 +116,8 @@ export default {
               value: ""
             }
           }
-        },
-      },
-
-     
+        }
+      }
     };
   },
   computed: {
@@ -133,33 +126,35 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async created() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate("Unemployment");
+    let res = await this.getMaxMinDate("UnemploymentQuarter");
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    this.options.yearly.list.start.value = Yarrmaxmin[0];
+    this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
+    console.log(QMDefaultTime);
+    this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
+    this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1]),
+      noMonth: true
     });
   },
   mounted() {
@@ -176,40 +171,46 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-          this.USD.onlyQuarter=false;
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
+        await this.getChartsData({
+          type,
+          start: Number(start.value),
+          end: Number(end.value),
+          noMonth: true
+        });
       } else if (type == "quarterly" || type == "monthly") {
-          this.USD.onlyQuarter=true;
-        // let startTimeArr = start.value.split("-");
-        // let endTimeArr = end.value.split("-");
-        // let quarterStart = parseInt(startTimeArr[0]);
-        // let quarterStartMonth = parseInt(startTimeArr[1]);
-        // let quarterEnd = parseInt(endTimeArr[0]);
-        // let quarterEndMonth = parseInt(endTimeArr[1]);
-        // await this.getChartsData({
-        //   type,
-        //   start: quarterStart,
-        //   end: quarterEnd,
-        //   startMonth: quarterStartMonth,
-        //   endMonth: quarterEndMonth
-        // });
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let quarterStart = parseInt(startTimeArr[0]);
+        let quarterStartMonth = parseInt(startTimeArr[1]) / 3;
+        let quarterEnd = parseInt(endTimeArr[0]);
+        let quarterEndMonth = parseInt(endTimeArr[1]) / 3;
+        console.log(quarterEndMonth);
+        await this.getChartsData({
+          type,
+          start: quarterStart,
+          end: quarterEnd,
+          startQuarter: quarterStartMonth,
+          endQuarter: quarterEndMonth
+        });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
+      let res = await chartDataFun.getMaxMinDate(tableName);
+      console.log(res)
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if (tableName == "Unemployment" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "UnemploymentQuarter" && key != "yearly") {
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
+      console.log(res);
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -227,36 +228,71 @@ export default {
         let data = await chartDataFun.completionDate(dataArr, range);
         resoult[item] = data;
       }
+      console.log(resoult)
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
+      console.log(res, XNameAttr, dataAttr, range);
       //
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      console.log(data);
+      if (XNameAttr == "year") {
+        this.USD.yLabel=[true,true],
+        this.USD.series = [
+          {
+            type: "bar",
+            yAxisIndex: 0, //数值
+            name: "城镇登记失业人数_Urban registered unemployment rate",
+            color: "#61a0a8",
+            data: data.unemployment
+          },
+          {
+            type: "line",
+            yAxisIndex: 1, //百分比
+            name: "城镇登记失业率_Urban registered unemployment",
+            color: "red",
+            data: data.unemploymentRate,
+            percent: true
+          }
+        ];
+      } else {
+        this.USD.yLabel=[false,true],
+        this.USD.series = [
+          {
+            type: "line",
+            name: "城镇登记失业率_Urban registered unemployment rate",
+            color: "#333",
+            data: data.unemploymentRate,
+            percent: true
+          },
+        ];
+      }
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
+      let { res } = await request.getUnemployRegisterChartsData(
+        aug.type == "yearly" ? "Unemployment" : "UnemploymentQuarter",
+        aug
+      );
 
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
+      console.log(range);
       // 要换取纵轴数据的字段属性
-      let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
-      ];
+      let dataAttr =
+        aug.type == "yearly"
+          ? ["unemployment", "unemploymentRate"]
+          : [
+              "unemploymentRate "
+            ];
       let XNameAttr = "year";
-      // this.USD.xData = range;
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
+      await chartDataFun.addOtherCategoryMC(res);
 
       if (aug.type == "yearly") {
         // 年
@@ -275,27 +311,21 @@ export default {
       if (aug.type == "yearly") {
         this.totalData.tableTitle = {
           year: {
-            text: "年份_Year",
+            text: "年度_Year",
             width: "10%"
           },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+          unit: {
+            text: "单位_unit",
+            width: "25%"
+          },
+          GDP: {
+            text: "国内生产总值_GDP",
             width: "25%",
             formatNum: true
           },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+          yoyGrowth: {
+            text: "年度增速_Y-o-y GDP",
             width: "25%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
             formatPer: true
           }
         };
@@ -305,27 +335,32 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          month: {
-            text: "月份_Month",
+          quarter: {
+            text: "季度_Quarter",
             width: "20%"
           },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+          GDP: {
+            text: "当季国内生产总值_Quarterly GDP",
             width: "35%",
             formatNum: true
           },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+          cumulativeGDP: {
+            text: "季度累计国内生产总值_Cumulative quarterly GDP",
+            width: "35%",
+            formatNum: true
+          },
+          yoyGrowth: {
+            text: "当季同比增速_Y-o-y quarterly GDP",
             width: "35%",
             formatPer: true
           },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
+          cumulativeYoyGrowth: {
+            text: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
             width: "35%",
-            formatNum: true
+            formatPer: true
           },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
+          qoqGDP: {
+            text: "季度环比增速_Q-o-q GDP",
             width: "35%",
             formatPer: true
           }
