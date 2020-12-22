@@ -12,7 +12,7 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" :activeKey="'monthly'" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>

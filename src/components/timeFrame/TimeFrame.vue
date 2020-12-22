@@ -77,7 +77,11 @@ import ProgressBar from "@/components/timeFrame/ProgressBar";
 
 export default {
   props: {
-    options: {}
+    options: {},
+    activeKey:{
+      type:String,
+      default:'yearly'
+    }
   },
   components: {
     YearComponent,
@@ -87,7 +91,7 @@ export default {
   },
   data() {
     return {
-      activeKey: "yearly"
+      // activeKey: "yearly"
     };
   },
   watch: {
