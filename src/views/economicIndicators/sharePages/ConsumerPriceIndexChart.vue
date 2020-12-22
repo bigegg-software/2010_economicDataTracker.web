@@ -41,7 +41,7 @@ export default {
     TableChart,
     MacroLines
   },
-  name: "outflowsChart",
+  name: "ConsumerPriceIndexChart",
   data() {
     return {
       totalData: {
@@ -71,20 +71,7 @@ export default {
         xData: [],
         hideLegend: false,
         unit1Symbol: "%",
-        series: [
-          {
-            name: "同比_xxxxx",
-            type: "line",
-            color: "#6AA3CD",
-            data: [120, 132, 101, 134, 90, 230]
-          },
-          {
-            name: "",
-            type: "line",
-            color: "#c23531",
-            data: []
-          }
-        ],
+        series: [],
         updatedDate: ""
       },
       options: {
@@ -175,19 +162,14 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-        this.USD.series[1].name = "";//隐藏环比
-        this.USD.series[1].data = [];//隐藏环比
 
         await this.getChartsData({
           type,
           start: Number(start.value),
-          end: Number(end.value)
+          end: Number(end.value),
+          noMonth:true
         });
       } else if (type == "quarterly" || type == "monthly") {
-   
-        this.USD.series[1].name = "环比_xxxxxx";//显示环比
-        this.USD.series[1].data = [220, 182, 234, 290, 330, 310];//显示环比
-
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
         let quarterStart = parseInt(startTimeArr[0]);
@@ -206,7 +188,6 @@ export default {
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate(tableName);
-      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -240,25 +221,47 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //一带一路新签合同额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.newConAmountConMillion;
-      this.USD.series[1]["yearOnYear"] = data.newConAmountConYOY;
+      if(XNameAttr=='year'){
+          this.USD.series=[
+          {
+            name: "消费者价格指数年度同比_Y-o-y CPI",
+            type: "line",
+            color: "#6AA3CD",
+            data: data.yoyGrowth
+          }
+        ]
+      }else{
+        this.USD.series=[
+          {
+            name: "月度消费者价格指数同比_Y-o-y monthly CPI",
+            type: "line",
+            color: "#6AA3CD",
+            data: data.yoyCPI
+          },
+          {
+            name: "月度消费者价格指数环比_M-o-m monthly CPI",
+            type: "line",
+            color: "#c23531",
+            data: data.momCPI
+          }
+        ]
+      }
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getConsumerPriceIndexChartsData(aug, 2);
+      let { res } = await request.getConsumerPriceIndexChartsData(aug.type == "yearly" ? "CPI" : "MonthlyCPI",aug);
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
+      let dataAttr = aug.type == "yearly"?["yoyGrowth"]:['yoyCPI','momCPI'];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
+      await chartDataFun.addOtherCategoryMC(res);
 
       if (aug.type == "yearly") {
         // 年
@@ -280,15 +283,10 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
-            width: "45%",
+          yoyGrowth: {
+            text: "消费者价格指数年度同比_Y-o-y CPI",
+            width: "85%",
             formatNum: true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Y-o-y total value of new contract",
-            width: "45%",
-            formatPer: true
           }
         };
       } else {
@@ -301,13 +299,13 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
+          yoyCPI: {
+            text: "月度消费者价格指数同比_Y-o-y monthly CPI",
             width: "35%",
-            formatNum: true
+            formatPer: true
           },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+          momCPI: {
+            text: "月度消费者价格指数环比_M-o-m monthly CPI",
             width: "35%",
             formatPer: true
           }
@@ -316,7 +314,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
