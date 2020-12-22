@@ -164,7 +164,7 @@ export default {
                     fileName:'消费者价格指数 CPI',
                     tHeader:[
                         "年份",
-                        "月度",
+                        "月份",
                         '月度消费者价格指数同比',
                         '月度消费者价格指数环比'
                     ],
@@ -201,7 +201,7 @@ export default {
                     fileName:'采购经理人指数 PMI',
                     tHeader:[
                         "年份",
-                        "月度",
+                        "月份",
                         '制造业采购经理⼈指数',
                         '⾮制造业采购经理⼈指数',
                         '⽉度综合采购经理⼈指数'
@@ -258,7 +258,7 @@ export default {
                     fileName:'Producer Price Index (PPI)',
                     tHeader:[
                         "年份",
-                        "月度",
+                        "月份",
                         '工业生产者价格指数月度同比',
                         '工业生产者价格指数月度环比'
                     ],
@@ -272,6 +272,42 @@ export default {
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
                 })
             }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
+    getIndustryAddValueChartsData:async function(params) { // 工业增长值
+         let type = params.type;
+           let res=await this.manualQueryData('GIVA',params);
+            res = res.map(item=>{
+                item=item.toJSON();
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+                tableres=tableres.reverse();
+            let tableInfo={
+                    fileName:'工业增加值',
+                    tHeader:[
+                        "年份",
+                        "月份",
+                        '工业增加值月度同比',
+                        '工业增加值月度累计同比'
+                    ],
+                    filterVal:['year','month','yoyGrowth','yoyCumulativeGrowth'],
+                    tableData:[...tableres]
+                }
+            store.commit('saveChartTable',tableInfo);
+            // if (type == 'quarterly'){
+            //     res = res.filter(item=>{
+            //         return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+            //     })
+            // }
             if(type == 'monthly'){
                 res=res.filter(item=>{
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
