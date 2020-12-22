@@ -12,7 +12,7 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" :activeKey="'monthly'" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" :activeKeyCur="'monthly'" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import MacroLines from "@/components/charts/MacroLines";
-import request from "@/request/outBound/outBound";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -45,10 +45,34 @@ export default {
           en: "Purchasing Managers' Index (PMI)"
         },
         unit: {
-          ch: "百万美元",
-          en: "USD mln"
+          ch: "指数",
+          en: "index"
         },
-        tableTitle: {},
+        tableTitle: {
+          year: {
+            text: "年份_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月度_Month",
+            width: "10%"
+          },
+          manufacturingPMI: {
+            text: "制造业采购经理⼈指数_Manufacturing PMI",
+            width: "25%",
+            formatPer: true
+          },
+          nonManufacturingPMI: {
+            text: "⾮制造业采购经理⼈指数_Non-manufacturing PMI",
+            width: "25%",
+            formatPer: true
+          },
+          comprehensivePMI: {
+            text: "⽉度综合采购经理⼈指数_Comprehensive PMI",
+            width: "25%",
+            formatPer: true
+          }
+        },
         tableData: [],
         updatedDate: ""
       },
@@ -132,16 +156,16 @@ export default {
     let arrmaxmin = res.split("_");
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    console.log(QMDefaultTime)
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "monthly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1]),
-      startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
-      endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
-    });
-
+    // await this.getChartsData({
+    //   type: "monthly",
+    //   start: Number(arrmaxmin[0]),
+    //   end: Number(arrmaxmin[1]),
+    //   startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
+    //   endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
+    // });
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -198,84 +222,32 @@ export default {
       }
       return resoult;
     },
-    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    // 获取当前页面的每条线数据（按月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //一带一路新签合同额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.newConAmountConMillion;
-      this.USD.series[1]["yearOnYear"] = data.newConAmountConYOY;
+      this.USD.series[0]["data"] = data.manufacturingPMI;
+      this.USD.series[1]["data"] = data.nonManufacturingPMI;
+      this.USD.series[2]["data"] = data.comprehensivePMI;
     },
     async getChartsData(aug) {
-      await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 2);
+      let { res } = await request.getPurchasingManagersIndexChartsData(aug);
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
-      let XNameAttr = "year";
+      let dataAttr = ["manufacturingPMI", "nonManufacturingPMI","comprehensivePMI"];
+      let XNameAttr = "M";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
-      //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
-
-      if (aug.type == "monthly") {
-        // 年
-        XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
-      } else if ((aug.type = "monthly")) {
-        //月度
-        XNameAttr = "M";
-      }
+      //添加额外的M属性
+      await chartDataFun.addOtherCategoryMC(res);
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
-    async setTableConfig(aug) {
-      if (aug.type == "monthly") {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
-            width: "45%",
-            formatNum: true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Y-o-y total value of new contract",
-            width: "45%",
-            formatPer: true
-          }
-        };
-      } else {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_month",
-            width: "20%"
-          },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
-            width: "35%",
-            formatNum: true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
-            width: "35%",
-            formatPer: true
-          }
-        };
-      }
-    },
     // 时间范围组件 update and change
     update(activeKey, value) {
+      console.log(activeKey)
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];

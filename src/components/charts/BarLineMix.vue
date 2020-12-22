@@ -261,7 +261,7 @@ export default {
             },
             axisLabel: {
               //坐标轴刻度标签的相关设置。
-              interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
+              // interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
               margin: 10
             },
             axisLine: {
@@ -354,7 +354,7 @@ export default {
             type: "value",
             axisLabel: {
               //坐标轴刻度标签的相关设置。
-              interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
+              // interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
               show: this.options.yLabel?this.options.yLabel[1]:true,
               formatter: "{value}%",
               textStyle: {
