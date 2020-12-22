@@ -236,7 +236,7 @@ export default {
          console.log(res)
          return {res};
  },
-    getConsumerPriceIndexChartsDataasync:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
+    getConsumerPriceIndexChartsData:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
            let type = params.type;
            let res=await this.manualQueryData(tableName,params);
             res = res.map(item=>{
@@ -263,27 +263,21 @@ export default {
                     fileName:'消费者价格指数 CPI',
                     tHeader:[
                         "年份",
-                        '单位',
-                        '消费者价格指数',
-                        '年度增速',
+                        '消费者价格指数年度同比'
                     ],
-                    filterVal:['year','unit','CPI','yoyGrowth'],
+                    filterVal:['year','yoyGrowth'],
                     tableData:[...tableres]
                 }
-            }else if(type=='quarterly'){
+            }else if(type=='monthly'){
                    tableInfo={
-                    fileName:'国内生产总值（GDP）',
+                    fileName:'消费者价格指数 CPI',
                     tHeader:[
                         "年份",
                         "月度",
-                        '单位',
-                        '当季国内生产总值',
-                        '季度累计国内生产总值',
-                        '当季同比增速',
-                        '季度累计同比增速',
-                        '季度环比增速',
+                        '月度消费者价格指数同比',
+                        '月度消费者价格指数环比'
                     ],
-                    filterVal:['year','quarter','unit','GDP','cumulativeGDP','yoyGrowth','cumulativeYoyGrowth','qoqGDP'],
+                    filterVal:['year','month','yoyCPI','momCPI'],
                     tableData:[...tableres]
                 }
             }

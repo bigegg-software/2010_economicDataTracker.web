@@ -183,7 +183,7 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
+            dom += `<div style="width:auto;height:auto;padding: 0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += "<table>";
             dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
             if (this.selectOption) {
@@ -254,7 +254,7 @@ export default {
         // 	年度完成率和季度完成率颜色
         // color: ["#071960", "#1740B4", "#1962CA", ],
         grid: {
-          left: "5%",
+          left: "3%",
           right: "4%",
           top: "30%",
           bottom: this.watermark
@@ -303,7 +303,7 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, -2, 0, -that.$refs.barLine.offsetWidth * 0.07],
+              padding: [0, -2, 0, this.$fz(-0.8)],
               color: "#666",
               rich: {
                 div: {

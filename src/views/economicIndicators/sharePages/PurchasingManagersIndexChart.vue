@@ -12,7 +12,7 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" :activeKey="'monthly'" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
     TableChart,
     MacroLines
   },
-  name: "outflowsChart",
+  name: "PurchasingManagersIndexChart",
   data() {
     return {
       totalData: {
@@ -57,33 +57,31 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
-        monthOnMonth: false, //通过修改这个值来显示环比
+        yName: { ch: "指数", en: "index" },
         title: {
           ch: "采购经理人指数PMI",
           en: "Purchasing Managers' Index (PMI)"
         },
         xData: [],
-        hideLegend: false,
         unit1Symbol: "%",
         series: [
           {
-            name: "同比_xxxxx",
+            name: "制造业采购经理⼈指数_Manufacturing PMI",
             type: "line",
             color: "#6AA3CD",
-            data: [120, 132, 101, 134, 90, 230]
+            data: []
           },
           {
-            name: "222_xxx",
+            name: "⾮制造业采购经理⼈指数_Non-manufacturing PMI",
             type: "line",
             color: "#c23531",
-            data: [220, 182, 234, 290, 330, 310]
+            data: []
           },
           {
-            name: "333_xxx",
+            name: "⽉度综合采购经理⼈指数_Comprehensive PMI",
             type: "line",
             color: "#61a0a8",
-            data: [ 182, 234, 290, 230, 310,241]
+            data: []
           }
         ],
         updatedDate: ""
@@ -132,18 +130,16 @@ export default {
   async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    // this.options.monthly.list.start.value = arrmaxmin[0];
-    // this.options.monthly.list.end.value = arrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    // this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    // this.options.monthly.list.end.value = QMDefaultTime.M.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "monthly",
       start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      end: Number(arrmaxmin[1]),
+      startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
+      endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
     });
 
     this.$EventBus.$on("downLoadImg", () => {
@@ -157,16 +153,6 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-      if (type == "monthly") {
-
-        await this.getChartsData({
-          type,
-          start: Number(start.value),
-          end: Number(end.value)
-        });
-      } else if (type == "quarterly" || type == "monthly") {
-        
-
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
         let quarterStart = parseInt(startTimeArr[0]);
@@ -180,11 +166,10 @@ export default {
           startMonth: quarterStartMonth,
           endMonth: quarterEndMonth
         });
-      }
     },
     async getMaxMinDate() {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflowsBRICountry");
+      let res = await chartDataFun.getMaxMinDate("PMI");
       console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));

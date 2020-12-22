@@ -236,7 +236,6 @@ export default {
       console.log(res, XNameAttr, dataAttr, range)
       //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      console.log(data)
       if(XNameAttr=='year'){
         this.USD.series=[
               {

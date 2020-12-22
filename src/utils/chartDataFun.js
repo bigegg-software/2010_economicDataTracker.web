@@ -69,7 +69,9 @@ export default {
       } else if (aug.type == 'monthly') {
         for (let u = 1; u <= 12; u++) {
           //原来是2020.01、2020.02    // newXName.push(`${Number(aug.start) + i}.${String(u).length == 1 ? '0' + u : u}`);
-          newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
+          // newXName.push(`${Number(aug.start) + i}.1-${u}`); // 现在是2020.1-1 ，2020.1-2
+          let uu = u < 10 ? `0${u}` : u
+          newXName.push(`${Number(aug.start) + i}.${uu}`); // 现在是2020.01 ，2020.12
         }
       }
     }
@@ -84,7 +86,8 @@ export default {
   addOtherCategoryMC: async (data) => { //添加合并成新的字段  季度时Q   月度M
     data.forEach(item => {
       item.Q = `${item['year']}.Q${item.quarter}`;
-      item.M = `${item['year']}.1-${item['month']}`;
+      item.M = `${item['year']}.${item['month']<10?'0'+item['month']:item['month']}`;
+      // item.M = `${item['year']}.1-${item['month']}`;
     });
   },
   getXRange: async (aug) => { //创建横轴名称
@@ -123,7 +126,7 @@ export default {
       } else if (aug.type == 'monthly') {
         for (let u = 1; u <= 12; u++) {
           let uu = u < 10 ? `0${u}` : u
-          newXName.push(`${Number(aug.start) + i}.${uu}`); // 现在是2020.01 ，2020.12
+          newXName.push(`${Number(aug.start) + i}.${uu}`); // 现在是2020.01 ，2020.12
         }
       }
     }
@@ -611,57 +614,57 @@ export default {
     }
     ]
   },
-}
-tradeServiceIndustry: () => { // 外贸 行业
-  return [{
-    en: 'Manufacturing services',
-    ch: '实物投入的制造服务',
-  },
-  {
-    en: 'Maintenance & repair',
-    ch: '维护与修理',
-  },
-  {
-    en: 'Transport',
-    ch: '运输业',
-  },
-  {
-    en: 'Travel',
-    ch: '旅游业',
-  },
-  {
-    en: 'Construction',
-    ch: '建筑业',
-  },
-  {
-    en: 'Insurance & pension',
-    ch: '保险业 ',
-  },
-  {
-    en: 'Financial services',
-    ch: '金融业 ',
-  },
-  {
-    en: 'Intellectual property',
-    ch: '知识产权费用',
-  },
-  {
-    en: 'Telecommunications & IT',
-    ch: '电信、计算机与信息服务',
-  },
-  {
-    en: 'Business services',
-    ch: '商务服务',
-  },
-  {
-    en: 'Culture & recreation',
-    ch: '个人、文化和娱乐服务',
-  }, {
-    en: 'Government goods & services',
-    ch: '政府服务与货物 ',
-  }, {
-    en: 'Services not allocated',
-    ch: '其他服务',
-  },
-  ]
+  tradeServiceIndustry: () => { // 外贸 行业
+    return [{
+        en: 'Manufacturing services',
+        ch: '实物投入的制造服务',
+      },
+      {
+        en: 'Maintenance & repair',
+        ch: '维护与修理',
+      },
+      {
+        en: 'Transport',
+        ch: '运输业',
+      },
+      {
+        en: 'Travel',
+        ch: '旅游业',
+      },
+      {
+        en: 'Construction',
+        ch: '建筑业',
+      },
+      {
+        en: 'Insurance & pension',
+        ch: '保险业 ',
+      },
+      {
+        en: 'Financial services',
+        ch: '金融业 ',
+      },
+      {
+        en: 'Intellectual property',
+        ch: '知识产权费用',
+      },
+      {
+        en: 'Telecommunications & IT',
+        ch: '电信、计算机与信息服务',
+      },
+      {
+        en: 'Business services',
+        ch: '商务服务',
+      },
+      {
+        en: 'Culture & recreation',
+        ch: '个人、文化和娱乐服务',
+      }, {
+        en: 'Government goods & services',
+        ch: '政府服务与货物 ',
+      }, {
+        en: 'Services not allocated',
+        ch: '其他服务',
+      },
+    ]
+  }
 }

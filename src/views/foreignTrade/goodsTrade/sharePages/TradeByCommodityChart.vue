@@ -268,7 +268,7 @@ export default {
         obj_yearly.list[k].frame = yearly;
       }
       this.$set(this.options, "yearly", obj_yearly);
-      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 11;
+      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;
       this.options.yearly.list.end.value = arrmaxmin_yearly[1];
       //
       let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
@@ -280,7 +280,7 @@ export default {
         arrmaxmin_monthly[1],
         1
       );
-      this.options.monthly.list.start.value = QMDefaultTime.M.start;
+      this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;
       this.options.monthly.list.end.value = QMDefaultTime.M.end;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -328,6 +328,7 @@ export default {
       await this.setTableConfig(aug);
       let data;
       let dataAttr;
+      let range;
       if (this.activeKey == "yearly") {
         data = await request.getImportExportCommodity(aug);
         dataAttr = [
@@ -336,12 +337,14 @@ export default {
           "_cumulativeExport",
           "yoyCumulativeExport"
         ];
+        range = await chartDataFun.getXRange(aug);
       }
       if (this.activeKey == "monthly") {
         data = await request.getImportExportCommodityMonth(aug);
         // 当月
         if (this.selectOption.value.id == 1) {
           dataAttr = ["_import", "_export"];
+          range = await chartDataFun.getXRangeCurrentMonth(aug);
         }
         // 累计
         if (this.selectOption.value.id == 2) {
@@ -351,10 +354,9 @@ export default {
             "_cumulativeExport",
             "yoyCumulativeExport"
           ];
+          range = await chartDataFun.getXRange(aug);
         }
       }
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;

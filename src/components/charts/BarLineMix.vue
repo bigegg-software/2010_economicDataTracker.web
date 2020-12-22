@@ -285,10 +285,10 @@ export default {
             max: Max1,
             splitNumber: 5,
             interval: (Max1 - Min1) / 5,
-            name: [
-              `{div|${this.options.yLabel&&this.options.yLabel[1]?(this.options.yName?this.options.yName.en:''):''}}`,
-              `{divch|${this.options.yLabel&&this.options.yLabel[1]?(this.options.yName?this.options.yName.ch:''):''}}`
-            ].join("\n"),
+           name: [
+              `{div|${this.options.yName?this.options.yName.en:''}}`,
+              `{divch|${this.options.yName?this.options.yName.ch:''}}`
+            ].join("\n"),
             nameTextStyle: {
               align: "left",
               padding: [0, -2, 0, -that.$refs.barLineMix.offsetWidth * 0.07],
