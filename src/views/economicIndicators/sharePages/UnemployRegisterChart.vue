@@ -63,7 +63,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        // yPosition:['left','right'],
+        yPosition:['left','right'],
         yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
         yName2: { ch: "失业率", en: "100%" },
@@ -238,6 +238,8 @@ export default {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       console.log(data);
       if (XNameAttr == "year") {
+        this.USD.yName= { ch: "亿元人民币", en: "100 mln RMB" },
+        this.USD.yPosition=['left','right'],
         this.USD.yLabel=[true,true],
         this.USD.series = [
           {
@@ -257,15 +259,18 @@ export default {
           }
         ];
       } else {
+        this.USD.yName= { ch: "", en: "" },
+        this.USD.yPosition=['right','left'],
         this.USD.yLabel=[false,true],
         this.USD.series = [
           {
             type: "line",
+            yAxisIndex: 1, //百分比
             name: "城镇登记失业率_Urban registered unemployment rate",
             color: "#333",
             data: data.unemploymentRate,
             percent: true
-          },
+          }
         ];
       }
     },
@@ -285,7 +290,7 @@ export default {
         aug.type == "yearly"
           ? ["unemployment", "unemploymentRate"]
           : [
-              "unemploymentRate "
+              "unemploymentRate"
             ];
       let XNameAttr = "year";
       this.USD.xData = range;
@@ -316,16 +321,16 @@ export default {
           },
           unit: {
             text: "单位_unit",
-            width: "25%"
+            width: "20%"
           },
-          GDP: {
-            text: "国内生产总值_GDP",
-            width: "25%",
+          unemployment: {
+            text: "城镇登记失业人数_Urban registered unemployment rate",
+            width: "35%",
             formatNum: true
           },
-          yoyGrowth: {
-            text: "年度增速_Y-o-y GDP",
-            width: "25%",
+          unemploymentRate: {
+            text: "城镇登记失业率_Urban registered unemployment rate",
+            width: "35%",
             formatPer: true
           }
         };
@@ -337,32 +342,12 @@ export default {
           },
           quarter: {
             text: "季度_Quarter",
-            width: "20%"
+            width: "30%"
           },
-          GDP: {
-            text: "当季国内生产总值_Quarterly GDP",
-            width: "35%",
+          unemploymentRate: {
+            text: "城镇登记失业率_Urban registered unemployment rate",
+            width: "60%",
             formatNum: true
-          },
-          cumulativeGDP: {
-            text: "季度累计国内生产总值_Cumulative quarterly GDP",
-            width: "35%",
-            formatNum: true
-          },
-          yoyGrowth: {
-            text: "当季同比增速_Y-o-y quarterly GDP",
-            width: "35%",
-            formatPer: true
-          },
-          cumulativeYoyGrowth: {
-            text: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
-            width: "35%",
-            formatPer: true
-          },
-          qoqGDP: {
-            text: "季度环比增速_Q-o-q GDP",
-            width: "35%",
-            formatPer: true
           }
         };
       }
