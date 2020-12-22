@@ -41,7 +41,7 @@ export default {
     BarLineMix,
     TableChart,
   },
-  name: "TradeByCommodity",
+  name: "GrossDomesticProductChart",
   data() {
     return {
       totalData: {
