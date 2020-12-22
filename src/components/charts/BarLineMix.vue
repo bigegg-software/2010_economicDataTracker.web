@@ -175,7 +175,7 @@ export default {
           confine: true, //限制在区域内
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+            type:this.options.yLabel&&!this.options.yLabel[0] ?"line":'shadow' // 默认为直线，可选为：'line' | 'shadow'
           },
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {

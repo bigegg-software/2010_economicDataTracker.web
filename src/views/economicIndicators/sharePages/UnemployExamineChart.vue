@@ -1,19 +1,24 @@
 <template>
   <!-- 调查失业率chart -->
-  <div class="Flows-and-stocksChart">
+  <div class="outflows-chart">
     <div class="echart-block">
       <div v-if="isShowTable" class="table-block">
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-       <macro-lines v-if="!isShowTable" ref="linesChart" :options="USD"></macro-lines>
+        <macro-lines v-if="!isShowTable" ref="linesChart" :options="USD"></macro-lines>
       </div>
     </div>
-
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          :activeKeyCur="'monthly'"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -23,9 +28,10 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import MacroLines from "@/components/charts/MacroLines";
-import request from "@/request/outBound/outBound";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
+
 export default {
   props: {
     isShowTable: {},
@@ -33,10 +39,10 @@ export default {
   },
   components: {
     TimeFrame,
-    MacroLines,
-    TableChart
+    TableChart,
+    MacroLines
   },
-  name: "flowsAndStocksChart",
+  name: "UnemployExamineChart",
   data() {
     return {
       totalData: {
@@ -45,23 +51,28 @@ export default {
           en: "Urban surveyed unemployment rate"
         },
         unit: {
-          ch: "调查失业率(%)",
-          en: "xxxxxx"
+          ch: "指数",
+          en: "index"
         },
         tableTitle: {
           year: {
             text: "年份_Year",
             width: "10%"
           },
-          outward_FDI_flows: {
-            text: "中国对外直接投资流量_China's FDI outflows",
-            width: "40%",
-            formatNum: true
+          month: {
+            text: "月度_Month",
+            width: "10%"
           },
-          outward_FDI_stocks: {
-            text: "中国对外直接投资存量_China's FDI stocks",
+          unemploymentRate: {
+            text: "调查失业率_Urban surveyed unemployment rate",
             width: "40%",
-            formatNum: true
+            formatPer: true
+          },
+          unemploymentMajorRate: {
+            text:
+              "31个大城市城镇调查失业率_Surveyed unemployment rate in 31 major cities",
+            width: "40%",
+            formatPer: true
           }
         },
         tableData: [],
@@ -69,39 +80,38 @@ export default {
       },
       timer: null,
       showTimeFrame: false,
-      isShowRMB: false,
-        USD: {
+      USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
-        monthOnMonth: false, //通过修改这个值来显示环比
+        yName: { ch: "指数", en: "index" },
         title: {
           ch: "调查失业率",
           en: "Urban surveyed unemployment rate"
         },
         xData: [],
-        hideLegend: false,
         unit1Symbol: "%",
         series: [
           {
-            name: "同比_xxxxx",
+            name: "调查失业率_Urban surveyed unemployment rate",
             type: "line",
             color: "#6AA3CD",
-            data: [120, 132, 101, 134, 90, 230]
+            data: []
           },
           {
-            name: "222_xxx",
+            name:
+              "31个大城市城镇调查失业率_Surveyed unemployment rate in 31 major cities",
             type: "line",
             color: "#c23531",
-            data: [220, 182, 234, 290, 330, 310]
-          },
+            data: []
+          }
         ],
         updatedDate: ""
       },
+
       options: {
-        yearly: {
-          ch: "年度",
-          en: "Yearly",
+        monthly: {
+          ch: "月度",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -132,24 +142,27 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
+        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
     }
   },
-  async created() {
+  async mounted() {
     let res = await this.getMaxMinDate();
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
-    await this.getChartsData({
-      noMonth: true,
-      type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
-    });
-  },
-  mounted() {
+    // 初始化日期月度季度赋值
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    console.log(QMDefaultTime);
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
+    // await this.getChartsData({
+    //   type: "monthly",
+    //   start: Number(arrmaxmin[0]),
+    //   end: Number(arrmaxmin[1]),
+    //   startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
+    //   endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
+    // });
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -161,23 +174,29 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
+      let startTimeArr = start.value.split("-");
+      let endTimeArr = end.value.split("-");
+      let quarterStart = parseInt(startTimeArr[0]);
+      let quarterStartMonth = parseInt(startTimeArr[1]);
+      let quarterEnd = parseInt(endTimeArr[0]);
+      let quarterEndMonth = parseInt(endTimeArr[1]);
       await this.getChartsData({
-        noMonth: true,
         type,
-        start: Number(start.value),
-        end: Number(end.value)
+        start: quarterStart,
+        end: quarterEnd,
+        startMonth: quarterStartMonth,
+        endMonth: quarterEndMonth
       });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflowsInflows");
+      let res = await chartDataFun.getMaxMinDate("UnemploymentMonth");
       console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -200,31 +219,34 @@ export default {
       }
       return resoult;
     },
-    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    // 获取当前页面的每条线数据（按月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      this.USD.series[0]["data"] = data.outward_FDI_flows;
-      this.USD.series[1]["data"] = data.outward_FDI_stocks;
-
-      //
+      this.USD.series[0]["data"] = data.unemploymentRate;
+      this.USD.series[1]["data"] = data.unemploymentMajorRate;
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getoutstocksChartsData(aug, 2);
-
+      let { res } = await request.getUnemployExamineChartsData(aug);
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["outward_FDI_flows", "outward_FDI_stocks"];
-      let XNameAttr = "year";
+      let dataAttr = [
+        "unemploymentRate",
+        "unemploymentMajorRate"
+      ];
+      let XNameAttr = "M";
       this.USD.xData = range;
-      this.totalData.updatedDate = this.$store.getters.latestTime;
       this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
+      //添加额外的M属性
+      await chartDataFun.addOtherCategoryMC(res);
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
+      console.log(activeKey);
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
@@ -251,13 +273,17 @@ export default {
       ) {
         this.mainGetChartsData(activeKey);
       }
+    },
+    // 改变年度季度月度时：
+    async changeActiveKey(ev) {
+      await this.mainGetChartsData(ev);
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.Flows-and-stocksChart {
+.outflows-chart {
   display: flex;
   .echart-block {
     position: relative;
@@ -295,3 +321,7 @@ export default {
   }
 }
 </style>
+
+
+
+

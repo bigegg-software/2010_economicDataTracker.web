@@ -345,7 +345,7 @@ export default {
         let tableInfo = {}
         if (type == 'yearly') {
             tableInfo = {
-                fileName: '国内生产总值（GDP）',
+                fileName: '城镇登记失业率',
                 tHeader: [
                     "年份",
                     '单位',
@@ -357,7 +357,7 @@ export default {
             }
         } else if (type == 'quarterly') {
             tableInfo = {
-                fileName: '国内生产总值（GDP）',
+                fileName: '城镇登记失业率',
                 tHeader: [
                     "年份",
                     "季度",
@@ -381,6 +381,42 @@ export default {
         console.log(res)
         return { res };
     },
+    getUnemployExamineChartsData:async function(params) { // 获取调查失业率
+        let type = params.type;
+          let res=await this.manualQueryData('UnemploymentMonth',params);
+           res = res.map(item=>{
+               item=item.toJSON();
+               return item
+           })
+           // 处理存储导出excel数据
+           let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                   return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+               })
+               tableres=tableres.reverse();
+           let tableInfo={
+                   fileName:'调查失业率',
+                   tHeader:[
+                       "年份",
+                       "月份",
+                       '调查失业率',
+                       '31个大城市城镇调查失业率',
+                   ],
+                   filterVal:['year','month','unemploymentRate','unemploymentMajorRate'],
+                   tableData:[...tableres]
+               }
+           store.commit('saveChartTable',tableInfo);
+           // if (type == 'quarterly'){
+           //     res = res.filter(item=>{
+           //         return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+           //     })
+           // }
+           if(type == 'monthly'){
+               res=res.filter(item=>{
+                   return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+               })
+           }
+           return {res};
+   },
     getForeignCurrencyReservesChartData:async function(tableName,params) {// 获取国家外汇储备数据函数接口
         let type = params.type;
         let res=await this.manualQueryData(tableName,params);
