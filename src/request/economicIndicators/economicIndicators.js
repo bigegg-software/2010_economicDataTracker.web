@@ -315,6 +315,38 @@ export default {
             }
             return {res};
     },
+    getIndustrialProfitsChartsData:async function(tableName,params) {// 获取工业企业利润
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+           
+            res = res.map(item=>{
+                item=item.toJSON();
+                item.unit='亿元人民币';
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            tableres=tableres.reverse();
+            let tableInfo={
+                    fileName:'工业企业利润',
+                    tHeader:[
+                        "年份",
+                        '月份',
+                        '单位',
+                        '月度累计工业企业利润额',
+                        '月度累计工业企业利润额同比',
+                    ],
+                    filterVal:['year','month','unit','yoyCumulativeIndustrialGrowth','yoyGrowth'],
+                    tableData:[...tableres]
+                }
+            store.commit('saveChartTable',tableInfo);
+            res=res.filter(item=>{
+                return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+            })
+            return {res};
+    },
     getUnemployRegisterChartsData:async function(tableName,params) {// 获取登记失业率
         let type = params.type;
         let res = await this.manualQueryData(tableName, params);

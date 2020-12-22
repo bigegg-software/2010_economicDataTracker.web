@@ -6,7 +6,7 @@
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <bar-line-mix v-if="!isShowTable" ref="barLine" :activeKeyCur="'monthly'" :options="USD"></bar-line-mix>
+        <bar-line-mix v-if="!isShowTable" ref="barLine" :options="USD"></bar-line-mix>
       </div>
     </div>
     <div class="select-block">
@@ -14,6 +14,7 @@
         <time-frame
           v-if="showTimeFrame"
           :options="options"
+          :activeKeyCur="'monthly'"
           @change="change"
           @update="update"
           @changeActiveKey="changeActiveKey"
@@ -118,9 +119,9 @@ export default {
         updatedDate: ""
       },
       options: {
-        quarterly: {
-          ch: "季度",
-          en: "Quarterly",
+        monthly: {
+          ch: "月度",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -135,7 +136,7 @@ export default {
               value: ""
             }
           }
-        },
+        }
       }
     };
   },
@@ -190,7 +191,6 @@ export default {
         let monthStart = parseInt(startTimeArr[1]);
         let yearEnd = parseInt(endTimeArr[0]);
         let monthEnd = parseInt(endTimeArr[1]);
-        console.log(quarterEndMonth)
         await this.getChartsData({
           type,
           start: yearStart,
@@ -239,7 +239,7 @@ export default {
     },
     async getChartsData(aug) {
       //改变横轴 获取数据
-      let { res } = await request.getIndustrialProfitsChartsData( //等待中
+      let { res } = await request.getIndustrialProfitsChartsData( //等待
         'IndustrialProfit',aug
         );
       // 完整的区间
