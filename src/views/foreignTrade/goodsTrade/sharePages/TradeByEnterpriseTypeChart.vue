@@ -273,7 +273,7 @@ export default {
         arrmaxmin_monthly[1],
         1
       );
-      this.options.monthly.list.start.value = QMDefaultTime.M.start;
+      this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;
       this.options.monthly.list.end.value = QMDefaultTime.M.end;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -307,7 +307,7 @@ export default {
       let data = await request.getImportExportEnterprise(aug);
       let dataAttr = this.field[this.enterpriseType.value.id];
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeCurrentMonth(aug);
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;

@@ -501,7 +501,7 @@ export default {
             let a = "";
             let b = "";
             let c = "";
-            dom += `<div style="width:auto;height:auto;padding-left:0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
+            dom += `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += "<table>";
             if (this.selectOption) {
               //判断功能区是否有筛选

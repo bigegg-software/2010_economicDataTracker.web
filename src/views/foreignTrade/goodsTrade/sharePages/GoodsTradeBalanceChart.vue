@@ -234,7 +234,7 @@ export default {
           obj.list[k].frame = res;
         }
         this.$set(this.options, "yearly", obj);
-        this.options.yearly.list.start.value = arrmaxmin[1] - 5;
+        this.options.yearly.list.start.value = arrmaxmin[1] - 4;
         this.options.yearly.list.end.value = arrmaxmin[1];
       }
       if (this.activeKey == "monthly") {
@@ -247,7 +247,7 @@ export default {
           arrmaxmin[1],
           1
         );
-        this.options.monthly.list.start.value = QMDefaultTime.M.start;
+        this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;
         this.options.monthly.list.end.value = QMDefaultTime.M.end;
       }
     },

@@ -38,9 +38,9 @@ export default {
     dateRes.Q.end = dayjs(currentY).format('YYYY') + '-' + currentQ;
     dateRes.M.start = dayjs(currentY).format('YYYY') - beforeY + '-' + dayjs().format('MM');
     dateRes.M.end = dayjs(currentY).format('YYYY') + '-' + dayjs().format('MM');
-    let end = dayjs().set('year', dayjs(currentY).format('YYYY'))
-    end = end.set('month', dayjs().format('MM') - 6)
-    dateRes.M.start_beforeSix= end.format('YYYY-MM')
+    let end = dayjs().set('year', dayjs(currentY).format('YYYY'))
+    end = end.set('month', dayjs().format('MM') - 6)
+    dateRes.M.start_beforeSix = end.format('YYYY-MM')
     return dateRes;
   },
   objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
@@ -125,8 +125,8 @@ export default {
         }
       } else if (aug.type == 'monthly') {
         for (let u = 1; u <= 12; u++) {
-          let uu = u < 10 ? `0${u}` : u
-          newXName.push(`${Number(aug.start) + i}.${uu}`); // 现在是2020.01 ，2020.12
+          let uu = u < 10 ? `0${u}` : u
+          newXName.push(`${Number(aug.start) + i}.${uu}`); // 现在是2020.01 ，2020.12
         }
       }
     }
@@ -612,6 +612,59 @@ export default {
         en: 'Other',
         ch: '其他',
       }
+    ]
+  },
+  tradeServiceIndustry: () => { // 外贸 行业
+    return [{
+        en: 'Manufacturing services',
+        ch: '实物投入的制造服务',
+      },
+      {
+        en: 'Maintenance & repair',
+        ch: '维护与修理',
+      },
+      {
+        en: 'Transport',
+        ch: '运输业',
+      },
+      {
+        en: 'Travel',
+        ch: '旅游业',
+      },
+      {
+        en: 'Construction',
+        ch: '建筑业',
+      },
+      {
+        en: 'Insurance & pension',
+        ch: '保险业 ',
+      },
+      {
+        en: 'Financial services',
+        ch: '金融业 ',
+      },
+      {
+        en: 'Intellectual property',
+        ch: '知识产权费用',
+      },
+      {
+        en: 'Telecommunications & IT',
+        ch: '电信、计算机与信息服务',
+      },
+      {
+        en: 'Business services',
+        ch: '商务服务',
+      },
+      {
+        en: 'Culture & recreation',
+        ch: '个人、文化和娱乐服务',
+      }, {
+        en: 'Government goods & services',
+        ch: '政府服务与货物 ',
+      }, {
+        en: 'Services not allocated',
+        ch: '其他服务',
+      },
     ]
   }
 }

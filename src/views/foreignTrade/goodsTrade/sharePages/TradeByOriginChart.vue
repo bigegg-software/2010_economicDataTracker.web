@@ -12,7 +12,12 @@
             : 'container'
         "
       >
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
+        <bar-line
+          v-if="!isShowTable"
+          ref="barLine"
+          :options="USD"
+          :selectOption="checkBox"
+        ></bar-line>
       </div>
     </div>
     <div class="select-block">
@@ -28,7 +33,7 @@
       <div class="status">
         <SelectRadioBySearch
           :option="checkBox"
-          :result="country"
+          :result="checkBox.value"
           @changeInputValue="changeInputValue"
           @changeRadio="changeRadioBySearch"
         ></SelectRadioBySearch>
@@ -127,13 +132,13 @@ export default {
         updatedDate: ""
       },
       searchValue: "",
-      country: {
-        ch: "中国香港",
-        en: "Hong Kong, China"
-      },
       checkBox: {
         ch: "国家",
         en: "country",
+        value: {
+          ch: "中国香港",
+          en: "Hong Kong, China"
+        },
         op: []
       },
       options: {
@@ -238,7 +243,7 @@ export default {
           end: Number(end.value),
           noMonth: true,
           equalTo: {
-            country: this.country.ch
+            country: this.checkBox.value.ch
           }
         });
       }
@@ -258,7 +263,7 @@ export default {
           endMonth: quarterEndMonth,
           dataType: this.selectOption.value.id, // 1当月 / 2累计
           equalTo: {
-            country: this.country.ch
+            country: this.checkBox.value.ch
           }
         });
       }
@@ -275,7 +280,7 @@ export default {
         obj_yearly.list[k].frame = yearly;
       }
       this.$set(this.options, "yearly", obj_yearly);
-      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 11;
+      this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;
       this.options.yearly.list.end.value = arrmaxmin_yearly[1];
       //
       let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
@@ -287,7 +292,7 @@ export default {
         arrmaxmin_monthly[1],
         1
       );
-      this.options.monthly.list.start.value = QMDefaultTime.M.start;
+      this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;
       this.options.monthly.list.end.value = QMDefaultTime.M.end;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -341,6 +346,7 @@ export default {
       await this.setTableConfig(aug);
       let data;
       let dataAttr;
+      let range;
       if (this.activeKey == "yearly") {
         data = await request.getImportExportOrigin(aug);
         dataAttr = [
@@ -351,12 +357,14 @@ export default {
           "export",
           "yoyExport"
         ];
+        range = await chartDataFun.getXRange(aug);
       }
       if (this.activeKey == "monthly") {
         data = await request.getImportExportOriginMonth(aug);
         // 当月 // 'yoyTrade', 'yoyImport', 'yoyExport'
         if (this.selectOption.value.id == 1) {
           dataAttr = ["_trade", "_import", "_export"];
+          range = await chartDataFun.getXRangeCurrentMonth(aug);
         }
         // 累计
         if (this.selectOption.value.id == 2) {
@@ -368,10 +376,9 @@ export default {
             "_cumulativeExport",
             "yoyCumulativeExport"
           ];
+          range = await chartDataFun.getXRange(aug);
         }
       }
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
@@ -555,7 +562,7 @@ export default {
     },
     // 选择国家
     changeRadioBySearch(val) {
-      this.country = val;
+      this.checkBox.value = val;
       this.mainGetChartsData();
     },
     //选择当月或累计月份
