@@ -63,6 +63,7 @@ export default {
         id: "USD",
         dataSources: this.describeData,
         // yPosition:['left','right'],
+        // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
           ch: "国内生产总值 GDP",

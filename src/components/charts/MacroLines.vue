@@ -22,15 +22,16 @@ export default {
   },
   async mounted() {
     this.chartDataSourcesEn =
-      "Data Sources:" +
-      (this.options.dataSources.enThird
-        ? this.options.dataSources.en +
-          this.options.dataSources.enSecond +
-          this.options.dataSources.enThird
-        : this.options.dataSources.enSecond
-        ? this.options.dataSources.en + this.options.dataSources.enSecond
-        : this.options.dataSources.en
-      ).replace(/_/g, "");
+      "Data Sources:" 
+      // +
+      // (this.options.dataSources.enThird
+      //   ? this.options.dataSources.en +
+      //     this.options.dataSources.enSecond +
+      //     this.options.dataSources.enThird
+      //   : this.options.dataSources.enSecond
+      //   ? this.options.dataSources.en + this.options.dataSources.enSecond
+      //   : this.options.dataSources.en
+      // ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
     let curlen = 0;
@@ -65,15 +66,15 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.options.dataSources.chThird
-      ? this.options.dataSources.ch +
-        this.options.dataSources.chSecond +
-        this.options.dataSources.chThird
-      : this.options.dataSources.chSecond
-      ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch
-    ).replace(/_/g, "");
-    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
+    // this.chartDataSourcesCh = (this.options.dataSources.chThird
+    //   ? this.options.dataSources.ch +
+    //     this.options.dataSources.chSecond +
+    //     this.options.dataSources.chThird
+    //   : this.options.dataSources.chSecond
+    //   ? this.options.dataSources.ch + this.options.dataSources.chSecond
+    //   : this.options.dataSources.ch
+    // ).replace(/_/g, "");
+    // console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
