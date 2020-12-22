@@ -49,10 +49,10 @@ export default {
           ch: "消费者价格指数CPI",
           en: "Consumer Price Index"
         },
-        unit: {
-          ch: "亿元人民币",
-          en: "100 mln RMB"
-        },
+        // unit: {
+        //   ch: "亿元人民币",
+        //   en: "100 mln RMB"
+        // },
         tableTitle: {},
         tableData: [],
         updatedDate: ""
@@ -62,8 +62,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "亿元人民币", en: "100 mln RMB" },
-       
+        // yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
           ch: "消费者价格指数CPI",
           en: "Consumer Price Index"
@@ -286,7 +285,7 @@ export default {
           yoyGrowth: {
             text: "消费者价格指数年度同比_Y-o-y CPI",
             width: "85%",
-            formatNum: true
+            formatPer: true
           }
         };
       } else {

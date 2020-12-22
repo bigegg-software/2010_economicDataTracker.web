@@ -128,6 +128,157 @@ export default {
             console.log(res)
             return {res};
     },
+      getConsumerPriceIndexChartsData:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+            res = res.map(item=>{
+                item=item.toJSON();
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=[];
+            if(type=='yearly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start) && (item.year<params.end)
+                })
+            }else if(type == 'monthly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            
+            tableres=tableres.reverse();
+            let tableInfo={}
+            if(type=='yearly'){
+                tableInfo={
+                    fileName:'消费者价格指数 CPI',
+                    tHeader:[
+                        "年份",
+                        '消费者价格指数年度同比'
+                    ],
+                    filterVal:['year','yoyGrowth'],
+                    tableData:[...tableres]
+                }
+            }else if(type=='monthly'){
+                   tableInfo={
+                    fileName:'消费者价格指数 CPI',
+                    tHeader:[
+                        "年份",
+                        "月度",
+                        '月度消费者价格指数同比',
+                        '月度消费者价格指数环比'
+                    ],
+                    filterVal:['year','month','yoyCPI','momCPI'],
+                    tableData:[...tableres]
+                }
+            }
+            store.commit('saveChartTable',tableInfo);
+            if (type == 'quarterly'){
+                res = res.filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
+    getPurchasingManagersIndexChartsData:async function(params) { // 采购经理⼈指数
+         let type = params.type;
+           let res=await this.manualQueryData('PMI',params);
+            res = res.map(item=>{
+                item=item.toJSON();
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+                tableres=tableres.reverse();
+            let tableInfo={
+                    fileName:'采购经理人指数 PMI',
+                    tHeader:[
+                        "年份",
+                        "月度",
+                        '制造业采购经理⼈指数',
+                        '⾮制造业采购经理⼈指数',
+                        '⽉度综合采购经理⼈指数'
+                    ],
+                    filterVal:['year','month','manufacturingPMI','nonManufacturingPMI','comprehensivePMI'],
+                    tableData:[...tableres]
+                }
+            store.commit('saveChartTable',tableInfo);
+            // if (type == 'quarterly'){
+            //     res = res.filter(item=>{
+            //         return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+            //     })
+            // }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
+    getProducerPriceIndexChartsData:async function(tableName,params) {// 获取工业生产者出厂价格指数PPI 年度、月度
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+            res = res.map(item=>{
+                item=item.toJSON();
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=[];
+            if(type=='yearly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start) && (item.year<params.end)
+                })
+            }else if(type == 'monthly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            
+            tableres=tableres.reverse();
+            let tableInfo={}
+            if(type=='yearly'){
+                tableInfo={
+                    fileName:'Producer Price Index (PPI)',
+                    tHeader:[
+                        "年份",
+                        '工业生产者价格指数同比'
+                    ],
+                    filterVal:['year','yoyGrowth'],
+                    tableData:[...tableres]
+                }
+            }else if(type=='monthly'){
+                   tableInfo={
+                    fileName:'Producer Price Index (PPI)',
+                    tHeader:[
+                        "年份",
+                        "月度",
+                        '工业生产者价格指数月度同比',
+                        '工业生产者价格指数月度环比'
+                    ],
+                    filterVal:['year','month','yoyGrowth','momGrowth'],
+                    tableData:[...tableres]
+                }
+            }
+            store.commit('saveChartTable',tableInfo);
+            if (type == 'quarterly'){
+                res = res.filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
     getUnemployRegisterChartsData:async function(tableName,params) {// 获取登记失业率
         let type = params.type;
         let res=await this.manualQueryData(tableName,params);
@@ -236,65 +387,6 @@ export default {
          console.log(res)
          return {res};
  },
-    getConsumerPriceIndexChartsData:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
-           let type = params.type;
-           let res=await this.manualQueryData(tableName,params);
-            res = res.map(item=>{
-                item=item.toJSON();
-                item.unit='亿元人民币';
-                return item
-            })
-            // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if(type == 'monthly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
-                })
-            }
-            
-            tableres=tableres.reverse();
-            let tableInfo={}
-            if(type=='yearly'){
-                tableInfo={
-                    fileName:'消费者价格指数 CPI',
-                    tHeader:[
-                        "年份",
-                        '消费者价格指数年度同比'
-                    ],
-                    filterVal:['year','yoyGrowth'],
-                    tableData:[...tableres]
-                }
-            }else if(type=='monthly'){
-                   tableInfo={
-                    fileName:'消费者价格指数 CPI',
-                    tHeader:[
-                        "年份",
-                        "月度",
-                        '月度消费者价格指数同比',
-                        '月度消费者价格指数环比'
-                    ],
-                    filterVal:['year','month','yoyCPI','momCPI'],
-                    tableData:[...tableres]
-                }
-            }
-            store.commit('saveChartTable',tableInfo);
-            if (type == 'quarterly'){
-                res = res.filter(item=>{
-                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
-                })
-            }
-            if(type == 'monthly'){
-                res=res.filter(item=>{
-                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
-                })
-            }
-            console.log(res)
-            return {res};
-    },
 // 柱状图查询  饼图  暂时不用
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     chartDataFun.getInThreeDays(-3);

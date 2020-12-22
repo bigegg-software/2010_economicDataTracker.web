@@ -12,7 +12,7 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" :activeKey="'monthly'" @change="change" @update="update"></time-frame>
+        <time-frame v-if="showTimeFrame" :options="options" :activeKeyCur="'monthly'" @change="change" @update="update"></time-frame>
       </div>
     </div>
   </div>
@@ -156,16 +156,16 @@ export default {
     let arrmaxmin = res.split("_");
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    console.log(QMDefaultTime)
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "monthly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1]),
-      startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
-      endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
-    });
-
+    // await this.getChartsData({
+    //   type: "monthly",
+    //   start: Number(arrmaxmin[0]),
+    //   end: Number(arrmaxmin[1]),
+    //   startMonth: parseInt(QMDefaultTime.M.start.split('-')[1]),
+    //   endMonth:  parseInt(QMDefaultTime.M.end.split('-')[1])
+    // });
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -247,6 +247,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
+      console.log(activeKey)
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];

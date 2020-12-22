@@ -27,7 +27,7 @@
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
 import MacroLines from "@/components/charts/MacroLines";
-import request from "@/request/outBound/outBound";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -41,7 +41,7 @@ export default {
     TableChart,
     MacroLines
   },
-  name: "outflowsChart",
+  name: "ConsumerPriceIndexChart",
   data() {
     return {
       totalData: {
@@ -49,10 +49,10 @@ export default {
           ch: "工业生产者出厂价格指数",
           en: "Producer Price Index (PPI)"
         },
-        unit: {
-          ch: "百万美元",
-          en: "USD mln"
-        },
+        // unit: {
+        //   ch: "亿元人民币",
+        //   en: "100 mln RMB"
+        // },
         tableTitle: {},
         tableData: [],
         updatedDate: ""
@@ -62,8 +62,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
-       
+        // yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
           ch: "工业生产者出厂价格指数",
           en: "Producer Price Index (PPI)"
@@ -71,20 +70,7 @@ export default {
         xData: [],
         hideLegend: false,
         unit1Symbol: "%",
-        series: [
-          {
-            name: "同比_xxxxx",
-            type: "line",
-            color: "#6AA3CD",
-            data: [120, 132, 101, 134, 90, 230]
-          },
-          {
-            name: "",
-            type: "line",
-            color: "#c23531",
-            data: []
-          }
-        ],
+        series: [],
         updatedDate: ""
       },
       options: {
@@ -146,22 +132,22 @@ export default {
     }
   },
   async mounted() {
-    let res = await this.getMaxMinDate();
+    let Yearres = await this.getMaxMinDate('PPI');
+    let res = await this.getMaxMinDate('MonthPPI');
+    let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    this.options.yearly.list.start.value = Yarrmaxmin[0];
+    this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
+      start: Number(Yarrmaxmin[0]),
+      end: Number(Yarrmaxmin[1]),
+      noMonth:true
     });
-
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart.downloadFile();
     });
@@ -174,19 +160,14 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-        this.USD.series[1].name = "";//隐藏环比
-        this.USD.series[1].data = [];//隐藏环比
 
         await this.getChartsData({
           type,
           start: Number(start.value),
-          end: Number(end.value)
+          end: Number(end.value),
+          noMonth:true
         });
       } else if (type == "quarterly" || type == "monthly") {
-   
-        this.USD.series[1].name = "环比_xxxxxx";//显示环比
-        this.USD.series[1].data = [220, 182, 234, 290, 330, 310];//显示环比
-
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
         let quarterStart = parseInt(startTimeArr[0]);
@@ -202,16 +183,19 @@ export default {
         });
       }
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("FDIOutflowsBRICountry");
-      console.log(res);
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        this.$set(this.options, key, obj);
+        if (tableName == "PPI" && key == "yearly") {
+          this.$set(this.options, "yearly", obj);
+        } else if (tableName == "MonthPPI" && key != "yearly") {
+          this.$set(this.options, key, obj);
+        }
       }
       this.showTimeFrame = true;
       return res;
@@ -235,25 +219,47 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //一带一路新签合同额
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.newConAmountConMillion;
-      this.USD.series[1]["yearOnYear"] = data.newConAmountConYOY;
+      if(XNameAttr=='year'){
+          this.USD.series=[
+          {
+            name: "工业生产者价格指数同比_Y-o-y PPI",
+            type: "line",
+            color: "#6AA3CD",
+            data: data.yoyGrowth
+          }
+        ]
+      }else{
+        this.USD.series=[
+          {
+            name: "工业生产者价格指数月度同比_Y-o-y monthly PPI",
+            type: "line",
+            color: "#6AA3CD",
+            data: data.yoyGrowth
+          },
+          {
+            name: "工业生产者价格指数月度环比_M-o-m monthly PPI",
+            type: "line",
+            color: "#c23531",
+            data: data.momGrowth
+          }
+        ]
+      }
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOutflowsBeltAndRoadChartsData(aug, 2);
+      let { res } = await request.getProducerPriceIndexChartsData(aug.type == "yearly" ? "PPI" : "MonthPPI",aug);
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["newConAmountConMillion", "newConAmountConYOY"];
+      let dataAttr = aug.type == "yearly"?["yoyGrowth"]:['yoyGrowth','momGrowth'];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
+      await chartDataFun.addOtherCategoryMC(res);
 
       if (aug.type == "yearly") {
         // 年
@@ -275,14 +281,9 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
-            width: "45%",
-            formatNum: true
-          },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Y-o-y total value of new contract",
-            width: "45%",
+          yoyGrowth: {
+            text: "工业生产者价格指数同比_Y-o-y PPI",
+            width: "85%",
             formatPer: true
           }
         };
@@ -296,13 +297,13 @@ export default {
             text: "月份_month",
             width: "20%"
           },
-          newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
+          yoyGrowth: {
+            text: "工业生产者价格指数月度同比_Y-o-y monthly PPI",
             width: "35%",
-            formatNum: true
+            formatPer: true
           },
-          newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+          momGrowth: {
+            text: "工业生产者价格指数月度环比_M-o-m monthly PPI",
             width: "35%",
             formatPer: true
           }
@@ -311,7 +312,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
