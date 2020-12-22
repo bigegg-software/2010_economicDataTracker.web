@@ -6,13 +6,19 @@
         <TableChart :totalData="totalData"></TableChart>
       </div>
       <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-        <bar-line v-if="!isShowTable" ref="barLine" :options="USD"></bar-line>
+        <bar-line-mix v-if="!isShowTable" ref="barLine" :options="USD"></bar-line-mix>
       </div>
     </div>
     <div class="select-block">
       <div class="frame">
-        <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          :activeKeyCur="'monthly'"
+          @change="change"
+          @update="update"
+          @changeActiveKey="changeActiveKey"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -21,8 +27,8 @@
 <script>
 import dayjs from "dayjs";
 import TimeFrame from "@/components/timeFrame/TimeFrame";
-import BarLine from "@/components/charts/BarLine";
-import request from "@/request/outBound/outBound";
+import BarLineMix from "@/components/charts/BarLineMix";
+import request from "@/request/economicIndicators/economicIndicators";
 import chartDataFun from "@/utils/chartDataFun";
 import TableChart from "@/components/charts/TableChart";
 
@@ -33,10 +39,10 @@ export default {
   },
   components: {
     TimeFrame,
-    BarLine,
-    TableChart
+    BarLineMix,
+    TableChart,
   },
-  name: "TradeByCommodity",
+  name: "IndustrialProfitsChart",
   data() {
     return {
       totalData: {
@@ -45,10 +51,33 @@ export default {
           en: "Industrial profit"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
-        tableTitle: {},
+        tableTitle: {
+          year: {
+            text: "年度_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_Month",
+            width: "10%"
+          },
+          unit:{
+            text: "单位_unit",
+            width: "25%"
+          },
+          yoyCumulativeIndustrialGrowth: {
+            text: "月度累计工业企业利润额_Cumulative monthly industrial profit",
+            width: "25%",
+            formatNum: true
+          },
+          yoyGrowth: {
+            text: "月度累计工业企业利润额同比_Y-o-y cumulative monthly industrial profit",
+            width: "25%",
+            formatPer: true
+          }
+        },
         tableData: [],
         updatedDate: ""
       },
@@ -57,33 +86,42 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百万美元", en: "USD mln" },
-        yearOnYear: true, //通过修改这个值来显示同比
+        // yPosition:['left','right'],
+        // yLabel:[true,true],
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
           ch: "工业企业利润",
           en: "Industrial profit"
         },
-        xData: ["2016", "2017", "2018", "2019", "2020"],
+        xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
-        hideLegend: true,
+        // hideLegend: true,
         series: [
-          {
-            name: "国内生产总值_Export|增值_Y-o-y export",
-            color: "#61a0a8",
-            data: [720, 380, 580, 960, 390],
-            yearOnYear: [2.2, 3.8, -2, 1, -0.2]
-          }
-        ],
+              {
+                  type:'bar',
+                  yAxisIndex:0,//数值
+                  name: "月度累计工业企业利润额_Cumulative monthly industrial profit",
+                  color: "#61a0a8",
+                  data: []
+                },
+                {
+                  type:'line',
+                  yAxisIndex:1,//百分比
+                  name: "月度累计工业企业利润额同比_Y-o-y cumulative monthly industrial profit",
+                  color: "red",
+                  data: [],
+                  percent:true
+                }
+          ],
         updatedDate: ""
       },
       options: {
-        yearly: {
-          //!!!!!!!!应为月度选择
-          ch: "年度",
-          en: "Yearly",
+        monthly: {
+          ch: "月度",
+          en: "Monthly",
           list: {
             start: {
               ch: "开始",
@@ -108,34 +146,31 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async created() {
-    let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = arrmaxmin[0];
-    this.options.yearly.list.end.value = arrmaxmin[1];
+    let Monthres = await this.getMaxMinDate('IndustrialProfit');
+    let Marrmaxmin = Monthres.split("_");
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
-    this.options.monthly.list.start.value = QMDefaultTime.M.start;
-    this.options.monthly.list.end.value = QMDefaultTime.M.end;
-    await this.getChartsData({
-      type: "yearly",
-      start: Number(arrmaxmin[0]),
-      end: Number(arrmaxmin[1])
-    });
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Marrmaxmin[1], 1);
+    this.options.monthly.list.start.value=QMDefaultTime.M.start;
+    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+    // await this.getChartsData({
+    //   type: "monthly",
+    //   start: Number(Yarrmaxmin[0]),
+    //   end: Number(Yarrmaxmin[1]),
+    //   //缺少月份
+    // });
   },
   mounted() {
     //下载图片
@@ -150,31 +185,23 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-      if (type == "yearly") {
-        // await this.getChartsData({
-        //   type,
-        //   start: Number(start.value),
-        //   end: Number(end.value)
-        // });
-      } else if (type == "quarterly" || type == "monthly") {
-        // let startTimeArr = start.value.split("-");
-        // let endTimeArr = end.value.split("-");
-        // let quarterStart = parseInt(startTimeArr[0]);
-        // let quarterStartMonth = parseInt(startTimeArr[1]);
-        // let quarterEnd = parseInt(endTimeArr[0]);
-        // let quarterEndMonth = parseInt(endTimeArr[1]);
-        // await this.getChartsData({
-        //   type,
-        //   start: quarterStart,
-        //   end: quarterEnd,
-        //   startMonth: quarterStartMonth,
-        //   endMonth: quarterEndMonth
-        // });
-      }
+        let startTimeArr = start.value.split("-");
+        let endTimeArr = end.value.split("-");
+        let yearStart = parseInt(startTimeArr[0]);
+        let monthStart = parseInt(startTimeArr[1]);
+        let yearEnd = parseInt(endTimeArr[0]);
+        let monthEnd = parseInt(endTimeArr[1]);
+        await this.getChartsData({
+          type,
+          start: yearStart,
+          end: yearEnd,
+          startMonth: monthStart,
+          endMonth: monthEnd
+        });
     },
-    async getMaxMinDate() {
+    async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate("ForeignContract");
+      let res = await chartDataFun.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -202,108 +229,31 @@ export default {
       }
       return resoult;
     },
-    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    // 获取当前页面的每条线数据（按月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      //全行业
-      // let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      // this.USD.series[0]["data"] = data.completedAmountConMillion;
-      // this.USD.series[0]["yearOnYear"] = data.completedAmountConYOY;
+      console.log(res, XNameAttr, dataAttr, range)
+      let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      this.USD.series[0]["data"] = data.yoyCumulativeIndustrialGrowth;
+      this.USD.series[1]["data"] = data.yoyGrowth;
       //
     },
     async getChartsData(aug) {
-      await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getOverSeasProjectsChartsData(aug, 1);
-
+      let { res } = await request.getIndustrialProfitsChartsData( //等待
+        'IndustrialProfit',aug
+        );
       // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = [
-        "completedAmountConMillion",
-        "completedAmountConYOY",
-        "completedAmountMillion",
-        "completedAmountYOY"
-      ];
-      let XNameAttr = "year";
-      // this.USD.xData = range;
+      let dataAttr = ["yoyCumulativeIndustrialGrowth","yoyGrowth"];
+      let XNameAttr = "M";
+      this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
-
-      if (aug.type == "yearly") {
-        // 年
-        XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
-      } else if ((aug.type = "monthly")) {
-        //月度
-        XNameAttr = "M";
-      }
+      await chartDataFun.addOtherCategoryMC(res);
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
-    },
-    async setTableConfig(aug) {
-      if (aug.type == "yearly") {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "25%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "25%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
-            formatPer: true
-          }
-        };
-      } else {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "20%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "35%",
-            formatPer: true
-          }
-        };
-      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
