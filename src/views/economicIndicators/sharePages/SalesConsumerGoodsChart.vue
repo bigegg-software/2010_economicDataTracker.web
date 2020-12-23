@@ -218,13 +218,14 @@ export default {
         this.monthScreen = true; //月份选择组件显示
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
-          // console.log(startTimeArr,endTimeArr) //*************************************666 */
+          console.log(startTimeArr,endTimeArr) //*************************************666 */
         let monthStart = parseInt(startTimeArr[0]);
         let startMonth = parseInt(startTimeArr[1]);
         let monthEnd = parseInt(endTimeArr[0]);
         let endMonth = parseInt(endTimeArr[1]);
         await this.getChartsData({
           type,
+          monthType:this.selectOption.value.id,
           start: monthStart,
           end: monthEnd,
           startMonth: startMonth,
@@ -342,7 +343,7 @@ export default {
         );
 
       // 完整的区间
-      let range = await chartDataFun.getXRangeMC(aug);
+      let range = this.selectedActiveKey=='yearly'||this.selectOption.value.id==1?await chartDataFun.getXRangeMC(aug):await chartDataFun.getXRange(aug);
       console.log(range)
       // 要换取纵轴数据的字段属性
       let dataAttr = aug.type == "yearly"?["total","yoyGrowth"]:["total","yoyGrowth","cumulativeTotal",'cumulativeYoyGrowth'];
@@ -351,7 +352,8 @@ export default {
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      if(this.selectOption.value.id==1){
+      //  await chartDataFun.addOtherCategoryMC(res);
+      if(this.selectedActiveKey=='yearly'||this.selectOption.value.id==1){
         await chartDataFun.addOtherCategoryMC(res);
       }else{
         await chartDataFun.addOtherCategory(res);
@@ -431,12 +433,12 @@ export default {
               text: "单位_unit",
               width: "10%"
             },
-            total: {
+            cumulativeTotal: {
               text: "月度累计社会消费品零售总额_Cumulative monthly retail sales",
               width: "35%",
               formatNum: true
             },
-            yoyGrowth : {
+             cumulativeYoyGrowth: {
               text: "月度累计社会消费品零售总额同比_Y-o-y cumulative monthly retail sales",
               width: "35%",
               formatPer: true

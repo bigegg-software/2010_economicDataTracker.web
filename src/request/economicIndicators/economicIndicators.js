@@ -388,20 +388,33 @@ export default {
                     tableData:[...tableres]
                 }
             }else if(type=='monthly'){
-                   tableInfo={
-                    fileName:'社会消费品零售总额',
-                    tHeader:[
-                        "年份",
-                        "月份",
-                        '单位',
-                        '当月社会消费品零售总额',
-                        '当月社会消费品零售总额同比',
-                        '月度累计社会消费品零售总额',
-                        '月度累计社会消费品零售总额同比'
-                    ],
-                    filterVal:['year','month','unit','total','yoyGrowth','cumulativeTotal','cumulativeYoyGrowth'],
-                    tableData:[...tableres]
-                }
+                   if(params.monthType==1){
+                       tableInfo={
+                        fileName:'社会消费品零售总额',
+                        tHeader:[
+                            "年份",
+                            "月份",
+                            '单位',
+                            '当月社会消费品零售总额',
+                            '当月社会消费品零售总额同比'
+                        ],
+                        filterVal:['year','month','unit','total','yoyGrowth'],
+                        tableData:[...tableres]
+                    }
+                   }else{
+                       tableInfo={
+                            fileName:'社会消费品零售总额',
+                            tHeader:[
+                                "年份",
+                                "月份",
+                                '单位',
+                                '月度累计社会消费品零售总额',
+                                '月度累计社会消费品零售总额同比'
+                            ],
+                            filterVal:['year','month','unit','cumulativeTotal','cumulativeYoyGrowth'],
+                            tableData:[...tableres]
+                        }
+                   }
             }
             store.commit('saveChartTable',tableInfo);
             if (type == 'quarterly'){
