@@ -67,13 +67,8 @@ export default {
             })
             console.log(res,12111111)
             // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if (type == 'quarterly'){
-                console.log()
+            let tableres=await JSON.parse(JSON.stringify(res));
+                 if (type == 'quarterly'){
                 tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
                 })
@@ -136,12 +131,8 @@ export default {
                 return item
             })
             // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if(type == 'monthly'){
+            let tableres= await JSON.parse(JSON.stringify(res));
+                if(type == 'monthly'){
                 tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
                 })
@@ -230,12 +221,8 @@ export default {
                 return item
             })
             // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if(type == 'monthly'){
+            let tableres=await JSON.parse(JSON.stringify(res));
+                if(type == 'monthly'){
                 tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
                 })
@@ -357,12 +344,8 @@ export default {
                 return item
             })
             // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if (type == 'quarterly'){
+            let tableres=await JSON.parse(JSON.stringify(res));
+             if (type == 'quarterly'){
                 console.log()
                 tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
@@ -439,12 +422,8 @@ export default {
                 return item
             })
             // 处理存储导出excel数据
-            let tableres=[];
-            if(type=='yearly'){
-                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-                    return (item.year>params.start) && (item.year<params.end)
-                })
-            }else if (type == 'quarterly'){
+            let tableres=await JSON.parse(JSON.stringify(res));
+            if (type == 'quarterly'){
                 console.log()
                 tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
