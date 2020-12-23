@@ -102,10 +102,16 @@ export default {
       let Max1, Min1, Max2, Min2;
       for (let j = 0; j < this.options.series.length; j++) {
         for (let i = 0; i < this.options.series[j].data.length; i++) {
-          if (this.options.series[j].data) {
+          if (
+            this.options.series[j].data &&
+            this.options.series[j].yAxisIndex == 0
+          ) {
             totalArray.push(this.options.series[j].data[i]);
           }
-          if (this.options.series[j].data&&this.options.series[j].percent) {
+          if (
+            this.options.series[j].data &&
+            this.options.series[j].yAxisIndex == 1
+          ) {
             yearArray.push(this.options.series[j].data[i]);
           }
         }
@@ -121,36 +127,42 @@ export default {
         series.push(
           {
             name: this.options.series[j].name,
-            type: this.options.series[j].type?this.options.series[j].type:'bar',
+            type: this.options.series[j].type
+              ? this.options.series[j].type
+              : "bar",
             smooth: true,
-            yAxisIndex: this.options.series[j].yAxisIndex?this.options.series[j].yAxisIndex:0,
+            yAxisIndex: this.options.series[j].yAxisIndex
+              ? this.options.series[j].yAxisIndex
+              : 0,
             itemStyle: {
               normal: {
                 show: true,
-                color:this.options.series[j].color?this.options.series[j].color:''
+                color: this.options.series[j].color
+                  ? this.options.series[j].color
+                  : ""
               }
             },
-            data: this.options.series[j].data?this.options.series[j].data:[]
+            data: this.options.series[j].data ? this.options.series[j].data : []
           }
-        //   ,
-        //   {
-        //     // clip: true,
-        //     name: this.options.yearOnYear
-        //       ? this.options.series[j].name.split("|")[1]
-        //       : "",
-        //     type: "line",
-        //     yAxisIndex: 1,
-        //     // symbolSize: 6,
-        //     //  itemStyle: {
-        //     //   normal: {
-        //     //     show: true,
-        //     //     color:this.options.series[j].color
-        //     //   }
-        //     // },
-        //     data: this.options.yearOnYear
-        //       ? this.options.series[j].yearOnYear
-        //       : "[]"
-        //   }
+          //   ,
+          //   {
+          //     // clip: true,
+          //     name: this.options.yearOnYear
+          //       ? this.options.series[j].name.split("|")[1]
+          //       : "",
+          //     type: "line",
+          //     yAxisIndex: 1,
+          //     // symbolSize: 6,
+          //     //  itemStyle: {
+          //     //   normal: {
+          //     //     show: true,
+          //     //     color:this.options.series[j].color
+          //     //   }
+          //     // },
+          //     data: this.options.yearOnYear
+          //       ? this.options.series[j].yearOnYear
+          //       : "[]"
+          //   }
         );
       }
       // 绘制图表
@@ -175,7 +187,8 @@ export default {
           confine: true, //限制在区域内
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
-            type:this.options.yLabel&&!this.options.yLabel[0] ?"line":'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            type:
+              this.options.yLabel && !this.options.yLabel[0] ? "line" : "shadow" // 默认为直线，可选为：'line' | 'shadow'
           },
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
@@ -201,20 +214,28 @@ export default {
               ) {
                 let it = params[j * rowCount + i];
                 if (it.seriesName.split("_")[1]) {
-                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[1]
-                    }</div>`;
-                  }
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                    it.seriesName.split("_")[1]
+                  }</div>`;
+                }
                 if (it.seriesName.split("_")[0]) {
                   b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
                     it.seriesName.split("_")[0]
                   }</div>`;
                 }
                 c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !this.options.series[i].yAxisIndex&&this.options.series[i].yAxisIndex==0&&!!it.value ? this.formatNum(it) :this.options.series[i].yAxisIndex&&this.options.series[i].yAxisIndex==1&&!!it.value?this.formatNum(it) + "%" : "-"
-                  }</div>`;
-                  dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
-                }
+                  !this.options.series[i].yAxisIndex &&
+                  this.options.series[i].yAxisIndex == 0 &&
+                  !!it.value
+                    ? this.formatNum(it)
+                    : this.options.series[i].yAxisIndex &&
+                      this.options.series[i].yAxisIndex == 1 &&
+                      !!it.value
+                    ? this.formatNum(it) + "%"
+                    : "-"
+                }</div>`;
+                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
+              }
               dom += `</tr>`;
             }
             dom += "</table>";
@@ -280,15 +301,18 @@ export default {
           {
             type: "value",
             show: true,
-            position: this.options.yPosition&&this.options.yPosition[0]?this.options.yPosition[0]:"left",
+            position:
+              this.options.yPosition && this.options.yPosition[0]
+                ? this.options.yPosition[0]
+                : "left",
             min: Min1,
             max: Max1,
             splitNumber: 5,
             interval: (Max1 - Min1) / 5,
-           name: [
-              `{div|${this.options.yName?this.options.yName.en:''}}`,
-              `{divch|${this.options.yName?this.options.yName.ch:''}}`
-            ].join("\n"),
+            name: [
+              `{div|${this.options.yName ? this.options.yName.en : ""}}`,
+              `{divch|${this.options.yName ? this.options.yName.ch : ""}}`
+            ].join("\n"),
             nameTextStyle: {
               align: "left",
               padding: [0, -2, 0, -that.$refs.barLineMix.offsetWidth * 0.07],
@@ -317,7 +341,7 @@ export default {
               show: false
             },
             axisLabel: {
-              show: this.options.yLabel?this.options.yLabel[0]:true,
+              show: this.options.yLabel ? this.options.yLabel[0] : true,
               textStyle: {
                 color: "#666",
                 fontSize: this.$fz(0.16)
@@ -326,18 +350,21 @@ export default {
           },
           {
             show: true,
-            position: this.options.yPosition&&this.options.yPosition[1]?this.options.yPosition[1]:"right",
+            position:
+              this.options.yPosition && this.options.yPosition[1]
+                ? this.options.yPosition[1]
+                : "right",
             min: Min2,
             max: Max2,
             splitNumber: 5,
             interval: (Max2 - Min2) / 5,
             name: [
-              `{div|${this.options.yName2?this.options.yName2.en:''}}`,
-              `{divch|${this.options.yName2?this.options.yName2.ch:''}}`
+              `{div|${this.options.yName2 ? this.options.yName2.en : ""}}`,
+              `{divch|${this.options.yName2 ? this.options.yName2.ch : ""}}`
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0,-2 , 0,-that.$refs.barLineMix.offsetWidth * 0.07 ],
+              padding: [0, -2, 0, -that.$refs.barLineMix.offsetWidth * 0.07],
               color: "#666",
               rich: {
                 div: {
@@ -355,8 +382,8 @@ export default {
             axisLabel: {
               //坐标轴刻度标签的相关设置。
               // interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
-              show: this.options.yLabel?this.options.yLabel[1]:true,
-              formatter: "{value}%",
+              show: this.options.yLabel ? this.options.yLabel[1] : true,
+              formatter: this.options.series.percent ? "{value}%" : "{value}",
               textStyle: {
                 color: "#666",
                 fontSize: this.$fz(0.16)

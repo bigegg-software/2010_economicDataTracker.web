@@ -249,7 +249,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "年度增速_Y-o-y export",
-                  color: "red",
+                  color: "#c23531",
                   data: data.yoyGrowth,
                   percent:true
                 }

@@ -449,42 +449,76 @@ export default {
            }
            return {res};
    },
-    getForeignCurrencyReservesChartData:async function(tableName,params) {// 获取国家外汇储备数据函数接口
-        let type = params.type;
-        let res=await this.manualQueryData(tableName,params);
-        console.log(res,12111111)
-         res = res.map(item=>{
-             item=item.toJSON()
-             return item
-         })
-         // 处理存储导出excel数据
-         let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+   getMoneySupplyChartsData:async function(params) { // 获取货币供应量
+    let type = params.type;
+      let res=await this.manualQueryData('MoneySupply',params);
+       res = res.map(item=>{
+           item=item.toJSON();
+           return item
+       })
+       // 处理存储导出excel数据
+       let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+               return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+           })
+           tableres=tableres.reverse();
+       let tableInfo={
+               fileName:'获取货币供应量',
+               tHeader:[
+                   "年份",
+                   "月份",
+                   '货币和准货币（M2)',
+               ],
+               filterVal:['year','month','money'],
+               tableData:[...tableres]
+           }
+       store.commit('saveChartTable',tableInfo);
+       // if (type == 'quarterly'){
+       //     res = res.filter(item=>{
+       //         return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+       //     })
+       // }
+       if(type == 'monthly'){
+           res=res.filter(item=>{
+               return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+           })
+       }
+       return {res};
+},
+getForeignCurrencyReserveChartsData:async function(tableName,params) {// 获取国家外汇储备
+    let type = params.type;
+    let res=await this.manualQueryData(tableName,params);
+    
+     res = res.map(item=>{
+         item=item.toJSON();
+         item.unit='亿元人民币';
+         return item
+     })
+     // 处理存储导出excel数据
+     let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
              return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
          })
-         tableres=tableres.reverse();
-         // let tableInfo={
-         // fileName:'中国对外直接投资流量',
-         // tHeader:[
-         //     "年",
-         //     type!='yearly'?"月份":'',
-         //     '单位',
-         //     '中国对外直接投资流量',
-         //     '中国对外直接投资流量同比',
-         //     '类型（英文）',
-         //     '类型'
-         // ].filter(item=>item!=''),
-         // filterVal:['year',type!='yearly'?'month':'','conversionUnitMillion','investConversionMillion','conversionYOY','outFlowTypeEN','outFlowTypeCH'].filter(item=>item!=''),
-         // tableData:[...tableres]
-         // }
-         // store.commit('saveChartTable',tableInfo);
-         if (type == 'quarterly'){
-             res = res.filter(item=>{
-                 return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
-             })
+     tableres=tableres.reverse();
+     let tableInfo={
+             fileName:'国家外汇储备',
+             tHeader:[
+                 "年份",
+                 '月份',
+                 '单位',
+                 '外汇储备',
+                 '基金组织储备头寸',
+                 '特别提款权',
+                 '黄金（美元）',
+                 '黄金（盎司）',
+             ],
+             filterVal:['year','month','unit','reserves','IMF','SDRs','goldUSD','goldMLN'],
+             tableData:[...tableres]
          }
-         console.log(res)
-         return {res};
- },
+     store.commit('saveChartTable',tableInfo);
+     res=res.filter(item=>{
+         return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+     })
+     return {res};
+},
 // 柱状图查询  饼图  暂时不用
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     chartDataFun.getInThreeDays(-3);
