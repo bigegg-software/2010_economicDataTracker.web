@@ -429,6 +429,92 @@ export default {
             }
             return {res};
     },
+    getNationalFinanceChartsData:async function(tableName,params) {// 国家财政收支
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+           
+            res = res.map(item=>{
+                item=item.toJSON();
+                item.unit='亿元人民币';
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=[];
+            if(type=='yearly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start) && (item.year<params.end)
+                })
+            }else if (type == 'quarterly'){
+                console.log()
+                tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }else  if(type == 'monthly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            
+            tableres=tableres.reverse();
+            let tableInfo={}
+            if(type=='yearly'){
+                tableInfo={
+                    fileName:'财政收支情况',
+                    tHeader:[
+                        "年份",
+                        '单位',
+                        '财政收入',
+                        '收入同比',
+                        '财政支出',
+                        '支出同比'
+                    ],
+                    filterVal:['year','unit','revenue','yoyRevenue','expenditure','yoyExpenditure'],
+                    tableData:[...tableres]
+                }
+            }else if(type=='monthly'){
+                   if(params.monthType==1){
+                       tableInfo={
+                        fileName:'财政收支情况',
+                        tHeader:[
+                            "年份",
+                            "月份",
+                            '单位',
+                            '当月财政收入',
+                            '当月财政支出'
+                        ],
+                        filterVal:['year','month','unit','revenue','expenditure'],
+                        tableData:[...tableres]
+                    }
+                   }else{
+                       tableInfo={
+                            fileName:'财政收支情况',
+                            tHeader:[
+                                "年份",
+                                "月份",
+                                '单位',
+                                '月度累计财政收入',
+                                '月度累计收入同比',
+                                '月度累计财政支出',
+                                '月度累计支出同比'
+                            ],
+                            filterVal:['year','month','unit','cumulativeRevenue','yoyRevenue','cumulativeExpenditure','yoyExpenditure'],
+                            tableData:[...tableres]
+                        }
+                   }
+            }
+            store.commit('saveChartTable',tableInfo);
+            if (type == 'quarterly'){
+                res = res.filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
     getUnemployRegisterChartsData:async function(tableName,params) {// 获取登记失业率
         let type = params.type;
         let res = await this.manualQueryData(tableName, params);
