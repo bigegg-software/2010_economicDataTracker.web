@@ -224,10 +224,20 @@ export default {
                   }</div>`;
                 }
                 c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !this.options.series[it['seriesIndex']].yAxisIndex&&this.options.series[it['seriesIndex']].yAxisIndex==0&&!!it.value ? this.formatNum(it) :this.options.series[it['seriesIndex']].yAxisIndex&&this.options.series[it['seriesIndex']].yAxisIndex==1&&!!it.value?this.formatNum(it) + "%" : "-"
-                  }</div>`;
-                  dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
-                }
+                  !this.options.series[i].yAxisIndex &&
+                  this.options.series[i].yAxisIndex == 0 &&
+                  !!it.value
+                    ? this.formatNum(it)
+                    : this.options.series[i].yAxisIndex &&
+                      this.options.series[i].yAxisIndex == 1 &&
+                      !!it.value
+                    ? this.options.series[i].rightInt
+                      ? this.formatNum(it)
+                      : this.formatNum(it) + "%"
+                    : "-"
+                }</div>`;
+                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
+              }
               dom += `</tr>`;
             }
             dom += "</table>";
@@ -375,7 +385,7 @@ export default {
               //坐标轴刻度标签的相关设置。
               // interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
               show: this.options.yLabel ? this.options.yLabel[1] : true,
-              formatter: this.options.series.percent ? "{value}%" : "{value}",
+              formatter: this.options.rightInt ? "{value}" : "{value}%",
               textStyle: {
                 color: "#666",
                 fontSize: this.$fz(0.16)
