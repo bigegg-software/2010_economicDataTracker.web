@@ -224,18 +224,10 @@ export default {
                   }</div>`;
                 }
                 c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !this.options.series[i].yAxisIndex &&
-                  this.options.series[i].yAxisIndex == 0 &&
-                  !!it.value
-                    ? this.formatNum(it)
-                    : this.options.series[i].yAxisIndex &&
-                      this.options.series[i].yAxisIndex == 1 &&
-                      !!it.value
-                    ? this.formatNum(it) + "%"
-                    : "-"
-                }</div>`;
-                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
-              }
+                  !this.options.series[it['seriesIndex']].yAxisIndex&&this.options.series[it['seriesIndex']].yAxisIndex==0&&!!it.value ? this.formatNum(it) :this.options.series[it['seriesIndex']].yAxisIndex&&this.options.series[it['seriesIndex']].yAxisIndex==1&&!!it.value?this.formatNum(it) + "%" : "-"
+                  }</div>`;
+                  dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
+                }
               dom += `</tr>`;
             }
             dom += "</table>";
