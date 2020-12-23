@@ -93,7 +93,30 @@ export default {
             name: "制造业采购经理⼈指数_Manufacturing PMI",
             type: "line",
             color: "#6AA3CD",
-            data: []
+            data: [],
+            markLine: {
+                symbol: "none",
+                silent: true,
+                lineStyle: {
+                    normal: {
+                        type: "solid"
+                    }
+                },
+                label: {
+                    position: "start"
+                },
+                data: [{
+                    yAxis: 50,
+                    lineStyle: {
+                        width: 1,
+                        color: "#555"
+                    },
+                    label: {
+                        show: false,
+                        position: 'right',
+                    }
+                }]
+            }
           },
           {
             name: "⾮制造业采购经理⼈指数_Non-manufacturing PMI",

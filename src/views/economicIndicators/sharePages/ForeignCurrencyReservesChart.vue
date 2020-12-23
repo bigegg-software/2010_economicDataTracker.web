@@ -14,6 +14,7 @@
         <time-frame
           v-if="showTimeFrame"
           :options="options"
+          :activeKeyCur="'monthly'"
           @change="change"
           @update="update"
           @changeActiveKey="changeActiveKey"
@@ -41,19 +42,55 @@ export default {
     BarLineMix,
     TableChart
   },
-  name: "TradeByCommodity",
+  name: "ForeignCurrencyReservesChart",
   data() {
     return {
       totalData: {
         title: {
           ch: "国家外汇储备",
-          en: "xxx"
+          en: "xxxxxxxxxxx"
         },
         unit: {
-          ch: "百万美元/百万人民币",
-          en: "USD mln/RMB mln"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
-        tableTitle: {},
+        tableTitle: {
+          year: {
+            text: "年度_Year",
+            width: "10%"
+          },
+          month: {
+            text: "月份_Month",
+            width: "10%"
+          },
+          unit: {
+            text: "单位_unit",
+            width: "20%"
+          },
+          reserves: {
+            text: "外汇储备_Foreign currency reserves",
+            width: "18%",
+          },
+          IMF: {
+            text:
+              "基金组织储备头寸_IMF reserve position",
+            width: "18%",
+          },
+          SDRs: {
+            text: "特别提款权_SDRs",
+            width: "18%",
+          },
+          goldMLN: {
+            text:
+              "黄金（盎司）_Gold ( mln oz.)",
+            width: "18%",
+          },
+          goldUSD: {
+            text:
+              "黄金（美元）_Gold (USD mln)",
+            width: "18%",
+          }
+        },
         tableData: [],
         updatedDate: ""
       },
@@ -63,47 +100,54 @@ export default {
         id: "USD",
         dataSources: this.describeData,
         // yPosition:['left','right'],
-        yName: { ch: "百万美元", en: "USD mln" },
+        // yLabel:[true,true],
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2:{ch:'百万盎司',en:'Mln Oz.'},
         title: {
-          ch: "国家外汇储备",
-          en: "xxxx"
+           ch: "国家外汇储备",
+          en: "xxxxxxxxxxx"
         },
         xData: [],
         grid: {
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
-        hideLegend: true,
+        // hideLegend: true,
         series: [
           {
             type: "line",
             yAxisIndex: 0, //数值
             name: "外汇储备_Foreign currency reserves",
-            color: "#61a0a8",
+            color: "#c23531",
+            data:[]
           },
           {
             type: "line",
             yAxisIndex: 0, //百分比
             name: "基金组织储备头寸_IMF reserve position",
-            color: "red",
+            color: "#c68821",
+            data:[]
           },
           {
             type: "line",
             yAxisIndex: 0, //数值
             name: "特别提款权_SDRs",
             color: "#61a011",
+            data:[]
           },
           {
             type: "line",
             yAxisIndex: 0, //百分比
             name: "黄金（美元）_Gold (USD mln)",
-            color: "pink",
+            color: "#a65783",
+            data:[]
           },
           {
             type: "bar",
             yAxisIndex: 1, //百分比
             name: "黄金（盎司）_Gold ( mln oz.)",
-            color: "green",
+            color: "#6AA3CD",
+            data:[]
           }
         ],
         updatedDate: ""
@@ -136,34 +180,31 @@ export default {
     }
   },
   watch: {
-    // tableDatas: {
-    //   handler() {
-    //     let resoult = chartDataFun.conversionTable(
-    //       this.totalData.tableTitle,
-    //       this.$store.getters.chartInfo.tableData
-    //     );
-    //     console.log(resoult);
-    //     this.$set(this.totalData, "tableData", resoult);
-    //   },
-    //   deep: true
-    // }
+    tableDatas: {
+      handler() {
+        let resoult = chartDataFun.conversionTable(
+          this.totalData.tableTitle,
+          this.$store.getters.chartInfo.tableData
+        );
+        console.log(resoult);
+        this.$set(this.totalData, "tableData", resoult);
+      },
+      deep: true
+    }
   },
   async created() {
-    let res = await this.getMaxMinDate("ForeignCurrencyReserve");
-    let arrmaxmin = res.split("_");
-    this.options.yearly.list.start.value = Yarrmaxmin[0];
-    this.options.yearly.list.end.value = Yarrmaxmin[1];
+    let Monthres = await this.getMaxMinDate("ForeignCurrencyReserve");
+    let Marrmaxmin = Monthres.split("_");
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    console.log(QMDefaultTime);
-    this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
-    this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
-    await this.getChartsData({
-      type: "yearly",
-      start: Number(Yarrmaxmin[0]),
-      end: Number(Yarrmaxmin[1]),
-      noMonth: true
-    });
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Marrmaxmin[1], 1);
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
+    // await this.getChartsData({
+    //   type: "monthly",
+    //   start: Number(Yarrmaxmin[0]),
+    //   end: Number(Yarrmaxmin[1]),
+    //   //缺少月份
+    // });
   },
   mounted() {
     //下载图片
@@ -178,29 +219,19 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-      if (type == "yearly") {
-        await this.getChartsData({
-          type,
-          start: Number(start.value),
-          end: Number(end.value),
-          noMonth: true
-        });
-      } else if (type == "quarterly" || type == "monthly") {
-        let startTimeArr = start.value.split("-");
-        let endTimeArr = end.value.split("-");
-        let quarterStart = parseInt(startTimeArr[0]);
-        let quarterStartMonth = parseInt(startTimeArr[1]) / 3;
-        let quarterEnd = parseInt(endTimeArr[0]);
-        let quarterEndMonth = parseInt(endTimeArr[1]) / 3;
-        console.log(quarterEndMonth);
-        await this.getChartsData({
-          type,
-          start: quarterStart,
-          end: quarterEnd,
-          startQuarter: quarterStartMonth,
-          endQuarter: quarterEndMonth
-        });
-      }
+      let startTimeArr = start.value.split("-");
+      let endTimeArr = end.value.split("-");
+      let yearStart = parseInt(startTimeArr[0]);
+      let monthStart = parseInt(startTimeArr[1]);
+      let yearEnd = parseInt(endTimeArr[0]);
+      let monthEnd = parseInt(endTimeArr[1]);
+      await this.getChartsData({
+        type,
+        start: yearStart,
+        end: yearEnd,
+        startMonth: monthStart,
+        endMonth: monthEnd
+      });
     },
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
@@ -210,14 +241,9 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        if (tableName == "GDP" && key == "yearly") {
-          this.$set(this.options, "yearly", obj);
-        } else if (tableName == "GDPQuarterly" && key != "yearly") {
-          this.$set(this.options, key, obj);
-        }
+        this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
-      console.log(res);
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -237,112 +263,35 @@ export default {
       }
       return resoult;
     },
-    // 获取当前页面的每条线数据（按年度 季度 月度分）
+    // 获取当前页面的每条线数据（按月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       console.log(res, XNameAttr, dataAttr, range);
-      //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      console.log(data);
-
       this.USD.series[0]["data"] = data.reserves;
       this.USD.series[1]["data"] = data.IMF;
-      this.USD.series[2]["data"] = data.SDRs;
+       this.USD.series[2]["data"] = data.SDRs;
       this.USD.series[3]["data"] = data.goldUSD;
       this.USD.series[4]["data"] = data.goldMLN;
     },
     async getChartsData(aug) {
-      await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getForeignCurrencyReservesChartData(
+      let { res } = await request.getForeignCurrencyReserveChartsData(
+        //等待
         "ForeignCurrencyReserve",
         aug
       );
-
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
-      console.log(range);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["reserves", "IMF", "SDRs", "goldUSD", "goldMLN"];
-      let XNameAttr = "year";
+      let dataAttr = ['reserves','IMF','SDRs','goldUSD','goldMLN'];
+      let XNameAttr = "M";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
       await chartDataFun.addOtherCategoryMC(res);
-
-      if (aug.type == "yearly") {
-        // 年
-        XNameAttr = "year";
-      } else if (aug.type == "quarterly") {
-        //季度
-        XNameAttr = "Q";
-      } else if ((aug.type = "monthly")) {
-        //月度
-        XNameAttr = "M";
-      }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
-    },
-    async setTableConfig(aug) {
-      if (aug.type == "yearly") {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "25%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "25%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "20%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "20%",
-            formatPer: true
-          }
-        };
-      } else {
-        this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "10%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "20%"
-          },
-          completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
-            width: "35%",
-            formatPer: true
-          },
-          completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
-            width: "35%",
-            formatNum: true
-          },
-          completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
-            width: "35%",
-            formatPer: true
-          }
-        };
-      }
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
