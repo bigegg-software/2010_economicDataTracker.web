@@ -347,6 +347,75 @@ export default {
             })
             return {res};
     },
+    getSalesConsumerGoodsChartsData:async function(tableName,params) {// 社会消费品销售总额
+           let type = params.type;
+           let res=await this.manualQueryData(tableName,params);
+           
+            res = res.map(item=>{
+                item=item.toJSON();
+                item.unit='亿元人民币';
+                return item
+            })
+            // 处理存储导出excel数据
+            let tableres=[];
+            if(type=='yearly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start) && (item.year<params.end)
+                })
+            }else if (type == 'quarterly'){
+                console.log()
+                tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }else  if(type == 'monthly'){
+                tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            
+            tableres=tableres.reverse();
+            let tableInfo={}
+            if(type=='yearly'){
+                tableInfo={
+                    fileName:'社会消费品零售总额',
+                    tHeader:[
+                        "年份",
+                        '单位',
+                        '社会消费品零售总额',
+                        '社会消费品零售总额同比',
+                    ],
+                    filterVal:['year','unit','total','yoyGrowth'],
+                    tableData:[...tableres]
+                }
+            }else if(type=='monthly'){
+                   tableInfo={
+                    fileName:'社会消费品零售总额',
+                    tHeader:[
+                        "年份",
+                        "月份",
+                        '单位',
+                        '当月社会消费品零售总额',
+                        '当月社会消费品零售总额同比',
+                        '月度累计社会消费品零售总额',
+                        '月度累计社会消费品零售总额同比'
+                    ],
+                    filterVal:['year','month','unit','total','yoyGrowth','cumulativeTotal','cumulativeYoyGrowth'],
+                    tableData:[...tableres]
+                }
+            }
+            store.commit('saveChartTable',tableInfo);
+            if (type == 'quarterly'){
+                res = res.filter(item=>{
+                    return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+                })
+            }
+            if(type == 'monthly'){
+                res=res.filter(item=>{
+                    return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+                })
+            }
+            return {res};
+    },
     getUnemployRegisterChartsData:async function(tableName,params) {// 获取登记失业率
         let type = params.type;
         let res = await this.manualQueryData(tableName, params);
