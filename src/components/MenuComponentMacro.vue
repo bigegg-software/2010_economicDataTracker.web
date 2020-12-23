@@ -17,7 +17,7 @@
             :key="i"
             class="subnav"
             :class="{ 'secondary-active': $route.name==subnav.name}"
-            @click="handleClickSubnav(subnav, index, i)"
+            @click="handleClickSubnav(subnav, i)"
           >
             <ul class="text" :class="{'indent':subnav.isIndent }">
               <li>{{ subnav.en}}</li>
@@ -55,7 +55,7 @@ export default {
 //           : "arrow-icon _rotate";
 //       }
 //     },
-    handleClickSubnav(subnav, index, i) {
+    handleClickSubnav(subnav,  i) {
     //   console.log(subnav, index, i);
       this.$router.push({ name: subnav.name });
     }
