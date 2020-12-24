@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div @contextmenu.prevent
     class="unselectable"
     :class="
       $store.state.fullScreen.isFullScreen == false

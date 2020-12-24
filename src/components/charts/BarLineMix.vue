@@ -1,5 +1,5 @@
 <template>
-  <div :id="options.id" ref="barLineMix" style="width:100%;height:100%;"></div>
+  <div :id="options.id" ref="barLineMix" style="width:100%;height:100%;" @contextmenu.prevent></div>
 </template>
 
 <script>

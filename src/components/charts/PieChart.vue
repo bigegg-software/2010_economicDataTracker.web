@@ -1,7 +1,7 @@
 <template>
   <!-- :ref="totalData.id" -->
   <div ref="pieChart" id="pieChart" style="width:100%;
-    height:100%"></div>
+    height:100%" @contextmenu.prevent></div>
 </template>
 
 <script>
