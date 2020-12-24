@@ -162,6 +162,7 @@ export default {
       let totalArray = [];
       let Max1, Min1;
       for (let j = 0; j < this.options.series.length; j++) {
+        this.options.series[j].smooth=true//圆滑曲线
         for (let i = 0; i < this.options.series[j].data.length; i++) {
           if (this.options.series[j].data) {
             totalArray.push(this.options.series[j].data[i]);
