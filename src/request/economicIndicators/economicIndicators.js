@@ -592,6 +592,72 @@ export default {
            }
            return {res};
    },
+   getInvestmentFixedAssestsChartsData:async function(params) {// 获取固定生产投资(不含农户)
+    let type = params.type;
+    let res=await this.manualQueryData('InvestmentFixedAssests',params);
+    
+     res = res.map(item=>{
+         item=item.toJSON();
+         item.unit='亿元人民币';
+         return item
+     })
+     console.log(res,12111111)
+     // 处理存储导出excel数据
+     let tableres=
+     await JSON.parse(JSON.stringify(res))
+     if (type == 'quarterly'){
+         console.log()
+         tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
+             return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+         })
+     }else  if(type == 'monthly'){
+         tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+         })
+     }
+     
+     tableres=tableres.reverse();
+     let tableInfo={}
+     if(type=='yearly'){
+         tableInfo={
+             fileName:'固定资产投资（不含农户）',
+             tHeader:[
+                 "年份",
+                 '单位',
+                 '固定资产投资额',
+                 '固定资产投资额同比',
+             ],
+             filterVal:['year','unit','investment','yoyGrowth'],
+             tableData:[...tableres]
+         }
+     }else if(type=='monthly'){
+            tableInfo={
+             fileName:'固定资产投资（不含农户）',
+             tHeader:[
+                 "年份",
+                 "月度",
+                 '单位',
+                 '月度累计固定资产投资额',
+                 '月度固定资产投资额同比',
+             ],
+             filterVal:['year','quarter','unit','investment','yoyGrowth'],
+             tableData:[...tableres]
+         }
+     }
+     store.commit('saveChartTable',tableInfo);
+     if (type == 'quarterly'){
+         res = res.filter(item=>{
+             return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
+         })
+     }
+     if(type == 'monthly'){
+         res=res.filter(item=>{
+             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+         })
+     }
+     console.log(res)
+     return {res};
+},
    getMoneySupplyChartsData:async function(params) { // 获取货币供应量
     let type = params.type;
       let res=await this.manualQueryData('MoneySupply',params);

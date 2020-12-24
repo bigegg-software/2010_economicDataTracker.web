@@ -69,26 +69,23 @@ export default {
           },
           reserves: {
             text: "外汇储备_Foreign currency reserves",
-            width: "18%",
+            width: "18%"
           },
           IMF: {
-            text:
-              "基金组织储备头寸_IMF reserve position",
-            width: "18%",
+            text: "基金组织储备头寸_IMF reserve position",
+            width: "18%"
           },
           SDRs: {
             text: "特别提款权_SDRs",
-            width: "18%",
+            width: "18%"
           },
           goldMLN: {
-            text:
-              "黄金（盎司）_Gold ( mln oz.)",
-            width: "18%",
+            text: "黄金（盎司）_Gold ( mln oz.)",
+            width: "18%"
           },
           goldUSD: {
-            text:
-              "黄金（美元）_Gold (USD mln)",
-            width: "18%",
+            text: "黄金（美元）_Gold (USD mln)",
+            width: "18%"
           }
         },
         tableData: [],
@@ -99,12 +96,13 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
+        rightInt: true,//右侧为整数
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2:{ch:'百万盎司',en:'Mln Oz.'},
+        yName2: { ch: "百万盎司", en: "Mln Oz." },
         title: {
-           ch: "国家外汇储备",
+          ch: "国家外汇储备",
           en: "xxxxxxxxxxx"
         },
         xData: [],
@@ -119,35 +117,36 @@ export default {
             yAxisIndex: 0, //数值
             name: "外汇储备_Foreign currency reserves",
             color: "#c23531",
-            data:[]
+            data: []
           },
           {
             type: "line",
             yAxisIndex: 0, //百分比
             name: "基金组织储备头寸_IMF reserve position",
             color: "#c68821",
-            data:[]
+            data: []
           },
           {
             type: "line",
             yAxisIndex: 0, //数值
             name: "特别提款权_SDRs",
             color: "#61a011",
-            data:[]
+            data: []
           },
           {
             type: "line",
             yAxisIndex: 0, //百分比
             name: "黄金（美元）_Gold (USD mln)",
             color: "#a65783",
-            data:[]
+            data: []
           },
           {
             type: "bar",
             yAxisIndex: 1, //百分比
             name: "黄金（盎司）_Gold ( mln oz.)",
             color: "#6AA3CD",
-            data:[]
+            data: [],
+            rightInt: true
           }
         ],
         updatedDate: ""
@@ -269,7 +268,7 @@ export default {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.USD.series[0]["data"] = data.reserves;
       this.USD.series[1]["data"] = data.IMF;
-       this.USD.series[2]["data"] = data.SDRs;
+      this.USD.series[2]["data"] = data.SDRs;
       this.USD.series[3]["data"] = data.goldUSD;
       this.USD.series[4]["data"] = data.goldMLN;
     },
@@ -283,7 +282,7 @@ export default {
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ['reserves','IMF','SDRs','goldUSD','goldMLN'];
+      let dataAttr = ["reserves", "IMF", "SDRs", "goldUSD", "goldMLN"];
       let XNameAttr = "M";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
