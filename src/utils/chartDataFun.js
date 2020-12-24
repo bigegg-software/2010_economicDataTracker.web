@@ -2,7 +2,9 @@ import dayjs from 'dayjs';
 import Parse from '../request'
 import store from '@/vuexStore'
 import {
-  foreignCapitalMenuLists
+  foreignCapitalMenuLists,
+  foreignTradeMenuLists,
+  economicIndicatorsMenuLists
 } from '@/utils/menuSearchConfigs'
 export default {
   // 获取年度最大值最小值
@@ -349,11 +351,20 @@ export default {
   // 纵向二级菜单合并
   getAllMenuItem: async function () {
     let arr = [];
+    // 外资抽离二级菜单
     foreignCapitalMenuLists.forEach((item) => {
       if (item.children) {
         arr = [...arr, ...item.children]
       }
     });
+    // 外贸抽离二级菜单
+    foreignTradeMenuLists.forEach((item) => {
+      if (item.children) {
+        arr = [...arr, ...item.children]
+      }
+    });
+    // 合并宏观经济的二级菜单
+    arr=[...arr,...economicIndicatorsMenuLists];
     return arr;
   },
   // 更新的表按天分组

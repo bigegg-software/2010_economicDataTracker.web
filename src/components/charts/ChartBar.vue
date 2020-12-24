@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartBar" style="width:100%;height:100%;"></div>
+  <div ref="chartBar" style="width:100%;height:100%;" @contextmenu.prevent></div>
 </template>
 
 <script>
