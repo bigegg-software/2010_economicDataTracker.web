@@ -369,7 +369,7 @@ export default {
             type: "group",
             right: this.$fz(0.2),
             top: this.chartBarData.isLongTitle
-              ? this.$fz(0.46)
+              ? this.$fz(0.5)
               : this.$fz(0.15),
             children: [
               {
@@ -429,7 +429,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top: this.chartBarData.isLongTitle ? this.$fz(0.8) : this.$fz(0.5),
+            top: this.chartBarData.isLongTitle ? this.$fz(0.82) : this.$fz(0.5),
             children: [
               {
                 type: "text",
