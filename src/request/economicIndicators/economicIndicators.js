@@ -505,12 +505,8 @@ export default {
         })
         console.log(res, 12111111)
         // 处理存储导出excel数据
-        let tableres = [];
-        if (type == 'yearly') {
-            tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
-                return (item.year > params.start) && (item.year < params.end)
-            })
-        } else if (type == 'quarterly') {
+        let tableres =await JSON.parse(JSON.stringify(res));
+         if (type == 'quarterly') {
             tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
                 return (item.year > params.start || item.quarter >= params.startQuarter) && (item.year < params.end || item.quarter <= params.endQuarter)
             })
@@ -768,6 +764,29 @@ barQueryData:async function (tableName,params){  //初始去数据库查询数�
         }
     let res = await q.find();
     return res;
+},
+getMaxMinDate:async function (tableName) {  //单独查询
+    let q = new Parse.Query(tableName);
+    let limiCcount = await q.count();
+    q.limit(limiCcount);
+    // q.equalTo('isCheckIn',true);
+    let res=await q.find();
+    let yearMaxMin= [];
+    let monthMaxMinYear= [];
+      res.forEach((item)=>{
+            item=item.toJSON();
+            if(item.type==1){
+               yearMaxMin.push(item.year); 
+            };
+            if(item.type==2){
+               monthMaxMinYear.push(item.year); 
+            };
+      });
+      let resoult={
+                yearMaxMin:`${Math.min.apply(null,yearMaxMin)}_${Math.max.apply(null,yearMaxMin)}`,
+                monthMaxMinYear:`${Math.min.apply(null,monthMaxMinYear)}_${Math.max.apply(null,monthMaxMinYear)}`
+          }
+      return resoult;
 }
 
 }

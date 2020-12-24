@@ -133,6 +133,7 @@ export default {
           },
           {
             // clip: true,
+            smooth: true,
             name: this.options.yearOnYear
               ? this.options.series[j].name.split("|")[1]
               : "",

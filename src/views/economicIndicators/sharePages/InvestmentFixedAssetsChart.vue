@@ -138,15 +138,14 @@ export default {
     }
   },
   async created() {
-    let Yearres = await this.getMaxMinDate("InvestmentFixedAssests");
-    console.log(Yearres);
-    // let res = await this.getMaxMinDate("InvestmentFixedAssests");
-    let Yarrmaxmin = Yearres.split("_");
-    // let arrmaxmin = res.split("_");
+    let YearAndMonthres = await this.getMaxMinDate("InvestmentFixedAssests");
+    console.log(YearAndMonthres);
+    let Yarrmaxmin = YearAndMonthres.yearMaxMin.split("_");
+    let arrmaxmin = YearAndMonthres.monthMaxMinYear.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Yarrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
     console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
@@ -156,7 +155,6 @@ export default {
       start: Number(Yarrmaxmin[0]),
       end: Number(Yarrmaxmin[1]),
       noMonth: true,
-
       equalTo: { type: 1 }
     });
   },
@@ -200,11 +198,15 @@ export default {
     },
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
-      let res = await chartDataFun.getMaxMinDate(tableName);
+      let res = await request.getMaxMinDate(tableName);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          if(key=='yearly'){
+            obj.list[k].frame = res.yearMaxMin;
+          }else if(key=='monthly'){
+            obj.list[k].frame = res.monthMaxMinYear;
+          }
         }
         if (key == "yearly") {
           this.$set(this.options, "yearly", obj);
@@ -213,7 +215,6 @@ export default {
         }
       }
       this.showTimeFrame = true;
-      console.log(res);
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
