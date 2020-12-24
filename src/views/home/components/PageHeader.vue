@@ -38,7 +38,7 @@
       <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
         <div v-for="item in dataList" :key="item.activityTime">
           <template v-if="item.menus.length"> 
-            <!--  -->
+            <!-- template 中的v-if为了排除连续三天内多次发布同一纵向菜单下的图表进行去重后列表为空的情况 -->
               <div class="list-time">{{ item.activityTime }}</div>
               <div class="list-text-block">
                 <div
