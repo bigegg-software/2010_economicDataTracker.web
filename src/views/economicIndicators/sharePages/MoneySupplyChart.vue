@@ -42,7 +42,7 @@ export default {
       totalData: {
         title: {
           ch: "货币供应量 （M2)",
-          en: "xxxxxxxxxx"
+          en: "Money & Quasi-money"
         },
         unit: {
           ch: "指数",
@@ -58,7 +58,7 @@ export default {
             width: "10%"
           },
           money: {
-            text: "货币和准货币（M2)_xxxxxxxxxxxxx",
+            text: "货币和准货币（M2)_Money & Quasi-money",
             width: "50%",
           }
         },
@@ -70,16 +70,16 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "指数", en: "index" },
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
          ch: "货币供应量 （M2)",
-          en: "xxxxxxxxxx"
+          en: "Money & Quasi-money"
         },
         xData: [],
         unit1Symbol: "%",
         series: [
           { yAxisIndex:0,
-            name: "货币和准货币（M2)_xxxxxxxxxxxxx",
+            name: "货币和准货币（M2)_Money & Quasi-money",
             type: "bar",
             color: "#6AA3CD",
             data: []

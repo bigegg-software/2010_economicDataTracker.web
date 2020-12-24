@@ -245,14 +245,14 @@ export default {
           {
             type: "bar",
             yAxisIndex: 0, //数值
-            name: "城镇登记失业人数_Urban registered unemployment rate",
+            name: "城镇登记失业人数_Urban registered unemployment",
             color: "#61a0a8",
             data: data.unemployment
           },
           {
             type: "line",
             yAxisIndex: 1, //百分比
-            name: "城镇登记失业率_Urban registered unemployment",
+            name: "城镇登记失业率_Urban registered unemployment rate",
             color: "red",
             data: data.unemploymentRate,
             percent: true
@@ -324,7 +324,7 @@ export default {
             width: "20%"
           },
           unemployment: {
-            text: "城镇登记失业人数_Urban registered unemployment rate",
+            text: "城镇登记失业人数_Urban registered unemployment",
             width: "35%",
             formatNum: true
           },

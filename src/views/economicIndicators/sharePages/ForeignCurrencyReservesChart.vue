@@ -48,7 +48,7 @@ export default {
       totalData: {
         title: {
           ch: "国家外汇储备",
-          en: "xxxxxxxxxxx"
+          en: "Foreign currency reserve"
         },
         unit: {
           ch: "亿元人民币",
@@ -103,7 +103,7 @@ export default {
         yName2: { ch: "百万盎司", en: "Mln Oz." },
         title: {
           ch: "国家外汇储备",
-          en: "xxxxxxxxxxx"
+          en: "Foreign currency reserve"
         },
         xData: [],
         grid: {

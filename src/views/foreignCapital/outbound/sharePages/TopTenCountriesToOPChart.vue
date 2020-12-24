@@ -90,7 +90,7 @@ export default {
           ch: "中国年度对外承包工程完成营业额前十大国别/地区市场",
           en: "Top 10 market of China's overseas projects by revenue"
         },
-        unit: {
+        unit: {  
           ch: "百万美元",
           en: "USD mln"
         },

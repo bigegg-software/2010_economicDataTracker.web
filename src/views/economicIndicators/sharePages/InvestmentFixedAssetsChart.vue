@@ -65,6 +65,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2: { ch: "同比", en: "Y-o-y" },
         title: {
           ch: "固定资产投资（不含农户）",
           en: "Investment in fixed assests (Excluding rural households)"
@@ -270,8 +271,8 @@ export default {
             type: "line",
             yAxisIndex: 1, //百分比
             name:
-              "月度固定资产投资额同比_Y-o-y monthly GDPY-o-y cumulative monthly investment in fixed assets",
-            color: "#333",
+              "月度固定资产投资额同比_Y-o-y cumulative monthly investment in fixed assets",
+            color: "#c23531",
             data: data.yoyGrowth,
             percent: true
           }

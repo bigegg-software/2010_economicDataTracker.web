@@ -3,7 +3,7 @@
     <div
       class="tab-list"
       v-if="
-        (options.monthly || options.quarterly) && $store.getters.showOperate
+        Object.keys(this.options).length!=1 && $store.getters.showOperate
       "
     >
       <div

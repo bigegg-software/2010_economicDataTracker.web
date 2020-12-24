@@ -76,6 +76,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2: { ch: "同比", en: "%" },
         title: {
           ch: "社会消费品零售总额",
           en: "Total retail sales of consumer goods"

@@ -366,7 +366,7 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, -2, 0, -that.$refs.barLineMix.offsetWidth * 0.07],
+              padding: [0, -2, 0, this.options.yLabel&&!this.options.yLabel[0]?-that.$refs.barLineMix.offsetWidth * 0.05:that.$refs.barLineMix.offsetWidth * 0.001],
               color: "#666",
               rich: {
                 div: {

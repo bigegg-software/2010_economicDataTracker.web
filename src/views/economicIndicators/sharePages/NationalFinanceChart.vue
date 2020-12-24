@@ -76,6 +76,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2: { ch: "同比", en: "Y-o-y" },
         title: {
           ch: "财政收支情况",
           en: "National revenue and expenditure"
@@ -286,7 +287,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "收入同比_Y-o-y revenue",
-                  color: "red",
+                  color: "#61a0a8",
                   data: data.yoyRevenue,
                   percent:true
                 },
@@ -294,14 +295,14 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "财政支出_Expenditure",
-                  color: "#61a0a8",
+                  color: "#c23531",
                   data: data.expenditure
                 },
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "支出同比_Y-o-y expenditure",
-                  color: "red",
+                  color: "#c23531",
                   data: data.yoyExpenditure,
                   percent:true
                 }
@@ -320,7 +321,7 @@ export default {
                   type:'bar',
                   yAxisIndex:0,
                   name: "当月财政支出_Monthly expenditure",
-                  color: "#333",
+                  color: "#c23531",
                   data: data.expenditure
                 }
             ]
@@ -337,7 +338,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "月度累计收入同比_Y-o-y cumulative monthly revenue",
-                  color: "#333",
+                  color: "#61a0a8",
                   data: data.yoyRevenue,
                   percent:true
                 },
@@ -345,14 +346,14 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "月度累计财政支出_Cumulative monthly expenditure",
-                  color: "#61a0a8",
+                  color: "#c23531",
                   data: data.cumulativeExpenditure
                 },
                 {
                   type:'line',
                   yAxisIndex:1,
                   name: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
-                  color: "#333",
+                  color: "#c23531",
                   data: data.yoyExpenditure,
                   percent:true
                 }

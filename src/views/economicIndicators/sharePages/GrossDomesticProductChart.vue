@@ -65,6 +65,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName2: { ch: "增值%", en: "xxxx" },
         title: {
           ch: "国内生产总值 GDP",
           en: "Gross Domestic Product"
@@ -241,14 +242,14 @@ export default {
               {
                   type:'bar',
                   yAxisIndex:0,//数值
-                  name: "国内生产总值_Export",
+                  name: "国内生产总值_GDP",
                   color: "#61a0a8",
                   data: data.GDP
                 },
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "年度增速_Y-o-y export",
+                  name: "年度增速_Y-o-y GDP",
                   color: "#c23531",
                   data: data.yoyGrowth,
                   percent:true
@@ -259,7 +260,7 @@ export default {
               {
                   type:'bar',
                   yAxisIndex:0,//数值
-                  name: "当季国内生产总值_Export",
+                  name: "当季国内生产总值_Quarterly GDP",
                   color: "#61a0a8",
                   data: data.GDP
                 },

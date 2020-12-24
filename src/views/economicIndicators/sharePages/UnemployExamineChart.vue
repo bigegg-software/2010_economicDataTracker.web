@@ -83,7 +83,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "指数", en: "index" },
+        yName: { ch: "失业率", en: "xxx" },
         title: {
           ch: "调查失业率",
           en: "Urban surveyed unemployment rate"
