@@ -51,11 +51,11 @@ export default {
         tableTitle: {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "25%"
           },
           month: {
             text: "月度_Month",
-            width: "10%"
+            width: "25%"
           },
           money: {
             text: "货币和准货币（M2)_Money & Quasi-money",

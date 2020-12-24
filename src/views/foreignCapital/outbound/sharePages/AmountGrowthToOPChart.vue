@@ -63,7 +63,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contract from China's overseas projects"
+          en: "Revenue of completed contracts from China's overseas projects"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -83,7 +83,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contract from China's overseas projects"
+          en: "Revenue of completed contracts from China's overseas projects"
         },
         xData: [],
         hideLegend: true,
@@ -104,7 +104,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contract from China's overseas projects"
+          en: "Revenue of completed contracts from China's overseas projects"
         },
         xData: [],
         grid: {
@@ -114,7 +114,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "完成营业额(USD)_Revenue of completed contract|完成营业额同比_Y-o-y growth of completed contract revenue ",
+            name: "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -351,12 +351,12 @@ export default {
             width: "10%"
           },
           completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+            text: "完成营业额(USD)_Revenue of completed contracts",
             width: "25%",
             formatNum: true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "25%",
             formatPer: true
           },
@@ -382,12 +382,12 @@ export default {
             width: "20%"
           },
           completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contract",
+            text: "完成营业额(USD)_Revenue of completed contracts",
             width: "35%",
             formatNum: true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "35%",
             formatPer: true
           },

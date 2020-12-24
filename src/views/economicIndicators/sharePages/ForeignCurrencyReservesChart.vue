@@ -63,29 +63,25 @@ export default {
             text: "月份_Month",
             width: "10%"
           },
-          unit: {
-            text: "单位_unit",
-            width: "20%"
-          },
           reserves: {
             text: "外汇储备_Foreign currency reserves",
-            width: "18%"
+            width: "16%"
           },
           IMF: {
             text: "基金组织储备头寸_IMF reserve position",
-            width: "18%"
+            width: "16%"
           },
           SDRs: {
             text: "特别提款权_SDRs",
-            width: "18%"
+            width: "16%"
           },
           goldMLN: {
             text: "黄金（盎司）_Gold ( mln oz.)",
-            width: "18%"
+            width: "16%"
           },
           goldUSD: {
             text: "黄金（美元）_Gold (USD mln)",
-            width: "18%"
+            width: "16%"
           }
         },
         tableData: [],

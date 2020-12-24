@@ -57,24 +57,20 @@ export default {
         tableTitle: {
           year: {
             text: "年度_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_Month",
-            width: "10%"
-          },
-          unit:{
-            text: "单位_unit",
-            width: "25%"
+            width: "15%"
           },
           yoyCumulativeIndustrialGrowth: {
             text: "月度累计工业企业利润额_Cumulative monthly industrial profit",
-            width: "25%",
+            width: "35%",
             formatNum: true
           },
           yoyGrowth: {
             text: "月度累计工业企业利润额同比_Y-o-y cumulative monthly industrial profit",
-            width: "25%",
+            width: "35%",
             formatPer: true
           }
         },

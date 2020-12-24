@@ -280,11 +280,11 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "20%"
           },
           yoyGrowth: {
             text: "消费者价格指数年度同比_Y-o-y CPI",
-            width: "85%",
+            width: "80%",
             formatPer: true
           }
         };
@@ -292,11 +292,11 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_month",
-            width: "20%"
+            width: "15%"
           },
           yoyCPI: {
             text: "月度消费者价格指数同比_Y-o-y monthly CPI",

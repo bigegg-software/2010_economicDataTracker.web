@@ -377,11 +377,7 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年度_Year",
-            width: "10%"
-          },
-          unit:{
-            text: "单位_unit",
-            width: "10%"
+            width: "20%"
           },
           total: {
             text: "社会消费品零售总额_Total retail sales of consumer goods",
@@ -399,15 +395,11 @@ export default {
           this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_Month",
-            width: "10%"
-          },
-          unit:{
-            text: "单位_unit",
-            width: "10%"
+            width: "15%"
           },
           total: {
             text: "当月社会消费品零售总额_Monthly retail sales",
@@ -424,15 +416,11 @@ export default {
           this.totalData.tableTitle = {
             year: {
               text: "年份_Year",
-              width: "10%"
+              width: "15%"
             },
             month: {
               text: "月份_Month",
-              width: "10%"
-            },
-            unit:{
-              text: "单位_unit",
-              width: "10%"
+              width: "15%"
             },
             cumulativeTotal: {
               text: "月度累计社会消费品零售总额_Cumulative monthly retail sales",

@@ -406,11 +406,7 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年度_Year",
-            width: "10%"
-          },
-          unit:{
-            text: "单位_unit",
-            width: "10%"
+            width: "20%"
           },
           revenue: {
             text: "财政收入_Revenue",
@@ -438,15 +434,11 @@ export default {
           this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_Month",
-            width: "10%"
-          },
-          unit:{
-            text: "单位_unit",
-            width: "10%"
+            width: "15%"
           },
           revenue: {
             text: "当月财政收入_Monthly revenue",

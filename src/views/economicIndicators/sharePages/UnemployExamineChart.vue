@@ -61,17 +61,17 @@ export default {
           },
           month: {
             text: "月度_Month",
-            width: "10%"
+            width: "20%"
           },
           unemploymentRate: {
             text: "调查失业率_Urban surveyed unemployment rate",
-            width: "40%",
+            width: "35%",
             formatPer: true
           },
           unemploymentMajorRate: {
             text:
               "31个大城市城镇调查失业率_Surveyed unemployment rate in 31 major cities",
-            width: "40%",
+            width: "35%",
             formatPer: true
           }
         },

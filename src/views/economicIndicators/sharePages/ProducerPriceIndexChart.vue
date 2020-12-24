@@ -279,11 +279,11 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "20%"
           },
           yoyGrowth: {
             text: "工业生产者价格指数同比_Y-o-y PPI",
-            width: "85%",
+            width: "80%",
             formatPer: true
           }
         };
@@ -291,11 +291,11 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_month",
-            width: "20%"
+            width: "15%"
           },
           yoyGrowth: {
             text: "工业生产者价格指数月度同比_Y-o-y monthly PPI",

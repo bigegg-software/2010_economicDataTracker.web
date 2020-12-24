@@ -51,7 +51,7 @@ export default {
       totalData: {
         title: {
           ch: "中国企业在“一带一路”沿线国家完成营业额",
-          en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
+          en: "Revenue of completed contracts gained by Chinese enterprises in BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -70,13 +70,13 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国企业在“一带一路”沿线国家完成营业额",
-          en: "Revenue of completed contract gained by Chinese enterprises in BRI countries"
+          en: "Revenue of completed contracts gained by Chinese enterprises in BRI countries"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "完成营业额_Revenue of completed contract|完成营业额同比_Y-o-y growth of completed contract revenue",
+            name: "完成营业额_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -296,12 +296,12 @@ export default {
             width: "10%"
           },
           completedAmountConMillion: {
-            text: "完成营业额_Revenue of completed contract",
+            text: "完成营业额_Revenue of completed contracts",
             width: "45%",
             formatNum:true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "45%",
             formatPer:true
           }
@@ -317,12 +317,12 @@ export default {
             width: "20%"
           },
           completedAmountConMillion: {
-            text: "完成营业额_Revenue of completed contract",
+            text: "完成营业额_Revenue of completed contracts",
             width: "35%",
             formatNum:true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "35%",
             formatPer:true
           }

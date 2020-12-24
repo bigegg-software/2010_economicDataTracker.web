@@ -341,18 +341,14 @@ export default {
             text: "年度_Year",
             width: "10%"
           },
-          unit:{
-            text: "单位_unit",
-            width: "25%"
-          },
           GDP: {
             text: "国内生产总值_GDP",
-            width: "25%",
+            width: "50%",
             formatNum: true
           },
           yoyGrowth: {
             text: "年度增速_Y-o-y GDP",
-            width: "25%",
+            width: "40%",
             formatPer: true
           }
         };

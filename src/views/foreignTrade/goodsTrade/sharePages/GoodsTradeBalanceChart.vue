@@ -70,10 +70,7 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国企业在“一带一路”沿线国家新签合同额",
-          en:
-            "Total value of new contract signed by Chinese enterprises in BRI countries"
-        },
+         ch: "中国货物进出口贸易差额", en: "China's trade balance"    },
         unit: {
           ch: "百万美元",
           en: "USD mln"
