@@ -145,14 +145,17 @@ export default {
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Yarrmaxmin[1], 1);
     console.log(QMDefaultTime);
-    this.options.monthly.list.start.value = QMDefaultTime.Q.start;
-    this.options.monthly.list.end.value = QMDefaultTime.Q.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
+      // type,
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
       end: Number(Yarrmaxmin[1]),
+      noMonth: true,
+
       equalTo: { type: 1 }
     });
   },
@@ -174,22 +177,22 @@ export default {
           type,
           start: Number(start.value),
           end: Number(end.value),
+          noMonth: true,
           equalTo: { type: 1 }
         });
       } else if (type == "quarterly" || type == "monthly") {
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
         let monthStart = parseInt(startTimeArr[0]);
-        // let monthStartMonth = parseInt(startTimeArr[1]) / 3;
+        let startMonth = parseInt(startTimeArr[1]);
         let monthEnd = parseInt(endTimeArr[0]);
-        // let monthEndMonth = parseInt(endTimeArr[1]) / 3;
-        // console.log(quarterEndMonth);
+        let endMonth = parseInt(endTimeArr[1]);
         await this.getChartsData({
           type,
           start: monthStart,
           end: monthEnd,
-          startQuarter: monthStartMonth,
-          endQuarter: monthEndMonth,
+          startMonth: startMonth,
+          endMonth: endMonth,
           equalTo: { type: 2 }
         });
       }
@@ -202,9 +205,9 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res;
         }
-        if (tableName == "InvestmentFixedAssests" && key == "yearly") {
+        if (key == "yearly") {
           this.$set(this.options, "yearly", obj);
-        } else if (tableName == "InvestmentFixedAssests" && key != "yearly") {
+        } else {
           this.$set(this.options, key, obj);
         }
       }
@@ -278,10 +281,7 @@ export default {
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getInvestmentFixedAssetsChartsData(
-        InvestmentFixedAssests,
-        aug
-      );
+      let { res } = await request.getInvestmentFixedAssestsChartsData(aug);
 
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
@@ -342,7 +342,7 @@ export default {
           },
           unit: {
             text: "单位_unit",
-            width: "25%"
+            width: "20%"
           },
           investment: {
             text:

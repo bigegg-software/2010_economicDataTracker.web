@@ -531,9 +531,9 @@ export default {
            }
            return {res};
    },
-   getGrossDomesticProductChartsData:async function(tableName,params) {// 获取固定生产投资
+   getInvestmentFixedAssestsChartsData:async function(params) {// 获取固定生产投资(不含农户)
     let type = params.type;
-    let res=await this.manualQueryData(tableName,params);
+    let res=await this.manualQueryData('InvestmentFixedAssests',params);
     
      res = res.map(item=>{
          item=item.toJSON();
@@ -542,12 +542,9 @@ export default {
      })
      console.log(res,12111111)
      // 处理存储导出excel数据
-     let tableres=[];
-     if(type=='yearly'){
-         tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
-             return (item.year>params.start) && (item.year<params.end)
-         })
-     }else if (type == 'quarterly'){
+     let tableres=
+     await JSON.parse(JSON.stringify(res))
+     if (type == 'quarterly'){
          console.log()
          tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
              return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
