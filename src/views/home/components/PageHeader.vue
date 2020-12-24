@@ -37,18 +37,21 @@
       <!-- 下拉框 -->
       <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
         <div v-for="item in dataList" :key="item.activityTime">
-          <div class="list-time">{{ item.activityTime }}</div>
-          <div class="list-text-block">
-            <div
-              v-for="data in item.menus"
-              :key="data.name"
-              class="list-text"
-              @click="jumpPage(data)"
-            >
-              <div>{{ data.en }}</div>
-              <div>{{ data.ch }}</div>
-            </div>
-          </div>
+          <template v-if="item.menus.length"> 
+            <!--  -->
+              <div class="list-time">{{ item.activityTime }}</div>
+              <div class="list-text-block">
+                <div
+                  v-for="data in item.menus"
+                  :key="data.name"
+                  class="list-text"
+                  @click="jumpPage(data)"
+                >
+                  <div>{{ data.en }}</div>
+                  <div>{{ data.ch }}</div>
+                </div>
+              </div>
+          </template>
         </div>
       </div>
     </div>
@@ -66,6 +69,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.dataList)
   },
   computed:{
      userInfo() {
