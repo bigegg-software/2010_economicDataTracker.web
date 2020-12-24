@@ -505,12 +505,8 @@ export default {
         })
         console.log(res, 12111111)
         // 处理存储导出excel数据
-        let tableres = [];
-        if (type == 'yearly') {
-            tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
-                return (item.year > params.start) && (item.year < params.end)
-            })
-        } else if (type == 'quarterly') {
+        let tableres =await JSON.parse(JSON.stringify(res));
+         if (type == 'quarterly') {
             tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
                 return (item.year > params.start || item.quarter >= params.startQuarter) && (item.year < params.end || item.quarter <= params.endQuarter)
             })
