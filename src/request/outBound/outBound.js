@@ -111,9 +111,15 @@ sumSameYearData:async (sourceData,field,name)=> {
                 return item
             })
             // 处理存储导出excel数据
-            let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+            let tableres=await JSON.parse(JSON.stringify(res));
+            if (type == 'quarterly' || type == 'monthly'){
+               tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
                 return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
             })
+            }
+            // let tableres=await JSON.parse(JSON.stringify(res)).filter(item=>{
+            //     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
+            // })
             tableres=tableres.reverse();
             let tableInfo={
             fileName:'中国对外直接投资流量',

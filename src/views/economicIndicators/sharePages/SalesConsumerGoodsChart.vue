@@ -380,16 +380,16 @@ export default {
           },
           unit:{
             text: "单位_unit",
-            width: "25%"
+            width: "10%"
           },
           total: {
             text: "社会消费品零售总额_Total retail sales of consumer goods",
-            width: "25%",
+            width: "40%",
             formatNum: true
           },
           yoyGrowth: {
             text: "社会消费品零售总额同比_Y-o-y total retail sales of consumer goods",
-            width: "25%",
+            width: "40%",
             formatPer: true
           }
         };
