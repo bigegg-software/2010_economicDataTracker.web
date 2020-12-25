@@ -1,8 +1,16 @@
 <template>
   <div class="navigator" ref="navigator">
-    <div v-for="(nav, index) in navList" :key="index" class="nav-block iconfont">
+    <div
+      v-for="(nav, index) in navList"
+      :key="index"
+      class="nav-block iconfont"
+    >
       <!-- 1级 -->
-      <ul class="primary" :class="{ 'primary-active': nav.active }" @click="showSubnav(index)">
+      <ul
+        class="primary"
+        :class="{ 'primary-active': nav.active }"
+        @click="showSubnav(index)"
+      >
         <li class="text">
           <div>{{ nav.en }}</div>
           <div>{{ nav.ch }}</div>
@@ -16,12 +24,12 @@
             v-for="(subnav, i) in nav.children"
             :key="i"
             class="subnav"
-            :class="{ 'secondary-active': $route.name==subnav.name}"
+            :class="{ 'secondary-active': $route.name == subnav.name }"
             @click="handleClickSubnav(subnav, index, i)"
           >
-            <ul class="text" :class="{'indent':subnav.isIndent }">
-              <li>{{ subnav.en}}</li>
-              <li>{{ subnav.ch}}</li>
+            <ul class="text" :class="{ indent: subnav.isIndent }">
+              <li>{{ subnav.en }}</li>
+              <li>{{ subnav.ch }}</li>
             </ul>
           </li>
         </ul>
@@ -69,7 +77,7 @@ export default {
       }
     },
     handleClickSubnav(subnav, index, i) {
-      console.log(subnav, index, i);
+      // console.log(subnav, index, i);
       this.$router.push({ name: subnav.name });
     }
   }

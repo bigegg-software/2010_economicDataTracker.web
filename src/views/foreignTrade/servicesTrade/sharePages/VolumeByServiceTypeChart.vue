@@ -16,7 +16,7 @@
           v-if="!isShowTable"
           ref="linesChart"
           :options="USD"
-          :selectOption="industry"
+          :selectOption="industry.value"
         ></lines-chart>
       </div>
     </div>
