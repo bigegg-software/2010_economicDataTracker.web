@@ -27,7 +27,7 @@ export default {
       totalData: {
         title: {
           ch: "中国年度对外承包工程新签合同额前十项目",
-          en: "China's top 10 overseas project by contract value"
+          en: "China's top 10 overseas project by contracts value"
         },
         tableTitle: {
           rank: {
@@ -76,7 +76,7 @@ export default {
     option:{
       handler() {
           this.totalData.title.ch=`${this.option.value}中国年度对外承包工程新签合同额前十项目`;
-          this.totalData.title.en=`China's top 10 overseas project by contract value in ${this.option.value}`;
+          this.totalData.title.en=`China's top 10 overseas project by contracts value in ${this.option.value}`;
       },
       deep:true
     },

@@ -73,12 +73,12 @@ export default {
             width: "35%"
           },
           amount: {
-            text: "新签合同额_Total value of new contract ",
+            text: "新签合同额_Total value of new contracts ",
             width: "35%",
             formatNum: true
           },
           amountYOY: {
-            text: "新签合同额同比_Y-o-y growth of new contract value ",
+            text: "新签合同额同比_Y-o-y growth of new contracts value ",
             width: "35%",
             formatPer: true
           }
@@ -114,12 +114,12 @@ export default {
             width: "35%"
           },
           amount: {
-            text: "完成营业额_Revenue of completed contract",
+            text: "完成营业额_Revenue of completed contracts",
             width: "35%",
             formatNum: true
           },
           amountYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contract revenue",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "35%",
             formatPer: true
           }
@@ -150,7 +150,7 @@ export default {
         series: [
           {
             name:
-              "新签合同额_Total value of new contract|新签合同额同比_Y-o-y growth of new contract value",
+              "新签合同额_Total value of new contracts|新签合同额同比_Y-o-y growth of new contracts value",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []
@@ -183,18 +183,18 @@ export default {
         value: {
           id: 1,
           ch: "新签合同额",
-          en: "Total value of new contract"
+          en: "Total value of new contracts"
         },
         op: [
           {
             id: 1,
             ch: "新签合同额",
-            en: "Total value of new contract"
+            en: "Total value of new contracts"
           },
           {
             id: 2,
             ch: "完成营业额",
-            en: "Revenue of completed contract"
+            en: "Revenue of completed contracts"
           }
         ]
       }
@@ -312,8 +312,8 @@ export default {
       this.selectOption.value = item;
       let Yoy =
         item.ch == "新签合同额"
-          ? "新签合同额同比_Y-o-y growth of new contract value"
-          : "完成营业额同比_Y-o-y growth of completed contract revenue";
+          ? "新签合同额同比_Y-o-y growth of new contracts value"
+          : "完成营业额同比_Y-o-y growth of completed contracts revenue";
       await this.getChartsData({
         type: item.id,
         ascending: "rank",

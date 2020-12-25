@@ -25,30 +25,33 @@
             &#xe620;
           </div>
           <div class="logout-text">
-            <p style="margin:0">Log Out</p>
-          <p style="margin:0">退出</p>
+            <p style="margin:0" class="text-english">Log Out</p>
+            <p style="margin:0" class="text-chinese">退出</p>
           </div>
         </div>
         <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">
-          <p style="margin:0">Log In</p>
-          <p style="margin:0">登录</p>
+          <p style="margin:0" class="text-english">Log In</p>
+          <p style="margin:0" class="text-chinese">登录</p>
           </div>
       </div>
       <!-- 下拉框 -->
       <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
         <div v-for="item in dataList" :key="item.activityTime">
-          <div class="list-time">{{ item.activityTime }}</div>
-          <div class="list-text-block">
-            <div
-              v-for="data in item.menus"
-              :key="data.name"
-              class="list-text"
-              @click="jumpPage(data)"
-            >
-              <div>{{ data.en }}</div>
-              <div>{{ data.ch }}</div>
-            </div>
-          </div>
+          <template v-if="item.menus.length"> 
+            <!-- template 中的v-if为了排除连续三天内多次发布同一纵向菜单下的图表进行去重后列表为空的情况 -->
+              <div class="list-time">{{ item.activityTime }}</div>
+              <div class="list-text-block">
+                <div
+                  v-for="data in item.menus"
+                  :key="data.name"
+                  class="list-text"
+                  @click="jumpPage(data)"
+                >
+                  <div>{{ data.en }}</div>
+                  <div>{{ data.ch }}</div>
+                </div>
+              </div>
+          </template>
         </div>
       </div>
     </div>
@@ -66,6 +69,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.dataList)
   },
   computed:{
      userInfo() {
@@ -269,7 +273,11 @@ export default {
       }
     }
     .logout-text{
+      // font-size: 0.104167rem;
       cursor: pointer;
+      .text-chinese{
+        font-size: 0.072917rem;
+      }
     }
   }
 }

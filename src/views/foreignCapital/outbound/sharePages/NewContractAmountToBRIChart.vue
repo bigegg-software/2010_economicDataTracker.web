@@ -58,7 +58,7 @@ export default {
         title: {
           ch: "中国企业在“一带一路”沿线国家新签合同额",
           en:
-            "Total value of new contract signed by Chinese enterprises in BRI countries"
+            "Total value of new contracts signed by Chinese enterprises in BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -78,14 +78,14 @@ export default {
         title: {
           ch: "中国企业在“一带一路”沿线国家新签合同额",
           en:
-            "Total value of new contract signed by Chinese enterprises in BRI countries"
+            "Total value of new contracts signed by Chinese enterprises in BRI countries"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
             name:
-              "新签合同额_Total value of new contract|新签合同额同比_Y-o-y total value of new contract",
+              "新签合同额_Total value of new contracts|新签合同额同比_Y-o-y total value of new contracts",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -306,12 +306,12 @@ export default {
             width: "10%"
           },
           newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
+            text: "新签合同额_Total value of new contracts",
             width: "45%",
             formatNum: true
           },
           newConAmountConYOY: {
-            text: "新签合同额同比_Y-o-y total value of new contract",
+            text: "新签合同额同比_Y-o-y total value of new contracts",
             width: "45%",
             formatPer: true
           }
@@ -327,12 +327,12 @@ export default {
             width: "20%"
           },
           newConAmountCon: {
-            text: "新签合同额_Total value of new contract",
+            text: "新签合同额_Total value of new contracts",
             width: "35%",
             formatNum: true
           },
           newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+            text: "新签合同额同比_Total value of new contracts y-o-y growth",
             width: "35%",
             formatPer: true
           }

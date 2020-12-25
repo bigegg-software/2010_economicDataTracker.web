@@ -60,7 +60,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对外承包工程新签合同额",
-          en: "Total value of new contract from China's overseas projects"
+          en: "Total value of new contracts from China's overseas projects"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -80,13 +80,13 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程新签合同额",
-          en: "Total value of new contract from China's overseas projects"
+          en: "Total value of new contracts from China's overseas projects"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "新签合同额（RMB）_Total value of new contract (RMB）|新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
+            name: "新签合同额（RMB）_Total value of new contracts (RMB）|新签合同额同比（RMB）_Total value of new contracts y-o-y growth (RMB)",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -101,7 +101,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程新签合同额",
-          en: "Total value of new contract from China's overseas projects"
+          en: "Total value of new contracts from China's overseas projects"
         },
         xData: [],
         grid: {
@@ -111,7 +111,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "新签合同额(USD)_Total value of new contract|新签合同额同比_Total value of new contract y-o-y growth",
+            name: "新签合同额(USD)_Total value of new contracts|新签合同额同比_Total value of new contracts y-o-y growth",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -345,22 +345,22 @@ export default {
             width: "10%"
           },
           newConAmountConMillion: {
-            text: "新签合同额(USD)_Total value of new contract",
+            text: "新签合同额(USD)_Total value of new contracts",
             width: "20%",
             formatNum: true
           },
           newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+            text: "新签合同额同比_Total value of new contracts y-o-y growth",
             width: "25%",
             formatPer: true
           },
           newConAmountMillion: {
-            text: "新签合同额（RMB）_Total value of new contract (RMB）",
+            text: "新签合同额（RMB）_Total value of new contracts (RMB）",
             width: "20%",
             formatNum: true
           },
           newConAmountYOY: {
-            text: "新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
+            text: "新签合同额同比（RMB）_Total value of new contracts y-o-y growth (RMB)",
             width: "25%",
             formatPer: true
           }
@@ -376,22 +376,22 @@ export default {
             width: "20%"
           },
           newConAmountConMillion: {
-            text: "新签合同额(USD)_Total value of new contract",
+            text: "新签合同额(USD)_Total value of new contracts",
             width: "35%",
             formatNum: true
           },
           newConAmountConYOY: {
-            text: "新签合同额同比_Total value of new contract y-o-y growth",
+            text: "新签合同额同比_Total value of new contracts y-o-y growth",
             width: "35%",
             formatPer: true
           },
           newConAmountMillion: {
-            text: "新签合同额（RMB）_Total value of new contract (RMB）",
+            text: "新签合同额（RMB）_Total value of new contracts (RMB）",
             width: "35%",
             formatNum: true
           },
           newConAmountYOY: {
-            text: "新签合同额同比（RMB）_Total value of new contract y-o-y growth (RMB)",
+            text: "新签合同额同比（RMB）_Total value of new contracts y-o-y growth (RMB)",
             width: "35%",
             formatPer: true
           }

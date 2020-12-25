@@ -47,12 +47,12 @@ export default {
         {
           name: "newContractAmountToBRIChart",
           chinese: "新签合同额",
-          english: "Total value of new contract"
+          english: "Total value of new contracts"
         },
         {
           name: "amountGrowthToBRIChart",
           chinese: "完成营业额",
-          english: "Revenue of completed contract"
+          english: "Revenue of completed contracts"
         }
       ],
 

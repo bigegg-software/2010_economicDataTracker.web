@@ -315,20 +315,16 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年度_Year",
-            width: "10%"
-          },
-          unit: {
-            text: "单位_unit",
-            width: "25%"
+            width: "20%"
           },
           investment: {
             text: "固定资产投资额_Investment in fixed assets",
-            width: "25%",
+            width: "40%",
             formatNum: true
           },
           yoyGrowth: {
             text: "固定资产投资额同比_Y-o-y investment in fixed assets",
-            width: "25%",
+            width: "40%",
             formatPer: true
           }
         };
@@ -336,26 +332,22 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月度_Quarter",
-            width: "20%"
-          },
-          unit: {
-            text: "单位_unit",
-            width: "20%"
+            width: "15%"
           },
           investment: {
             text:
               "月度累计固定资产投资额_Cumulative monthly investment in fixed assets",
-            width: "25%",
+            width: "35%",
             formatNum: true
           },
           yoyGrowth: {
             text:
               "月度固定资产投资额同比_Y-o-y cumulative monthly investment in fixed assets",
-            width: "25%",
+            width: "35%",
             formatPer: true
           }
         };

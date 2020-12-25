@@ -317,20 +317,16 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年度_Year",
-            width: "10%"
-          },
-          unit: {
-            text: "单位_unit",
             width: "20%"
           },
           unemployment: {
             text: "城镇登记失业人数_Urban registered unemployment",
-            width: "35%",
+            width: "40%",
             formatNum: true
           },
           unemploymentRate: {
             text: "城镇登记失业率_Urban registered unemployment rate",
-            width: "35%",
+            width: "40%",
             formatPer: true
           }
         };
@@ -338,11 +334,11 @@ export default {
         this.totalData.tableTitle = {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           quarter: {
             text: "季度_Quarter",
-            width: "30%"
+            width: "20%"
           },
           unemploymentRate: {
             text: "城镇登记失业率_Urban registered unemployment rate",

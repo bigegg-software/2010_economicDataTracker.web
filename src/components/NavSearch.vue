@@ -149,6 +149,7 @@ export default {
     color: #999999;
     z-index: 10;
     .menu-link {
+      cursor: pointer;
       p {
         font-size: 0.104167rem;
         white-space: nowrap;
@@ -168,7 +169,6 @@ export default {
     .menu-link:not(:last-child) {
       border-bottom: 1px solid #eee;
       margin-bottom: 0.026667rem;
-      cursor: pointer;
     }
   }
 }

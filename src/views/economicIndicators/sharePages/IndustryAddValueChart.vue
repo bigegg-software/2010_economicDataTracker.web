@@ -51,20 +51,20 @@ export default {
         tableTitle: {
           year: {
             text: "年份_Year",
-            width: "10%"
+            width: "15%"
           },
           month: {
             text: "月份_Month",
-            width: "10%"
+            width: "15%"
           },
           yoyGrowth : {
             text: "工业增加值月度同比_Y-o-y monthly industrial value-added",
-            width: "40%",
+            width: "35%",
             formatPer: true
           },
           yoyCumulativeGrowth : {
             text: "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
-            width: "40%",
+            width: "35%",
             formatPer: true
           }
         },
