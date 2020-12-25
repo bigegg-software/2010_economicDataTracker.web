@@ -347,13 +347,18 @@ export default {
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
-      //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(data);
       if (aug.type == "yearly") {
         XNameAttr = "year";
+        await chartDataFun.addOtherCategory(data);
       }
       if (aug.type == "monthly") {
         XNameAttr = "M";
+        if (this.selectOption.value.id == 1) {
+          await chartDataFun.addOtherCategoryCurrentMonth(data);
+        }
+        if (this.selectOption.value.id == 2) {
+          await chartDataFun.addOtherCategory(data);
+        }
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(data, XNameAttr, dataAttr, range);

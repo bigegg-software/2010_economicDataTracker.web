@@ -78,11 +78,12 @@ export default {
       let USD = re.filter(v => v.type == 1)[0]
       let RMB = re.filter(v => v.type == 2)[0]
       let obj = {}
-      for (let key in USD) {
-        obj[`year`] = USD['year']
-        obj[`month`] = USD['month']
-        obj[`USD_${key}`] = USD[key]
-        obj[`RMB_${key}`] = RMB[key]
+      let op = USD ? USD : RMB
+      for (let key in op) {
+        obj[`year`] = op['year']
+        obj[`month`] = op['month']
+        obj[`USD_${key}`] = USD ? USD[key] : ""
+        obj[`RMB_${key}`] = RMB ? RMB[key] : ""
       }
       data.push(obj)
     }
@@ -153,11 +154,12 @@ export default {
       let USD = re.filter(v => v.type == 1)[0]
       let RMB = re.filter(v => v.type == 2)[0]
       let obj = {}
-      for (let key in USD) {
-        obj[`year`] = USD['year']
-        obj[`month`] = USD['month']
-        obj[`USD_${key}`] = USD[key]
-        obj[`RMB_${key}`] = RMB[key]
+      let op = USD ? USD : RMB
+      for (let key in op) {
+        obj[`year`] = op['year']
+        obj[`month`] = op['month']
+        obj[`USD_${key}`] = USD ? USD[key] : ""
+        obj[`RMB_${key}`] = RMB ? RMB[key] : ""
       }
       data.push(obj)
     }
@@ -313,9 +315,6 @@ export default {
         '当月进出口',
         '当月进口',
         '当月出口',
-        // '当月进出口同比',
-        // '当月进口同比',
-        // '当月出口同比',
       ],
       2: [
         "年份",
@@ -327,7 +326,6 @@ export default {
         '累计出口同比',
       ]
     }
-    // 'yoyTrade', 'yoyImport', 'yoyExport'
     let field = {
       1: ['year', 'trade', 'import', 'export', ],
       2: ['year', 'month', 'cumulativeTrade', 'yoyCumulativeTrade', 'cumulativeImport', 'yoyCumulativeImport', 'cumulativeExport', 'yoyCumulativeExport']
@@ -442,11 +440,12 @@ export default {
       let imp = re.filter(v => v.type == 1)[0]
       let exp = re.filter(v => v.type == 2)[0]
       let obj = {}
-      for (let key in imp) {
-        obj[`year`] = imp['year']
-        obj[`month`] = imp['month']
-        obj[`IMP${key}`] = imp[key]
-        obj[`EXP${key}`] = exp[key]
+      let op = imp ? imp : exp
+      for (let key in op) {
+        obj[`year`] = op['year']
+        obj[`month`] = op['month']
+        obj[`IMP${key}`] = imp ? imp[key] : ""
+        obj[`EXP${key}`] = exp ? exp[key] : ""
         obj['enterpriseType'] = enterpriseType.ch
       }
       data.push(obj)
@@ -486,10 +485,10 @@ export default {
     }
     let tableres
     if (type == 'yearly') {
-      tableres = await JSON.parse(JSON.stringify(res))
+      tableres = await JSON.parse(JSON.stringify(data))
     }
     if (type == 'monthly') {
-      tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
+      tableres = await JSON.parse(JSON.stringify(data)).filter(item => {
         return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
       })
     }
@@ -720,11 +719,12 @@ export default {
       let imp = re.filter(v => v.type == 1)[0]
       let exp = re.filter(v => v.type == 2)[0]
       let obj = {}
-      for (let key in imp) {
-        obj[`year`] = imp['year']
-        obj[`industry`] = imp['industry']
-        obj[`IMP${key}`] = imp[key]
-        obj[`EXP${key}`] = exp[key]
+      let op = imp ? imp : exp
+      for (let key in op) {
+        obj[`year`] = op['year']
+        obj[`industry`] = op['industry']
+        obj[`IMP${key}`] = imp ? imp[key] : ""
+        obj[`EXP${key}`] = exp ? exp[key] : ""
       }
       data.push(obj)
     }

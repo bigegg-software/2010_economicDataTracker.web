@@ -212,6 +212,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      console.log(data, "data");
       this.USD.series[0]["data"] = res.length ? data.IMPvolume : [];
       this.USD.series[1]["data"] = res.length ? data.EXPvolume : [];
     },
