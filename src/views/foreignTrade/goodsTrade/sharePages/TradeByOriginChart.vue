@@ -111,12 +111,6 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进出口_Trade|进出口同比_Y-o-y trade",
-            color: "#91c7ae",
-            data: [],
-            yearOnYear: []
-          },
-          {
             name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
             data: [],
@@ -125,6 +119,12 @@ export default {
           {
             name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
+            data: [],
+            yearOnYear: []
+          },
+          {
+            name: "进出口_Trade|进出口同比_Y-o-y trade",
+            color: "#91c7ae",
             data: [],
             yearOnYear: []
           }
@@ -316,29 +316,29 @@ export default {
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       if (this.activeKey == "yearly") {
-        this.USD.series[0]["data"] = data.trade;
-        this.USD.series[0]["yearOnYear"] = data.yoyTrade;
-        this.USD.series[1]["data"] = data.import;
-        this.USD.series[1]["yearOnYear"] = data.yoyImport;
-        this.USD.series[2]["data"] = data.export;
-        this.USD.series[2]["yearOnYear"] = data.yoyExport;
+        this.USD.series[0]["data"] = data.import;
+        this.USD.series[0]["yearOnYear"] = data.yoyImport;
+        this.USD.series[1]["data"] = data.export;
+        this.USD.series[1]["yearOnYear"] = data.yoyExport;
+        this.USD.series[2]["data"] = data.trade;
+        this.USD.series[2]["yearOnYear"] = data.yoyTrade;
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
-          this.USD.series[0]["data"] = data._trade;
+          this.USD.series[0]["data"] = data._import;
           this.USD.series[0]["yearOnYear"] = [];
-          this.USD.series[1]["data"] = data._import;
+          this.USD.series[1]["data"] = data._export;
           this.USD.series[1]["yearOnYear"] = [];
-          this.USD.series[2]["data"] = data._export;
+          this.USD.series[2]["data"] = data._trade;
           this.USD.series[2]["yearOnYear"] = [];
         }
         if (this.selectOption.value.id == 2) {
-          this.USD.series[0]["data"] = data._cumulativeTrade;
-          this.USD.series[0]["yearOnYear"] = data.yoyCumulativeTrade;
-          this.USD.series[1]["data"] = data._cumulativeImport;
-          this.USD.series[1]["yearOnYear"] = data.yoyCumulativeImport;
-          this.USD.series[2]["data"] = data._cumulativeExport;
-          this.USD.series[2]["yearOnYear"] = data.yoyCumulativeExport;
+          this.USD.series[0]["data"] = data._cumulativeImport;
+          this.USD.series[0]["yearOnYear"] = data.yoyCumulativeImport;
+          this.USD.series[1]["data"] = data._cumulativeExport;
+          this.USD.series[1]["yearOnYear"] = data.yoyCumulativeExport;
+          this.USD.series[2]["data"] = data._cumulativeTrade;
+          this.USD.series[2]["yearOnYear"] = data.yoyCumulativeTrade;
         }
       }
     },
@@ -384,12 +384,18 @@ export default {
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(data);
       if (aug.type == "yearly") {
         XNameAttr = "year";
+        await chartDataFun.addOtherCategory(data);
       }
       if (aug.type == "monthly") {
         XNameAttr = "M";
+        if (this.selectOption.value.id == 1) {
+          await chartDataFun.addOtherCategoryCurrentMonth(data);
+        }
+        if (this.selectOption.value.id == 2) {
+          await chartDataFun.addOtherCategory(data);
+        }
       }
       // 获取当前页面所有线
       await this.getItemCategoryData(data, XNameAttr, dataAttr, range);
@@ -448,31 +454,16 @@ export default {
               width: "25%",
               formatNum: true
             },
-            // _yoyTrade: {
-            //   text: "当月进出口同比_Y-o-y monthly trade",
-            //   width: "25%",
-            //   formatPer: true
-            // },
             _import: {
               text: "当月进口_Monthly import",
               width: "20%",
               formatNum: true
             },
-            // _yoyImport: {
-            //   text: "当月进口同比_Y-o-y monthly import",
-            //   width: "20%",
-            //   formatPer: true
-            // },
             _export: {
               text: "当月出口_Monthly export",
               width: "20%",
               formatNum: true
             }
-            // _yoyExport: {
-            //   text: "当月出口同比_Y-o-y monthly export",
-            //   width: "20%",
-            //   formatPer: true
-            // }
           };
         }
         if (this.selectOption.value.id == 2) {

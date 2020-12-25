@@ -116,12 +116,6 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进出口_Trade volume|进出口同比_Y-o-y trade",
-            color: "#91c7ae",
-            data: [],
-            yearOnYear: []
-          },
-          {
             name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
             data: [],
@@ -130,6 +124,12 @@ export default {
           {
             name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
+            data: [],
+            yearOnYear: []
+          },
+          {
+            name: "进出口_Trade volume|进出口同比_Y-o-y trade",
+            color: "#91c7ae",
             data: [],
             yearOnYear: []
           }
@@ -348,32 +348,35 @@ export default {
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       if (this.activeKey == "monthly" && this.selectOption.value.id == 2) {
-        this.USD.series[0]["data"] = data.USD_cumulativeTradeVolume;
-        this.USD.series[0]["yearOnYear"] = data.USD_yoyCumulativeTrade;
-        this.USD.series[1]["data"] = data.USD_cumulativeImport;
-        this.USD.series[1]["yearOnYear"] = data.USD_yoyCumulativeImport;
-        this.USD.series[2]["data"] = data.USD_cumulativeExport;
-        this.USD.series[2]["yearOnYear"] = data.USD_yoyCumulativeExport;
-        this.RMB.series[0]["data"] = data.RMB_cumulativeTradeVolume;
-        this.RMB.series[0]["yearOnYear"] = data.RMB_yoyCumulativeTrade;
-        this.RMB.series[1]["data"] = data.RMB_cumulativeImport;
-        this.RMB.series[1]["yearOnYear"] = data.RMB_yoyCumulativeImport;
-        this.RMB.series[2]["data"] = data.RMB_cumulativeExport;
-        this.RMB.series[2]["yearOnYear"] = data.RMB_yoyCumulativeExport;
+        this.USD.series[0]["data"] = data.USD_cumulativeImport;
+        this.USD.series[0]["yearOnYear"] = data.USD_yoyCumulativeImport;
+        this.USD.series[1]["data"] = data.USD_cumulativeExport;
+        this.USD.series[1]["yearOnYear"] = data.USD_yoyCumulativeExport;
+        this.USD.series[2]["data"] = data.USD_cumulativeTradeVolume;
+        this.USD.series[2]["yearOnYear"] = data.USD_yoyCumulativeTrade;
+
+        this.RMB.series[0]["data"] = data.RMB_cumulativeImport;
+        this.RMB.series[0]["yearOnYear"] = data.RMB_yoyCumulativeImport;
+        this.RMB.series[1]["data"] = data.RMB_cumulativeExport;
+        this.RMB.series[1]["yearOnYear"] = data.RMB_yoyCumulativeExport;
+        this.RMB.series[2]["data"] = data.RMB_cumulativeTradeVolume;
+        this.RMB.series[2]["yearOnYear"] = data.RMB_yoyCumulativeTrade;
         return;
       }
-      this.USD.series[0]["data"] = data.USD_tradeVolume;
-      this.USD.series[0]["yearOnYear"] = data.USD_yoyTrade;
-      this.USD.series[1]["data"] = data.USD_import;
-      this.USD.series[1]["yearOnYear"] = data.USD_yoyImport;
-      this.USD.series[2]["data"] = data.USD_export;
-      this.USD.series[2]["yearOnYear"] = data.USD_yoyExport;
-      this.RMB.series[0]["data"] = data.RMB_tradeVolume;
-      this.RMB.series[0]["yearOnYear"] = data.RMB_yoyTrade;
-      this.RMB.series[1]["data"] = data.RMB_import;
-      this.RMB.series[1]["yearOnYear"] = data.RMB_yoyImport;
-      this.RMB.series[2]["data"] = data.RMB_export;
-      this.RMB.series[2]["yearOnYear"] = data.RMB_yoyExport;
+
+      this.USD.series[0]["data"] = data.USD_import;
+      this.USD.series[0]["yearOnYear"] = data.USD_yoyImport;
+      this.USD.series[1]["data"] = data.USD_export;
+      this.USD.series[1]["yearOnYear"] = data.USD_yoyExport;
+      this.USD.series[2]["data"] = data.USD_tradeVolume;
+      this.USD.series[2]["yearOnYear"] = data.USD_yoyTrade;
+
+      this.RMB.series[0]["data"] = data.RMB_import;
+      this.RMB.series[0]["yearOnYear"] = data.RMB_yoyImport;
+      this.RMB.series[1]["data"] = data.RMB_export;
+      this.RMB.series[1]["yearOnYear"] = data.RMB_yoyExport;
+      this.RMB.series[2]["data"] = data.RMB_tradeVolume;
+      this.RMB.series[2]["yearOnYear"] = data.RMB_yoyTrade;
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);

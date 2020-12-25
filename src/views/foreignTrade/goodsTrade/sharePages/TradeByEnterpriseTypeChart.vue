@@ -304,22 +304,24 @@ export default {
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
+      let range;
       let data = await request.getImportExportEnterprise(aug);
       let dataAttr = this.field[this.enterpriseType.value.id];
       // 完整的区间
-      let range = await chartDataFun.getXRangeCurrentMonth(aug);
       let XNameAttr = "year";
-      this.USD.xData = range;
-      this.USD.updatedDate = this.$store.getters.latestTime;
-      this.totalData.updatedDate = this.$store.getters.latestTime;
-      //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(data);
       if (aug.type == "yearly") {
         XNameAttr = "year";
+        range = await chartDataFun.getXRange(aug);
+        await chartDataFun.addOtherCategory(data);
       }
       if (aug.type == "monthly") {
         XNameAttr = "M";
+        range = await chartDataFun.getXRangeCurrentMonth(aug);
+        await chartDataFun.addOtherCategoryCurrentMonth(data);
       }
+      this.USD.xData = range;
+      this.USD.updatedDate = this.$store.getters.latestTime;
+      this.totalData.updatedDate = this.$store.getters.latestTime;
       // 获取当前页面所有线
       await this.getItemCategoryData(data, XNameAttr, dataAttr, range);
     },
