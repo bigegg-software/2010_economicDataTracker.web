@@ -154,7 +154,7 @@ export default {
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
-            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
+            textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_",
@@ -183,7 +183,7 @@ export default {
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
-            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",            
+            textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_",
@@ -812,7 +812,7 @@ export default {
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
-            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
+            textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
@@ -841,7 +841,7 @@ export default {
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
             chText: "境外企业分类参照中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011) 执行",
-            textLink:"http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
+            textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_《2015年度中国对外直接投资统计公报<附录五、主要概念及指标解释>》_ ",
@@ -969,13 +969,157 @@ export default {
             chThird: "3. 商务部_2004年至今吸收外商直接投资月报_"
         },
         sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
-        sourceLinkSecond:"http://fec.mofcom.gov.cn/article/tjsj/ydjm/jwtz/",
-        sourceLinkThird:"http://data.mofcom.gov.cn/lywz/inmr.shtml",
+        sourceLinkSecond: "http://fec.mofcom.gov.cn/article/tjsj/ydjm/jwtz/",
+        sourceLinkThird: "http://data.mofcom.gov.cn/lywz/inmr.shtml",
         noteContent: {
             en: "-",
             enSecond: "",
             ch: "",
             chSecond: ""
         }
-    }
+    },
+    // ===================================外贸模块===========================
+    // ----------------货物贸易---------------------
+    // 中国货物进出口总值
+    goodsTotalChart: {
+        concept: {
+            enTitle: "",
+            enText: "",
+            enTitleSecond: "",
+            enTextSecond: "",
+            enSource: "",
+            enLink: "",
+            chTitle: "",
+            chText: "",
+            chTitleSecond: "",
+            chTextSecond: "",
+            chSource: "-",
+            chLink: ""
+        },
+        dataSources: {
+            en: "",
+            enSecond: "",
+            enThird: "",
+            ch: "",
+            chSecond: "",
+            chThird: ""
+        },
+        sourceLink: "",
+        sourceLinkSecond: "",
+        sourceLinkThird: "",
+        noteContent: {
+            en: "-",
+            enSecond: "",
+            ch: "",
+            chSecond: ""
+        }
+    },
+    // 中国货物进出口贸易差额
+    goodsTradeBalanceChart: {},
+    // 货物进出口总值(国别/地区)
+    tradeByOriginChart: {},
+    // 货物进出口总值按商品类别统计
+    tradeByCommodityChart: {},
+    // 货物进出口总值按企业性质统计
+    tradeByEnterpriseTypeChart: {},
+    // 货物进出口总值按贸易方式统计
+    tradeByCustomRegimeChart: {},
+    // 外商投资企业进出口总值
+    foreignInvestedEnterprisesChart: {},
+    // ----------------------服务贸易------------------
+    // 中国服务贸易进出口总值
+    totalTradeInServicesChart: {},
+    // 服务贸易分类统计
+    volumeByServiceTypeChart: {},
+    // =====================================宏观经济指标=========================================
+    // 国内生产总值GDP
+    grossDomesticProductChart: {
+        concept: {
+            enTitle: "",
+            enText: "",
+            enTitleSecond: "",
+            enTextSecond: "",
+            enSource: "",
+            enLink: "",
+            chTitle: "",
+            chText: "",
+            chTitleSecond: "",
+            chTextSecond: "",
+            chSource: "-",
+            chLink: ""
+        },
+        dataSources: {
+            en: "",
+            enSecond: "",
+            enThird: "",
+            ch: "",
+            chSecond: "",
+            chThird: ""
+        },
+        sourceLink: "",
+        sourceLinkSecond: "",
+        sourceLinkThird: "",
+        noteContent: {
+            en: "-",
+            enSecond: "",
+            ch: "",
+            chSecond: ""
+        }
+    },
+    // 消费者价格指数CPI
+    consumerPriceIndexChart: {},
+    // 采购经理人指数
+    purchasingManagersIndexChart: {},
+    // 登记失业率
+    unemployRegisterChart: {},
+    // 调查失业率
+    unemployExamineChart: {},
+    // 工业生产者出厂价格指数
+    producerPriceIndexChart: {},
+    // 工业增加值
+    industryAddValueChart: {},
+    // 工业企业利润
+    industrialProfitsChart: {},
+    // 社会消费品零售总额
+    salesConsumerGoodsChart: {},
+    // 固定资产投资（不含农户）
+    investmentFixedAssetsChart: {},
+    // 国家财政收支
+    nationalFinanceChart: {},
+    // 货币供应量 (M2)
+    moneySupplyChart: {},
+    // 国家外汇储备
+    foreignCurrencyReservesChart: {
+        concept: {
+            enTitle: "",
+            enText: "",
+            enTitleSecond: "",
+            enTextSecond: "",
+            enSource: "",
+            enLink: "",
+            chTitle: "",
+            chText: "",
+            chTitleSecond: "",
+            chTextSecond: "",
+            chSource: "-",
+            chLink: ""
+        },
+        dataSources: {
+            en: "",
+            enSecond: "",
+            enThird: "",
+            ch: "",
+            chSecond: "",
+            chThird: ""
+        },
+        sourceLink: "",
+        sourceLinkSecond: "",
+        sourceLinkThird: "",
+        noteContent: {
+            en: "-",
+            enSecond: "",
+            ch: "",
+            chSecond: ""
+        }
+    },
 }
