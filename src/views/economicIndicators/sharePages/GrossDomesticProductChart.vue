@@ -268,7 +268,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "当季同比增速_Y-o-y quarterly GDP",
-                  color: "#333",
+                  color: "#61a0c0",
                   data: data.yoyGrowth,
                   percent:true
                 },
@@ -283,7 +283,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
-                  color: "pink",
+                  color: "#69b9a0",
                   data: data.cumulativeYoyGrowth ,
                   percent:true
                 },
@@ -291,7 +291,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "季度环比增速_Q-o-q GDP",
-                  color: "green",
+                  color: "#c23531",
                   data: data.qoqGDP ,
                   percent:true
                 }

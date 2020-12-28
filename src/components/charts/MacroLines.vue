@@ -228,6 +228,7 @@ export default {
           //   }
           //   selected: this.selected,
           //   data: legend,
+           selected: this.selected,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if (!this.options.hideLegend) {
@@ -287,7 +288,7 @@ export default {
             ].join("\n"),
           nameTextStyle: {
             align: "left",
-            padding: [0, -2, 0, -that.$refs.lineChart.offsetWidth * 0.07],
+            padding: [0, -2, 0, -that.$refs.lineChart.offsetWidth * 0.05],
             color: "#666",
             rich: {
               div: {
@@ -429,7 +430,6 @@ export default {
       };
       this.chart.off("legendselectchanged");
       this.chart.on("legendselectchanged", param => {
-        console.log(param);
         this.selected = param.selected;
       });
       this.chart.setOption(option, true);

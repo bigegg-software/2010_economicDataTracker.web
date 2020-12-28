@@ -7,7 +7,8 @@ import echarts from "echarts";
 export default {
   data() {
     return {
-      chart: ""
+      chart: "",
+      selected: {}
     };
   },
   props: {
@@ -131,6 +132,7 @@ export default {
               ? this.options.series[j].type
               : "bar",
             smooth: true,
+            barGap:"10%",
             yAxisIndex: this.options.series[j].yAxisIndex
               ? this.options.series[j].yAxisIndex
               : 0,
@@ -246,6 +248,7 @@ export default {
           }
         },
         legend: {
+          selected: this.selected,
           width: "80%",
           top: "13%",
           show: !this.options.hideLegend,
@@ -366,7 +369,14 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, -2, 0, this.options.yLabel&&!this.options.yLabel[0]?-that.$refs.barLineMix.offsetWidth * 0.05:that.$refs.barLineMix.offsetWidth * 0.001],
+              padding: [
+                0,
+                -2,
+                0,
+                this.options.yLabel && !this.options.yLabel[0]
+                  ? -that.$refs.barLineMix.offsetWidth * 0.05
+                  : that.$refs.barLineMix.offsetWidth * 0.001
+              ],
               color: "#666",
               rich: {
                 div: {
@@ -515,6 +525,10 @@ export default {
         ],
         series: series
       };
+      this.chart.off("legendselectchanged");
+      this.chart.on("legendselectchanged", param => {
+        this.selected = param.selected;
+      });
       this.chart.setOption(option, true);
       this.chart.resize();
     },
