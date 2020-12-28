@@ -308,8 +308,6 @@ export default {
         this.USD.series[0]["yearOnYear"] = data.yoyMonthlyCumulativeImport;
         this.USD.series[1]["data"] = data._monthlyCulumativeExport;
         this.USD.series[1]["yearOnYear"] = data.yoyMonthlyCumulativeExport;
-        this.USD.series[2]["data"] = data._monthlyCulumativeTrade;
-        this.USD.series[2]["yearOnYear"] = data.yoyMonthlyCumulativeTrade;
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
@@ -317,16 +315,12 @@ export default {
           this.USD.series[0]["yearOnYear"] = data.yoyMonthlyImport;
           this.USD.series[1]["data"] = data._monthlyExport;
           this.USD.series[1]["yearOnYear"] = data.yoyMonthlyExport;
-          this.USD.series[2]["data"] = data._monthlyTrade;
-          this.USD.series[2]["yearOnYear"] = data.yoyMonthlyTrade;
         }
         if (this.selectOption.value.id == 2) {
           this.USD.series[0]["data"] = data._monthlyCulumativeImport;
           this.USD.series[0]["yearOnYear"] = data.yoyMonthlyCumulativeImport;
           this.USD.series[1]["data"] = data._monthlyCulumativeExport;
           this.USD.series[1]["yearOnYear"] = data.yoyMonthlyCumulativeExport;
-          this.USD.series[2]["data"] = data._monthlyCulumativeTrade;
-          this.USD.series[2]["yearOnYear"] = data.yoyMonthlyCumulativeTrade;
         }
       }
     },
@@ -338,8 +332,6 @@ export default {
       if (this.activeKey == "yearly") {
         data = await request.getImportExportCustomRegime(aug);
         dataAttr = [
-          "_monthlyCulumativeTrade",
-          "yoyMonthlyCumulativeTrade",
           "_monthlyCulumativeImport",
           "yoyMonthlyCumulativeImport",
           "_monthlyCulumativeExport",
@@ -352,8 +344,6 @@ export default {
         // 当月
         if (this.selectOption.value.id == 1) {
           dataAttr = [
-            "_monthlyTrade",
-            "yoyMonthlyTrade",
             "_monthlyImport",
             "yoyMonthlyImport",
             "_monthlyExport",
@@ -364,8 +354,6 @@ export default {
         // 累计
         if (this.selectOption.value.id == 2) {
           dataAttr = [
-            "_monthlyCulumativeTrade",
-            "yoyMonthlyCumulativeTrade",
             "_monthlyCulumativeImport",
             "yoyMonthlyCumulativeImport",
             "_monthlyCulumativeExport",
@@ -405,16 +393,6 @@ export default {
             text: "贸易方式_Custom regime",
             width: "20%"
           },
-          _monthlyCulumativeTrade: {
-            text: "当月进出口(USD)_Monthly trade(USD)",
-            width: "25%",
-            formatNum: true
-          },
-          yoyMonthlyCumulativeTrade: {
-            text: "当月进出口同比(USD)_Y-o-y monthly trade(USD)",
-            width: "25%",
-            formatPer: true
-          },
           _monthlyCulumativeImport: {
             text: "当月进口(USD)_Monthly import(USD)",
             width: "20%",
@@ -451,16 +429,6 @@ export default {
               text: "贸易方式_Custom regime",
               width: "20%"
             },
-            _monthlyTrade: {
-              text: "当月进出口(USD)_Monthly trade(USD)",
-              width: "25%",
-              formatNum: true
-            },
-            yoyMonthlyTrade: {
-              text: "当月进出口同比(USD)_Y-o-y monthly trade(USD)",
-              width: "25%",
-              formatPer: true
-            },
             _monthlyImport: {
               text: "当月进口(USD)_Monthly import(USD)",
               width: "20%",
@@ -496,16 +464,6 @@ export default {
             customRegime: {
               text: "贸易方式_Custom regime",
               width: "20%"
-            },
-            _monthlyCulumativeTrade: {
-              text: "累计进出口(USD)_Cumulative monthly trade(USD)",
-              width: "25%",
-              formatNum: true
-            },
-            yoyMonthlyCumulativeTrade: {
-              text: "累计进出口同比(USD)_Y-o-y cumulative monthly trade(USD)",
-              width: "25%",
-              formatPer: true
             },
             _monthlyCulumativeImport: {
               text: "累计进口(USD)_Cumulative monthly import(USD)",

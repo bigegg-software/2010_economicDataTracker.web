@@ -281,8 +281,6 @@ export default {
         this.USD.series[0]["yearOnYear"] = data.yoyMonthlyCumulativeImport;
         this.USD.series[1]["data"] = data._monthlyCulumativeExport;
         this.USD.series[1]["yearOnYear"] = data.yoyMonthlyCumulativeExport;
-        this.USD.series[2]["data"] = data._monthlyCulumativeTrade;
-        this.USD.series[2]["yearOnYear"] = data.yoyMonthlyCumulativeTrade;
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
@@ -290,16 +288,12 @@ export default {
           this.USD.series[0]["yearOnYear"] = data.yoyMonthlyImport;
           this.USD.series[1]["data"] = data._monthlyExport;
           this.USD.series[1]["yearOnYear"] = data.yoyMonthlyExport;
-          this.USD.series[2]["data"] = data._monthlyTrade;
-          this.USD.series[2]["yearOnYear"] = data.yoyMonthlyTrade;
         }
         if (this.selectOption.value.id == 2) {
           this.USD.series[0]["data"] = data._monthlyCulumativeImport;
           this.USD.series[0]["yearOnYear"] = data.yoyMonthlyCumulativeImport;
           this.USD.series[1]["data"] = data._monthlyCulumativeExport;
           this.USD.series[1]["yearOnYear"] = data.yoyMonthlyCumulativeExport;
-          this.USD.series[2]["data"] = data._monthlyCulumativeTrade;
-          this.USD.series[2]["yearOnYear"] = data.yoyMonthlyCumulativeTrade;
         }
       }
     },
@@ -310,25 +304,19 @@ export default {
       let range;
       if (this.activeKey == "yearly") {
         data = await request.getForeignInvestedTradeEns(aug);
-        dataAttr = [
-          "_monthlyCulumativeTrade",
-          "_monthlyCulumativeImport",
-          "_monthlyCulumativeExport"
-        ];
+        dataAttr = ["_monthlyCulumativeImport", "_monthlyCulumativeExport"];
         range = await chartDataFun.getXRange(aug);
       }
       if (this.activeKey == "monthly") {
         data = await request.getForeignInvestedTradeEnsMonth(aug);
         // 当月
         if (this.selectOption.value.id == 1) {
-          dataAttr = ["_monthlyTrade", "_monthlyImport", "_monthlyExport"];
+          dataAttr = ["_monthlyImport", "_monthlyExport"];
           range = await chartDataFun.getXRangeCurrentMonth(aug);
         }
         // 累计
         if (this.selectOption.value.id == 2) {
           dataAttr = [
-            "_monthlyCulumativeTrade",
-            "yoyMonthlyCumulativeTrade",
             "_monthlyCulumativeImport",
             "yoyMonthlyCumulativeImport",
             "_monthlyCulumativeExport",
@@ -364,11 +352,6 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          _monthlyCulumativeTrade: {
-            text: "当月进出口(USD)_Monthly trade(USD)",
-            width: "25%",
-            formatNum: true
-          },
           _monthlyCulumativeImport: {
             text: "当月进口(USD)_Monthly import(USD)",
             width: "20%",
@@ -391,11 +374,6 @@ export default {
               text: "月份_Month",
               width: "20%"
             },
-            _monthlyTrade: {
-              text: "当月进出口(USD)_Monthly trade(USD)",
-              width: "25%",
-              formatNum: true
-            },
             _monthlyImport: {
               text: "当月进口(USD)_Monthly import(USD)",
               width: "20%",
@@ -417,16 +395,6 @@ export default {
             month: {
               text: "月份_Month",
               width: "20%"
-            },
-            _monthlyCulumativeTrade: {
-              text: "累计进出口(USD)_Cumulative monthly trade(USD)",
-              width: "25%",
-              formatNum: true
-            },
-            yoyMonthlyCumulativeTrade: {
-              text: "累计进出口同比(USD)_Y-o-y cumulative monthly trade(USD)",
-              width: "25%",
-              formatPer: true
             },
             _monthlyCulumativeImport: {
               text: "累计进口(USD)_Cumulative monthly import(USD)",

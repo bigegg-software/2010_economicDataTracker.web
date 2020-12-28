@@ -1,5 +1,10 @@
 <template>
-  <div :id="options.id" ref="barLine" style="width:100%;height:100%;" @contextmenu.prevent></div>
+  <div
+    :id="options.id"
+    ref="barLine"
+    style="width:100%;height:100%;"
+    @contextmenu.prevent
+  ></div>
 </template>
 
 <script>
@@ -199,40 +204,24 @@ export default {
                 j++
               ) {
                 let it = params[j * rowCount + i];
-                if (
-                  // this.options.yearOnYear == false ||
-                  // this.options.yearOnYear == undefined ||
-                  i % 2 ===
-                  0
-                ) {
-                  if (it.seriesName.split("_")[1]) {
-                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[1]
-                    }</div>`;
-                  }
-                  if (it.seriesName.split("_")[0]) {
-                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[0]
-                    }</div>`;
-                  }
-                  c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value ? this.formatNum(it) : "-"
-                  }</div>`;
-                } else {
-                  if (it.seriesName.split("_")[1]) {
-                    a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[1]
-                    }</div>`;
-                  }
-                  if (it.seriesName.split("_")[0]) {
-                    b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
-                      it.seriesName.split("_")[0]
-                    }</div>`;
-                  }
-                  c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value ? this.formatNum(it) + "%" : "-"
+                if (it.seriesName.split("_")[1]) {
+                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                    it.seriesName.split("_")[1]
                   }</div>`;
                 }
+                if (it.seriesName.split("_")[0]) {
+                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
+                    it.seriesName.split("_")[0]
+                  }</div>`;
+                }
+                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                  it.value
+                    ? it.seriesType == "line"
+                      ? this.formatNum(it) + "%"
+                      : this.formatNum(it)
+                    : "-"
+                }</div>`;
+
                 dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
               }
               dom += `</tr>`;
