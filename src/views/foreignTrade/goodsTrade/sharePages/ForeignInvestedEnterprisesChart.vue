@@ -105,12 +105,6 @@ export default {
             color: "#61a0a8",
             data: [],
             yearOnYear: []
-          },
-          {
-            name: "当月进出口_Monthly trade|当月进出口同比_Y-o-y monthly trade",
-            color: "#91c7ae",
-            data: [],
-            yearOnYear: []
           }
         ],
         updatedDate: ""
@@ -502,21 +496,17 @@ export default {
       if (this.activeKey == "yearly") {
         this.USD.series[0].name = "当月进口_Monthly import|";
         this.USD.series[1].name = "当月出口_Monthly export|";
-        this.USD.series[2].name = "当月进出口_Trade volume|";
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
           this.USD.series[0].name = "当月进口_Monthly import|";
           this.USD.series[1].name = "当月出口_Monthly export|";
-          this.USD.series[2].name = "当月进出口_Trade volume|";
         }
         if (this.selectOption.value.id == 2) {
           this.USD.series[0].name =
             "累计进口_Cumulative monthly import|累计进口同比_Y-o-y cumulative monthly import";
           this.USD.series[1].name =
             "累计出口_Cumulative monthly export|累计出口同比_Y-o-y cumulative monthly export";
-          this.USD.series[2].name =
-            "累计进出口_Cumulative monthly trade|累计进出口同比_Y-o-y cumulative monthly trade";
         }
       }
     }

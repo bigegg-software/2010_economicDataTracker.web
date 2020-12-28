@@ -526,10 +526,8 @@ export default {
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
-          this.USD.series[0].name =
-            "当月进口_Monthly import|当月进口同比_Y-o-y monthly import";
-          this.USD.series[1].name =
-            "当月出口_Monthly export|当月出口同比_Y-o-y monthly export";
+          this.USD.series[0].name = "当月进口_Monthly import|";
+          this.USD.series[1].name = "当月出口_Monthly export|";
         }
         if (this.selectOption.value.id == 2) {
           this.USD.series[0].name =

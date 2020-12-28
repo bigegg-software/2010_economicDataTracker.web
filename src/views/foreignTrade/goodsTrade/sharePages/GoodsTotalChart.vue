@@ -139,7 +139,7 @@ export default {
       RMB: {
         id: "RMB",
         dataSources: this.describeData,
-        yName: { ch: "亿元人民币", en: "RMB 100 mln" },
+        yName: { ch: "亿元人民币", en: "100 mln RMB" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国货物进出口总值",
