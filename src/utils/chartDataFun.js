@@ -429,22 +429,22 @@ export default {
       for (let i in tableTitle) {
         if ('formatNum' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i] ? (this.formatNum(item[i])) + '_' : '',
+            text: item[i]||item[i]=='0' ? (this.formatNum(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else if ('formatPer' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i] ? (this.formatPer(item[i])) + '_' : '',
+            text: item[i]||item[i]=='0' ? (this.formatPer(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else if ('formatInt' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i] ? (this.formatInt(item[i])) + '_' : '',
+            text: item[i]||item[i]=='0' ? (this.formatInt(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else {
           itemObj[i] = {
-            text: item[i] ? item[i] + '_' : '',
+            text: item[i]||item[i]=='0' ? item[i] + '_' : '',
             width: tableTitle[i].width
           }
         }
