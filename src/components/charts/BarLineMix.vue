@@ -234,7 +234,7 @@ export default {
                       this.options.series[i].yAxisIndex == 1 &&
                       !!it.value
                     ? this.options.series[i].rightInt
-                      ? this.formatNum(it)
+                      ? this.formatNum(it)||this.formatNum(it)=='0'
                       : this.formatNum(it) + "%"
                     : "-"
                 }</div>`;
