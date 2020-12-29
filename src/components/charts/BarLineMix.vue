@@ -8,7 +8,10 @@ export default {
   data() {
     return {
       chart: "",
-      selected: {}
+      selected: {},
+      chartDataSourcesEn: "",
+      chartDataSourcesCh: ""
+      // watermark:true,
     };
   },
   props: {
@@ -17,6 +20,57 @@ export default {
   },
   onLoad() {},
   mounted() {
+    this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.options.dataSources.enThird
+        ? this.options.dataSources.en +
+          this.options.dataSources.enSecond +
+          this.options.dataSources.enThird
+        : this.options.dataSources.enSecond
+        ? this.options.dataSources.en + this.options.dataSources.enSecond
+        : this.options.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
+    this.chartDataSourcesCh = (this.options.dataSources.chThird
+      ? this.options.dataSources.ch +
+        this.options.dataSources.chSecond +
+        this.options.dataSources.chThird
+      : this.options.dataSources.chSecond
+      ? this.options.dataSources.ch + this.options.dataSources.chSecond
+      : this.options.dataSources.ch
+    ).replace(/_/g, "");
+
     if (JSON.stringify(this.options) != "{}") {
       this.drawChart();
       this.$EventBus.$on("resize", () => {
@@ -132,7 +186,7 @@ export default {
               ? this.options.series[j].type
               : "bar",
             smooth: true,
-            barGap:"10%",
+            barGap: "10%",
             yAxisIndex: this.options.series[j].yAxisIndex
               ? this.options.series[j].yAxisIndex
               : 0,
@@ -195,8 +249,6 @@ export default {
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
             let dom = "";
-            let rowCount = 6; //一列允许的最大行数
-            let lineCount = parseInt(params.length / rowCount) + 1; //列数
             let a = "";
             let b = "";
             let c = "";
@@ -207,41 +259,30 @@ export default {
               //判断功能区是否有筛选
               dom += `<div style="color:#1D3F6C;font-weight: bold;"><p style="font-size:0.104167rem;font-family: Calibri;">${this.selectOption.value.en}</p><p style="font-size:0.083333rem;margin-top:-0.1rem;font-family: SimHei;">${this.selectOption.value.ch}</p></div>`;
             }
-            for (let i = 0; i < rowCount; i++) {
+            for (let i = 0; i < params.length; i++) {
               dom += `<tr>`;
-              for (
-                let j = 0;
-                j < lineCount && j * rowCount + i < params.length;
-                j++
-              ) {
-                let it = params[j * rowCount + i];
-                if (it.seriesName.split("_")[1]) {
-                  a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
-                    it.seriesName.split("_")[1]
-                  }</div>`;
-                }
-                if (it.seriesName.split("_")[0]) {
-                  b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
-                    it.seriesName.split("_")[0]
-                  }</div>`;
-                }
-                c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  !this.options.series[i].yAxisIndex &&
-                  this.options.series[i].yAxisIndex == 0 &&
-                  !!it.value
-                    ? this.formatNum(it)
-                    : this.options.series[i].yAxisIndex &&
-                      this.options.series[i].yAxisIndex == 1 &&
-                      !!it.value
-                    ? this.options.series[i].rightInt
-                      ? this.formatNum(it)
-                      : this.formatNum(it) + "%"
-                    : "-"
+              let it = params[i];
+              if (it.seriesName.split("_")[1]) {
+                a = `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
+                  it.seriesName.split("_")[1]
                 }</div>`;
-                dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
               }
-              dom += `</tr>`;
+              if (it.seriesName.split("_")[0]) {
+                b = `<div style="height:0.09375rem;line-height:0.09375rem;padding-top:0.02rem;color:#666;font-size:0.072917rem">${
+                  it.seriesName.split("_")[0]
+                }</div>`;
+              }
+              c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
+                it.value
+                  ? it.seriesType == "bar"
+                    ? this.formatNum(it)
+                    : this.formatNum(it) + (this.options.rightInt ? "" : "%")
+                  : "-"
+              }</div>`;
+              dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
             }
+            dom += `</tr>`;
+
             dom += "</table>";
             dom += `</div>`;
             return dom;
@@ -267,11 +308,11 @@ export default {
         // 	年度完成率和季度完成率颜色
         // color: ["#071960", "#1740B4", "#1962CA", ],
         grid: {
-          left: "5%",
-          right: "4%",
+          left: "1.6%",
+          right: "3%",
           top: "30%",
           bottom: this.watermark
-            ? this.options.grid
+            ? this.options.grid && this.options.grid.bottom
               ? this.options.grid.bottom
               : "11%"
             : "8%",
@@ -320,7 +361,13 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, -2, 0, -that.$refs.barLineMix.offsetWidth * 0.07],
+              padding: [
+                0,
+                -2,
+                0,
+                -that.$refs.barLineMix.offsetWidth *
+                  (Max1.toString().length * 0.0109)
+              ], //根据最高刻度的长度给单位位置
               color: "#666",
               rich: {
                 div: {
@@ -371,12 +418,14 @@ export default {
               align: "left",
               padding: [
                 0,
-                -2,
                 0,
-                this.options.yLabel && !this.options.yLabel[0]
-                  ? -that.$refs.barLineMix.offsetWidth * 0.05
-                  : that.$refs.barLineMix.offsetWidth * 0.001
+                0,
+                that.$refs.barLineMix.offsetWidth *
+                  (this.options.rightInt ? -0.02 : 0.01)
               ],
+              // this.options.yLabel && !this.options.yLabel[0]
+              //   ? -that.$refs.barLineMix.offsetWidth * 0.05
+              //   : that.$refs.barLineMix.offsetWidth * 0.001
               color: "#666",
               rich: {
                 div: {
@@ -484,44 +533,44 @@ export default {
                 }
               }
             ]
+          },
+          {
+            type: "group",
+            right: this.$fz(0.15),
+            bottom: this.options.bottomDistance
+              ? this.options.bottomDistance
+              : "0",
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                style: {
+                  fill: "#666",
+                  text: this.watermark ? this.chartDataSourcesEn : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.options.grid
+                  ? this.options.grid.enGapch
+                  : this.$fz(0.2),
+                style: {
+                  fill: "#666",
+                  text: this.watermark
+                    ? "数据来源:" +
+                      (this.chartDataSourcesCh.slice(0, 54) +
+                        "\n" +
+                        this.chartDataSourcesCh.slice(54, 100))
+                    : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
           }
-          // {
-          //   type: "group",
-          //   right: this.$fz(0.15),
-          //   bottom: this.options.bottomDistance
-          //     ? this.options.bottomDistance
-          //     : "0",
-          //   children: [
-          //     {
-          //       type: "text",
-          //       z: 100,
-          //       left: "right",
-          //       style: {
-          //         fill: "#666",
-          //         text: this.watermark ? this.chartDataSourcesEn : "",
-          //         font: `${this.$fz(0.18)}px Calibri`
-          //       }
-          //     },
-          //     {
-          //       type: "text",
-          //       z: 100,
-          //       left: "right",
-          //       top: this.options.grid
-          //         ? this.options.grid.enGapch
-          //         : this.$fz(0.2),
-          //       style: {
-          //         fill: "#666",
-          //         text: this.watermark
-          //           ? "数据来源:" +
-          //             (this.chartDataSourcesCh.slice(0, 54) +
-          //               "\n" +
-          //               this.chartDataSourcesCh.slice(54, 100))
-          //           : "",
-          //         font: `${this.$fz(0.14)}px 黑体`
-          //       }
-          //     }
-          //   ]
-          // }
         ],
         series: series
       };

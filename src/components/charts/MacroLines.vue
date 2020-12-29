@@ -23,15 +23,15 @@ export default {
   async mounted() {
     this.chartDataSourcesEn =
       "Data Sources:" 
-      // +
-      // (this.options.dataSources.enThird
-      //   ? this.options.dataSources.en +
-      //     this.options.dataSources.enSecond +
-      //     this.options.dataSources.enThird
-      //   : this.options.dataSources.enSecond
-      //   ? this.options.dataSources.en + this.options.dataSources.enSecond
-      //   : this.options.dataSources.en
-      // ).replace(/_/g, "");
+      +
+      (this.options.dataSources.enThird
+        ? this.options.dataSources.en +
+          this.options.dataSources.enSecond +
+          this.options.dataSources.enThird
+        : this.options.dataSources.enSecond
+        ? this.options.dataSources.en + this.options.dataSources.enSecond
+        : this.options.dataSources.en
+      ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
     let curlen = 0;
@@ -66,15 +66,15 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    // this.chartDataSourcesCh = (this.options.dataSources.chThird
-    //   ? this.options.dataSources.ch +
-    //     this.options.dataSources.chSecond +
-    //     this.options.dataSources.chThird
-    //   : this.options.dataSources.chSecond
-    //   ? this.options.dataSources.ch + this.options.dataSources.chSecond
-    //   : this.options.dataSources.ch
-    // ).replace(/_/g, "");
-    // console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
+    this.chartDataSourcesCh = (this.options.dataSources.chThird
+      ? this.options.dataSources.ch +
+        this.options.dataSources.chSecond +
+        this.options.dataSources.chThird
+      : this.options.dataSources.chSecond
+      ? this.options.dataSources.ch + this.options.dataSources.chSecond
+      : this.options.dataSources.ch
+    ).replace(/_/g, "");
+  
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -248,7 +248,7 @@ export default {
         },
         grid: {
           top: "23%",
-          left: "3%",
+          left: "2%",
           right: "4%",
           bottom: this.watermark
             ? this.options.grid
@@ -288,7 +288,7 @@ export default {
             ].join("\n"),
           nameTextStyle: {
             align: "left",
-            padding: [0, -2, 0, -that.$refs.lineChart.offsetWidth * 0.05],
+            padding: [0, -2, 0, -that.$refs.lineChart.offsetWidth *(Max1.toString().length*0.0236)],
             color: "#666",
             rich: {
               div: {

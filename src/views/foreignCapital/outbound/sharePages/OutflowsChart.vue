@@ -380,7 +380,7 @@ export default {
             formatNum: true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_Xxxxxxxx",
+            text: "中国对外直接投资流量同比_Y-o-y China's FDI outflows",
             width: "35%",
             formatPer: true
           },

@@ -21,57 +21,57 @@ export default {
     selectOption: {} //展示功能区选择的选项（外贸）
   },
   async mounted() {
-    // this.chartDataSourcesEn =
-    //   "Data Sources:" +
-    //   (this.options.dataSources.enThird
-    //     ? this.options.dataSources.en +
-    //       this.options.dataSources.enSecond +
-    //       this.options.dataSources.enThird
-    //     : this.options.dataSources.enSecond
-    //     ? this.options.dataSources.en + this.options.dataSources.enSecond
-    //     : this.options.dataSources.en
-    //   ).replace(/_/g, "");
-    // let str = this.chartDataSourcesEn;
-    // let result = "";
-    // let curlen = 0;
-    // let arrValues = str.split(" ");
-    // let arrRes = [];
-    // for (let index = 0; index < arrValues.length; index++) {
-    //   const element = arrValues[index];
-    //   if (element.indexOf(",") >= 0) {
-    //     let arrDot = element.split(",");
-    //     arrDot.map(item => {
-    //       if (item.length > 0) {
-    //         arrRes.push(item);
-    //         arrRes.push(",");
-    //       }
-    //     });
-    //   } else {
-    //     arrRes.push(element);
-    //   }
-    //   arrRes.push(" ");
-    // }
-    // for (let i = 0; i < arrRes.length; i++) {
-    //   const element = arrRes[i];
-    //   if (curlen + element.length > 96) {
-    //     curlen = 0;
-    //     result += "\n";
-    //     i--;
-    //   } else {
-    //     curlen += element.length;
-    //     result += arrRes[i];
-    //   }
-    // }
-    // this.chartDataSourcesEn = result;
+    this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.options.dataSources.enThird
+        ? this.options.dataSources.en +
+          this.options.dataSources.enSecond +
+          this.options.dataSources.enThird
+        : this.options.dataSources.enSecond
+        ? this.options.dataSources.en + this.options.dataSources.enSecond
+        : this.options.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
 
-    // this.chartDataSourcesCh = (this.options.dataSources.chThird
-    //   ? this.options.dataSources.ch +
-    //     this.options.dataSources.chSecond +
-    //     this.options.dataSources.chThird
-    //   : this.options.dataSources.chSecond
-    //   ? this.options.dataSources.ch + this.options.dataSources.chSecond
-    //   : this.options.dataSources.ch
-    // ).replace(/_/g, "");
+    this.chartDataSourcesCh = (this.options.dataSources.chThird
+      ? this.options.dataSources.ch +
+        this.options.dataSources.chSecond +
+        this.options.dataSources.chThird
+      : this.options.dataSources.chSecond
+      ? this.options.dataSources.ch + this.options.dataSources.chSecond
+      : this.options.dataSources.ch
+    ).replace(/_/g, "");
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
