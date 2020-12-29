@@ -273,10 +273,13 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                it.value
+                !!it.value || it.value=='0'
                   ? it.seriesType == "bar"
                     ? this.formatNum(it)
-                    : this.formatNum(it) + (this.options.rightInt ? "" : "%")
+                    : this.formatNum(it) +
+                      (this.options.rightInt
+                        ? ""
+                        : "%")
                   : "-"
               }</div>`;
               dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;

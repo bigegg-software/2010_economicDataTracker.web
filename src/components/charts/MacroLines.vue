@@ -210,7 +210,7 @@ export default {
                 }</div>`;
               }
               dom += `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value ? params[i].value + "%" : "-"
+                !!params[i].value || params[i].value=='0' ? params[i].value + "%" : "-"
               }</div>`;
             }
             dom += `</div>`;

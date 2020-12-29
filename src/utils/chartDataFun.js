@@ -165,7 +165,8 @@ export default {
     for (let i = 0; i < range.length; i++) {
       if (sourceData.nameArr.indexOf(range[i]) > -1) {
         let index = sourceData.nameArr.indexOf(range[i]);
-        newDate.push(sourceData.numArr[index] ? sourceData.numArr[index] : '');
+        // || sourceData.numArr[index]=='0'  新加当数据库数据是0时展示0
+        newDate.push(sourceData.numArr[index] || sourceData.numArr[index]=='0' ? sourceData.numArr[index] : '');
       } else {
         newDate.push('');
       }
