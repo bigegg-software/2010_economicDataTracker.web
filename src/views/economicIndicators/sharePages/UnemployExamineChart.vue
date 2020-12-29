@@ -115,13 +115,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }
