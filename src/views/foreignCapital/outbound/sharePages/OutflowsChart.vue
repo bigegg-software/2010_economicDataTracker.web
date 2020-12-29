@@ -150,13 +150,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }
@@ -168,13 +168,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }
@@ -186,13 +186,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }
@@ -380,7 +380,7 @@ export default {
             formatNum: true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_Xxxxxxxx",
+            text: "中国对外直接投资流量同比_Y-o-y China's FDI outflows",
             width: "35%",
             formatPer: true
           },

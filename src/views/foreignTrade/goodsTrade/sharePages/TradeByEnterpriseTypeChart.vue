@@ -120,13 +120,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "2016_2020",
               value: "2018"
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "2016_2020",
               value: "2018"
             }
@@ -138,13 +138,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }

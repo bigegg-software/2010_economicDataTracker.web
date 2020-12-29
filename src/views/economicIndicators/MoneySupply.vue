@@ -6,8 +6,8 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
     <share-body
+    :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>
@@ -42,7 +42,7 @@ export default {
         {
           name: "moneySupplyChart",
           chinese: "货币供应量 (M2)",
-          english: "XXXxxx"
+          english: "Money supply"
         }
       ],
 

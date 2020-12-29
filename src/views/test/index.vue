@@ -154,13 +154,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "1990_2020",
               value: "1990"
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "1990_2020",
               value: "2020"
             }
@@ -172,13 +172,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "2000_2020",
               value: "2000-03"
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "2000_2020",
               value: "2020-12"
             }
@@ -190,13 +190,13 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "2010_2020",
               value: "2010-03"
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "2010_2020",
               value: "2020-12"
             }

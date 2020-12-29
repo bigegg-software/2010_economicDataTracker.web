@@ -12,7 +12,13 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" :activeKeyCur="'monthly'" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          :activeKeyCur="'monthly'"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -95,27 +101,32 @@ export default {
             color: "#6AA3CD",
             data: [],
             markLine: {
-                symbol: "none",
-                silent: true,
-                lineStyle: {
-                    normal: {
-                        type: "solid"
-                    }
-                },
-                label: {
+              symbol: "none",
+              silent: true,
+              lineStyle: {
+                normal: {
+                  type: "solid"
+                }
+              },
+              label: {
+                position: "start"
+              },
+              data: [
+                {
+                  yAxis: 50,
+                  lineStyle: {
+                    width: 1,
+                    color: "#555"
+                  },
+                  label: {
+                    formatter: "{c} %",
+                    fontSize:"13.2",
+                    padding:[0,2,0,0],
+                    show: true,
                     position: "start"
-                },
-                data: [{
-                    yAxis: 50,
-                    lineStyle: {
-                        width: 1,
-                        color: "#555"
-                    },
-                    label: {
-                        show: false,
-                        position: 'right',
-                    }
-                }]
+                  }
+                }
+              ]
             }
           },
           {
@@ -133,7 +144,7 @@ export default {
         ],
         updatedDate: ""
       },
-      
+
       options: {
         monthly: {
           ch: "月度",
@@ -141,19 +152,19 @@ export default {
           list: {
             start: {
               ch: "开始",
-              en: "Start",
+              en: "From",
               frame: "",
               value: ""
             },
             end: {
               ch: "结束",
-              en: "End",
+              en: "To",
               frame: "",
               value: ""
             }
           }
         }
-      },
+      }
     };
   },
   computed: {
@@ -179,7 +190,7 @@ export default {
     let arrmaxmin = res.split("_");
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    console.log(QMDefaultTime)
+    console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     // await this.getChartsData({
@@ -200,19 +211,19 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-        let startTimeArr = start.value.split("-");
-        let endTimeArr = end.value.split("-");
-        let quarterStart = parseInt(startTimeArr[0]);
-        let quarterStartMonth = parseInt(startTimeArr[1]);
-        let quarterEnd = parseInt(endTimeArr[0]);
-        let quarterEndMonth = parseInt(endTimeArr[1]);
-        await this.getChartsData({
-          type,
-          start: quarterStart,
-          end: quarterEnd,
-          startMonth: quarterStartMonth,
-          endMonth: quarterEndMonth
-        });
+      let startTimeArr = start.value.split("-");
+      let endTimeArr = end.value.split("-");
+      let quarterStart = parseInt(startTimeArr[0]);
+      let quarterStartMonth = parseInt(startTimeArr[1]);
+      let quarterEnd = parseInt(endTimeArr[0]);
+      let quarterEndMonth = parseInt(endTimeArr[1]);
+      await this.getChartsData({
+        type,
+        start: quarterStart,
+        end: quarterEnd,
+        startMonth: quarterStartMonth,
+        endMonth: quarterEndMonth
+      });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -258,7 +269,11 @@ export default {
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = ["manufacturingPMI", "nonManufacturingPMI","comprehensivePMI"];
+      let dataAttr = [
+        "manufacturingPMI",
+        "nonManufacturingPMI",
+        "comprehensivePMI"
+      ];
       let XNameAttr = "M";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
@@ -270,7 +285,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      console.log(activeKey)
+      console.log(activeKey);
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];

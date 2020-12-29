@@ -982,37 +982,62 @@ export default {
     // ----------------货物贸易---------------------
     // 中国货物进出口总值
     goodsTotalChart: {
-        concept: {
-            enTitle: "",
-            enText: "",
-            enTitleSecond: "",
-            enTextSecond: "",
-            enSource: "",
-            enLink: "",
-            chTitle: "",
-            chText: "",
-            chTitleSecond: "",
-            chTextSecond: "",
-            chSource: "-",
-            chLink: ""
-        },
-        dataSources: {
-            en: "",
-            enSecond: "",
-            enThird: "",
-            ch: "",
-            chSecond: "",
-            chThird: ""
-        },
-        sourceLink: "",
-        sourceLinkSecond: "",
-        sourceLinkThird: "",
-        noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
-        }
+        // concept: {
+        //     enTitle: "",
+        //     enText: "",
+        //     enTitleSecond: "",
+        //     enTextSecond: "",
+        //     enSource: "",
+        //     enLink: "",
+        //     chTitle: "",
+        //     chText: "",
+        //     chTitleSecond: "",
+        //     chTextSecond: "",
+        //     chSource: "-",
+        //     chLink: ""
+        // },
+        // dataSources: {
+        //     en: "",
+        //     enSecond: "",
+        //     enThird: "",
+        //     ch: "",
+        //     chSecond: "",
+        //     chThird: ""
+        // },
+        // sourceLink: "",
+        // sourceLinkSecond: "",
+        // sourceLinkThird: "",
+        // noteContent: {
+        //     en: "-",
+        //     enSecond: "",
+        //     ch: "",
+        //     chSecond: ""
+        // }
+        // concept: {
+        //     enTitle: "International labor",
+        //     enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
+        //     enTitleSecond: "",
+        //     enTextSecond: "",
+        //     enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+        //     enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
+        //     chTitle: "对外劳务合作",
+        //     chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
+        //     chTitleSecond: "",
+        //     chTextSecond: "",
+        //     chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
+        //     chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
+        // },
+        // dataSources: {
+        //     en: "_International labor statistics, 2012 to present_, Ministry of Commerce ",
+        //     ch: "商务部_2012至今年对外劳务合作统计_"
+        // },
+        // sourceLink: "http://data.mofcom.gov.cn/tzhz/forlaborcoop.shtml",
+        // noteContent: {
+        //     en: "-",
+        //     enSecond: "",
+        //     ch: "",
+        //     chSecond: ""
+        // }
     },
     // 中国货物进出口贸易差额
     goodsTradeBalanceChart: {},
@@ -1035,30 +1060,24 @@ export default {
     // 国内生产总值GDP
     grossDomesticProductChart: {
         concept: {
-            enTitle: "",
-            enText: "",
+            enTitle: "International labor",
+            enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "",
-            enLink: "",
-            chTitle: "",
-            chText: "",
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
+            chTitle: "对外劳务合作",
+            chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "-",
-            chLink: ""
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "",
-            enSecond: "",
-            enThird: "",
-            ch: "",
-            chSecond: "",
-            chThird: ""
+            en: "_International labor statistics, 2012 to present_, Ministry of Commerce ",
+            ch: "商务部_2012至今年对外劳务合作统计_"
         },
-        sourceLink: "",
-        sourceLinkSecond: "",
-        sourceLinkThird: "",
+        sourceLink: "http://data.mofcom.gov.cn/tzhz/forlaborcoop.shtml",
         noteContent: {
             en: "-",
             enSecond: "",
@@ -1067,7 +1086,66 @@ export default {
         }
     },
     // 消费者价格指数CPI
-    consumerPriceIndexChart: {},
+    consumerPriceIndexChart: {
+        concept: {
+            enTitle: "International labor",
+            enText: "International labor refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries.",
+            enTitleSecond: "",
+            enTextSecond: "",
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
+            chTitle: "对外劳务合作",
+            chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
+            chTitleSecond: "",
+            chTextSecond: "",
+            chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
+        },
+        dataSources: {
+            en: "_International labor statistics, 2012 to present_, Ministry of Commerce ",
+            ch: "商务部_2012至今年对外劳务合作统计_"
+        },
+        sourceLink: "http://data.mofcom.gov.cn/tzhz/forlaborcoop.shtml",
+        noteContent: {
+                 en: "",
+            enSecond: "",
+            enThird: "",
+            ch: "",
+            chSecond: "",
+            chThird: ""
+        }
+        // concept: {
+        //     enTitle: "",
+        //     enText: "",
+        //     enTitleSecond: "",
+        //     enTextSecond: "",
+        //     enSource: "",
+        //     enLink: "",
+        //     chTitle: "",
+        //     chText: "",
+        //     chTitleSecond: "",
+        //     chTextSecond: "",
+        //     chSource: "-",
+        //     chLink: ""
+        // },
+        // dataSources: {
+        //     en: "",
+        //     enSecond: "",
+        //     enThird: "",
+        //     ch: "",
+        //     chSecond: "",
+        //     chThird: ""
+        // },
+        // sourceLink: "",
+        // sourceLinkSecond: "",
+        // sourceLinkThird: "",
+        // noteContent: {
+        //     en: "-",
+        //     enSecond: "",
+        //     ch: "",
+        //     chSecond: ""
+        // }
+    },
     // 采购经理人指数
     purchasingManagersIndexChart: {},
     // 登记失业率
@@ -1090,36 +1168,36 @@ export default {
     moneySupplyChart: {},
     // 国家外汇储备
     foreignCurrencyReservesChart: {
-        concept: {
-            enTitle: "",
-            enText: "",
-            enTitleSecond: "",
-            enTextSecond: "",
-            enSource: "",
-            enLink: "",
-            chTitle: "",
-            chText: "",
-            chTitleSecond: "",
-            chTextSecond: "",
-            chSource: "-",
-            chLink: ""
-        },
-        dataSources: {
-            en: "",
-            enSecond: "",
-            enThird: "",
-            ch: "",
-            chSecond: "",
-            chThird: ""
-        },
-        sourceLink: "",
-        sourceLinkSecond: "",
-        sourceLinkThird: "",
-        noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
-        }
+        // concept: {
+        //     enTitle: "",
+        //     enText: "",
+        //     enTitleSecond: "",
+        //     enTextSecond: "",
+        //     enSource: "",
+        //     enLink: "",
+        //     chTitle: "",
+        //     chText: "",
+        //     chTitleSecond: "",
+        //     chTextSecond: "",
+        //     chSource: "-",
+        //     chLink: ""
+        // },
+        // dataSources: {
+        //     en: "",
+        //     enSecond: "",
+        //     enThird: "",
+        //     ch: "",
+        //     chSecond: "",
+        //     chThird: ""
+        // },
+        // sourceLink: "",
+        // sourceLinkSecond: "",
+        // sourceLinkThird: "",
+        // noteContent: {
+        //     en: "-",
+        //     enSecond: "",
+        //     ch: "",
+        //     chSecond: ""
+        // }
     },
 }
