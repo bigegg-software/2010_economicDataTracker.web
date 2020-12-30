@@ -41,7 +41,7 @@ export default {
       tabList: [
         {
           name: "grossDomesticProductChart",
-          chinese: "国内生产总值GDP",
+          chinese: "国内生产总值",
           english: "Gross Domestic Product"
         },
       ],

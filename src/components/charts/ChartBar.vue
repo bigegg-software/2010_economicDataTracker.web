@@ -546,7 +546,7 @@ export default {
                   }
                 }
                 c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-                  !!it.value
+                  !!it.value||it.value=="0"
                     ? (this.chartBarData.dataInt ||
                       (this.chartBarData.yearInt &&
                         it.seriesName.includes("企业数"))

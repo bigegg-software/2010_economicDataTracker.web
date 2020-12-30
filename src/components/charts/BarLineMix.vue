@@ -424,7 +424,7 @@ export default {
                 0,
                 0,
                 that.$refs.barLineMix.offsetWidth *
-                  (this.options.rightInt ? -0.02 : 0.01)
+                  (this.options.rightInt ? -0.027 : 0.01)
               ],
               // this.options.yLabel && !this.options.yLabel[0]
               //   ? -that.$refs.barLineMix.offsetWidth * 0.05

@@ -90,7 +90,6 @@ export default {
           en: "China’s total trade volume of services"
         },
         xData: [],
-        hideLegend: true,
         series: [
           {
             name: "进口_Import|进口同比_Y-o-y import",

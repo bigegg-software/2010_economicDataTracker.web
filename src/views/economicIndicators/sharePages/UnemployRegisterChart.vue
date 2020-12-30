@@ -65,7 +65,7 @@ export default {
         dataSources: this.describeData,
         yPosition:['left','right'],
         yLabel:[true,true],
-        yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName: { ch: "万人", en: "10,000 persons" },
         yName2: { ch: "失业率", en: "100%" },
         title: {
           ch: "城镇登记失业率",
@@ -78,6 +78,7 @@ export default {
         },
         // hideLegend: true,
         series: [],
+        rightInt:false,
         updatedDate: ""
       },
       options: {
@@ -238,9 +239,10 @@ export default {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       console.log(data);
       if (XNameAttr == "year") {
-        this.USD.yName= { ch: "亿元人民币", en: "100 mln RMB" },
+        this.USD.yName= { ch: "万人", en: "10,000 persons"},
         this.USD.yPosition=['left','right'],
         this.USD.yLabel=[true,true],
+        this.USD.rightInt=false,
         this.USD.series = [
           {
             type: "bar",
@@ -262,6 +264,7 @@ export default {
         this.USD.yName= { ch: "", en: "" },
         this.USD.yPosition=['right','left'],
         this.USD.yLabel=[false,true],
+        this.USD.rightInt=true,
         this.USD.series = [
           {
             type: "line",

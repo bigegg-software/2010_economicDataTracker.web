@@ -133,8 +133,8 @@ export default {
       },
       searchValue: "",
       checkBox: {
-        ch: "国家",
-        en: "country",
+        ch: "国家/地区",
+        en: "Country/region",
         value: {
           ch: "中国香港",
           en: "Hong Kong, China"

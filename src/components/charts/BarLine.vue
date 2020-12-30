@@ -215,7 +215,7 @@ export default {
                   }</div>`;
                 }
                 c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  it.value
+                  it.value||it.value=="0"
                     ? it.seriesType == "line"
                       ? this.formatNum(it) + "%"
                       : this.formatNum(it)
@@ -264,7 +264,7 @@ export default {
             },
             axisLabel: {
               //坐标轴刻度标签的相关设置。
-              interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
+              // interval: 0, //设置为 1，表示『隔一个标签显示一个标签』
               margin: 10
             },
             axisLine: {

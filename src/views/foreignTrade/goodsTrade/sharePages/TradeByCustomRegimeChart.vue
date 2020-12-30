@@ -164,7 +164,7 @@ export default {
         en: "Custom regime",
         value: {
           ch: "一般贸易",
-          en: "Ordinary Trade"
+          en: "Ordinary trade"
         },
         op: chartDataFun.customRegime()
       },

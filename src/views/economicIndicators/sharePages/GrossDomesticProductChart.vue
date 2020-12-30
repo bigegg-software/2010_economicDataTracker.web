@@ -65,9 +65,9 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "增值%", en: "xxxx" },
+        yName2: { ch: "同比", en: "Y-o-y" },
         title: {
-          ch: "国内生产总值 GDP",
+          ch: "国内生产总值",
           en: "Gross Domestic Product"
         },
         xData: [],
@@ -243,7 +243,7 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "国内生产总值_GDP",
-                  color: "#61a0a8",
+                  color: "#71a6c2",
                   data: data.GDP
                 },
                 {
@@ -261,7 +261,7 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "当季国内生产总值_Quarterly GDP",
-                  color: "#61a0a8",
+                  color: "#71a6c2",
                   data: data.GDP
                 },
                 {
@@ -276,14 +276,14 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "季度累计国内生产总值_Cumulative quarterly GDP",
-                  color: "#61a011",
+                  color: "#c23531",
                   data: data.cumulativeGDP 
                 },
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
-                  color: "#69b9a0",
+                  color: "#d95959",
                   data: data.cumulativeYoyGrowth ,
                   percent:true
                 },
@@ -291,7 +291,7 @@ export default {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "季度环比增速_Q-o-q GDP",
-                  color: "#c23531",
+                  color: "#69b9a0",
                   data: data.qoqGDP ,
                   percent:true
                 }

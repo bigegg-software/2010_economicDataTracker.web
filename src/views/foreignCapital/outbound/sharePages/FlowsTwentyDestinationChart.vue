@@ -128,7 +128,7 @@ export default {
       deep: true
     },
     option: {
-      handler() {
+      handler() {    
         this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资流量前20位国家/地区`;
         this.chartBar.title.subtext = this.tableTotalData.title.en = `Top 20 destinations of China's FDI outflows in ${this.option.value}`;
       },

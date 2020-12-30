@@ -12,7 +12,13 @@
     <div class="select-block">
       <div class="frame">
         <!-- 时间选择为  月度选择 -->
-        <time-frame v-if="showTimeFrame" :options="options" :activeKeyCur="'monthly'" @change="change" @update="update"></time-frame>
+        <time-frame
+          v-if="showTimeFrame"
+          :options="options"
+          :activeKeyCur="'monthly'"
+          @change="change"
+          @update="update"
+        ></time-frame>
       </div>
     </div>
   </div>
@@ -57,13 +63,14 @@ export default {
             text: "月份_Month",
             width: "15%"
           },
-          yoyGrowth : {
+          yoyGrowth: {
             text: "工业增加值月度同比_Y-o-y monthly industrial value-added",
             width: "35%",
             formatPer: true
           },
-          yoyCumulativeGrowth : {
-            text: "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
+          yoyCumulativeGrowth: {
+            text:
+              "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
             width: "35%",
             formatPer: true
           }
@@ -76,7 +83,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "百分比（%）", en: "%" },
+        yName: { ch: "%", en: "" },
         title: {
           ch: "工业增加值",
           en: "Growth of industrial value-added"
@@ -88,10 +95,29 @@ export default {
             name: "工业增加值月度同比_Y-o-y monthly industrial value-added",
             type: "line",
             color: "#6AA3CD",
-            data: []
+            data: [],
+            markLine: {
+              symbol: "none",
+              data: [
+                {
+                  yAxis: 0,
+                  lineStyle: {
+                    color: "rgba(0,0,0,0)"
+                  },
+                  label: {
+                    color: "#666",
+                    formatter: "{c} %",
+                    // fontSize:"13.2",
+                    show: true,
+                    position: "end"
+                  }
+                }
+              ]
+            }
           },
           {
-            name: "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
+            name:
+              "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
             type: "line",
             color: "#c23531",
             data: []
@@ -99,7 +125,7 @@ export default {
         ],
         updatedDate: ""
       },
-      
+
       options: {
         monthly: {
           ch: "月度",
@@ -119,7 +145,7 @@ export default {
             }
           }
         }
-      },
+      }
     };
   },
   computed: {
@@ -145,7 +171,7 @@ export default {
     let arrmaxmin = res.split("_");
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    console.log(QMDefaultTime)
+    console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     // await this.getChartsData({
@@ -166,19 +192,19 @@ export default {
     async mainGetChartsData(type) {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
-        let startTimeArr = start.value.split("-");
-        let endTimeArr = end.value.split("-");
-        let quarterStart = parseInt(startTimeArr[0]);
-        let quarterStartMonth = parseInt(startTimeArr[1]);
-        let quarterEnd = parseInt(endTimeArr[0]);
-        let quarterEndMonth = parseInt(endTimeArr[1]);
-        await this.getChartsData({
-          type,
-          start: quarterStart,
-          end: quarterEnd,
-          startMonth: quarterStartMonth,
-          endMonth: quarterEndMonth
-        });
+      let startTimeArr = start.value.split("-");
+      let endTimeArr = end.value.split("-");
+      let quarterStart = parseInt(startTimeArr[0]);
+      let quarterStartMonth = parseInt(startTimeArr[1]);
+      let quarterEnd = parseInt(endTimeArr[0]);
+      let quarterEndMonth = parseInt(endTimeArr[1]);
+      await this.getChartsData({
+        type,
+        start: quarterStart,
+        end: quarterEnd,
+        startMonth: quarterStartMonth,
+        endMonth: quarterEndMonth
+      });
     },
     async getMaxMinDate() {
       // 获取最大年最小年
@@ -235,7 +261,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      console.log(activeKey)
+      console.log(activeKey);
       // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];

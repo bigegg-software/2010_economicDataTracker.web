@@ -42,7 +42,7 @@ export default {
         {
           name: "moneySupplyChart",
           chinese: "货币供应量 (M2)",
-          english: "Money supply"
+          english: "Money supply (M2)"
         }
       ],
 

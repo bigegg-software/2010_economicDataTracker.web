@@ -62,7 +62,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        // yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName: { ch: "%", en: "" },
         title: {
           ch: "消费者价格指数CPI",
           en: "Consumer Price Index"
@@ -132,8 +132,8 @@ export default {
     }
   },
   async mounted() {
-    let Yearres = await this.getMaxMinDate('CPI');
-    let res = await this.getMaxMinDate('MonthlyCPI');
+    let Yearres = await this.getMaxMinDate("CPI");
+    let res = await this.getMaxMinDate("MonthlyCPI");
     let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
@@ -146,7 +146,7 @@ export default {
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
       end: Number(Yarrmaxmin[1]),
-      noMonth:true
+      noMonth: true
     });
 
     this.$EventBus.$on("downLoadImg", () => {
@@ -161,12 +161,11 @@ export default {
       //条件改变时获取数据
       let { start, end } = this.options[type].list;
       if (type == "yearly") {
-
         await this.getChartsData({
           type,
           start: Number(start.value),
           end: Number(end.value),
-          noMonth:true
+          noMonth: true
         });
       } else if (type == "quarterly" || type == "monthly") {
         let startTimeArr = start.value.split("-");
@@ -221,22 +220,58 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      if(XNameAttr=='year'){
-          this.USD.series=[
+      if (XNameAttr == "year") {
+        this.USD.series = [
           {
             name: "消费者价格指数年度同比_Y-o-y CPI",
             type: "line",
             color: "#6AA3CD",
-            data: data.yoyGrowth
+            data: data.yoyGrowth,
+            markLine: {
+              symbol: "none",
+              data: [
+                {
+                  yAxis: 0,
+                  lineStyle: {
+                    color: "rgba(0,0,0,0)"
+                  },
+                  label: {
+                    color: "#666",
+                    formatter: "{c} %",
+                    // fontSize:"13.2",
+                    show: true,
+                    position: "end"
+                  }
+                }
+              ]
+            }
           }
-        ]
-      }else{
-        this.USD.series=[
+        ];
+      } else {
+        this.USD.series = [
           {
             name: "月度消费者价格指数同比_Y-o-y monthly CPI",
             type: "line",
             color: "#6AA3CD",
-            data: data.yoyCPI
+            data: data.yoyCPI,
+             markLine: {
+              symbol: "none",
+              data: [
+                {
+                  yAxis: 0,
+                  lineStyle: {
+                    color: "rgba(0,0,0,0)"
+                  },
+                  label: {
+                    color:"#666",
+                    formatter: "{c} %",
+                    // fontSize:"13.2",
+                    show: true,
+                    position: "end"
+                  }
+                }
+              ]
+            }
           },
           {
             name: "月度消费者价格指数环比_M-o-m monthly CPI",
@@ -244,17 +279,21 @@ export default {
             color: "#c23531",
             data: data.momCPI
           }
-        ]
+        ];
       }
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
-      let { res } = await request.getConsumerPriceIndexChartsData(aug.type == "yearly" ? "CPI" : "MonthlyCPI",aug);
+      let { res } = await request.getConsumerPriceIndexChartsData(
+        aug.type == "yearly" ? "CPI" : "MonthlyCPI",
+        aug
+      );
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
       // 要换取纵轴数据的字段属性
-      let dataAttr = aug.type == "yearly"?["yoyGrowth"]:['yoyCPI','momCPI'];
+      let dataAttr =
+        aug.type == "yearly" ? ["yoyGrowth"] : ["yoyCPI", "momCPI"];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;

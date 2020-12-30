@@ -156,7 +156,7 @@ export default {
         en: "Enterprise type",
         value: {
           ch: "国有企业",
-          en: "Import by state-owned enterprises ",
+          en: "State-owned enterprises ",
           id: 1
         },
         op: chartDataFun.enterpriseType()

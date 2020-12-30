@@ -119,11 +119,10 @@ export default {
                     color: "#555"
                   },
                   label: {
-                    formatter: "{c} %",
-                    fontSize:"13.2",
+                    formatter: "{c}%",
                     padding:[0,2,0,0],
                     show: true,
-                    position: "start"
+                    position: "end"
                   }
                 }
               ]

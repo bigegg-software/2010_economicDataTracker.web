@@ -48,7 +48,7 @@ export default {
     TimeFrame,
     SelectRadio,
     BarLineMix,
-    TableChart,
+    TableChart
   },
   name: "NationalFinanceChart",
   data() {
@@ -69,7 +69,7 @@ export default {
       timer: null,
       showTimeFrame: false,
       monthScreen: false,
-      selectedActiveKey:'yearly',
+      selectedActiveKey: "yearly",
       USD: {
         id: "USD",
         dataSources: this.describeData,
@@ -87,9 +87,7 @@ export default {
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
         // hideLegend: true,
-        series: [
-          
-        ],
+        series: [],
         updatedDate: ""
       },
       selectOption: {
@@ -149,7 +147,7 @@ export default {
               value: ""
             }
           }
-       }
+        }
       }
     };
   },
@@ -172,21 +170,21 @@ export default {
     }
   },
   async created() {
-    let Yearres = await this.getMaxMinDate('NationalRevenueExpenditure');
-    let res = await this.getMaxMinDate('NationalRevenueExpenditureMonth');
+    let Yearres = await this.getMaxMinDate("NationalRevenueExpenditure");
+    let res = await this.getMaxMinDate("NationalRevenueExpenditureMonth");
     let Yarrmaxmin = Yearres.split("_");
     let arrmaxmin = res.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    this.options.monthly.list.start.value=QMDefaultTime.M.start;
-    this.options.monthly.list.end.value=QMDefaultTime.M.end;
+    this.options.monthly.list.start.value = QMDefaultTime.M.start;
+    this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
       end: Number(Yarrmaxmin[1]),
-      noMonth:true
+      noMonth: true
     });
   },
   mounted() {
@@ -202,7 +200,7 @@ export default {
     //选择当月或累计月份
     async changeRadioSelect(item) {
       this.selectOption.value = item;
-      this.mainGetChartsData(this.selectedActiveKey)
+      this.mainGetChartsData(this.selectedActiveKey);
     },
     async mainGetChartsData(type) {
       //条件改变时获取数据
@@ -213,20 +211,25 @@ export default {
           type,
           start: Number(start.value),
           end: Number(end.value),
-          noMonth:true
+          noMonth: true
         });
       } else if (type == "monthly") {
+        if (this.selectOption.value.en == "Current") {
+          this.USD.yName2 = "";
+        }else{
+          this.USD.yName2= { ch: "同比", en: "Y-o-y" }
+        }
         this.monthScreen = true; //月份选择组件显示
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
-          console.log(startTimeArr,endTimeArr) //**************************************/
+        console.log(startTimeArr, endTimeArr); //**************************************/
         let monthStart = parseInt(startTimeArr[0]);
         let startMonth = parseInt(startTimeArr[1]);
         let monthEnd = parseInt(endTimeArr[0]);
         let endMonth = parseInt(endTimeArr[1]);
         await this.getChartsData({
           type,
-          monthType:this.selectOption.value.id,
+          monthType: this.selectOption.value.id,
           start: monthStart,
           end: monthEnd,
           startMonth: startMonth,
@@ -244,12 +247,15 @@ export default {
         }
         if (tableName == "NationalRevenueExpenditure" && key == "yearly") {
           this.$set(this.options, "yearly", obj);
-        } else if (tableName == "NationalRevenueExpenditureMonth" && key != "yearly") {
+        } else if (
+          tableName == "NationalRevenueExpenditureMonth" &&
+          key != "yearly"
+        ) {
           this.$set(this.options, key, obj);
         }
       }
       this.showTimeFrame = true;
-      console.log(res)
+      console.log(res);
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -271,96 +277,96 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res, XNameAttr, dataAttr, range)
+      console.log(res, XNameAttr, dataAttr, range);
       //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      if(XNameAttr=='year'){
-        this.USD.series=[
-              {
-                  type:'bar',
-                  yAxisIndex:0,//数值
-                  name: "财政收入_Revenue",
-                  color: "#61a0a8",
-                  data: data.revenue
-                },
-                {
-                  type:'line',
-                  yAxisIndex:1,//百分比
-                  name: "收入同比_Y-o-y revenue",
-                  color: "#61a0a8",
-                  data: data.yoyRevenue,
-                  percent:true
-                },
-                {
-                  type:'bar',
-                  yAxisIndex:0,//数值
-                  name: "财政支出_Expenditure",
-                  color: "#c23531",
-                  data: data.expenditure
-                },
-                {
-                  type:'line',
-                  yAxisIndex:1,//百分比
-                  name: "支出同比_Y-o-y expenditure",
-                  color: "#c23531",
-                  data: data.yoyExpenditure,
-                  percent:true
-                }
-          ]
-      }else{
-        if(this.selectOption.value.id==1){
-          this.USD.series=[
-              {
-                  type:'bar',
-                  yAxisIndex:0,//数值
-                  name: "当月财政收入_Monthly revenue",
-                  color: "#61a0a8",
-                  data: data.revenue
-                },
-                {
-                  type:'bar',
-                  yAxisIndex:0,
-                  name: "当月财政支出_Monthly expenditure",
-                  color: "#c23531",
-                  data: data.expenditure
-                }
-            ]
-        }else{
-             this.USD.series=[
-              {
-                  type:'bar',
-                  yAxisIndex:0,//数值
-                  name: "月度累计财政收入_Cumulative monthly revenue",
-                  color: "#61a0a8",
-                  data: data.cumulativeRevenue
-                },
-                {
-                  type:'line',
-                  yAxisIndex:1,//百分比
-                  name: "月度累计收入同比_Y-o-y cumulative monthly revenue",
-                  color: "#61a0a8",
-                  data: data.yoyRevenue,
-                  percent:true
-                },
-                {
-                  type:'bar',
-                  yAxisIndex:0,//数值
-                  name: "月度累计财政支出_Cumulative monthly expenditure",
-                  color: "#c23531",
-                  data: data.cumulativeExpenditure
-                },
-                {
-                  type:'line',
-                  yAxisIndex:1,
-                  name: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
-                  color: "#c23531",
-                  data: data.yoyExpenditure,
-                  percent:true
-                }
-          ]
+      if (XNameAttr == "year") {
+        this.USD.series = [
+          {
+            type: "bar",
+            yAxisIndex: 0, //数值
+            name: "财政收入_Revenue",
+            color: "#61a0a8",
+            data: data.revenue
+          },
+          {
+            type: "line",
+            yAxisIndex: 1, //百分比
+            name: "收入同比_Y-o-y revenue",
+            color: "#61a0a8",
+            data: data.yoyRevenue,
+            percent: true
+          },
+          {
+            type: "bar",
+            yAxisIndex: 0, //数值
+            name: "财政支出_Expenditure",
+            color: "#c23531",
+            data: data.expenditure
+          },
+          {
+            type: "line",
+            yAxisIndex: 1, //百分比
+            name: "支出同比_Y-o-y expenditure",
+            color: "#c23531",
+            data: data.yoyExpenditure,
+            percent: true
+          }
+        ];
+      } else {
+        if (this.selectOption.value.id == 1) {
+          this.USD.series = [
+            {
+              type: "bar",
+              yAxisIndex: 0, //数值
+              name: "当月财政收入_Monthly revenue",
+              color: "#61a0a8",
+              data: data.revenue
+            },
+            {
+              type: "bar",
+              yAxisIndex: 0,
+              name: "当月财政支出_Monthly expenditure",
+              color: "#c23531",
+              data: data.expenditure
+            }
+          ];
+        } else {
+          this.USD.series = [
+            {
+              type: "bar",
+              yAxisIndex: 0, //数值
+              name: "月度累计财政收入_Cumulative monthly revenue",
+              color: "#61a0a8",
+              data: data.cumulativeRevenue
+            },
+            {
+              type: "line",
+              yAxisIndex: 1, //百分比
+              name: "月度累计收入同比_Y-o-y cumulative monthly revenue",
+              color: "#61a0a8",
+              data: data.yoyRevenue,
+              percent: true
+            },
+            {
+              type: "bar",
+              yAxisIndex: 0, //数值
+              name: "月度累计财政支出_Cumulative monthly expenditure",
+              color: "#c23531",
+              data: data.cumulativeExpenditure
+            },
+            {
+              type: "line",
+              yAxisIndex: 1,
+              name: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
+              color: "#c23531",
+              data: data.yoyExpenditure,
+              percent: true
+            }
+          ];
         }
       }
-      
+
       // this.USD.series[0]["data"] = data.GDP;
       // this.USD.series[1]["data"] = data.yoyGrowth;
       //
@@ -369,23 +375,42 @@ export default {
       await this.setTableConfig(aug);
       //改变横轴 获取数据
       let { res } = await request.getNationalFinanceChartsData(
-        aug.type == "yearly" ? "NationalRevenueExpenditure" : "NationalRevenueExpenditureMonth",aug
-        );
+        aug.type == "yearly"
+          ? "NationalRevenueExpenditure"
+          : "NationalRevenueExpenditureMonth",
+        aug
+      );
 
       // 完整的区间
-      let range = this.selectedActiveKey=='yearly'||this.selectOption.value.id==1?await chartDataFun.getXRangeMC(aug):await chartDataFun.getXRange(aug);
-      console.log(range)
+      let range =
+        this.selectedActiveKey == "yearly" || this.selectOption.value.id == 1
+          ? await chartDataFun.getXRangeMC(aug)
+          : await chartDataFun.getXRange(aug);
+      console.log(range);
       // 要换取纵轴数据的字段属性
-      let dataAttr = aug.type == "yearly"?["revenue","yoyRevenue","expenditure","yoyExpenditure"]:["revenue","cumulativeRevenue","yoyRevenue","expenditure",'cumulativeExpenditure',"yoyExpenditure"];
+      let dataAttr =
+        aug.type == "yearly"
+          ? ["revenue", "yoyRevenue", "expenditure", "yoyExpenditure"]
+          : [
+              "revenue",
+              "cumulativeRevenue",
+              "yoyRevenue",
+              "expenditure",
+              "cumulativeExpenditure",
+              "yoyExpenditure"
+            ];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
       //  await chartDataFun.addOtherCategoryMC(res);
-      if(this.selectedActiveKey=='yearly'||this.selectOption.value.id==1){
+      if (
+        this.selectedActiveKey == "yearly" ||
+        this.selectOption.value.id == 1
+      ) {
         await chartDataFun.addOtherCategoryMC(res);
-      }else{
+      } else {
         await chartDataFun.addOtherCategory(res);
       }
       if (aug.type == "yearly") {
@@ -430,28 +455,28 @@ export default {
           }
         };
       } else {
-        if(this.selectOption.value.id==1){
+        if (this.selectOption.value.id == 1) {
           this.totalData.tableTitle = {
-          year: {
-            text: "年份_Year",
-            width: "15%"
-          },
-          month: {
-            text: "月份_Month",
-            width: "15%"
-          },
-          revenue: {
-            text: "当月财政收入_Monthly revenue",
-            width: "35%",
-            formatNum: true
-          },
-          expenditure : {
-            text: "当月财政支出_Monthly expenditure",
-            width: "35%",
-            formatNum: true
-          }
-        };
-        }else{
+            year: {
+              text: "年份_Year",
+              width: "15%"
+            },
+            month: {
+              text: "月份_Month",
+              width: "15%"
+            },
+            revenue: {
+              text: "当月财政收入_Monthly revenue",
+              width: "35%",
+              formatNum: true
+            },
+            expenditure: {
+              text: "当月财政支出_Monthly expenditure",
+              width: "35%",
+              formatNum: true
+            }
+          };
+        } else {
           this.totalData.tableTitle = {
             year: {
               text: "年份_Year",
@@ -461,7 +486,7 @@ export default {
               text: "月份_Month",
               width: "4%"
             },
-            unit:{
+            unit: {
               text: "单位_unit",
               width: "8%"
             },
@@ -470,7 +495,7 @@ export default {
               width: "20%",
               formatNum: true
             },
-             yoyRevenue: {
+            yoyRevenue: {
               text: "月度累计收入同比_Y-o-y cumulative monthly revenue",
               width: "20%",
               formatPer: true
@@ -480,14 +505,13 @@ export default {
               width: "20%",
               formatNum: true
             },
-             yoyExpenditure: {
+            yoyExpenditure: {
               text: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
               width: "20%",
               formatPer: true
             }
           };
         }
-        
       }
     },
     // 时间范围组件 update and change
@@ -521,7 +545,7 @@ export default {
     },
     // 改变年度季度月度时：
     async changeActiveKey(ev) {
-      this.selectedActiveKey=ev;
+      this.selectedActiveKey = ev;
       await this.mainGetChartsData(ev);
     }
   }

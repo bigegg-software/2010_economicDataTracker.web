@@ -140,7 +140,7 @@ export default {
             type: "bar",
             yAxisIndex: 1, //百分比
             name: "黄金（盎司）_Gold ( mln oz.)",
-            color: "#6AA3CD",
+            color: "#71a6c2",
             data: [],
             rightInt: true
           }

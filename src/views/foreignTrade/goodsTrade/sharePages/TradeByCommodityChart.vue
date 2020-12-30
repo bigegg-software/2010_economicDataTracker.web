@@ -161,7 +161,7 @@ export default {
       },
       category: {
         ch: "商品类别",
-        en: "Commodity section",
+        en: "Commodity (HS section)",
         value: {
           ch: "未分类商品",
           en: "Unclassified commedities"

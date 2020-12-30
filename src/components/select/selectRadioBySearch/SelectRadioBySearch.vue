@@ -5,7 +5,7 @@
       <div class="label-row">{{ option.ch }}</div>
     </div>
     <div class="select-block" @click="handleClick">
-      <div class="text">{{ result.ch }} {{ result.en }}</div>
+      <div class="text">{{ result.en }} {{ result.ch }}</div>
       <div class="iconfont icon-arrow">&#xe609;</div>
       <!-- 弹出框 -->
       <fade-in-out>
@@ -119,6 +119,7 @@ export default {
     padding: 0.07rem 0.07rem;
     overflow: auto;
     cursor: default;
+    font-size: .083333rem;
     /deep/ .ant-radio-wrapper {
       display: flex;
       align-items: center;
@@ -126,6 +127,10 @@ export default {
     }
     .list-item {
       cursor: pointer;
+        margin-bottom: 0.04rem;
+      div{
+        line-height: .12rem;
+      }
     }
   }
 }

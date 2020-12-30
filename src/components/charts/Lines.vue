@@ -534,7 +534,7 @@ export default {
                     }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value
+                    !!it.value||it.value=="0"
                       ? this.options.dataInt
                         ? this.formatInt(it)
                         : this.formatNum(it)
@@ -552,7 +552,7 @@ export default {
                     }</div>`;
                   }
                   c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                    !!it.value
+                    !!it.value||it.value=="0"
                       ? (this.options.yearInt
                           ? this.formatInt(it)
                           : this.formatNum(it)) +

@@ -159,7 +159,7 @@ export default {
               (params.data.actual || "").split("_")[0]
             }</div>`;
             let value = `<div style="margin-top:0.055rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-              !!params.data.value ? this.formatNum(params.data.value) : ""
+              !!params.data.value||params.data.value=="0" ? this.formatNum(params.data.value) : ""
             }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;margin-top:0.06rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -208,7 +208,7 @@ export default {
                   `{d|${(params.data.actual || "").split("_")[1]}}`,
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{c|${
-                    !!params.data.value ? this.formatNum(params.data.value) : ""
+                    !!params.data.value ||params.data.value=="0"? this.formatNum(params.data.value) : ""
                   }}`,
                   `{d|${(params.data.proportion || "").split("_")[1]}}`,
                   `{a|${(params.data.proportion || "").split("_")[0]}}`,
@@ -221,7 +221,7 @@ export default {
                     ? www
                     : [
                         `{a|${
-                          !!params.data.value
+                          !!params.data.value||params.data.value=="0"
                             ? this.formatNum(params.data.value)
                             : ""
                         }}`

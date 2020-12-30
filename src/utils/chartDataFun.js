@@ -547,22 +547,22 @@ export default {
   },
   enterpriseType: () => { // 外贸 商品类别
     return [{
-        en: 'Import by state-owned enterprises',
+        en: 'State-owned enterprises',
         ch: '国有企业',
         id: 1
       },
       {
-        en: 'Import by foreign-invested enterprises',
+        en: 'Foreign-invested enterprises',
         ch: '外商投资企业',
         id: 2
       },
       {
-        en: 'Import by private-owned enterprises',
+        en: 'Private-owned enterprises',
         ch: '私营企业',
         id: 3
       },
       {
-        en: 'Import by other enterprises',
+        en: 'Other enterprises',
         ch: '其他',
         id: 4
       }
@@ -570,7 +570,7 @@ export default {
   },
   customRegime: () => { // 外贸 贸易方式
     return [{
-        en: 'Ordinary Trade',
+        en: 'Ordinary trade',
         ch: '一般贸易',
       },
       {

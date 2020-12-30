@@ -81,7 +81,7 @@ export default {
           { yAxisIndex:0,
             name: "货币和准货币（M2)_Money & Quasi-money",
             type: "bar",
-            color: "#6AA3CD",
+            color: "#71a6c2",
             data: []
           },
         ],
