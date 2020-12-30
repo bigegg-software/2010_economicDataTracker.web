@@ -12,15 +12,10 @@
             : 'container'
         "
       >
-        <bar-line
-          v-if="!isShowTable"
-          ref="barLine"
-          :options="USD"
-          :selectOption="enterpriseType"
-        ></bar-line>
+        <bar-line v-if="!isShowTable" ref="barLine" :options="USD" :selectOption="enterpriseType"></bar-line>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <time-frame
           :options="options"
@@ -70,8 +65,8 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国货物进出口总值按企业性质统计",
-          en: "China's import and export by enterprise type"
+          ch: "中国国有企业货物进出口总值",
+          en: "China's import and export by state-owned enterprises"
         },
         unit: {
           ch: "百万美元",
@@ -88,8 +83,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
-          ch: "中国货物进出口总值按企业性质统计",
-          en: "China's import and export by enterprise type"
+          ch: "中国国有企业货物进出口总值",
+          en: "China's import and export by state-owned enterprises"
         },
         xData: [],
         grid: {
@@ -156,7 +151,7 @@ export default {
         en: "Enterprise type",
         value: {
           ch: "国有企业",
-          en: "State-owned enterprises ",
+          en: "State-owned enterprises",
           id: 1
         },
         op: chartDataFun.enterpriseType()
@@ -202,6 +197,15 @@ export default {
           this.$store.getters.chartInfo.tableData
         );
         this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    },
+    enterpriseType: {
+      handler() {
+        let str = this.enterpriseType.value.en;
+        str = str.replace(str[0], str[0].toLowerCase()); //商品类别首字母小写
+        this.totalData.title.ch = this.USD.title.ch = `中国${this.enterpriseType.value.ch}货物进出口总值`;
+        this.totalData.title.en = this.USD.title.en = `China's import and export by ${str}`;
       },
       deep: true
     }
@@ -437,13 +441,20 @@ export default {
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
-      padding: 0.104167rem;
-      border-bottom: 1.5px solid #cacaca;
-    }
-    .status {
-      padding: 0.104167rem;
-    }
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+  }
+  .frame {
+    padding: 0.104167rem;
+    border-bottom: 1.5px solid #cacaca;
+  }
+  .status {
+    padding: 0.104167rem;
   }
 }
 </style>

@@ -12,15 +12,10 @@
             : 'container'
         "
       >
-        <bar-line
-          v-if="!isShowTable"
-          ref="barLine"
-          :options="USD"
-          :selectOption="checkBox"
-        ></bar-line>
+        <bar-line v-if="!isShowTable" ref="barLine" :options="USD" :selectOption="checkBox"></bar-line>
       </div>
     </div>
-    <div class="select-block">
+    <div :class="$store.state.fullScreen.isFullScreen==false?'fullselect-block':'select-block'">
       <div class="frame">
         <time-frame
           :options="options"
@@ -82,8 +77,8 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国货物进出口总值按国别/地区统计",
-          en: "China's import and export by origin"
+          ch: "",
+          en: ""
         },
         unit: {
           ch: "百万美元",
@@ -100,8 +95,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
-          ch: "中国货物进出口总值按国别/地区统计",
-          en: "China's import and export by origin"
+          ch: "",
+          en: ""
         },
         xData: [],
         grid: {
@@ -134,7 +129,7 @@ export default {
       searchValue: "",
       checkBox: {
         ch: "国家/地区",
-        en: "Country/region",
+        en: "Country/ region",
         value: {
           ch: "中国香港",
           en: "Hong Kong, China"
@@ -215,6 +210,13 @@ export default {
           this.$store.getters.chartInfo.tableData
         );
         this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    },
+    checkBox: {
+      handler() {
+        this.totalData.title.ch = this.USD.title.ch = `中国与${this.checkBox.value.ch}货物进出口总值`;
+        this.totalData.title.en = this.USD.title.en = `China's trade in goods with ${this.checkBox.value.en}`;
       },
       deep: true
     }
@@ -620,19 +622,27 @@ export default {
       height: 4.933333rem;
     }
   }
-  .select-block {
+  .fullselect-block {
     width: 1.74667rem;
     height: auto;
     background-color: #f0f0f0;
     border: 2px solid #cacaca;
     border-left: none;
-    .frame {
+    
+  }
+  .select-block {
+    width: 1.385rem;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 2px solid #cacaca;
+    border-left: none;
+    
+  }.frame {
       padding: 0.104167rem;
       border-bottom: 1.5px solid #cacaca;
     }
     .status {
       padding: 0.104167rem;
     }
-  }
 }
 </style>

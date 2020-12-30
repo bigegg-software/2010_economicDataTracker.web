@@ -69,8 +69,8 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国服务贸易分类统计",
-          en: "China's trade volume by service type"
+          ch: "中国服务贸易进出口总值 - 其他服务",
+          en: "China's trade in services not allocated"
         },
         unit: {
           ch: "百万美元",
@@ -86,8 +86,8 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         title: {
-          ch: "中国服务贸易进出口总值",
-          en: "China’s total trade volume of services"
+          ch: "中国服务贸易进出口总值 - 其他服务",
+          en: "China's trade in services not allocated"
         },
         xData: [],
         series: [
@@ -148,6 +148,15 @@ export default {
           this.$store.getters.chartInfo.tableData
         );
         this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    },
+    industry: {
+      handler() {
+        let str = this.industry.value.en;
+        str = str.replace(str[0], str[0].toLowerCase()); //商品类别首字母小写
+        this.totalData.title.ch = this.USD.title.ch = `中国服务贸易进出口总值 - ${this.industry.value.ch}`;
+        this.totalData.title.en = this.USD.title.en = `China's trade in ${str}`;
       },
       deep: true
     }

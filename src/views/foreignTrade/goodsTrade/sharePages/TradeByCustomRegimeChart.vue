@@ -12,12 +12,7 @@
             : 'container'
         "
       >
-        <bar-line
-          v-if="!isShowTable"
-          ref="barLine"
-          :options="USD"
-          :selectOption="customRegime"
-        ></bar-line>
+        <bar-line v-if="!isShowTable" ref="barLine" :options="USD" :selectOption="customRegime"></bar-line>
       </div>
     </div>
     <div class="select-block">
@@ -78,8 +73,8 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国货物进出口总值按贸易方式统计",
-          en: "China's import and export by origin"
+          ch: "中国货物进出口总值按贸易方式统计 - 一般贸易",
+          en: "China's import and export by custom regime - Ordinary trade"
         },
         unit: {
           ch: "百万美元",
@@ -96,8 +91,8 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
-          ch: "中国货物进出口总值按贸易方式统计",
-          en: "China's import and export by origin"
+          ch: "中国货物进出口总值按贸易方式统计 - 一般贸易",
+          en: "China's import and export by custom regime - Ordinary trade"
         },
         xData: [],
         grid: {
@@ -204,6 +199,13 @@ export default {
           this.$store.getters.chartInfo.tableData
         );
         this.$set(this.totalData, "tableData", result);
+      },
+      deep: true
+    },
+    customRegime: {
+      handler() {
+        this.totalData.title.ch = this.USD.title.ch = `中国货物进出口总值按贸易方式统计 - ${this.customRegime.value.ch}`;
+        this.totalData.title.en = this.USD.title.en = `China's import and export by custom regime - ${this.customRegime.value.en}`;
       },
       deep: true
     }

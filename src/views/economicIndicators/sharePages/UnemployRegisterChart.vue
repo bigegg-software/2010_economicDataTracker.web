@@ -63,8 +63,8 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yPosition:['left','right'],
-        yLabel:[true,true],
+        yPosition: ["left", "right"],
+        yLabel: [true, true],
         yName: { ch: "万人", en: "10,000 persons" },
         yName2: { ch: "失业率", en: "100%" },
         title: {
@@ -78,7 +78,7 @@ export default {
         },
         // hideLegend: true,
         series: [],
-        rightInt:false,
+        rightInt: false,
         updatedDate: ""
       },
       options: {
@@ -198,7 +198,7 @@ export default {
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate(tableName);
-      console.log(res)
+      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -229,7 +229,7 @@ export default {
         let data = await chartDataFun.completionDate(dataArr, range);
         resoult[item] = data;
       }
-      console.log(resoult)
+      console.log(resoult);
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
@@ -239,42 +239,42 @@ export default {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       console.log(data);
       if (XNameAttr == "year") {
-        this.USD.yName= { ch: "万人", en: "10,000 persons"},
-        this.USD.yPosition=['left','right'],
-        this.USD.yLabel=[true,true],
-        this.USD.rightInt=false,
-        this.USD.series = [
-          {
-            type: "bar",
-            yAxisIndex: 0, //数值
-            name: "城镇登记失业人数_Urban registered unemployment",
-            color: "#61a0a8",
-            data: data.unemployment
-          },
-          {
-            type: "line",
-            yAxisIndex: 1, //百分比
-            name: "城镇登记失业率_Urban registered unemployment rate",
-            color: "red",
-            data: data.unemploymentRate,
-            percent: true
-          }
-        ];
+        (this.USD.yName = { ch: "万人", en: "10,000 persons" }),
+          (this.USD.yPosition = ["left", "right"]),
+          (this.USD.yLabel = [true, true]),
+          (this.USD.rightInt = false),
+          (this.USD.series = [
+            {
+              type: "bar",
+              yAxisIndex: 0, //数值
+              name: "城镇登记失业人数_Urban registered unemployment",
+              color: "#71a6c2",
+              data: data.unemployment
+            },
+            {
+              type: "line",
+              yAxisIndex: 1, //百分比
+              name: "城镇登记失业率_Urban registered unemployment rate",
+              color: "red",
+              data: data.unemploymentRate,
+              percent: true
+            }
+          ]);
       } else {
-        this.USD.yName= { ch: "", en: "" },
-        this.USD.yPosition=['right','left'],
-        this.USD.yLabel=[false,true],
-        this.USD.rightInt=true,
-        this.USD.series = [
-          {
-            type: "line",
-            yAxisIndex: 1, //百分比
-            name: "城镇登记失业率_Urban registered unemployment rate",
-            color: "#333",
-            data: data.unemploymentRate,
-            percent: true
-          }
-        ];
+        (this.USD.yName = { ch: "", en: "" }),
+          (this.USD.yPosition = ["right", "left"]),
+          (this.USD.yLabel = [false, true]),
+          (this.USD.rightInt = true),
+          (this.USD.series = [
+            {
+              type: "line",
+              yAxisIndex: 1, //百分比
+              name: "城镇登记失业率_Urban registered unemployment rate",
+              color: "#333",
+              data: data.unemploymentRate,
+              percent: true
+            }
+          ]);
       }
     },
     async getChartsData(aug) {
@@ -292,9 +292,7 @@ export default {
       let dataAttr =
         aug.type == "yearly"
           ? ["unemployment", "unemploymentRate"]
-          : [
-              "unemploymentRate"
-            ];
+          : ["unemploymentRate"];
       let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;

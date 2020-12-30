@@ -1,10 +1,5 @@
 <template>
-  <div
-    :id="options.id"
-    ref="barLine"
-    style="width:100%;height:100%;"
-    @contextmenu.prevent
-  ></div>
+  <div :id="options.id" ref="barLine" style="width:100%;height:100%;" @contextmenu.prevent></div>
 </template>
 
 <script>
@@ -12,7 +7,9 @@ import echarts from "echarts";
 export default {
   data() {
     return {
-      chart: ""
+      chart: "",
+      barColor: ["#c23531", "#71a6c2", "#91c7ae"],
+      lineColor: ["#da7272", "#7ab0d6", "#69b9a0"]
     };
   },
   props: {
@@ -130,8 +127,8 @@ export default {
             yAxisIndex: 0,
             itemStyle: {
               normal: {
-                show: true
-                // color:this.options.series[j].color
+                show: true,
+                color: this.barColor[j]
               }
             },
             data: this.options.series[j].data
@@ -145,12 +142,9 @@ export default {
             type: "line",
             yAxisIndex: 1,
             // symbolSize: 6,
-            //  itemStyle: {
-            //   normal: {
-            //     show: true,
-            //     color:this.options.series[j].color
-            //   }
-            // },
+            itemStyle: {
+              color: this.lineColor[j]
+            },
             data: this.options.yearOnYear
               ? this.options.series[j].yearOnYear
               : "[]"
@@ -215,7 +209,7 @@ export default {
                   }</div>`;
                 }
                 c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                  it.value||it.value=="0"
+                  it.value || it.value == "0"
                     ? it.seriesType == "line"
                       ? this.formatNum(it) + "%"
                       : this.formatNum(it)
