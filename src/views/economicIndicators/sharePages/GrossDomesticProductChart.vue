@@ -261,14 +261,14 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "当季国内生产总值_Quarterly GDP",
-                  color: "#71a6c2",
+                  color: "#c23531",
                   data: data.GDP
                 },
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "当季同比增速_Y-o-y quarterly GDP",
-                  color: "#61a0c0",
+                  color: "#d95959",
                   data: data.yoyGrowth,
                   percent:true
                 },
@@ -276,14 +276,14 @@ export default {
                   type:'bar',
                   yAxisIndex:0,//数值
                   name: "季度累计国内生产总值_Cumulative quarterly GDP",
-                  color: "#c23531",
+                  color: "#71a6c2",
                   data: data.cumulativeGDP 
                 },
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
                   name: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
-                  color: "#d95959",
+                  color: "#61a0c0",
                   data: data.cumulativeYoyGrowth ,
                   percent:true
                 },
