@@ -33,7 +33,7 @@ export default {
     let currentTime = new Date();
     // 计算当前月份对应的季度月份
     let currentQ = Math.ceil((currentTime.getMonth() + 1) / 3) * 3;
-    if (currentQ.length < 2) {
+    if (currentQ < 10) {
       currentQ = '0' + currentQ;
     }
     dateRes.Q.start = dayjs(currentY).format('YYYY') - beforeY + '-' + currentQ;
