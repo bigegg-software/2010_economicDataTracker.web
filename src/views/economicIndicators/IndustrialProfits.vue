@@ -2,8 +2,8 @@
   <!-- 工业企业利润 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-      <!-- :describeData="describeList[tabComponent]['dataSources']" -->
     <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>

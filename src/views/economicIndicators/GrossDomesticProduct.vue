@@ -1,13 +1,9 @@
 <template>
   <!-- 国内生产总值GDP -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-    <tab-component
-      :tabList="tabList"
-      :tabComponent="tabComponent"
-      @change="changeTabCompnent"
-    ></tab-component>
-    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
+    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
     <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>
@@ -43,7 +39,7 @@ export default {
           name: "grossDomesticProductChart",
           chinese: "国内生产总值",
           english: "Gross Domestic Product"
-        },
+        }
       ],
 
       actionsList: [
@@ -113,7 +109,7 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit('setShowOperate',true);
+      this.$store.commit("setShowOperate", true);
     }
   },
   mounted() {},
@@ -137,9 +133,9 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
-        if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       this.initActionsList();
@@ -151,7 +147,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-       this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

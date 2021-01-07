@@ -3,20 +3,23 @@
   <!-- 中国服务贸易进出口总值 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-   <!-- :describeData="describeList[tabComponent]['dataSources']" -->
-    <share-body  :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <!-- <Describe :describeData="describeList[tabComponent]"></Describe> -->
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-// import describeList from "@/utils/describe.js";
-// import Describe from "@/components/Describe";
+import describeList from "@/utils/describe.js";
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -26,19 +29,19 @@ export default {
     TabComponent,
     ShareBody,
     ActionsComponent,
-    // Describe
+    Describe
   },
   data() {
     return {
-      // describeList,
-      tabComponent: "totalTradeInServicesChart",
-      tabList: [
-        {
-          name: "totalTradeInServicesChart",
-          chinese: "中国服务贸易进出口总值",
-          english: "Total trade volume of services"
-        }
-      ],
+      describeList,
+      tabComponent: "totalTradeInServicesChart",
+      tabList: [
+        {
+          name: "totalTradeInServicesChart",
+          chinese: "中国服务贸易进出口总值",
+          english: "Total trade volume of services"
+        }
+      ],
 
       actionsList: [
         {
@@ -47,7 +50,7 @@ export default {
           en: "Table_Chart",
           icon: "\ue61e_\ue63e",
           checked: false,
-          hide:false,
+          hide: false,
           toggle: true
         },
         {
@@ -108,17 +111,17 @@ export default {
   watch: {
     tabComponent() {
       this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit('setShowOperate',true);
+      this.$store.commit("setShowOperate", true);
     }
   },
   mounted() {},
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;
-      if(name=='topTenProjectToOPChart'){
-           this.actionsList[0].hide=true;
-      }else{
-        this.actionsList[0].hide=false;
+      if (name == "topTenProjectToOPChart") {
+        this.actionsList[0].hide = true;
+      } else {
+        this.actionsList[0].hide = false;
       }
     },
 
@@ -137,9 +140,9 @@ export default {
         `;
       }
       if (item.name == "chart") {
-        this.$store.commit('setShowOperate',this.actionsList[0].checked);
+        this.$store.commit("setShowOperate", this.actionsList[0].checked);
       }
-       if (item.name == "enlarge") {
+      if (item.name == "enlarge") {
         this.$store.commit("fullScreen");
       }
       this.initActionsList();
@@ -151,7 +154,7 @@ export default {
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        this.$store.commit('downloadExcel');
+        this.$store.commit("downloadExcel");
       }
       this.initActionsList();
     }

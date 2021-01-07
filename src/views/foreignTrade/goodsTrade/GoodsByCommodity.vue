@@ -2,20 +2,23 @@
   <!-- 货物进出口总值按商品类别统计 -->
   <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
     <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
-    <share-body :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <!-- <Describe :describeData="describeList[tabComponent]"></Describe> -->
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-// import describeList from "@/utils/describe.js";
-// import Describe from "@/components/Describe";
+import describeList from "@/utils/describe.js";
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -24,12 +27,12 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
-    // Describe
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
-      // describeList,
+      describeList,
       tabComponent: "tradeByCommodityChart",
       tabList: [
         {

@@ -12,8 +12,8 @@
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <!-- :describeData="describeList[tabComponent]['dataSources']" -->
     <share-body
+    :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>
@@ -22,13 +22,13 @@
       @handleClickAction="handleClickAction"
       @choose="choose"
     ></actions-component>
-    <!-- <Describe :describeData="describeList[tabComponent]"></Describe> -->
+    <Describe :describeData="describeList[tabComponent]"></Describe>
   </div>
 </template>
 
 <script>
-// import describeList from "@/utils/describe.js";
-// import Describe from "@/components/Describe";
+import describeList from "@/utils/describe.js";
+import Describe from "@/components/Describe";
 import TabComponent from "@/components/TabComponent";
 import ShareBody from "@/components/ShareBody";
 import ActionsComponent from "@/components/ActionsComponent";
@@ -37,12 +37,12 @@ export default {
   components: {
     TabComponent,
     ShareBody,
-    ActionsComponent
-    // Describe
+    ActionsComponent,
+    Describe
   },
   data() {
     return {
-      // describeList,
+      describeList,
       tabComponent: "goodsTotalChart",
       tabList: [
         {
