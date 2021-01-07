@@ -95,13 +95,13 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "当月进口_Monthly import|当月进口同比_Y-o-y monthly import",
+            name: "进口_Monthly import|进口同比_Y-o-y monthly import",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "当月出口_Monthly export|当月出口同比_Y-o-y monthly export",
+            name: "出口_Monthly export|出口同比_Y-o-y monthly export",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
@@ -304,7 +304,12 @@ export default {
       let range;
       if (this.activeKey == "yearly") {
         data = await request.getForeignInvestedTradeEns(aug);
-        dataAttr = ["_monthlyCulumativeImport", "_monthlyCulumativeExport"];
+        dataAttr = [
+          "_monthlyCulumativeImport",
+          "yoyMonthlyCumulativeImport",
+          "_monthlyCulumativeExport",
+          "yoyMonthlyCumulativeExport"
+        ];
         range = await chartDataFun.getXRange(aug);
       }
       if (this.activeKey == "monthly") {
@@ -462,8 +467,10 @@ export default {
     },
     handleText() {
       if (this.activeKey == "yearly") {
-        this.USD.series[0].name = "当月进口_Monthly import|";
-        this.USD.series[1].name = "当月出口_Monthly export|";
+        this.USD.series[0].name =
+          "进口_Monthly import|进口同比_Y-o-y monthly import";
+        this.USD.series[1].name =
+          "出口_Monthly export|出口同比_Y-o-y monthly export";
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {

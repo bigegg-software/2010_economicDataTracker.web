@@ -246,6 +246,7 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+
       this.USD.series[0]["data"] = data.import;
       this.USD.series[1]["data"] = data.export;
     },
@@ -254,23 +255,24 @@ export default {
       //改变横轴 获取数据
       let res = await request.getTotalTradeServicesVolume(aug);
       // 完整的区间
-      let range = await chartDataFun.getXRangeCurrentMonth(aug);
+      let range;
+      let XNameAttr = "year";
+      if (aug.type == "yearly") {
+        XNameAttr = "year";
+        range = await chartDataFun.getXRange(aug);
+        await chartDataFun.addOtherCategory(res);
+      }
+      if (aug.type == "monthly") {
+        XNameAttr = "M";
+        range = await chartDataFun.getXRangeCurrentMonth(aug);
+        await chartDataFun.addOtherCategoryCurrentMonth(res);
+      }
       // 要换取纵轴数据的字段属性
       let dataAttr = ["import", "export"];
-      let XNameAttr = "year";
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
-      //添加额外的Q和M属性
-      await chartDataFun.addOtherCategory(res);
 
-      if (aug.type == "yearly") {
-        // 年
-        XNameAttr = "year";
-      } else if ((aug.type = "monthly")) {
-        //月度
-        XNameAttr = "M";
-      }
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
