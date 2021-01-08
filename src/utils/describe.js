@@ -951,13 +951,13 @@ export default {
             enText: "Two-directional investment compares China's investment in other countries (China's FDI outflows) and foreign investment made to China. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "-",
+            enSource: "",
             enLink: "",
             chTitle: "双向直接投资",
             chText: "双向直接投资指中国对国外直接投资与外国对中国直接投资，即中国对外直接投资流量与实际使用外资之对比。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "-",
+            chSource: "",
             chLink: ""
         },
         dataSources: {
@@ -993,8 +993,8 @@ export default {
             chText: "海关统计包括实际进出中华人民共和国关境并改变中国境内物质资源存量的货物。海关特殊监管区域、保税监管场所或经济特区进出境的货物、加工贸易进出口的货物、租赁期一年及以上的租赁贸易货物、外商投资企业进出口的货物、国际间无偿援助的物资以及捐赠品等均列入海关统计。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "",
-            chLink: ""
+            chSource: "_海关统计月报编制说明（2019年）_",
+            chLink: "http://www.customs.gov.cn/customs/302249/zfxxgk/2799825/302274/tjzd/2171525/index.html"
         },
         dataSources: {
             en: "Table (1) of _Preliminary Release and Monthly Bulletin_, General Administration of Customs ",
@@ -1028,7 +1028,7 @@ export default {
             chText: "贸易差额等于出口值减去进口值；正的贸易差额为贸易顺差，负的贸易差额为贸易逆差。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "-",
+            chSource: "",
             chLink: ""
         },
         dataSources: {
@@ -1053,9 +1053,10 @@ export default {
     tradeByOriginChart: {
         concept: {
             enTitle: "Country/region",
-            enText: "The country of origin applies to imports. It refers to the country or region where goods have been grown, mined or manufactured.The country of final destination applies to exports. It refers to the country or region where the goods are consumed, used, processed or manufactured.  Since February 2020, the United Kingdom has been excluded from the statistical coverage of the European Union.",
+            enText: "The country of origin applies to imports. It refers to the country or region where goods have been grown, mined or manufactured.",
             enTitleSecond: "",
-            enTextSecond: "",
+            enTextSecond: "Since February 2020, the United Kingdom has been excluded from the statistical coverage of the European Union.",
+            enTextThird: "The country of final destination applies to exports. It refers to the country or region where the goods are consumed, used, processed or manufactured.",
             enSource: "_Explanatory Notes of 2020_",
             enLink: "http://english.customs.gov.cn/Statics/82619448-afbe-4851-aab4-a8fee9bc15a6.html",
             chTitle: "国别/地区",
@@ -1124,13 +1125,13 @@ export default {
             enText: "Based on official classifications, this database covers four categories of companies: State-owned enterprises, private enterprises, foreign-invested enterprises and others. Foreign-invested enterprises include China-foreign contractual joint ventures, China-foreign joint ventures and foreign-owned enterprises.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "-",
+            enSource: "",
             enLink: "",
             chTitle: "企业性质",
             chText: "本数据库按海关统计数据，将企业分为国有企业、私营企业、外商投资企业及其他等四类企业。其中，外商投资企业包含了中外合作企业、中外合资企业及外商独资企业。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "-",
+            chSource: "",
             chLink: ""
         },
         dataSources: {
@@ -1155,18 +1156,53 @@ export default {
     tradeByCustomRegimeChart: {
         concept: {
             enTitle: "Customs regime",
-            enText: "International Aid refers to aid or donations given gratis between governments or by international organizations.\nOther Donations refers to imported and exported materials given by donors other than governments or international organizations for charity, poverty alleviation and disaster relief.\nProcessing and Assembling refers to the type of inward processing in which foreign suppliers provide raw materials, parts or components under a contractual arrangement for the subsequent re-exportation of the processed products. Under this type of transaction, the imported inputs and the finished outputs remain property of the foreign supplier.\nProcessing With Imported Materials refers to the type of inward transaction other than processing and assembling in which raw materials or components are imported for the manufacture of the export-oriented products, including those imported into Export Processing Zones, and the subsequent re-exportation of the processed products from the Zone.\nBorder Trade refers to trade activities by approved enterprises in cities and counties along China's land borders. \nEquipment Imported for Processing Trade refers to imports of equipment under the customs regimes of Processing and Assembling and Processing With Imported Materials.\nContracting Projects refers to exports of equipment or materials used for China-invested turnkey or constructing projects.\nGoods on Lease refers to imports or exports under a financial lease arrangement with the duration of the lease being one year or more.》 （《》这里面的译文跟中文没啥对应关系）\nEquipment or Materials Invested by Foreign-Invested Enterprises refers to the imports of equipment, parts or other materials by a foreign-invested company as part of its total initial investment.\nOutward Processing refers to the exports of raw materials, parts or components under a contractual arrangement for processing or assembling abroad, and the re-importing of the processed products.\nDuty-Free Commodities refers to duty-free import commodities sold in specific shops to specific individuals on payment of a foreign currency according to specific customs regulations. \nDuty-Free Goods refers to duty-free import commodities sold in duty-free shops located in ports and in the international transportation airplanes, trains and ships of China to international travelers.\nWarehousing Trade refers to goods imported from those customs bonded warehouses (including bonded logistics centers) located outside a Bonded Area.\nLogistics Goods by Customs Special Control Area refers to goods imported directly into a customs special control area or directly exported from the above-mentioned area for the purposes of storage, distribution or re-exportation.\nEquipment Imported Into Customs Special Control Area refers to equipment or other materials imported into customs control areas for inward processing or infrastructure.\nOther refers to all the other import and export commodities not mentioned above, such as counter-trade of border residents and cross-border e-commerce parcels.",
+            enText: "",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Explanatory Notes of 2020_",
             enLink: "http://english.customs.gov.cn/Statics/82619448-afbe-4851-aab4-a8fee9bc15a6.html",
             chTitle: "贸易方式",
-            chText: "国家间、国际组织无偿援助和赠送的物资指中国根据两国政府间的协议或临时决定，对外提供无偿援助、捐赠品或中国政府、组织基于友好关系向对方国家政府、组织赠送的物资，以及中国政府、组织接受国际组织、外国政府或组织无偿援助、捐赠或赠送的物资。\r其他捐赠物资指捐赠人（外国政府和国际组织除外）以扶贫、慈善、救灾为目的捐赠的直接用于扶贫、救灾、兴办公益福利事业的物资。\n来料加工装配贸易指由外商提供全部或部分原材料、辅料、零部件、元器件、配套件和包装物料，必要时提供设备，由中方按对方的要求进行加工装配，成品交对方销售，中方收取工缴费，对方提供的作价设备价款，中方用工缴费偿还的交易形式。包括海关特殊监管区域企业以来料加工装配贸易方式进口及出口的货物。\n进料加工贸易指中方用外汇购买进口的原料、材料、辅料、元器件、零部件、配套件和包装物料，加工成品或半成品后再外销出口的交易形式。包括海关特殊监管区域企业从境外进口的用于加工的料件以及加工后出口的成品。\n边境小额贸易指中国沿陆地边界线经国家批准对外开放的边境县（旗）、边境城市辖区内经批准有边境小额贸易经营权的企业，通过国家指定的陆地边境口岸，与毗邻国家边境地区的企业或其他贸易机构之间进行的贸易活动，包括易货贸易、现汇贸易等各类形式，还包括边境地区经批准有对外经济技术合作经营权的企业与毗邻国家边境地区开展承包工程和劳务合作项下出口的工程设备、物资和在境外获取运回境内的设备、物资。\n加工贸易进口设备指加工贸易项下对方提供的机械设备，包括以工缴费（或差价）偿还的作价或不作价设备。\n对外承包工程货物指经商务部批准有对外承包工程经营权的公司为承包国外建设工程项目和开展劳务合作等对外合作项目而出口的设备、物资，不包括边境地区经外经贸部批准有对外经济技术合作经营权的企业与中国毗邻国家开展承包工程和劳务合作项下出口的工程设备、物资。\n租赁贸易指承办租赁业务的企业与外商签订国际租赁贸易合同，租赁期为一年及以上的租赁进出口货物。\n外商投资企业作为投资进口的设备、物品指外商投资企业以投资总额内的资金（包括中方投资）所进口的机器设备、零部件和其他物料（指建厂以及安装、加固机器所需材料），以及根据国家规定进口本企业自用合理数量的交通工具、生产用车辆和办公用品（设备）。\n出料加工贸易指将中国关境内原辅料、零部件、元器件或半成品交由境外厂商按中方要求进行加工或装配，成品复运进口，中方支付工缴费的交易形式。\n免税外汇商品指由经批准的收发货人进口、销售专供入境的中国出国人员，华侨、外籍华人、港澳台同胞等探亲人员，出境探亲的中国公民和驻华外交人员的免税外汇商品。\n免税品指设在国际机场、港口、车站和过境口岸的免税品商店进口，按有关规定销售给办完出境手续的旅客的免税商品，供外国籍船员和我国远洋船员购买送货上船出售的免税商品，供外交人员购买的免税品，以及在我国际航机，国际班轮上向国际旅客出售的免税商品。\n保税监管场所进出境货物指从境外直接存入海关保税监管场所（包括保税仓库、保税物流中心）的货物和从保税监管场所运出境的货物，不包括海关特殊监管区域进出境的仓储、转口等物流货物。\n海关特殊监管区物流货物指从境外直接存入海关特殊监管区域（包括保税区、保税物流园区、出口加工区、综合保税区、保税港区等）和从海关特殊监管区域运往境外的仓储、分拨、配送、转口货物，包括流通领域的物流货物及供区内加工生产用的仓储货物。2011年之前称为保税区仓储转口货物。\n海关特殊监管区域进口设备指从境外直接运入海关特殊监管区域（保税区、保税物流园区除外）用于区内业务所需的设备、物资，以及区内企业和行政管理机构从境外进口自用合理数量的办公用品等。\n其他适用于上述列名贸易方式之外的进出口货物，包括市场采购货物和边民互市货物等。从2018年起，补偿贸易、寄售代销和易货贸易项下货物不再具体列名，并入“其他”项下。",
+            chText: "",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "_海关统计月报编制说明（2019年）_",
             chLink: "http://www.customs.gov.cn/customs/302249/zfxxgk/2799825/302274/tjzd/2171525/index.html"
         },
+        enTextT5: ["International Aid_ refers to aid or donations given gratis between governments or by international organizations.",
+            "Other Donations_ refers to imported and exported materials given by donors other than governments or international organizations for charity, poverty alleviation and disaster relief.",
+            "Processing and Assembling_ refers to the type of inward processing in which foreign suppliers provide raw materials, parts or components under a contractual arrangement for the subsequent re-exportation of the processed products. Under this type of transaction, the imported inputs and the finished outputs remain property of the foreign supplier.",
+            "Processing With Imported Materials_ refers to the type of inward transaction other than processing and assembling in which raw materials or components are imported for the manufacture of the export-oriented products, including those imported into Export Processing Zones, and the subsequent re-exportation of the processed products from the Zone.",
+            "Border Trade_ refers to trade activities by approved enterprises in cities and counties along China's land borders. ",
+            "Equipment Imported for Processing Trade_ refers to imports of equipment under the customs regimes of Processing and Assembling and Processing With Imported Materials.",
+            "Contracting Projects_ refers to exports of equipment or materials used for China-invested turnkey or constructing projects.",
+            "Goods on Lease_ refers to imports or exports under a financial lease arrangement with the duration of the lease being one year or more.》",
+            "Equipment or Materials_ Invested by Foreign-Invested Enterprises refers to the imports of equipment, parts or other materials by a foreign-invested company as part of its total initial investment.",
+            "Outward Processing_ refers to the exports of raw materials, parts or components under a contractual arrangement for processing or assembling abroad, and the re-importing of the processed products.",
+            "Duty-Free Commodities_ refers to duty-free import commodities sold in specific shops to specific individuals on payment of a foreign currency according to specific customs regulations",
+            "Duty-Free Goods_ refers to duty-free import commodities sold in duty-free shops located in ports and in the international transportation airplanes, trains and ships of China to international travelers.",
+            "Warehousing Trade_ refers to goods imported from those customs bonded warehouses (including bonded logistics centers) located outside a Bonded Area.",
+            "Logistics Goods by Customs Special Control Area_ refers to goods imported directly into a customs special control area or directly exported from the above-mentioned area for the purposes of storage, distribution or re-exportation.",
+            "Equipment Imported Into Customs Special Control Area_ refers to equipment or other materials imported into customs control areas for inward processing or infrastructure.",
+            "Other_ refers to all the other import and export commodities not mentioned above, such as counter-trade of border residents and cross-border e-commerce parcels.",
+        ],
+        chTextT5: [
+            "国家间、国际组织无偿援助和赠送的物资_指中国根据两国政府间的协议或临时决定，对外提供无偿援助、捐赠品或中国政府、组织基于友好关系向对方国家政府、组织赠送的物资，以及中国政府、组织接受国际组织、外国政府或组织无偿援助、捐赠或赠送的物资。",
+            "其他捐赠物资_指捐赠人（外国政府和国际组织除外）以扶贫、慈善、救灾为目的捐赠的直接用于扶贫、救灾、兴办公益福利事业的物资。",
+            "来料加工装配贸易_指由外商提供全部或部分原材料、辅料、零部件、元器件、配套件和包装物料，必要时提供设备，由中方按对方的要求进行加工装配，成品交对方销售，中方收取工缴费，对方提供的作价设备价款，中方用工缴费偿还的交易形式。包括海关特殊监管区域企业以来料加工装配贸易方式进口及出口的货物。",
+            "进料加工贸易_指中方用外汇购买进口的原料、材料、辅料、元器件、零部件、配套件和包装物料，加工成品或半成品后再外销出口的交易形式。包括海关特殊监管区域企业从境外进口的用于加工的料件以及加工后出口的成品。",
+            "边境小额贸易_指中国沿陆地边界线经国家批准对外开放的边境县（旗）、边境城市辖区内经批准有边境小额贸易经营权的企业，通过国家指定的陆地边境口岸，与毗邻国家边境地区的企业或其他贸易机构之间进行的贸易活动，包括易货贸易、现汇贸易等各类形式，还包括边境地区经批准有对外经济技术合作经营权的企业与毗邻国家边境地区开展承包工程和劳务合作项下出口的工程设备、物资和在境外获取运回境内的设备、物资。",
+            "加工贸易进口设备_指加工贸易项下对方提供的机械设备，包括以工缴费（或差价）偿还的作价或不作价设备。",
+            "对外承包工程货物_指经商务部批准有对外承包工程经营权的公司为承包国外建设工程项目和开展劳务合作等对外合作项目而出口的设备、物资，不包括边境地区经外经贸部批准有对外经济技术合作经营权的企业与中国毗邻国家开展承包工程和劳务合作项下出口的工程设备、物资。",
+            "租赁贸易_指承办租赁业务的企业与外商签订国际租赁贸易合同，租赁期为一年及以上的租赁进出口货物。",
+            "外商投资企业作为投资进口的设备、物品_指外商投资企业以投资总额内的资金（包括中方投资）所进口的机器设备、零部件和其他物料（指建厂以及安装、加固机器所需材料），以及根据国家规定进口本企业自用合理数量的交通工具、生产用车辆和办公用品（设备）。",
+            "出料加工贸易_指将中国关境内原辅料、零部件、元器件或半成品交由境外厂商按中方要求进行加工或装配，成品复运进口，中方支付工缴费的交易形式。",
+            "免税外汇商品_指由经批准的收发货人进口、销售专供入境的中国出国人员，华侨、外籍华人、港澳台同胞等探亲人员，出境探亲的中国公民和驻华外交人员的免税外汇商品。",
+            "免税品_指设在国际机场、港口、车站和过境口岸的免税品商店进口，按有关规定销售给办完出境手续的旅客的免税商品，供外国籍船员和我国远洋船员购买送货上船出售的免税商品，供外交人员购买的免税品，以及在我国际航机，国际班轮上向国际旅客出售的免税商品。",
+            "保税监管场所进出境货物_指从境外直接存入海关保税监管场所（包括保税仓库、保税物流中心）的货物和从保税监管场所运出境的货物，不包括海关特殊监管区域进出境的仓储、转口等物流货物。",
+            "海关特殊监管区物流货物_指从境外直接存入海关特殊监管区域（包括保税区、保税物流园区、出口加工区、综合保税区、保税港区等）和从海关特殊监管区域运往境外的仓储、分拨、配送、转口货物，包括流通领域的物流货物及供区内加工生产用的仓储货物。2011年之前称为保税区仓储转口货物。",
+            "海关特殊监管区域进口设备_指从境外直接运入海关特殊监管区域（保税区、保税物流园区除外）用于区内业务所需的设备、物资，以及区内企业和行政管理机构从境外进口自用合理数量的办公用品等。",
+            "其他_适用于上述列名贸易方式之外的进出口货物，包括市场采购货物和边民互市货物等。从2018年起，补偿贸易、寄售代销和易货贸易项下货物不再具体列名，并入“其他”项下。",
+        ],
         dataSources: {
             en: "_Table (5) of Monthly Bulletin_, General Administration of Customs ",
             enSecond: "",
@@ -1233,8 +1269,8 @@ export default {
             chText: "年度商业服务贸易数据来自欧统局、经合组织、国际货币基金组织和中国官方统计。在可能的情况下，所报告的数据由世贸组织和贸发会议编制的估计数加以补充。",
             chTitleSecond: "",
             chTextSecond: "月度统计是指按国际收支平衡的商业服务总额的出口和进口，按现行价格计算，不作季节性调整。",
-            chSource: "-",
-            chLink: ""
+            chSource: "世界贸易组织数据_《技术说明》_",
+            chLink: "https://data.wto.org/assets/UserGuide/TechnicalNotes_en.pdf"
         },
         dataSources: {
             en: "_World Trade Organization Data_",
@@ -1633,7 +1669,8 @@ export default {
     nationalFinanceChart: {
         concept: {
             enTitle: "General public budget revenue",
-            enText: "General public budget revenue refers to government revenue brought by means of participating in the distribution of social products, and is a key financial resource in terms of allowing the government to function. The contents have been changed several times, and it now includes the following main items:(1)Various tax revenues, including domestic value-added tax, domestic consumption tax, VAT and consumption tax on imported and exported goods, enterprise income tax, personal income tax, resources tax, tax on city maintenance and construction, property tax, stamp duty, urban land use tax, value-added land tax, vehicle and vessel tax, ship tonnage tax, vehicle purchase tax, tariff, tax on occupancy of cultivated land, deed tax, tobacco tax, environmental protection tax, etc. (2)Non-tax revenues include special revenues, administrative fees, confiscated revenues, revenues from state-owned capital management, reimbursable use of state-owned resources (assets) and other payments. National revenue is divided into central and local revenue according to the current tax system.",
+            enText: "General public budget revenue refers to government revenue brought by means of participating in the distribution of social products, and is a key financial resource in terms of allowing the government to function. The contents have been changed several times, and it now includes the following main items:<br>(1)Various tax revenues, including domestic value-added tax, domestic consumption tax, VAT and consumption tax on imported and exported goods, enterprise income tax, personal income tax, resources tax, tax on city maintenance and construction, property tax, stamp duty, urban land use tax, value-added land tax, vehicle and vessel tax, ship tonnage tax, vehicle purchase tax, tariff, tax on occupancy of cultivated land, deed tax, tobacco tax, environmental protection tax, etc. <br>(2)Non-tax revenues include special revenues, administrative fees, confiscated revenues, revenues from state-owned capital management, reimbursable use of state-owned resources (assets) and other payments.",
+            enTextThird: "National revenue is divided into central and local revenue according to the current tax system.",
             enTitleSecond: "General public budget expenditure",
             enTextSecond: "General public budget expenditure refers to the distribution and use of the funds that government finance has raised, so as to meet the needs of economic development and various causes. It includes the following main items: expenditure on general public services, foreign affairs, national defense, public security, education, science and technology, culture, sports and media, social security and employment, healthcare and family planning, energy conservation and environmental protection, urban and rural communities, agriculture, forestry and water conservancy, transportation, geological prospecting works, commerce, finance, assistance to other regions, land, sea and meteorology, housing security, grain and oil supplies reserves, debt payment, and debt issuance expenditures. Fiscal expenditure is divided into central and local fiscal expenditures.",
             enSource: "Government _Finance_",
