@@ -253,8 +253,8 @@ export default {
           bottom: this.watermark
             ? this.options.grid
               ? this.options.grid.bottom
-              : "11%"
-            : "11%",
+              : "8%"
+            : "8%",
           containLabel: true
         },
         xAxis: {

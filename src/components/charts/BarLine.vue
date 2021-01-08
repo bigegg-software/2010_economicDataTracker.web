@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       chart: "",
+      watermark: false,
       barColor: ["#c23531", "#71a6c2", "#91c7ae"],
       lineColor: ["#da7272", "#7ab0d6", "#69b9a0"]
     };
@@ -19,6 +20,60 @@ export default {
   onLoad() {},
   mounted() {
     if (JSON.stringify(this.options) != "{}") {
+// 数据来源
+this.chartDataSourcesEn =
+      "Data Sources:" +
+      (this.options.dataSources.enThird
+        ? this.options.dataSources.en +
+          this.options.dataSources.enSecond +
+          this.options.dataSources.enThird
+        : this.options.dataSources.enSecond
+        ? this.options.dataSources.en + this.options.dataSources.enSecond
+        : this.options.dataSources.en
+      ).replace(/_/g, "");
+    let str = this.chartDataSourcesEn;
+    let result = "";
+    let curlen = 0;
+    let arrValues = str.split(" ");
+    let arrRes = [];
+    for (let index = 0; index < arrValues.length; index++) {
+      const element = arrValues[index];
+      if (element.indexOf(",") >= 0) {
+        let arrDot = element.split(",");
+        arrDot.map(item => {
+          if (item.length > 0) {
+            arrRes.push(item);
+            arrRes.push(",");
+          }
+        });
+      } else {
+        arrRes.push(element);
+      }
+      arrRes.push(" ");
+    }
+    for (let i = 0; i < arrRes.length; i++) {
+      const element = arrRes[i];
+      if (curlen + element.length > 96) {
+        curlen = 0;
+        result += "\n";
+        i--;
+      } else {
+        curlen += element.length;
+        result += arrRes[i];
+      }
+    }
+    this.chartDataSourcesEn = result;
+
+    this.chartDataSourcesCh = (this.options.dataSources.chThird
+      ? this.options.dataSources.ch +
+        this.options.dataSources.chSecond +
+        this.options.dataSources.chThird
+      : this.options.dataSources.chSecond
+      ? this.options.dataSources.ch + this.options.dataSources.chSecond
+      : this.options.dataSources.ch
+    ).replace(/_/g, "");
+// 数据来源结束
+
       this.drawChart();
       this.$EventBus.$on("resize", () => {
         this.timer = null;
@@ -244,7 +299,7 @@ export default {
           bottom: this.watermark
             ? this.options.grid
               ? this.options.grid.bottom
-              : "11%"
+              : "8%"
             : "8%",
           containLabel: true
         },
@@ -423,44 +478,44 @@ export default {
                 }
               }
             ]
+          },
+          {
+            type: "group",
+            right: this.$fz(0.15),
+            bottom: this.options.bottomDistance
+              ? this.options.bottomDistance
+              : "0",
+            children: [
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                style: {
+                  fill: "#666",
+                  text: this.watermark ? this.chartDataSourcesEn : "",
+                  font: `${this.$fz(0.18)}px Calibri`
+                }
+              },
+              {
+                type: "text",
+                z: 100,
+                left: "right",
+                top: this.options.grid
+                  ? this.options.grid.enGapch
+                  : this.$fz(0.2),
+                style: {
+                  fill: "#666",
+                  text: this.watermark
+                    ? "数据来源:" +
+                      (this.chartDataSourcesCh.slice(0, 54) +
+                        "\n" +
+                        this.chartDataSourcesCh.slice(54, 100))
+                    : "",
+                  font: `${this.$fz(0.14)}px 黑体`
+                }
+              }
+            ]
           }
-          // {
-          //   type: "group",
-          //   right: this.$fz(0.15),
-          //   bottom: this.options.bottomDistance
-          //     ? this.options.bottomDistance
-          //     : "0",
-          //   children: [
-          //     {
-          //       type: "text",
-          //       z: 100,
-          //       left: "right",
-          //       style: {
-          //         fill: "#666",
-          //         text: this.watermark ? this.chartDataSourcesEn : "",
-          //         font: `${this.$fz(0.18)}px Calibri`
-          //       }
-          //     },
-          //     {
-          //       type: "text",
-          //       z: 100,
-          //       left: "right",
-          //       top: this.options.grid
-          //         ? this.options.grid.enGapch
-          //         : this.$fz(0.2),
-          //       style: {
-          //         fill: "#666",
-          //         text: this.watermark
-          //           ? "数据来源:" +
-          //             (this.chartDataSourcesCh.slice(0, 54) +
-          //               "\n" +
-          //               this.chartDataSourcesCh.slice(54, 100))
-          //           : "",
-          //         font: `${this.$fz(0.14)}px 黑体`
-          //       }
-          //     }
-          //   ]
-          // }
         ],
         series: series
       };

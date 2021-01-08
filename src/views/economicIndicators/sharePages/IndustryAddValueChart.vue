@@ -96,24 +96,6 @@ export default {
             type: "line",
             color: "#6AA3CD",
             data: [],
-            markLine: {
-              symbol: "none",
-              data: [
-                {
-                  yAxis: 0,
-                  lineStyle: {
-                    color: "rgba(0,0,0,0)"
-                  },
-                  label: {
-                    color: "#666",
-                    formatter: "{c} %",
-                    // fontSize:"13.2",
-                    show: true,
-                    position: "end"
-                  }
-                }
-              ]
-            }
           },
           {
             name:

@@ -10,8 +10,8 @@ export default {
       chart: "",
       selected: {},
       chartDataSourcesEn: "",
-      chartDataSourcesCh: ""
-      // watermark:true,
+      chartDataSourcesCh: "",
+      watermark:false,
     };
   },
   props: {
@@ -317,7 +317,7 @@ export default {
           bottom: this.watermark
             ? this.options.grid && this.options.grid.bottom
               ? this.options.grid.bottom
-              : "11%"
+              : "8%"
             : "8%",
           containLabel: true
         },

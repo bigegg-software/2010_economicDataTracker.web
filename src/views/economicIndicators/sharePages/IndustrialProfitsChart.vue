@@ -91,10 +91,6 @@ export default {
           en: "Industrial profit"
         },
         xData: [],
-        grid: {
-          bottom: "10%",
-          enGapch: this.$fz(0.4) //数据来源中英文间距
-        },
         // hideLegend: true,
         series: [
               {

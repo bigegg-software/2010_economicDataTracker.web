@@ -87,10 +87,6 @@ export default {
           en: "China's import and export by state-owned enterprises"
         },
         xData: [],
-        grid: {
-          bottom: "10%",
-          enGapch: this.$fz(0.4) //数据来源中英文间距
-        },
         hideLegend: true,
         series: [
           {
