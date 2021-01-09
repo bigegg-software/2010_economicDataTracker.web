@@ -78,7 +78,7 @@ export default {
         },
         // hideLegend: true,
         series: [],
-        rightInt: false,
+        leftPer: false,
         updatedDate: ""
       },
       options: {
@@ -242,7 +242,7 @@ export default {
         (this.USD.yName = { ch: "万人", en: "10,000 persons" }),
           (this.USD.yPosition = ["left", "right"]),
           (this.USD.yLabel = [true, true]),
-          (this.USD.rightInt = false),
+          (this.USD.leftPer = false),
           (this.USD.series = [
             {
               type: "bar",
@@ -264,7 +264,7 @@ export default {
         (this.USD.yName = { ch: "", en: "" }),
           (this.USD.yPosition = ["right", "left"]),
           (this.USD.yLabel = [false, true]),
-          (this.USD.rightInt = true),
+          (this.USD.leftPer = true),
           (this.USD.series = [
             {
               type: "line",

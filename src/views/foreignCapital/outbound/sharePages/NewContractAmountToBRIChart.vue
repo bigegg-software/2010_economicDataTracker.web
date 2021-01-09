@@ -305,7 +305,7 @@ export default {
             text: "年份_Year",
             width: "10%"
           },
-          newConAmountCon: {
+          newConAmountConMillion: {
             text: "新签合同额_Total value of new contracts",
             width: "45%",
             formatNum: true

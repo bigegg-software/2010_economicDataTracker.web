@@ -187,7 +187,7 @@ export default {
         let res = await this.manualQueryData('ForeignInvestment', params);
         res = res.map(item => {
             item = item.toJSON();
-            item.taxMillion = item.tax / 100;
+            item.taxMillion = item.tax * 100;
             item.unitMillion = '百万美元'
             return item
         })

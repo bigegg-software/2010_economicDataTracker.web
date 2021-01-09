@@ -11,7 +11,7 @@ export default {
       selected: {},
       chartDataSourcesEn: "",
       chartDataSourcesCh: "",
-      watermark:false,
+      watermark: false
     };
   },
   props: {
@@ -273,13 +273,10 @@ export default {
                 }</div>`;
               }
               c = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!it.value || it.value=='0'
+                !!it.value || it.value == "0"
                   ? it.seriesType == "bar"
                     ? this.formatNum(it)
-                    : this.formatNum(it) +
-                      (this.options.rightInt
-                        ? ""
-                        : "%")
+                    : this.formatNum(it) + (this.options.rightInt ? "" : "%")
                   : "-"
               }</div>`;
               dom += `<td style="padding-right:0.08rem;">${a + b + c}</td>`;
@@ -424,7 +421,11 @@ export default {
                 0,
                 0,
                 that.$refs.barLineMix.offsetWidth *
-                  (this.options.rightInt ? -0.027 : 0.01)
+                  (this.options.rightInt
+                    ? -0.027
+                    : this.options.leftPer
+                    ? -0.04
+                    : 0.01)
               ],
               // this.options.yLabel && !this.options.yLabel[0]
               //   ? -that.$refs.barLineMix.offsetWidth * 0.05
