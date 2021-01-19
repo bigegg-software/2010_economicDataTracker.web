@@ -29,6 +29,13 @@
             <p style="margin:0" class="text-chinese">退出</p>
           </div>
         </div>
+        <div class="line" v-if="userInfo.sessionToken"></div>
+        <div class="logout" v-if="userInfo.sessionToken" @click="forgetPwd">
+          <div class="logout-text">
+            <p style="margin:0" class="text-english">Change Password</p>
+            <p style="margin:0" class="text-chinese">修改密码</p>
+          </div>
+        </div>
         <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">
           <p style="margin:0" class="text-english">Log In</p>
           <p style="margin:0" class="text-chinese">登录</p>
@@ -54,19 +61,27 @@
           </template>
         </div>
       </div>
+      <!-- 忘记密码 -->
+         <forget-password :visible="visible"></forget-password>
+      <!-- 忘记密码 -->
     </div>
   </div>
 </template>
 
 <script>
 import user from '@/request/user'
+import ForgetPassword from '@/views/home/components/ForgetPassword'
 export default {
   name: "PageHeader",
   data() {
     return {
+      visible:false,
       reload:true,
       show: false
     };
+  },
+  components:{
+    ForgetPassword
   },
   mounted() {
     console.log(this.dataList)
@@ -110,6 +125,9 @@ export default {
           
         }
       });
+    },
+    forgetPwd() {
+      this.visible=true;
     },
     logInfo() {
       console.log(this.$route)

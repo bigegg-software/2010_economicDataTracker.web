@@ -37,7 +37,10 @@
         <a-form-item>
           <a-button type="primary" html-type="submit" class="login-form-button">登录 Log in</a-button>
         </a-form-item>
-        <div class="go-back" @click="goBack">返回数据页面</div>
+        <div class="bottom-btn">
+          <span class="go-back" @click="goBack">返回数据页面</span>
+        <span class="forget-pwd" @click="forgetPwd">忘记密码</span>
+        </div>
       </a-form>
     </div>
   </div>
@@ -75,6 +78,23 @@ export default {
     goBack() {
       this.$router.push({
         path: this.$route.query.redirect ? this.$route.query.redirect : "/"
+      });
+    },
+    forgetPwd() {
+        this.$info({
+        title: (<p>
+            <span>reminder</span>
+            <p>温馨提示</p>
+          </p>),
+        content: (
+          <div>
+            <span>Please contact with the system administrator</span>
+            <p>请与系统管理员联系</p>
+          </div>
+          ),
+        onOk() {
+
+        },
       });
     }
   }
@@ -125,8 +145,20 @@ export default {
       background: #446b90;
       // background: rgb(68, 107, 144);
     }
+    .bottom-btn{
+      position: relative;
+    }
     .go-back {
+      position: absolute;
+      left: 0;
       cursor: pointer;
+      font-size: 0.072917rem;
+      color: rgb(68, 107, 144);
+    }
+    .forget-pwd{
+      position: absolute;
+      right: 0;
+       cursor: pointer;
       font-size: 0.072917rem;
       color: rgb(68, 107, 144);
     }
