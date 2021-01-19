@@ -13,6 +13,27 @@
           <div class="text-english">Latest data</div>
           <div class="text-chinese">最新数据</div>
         </div>
+        <!-- 下拉框 -->
+      <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
+        <div v-for="item in dataList" :key="item.activityTime">
+          <template v-if="item.menus.length"> 
+            <!-- template 中的v-if为了排除连续三天内多次发布同一纵向菜单下的图表进行去重后列表为空的情况 -->
+              <div class="list-time">{{ item.activityTime }}</div>
+              <div class="list-text-block">
+                <div
+                  v-for="data in item.menus"
+                  :key="data.name"
+                  class="list-text"
+                  @click.stop="jumpPage(data)"
+                >
+                  <div>{{ data.en }}</div>
+                  <div>{{ data.ch }}</div>
+                </div>
+              </div>
+          </template>
+        </div>
+      </div>
+        <!-- 下拉框 -->
       </div>
       <div class="user-actions" v-if="reload">
         <div class="user-info">
@@ -41,26 +62,7 @@
           <p style="margin:0" class="text-chinese">登录</p>
           </div>
       </div>
-      <!-- 下拉框 -->
-      <div v-if="show&&dataList.allreadySetMenus.length" class="data-list" @mouseleave="hiddenDataList">
-        <div v-for="item in dataList" :key="item.activityTime">
-          <template v-if="item.menus.length"> 
-            <!-- template 中的v-if为了排除连续三天内多次发布同一纵向菜单下的图表进行去重后列表为空的情况 -->
-              <div class="list-time">{{ item.activityTime }}</div>
-              <div class="list-text-block">
-                <div
-                  v-for="data in item.menus"
-                  :key="data.name"
-                  class="list-text"
-                  @click="jumpPage(data)"
-                >
-                  <div>{{ data.en }}</div>
-                  <div>{{ data.ch }}</div>
-                </div>
-              </div>
-          </template>
-        </div>
-      </div>
+      
       <!-- 忘记密码 -->
          <forget-password :visible="visible"></forget-password>
       <!-- 忘记密码 -->
@@ -168,8 +170,9 @@ export default {
 }
 .data-list {
   position: absolute;
-  right: 1.2rem;
-  top: 110px;
+  right: 0;
+  white-space: nowrap;
+  top: 80px;
   z-index: 10;
   max-height: 4rem;
   overflow: auto;
@@ -218,6 +221,7 @@ export default {
   color: #999999;
   //  最新数据
   .latest-data {
+    position: relative;
     display: flex;
     align-items: center;
     font-size: 0.09375rem;

@@ -105,8 +105,8 @@ sumSameYearData:async (sourceData,field,name)=> {
                     item.outFlowTypeCH='中国对外非金融直接投资'
                     item.outFlowTypeEN='Non-financial FDI outflows'
                 }
-                item.investAmountMillion = item.investAmount * 100;
-                item.investConversionMillion = item.investConversion * 100;
+                item.investAmountMillion = !!item.investAmount || item.investAmount==0?item.investAmount * 100:'';
+                item.investConversionMillion = !!item.investConversion ||item.investAmount==0 ? item.investConversion * 100:'';
                 item.conversionUnitMillion='百万美元'
                 return item
             })

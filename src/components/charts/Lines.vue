@@ -89,7 +89,7 @@ export default {
       this.initChart();
       this.chart.resize();
     },
-    options: {
+    'options.series': {
       // 表示对象中属性变化的处理函数，这个函数只能叫这个名字
       handler(newName, oldName) {
         this.initChart();
@@ -139,12 +139,14 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
+      console.log(it,'0000000')
       // let value = it.value.toFixed(1);
       let value = (Math.round(it.value*10)/10).toFixed(1);
       return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     //企业数 转换成整数
     formatInt(it) {
+      console.log(it,'1111111')
       let value = it.value;
       return (
         value &&

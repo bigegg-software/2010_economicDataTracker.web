@@ -69,8 +69,10 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国服务贸易进出口总值 - 其他服务",
-          en: "China's trade in services not allocated"
+          // ch: "中国服务贸易进出口总值 - 其他服务",
+          // en: "China's trade in services not allocated"
+          ch: "中国服务贸易进出口总值 - 金融业",
+          en: "China's trade in financial services"
         },
         unit: {
           ch: "百万美元",
@@ -86,8 +88,10 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         title: {
-          ch: "中国服务贸易进出口总值 - 其他服务",
-          en: "China's trade in services not allocated"
+          // ch: "中国服务贸易进出口总值 - 其他服务",
+          // en: "China's trade in services not allocated"
+          ch: "中国服务贸易进出口总值 - 金融业",
+          en: "China's trade in financial services"
         },
         xData: [],
         series: [
@@ -108,8 +112,10 @@ export default {
         ch: "服务类别",
         en: "Service type",
         value: {
-          ch: "其他服务",
-          en: "Services not allocated"
+          // ch: "其他服务",
+          // en: "Services not allocated"
+          ch: "金融业 ",
+          en: "Financial services"
         },
         op: chartDataFun.tradeServiceIndustry()
       },
