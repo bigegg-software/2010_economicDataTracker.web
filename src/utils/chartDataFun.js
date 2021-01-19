@@ -410,11 +410,13 @@ export default {
   },
   // 转表格所需格式
   formatNum(value) {
-    let strs = value.toFixed(1);
+    // let strs = value.toFixed(1);
+    let strs = (Math.round(value*10)/10).toFixed(1)
     return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
   },
   formatPer(value) {
-    let strs = value.toFixed(1);
+    // let strs = value.toFixed(1);
+    let strs = (Math.round(value*10)/10).toFixed(1)
     let res = strs + '%'
     return res;
   },

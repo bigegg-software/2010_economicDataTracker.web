@@ -181,7 +181,7 @@ export default {
           actual: "实际投入外资金额_FDI inflows",
           value: item.FDIInflowsMillion,
           proportion: "金额比重_Share of China's FDI inflows",
-          proportionValue: (item.inflowsPercent).toFixed(1)
+          proportionValue: (Math.round(item.inflowsPercent*10)/10).toFixed(1)//(item.inflowsPercent).toFixed(1)
         });
       });
     },

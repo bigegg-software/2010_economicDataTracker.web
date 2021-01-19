@@ -134,7 +134,8 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(value) {
-      let strs = value.toFixed(1);
+      // let strs = value.toFixed(1);
+      let strs = (Math.round(value*10)/10).toFixed(1)
       return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     drawTreemap() {

@@ -139,7 +139,8 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      let value = it.value.toFixed(1);
+      // let value = it.value.toFixed(1);
+      let value = (Math.round(it.value*10)/10).toFixed(1);
       return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
     },
     //企业数 转换成整数

@@ -172,9 +172,10 @@ export default {
               params.data.proportionName.split("_")[0]
             }</div>`;
             let e = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${params.value}</div>`;
-            let f = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;"">${params.data.proportion.toFixed(
-              1
-            )}%</div>`;
+            let f = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;"">${
+              // params.data.proportion.toFixed(1)
+              (Math.round(params.data.proportion*10)/10).toFixed(1)
+              }%</div>`;
             let dom = year + a + b + e + c + d + f;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }

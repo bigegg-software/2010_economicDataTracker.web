@@ -5,7 +5,8 @@ export default {
      //数据格式化
      formatNum(value) {
         if (!value && value !== 0) return "";
-        let strs = value.toFixed(1)
+        // let strs = value.toFixed(1)
+        let strs = (Math.round(value*10)/10).toFixed(1)
         let str = strs.toString();
         let reg =
             str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
