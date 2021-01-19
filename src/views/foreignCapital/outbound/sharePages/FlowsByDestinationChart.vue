@@ -368,7 +368,7 @@ export default {
             let splitList = await this.checkBox.op[i].searchArr
               .join(",")
               .toLowerCase()
-              .split(",");
+              // .split(",");  //去掉了切割成分组 可以搜索英文字符串 不用输入全英文单词
             console.log(splitList);
             let active = true;
             for (let k = 0; k < arrName.length; k++) {
