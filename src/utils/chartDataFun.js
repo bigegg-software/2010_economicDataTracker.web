@@ -652,11 +652,11 @@ export default {
       },
       {
         en: 'Insurance & pension',
-        ch: '保险业 ',
+        ch: '保险业',
       },
       {
         en: 'Financial services',
-        ch: '金融业 ',
+        ch: '金融业',
       },
       {
         en: 'Intellectual property',
@@ -675,7 +675,7 @@ export default {
         ch: '个人、文化和娱乐服务',
       }, {
         en: 'Government goods & services',
-        ch: '政府服务与货物 ',
+        ch: '政府服务与货物',
       }, {
         en: 'Services not allocated',
         ch: '其他服务',

@@ -76,7 +76,7 @@ export default {
             return false;
           })
         } else {
-            
+            this.confirmLoading = false;
         }
       });
     },

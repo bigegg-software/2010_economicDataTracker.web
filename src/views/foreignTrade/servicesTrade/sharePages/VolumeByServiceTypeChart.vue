@@ -114,7 +114,7 @@ export default {
         value: {
           // ch: "其他服务",
           // en: "Services not allocated"
-          ch: "金融业 ",
+          ch: "金融业",
           en: "Financial services"
         },
         op: chartDataFun.tradeServiceIndustry()
