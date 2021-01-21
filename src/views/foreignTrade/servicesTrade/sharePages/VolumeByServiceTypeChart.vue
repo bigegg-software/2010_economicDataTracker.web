@@ -13,7 +13,7 @@
         "
       >
         <lines-chart
-          v-if="!isShowTable"
+          v-if="(!isShowTable)&&reload"
           ref="linesChart"
           :options="USD"
           :selectOption="industry.value"
@@ -63,6 +63,7 @@ export default {
   name: "TotalTradeInServices",
   data() {
     return {
+      reload:true,
       activeKey: "yearly",
       tableName: {
         yearly: "TradeServicesTypeVolume"
@@ -226,8 +227,12 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
+      this.reload=false;
       this.USD.series[0]["data"] = res.length ? data.IMPvolume : [];
       this.USD.series[1]["data"] = res.length ? data.EXPvolume : [];
+       this.$nextTick(()=>{
+        this.reload=true;
+      });
     },
     async getChartsData(aug) {
       await this.setTableConfig(aug);
