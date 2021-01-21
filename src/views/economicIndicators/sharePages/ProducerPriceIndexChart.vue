@@ -134,12 +134,13 @@ export default {
   async mounted() {
     let Yearres = await this.getMaxMinDate("PPI");
     let res = await this.getMaxMinDate("MonthPPI");
-    let Yarrmaxmin = Yearres.split("_");
-    let arrmaxmin = res.split("_");
+    let Yarrmaxmin = Yearres.Y.split("_");
+    let arrmaxmin = res.Y.split("_");
+    let arrmaxminM = res.M.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     await this.getChartsData({
@@ -188,7 +189,7 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         if (tableName == "PPI" && key == "yearly") {
           this.$set(this.options, "yearly", obj);

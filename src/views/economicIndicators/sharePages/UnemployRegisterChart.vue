@@ -141,16 +141,15 @@ export default {
   },
   async created() {
     let Yearres = await this.getMaxMinDate("Unemployment");
-    let res = await this.getMaxMinDate("UnemploymentQuarter");
-    let Yarrmaxmin = Yearres.split("_");
-    let arrmaxmin = res.split("_");
+    let res = await chartDataFun.getQNoMonthDefaultTime("UnemploymentQuarter");
+    let Yarrmaxmin = Yearres.Y.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    console.log(QMDefaultTime);
-    this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
-    this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
+    this.options.quarterly.list.start.frame=`${res.min}_${res.max}`;
+    this.options.quarterly.list.end.frame=`${res.min}_${res.max}`;
+    this.options.quarterly.list.start.value=`${res.max-1}-${res.maxQuarterMonth}`;
+    this.options.quarterly.list.end.value=`${res.max}-${res.maxQuarterMonth}`;
     await this.getChartsData({
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
@@ -202,12 +201,10 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         if (tableName == "Unemployment" && key == "yearly") {
           this.$set(this.options, "yearly", obj);
-        } else if (tableName == "UnemploymentQuarter" && key != "yearly") {
-          this.$set(this.options, key, obj);
         }
       }
       this.showTimeFrame = true;

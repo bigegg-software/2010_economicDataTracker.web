@@ -222,12 +222,15 @@ export default {
   async mounted() {
     let Yearres = await this.getMaxMinDate("FDIOutflowYear");
     let res = await this.getMaxMinDate("FDIOutflow");
-    let Yarrmaxmin = Yearres.split("_");
-    let arrmaxmin = res.split("_");
+    let Yarrmaxmin = Yearres.Y.split("_");
+    let arrmaxmin = res.Y.split("_");
+    let arrmaxminM=res.M.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    console.log(res)
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
+    console.log(QMDefaultTime)
     this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
     this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
@@ -274,10 +277,11 @@ export default {
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate(tableName);
+      console.log(res,1111)
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         if (tableName == "FDIOutflowYear" && key == "yearly") {
           this.$set(this.options, "yearly", obj);

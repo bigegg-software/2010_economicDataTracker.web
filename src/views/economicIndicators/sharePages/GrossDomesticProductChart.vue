@@ -131,7 +131,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -139,16 +138,15 @@ export default {
   },
   async created() {
     let Yearres = await this.getMaxMinDate('GDP');
-    let res = await this.getMaxMinDate('GDPQuarterly');
-    let Yarrmaxmin = Yearres.split("_");
-    let arrmaxmin = res.split("_");
+    let res = await chartDataFun.getQNoMonthDefaultTime('GDPQuarterly');
+    let Yarrmaxmin = Yearres.Y.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
-    console.log(QMDefaultTime)
-    this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
-    this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
+    this.options.quarterly.list.start.frame=`${res.min}_${res.max}`;
+    this.options.quarterly.list.end.frame=`${res.min}_${res.max}`;
+    this.options.quarterly.list.start.value=`${res.max-1}-${res.maxQuarterMonth}`;
+    this.options.quarterly.list.end.value=`${res.max}-${res.maxQuarterMonth}`;
     await this.getChartsData({
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
@@ -183,7 +181,6 @@ export default {
         let quarterStartMonth = parseInt(startTimeArr[1])/3;
         let quarterEnd = parseInt(endTimeArr[0]);
         let quarterEndMonth = parseInt(endTimeArr[1])/3;
-        console.log(quarterEndMonth)
         await this.getChartsData({
           type,
           start: quarterStart,
@@ -199,16 +196,13 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         if (tableName == "GDP" && key == "yearly") {
           this.$set(this.options, "yearly", obj);
-        } else if (tableName == "GDPQuarterly" && key != "yearly") {
-          this.$set(this.options, key, obj);
         }
       }
       this.showTimeFrame = true;
-      console.log(res)
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -230,7 +224,6 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res, XNameAttr, dataAttr, range)
       //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       if(XNameAttr=='year'){
@@ -307,7 +300,6 @@ export default {
 
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
-      console.log(range)
       // 要换取纵轴数据的字段属性
       let dataAttr = aug.type == "yearly"?["GDP","yoyGrowth"]:["GDP","cumulativeGDP","yoyGrowth",'cumulativeYoyGrowth','qoqGDP'];
       let XNameAttr = "year";
@@ -388,7 +380,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

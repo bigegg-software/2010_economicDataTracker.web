@@ -145,7 +145,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
     this.option.value = arrmaxmin[1];
     await this.getChartsData({
       ascending: "rank", //排名升序
@@ -158,7 +158,7 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDITop20Outflow");
-      this.$set(this.option, "frame", res);
+      this.$set(this.option, "frame", res.Y);
       this.showTimeFrame = true;
       return res;
     },

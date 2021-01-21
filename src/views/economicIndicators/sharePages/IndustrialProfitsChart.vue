@@ -153,9 +153,10 @@ export default {
   },
   async created() {
     let Monthres = await this.getMaxMinDate('IndustrialProfit');
-    let Marrmaxmin = Monthres.split("_");
+    let Marrmaxmin = Monthres.Y.split("_");
+    let MarrmaxminM = Monthres.M.split("_");
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Marrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(Marrmaxmin[1],MarrmaxminM[1], 1);
     this.options.monthly.list.start.value=QMDefaultTime.M.start;
     this.options.monthly.list.end.value=QMDefaultTime.M.end;
     // await this.getChartsData({
@@ -198,7 +199,7 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         this.$set(this.options, key, obj);
       }

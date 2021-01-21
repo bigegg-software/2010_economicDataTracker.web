@@ -65,7 +65,6 @@ export default {
                 item.unit='亿元人民币';
                 return item
             })
-            console.log(res,12111111)
             // 处理存储导出excel数据
             let tableres=await JSON.parse(JSON.stringify(res));
                  if (type == 'quarterly'){
@@ -120,7 +119,6 @@ export default {
                     return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
                 })
             }
-            console.log(res)
             return {res};
     },
       getConsumerPriceIndexChartsData:async function(tableName,params) {// 获取消费者价格指数CPI 年度、月度
@@ -346,7 +344,6 @@ export default {
             // 处理存储导出excel数据
             let tableres=await JSON.parse(JSON.stringify(res));
              if (type == 'quarterly'){
-                console.log()
                 tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
                 })
@@ -424,7 +421,6 @@ export default {
             // 处理存储导出excel数据
             let tableres=await JSON.parse(JSON.stringify(res));
             if (type == 'quarterly'){
-                console.log()
                 tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
                     return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
                 })
@@ -503,7 +499,6 @@ export default {
             item.unit = '亿元人民币';
             return item
         })
-        console.log(res, 12111111)
         // 处理存储导出excel数据
         let tableres =await JSON.parse(JSON.stringify(res));
          if (type == 'quarterly') {
@@ -553,7 +548,6 @@ export default {
                 return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
             })
         }
-        console.log(res)
         return { res };
     },
     getUnemployExamineChartsData:async function(params) { // 获取调查失业率
@@ -601,12 +595,10 @@ export default {
          item.unit='亿元人民币';
          return item
      })
-     console.log(res,12111111)
      // 处理存储导出excel数据
      let tableres=
      await JSON.parse(JSON.stringify(res))
      if (type == 'quarterly'){
-         console.log()
          tableres = await JSON.parse(JSON.stringify(res)).filter(item=>{
              return (item.year>params.start || item.quarter>=params.startQuarter) && (item.year<params.end || item.quarter<=params.endQuarter)
          })
@@ -655,7 +647,6 @@ export default {
              return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
          })
      }
-     console.log(res)
      return {res};
 },
    getMoneySupplyChartsData:async function(params) { // 获取货币供应量
@@ -773,19 +764,35 @@ getMaxMinDate:async function (tableName) {  //单独查询
     let res=await q.find();
     let yearMaxMin= [];
     let monthMaxMinYear= [];
+    let yearlyData=[];
+    let monthlyData=[];
       res.forEach((item)=>{
             item=item.toJSON();
             if(item.type==1){
+                yearlyData.push(item);
                yearMaxMin.push(item.year); 
             };
             if(item.type==2){
+                monthlyData.push(item)
                monthMaxMinYear.push(item.year); 
             };
       });
+
       let resoult={
                 yearMaxMin:`${Math.min.apply(null,yearMaxMin)}_${Math.max.apply(null,yearMaxMin)}`,
                 monthMaxMinYear:`${Math.min.apply(null,monthMaxMinYear)}_${Math.max.apply(null,monthMaxMinYear)}`
           }
+          let monthlyMinYearM=monthlyData.filter((it)=>{
+                 return it.year==Math.min.apply(null,monthMaxMinYear);
+          }).map((io)=>{
+                 return io.month;
+          })
+          let monthlyMaxYearM=monthlyData.filter( (it)=>{
+                 return  it.year==Math.max.apply(null,monthMaxMinYear);
+          }).map( (io)=>{
+                 return  io.month;
+          })
+          resoult.monthMaxMinMonth=`${Math.min.apply(null,monthlyMinYearM)}_${Math.max.apply(null,monthlyMaxYearM)}`;
       return resoult;
 }
 

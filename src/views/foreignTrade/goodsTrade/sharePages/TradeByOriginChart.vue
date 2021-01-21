@@ -274,12 +274,13 @@ export default {
     async getMaxMinDate() {
       let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"]);
       let monthly = await chartDataFun.getMaxMinDate(this.tableName["monthly"]);
-      let arrmaxmin_yearly = yearly.split("_");
-      let arrmaxmin_monthly = monthly.split("_");
+      let arrmaxmin_yearly = yearly.Y.split("_");
+      let arrmaxmin_monthly = monthly.Y.split("_");
+      let arrmaxmin_monthlyM = monthly.M.split("_");
       //
       let obj_yearly = JSON.parse(JSON.stringify(this.options["yearly"]));
       for (let k in obj_yearly.list) {
-        obj_yearly.list[k].frame = yearly;
+        obj_yearly.list[k].frame = yearly.Y;
       }
       this.$set(this.options, "yearly", obj_yearly);
       this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;
@@ -287,11 +288,12 @@ export default {
       //
       let obj_monthly = JSON.parse(JSON.stringify(this.options["monthly"]));
       for (let k in obj_monthly.list) {
-        obj_monthly.list[k].frame = monthly;
+        obj_monthly.list[k].frame = monthly.Y;
       }
       this.$set(this.options, "monthly", obj_monthly);
       let QMDefaultTime = await chartDataFun.getQMDefaultTime(
         arrmaxmin_monthly[1],
+        arrmaxmin_monthlyM[1],
         1
       );
       this.options.monthly.list.start.value = QMDefaultTime.M.start_beforeSix;

@@ -150,9 +150,10 @@ export default {
   },
   async mounted() {
     let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
+    let arrmaxminM = res.M.split("_");
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
     console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
@@ -195,7 +196,7 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         this.$set(this.options, key, obj);
       }

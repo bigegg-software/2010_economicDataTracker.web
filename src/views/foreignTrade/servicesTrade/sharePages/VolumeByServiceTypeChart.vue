@@ -197,10 +197,10 @@ export default {
     },
     async getMaxMinDate() {
       let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"]);
-      let arrmaxmin_yearly = yearly.split("_");
+      let arrmaxmin_yearly = yearly.Y.split("_");
       let obj_yearly = JSON.parse(JSON.stringify(this.options["yearly"]));
       for (let k in obj_yearly.list) {
-        obj_yearly.list[k].frame = yearly;
+        obj_yearly.list[k].frame = yearly.Y;
       }
       this.$set(this.options, "yearly", obj_yearly);
       this.options.yearly.list.start.value = arrmaxmin_yearly[1] - 4;

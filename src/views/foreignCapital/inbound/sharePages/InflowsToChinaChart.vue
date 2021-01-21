@@ -241,7 +241,7 @@ export default {
     //随机颜色
     // this.randomColor=await chartDataFun.randomColor(18);
     let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
     this.options.yearly.list.start.value = (
       Number(arrmaxmin[1]) - 1
     ).toString();
@@ -288,7 +288,7 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         console.log(obj);
         this.$set(this.options, key, obj);

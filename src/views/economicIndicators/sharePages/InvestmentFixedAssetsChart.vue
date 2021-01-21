@@ -135,13 +135,13 @@ export default {
   },
   async created() {
     let YearAndMonthres = await this.getMaxMinDate("InvestmentFixedAssests");
-    console.log(YearAndMonthres);
     let Yarrmaxmin = YearAndMonthres.yearMaxMin.split("_");
     let arrmaxmin = YearAndMonthres.monthMaxMinYear.split("_");
+    let arrmaxminM = YearAndMonthres.monthMaxMinMonth.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
     console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;

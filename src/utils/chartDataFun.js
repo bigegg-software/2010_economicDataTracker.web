@@ -8,17 +8,19 @@ import {
 } from '@/utils/menuSearchConfigs'
 export default {
   // 获取年度最大值最小值
-  getMaxMinDate: async (tableName) => {
+  getMaxMinDate: async (tableName,flag=undefined) => {
     let res = await Parse.Cloud.run('getMinMaxYears', {
-      tableName
+      tableName,
+      flag
     });
     // console.log(res)
     if (res.code == 200) {
-      return `${res.data[0].min}_${res.data[0].max}`
+      // return `${res.data[0].min}_${res.data[0].max}`
+      return {Y:`${res.data[0].min}_${res.data[0].max}`,M:`${res.data[0].minMonth}_${res.data[0].maxMonth}`}
     }
   },
-  //计算当前季度和月度
-  getQMDefaultTime(currentY = dayjs().format('YYYY'), beforeY = 1) {
+  //计算有月份时数据库最大最小季度和月度
+  getQMDefaultTime(currentY = dayjs().format('YYYY'),currentM=dayjs().format('M'), beforeY = 1) {
     currentY = currentY.toString();
     let dateRes = {
       Q: {
@@ -32,18 +34,50 @@ export default {
     }
     let currentTime = new Date();
     // 计算当前月份对应的季度月份
-    let currentQ = Math.ceil((currentTime.getMonth() + 1) / 3) * 3;
+    let currentQ = Math.ceil(currentM / 3) * 3;
     if (currentQ < 10) {
       currentQ = '0' + currentQ;
     }
+    let current0M=dayjs().set('month',currentM-1).format('MM');
+    console.log(current0M)
     dateRes.Q.start = dayjs(currentY).format('YYYY') - beforeY + '-' + currentQ;
     dateRes.Q.end = dayjs(currentY).format('YYYY') + '-' + currentQ;
-    dateRes.M.start = dayjs(currentY).format('YYYY') - beforeY + '-' + dayjs().format('MM');
-    dateRes.M.end = dayjs(currentY).format('YYYY') + '-' + dayjs().format('MM');
+    dateRes.M.start = dayjs(currentY).format('YYYY') - beforeY + '-' + current0M;
+    dateRes.M.end = dayjs(currentY).format('YYYY') + '-' + current0M;
     let end = dayjs().set('year', dayjs(currentY).format('YYYY'))
-    end = end.set('month', dayjs().format('MM') - 6)
+    end = end.set('month', current0M - 6)
     dateRes.M.start_beforeSix = end.format('YYYY-MM')
     return dateRes;
+  },
+  //没月份时计算数据库最大季度和最小季度  数据库季度是按1234记录
+  async getQNoMonthDefaultTime(tableName) {
+       let res = await Parse.Cloud.run('getMinMaxYears', {
+      tableName
+    });
+      res = res.data[0];
+      let qMax = new Parse.Query(tableName);
+      let limiCcount = await qMax.count();
+      qMax.limit(limiCcount);
+      qMax.equalTo('year', res.max)
+      qMax.descending('quarter');
+      let max = await qMax.find()
+      max = max.map(v => v.toJSON())
+      // 
+      let qMin = new Parse.Query(tableName);
+      let limtMincount = await qMin.count();
+      qMin.limit(limtMincount);
+      qMin.equalTo('year', res.min)
+      qMin.ascending('quarter');
+      let min = await qMin.find()
+      min = min.map(v => v.toJSON())
+      return {
+        max: res.max,
+        min: res.min,
+        maxQuarter: max[0].quarter,
+        minQuarter: min[0].quarter,
+        maxQuarterMonth: max[0].quarter*3>10?`${max[0].quarter*3}`:`0${max[0].quarter*3}`,
+        minQuarterMonth:min[0].quarter*3>10?`${min[0].quarter*3}`:`0${min[0].quarter*3}`
+      }
   },
   objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
     // nameArr内部存储柱状图折线图y轴名称信息

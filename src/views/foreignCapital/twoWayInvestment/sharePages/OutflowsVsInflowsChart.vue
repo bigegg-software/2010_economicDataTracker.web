@@ -252,7 +252,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let resQM = await this.getMaxMinDateQM();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
@@ -289,7 +289,7 @@ export default {
       console.log(res);
       let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
       for (let k in obj.list) {
-        obj.list[k].frame = res;
+        obj.list[k].frame = res.Y;
       }
       this.$set(this.options, "yearly", obj);
       this.showTimeFrame = true;
@@ -411,26 +411,40 @@ export default {
       let Inres = await chartDataFun.getMaxMinDate("InwardFDI");
       let allIndustryres = await chartDataFun.getMaxMinDate("FDIOutflow");
       console.log(Inres, allIndustryres);
-      let res = "";
+      let res = {};
       let start =
-        (await Number(Inres.split("_")[0])) -
-          Number(allIndustryres.split("_")[0]) >=
+        (await Number(Inres.Y.split("_")[0])) -
+          Number(allIndustryres.Y.split("_")[0]) >=
         0
-          ? allIndustryres.split("_")[0]
-          : Inres.split("_")[0];
+          ? allIndustryres.Y.split("_")[0]
+          : Inres.Y.split("_")[0];
       let end =
-        (await Number(Inres.split("_")[1])) -
-          Number(allIndustryres.split("_")[1]) >=
+        (await Number(Inres.Y.split("_")[1])) -
+          Number(allIndustryres.Y.split("_")[1]) >=
         0
-          ? Inres.split("_")[1]
-          : allIndustryres.split("_")[1];
-      res = `${start}_${end}`;
+          ? Inres.Y.split("_")[1]
+          : allIndustryres.Y.split("_")[1];
+
+          let startM =
+        (await Number(Inres.M.split("_")[0])) -
+          Number(allIndustryres.M.split("_")[0]) >=
+        0
+          ? allIndustryres.M.split("_")[0]
+          : Inres.M.split("_")[0];
+      let endM =
+        (await Number(Inres.M.split("_")[1])) -
+          Number(allIndustryres.M.split("_")[1]) >=
+        0
+          ? Inres.M.split("_")[1]
+          : allIndustryres.M.split("_")[1];
+
+      res = {Y:`${start}_${end}`,M:`${startM}_${endM}`};
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
-        let QMDefaultTime = await chartDataFun.getQMDefaultTime(end, 1);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(end,endM, 1);
         if (key == "quarterly") {
           obj.list.start.value = QMDefaultTime.Q.start;
           obj.list.end.value = QMDefaultTime.Q.end;

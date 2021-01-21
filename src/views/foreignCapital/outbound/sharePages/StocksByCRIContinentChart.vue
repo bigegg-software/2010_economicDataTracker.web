@@ -191,7 +191,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
     await this.getChartsData({
       year: Number(arrmaxmin[1]),
       equalTo: {
@@ -221,7 +221,7 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIStock");
-      this.$set(this.option, "frame", res);
+      this.$set(this.option, "frame", res.Y);
       this.showTimeFrame = true;
       return res;
     },

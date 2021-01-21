@@ -182,7 +182,7 @@ export default {
     this.randomColor = [...this.randomColor, ...rand];
     await this.getAllCountryName();
     let res = await this.getMaxMinDate();
-    let arrmaxmin = res.split("_");
+    let arrmaxmin = res.Y.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
     await this.getChartsData({
@@ -237,7 +237,7 @@ export default {
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
-          obj.list[k].frame = res;
+          obj.list[k].frame = res.Y;
         }
         console.log(obj);
         this.$set(this.options, key, obj);
