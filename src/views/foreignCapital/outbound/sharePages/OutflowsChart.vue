@@ -213,7 +213,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -228,9 +227,7 @@ export default {
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    console.log(res)
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
-    console.log(QMDefaultTime)
     this.options.quarterly.list.start.value = QMDefaultTime.Q.start;
     this.options.quarterly.list.end.value = QMDefaultTime.Q.end;
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
@@ -277,7 +274,6 @@ export default {
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate(tableName);
-      console.log(res,1111)
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -418,7 +414,6 @@ export default {
       this.RMB.updatedDate = this.$store.getters.latestTime;
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
-      console.log(allIndustry, nonFinancial);
       //添加额外的Q和M属性
       await chartDataFun.addOtherCategory(allIndustry);
       await chartDataFun.addOtherCategory(nonFinancial);
@@ -453,7 +448,6 @@ export default {
       }, 600);
     },
     change(activeKey, key, value) {
-      console.log("change");
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
       let start =
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);
