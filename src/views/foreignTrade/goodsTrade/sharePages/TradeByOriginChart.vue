@@ -144,14 +144,14 @@ export default {
             start: {
               ch: "开始",
               en: "From",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "To",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             }
           }
         },

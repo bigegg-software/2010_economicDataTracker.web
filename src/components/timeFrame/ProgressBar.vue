@@ -78,12 +78,12 @@ export default {
       let start = `${val[0]}`;
       let end = `${val[1]}`;
       if (this.activeKey == "quarterly") {
-        start = `${start}-03`;
-        end = `${end}-03`;
+        start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        end = `${end}-${this.options.list.end.value.split('-')[1]}`;
       }
       if (this.activeKey == "monthly") {
-        start = `${start}-01`;
-        end = `${end}-01`;
+        start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        end = `${end}-${this.options.list.end.value.split('-')[1]}`;
       }
       result = [start, end];
       this.$emit("change", result);

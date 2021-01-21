@@ -301,12 +301,12 @@ export default {
     let res = await this.manualQueryData(params);
     res = res.map(item => {
       item = item.toJSON()
-      item._trade = item.trade / 1000
-      item._import = item.import / 1000
-      item._export = item.export / 1000
-      item._cumulativeTrade = item.cumulativeTrade / 1000
-      item._cumulativeImport = item.cumulativeImport / 1000
-      item._cumulativeExport = item.cumulativeExport / 1000
+      item._trade = item.trade
+      item._import = item.import
+      item._export = item.export
+      item._cumulativeTrade = item.cumulativeTrade
+      item._cumulativeImport = item.cumulativeImport
+      item._cumulativeExport = item.cumulativeExport
       return item
     })
     let tHeader = {
