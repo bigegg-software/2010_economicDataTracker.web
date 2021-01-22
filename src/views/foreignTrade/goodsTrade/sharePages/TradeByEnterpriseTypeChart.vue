@@ -318,8 +318,8 @@ export default {
       }
       if (aug.type == "monthly") {
         XNameAttr = "M";
-        range = await chartDataFun.getXRangeCurrentMonth(aug);
-        await chartDataFun.addOtherCategoryCurrentMonth(data);
+        range = await chartDataFun.getXRange(aug);//getXRangeCurrentMonth
+        await chartDataFun.addOtherCategory(data);//addOtherCategoryCurrentMonth
       }
       this.USD.xData = range;
       this.USD.updatedDate = this.$store.getters.latestTime;
