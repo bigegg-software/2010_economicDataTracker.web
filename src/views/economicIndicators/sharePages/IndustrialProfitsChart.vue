@@ -237,7 +237,7 @@ export default {
         'IndustrialProfit',aug
         );
       // 完整的区间
-      let range = await chartDataFun.getXRangeMC(aug);
+      let range = await chartDataFun.getXRange(aug); //getXRangeMC(月度01，02模式)
       // 要换取纵轴数据的字段属性
       let dataAttr = ["yoyCumulativeIndustrialGrowth","yoyGrowth"];
       let XNameAttr = "M";
@@ -245,7 +245,7 @@ export default {
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategoryMC(res);
+      await chartDataFun.addOtherCategory(res);//addOtherCategory(月度01，02模式)
       // 获取当前页面所有线
       await this.getItemCategoryData(res, XNameAttr, dataAttr, range);
     },
