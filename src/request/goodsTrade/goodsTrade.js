@@ -604,11 +604,12 @@ export default {
       fileName: '外商投资企业进出口总值',
       tHeader: [
         "年份",
-        "当月进出口",
-        '当月进口',
-        '当月出口',
+        '进口',
+        '出口',
+        '进口同比',
+        '出口同比'
       ],
-      filterVal: ['year', '_monthlyCulumativeTrade', '_monthlyCulumativeImport', '_monthlyCulumativeExport'],
+      filterVal: ['year','_monthlyCulumativeImport', '_monthlyCulumativeExport','yoyMonthlyCumulativeImport','yoyMonthlyCumulativeExport'],
       tableData: [...tableres]
     }
     store.commit('saveChartTable', tableInfo);
@@ -630,14 +631,13 @@ export default {
     let tHeader = {
       1: [
         "年份",
-        "当月进出口",
         '当月进口',
         '当月出口',
       ],
       2: [
         "年份",
-        "累计进出口",
-        "累计进出口同比",
+        // "累计进出口",
+        // "累计进出口同比",
         '累计进口',
         '累计进口同比',
         '累计出口',
@@ -645,8 +645,8 @@ export default {
       ]
     }
     let field = {
-      1: ['year', '_monthlyTrade', '_monthlyImport', '_monthlyExport'],
-      2: ['year', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
+      1: ['year','_monthlyImport', '_monthlyExport'],
+      2: ['year', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],// '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade',
     }
     let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
       return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)

@@ -91,13 +91,13 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进口_Monthly import|进口同比_Y-o-y monthly import",
+            name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "出口_Monthly export|出口同比_Y-o-y monthly export",
+            name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
@@ -113,14 +113,14 @@ export default {
             start: {
               ch: "开始",
               en: "From",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "To",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             }
           }
         },
@@ -356,15 +356,25 @@ export default {
             width: "10%"
           },
           _monthlyCulumativeImport: {
-            text: "当月进口(USD)_Monthly import(USD)",
+            text: "进口(USD)_Import(USD)",
             width: "20%",
             formatNum: true
           },
           _monthlyCulumativeExport: {
-            text: "当月出口(USD)_Monthly export(USD)",
+            text: "出口(USD)_Export(USD)",
             width: "20%",
             formatNum: true
-          }
+          },
+          yoyMonthlyCumulativeImport: {
+              text: "进口同比(USD)_Y-o-y import(USD)",
+              width: "20%",
+              formatPer: true
+            },
+            yoyMonthlyCumulativeExport: {
+              text: "进口同比(USD)_Y-o-y export(USD)",
+              width: "20%",
+              formatPer: true
+            }
         };
       } else {
         if (this.selectOption.value.id == 1) {
@@ -466,9 +476,9 @@ export default {
     handleText() {
       if (this.activeKey == "yearly") {
         this.USD.series[0].name =
-          "进口_Monthly import|进口同比_Y-o-y monthly import";
+          "进口_Import|进口同比_Y-o-y import";
         this.USD.series[1].name =
-          "出口_Monthly export|出口同比_Y-o-y monthly export";
+          "出口_Export|出口同比_Y-o-y export";
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
