@@ -96,6 +96,24 @@ export default {
             type: "line",
             color: "#6AA3CD",
             data: [],
+            markLine: {
+              symbol: "none",
+              data: [
+                {
+                  yAxis: 0,
+                  lineStyle: {
+                    color: "rgba(0,0,0,0)"
+                  },
+                  label: {
+                    color: "#666",
+                    formatter: "{c} %",
+                    // fontSize:"13.2",
+                    show: true,
+                    position: "end"
+                  }
+                }
+              ]
+            }
           },
           {
             name:
@@ -153,7 +171,11 @@ export default {
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+      arrmaxmin[1],
+      arrmaxminM[1],
+      1
+    );
     console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
