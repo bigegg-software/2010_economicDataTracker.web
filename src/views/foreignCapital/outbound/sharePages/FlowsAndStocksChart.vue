@@ -56,7 +56,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对外直接投资流量与存量",
-          en: "China's outward FDI flows vs. Stocks"
+          en: "China's outward FDI flows vs. stocks"
         },
         unit: {
           ch: "百万美元",
@@ -73,7 +73,7 @@ export default {
             formatNum: true
           },
           outward_FDI_stocks: {
-            text: "中国对外直接投资存量_China's FDI stocks",
+            text: "中国对外直接投资存量_China's outward FDI stocks",
             width: "40%",
             formatNum: true
           }
@@ -90,7 +90,7 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         title: {
           ch: "中国对外直接投资流量与存量",
-          en: "China's outward FDI flows vs. Stocks"
+          en: "China's outward FDI flows vs. stocks"
         },
         xData: [],
         series: [

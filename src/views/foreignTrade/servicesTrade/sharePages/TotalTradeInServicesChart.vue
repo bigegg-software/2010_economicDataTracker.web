@@ -61,7 +61,7 @@ export default {
       totalData: {
         title: {
           ch: "中国服务贸易进出口总值",
-          en: "China’s total trade volume of services"
+          en: "China's total trade volume of services"
         },
         unit: {
           ch: "百万美元",
@@ -79,7 +79,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国服务贸易进出口总值",
-          en: "China’s total trade volume of services"
+          en: "China's total trade volume of services"
         },
         xData: [],
         series: [

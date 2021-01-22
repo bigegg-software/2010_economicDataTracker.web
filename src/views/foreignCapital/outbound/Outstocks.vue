@@ -35,12 +35,12 @@ export default {
         {
           name: "outstocksChart",
           chinese: "中国对外直接投资存量",
-          english: "China's FDI stocks"
+          english: "Outward FDI stocks"
         },
         {
           name: "flowsAndStocksChart",
           chinese: "中国对外直接投资流量与存量",
-          english: "China's FDI outflows vs. stocks"
+          english: "China's outward FDI flows vs. stocks"
         }
       ],
       actionsList: [

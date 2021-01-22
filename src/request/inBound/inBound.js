@@ -156,7 +156,7 @@ export default {
         tableres = tableres.reverse();
         if (type == 2){
             let tableInfo = {
-                fileName: '"一带一路"企业数',
+                fileName: '“一带一路”企业数',
                 tHeader: [
                     "年份",
                     "一带一路企业数",
@@ -169,7 +169,7 @@ export default {
             store.commit('saveChartTable', tableInfo);
         }else if (type == 1){
             let tableInfo = {
-                fileName: '"一带一路"实际外资投入金额',
+                fileName: '“一带一路”实际外资投入金额',
                 tHeader: [
                     "年份",
                     "带一路沿线国家投资金额",

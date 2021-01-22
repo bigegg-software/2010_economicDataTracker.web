@@ -39,17 +39,17 @@ export default {
         {
           name: "flowsByCRIContinentChart",
           chinese: "按各洲内国家/地区统计",
-          english: "By country/region within a continent"
+          english: "By country/region within one continent"
         },
         {
           name: "flowsByDestinationChart",
           chinese: "按国家/地区统计",
-          english: "China's FDI outflows by destination"
+          english: "By country/region"
         },
         {
           name: "flowsTwentyDestinationChart",
           chinese: "历年前20位国家/地区",
-          english: "Top 20 destinations of China's FDI flows"
+          english: "Top 20 destination of China's FDI outflows"
         }
       ],
 

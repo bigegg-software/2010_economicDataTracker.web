@@ -41,7 +41,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对外直接投资存量",
-          en: "China's FDI stocks"
+          en: "China's outward FDI stocks"
         },
         unit: {
           ch: "百万美元",
@@ -53,7 +53,7 @@ export default {
             width: "10%"
           },
           outward_FDI_stocks: {
-            text: "中国对外直接投资存量_China's FDI stocks",
+            text: "中国对外直接投资存量_China's outward FDI stocks",
             width: "85%",
             formatNum:true
           }
@@ -69,11 +69,11 @@ export default {
         dataSources:this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "中国对外直接投资存量", en: "China's FDI stocks" },
+        title: { ch: "中国对外直接投资存量", en: "China's outward FDI stocks" },
         xData: [],
         series: [
           {
-            name: "中国对外直接投资存量_China's FDI stocks",
+            name: "中国对外直接投资存量_China's outward FDI stocks",
             color: "#6AA3CD",
             data: []
           }

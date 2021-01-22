@@ -140,7 +140,7 @@ export default {
     option: {
       handler() {
         this.chartBar.title.text = this.tableTotalData.title.ch = `${this.option.value}年中国对外直接投资存量前20位国家/地区`;
-        this.chartBar.title.subtext = this.tableTotalData.title.en = `Top 20 destinations of China's FDI stocks in ${this.option.value}`;
+        this.chartBar.title.subtext = this.tableTotalData.title.en = `Top 20 destinations of China's outward FDI stocks in ${this.option.value}`;
       },
       deep: true
     }

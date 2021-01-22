@@ -70,7 +70,7 @@ export default {
       totalData: {
         title: {
           ch: "实际使用外资金额按行业统计",
-          en: "Foreign investment by industry"
+          en: "Actual use of foreign capital by industry"
         },
         unit: {
           ch: "百万美元",
@@ -140,7 +140,7 @@ export default {
         },
         title: {
           text: "实际使用外资金额按行业统计",
-          subtext: "Foreign investment by industry"
+          subtext: "Actual use of foreign capital by industry"
         },
         xData: [],
         series: [],
@@ -153,7 +153,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "实际使用外资金额按行业统计",
-          en: "Foreign investment by industry"
+          en: "Actual use of foreign capital by industry"
         },
         xData: [],
         series: [

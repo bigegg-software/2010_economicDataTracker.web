@@ -50,8 +50,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "实际投入外资金额",
-          en: "Foreign investment from BRI countries"
+          ch: "“一带一路”沿线国家对华实际投入外资金额",
+          en: "Actual use of foreign capital from BRI countries"
         },
         unit: {
           ch: "百万美元",
@@ -64,7 +64,7 @@ export default {
           },
           BRIAmountMillion: {
             text:
-              "一带一路沿线国家投资金额_BRI countries' FDI inflows to China",
+              "“一带一路”沿线国家对华实际投入外资金额_Actual use of foreign capital from BRI countries",
             width: "40%",
             formatNum: true
           },
@@ -85,14 +85,14 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "实际投入外资金额",
-          en: "Foreign investment from BRI countries"
+          ch: "“一带一路”沿线国家对华实际投入外资金额",
+          en: "Actual use of foreign capital from BRI countries"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "一带一路沿线国家投资金额_BRI countries' FDI inflows to China|占总外资金额比重_Share of total FDI inflows to China",
+            name: "“一带一路”沿线国家对华实际投入外资金额_Actual use of foreign capital from BRI countries|占总外资金额比重_Share of total FDI inflows to China",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []

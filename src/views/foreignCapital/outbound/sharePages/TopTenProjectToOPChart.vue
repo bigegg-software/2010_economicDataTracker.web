@@ -26,8 +26,8 @@ export default {
       showTimeFrame: false,
       totalData: {
         title: {
-          ch: "中国年度对外承包工程新签合同额前十项目",
-          en: "China's top 10 overseas project by contracts value"
+          ch: "2018年中国对外承包工程新签合同额前十项目",
+          en: "Top 10 overseas projects by value of new contracts in 2018"
         },
         tableTitle: {
           rank: {
@@ -75,8 +75,8 @@ export default {
   watch:{
     option:{
       handler() {
-          this.totalData.title.ch=`${this.option.value}中国年度对外承包工程新签合同额前十项目`;
-          this.totalData.title.en=`China's top 10 overseas project by contracts value in ${this.option.value}`;
+          this.totalData.title.ch=`${this.option.value}年中国对外承包工程新签合同额前十项目`;
+          this.totalData.title.en=`Top 10 overseas projects by value of new contracts in ${this.option.value}`;
       },
       deep:true
     },

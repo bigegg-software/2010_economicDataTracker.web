@@ -63,7 +63,7 @@ export default {
       totalData: {
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contracts from China's overseas projects"
+          en: "Revenue of completed contracts of China's overseas projects"
         },
         unit: {
           ch: "百万美元/百万人民币",
@@ -83,7 +83,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contracts from China's overseas projects"
+          en: "Revenue of completed contracts of China's overseas projects"
         },
         xData: [],
         hideLegend: true,
@@ -104,7 +104,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "中国对外承包工程完成营业额",
-          en: "Revenue of completed contracts from China's overseas projects"
+          en: "Revenue of completed contracts of China's overseas projects"
         },
         xData: [],
         grid: {

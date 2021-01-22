@@ -38,7 +38,7 @@ export default {
         {
           name: "outflowsVsInflowsChart",
           chinese: "双向直接投资",
-          english: "FDI outflows vs. inflows"
+          english: "FDI outflows vs. actual use of foreign capital"
         }
       ],
 

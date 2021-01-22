@@ -40,17 +40,17 @@ export default {
         {
           name: "stocksByCRIContinentChart",
           chinese: "按各洲内国家/地区统计",
-          english: "By country/region within a continent"
+          english: "By country/region within one continent"
         },
         {
           name: "stocksByDestinationChart",
           chinese: "按国家和地区统计",
-          english: "China's FDI stocks by destination"
+          english: "By country/region"
         },
         {
           name: "stocksTwentyDestinationChart",
           chinese: "历年前20位国家/地区",
-          english: "Top 20 destinations of China's FDI stocks"
+          english: "Top 20 destinations of China's outward FDI stocks"
         }
       ],
 

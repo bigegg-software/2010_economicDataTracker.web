@@ -51,7 +51,7 @@ export default {
       totalData: {
         title: {
           ch: "外商投资企业税收统计",
-          en: "Tax statistics of foreign invested enterprises"
+          en: "Tax revenue from foreign-invested enterprises"
         },
         unit: {
           ch: "百万人民币",
@@ -64,13 +64,13 @@ export default {
           },
           taxMillion: {
             text:
-              "外商投资企业税收额_Tax revenue of foreign investment enterprises ",
+              "外商投资企业税收额_Tax revenue from foreign-invested enterprises",
             width: "30%",
             formatNum: true
           },
           YOYGrowth: {
             text:
-              "外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises",
+              "外商投资企业税收额同比_Y-o-y tax revenue from foreign-invested enterprises",
             width: "30%",
             formatPer: true
           },
@@ -96,14 +96,14 @@ export default {
         percent: false, //通过修改这个值来显示同占比
         title: {
           ch: "外商投资企业税收统计",
-          en: "Tax revenue from foreign investment enterprises"
+          en: "Tax revenue from foreign-invested enterprises"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
             name:
-              "外商投资企业税收统计_Tax revenue from foreign investment enterprises",
+              "外商投资企业税收统计_Tax revenue from foreign-invested enterprises",
             color: "#6AA3CD",
             data: [],
             yearOnYear: [],
@@ -299,7 +299,7 @@ export default {
       }
       if (index == 0) {
         this.USD.series[0].name =
-          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收额同比_Y-o-y tax revenue of foreign investment enterprises";
+          "外商投资企业税收统计_Tax revenue from foreign-invested enterprises|外商投资企业税收额同比_Y-o-y tax revenue from foreign-invested enterprises";
         this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)
@@ -308,7 +308,7 @@ export default {
       }
       if (index == 1) {
         this.USD.series[0].name =
-          "外商投资企业税收统计_Tax revenue from foreign investment enterprises|外商投资企业税收占全国税收比重_Share of national tax revenue";
+          "外商投资企业税收统计_Tax revenue from foreign-invested enterprises|外商投资企业税收占全国税收比重_Share of national tax revenue";
         this.USD.series[0]["yearOnYear"] = this.percentData;
 
         this.status[index].checked

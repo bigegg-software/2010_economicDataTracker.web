@@ -43,13 +43,13 @@ export default {
         },
         {
           name: "topTenCountriesToOPChart",
-          chinese: "前十国别（市场）",
-          english: "Top 10 market"
+          chinese: "合同额前十国家和地区",
+          english: "Top 10 countries/regions"
         },
         {
           name: "topTenProjectToOPChart",
-          chinese: "前十项目",
-          english: "Top 10 project"
+          chinese: "合同额前十项目",
+          english: "Top 10 projects"
         }
       ],
 

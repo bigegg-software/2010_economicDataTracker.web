@@ -38,13 +38,13 @@ export default {
       tabList: [
         {
           name: "numEnterprisesBRIChart",
-          chinese: "企业数",
-          english: "Number of enterprises"
+          chinese: "新设立企业数",
+          english: "Number of new foreign-invested enterprise"
         },
         {
           name: "inflowsToChinaBRIChart",
           chinese: "实际投入外资金额",
-          english: "Foreign investment from BRI countries"
+          english: "Actual use of foreign capital from BRI countries"
         }
       ],
 

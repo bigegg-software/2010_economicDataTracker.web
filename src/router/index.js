@@ -146,7 +146,7 @@ const routes = [{
         path: 'beltAndRoadInvest',
         name: 'beltAndRoadInvest',
         meta: {
-          title: '"一带一路"沿线国家对华投资情况'
+          title: '“一带一路”沿线国家对华投资情况'
         },
         component: () => import('@/views/foreignCapital/inbound/BeltAndRoadInvest')
       }

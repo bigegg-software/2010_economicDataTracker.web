@@ -42,7 +42,7 @@ export default {
         {
           name: "nonFinancialToBRIChart",
           chinese: "中国对“一带一路”沿线国家非金融类直接投资",
-          english: "Non-financial FDI outflows to BRI countries"
+          english: "Non-financial FDI outflows into BRI countries"
         },
         {
           name: "newContractAmountToBRIChart",

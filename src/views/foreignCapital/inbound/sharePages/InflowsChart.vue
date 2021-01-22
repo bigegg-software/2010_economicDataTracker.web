@@ -52,7 +52,7 @@ export default {
        totalData: {
         title: {
           ch: "实际使用外资",
-          en: "China's inward FDI"
+          en: "Actual use of foreign capital"
         },
         unit:{
           ch: "百万美元",
@@ -70,12 +70,12 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
         // y2Name:{ch: "----同比", en: "----Year-on-year"},
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "实际使用外资", en: "China's FDI inflows" },
+        title: { ch: "实际使用外资", en: "Actual use of foreign capital" },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "实际使用外资_China's FDI inflows|实际使用外资同比_Y-o-y China's FDI inflows",
+            name: "实际使用外资_Actual use of foreign capitals|实际使用外资同比_Y-o-y actual use of foreign capital",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -264,12 +264,12 @@ export default {
             width: "10%"
           },
           inwardFDIConMillion: {
-            text: "实际使用外资_China's inward FDI",
+            text: "实际使用外资_Actual use of foreign capital",
             width: "45%",
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_Y-o-y China's inward FDI",
+            text: "实际使用外资同比_Y-o-y actual use of foreign capital",
             width: "45%",
             formatPer:true
           }
@@ -285,12 +285,12 @@ export default {
             width: "20%"
           },
           inwardFDIConMillion: {
-            text: "实际使用外资_China's inward FDI",
+            text: "实际使用外资_Actual use of foreign capital",
             width: "35%",
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_Y-o-y China's inward FDI",
+            text: "实际使用外资同比_Y-o-y actual use of foreign capital",
             width: "35%",
             formatPer:true
           }

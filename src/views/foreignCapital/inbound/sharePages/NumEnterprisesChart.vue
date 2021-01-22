@@ -69,8 +69,8 @@ export default {
       searchTimer: null,
       totalData: {
         title: {
-          ch: "开办企业数",
-          en: "Number of enterprises set up"
+          ch: "新设立外商投资企业",
+          en: "Number of new foreign-invested enterprises"
         },
         unit: {
           ch: "家",
@@ -140,8 +140,8 @@ export default {
           enGapch: this.$fz(0.2) //数据来源中英文间距
         },
         title: {
-          text: "开办企业数",
-          subtext: "Number of enterprises"
+          text: "新设立外商投资企业",
+          subtext: "Number of new foreign-invested enterprises"
         },
         updatedDate: "",
         xData: [],
@@ -153,7 +153,10 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "家", en: "Enterprise" },
         yearOnYear: true, //通过修改这个值来显示同比
-        title: { ch: "开办企业数", en: "Number of enterprises" },
+        title: {
+          ch: "新设立外商投资企业",
+          en: "Number of new foreign-invested enterprises"
+        },
         xData: [],
         series: [
           // {

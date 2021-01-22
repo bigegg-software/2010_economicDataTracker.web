@@ -35,7 +35,7 @@ export default {
         {
           name: "investProportionInChinaChart",
           chinese: "国家/地区投资比重",
-          english: "Share of foreign investment by country/region"
+          english: "Share of FDI inflows by country/region"
         },
         {
           name: "stateDirectInvestInChinaChart",
@@ -45,7 +45,7 @@ export default {
         {
           name: "topFifteenCountriesChart",
           chinese: "前15位对华投资国家/地区",
-          english: "Top 15 investors"
+          english: "Top 15 countries/regions investing in China"
         }
       ],
 

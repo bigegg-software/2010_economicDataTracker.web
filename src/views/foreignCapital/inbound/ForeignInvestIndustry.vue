@@ -34,13 +34,13 @@ export default {
       tabList: [
         {
           name: "numEnterprisesChart",
-          chinese: "开办企业数",
-          english: "Number of enterprises"
+          chinese: "新设立外商投资企业",
+          english: "Number of new foreign-invested enterprises"
         },
         {
           name: "inflowsToChinaChart",
           chinese: "实际使用外资金额按行业统计",
-          english: "Foreign investment by industry"
+          english: "Actual use of foreign capital by industry"
         }
       ],
 

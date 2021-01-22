@@ -51,8 +51,8 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "“一带一路”沿线国家对华投资企业数",
-          en: "Number of enterprises from BRI countries investing in China"
+          ch: "“一带一路”沿线国家在华新设立外商投资企业数",
+          en: "Number of new foreign-invested enterprise set up by BRI countries in China"
         },
         unit: {
           ch: "家",
@@ -64,7 +64,7 @@ export default {
             width: "20%"
           },
           BRINumber: {
-            text: "一带一路企业数_Number of BRI enterprises",
+            text: "一带一路企业数_Number of new FIEs set up by BRI countries",
             width: "40%",
             formatInt: true
           },
@@ -86,14 +86,14 @@ export default {
         yName: { ch: "家", en: "Enterprise" },
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
-          ch: "“一带一路”沿线国家对华投资企业数",
-          en: "Number of enterprises from BRI countries investing in China"
+          ch: "“一带一路”沿线国家在华新设立外商投资企业数",
+          en: "Number of new foreign-invested enterprise set up by BRI countries in China"
         },
         xData: [],
         hideLegend: true,
         series: [
           {
-            name: "一带一路企业数_Number of BRI enterprises|占外资企业比重_Share of total number of foreign enterprises",
+            name: "一带一路企业数_Number of new FIEs set up by BRI countries|占外资企业比重_Share of total number of foreign enterprises",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []

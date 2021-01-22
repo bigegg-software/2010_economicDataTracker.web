@@ -50,6 +50,14 @@
           {{describeData.concept.chText.split("_")[2]}}
         </div>
         <div class="chTitle">{{describeData.concept.chTitleSecond}}</div>
+        <div class="chText">
+          {{describeData.concept.chTextSecond.split("_")[0]}}
+          <a
+            :href="describeData.concept.textLink"
+            target="_blank"
+          >{{describeData.concept.chTextSecond.split("_")[1]}}</a>
+          {{describeData.concept.chTextSecond.split("_")[2]}}
+        </div>
         <div class="chSource">
           {{describeData.concept.chSource.split("_")[0]}}
           <a
