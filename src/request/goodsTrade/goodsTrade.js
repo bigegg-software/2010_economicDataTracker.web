@@ -751,6 +751,9 @@ export default {
       q2.contains('abbreviationEN', searchValue)
     }
     let queryOr = Parse.Query.or(q1, q2);
+    if(activeKey == 'yearly'){
+         queryOr.notContainedIn("abbreviationZH",["拉丁美洲", "非洲"]);
+    }
     if (activeKey == 'monthly') {
       queryOr.equalTo('type', 2)
     }
