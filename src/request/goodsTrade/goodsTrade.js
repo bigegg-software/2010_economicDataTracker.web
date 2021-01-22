@@ -455,13 +455,13 @@ export default {
         1: ['year', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
         2: ['year', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
         3: ['year', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
-        4: ['year', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+        4: ['year', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
       },
       monthly: {
         1: ['year', 'month', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
         2: ['year', 'month', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
         3: ['year', 'month', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
-        4: ['year', 'month', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+        4: ['year', 'month', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
       }
     }
     let tHeader = {

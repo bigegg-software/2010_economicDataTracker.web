@@ -173,7 +173,7 @@ export default {
         ],
         4: [
           "IMP_importOtherEns",
-          "IMPyoyImportForeignInvestedEns",
+          "IMPyoyImportOtherEns",
           "EXP_importOtherEns",
           "EXPyoyImportOtherEns"
         ]
