@@ -1,10 +1,11 @@
 module.exports = {
+  publicPath: './',//根路径 cli3.0以上使用publicPath
   productionSourceMap: false,
   devServer:{
     host:'0.0.0.0'
   },
   chainWebpack: config => {
-
+    // config.plugins.delete('prefetch');
     config.module
 
       .rule('less')

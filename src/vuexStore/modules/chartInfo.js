@@ -1,4 +1,4 @@
-import Vue from 'vue'
+
 import chartDataFun from '@/utils/chartDataFun'
 const chartTable = {
   state: {

@@ -72,8 +72,9 @@ sumSameYearData:async (sourceData,field,name)=> {
     }
     return resD;
 },
-    getAllCountryName:async function() {  // 获取所有国家
+    getAllCountryName:async function(prop,countrys) {  // 获取所有国家
         let q = new Parse.Query('Country');
+        q.containedIn(prop,countrys);
         q.limit(500);
         let res=await q.find();
         res = res.map( item=>{
@@ -426,7 +427,6 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
          for (let vk = 0; vk < params.containedIn.country.length; vk++) {
                 const element = params.containedIn.country[vk];
                 let vkData=res.filter(it=>{
-                    console.log(it)
                            it[filed+'Million']=Number(it[filed])/100;
                            it['unitMillion']='百万美元';
                     return it.country==element;

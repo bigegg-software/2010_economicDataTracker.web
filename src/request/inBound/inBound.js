@@ -88,8 +88,9 @@ export default {
         let res = await q.find();
         return res;
     },
-    getAllCountryName: async function () {  // 获取所有国家对华
+    getAllCountryName: async function (prop,countrys) {  // 获取所有国家对华
         let q = new Parse.Query('MainCountry'); // 已经调整成40个国家的表
+        q.containedIn(prop,countrys);
         q.limit(500);
         let res = await q.find();
         res = res.map(item => {
@@ -220,7 +221,6 @@ export default {
             for (let vk = 0; vk < params.containedIn.country.length; vk++) {
                 const element = params.containedIn.country[vk];
                 let vkData = res.filter(it => {
-                    console.log(it)
                     it[filed + 'Million'] = Number(it[filed]) / 100;
                     it['unit']='家';
                     it['unitMillion']='百万美元';

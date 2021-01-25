@@ -204,7 +204,9 @@ export default {
   methods: {
     // 获取国家列表数据
     async getAllCountryName() {
-      let res = await request.getAllCountryName();
+      let countrys=await chartDataFun.getCountryName('FDIStock','country');
+      let res = await request.getAllCountryName('abbreviationZH',countrys);
+      console.log(res)
       this.checkBox.op = res;
       res[0].checked = true;
       res[1].checked = true;

@@ -81,6 +81,15 @@ export default {
         minQuarterMonth:min[0].quarter*3>10?`${min[0].quarter*3}`:`0${min[0].quarter*3}`//最小季度对应的月份（带前缀0的情况）
       }
   },
+  // 获取国家名
+  async getCountryName(tableName,prop) {
+      let res=await Parse.Cloud.run('getCountries',{tableName,country:prop});
+       if (res.code == 200) {
+         res=res.data.map(v=>v.objectId);
+         console.log(res)
+         return res;
+       }
+  },
   objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
     // nameArr内部存储柱状图折线图y轴名称信息
     var nameArr = [];
