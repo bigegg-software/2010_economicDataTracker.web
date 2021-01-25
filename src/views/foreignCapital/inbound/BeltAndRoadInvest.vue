@@ -113,9 +113,17 @@ export default {
     };
   },
   watch: {
-    tabComponent() {
-      this.$set(this.actionsList[0], "checked", false);
-      this.$store.commit("setShowOperate", true);
+    // tabComponent() {
+    //   this.$set(this.actionsList[0], "checked", false);
+    //   this.$store.commit("setShowOperate", true);
+    // }
+    tabComponent:{
+      handler() {
+        this.$set(this.actionsList[0], "checked", false);
+        this.$store.commit('setShowOperate',true);
+        this.$store.commit('setCurrentTab',this.tabComponent);
+      },
+      immediate:true
     }
   },
   mounted() {},

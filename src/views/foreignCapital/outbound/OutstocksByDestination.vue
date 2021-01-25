@@ -119,8 +119,15 @@ export default {
     };
   },
   watch: {
-    tabComponent() {
-      this.$set(this.actionsList[0], "checked", false);
+    // tabComponent() {
+    //   this.$set(this.actionsList[0], "checked", false);
+    // }
+    tabComponent:{
+      handler() {
+        this.$set(this.actionsList[0], "checked", false);
+        this.$store.commit('setCurrentTab',this.tabComponent);
+      },
+      immediate:true
     }
   },
   mounted() {

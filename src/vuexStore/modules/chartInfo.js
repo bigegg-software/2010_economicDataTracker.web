@@ -6,7 +6,8 @@ const chartTable = {
     chartInfo:{},
     latestTime:'',
     showOperate:true,
-    DBMinMaxDateQM:{}//数据库月度季度情况下的最大年月和最小年月
+    DBMinMaxDateQM:{},//数据库月度季度情况下的最大年月和最小年月
+    currentTab:'',
   },
   mutations: {
     saveChartTable(state,chartInfo){
@@ -56,6 +57,10 @@ const chartTable = {
         state.DBMinMaxDateQM=data;
         
         console.log(state.DBMinMaxDateQM)
+    },
+    setCurrentTab(state,tab){
+        state.currentTab=tab;
+        console.log(state.currentTab)
     }
   }
 }

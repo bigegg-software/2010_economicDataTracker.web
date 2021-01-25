@@ -107,6 +107,14 @@ export default {
     };
   },
   mounted() {},
+  watch:{
+    tabComponent:{
+      handler() {
+        this.$store.commit('setCurrentTab',this.tabComponent);
+      },
+      immediate:true
+    }
+  },
   methods: {
     changeTabCompnent(name) {
       this.tabComponent = name;

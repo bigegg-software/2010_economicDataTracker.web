@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import MobileRouter from '@/utils/wxShareMenuAssociation'
 import QRCode from "qrcodejs2";
 import FadeInOut from "@/components/animations/FadeInOut";
 import chartDataFun from "@/utils/chartDataFun";
@@ -185,7 +186,7 @@ export default {
         let qrcode = new QRCode("qrcodeMark", {
           width: 160,
           height: 160,
-          text: encodeURIComponent(window.location.href)
+          text: process.env.VUE_APP_MOBILE_URL+MobileRouter[this.$store.getters.currentTab]
           // 设置二维码内容或跳转地址
         });
       }, 0);
