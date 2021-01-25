@@ -186,7 +186,7 @@ export default {
         let qrcode = new QRCode("qrcodeMark", {
           width: 160,
           height: 160,
-          text: process.env.VUE_APP_MOBILE_URL+MobileRouter[this.$store.getters.currentTab]
+          text: process.env.VUE_APP_MOBILE_URL+'/#/'+MobileRouter[this.$store.getters.currentTab]
           // 设置二维码内容或跳转地址
         });
       }, 0);
