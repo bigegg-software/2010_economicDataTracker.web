@@ -162,7 +162,6 @@ export default {
     tableDatas:{
       handler() {
         let resoult= chartDataFun.conversionTable(this.totalData.tableTitle,this.$store.getters.chartInfo.tableData);
-            console.log(resoult);
             this.$set(this.totalData,'tableData',resoult);
       },
       deep:true
@@ -170,6 +169,7 @@ export default {
   },
   async mounted() {
     let res = await this.getMaxMinDate();
+    this.$store.commit('setDBMinMaxDateQM',res);
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
     this.options.yearly.list.start.value=arrmaxmin[0];
@@ -222,7 +222,6 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("InwardFDI");
-      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -325,7 +324,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

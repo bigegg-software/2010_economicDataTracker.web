@@ -142,7 +142,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -150,11 +149,11 @@ export default {
   },
   async mounted() {
     let res = await this.getMaxMinDate();
+    this.$store.commit('setDBMinMaxDateQM',res);
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
     // 初始化日期月度季度赋值
     let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
-    console.log(QMDefaultTime);
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
     this.options.monthly.list.end.value = QMDefaultTime.M.end;
     // await this.getChartsData({
@@ -192,7 +191,6 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("UnemploymentMonth");
-      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -247,8 +245,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      console.log(activeKey);
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

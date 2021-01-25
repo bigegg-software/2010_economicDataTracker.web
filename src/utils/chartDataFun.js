@@ -71,12 +71,14 @@ export default {
       let min = await qMin.find()
       min = min.map(v => v.toJSON())
       return {
-        max: res.max,
-        min: res.min,
-        maxQuarter: max[0].quarter,
-        minQuarter: min[0].quarter,
-        maxQuarterMonth: max[0].quarter*3>10?`${max[0].quarter*3}`:`0${max[0].quarter*3}`,
-        minQuarterMonth:min[0].quarter*3>10?`${min[0].quarter*3}`:`0${min[0].quarter*3}`
+        max: res.max,  //最大年
+        min: res.min,  //最小年
+        maxQuarter: max[0].quarter, //最大季度
+        minQuarter: min[0].quarter,  //最小季度
+        minQM:min[0].quarter*3,  //最小季度对应的月份（不带前缀0）
+        maxQM:max[0].quarter*3,  ////最大季度对应的月份（不带前缀0）
+        maxQuarterMonth: max[0].quarter*3>10?`${max[0].quarter*3}`:`0${max[0].quarter*3}`,//最大季度对应的月份（带前缀0的情况）
+        minQuarterMonth:min[0].quarter*3>10?`${min[0].quarter*3}`:`0${min[0].quarter*3}`//最小季度对应的月份（带前缀0的情况）
       }
   },
   objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组

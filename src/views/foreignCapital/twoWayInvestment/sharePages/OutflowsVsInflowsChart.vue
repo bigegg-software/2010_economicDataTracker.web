@@ -243,7 +243,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -252,6 +251,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let resQM = await this.getMaxMinDateQM();
+    this.$store.commit('setDBMinMaxDateQM',resQM);
     let arrmaxmin = res.Y.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
@@ -263,7 +263,6 @@ export default {
     });
   },
   mounted() {
-    // console.log(this.isShowTable, "isShowTable");
     this.$EventBus.$on("downLoadImg", () => {
       this.$refs.linesChart && this.$refs.linesChart.downloadFile();
       this.$refs.lines2Chart && this.$refs.lines2Chart.downloadFile();
@@ -286,7 +285,6 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("FDIOutflowsInflows");
-      console.log(res);
       let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
       for (let k in obj.list) {
         obj.list[k].frame = res.Y;
@@ -391,12 +389,6 @@ export default {
         let quarterStartMonth = parseInt(startTimeArr[1]);
         let quarterEnd = parseInt(endTimeArr[0]);
         let quarterEndMonth = parseInt(endTimeArr[1]);
-        console.log(
-          quarterStart,
-          quarterEnd,
-          quarterStartMonth,
-          quarterEndMonth
-        );
         await this.getChartsDataQM({
           type,
           start: quarterStart,
@@ -410,7 +402,6 @@ export default {
       // 获取最大年最小年
       let Inres = await chartDataFun.getMaxMinDate("InwardFDI");
       let allIndustryres = await chartDataFun.getMaxMinDate("FDIOutflow");
-      console.log(Inres, allIndustryres);
       let res = {};
       let start =
         (await Number(Inres.Y.split("_")[0])) -
@@ -505,7 +496,6 @@ export default {
       } = await request.getQuarterMonthOutflowsVsInflowsChartData(aug);
       // 完整的区间
       let range = await chartDataFun.getXRange(aug);
-      console.log(range);
       // 要换取纵轴数据的字段属性
       let IndustryDataAttr = ["investConversionMillion", "conversionYOY"];
       let dataAttr = ["inwardFDIConMillion", "inwardFDIConYOY"];
@@ -540,7 +530,6 @@ export default {
     // 季度，月度当逻辑空间结束
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       this.activeKey = activeKey;

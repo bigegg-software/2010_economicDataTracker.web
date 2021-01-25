@@ -142,6 +142,7 @@ export default {
   async created() {
     let Yearres = await this.getMaxMinDate("Unemployment");
     let res = await chartDataFun.getQNoMonthDefaultTime("UnemploymentQuarter");
+    this.$store.commit('setDBMinMaxDateQM',{Y:`${res.min}_${res.max}`,M:`${res.minQM}_${res.maxQM}`});
     let Yarrmaxmin = Yearres.Y.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];

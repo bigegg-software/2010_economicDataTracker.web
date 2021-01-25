@@ -159,7 +159,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -168,6 +167,7 @@ export default {
   async created() {
     let Yearres = await this.getMaxMinDate("NationalRevenueExpenditure");
     let res = await this.getMaxMinDate("NationalRevenueExpenditureMonth");
+    this.$store.commit('setDBMinMaxDateQM',res);
     let Yarrmaxmin = Yearres.Y.split("_");
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
@@ -219,7 +219,6 @@ export default {
         this.monthScreen = true; //月份选择组件显示
         let startTimeArr = start.value.split("-");
         let endTimeArr = end.value.split("-");
-        console.log(startTimeArr, endTimeArr); //**************************************/
         let monthStart = parseInt(startTimeArr[0]);
         let startMonth = parseInt(startTimeArr[1]);
         let monthEnd = parseInt(endTimeArr[0]);
@@ -252,7 +251,6 @@ export default {
         }
       }
       this.showTimeFrame = true;
-      console.log(res);
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -274,7 +272,6 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res, XNameAttr, dataAttr, range);
       //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       if (XNameAttr == "year") {
@@ -383,7 +380,6 @@ export default {
         this.selectedActiveKey == "yearly" || this.selectOption.value.id == 1
           ? await chartDataFun.getXRangeMC(aug)
           : await chartDataFun.getXRange(aug);
-      console.log(range);
       // 要换取纵轴数据的字段属性
       let dataAttr =
         aug.type == "yearly"
@@ -513,7 +509,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

@@ -134,6 +134,7 @@ export default {
   async mounted() {
     let Yearres = await this.getMaxMinDate("CPI");
     let res = await this.getMaxMinDate("MonthlyCPI");
+    this.$store.commit('setDBMinMaxDateQM',res);
     let Yarrmaxmin = Yearres.Y.split("_");
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");

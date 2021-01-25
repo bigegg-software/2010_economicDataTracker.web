@@ -304,6 +304,7 @@ export default {
     async getMaxMinDate() {
       let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"]);
       let monthly = await chartDataFun.getMaxMinDate(this.tableName["monthly"]);
+      this.$store.commit('setDBMinMaxDateQM',monthly);
       let arrmaxmin_yearly = yearly.Y.split("_");
       let arrmaxmin_monthly = monthly.Y.split("_");
       let arrmaxmin_monthlyM = monthly.M.split("_");
@@ -681,7 +682,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

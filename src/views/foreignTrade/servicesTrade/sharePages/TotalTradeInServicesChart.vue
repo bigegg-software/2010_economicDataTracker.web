@@ -203,6 +203,7 @@ export default {
     async getMaxMinDate() {
       let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"],1);
       let monthly = await chartDataFun.getMaxMinDate(this.tableName["monthly"],2);
+      this.$store.commit('setDBMinMaxDateQM',monthly);
       let arrmaxmin_yearly = yearly.Y.split("_");
       let arrmaxmin_monthly = monthly.Y.split("_");
       let arrmaxmin_monthlyM = monthly.M.split("_");

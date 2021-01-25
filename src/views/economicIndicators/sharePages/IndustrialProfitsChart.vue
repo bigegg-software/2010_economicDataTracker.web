@@ -145,7 +145,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -153,6 +152,7 @@ export default {
   },
   async created() {
     let Monthres = await this.getMaxMinDate('IndustrialProfit');
+    this.$store.commit('setDBMinMaxDateQM',Monthres);
     let Marrmaxmin = Monthres.Y.split("_");
     let MarrmaxminM = Monthres.M.split("_");
     // 初始化日期月度季度赋值
@@ -225,7 +225,6 @@ export default {
     },
     // 获取当前页面的每条线数据（按月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res, XNameAttr, dataAttr, range)
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       this.USD.series[0]["data"] = data.yoyCumulativeIndustrialGrowth;
       this.USD.series[1]["data"] = data.yoyGrowth;
@@ -251,7 +250,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

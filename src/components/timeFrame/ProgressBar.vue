@@ -29,6 +29,7 @@ export default {
   watch: {
     activeKey: {
       handler() {
+        console.log(this.options)
         this.initProgress();
       },
       deep: true
@@ -73,17 +74,46 @@ export default {
       this.frame = [start, end];
     },
     change(val) {
+      let vuexMaxMinDate=this.$store.getters.DBMinMaxDateQM;
       this.frame = val;
       let result;
       let start = `${val[0]}`;
       let end = `${val[1]}`;
       if (this.activeKey == "quarterly") {
-        start = `${start}-${this.options.list.start.value.split('-')[1]}`;
-        end = `${end}-${this.options.list.end.value.split('-')[1]}`;
+        if(start==vuexMaxMinDate.min){
+          start = `${start}-${vuexMaxMinDate.minQM}`;
+        }else if(start==vuexMaxMinDate.max){
+          start = `${start}-${vuexMaxMinDate.maxQM}`;
+        }else{
+          start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        }
+        if(end==vuexMaxMinDate.max){
+          end = `${end}-${vuexMaxMinDate.maxQM}`;
+        }else if(end==vuexMaxMinDate.min){
+          end = `${end}-${vuexMaxMinDate.minQM}`;
+        }else{
+          end = `${end}-${this.options.list.end.value.split('-')[1]}`;
+        }
+        // start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        // end = `${end}-${this.options.list.end.value.split('-')[1]}`;
       }
       if (this.activeKey == "monthly") {
-        start = `${start}-${this.options.list.start.value.split('-')[1]}`;
-        end = `${end}-${this.options.list.end.value.split('-')[1]}`;
+        if(start==vuexMaxMinDate.min){
+          start = `${start}-${vuexMaxMinDate.minM}`;
+        }else if(start==vuexMaxMinDate.max){
+          start = `${start}-${vuexMaxMinDate.maxM}`;
+        }else{
+          start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        }
+        if(end==vuexMaxMinDate.max){
+          end = `${end}-${vuexMaxMinDate.maxM}`;
+        }else if(end==vuexMaxMinDate.min){
+          end = `${end}-${vuexMaxMinDate.minM}`;
+        }else{
+          end = `${end}-${this.options.list.end.value.split('-')[1]}`;
+        }
+        // start = `${start}-${this.options.list.start.value.split('-')[1]}`;
+        // end = `${end}-${this.options.list.end.value.split('-')[1]}`;
       }
       result = [start, end];
       this.$emit("change", result);

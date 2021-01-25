@@ -120,14 +120,14 @@ export default {
             start: {
               ch: "开始",
               en: "From",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             },
             end: {
               ch: "结束",
               en: "To",
-              frame: "2016_2020",
-              value: "2018"
+              frame: "",
+              value: ""
             }
           }
         },
@@ -258,6 +258,7 @@ export default {
     async getMaxMinDate() {
       let yearly = await chartDataFun.getMaxMinDate(this.tableName["yearly"]);
       let monthly = await chartDataFun.getMaxMinDate(this.tableName["monthly"]);
+      this.$store.commit('setDBMinMaxDateQM',monthly);
       let arrmaxmin_yearly = yearly.Y.split("_");
       let arrmaxmin_monthly = monthly.Y.split("_");
       let arrmaxmin_monthlyM = monthly.M.split("_");

@@ -793,7 +793,8 @@ getMaxMinDate:async function (tableName) {  //单独查询
                  return  io.month;
           })
           resoult.monthMaxMinMonth=`${Math.min.apply(null,monthlyMinYearM)}_${Math.max.apply(null,monthlyMaxYearM)}`;
-      return resoult;
+        // resoult的三个属性  yearMaxMin :年度的最大年最小年   monthMaxMinYear:月度的最大年最小年   monthMaxMinMonth:月度的最大月最小月（不带前缀0）
+          return resoult;
 }
 
 }

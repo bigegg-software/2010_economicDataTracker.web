@@ -218,6 +218,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
+    this.$store.commit('setDBMinMaxDateQM',res);
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];

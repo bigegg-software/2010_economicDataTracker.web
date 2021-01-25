@@ -4,7 +4,8 @@ const getters = {
   latestTime:state => state.chartInfo.latestTime,
   latestNews:state => state.user.latestNews,
   isFullScreen:state=>state.fullScreen.isFullScreen,
-  showOperate:state=>state.chartInfo.showOperate
+  showOperate:state=>state.chartInfo.showOperate,
+  DBMinMaxDateQM:state=>state.chartInfo.DBMinMaxDateQM
 }
 
 export default getters

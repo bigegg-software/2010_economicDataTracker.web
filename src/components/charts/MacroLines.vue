@@ -41,7 +41,6 @@ export default {
       const element = arrValues[index];
       if (element.indexOf(",") >= 0) {
         let arrDot = element.split(",");
-        console.log("arrDot", arrDot);
         arrDot.map(item => {
           if (item.length > 0) {
             arrRes.push(item);
@@ -196,12 +195,10 @@ export default {
           confine: true,
           backgroundColor: "rgba(255, 255, 255,0)",
           formatter: params => {
-            console.log(params);
             let dom = "";
             dom += `<div style="width:auto;height:auto;padding:0 0.078125rem;border-radius: 0.026042rem;background:#fff;box-shadow: darkgrey 0px 0px 10px 3px;">`;
             dom += `<div style="padding:0.052rem  0 0.052rem; color:#1D3F6C;font-size:0.104167rem;font-family: Calibri;font-weight: bold;">${params[0].name}</div>`;
             for (let i = 0; i < params.length; i++) {
-              console.log(params[i].seriesName);
               if (params[i].seriesName) {
                 dom += `<div style="height:0.09375rem;line-height:0.09375rem;color:#666;font-size:0.072917rem">${
                   params[i].seriesName.split("_")[1]

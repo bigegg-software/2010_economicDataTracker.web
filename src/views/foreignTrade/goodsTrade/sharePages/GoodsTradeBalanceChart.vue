@@ -224,7 +224,6 @@ export default {
       let res = await chartDataFun.getMaxMinDate(
         this.tableName[this.activeKey]
       );
-      console.log(res)
       let arrmaxmin = res.Y.split("_");
       if (this.activeKey == "yearly") {
         let obj = JSON.parse(JSON.stringify(this.options["yearly"]));
@@ -236,6 +235,7 @@ export default {
         this.options.yearly.list.end.value = arrmaxmin[1];
       }
       if (this.activeKey == "monthly") {
+        this.$store.commit('setDBMinMaxDateQM',res);
         let arrmaxminM = res.M.split("_");
         let obj = JSON.parse(JSON.stringify(this.options["monthly"]));
         for (let k in obj.list) {

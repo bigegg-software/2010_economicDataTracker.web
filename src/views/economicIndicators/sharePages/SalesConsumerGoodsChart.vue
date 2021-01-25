@@ -170,6 +170,7 @@ export default {
   async created() {
     let Yearres = await this.getMaxMinDate('ConsumerSaleGoods');
     let res = await this.getMaxMinDate('ConsumerSaleGoodsMonth');
+    this.$store.commit('setDBMinMaxDateQM',res);
     let Yarrmaxmin = Yearres.Y.split("_");
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
