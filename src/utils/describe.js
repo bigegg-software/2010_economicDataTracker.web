@@ -17,15 +17,15 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Report_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_World Investment Report_, UNCTAD ",
+            ch: "联合国贸发会议_《世界投资报告》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "https://unctad.org/topic/investment/world-investment-report",
         noteContent: {
             en: "1. All-sector FDI outflows and y-o-y growths from 2003 to 2005 are unavailable. ",
-            enSecond: "2.Errors in the original data on y-o-y growth (RMB) in some months in 2014 and 2015 have been corrected in this database.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
             ch: "1. 2003-2005年缺失中国对外全行业直接投资金额与同比数据。",
-            chSecond: "2. 2014与2015年部分同比（RMB）数据源数据有误，本数据库已更正。"
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
 
     },
@@ -37,7 +37,7 @@ export default {
             enText: "FDI outflows, or outward foreign direct investment flows, refer to the net flows of outward foreign direct investment during a given period of time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量即为一定时期内的对外直接投资净额。",
@@ -47,14 +47,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -65,7 +65,7 @@ export default {
             enText: "FDI outflows, or outward foreign direct investment flows, refer to the net flows of outward foreign direct investment during a given period of time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量即为一定时期内的对外直接投资净额。",
@@ -75,15 +75,15 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "Top 20 destinations' shares of China's FDI outflows in 2003, 2004 and 2015 are manually calculated, as there are no origional data provided by the source.",
-            enSecond: "",
-            ch: "2003、2004、2015年占额数据为人工计算得出，无原始公布数据。",
-            chSecond: ""
+            en: "1. Top 20 destinations' shares of China's FDI outflows in 2003, 2004 and 2015 are manually calculated, as there are no original data provided by the source.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 2003、2004、2015年占额数据为人工计算得出，无原始公布数据。",
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
     },
     // 按国家/地区统计
@@ -93,7 +93,7 @@ export default {
             enText: "FDI outflows, or outward foreign direct investment flows, refer to the net flows of outward foreign direct investment during a given period of time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量即为一定时期内的对外直接投资净额。",
@@ -103,14 +103,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1. “-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -121,7 +121,7 @@ export default {
             enText: "FDI outflows, or outward foreign direct investment flows, refer to the net flows of outward foreign direct investment during a given period of time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量即为一定时期内的对外直接投资净额。",
@@ -131,13 +131,13 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "1. Country/region rankings in 2015 are manually calculated, as there are no origional data provided by the source.",
-            enSecond: "2. Only top 10 destination rankings are available from 2003 to 2006. ",
+            en: "1. Country/region rankings in 2015 are manually calculated, as the bulletin provides no original data.",
+            enSecond: "2. Only the rankings of the top 10 countries are available from 2003 to 2006.",
             ch: "1.2015年排名数据为人工计算得出，无原始公报数据",
             chSecond: "2.2003-2006年只有前10位国家排名数据"
         }
@@ -161,15 +161,17 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
             en: "1. There are no data available on Finance and Education in 2004 and 2005. ",
             enSecond: "2. Most y-o-y data from 2005 to 2015 are manually calculated, as there are no origional data provided by the source. ",
             ch: "1. 2004、2005年金融业与教育业对外直接投资流量无公布数据；",
-            chSecond: "2. 2005-2015年大部分同比数据为计算得出，无原始公布数据。"
+            chSecond: "2. 2005-2015年大部分同比数据为计算得出，无原始公布数据；",
+            enThird:"3. “-” indicates that the source has not released such data. ",
+            chThird:"3. “-”表示数据源未公布相关数据。"
         }
     },
     // 中国对主要经济体投资按行业统
@@ -190,15 +192,15 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2003 to 2019 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局_2003-2019年《中国对外直接投资统计公报》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "Data from some countries between 2007 and 2009 are unavailable.",
-            enSecond: "",
-            ch: "2007-2009年部分国家数据缺失",
-            chSecond: ""
+            en: "1. Data of some countries between 2007 and 2009 are unavailable.",
+            enSecond: "2.  “-” indicates that the source has not released such data.",
+            ch: "1. 2007-2009年部分国家数据缺失；",
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
     },
     // ---------------中国对“一带一路”沿线国家投资
@@ -219,14 +221,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce',
             ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -247,14 +249,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce',
             ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -275,14 +277,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce ',
+            en: '_Serving "Belt and Road" - Statistics, 2015 to present_, Ministry of Commerce',
             ch: "商务部_2015年至今服务“一带一路”统计数据_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/fwydyl/tjsj/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -311,10 +313,12 @@ export default {
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
-            en: "1. Y-o-y data on new contract (RMB) and completed contract (RMB) are manually calculated,  as there are no origional data provided by the source. ",
-            enSecond: "2. Errors in the original data have been corrected in this database. ",
-            ch: "1. 2015年3月到2016年12月的新签合同额同比（RMB）与完成营业额同比（RMB）为人工计算得出，无原始公布数据。",
-            chSecond: "2. 数据源部分数据有误，本数据库已更正。"
+            en: "1. Year-on-year data on the value of new contracts (RMB) and completed contracts (RMB) from March 2015 to December 2016 are manually calculated, as the bulletin provides no original data. ",
+            enSecond: "2. Errors in the original data have been corrected in this database.",
+            ch: "1. 2015年3月到2016年12月的新签合同额同比（RMB）与完成营业额同比（RMB）为人工计算得出，无原始公布数据;",
+            chSecond: "2. 数据源部分数据有误，本数据库已更正。",
+            enThird:"3. “-” indicates that the source has not released such data. ",
+            chThird:"3. “-”表示数据源未公布相关数据。"
         }
     },
     // 新签合同额
@@ -341,10 +345,12 @@ export default {
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forengineerstac.shtml",
         noteContent: {
-            en: "1. Y-o-y data on new contract (RMB) and completed contract (RMB) are manually calculated,  as there are no origional data provided by the source. ",
-            enSecond: "2. Errors in the original data have been corrected in this database. ",
-            ch: "1. 2015年3月到2016年12月的新签合同额同比（RMB）与完成营业额同比（RMB）为人工计算得出，无原始公布数据。",
-            chSecond: "2. 数据源部分数据有误，本数据库已更正。"
+            en: "1. Year-on-year data on the value of new contracts (RMB) and completed contracts (RMB) from March 2015 to December 2016 are manually calculated, as the bulletin provides no original data. ",
+            enSecond: "2. Errors in the original data have been corrected in this database.",
+            ch: "1. 2015年3月到2016年12月的新签合同额同比（RMB）与完成营业额同比（RMB）为人工计算得出，无原始公布数据;",
+            chSecond: "2. 数据源部分数据有误，本数据库已更正。",
+            enThird:"3. “-” indicates that the source has not released such data. ",
+            chThird:"3. “-”表示数据源未公布相关数据。"
         }
     },
     // 前十国别（市场）
@@ -369,9 +375,9 @@ export default {
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data. ",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -397,9 +403,9 @@ export default {
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -421,14 +427,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "_International labor statistics, 2012 to present_, Ministry of Commerce ",
+            en: "_Overseas labor service cooperation statistics, 2012 to present_, Ministry of Commerce",
             ch: "商务部_2012至今年对外劳务合作统计_"
         },
         sourceLink: "http://data.mofcom.gov.cn/tzhz/forlaborcoop.shtml",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data. ",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -449,14 +455,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
             ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -477,14 +483,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
             ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -505,14 +511,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/"
         },
         dataSources: {
-            en: "_2017 to 2019 Annual Report on China International Labour Cooperation_, Ministry of Commerce and China International Contractors Association",
+            en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
             ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -524,7 +530,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -534,14 +540,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_World Investment Report_ UNCTAD",
+            ch: "联合国贸发会议_《世界投资报告》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "https://unctad.org/topic/investment/world-investment-report",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -552,7 +558,7 @@ export default {
             enText: "FDI outflows, or outward foreign direct investment flows, refer to the net flows of outward foreign direct investment during a given period of time.",
             enTitleSecond: "Outward FDI stocks",
             enTextSecond: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资流量",
             chText: "对外直接投资流量即为一定时期内的对外直接投资净额。",
@@ -562,14 +568,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_World Investment Report_ UNCTAD",
+            ch: "联合国贸发会议_《世界投资报告》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "https://unctad.org/topic/investment/world-investment-report",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -581,7 +587,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -591,14 +597,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -609,7 +615,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -619,14 +625,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -637,7 +643,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -647,14 +653,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "1. “-” indicates that the source has not released such data.",
             enSecond: "",
-            ch: "",
+            ch: "1.“-”表示数据源未公布相关数据。",
             chSecond: ""
         }
     },
@@ -665,7 +671,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Apprendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -675,14 +681,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "UNCTAD _2019 World Investment Repo_",
-            ch: "联合国贸发会议_《2019世界投资报告》_"
+            en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -704,14 +710,14 @@ export default {
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "_Monthly statistics of foreign investment, 2004 to present_, Ministry of Commerce",
+            en: "_Monthly FDI statistics, 2004 to present_, Ministry of Commerce",
             ch: "商务部_2004年至今吸收外商直接投资月报_"
         },
         sourceLink: "http://data.mofcom.gov.cn/lywz/inmr.shtml",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -733,14 +739,14 @@ export default {
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -761,14 +767,14 @@ export default {
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=3",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -789,14 +795,14 @@ export default {
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=4",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -819,15 +825,15 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=5",
         noteContent: {
-            en: "Data on some industries in 2010 are unavailable.",
-            enSecond: "",
-            ch: "2010年部分行业同比数据缺失。",
-            chSecond: ""
+            en: "1.Data on some industries in 2010 are unavailable.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 2010年部分行业同比数据缺失。",
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
     },
     // 实际使用外资金额按行业统计
@@ -848,14 +854,14 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=6",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -876,14 +882,14 @@ export default {
             chLink: "http://www.fdi.gov.cn/come-datatongji-con.html?id=142"
         },
         dataSources: {
-            en: "_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=7",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -905,14 +911,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=8",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -933,14 +939,14 @@ export default {
             chLink: "http://fec.mofcom.gov.cn/article/fwydyl/zcwj/201511/20151101193007.shtml"
         },
         dataSources: {
-            en: '_2011 to 2019 Statistical Bulletin of FDI in China_, Ministry of Commerce',
-            ch: "商务部、国家统计局、外汇管理局_2011-2019年《中国外资统计公报》_"
+            en: "_Statistical Bulletin of FDI in China_, Ministry of Commerce",
+            ch: "商务部、国家统计局、外汇管理局_历年《中国外资统计公报》_"
         },
-        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=2",
+        sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=9",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -961,20 +967,20 @@ export default {
             chLink: ""
         },
         dataSources: {
-            en: "1. UNCTAD _2019 World Investment Report_",
+            en: "1._World Investment Report_ UNCTAD",
             enSecond: "2. _Monthly Summary Statistics - Outbound Investment, 2003 to present_, Ministry of Commerce and State Administration of Foreign Exchange",
-            enThird: " 3. _Monthly statistics of foreign investment, 2004 to present_, Ministry of Commerce",
-            ch: "1. 联合国贸发会议_《2019世界投资报告》_",
+            enThird: "3._ Monthly FDI statistics, 2004 to present_, Ministry of Commerce",
+            ch: "1. 联合国贸发会议_《世界投资报告》_",
             chSecond: "2. 商务部、外汇管理局_2003年至今月度简明统计数据-境外投资_",
             chThird: "3. 商务部_2004年至今吸收外商直接投资月报_"
         },
-        sourceLink: "https://unctad.org/en/Pages/DIAE/World%20Investment%20Report/Annex-Tables.aspx",
+        sourceLink: "https://unctad.org/topic/investment/world-investment-report",
         sourceLinkSecond: "http://fec.mofcom.gov.cn/article/tjsj/ydjm/jwtz/",
         sourceLinkThird: "http://data.mofcom.gov.cn/lywz/inmr.shtml",
         noteContent: {
-            en: "-",
+            en: "暂无。",
             enSecond: "",
-            ch: "",
+            ch: "None.",
             chSecond: ""
         }
     },
@@ -1008,10 +1014,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
+            en: "1. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            chSecond: "2.  “-”表示数据源未公布相关数据。"
         }
 
     },
@@ -1043,10 +1049,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
+            en: "1. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            chSecond: "2.  “-”表示数据源未公布相关数据。"
         }
     },
     // 货物进出口总值(国别/地区)
@@ -1078,10 +1084,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
+            en: "1. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            chSecond: "2.  “-”表示数据源未公布相关数据。"
         }
     },
     // 货物进出口总值按商品类别统计
@@ -1112,10 +1118,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
+            en: "1. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            chSecond: "2.  “-”表示数据源未公布相关数据。"
         }
     },
     // 货物进出口总值按企业性质统计
@@ -1146,10 +1152,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
-            enSecond: "",
-            ch: "",
-            chSecond: ""
+            en: "1. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            chSecond: "2.  “-”表示数据源未公布相关数据。"
         }
     },
     // 货物进出口总值按贸易方式统计
@@ -1178,7 +1184,7 @@ export default {
             "Goods on Lease_ refers to imports or exports under a financial lease arrangement with the duration of the lease being one year or more.》",
             "Equipment or Materials_ Invested by Foreign-Invested Enterprises refers to the imports of equipment, parts or other materials by a foreign-invested company as part of its total initial investment.",
             "Outward Processing_ refers to the exports of raw materials, parts or components under a contractual arrangement for processing or assembling abroad, and the re-importing of the processed products.",
-            "Duty-Free Commodities_ refers to duty-free import commodities sold in specific shops to specific individuals on payment of a foreign currency according to specific customs regulations",
+            "Duty-Free Commodities_ refers to duty-free import commodities sold in specific shops to specific individuals on payment of a foreign currency according to specific customs regulations.",
             "Duty-Free Goods_ refers to duty-free import commodities sold in duty-free shops located in ports and in the international transportation airplanes, trains and ships of China to international travelers.",
             "Warehousing Trade_ refers to goods imported from those customs bonded warehouses (including bonded logistics centers) located outside a Bonded Area.",
             "Logistics Goods by Customs Special Control Area_ refers to goods imported directly into a customs special control area or directly exported from the above-mentioned area for the purposes of storage, distribution or re-exportation.",
@@ -1215,10 +1221,12 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "Compensation Trade, Goods on Consignment and Barter Trade have been listed in Other Trade since 2018.",
-            enSecond: "",
-            ch: "自2018年起，“补偿贸易”“寄售代销贸易”和“易货贸易”纳入“其他”公布。",
-            chSecond: ""
+            en: "1. Compensation Trade, Goods on Consignment and Barter Trade have been listed in Other Trade since 2018.",
+            ch: "1. 自2018年起，“补偿贸易”“寄售代销贸易”和“易货贸易”纳入“其他”公布。",
+            enSecond: "2. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            chSecond: "2. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            enThird:"3. “-” indicates that the source has not released such data. ",
+            chThird:"3.  “-”表示数据源未公布相关数据。"
         }
     },
     // 外商投资企业进出口总值
@@ -1250,9 +1258,11 @@ export default {
         sourceLinkThird: "",
         noteContent: {
             en: "Monthly export and import data from April 2017 were unavailable from the source. Data shown in this database have been manually calculated.",
-            enSecond: "",
             ch: "2017年4月的当月进口、出口数据源缺失，本数据库显示的当月数据为计算得出。",
-            chSecond: ""
+            enSecond: "2. Starting from 2020, the General Administration of Customs has combined the release of January and February statistics.",
+            chSecond: "2. 自2020年起，海关总署合并发布1月和2月的统计数据。",
+            enThird:"3. “-” indicates that the source has not released such data. ",
+            chThird:"3.  “-”表示数据源未公布相关数据。"
         }
     },
     // ----------------------服务贸易------------------
@@ -1284,9 +1294,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1318,9 +1328,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1353,9 +1363,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1387,9 +1397,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1421,9 +1431,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1455,9 +1465,9 @@ export default {
         sourceLinkSecond: "http://www.mohrss.gov.cn/SYrlzyhshbzb/zwgk/szrs/tjsj/index.html",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1489,9 +1499,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1523,9 +1533,9 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "-",
+            en: "None.",
             enSecond: "",
-            ch: "",
+            ch: "暂无。",
             chSecond: ""
         }
     },
@@ -1557,10 +1567,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's industrial data since 2013 and will no longer separately release February data.",
-            enSecond: "",
-            ch: "为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份工业数据一起调查，一起发布，不再单独发布2月份当月数据。",
-            chSecond: ""
+            en: "1. To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's industrial data since 2013 and will no longer separately release February data.",
+            ch: "1. 为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份工业数据一起调查，一起发布，不再单独发布2月份当月数据。",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
     },
     // 工业企业利润
@@ -1591,10 +1601,10 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's industrial data since 2013 and will no longer separately release February data.",
-            enSecond: "",
-            ch: "为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份工业数据一起调查，一起发布，不再单独发布2月份当月数据。",
-            chSecond: ""
+            en: "1. To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's industrial data since 2013 and will no longer separately release February data.",
+            ch: "1. 为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份工业数据一起调查，一起发布，不再单独发布2月份当月数据。",
+            enSecond: "2. “-” indicates that the source has not released such data.",
+            chSecond: "2. “-”表示数据源未公布相关数据。"
         }
     },
     // 社会消费品零售总额
@@ -1625,10 +1635,14 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "1. To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's data since 2013.",
-            enSecond: "2. Year-on-year data are manually calculated, since there are no original data provided by the source. ",
-            ch: "1. 为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份数据一起调查，一起发布。",
-            chSecond: "2. 年度同比数据无数据源，为人工计算得出。",
+            en: "1. The National Bureau of Statistics does not provide current monthly retail sales of consumer goods for January and February.",
+            enSecond: "2. To eliminate the impact of the dating irregularities of the Chinese New Year and make data more comparable, the National Bureau of Statistics has combined the collection and release of January and February's cumulative retail sales of consumer goods since 2013.",
+            ch: "1. 国家统计局未发布各年1月和2月当月的社会消费品零售总额。",
+            chSecond: "2. 为了消除春节日期不固定因素带来的影响，增强数据的可比性，国家统计局自2013年起，1-2月份累计社会消费品零售总额数据一起调查，一起发布。",
+            enThird:"3. Year-on-year data are manually calculated, since there are no original data provided by the source.",
+            chThird:"3. 年度同比数据无数据源，为人工计算得出。",
+            enFour:"4. “-” indicates that the source has not released such data.",
+            chFour:"4.  “-”表示数据源未公布相关数据。",
         }
     },
     // 固定资产投资（不含农户）
@@ -1662,7 +1676,9 @@ export default {
             en: "1. Year-on-year data are manually calculated, as there are no original data provided by the source.",
             enSecond: "2. The National Bureau of Statistics does not release January data on investment in fixed-assets (excluding rural households).",
             ch: "1. 固定资产投资（不含农户）的年度同比为人工计算得出，数据源无相关数据。",
-            chSecond: "2. 国家统计局不发布1月月度固定字段投资（不含农户）数据。"
+            chSecond: "2. 国家统计局不发布1月月度固定字段投资（不含农户）数据。",
+            enThird:"3. “-” indicates that the source has not released such data.",
+            chThird:"3. “-”表示数据源未公布相关数据。"
         }
     },
     // 国家财政收支
@@ -1697,7 +1713,9 @@ export default {
             en: "1. Data on monthly revenue and expenditure come from the National Bureau of Statistics, where some January, February and December data are unavailable.",
             enSecond: "2. Cumulative monthly revenue and expenditure are released by the Ministry of Finance, which does not release January data.",
             ch: "1. 当月财政收支数据来源于国家统计局，部分1月、2月和12月数据缺失。",
-            chSecond: "2. 月度累计财政收支数据来源于财政部。财政部不发布1月月度数据。"
+            chSecond: "2. 月度累计财政收支数据来源于财政部。财政部不发布1月月度数据。",
+            enThird:"3. “-” indicates that the source has not released such data.",
+            chThird:"3. “-”表示数据源未公布相关数据。"
         }
     },
     // 货币供应量 (M2)
