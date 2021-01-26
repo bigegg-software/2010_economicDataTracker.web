@@ -206,7 +206,15 @@ export default {
     async getAllCountryName() {
       let countrys=await chartDataFun.getCountryName('FDIStock','country');
       let res = await request.getAllCountryName('abbreviationZH',countrys);
-      console.log(res)
+      // let d=[];
+      //    d=res.map(s=>{
+      //       return s.abbreviationZH
+      //     })
+      //   let xx=countrys.filter(v=>{
+      //    return !d.includes(v);
+      //   })
+      //   console.log(d)
+      //   console.log(xx)
       this.checkBox.op = res;
       res[0].checked = true;
       res[1].checked = true;

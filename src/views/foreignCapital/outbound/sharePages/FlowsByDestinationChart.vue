@@ -210,7 +210,15 @@ export default {
     async getAllCountryName() {
       let countrys=await chartDataFun.getCountryName('FDIOutflowDestination','country');
       let res = await request.getAllCountryName('abbreviationZH',countrys);// 少两个国家
-      console.log(res)
+        // let d=[];
+        //  d=res.map(s=>{
+        //     return s.abbreviationZH
+        //   })
+        // let xx=countrys.filter(v=>{
+        //  return !d.includes(v);
+        // })
+        // console.log(d)
+        // console.log(xx)
       this.checkBox.op = res;
       res[0].checked = true;
       res[1].checked = true;

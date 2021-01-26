@@ -744,6 +744,12 @@ export default {
     return data
   },
   async getCountryList(searchValue, activeKey) { // 获取所有国家
+    let countrys=[];
+    if(activeKey == 'yearly'){
+      countrys=await chartDataFun.getCountryName('ImportExportOrigin','country');
+    } else if (activeKey == 'monthly'){
+      countrys=await chartDataFun.getCountryName('ImportExportOriginMonth','country');
+    }
     let q1 = new Parse.Query('TradeCountry');
     let q2 = new Parse.Query('TradeCountry');
     if (searchValue) {
@@ -751,9 +757,10 @@ export default {
       q2.contains('abbreviationEN', searchValue)
     }
     let queryOr = Parse.Query.or(q1, q2);
-    if(activeKey == 'yearly'){
-         queryOr.notContainedIn("abbreviationZH",["拉丁美洲", "非洲"]);
-    }
+    // if(activeKey == 'yearly'){
+    //      queryOr.notContainedIn("abbreviationZH",["拉丁美洲", "非洲"]);
+    // }
+    queryOr.containedIn("abbreviationZH",countrys);
     if (activeKey == 'monthly') {
       queryOr.equalTo('type', 2)
     }
