@@ -135,10 +135,14 @@
         <div class="noteContent">
           <div>{{describeData.noteContent.en}}</div>
           <div class="noteSecond">{{describeData.noteContent.enSecond}}</div>
+          <div class="noteSecond">{{describeData.noteContent.enThird}}</div>
+          <div class="noteSecond">{{describeData.noteContent.enFour}}</div>
         </div>
         <div class="enNoteContent">
           <div>{{describeData.noteContent.ch}}</div>
           <div class="noteSecond">{{describeData.noteContent.chSecond}}</div>
+          <div class="noteSecond">{{describeData.noteContent.chThird}}</div>
+          <div class="noteSecond">{{describeData.noteContent.chFour}}</div>
         </div>
       </div>
     </div>
