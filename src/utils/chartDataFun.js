@@ -86,7 +86,7 @@ export default {
       let res=await Parse.Cloud.run('getCountries',{tableName,country:prop});
        if (res.code == 200) {
          res=res.data.map(v=>v.objectId);
-         console.log(res)
+        //  console.log(res)
          return res;
        }
   },
