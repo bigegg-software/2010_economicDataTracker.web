@@ -52,7 +52,7 @@ export default {
         },
         unit: {
           ch: "指数",
-          en: "index"
+          en: "Index"
         },
         tableTitle: {
           year: {

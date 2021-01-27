@@ -280,7 +280,7 @@ export default {
       let { res } = await request.getInvestmentFixedAssestsChartsData(aug);
 
       // 完整的区间
-      let range = await chartDataFun.getXRangeMC(aug);
+      let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["investment", "yoyGrowth"];
       let XNameAttr = "year";
@@ -288,7 +288,7 @@ export default {
       this.USD.updatedDate = this.$store.getters.latestTime;
       this.totalData.updatedDate = this.$store.getters.latestTime;
       //   //添加额外的Q和M属性
-      await chartDataFun.addOtherCategoryMC(res);
+      await chartDataFun.addOtherCategory(res);
 
       if (aug.type == "yearly") {
         // 年

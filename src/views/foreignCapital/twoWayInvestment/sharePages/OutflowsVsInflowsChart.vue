@@ -108,7 +108,10 @@ export default {
         dataSources: this.describeData,
         yearOnYear: false, //通过修改这个值来显示同比
         yName: { ch: "百万美元", en: "USD mln" },
-        title: { ch: "双向直接投资", en: "FDI outflows vs. actual use of foreign capital" },
+        title: {
+          ch: "双向直接投资",
+          en: "FDI outflows vs. actual use of foreign capital"
+        },
         grid: {
           bottom: "18%",
           enGapch: this.$fz(0.58) //数据来源中英文间距
@@ -136,13 +139,16 @@ export default {
           en: "Y-o-y",
           ch: "同比",
           doSymbol: "(%)"
-        },
+        }
       },
       USD: {
         id: "USD",
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
-        title: { ch: "双向直接投资", en: "FDI outflows vs. actual use of foreign capital" },
+        title: {
+          ch: "双向直接投资",
+          en: "FDI outflows vs. actual use of foreign capital"
+        },
         xData: [],
         grid: {
           bottom: "18%",
@@ -152,19 +158,18 @@ export default {
         series: [
           {
             name:
-              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
+              "实际使用外资_Actual use of foreign capital|实际使用外资同比_Y-o-y actual use of foreign capital",
             color: "#6AA3CD",
             data: []
           },
           {
             name:
-              "实际使用外资_Actual use of foreign capital|实际使用外资同比_Y-o-y actual use of foreign capital",
+              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
             color: "#d43838",
             data: []
           }
         ],
-        updatedDate: "",
-        
+        updatedDate: ""
       },
       status: [
         {
@@ -251,7 +256,7 @@ export default {
   async created() {
     let res = await this.getMaxMinDate();
     let resQM = await this.getMaxMinDateQM();
-    this.$store.commit('setDBMinMaxDateQM',resQM);
+    this.$store.commit("setDBMinMaxDateQM", resQM);
     let arrmaxmin = res.Y.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
@@ -313,8 +318,8 @@ export default {
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      this.USD.series[0]["data"] = data.outward_FDI_flows;
-      this.USD.series[1]["data"] = data.inward_FDI_flows;
+      this.USD.series[1]["data"] = data.outward_FDI_flows;
+      this.USD.series[0]["data"] = data.inward_FDI_flows;
 
       //
     },
@@ -416,7 +421,7 @@ export default {
           ? Inres.Y.split("_")[1]
           : allIndustryres.Y.split("_")[1];
 
-          let startM =
+      let startM =
         (await Number(Inres.M.split("_")[0])) -
           Number(allIndustryres.M.split("_")[0]) >=
         0
@@ -429,13 +434,13 @@ export default {
           ? Inres.M.split("_")[1]
           : allIndustryres.M.split("_")[1];
 
-      res = {Y:`${start}_${end}`,M:`${startM}_${endM}`};
+      res = { Y: `${start}_${end}`, M: `${startM}_${endM}` };
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res.Y;
         }
-        let QMDefaultTime = await chartDataFun.getQMDefaultTime(end,endM, 1);
+        let QMDefaultTime = await chartDataFun.getQMDefaultTime(end, endM, 1);
         if (key == "quarterly") {
           obj.list.start.value = QMDefaultTime.Q.start;
           obj.list.end.value = QMDefaultTime.Q.end;

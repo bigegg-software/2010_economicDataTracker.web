@@ -167,8 +167,8 @@ export default {
       ],
       result: [],
       checkBox: {
-        ch: "国家",
-        en: "Country",
+        ch: "国家/地区",
+        en: "Country/ region",
         op: []
       },
       options: {

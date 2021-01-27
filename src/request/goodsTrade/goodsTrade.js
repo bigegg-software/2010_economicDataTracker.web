@@ -720,6 +720,9 @@ export default {
       let exp = re.filter(v => v.type == 2)[0]
       let obj = {}
       let op = imp ? imp : exp
+      if (!op.volume && op.volume !=0) {
+        op.volume=''
+      }
       for (let key in op) {
         obj[`year`] = op['year']
         obj[`industry`] = op['industry']

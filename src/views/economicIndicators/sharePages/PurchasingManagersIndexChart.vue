@@ -52,7 +52,7 @@ export default {
         },
         unit: {
           ch: "指数",
-          en: "index"
+          en: "Index"
         },
         tableTitle: {
           year: {
@@ -87,7 +87,7 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "指数", en: "index" },
+        yName: { ch: "指数", en: "Index" },
         title: {
           ch: "采购经理人指数PMI",
           en: "Purchasing Managers' Index (PMI)"

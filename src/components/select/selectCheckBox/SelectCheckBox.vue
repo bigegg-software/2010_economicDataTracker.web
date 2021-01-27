@@ -128,6 +128,7 @@ export default {
     padding: 0 0.078125rem;
     overflow: auto;
     cursor: default;
+    font-size:.072917rem;  
   }
 }
 .drop-down .right {
@@ -151,6 +152,7 @@ export default {
     padding: 0 0.052083rem;
     box-sizing: border-box;
     overflow: auto;
+    font-size:.072917rem;  
     .list-row {
       width: 100%;
       padding: 0.0625rem 0;

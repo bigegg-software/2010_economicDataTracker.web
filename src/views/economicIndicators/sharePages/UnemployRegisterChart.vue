@@ -51,8 +51,8 @@ export default {
           en: "Urban registered unemployment rate"
         },
         unit: {
-          ch: "亿元人民币",
-          en: "100 mln RMB"
+          ch: "万人",
+          en: "10,000 persons"
         },
         tableTitle: {},
         tableData: [],
@@ -142,15 +142,20 @@ export default {
   async created() {
     let Yearres = await this.getMaxMinDate("Unemployment");
     let res = await chartDataFun.getQNoMonthDefaultTime("UnemploymentQuarter");
-    this.$store.commit('setDBMinMaxDateQM',{Y:`${res.min}_${res.max}`,M:`${res.minQM}_${res.maxQM}`});
+    this.$store.commit("setDBMinMaxDateQM", {
+      Y: `${res.min}_${res.max}`,
+      M: `${res.minQM}_${res.maxQM}`
+    });
     let Yarrmaxmin = Yearres.Y.split("_");
     this.options.yearly.list.start.value = Yarrmaxmin[0];
     this.options.yearly.list.end.value = Yarrmaxmin[1];
     // 初始化日期月度季度赋值
-    this.options.quarterly.list.start.frame=`${res.min}_${res.max}`;
-    this.options.quarterly.list.end.frame=`${res.min}_${res.max}`;
-    this.options.quarterly.list.start.value=`${res.max-1}-${res.maxQuarterMonth}`;
-    this.options.quarterly.list.end.value=`${res.max}-${res.maxQuarterMonth}`;
+    this.options.quarterly.list.start.frame = `${res.min}_${res.max}`;
+    this.options.quarterly.list.end.frame = `${res.min}_${res.max}`;
+    this.options.quarterly.list.start.value = `${res.max - 1}-${
+      res.maxQuarterMonth
+    }`;
+    this.options.quarterly.list.end.value = `${res.max}-${res.maxQuarterMonth}`;
     await this.getChartsData({
       type: "yearly",
       start: Number(Yarrmaxmin[0]),
@@ -237,7 +242,8 @@ export default {
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
       console.log(data);
       if (XNameAttr == "year") {
-        (this.USD.yName = { ch: "万人", en: "10,000 persons" }),
+        (this.totalData.unit = { ch: "万人", en: "10,000 persons" }),
+          (this.USD.yName = { ch: "万人", en: "10,000 persons" }),
           (this.USD.yPosition = ["left", "right"]),
           (this.USD.yLabel = [true, true]),
           (this.USD.leftPer = false),
@@ -259,7 +265,8 @@ export default {
             }
           ]);
       } else {
-        (this.USD.yName = { ch: "", en: "" }),
+        (this.totalData.unit = { ch: "失业率", en: "100%" }),
+          (this.USD.yName = { ch: "", en: "" }),
           (this.USD.yPosition = ["right", "left"]),
           (this.USD.yLabel = [false, true]),
           (this.USD.leftPer = true),
@@ -342,7 +349,7 @@ export default {
           unemploymentRate: {
             text: "城镇登记失业率_Urban registered unemployment rate",
             width: "60%",
-            formatNum: true
+            formatPer: true
           }
         };
       }
