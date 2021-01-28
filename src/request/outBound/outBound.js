@@ -67,7 +67,7 @@ sumSameYearData:async (sourceData,field,name)=> {
         unit:sourceData[0].unit,
         unitMillion:'百万美元',
         year:currentYear,
-        mount:mount/100
+        mount:!!mount||mount==0?mount/100:undefined
         });
     }
     return resD;
@@ -106,8 +106,8 @@ sumSameYearData:async (sourceData,field,name)=> {
                     item.outFlowTypeCH='中国对外非金融直接投资'
                     item.outFlowTypeEN='Non-financial FDI outflows'
                 }
-                item.investAmountMillion = !!item.investAmount || item.investAmount==0?item.investAmount * 100:'';
-                item.investConversionMillion = !!item.investConversion ||item.investAmount==0 ? item.investConversion * 100:'';
+                item.investAmountMillion = !!item.investAmount || item.investAmount==0?item.investAmount * 100:undefined;
+                item.investConversionMillion = !!item.investConversion ||item.investAmount==0 ? item.investConversion * 100:undefined;
                 item.conversionUnitMillion='百万美元'
                 return item
             })
@@ -159,11 +159,11 @@ sumSameYearData:async (sourceData,field,name)=> {
             res = res.map(item=>{
                 item=item.toJSON()
                 // 美元投资金额转百万美元
-                item.investConversionMillion =!!item.investConversion||item.investConversion==0? item.investConversion * 100:'';
+                item.investConversionMillion =!!item.investConversion||item.investConversion==0? item.investConversion * 100:undefined;
                 // 美元新签合同额转百万美元
-                item.newConAmountConMillion =!!item.newConAmountCon||item.newConAmountCon==0? item.newConAmountCon * 100:'';
+                item.newConAmountConMillion =!!item.newConAmountCon||item.newConAmountCon==0? item.newConAmountCon * 100:undefined;
                 // 美元完成营业额转百万美元
-                item.completedAmountConMillion =!!item.completedAmountCon||item.completedAmountCon==0? item.completedAmountCon * 100:'';
+                item.completedAmountConMillion =!!item.completedAmountCon||item.completedAmountCon==0? item.completedAmountCon * 100:undefined;
                 item.unitMillion='百万美元'
                 return item
             })
@@ -228,13 +228,13 @@ sumSameYearData:async (sourceData,field,name)=> {
      res = res.map(item=>{
          item=item.toJSON()
          // 美元完成营业额转百万美元
-         item.completedAmountConMillion =!!item.completedAmountCon||item.completedAmountCon==0? item.completedAmountCon * 100:'';
+         item.completedAmountConMillion =!!item.completedAmountCon||item.completedAmountCon==0? item.completedAmountCon * 100:undefined;
          // 美元新签合同额转百万美元
-         item.newConAmountConMillion =!!item.newConAmountCon||item.newConAmountCon==0? item.newConAmountCon * 100:'';
+         item.newConAmountConMillion =!!item.newConAmountCon||item.newConAmountCon==0? item.newConAmountCon * 100:undefined;
          // 人民币完成营业额转百万人民币
-         item.completedAmountMillion =!!item.completedAmount||item.completedAmount==0? item.completedAmount * 100:'';
+         item.completedAmountMillion =!!item.completedAmount||item.completedAmount==0? item.completedAmount * 100:undefined;
          // 人民币新签合同额转百万人民币
-         item.newConAmountMillion =!!item.newConAmount ||item.newConAmount==0?item.newConAmount * 100:'';
+         item.newConAmountMillion =!!item.newConAmount ||item.newConAmount==0?item.newConAmount * 100:undefined;
          item.unitConMillion='百万美元'
          item.unitMillion='百万人民币'
          return item
@@ -427,7 +427,7 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
          for (let vk = 0; vk < params.containedIn.country.length; vk++) {
                 const element = params.containedIn.country[vk];
                 let vkData=res.filter(it=>{
-                           it[filed+'Million']=Number(it[filed])/100;
+                           it[filed+'Million']=!!Number(it[filed])/100||Number(it[filed])/100==0?Number(it[filed])/100:undefined;
                            it['unitMillion']='百万美元';
                     return it.country==element;
                 })
@@ -497,7 +497,7 @@ getTopTenCountriesToOPChart:async function(params) {
     res = res.map(item=>{
         item=item.toJSON();
         // 美元新签/完成合同额转百万美元
-        item.amountMillion=item.amount*100;
+        item.amountMillion=!!item.amount||item.amount==0?item.amount*100:undefined;
         item.unitMillion='百万美元';
         return item;
     });
@@ -524,7 +524,7 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
     let res=await this.barQueryData('LaborServiceTop10AnnualRank',params);
     res = res.map(item=>{
         item=item.toJSON();
-        item.variousTypesPerNumMillion= item.variousTypesPerNum/100;
+        item.variousTypesPerNumMillion= !!item.variousTypesPerNum||item.variousTypesPerNum==0?item.variousTypesPerNum/100:undefined;
         item.unitMillion='万人'
         return item;
     });
@@ -574,7 +574,7 @@ getFlowsTwentyDestinationChart:async function(params) {
     let res=await this.barQueryData('FDITop20Outflow',params);
     res = res.map(item=>{
         item=item.toJSON();
-        item.outflowMillion=item.outflow*100;
+        item.outflowMillion=!!item.outflow||item.outflow==0?item.outflow*100:undefined;
         item.unitMillion='百万美元'
         return item;
     });
@@ -602,7 +602,7 @@ getStocksTwentyDestinationChart:async function(params) {
     let res=await this.barQueryData('FDITop20Stock',params);
     res = res.map(item=>{
         item=item.toJSON();
-        item.stocksMillion=item.stocks*100;
+        item.stocksMillion=!!item.stocks||item.stocks==0?item.stocks*100:undefined;
         item.unitMillion='百万美元'
         return item;
     });
@@ -655,7 +655,7 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
      res = res.map(item=>{
          item=item.toJSON()
         //  需要换算单位
-         item.outflowsMillion=item.outflows*100
+         item.outflowsMillion=!!item.outflows||item.outflows==0?item.outflows*100:undefined
          item.unitMillion='百万美元';
          return item
      })
@@ -698,7 +698,7 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
     let res = await this.barQueryData('FDIStock', params);
     res = res.map(item => {
         item = item.toJSON();
-        item.stocksMillion =!!item.stocks||item.stocks==0? item.stocks / 100:'';
+        item.stocksMillion =!!item.stocks||item.stocks==0? item.stocks / 100:undefined;
         item.unitMillion='百万美元'
         return item;
     });
@@ -725,7 +725,7 @@ getFDIOutflowDestination: async function (params) {
     let res = await this.barQueryData('FDIOutflowDestination', params);
     res = res.map(item => {
         item = item.toJSON();
-        item.outflowMillion =!!item.outflow||item.outflow==0? item.outflow / 100:'';
+        item.outflowMillion =!!item.outflow||item.outflow==0? item.outflow / 100:undefined;
         item.unitMillion='百万美元'
         return item;
     });
@@ -753,7 +753,7 @@ getFDIMajorEconomiesIndustry: async function (params) {
     let res = await this.barQueryData('FDIMajorEconomiesIndustry', params);
     res = res.map(item => {
         item = item.toJSON();
-        item.outflowsMillion = !!item.outflows||item.outflows==0?item.outflows / 100:'';
+        item.outflowsMillion = !!item.outflows||item.outflows==0?item.outflows / 100:undefined;
         item.unitMillion='百万美元'
         return item;
     });
