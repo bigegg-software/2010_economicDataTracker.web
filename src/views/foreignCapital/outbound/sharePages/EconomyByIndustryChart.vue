@@ -166,7 +166,7 @@ export default {
           },
           {
             id: 6,
-            ch: "俄罗斯联邦",
+            ch: "俄罗斯",
             en: "Russia"
           }
         ]

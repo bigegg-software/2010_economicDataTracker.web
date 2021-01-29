@@ -369,17 +369,18 @@ export default {
 
         let tableres = JSON.parse(JSON.stringify(res))
 
-        tableres = tableres.reverse();
+        // tableres = tableres.reverse();//与图表排序统一  去掉了表格倒序排序
+           let year=tableres.length?tableres[0].year:'';
         let tableInfo = {
-            fileName: '主要对华投资前15位国家/地区',
+            fileName: `截至${year}年主要投资来源地前15位国家/地区`,
             tHeader: [
                 "年份",
                 "国家/地区（英文）",
                 "国家/地区",
-                '企业数',
-                '比重',
-                '实际投入外资金额',
-                '比重',
+                '累计设立企业数',
+                '占外资企业数比重',
+                '累计实际投资金额',
+                '占实际投入外资金额',
                 '单位'
             ],
             filterVal: ['year', 'countryEn','country', 'enterpriseNumber', 'enterprisePercent', 'FDIInflowsMillion', 'inflowsPercent', 'unitMillion'],

@@ -524,7 +524,7 @@ getLaborServiceTop10AnnualRankChart:async function(params) {
     let res=await this.barQueryData('LaborServiceTop10AnnualRank',params);
     res = res.map(item=>{
         item=item.toJSON();
-        item.variousTypesPerNumMillion= !!item.variousTypesPerNum||item.variousTypesPerNum==0?item.variousTypesPerNum/100:undefined;
+        item.variousTypesPerNumMillion= !!item.variousTypesPerNum||item.variousTypesPerNum==0?item.variousTypesPerNum/10000:undefined;
         item.unitMillion='万人'
         return item;
     });
@@ -786,7 +786,7 @@ getFDIMajorEconomiesIndustry: async function (params) {
           },
           {
             id: 6,
-            ch: "俄罗斯联邦",
+            ch: "俄罗斯",
             en: "Russia"
           }
         ];

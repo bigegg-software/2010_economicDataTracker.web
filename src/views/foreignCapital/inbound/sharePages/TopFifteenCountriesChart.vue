@@ -53,15 +53,15 @@ export default {
           },
           countryEn: {
             text: "国家/地区（英文）_Country/Region",
-            width: "20%"
+            width: "15%"
           },
           country: {
             text: "国家/地区_Country/Region",
-            width: "20%"
+            width: "15%"
           },
           enterpriseNumber: {
-            text: "企业数_Number of enterprises",
-            width: "10%",
+            text: "累计设立企业数_Cumulative number of enterprises established",
+            width: "15%",
             formatInt: true
           },
           enterprisePercent: {
@@ -70,13 +70,13 @@ export default {
             formatPer: true
           },
           FDIInflowsMillion: {
-            text: "实际投入外资金额_FDI inflows to China",
+            text: "累计实际投资金额_Inward FDI stocks to China",
             width: "20%",
             formatNum: true
           },
           inflowsPercent: {
-            text: "占实际投入外资金额_Share of total FDI inflows to China",
-            width: "10%",
+            text: "占实际投入外资金额_Share of inward FDI stocks to China",
+            width: "15%",
             formatPer: true
           }
         },
@@ -109,7 +109,7 @@ export default {
         hideLegend:true,
         series: [
           {
-            name: "实际投入外资金额_FDI inflows to China|企业数_Number of enterprises",
+            name: "累计实际投资金额_Inward FDI stocks to China|累计设立企业数_Cumulative number of enterprises established",
             color: ["#71a6c2"],
             data: [],
             yearOnYear: []
@@ -163,8 +163,8 @@ export default {
     },
     option:{
       handler() {
-          this.totalData.title.ch=this.chartBar.title.text=`${this.option.value}年前15位对华投资国家/地区`;
-          this.totalData.title.en=this.chartBar.title.subtext=`Top 15 countries/regions investing in China in ${this.option.value}`;
+          this.totalData.title.ch=this.chartBar.title.text=`截至${this.option.value}年主要投资来源地前15位国家/地区`;
+          this.totalData.title.en=this.chartBar.title.subtext=`Top 15 countries/regions investing in China as of ${this.option.value}`;
       },
       deep:true
     }

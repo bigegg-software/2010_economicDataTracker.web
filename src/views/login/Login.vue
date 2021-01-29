@@ -83,13 +83,13 @@ export default {
     forgetPwd() {
         this.$info({
         title: (<p>
-            <span>reminder</span>
+            <span>Reminder</span>
             <p>温馨提示</p>
           </p>),
         content: (
           <div>
-            <span>Please contact with the system administrator</span>
-            <p>请与系统管理员联系</p>
+            <span>Please contact the system administrator.</span>
+            <p>请与系统管理员联系。</p>
           </div>
           ),
         onOk() {
