@@ -72,7 +72,7 @@ export default {
             text: "国别_Country/Region",
             width: "35%"
           },
-          amount: {
+          amountMillion: {
             text: "新签合同额_Total value of new contracts ",
             width: "35%",
             formatNum: true
@@ -113,7 +113,7 @@ export default {
             text: "国别_Country/Region",
             width: "35%"
           },
-          amount: {
+          amountMillion: {
             text: "完成营业额_Revenue of completed contracts",
             width: "35%",
             formatNum: true
