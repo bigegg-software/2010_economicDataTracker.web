@@ -79,7 +79,7 @@ export default {
         xData: [],
         grid: {
           top: "23%",
-          left: "5%",
+          left: "6%",
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },

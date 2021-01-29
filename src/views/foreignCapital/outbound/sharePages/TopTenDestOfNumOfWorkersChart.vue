@@ -77,7 +77,7 @@ export default {
         },
         grid: {
           top: "23%",
-          left: "4%",
+          left: "6%",
           bottom: "11%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
