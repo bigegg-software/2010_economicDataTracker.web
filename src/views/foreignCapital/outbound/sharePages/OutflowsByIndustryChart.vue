@@ -345,7 +345,7 @@ export default {
       industryAddYoYData = industryAddYoYData.sort((a, b) => {
         return b.year - a.year;
       });
-      if (this.status[0].checked) {
+      // if (this.status[0].checked) {
         let tableInfo = {
           fileName: "中国对外直接投资流量行业分布情况",
           tHeader: ["年份", "行业", "流量", "同比", "单位"],
@@ -359,7 +359,7 @@ export default {
           tableData: [...industryAddYoYData]
         };
         this.$store.commit("saveChartTable", tableInfo);
-      }
+      // }
 
       //
     },

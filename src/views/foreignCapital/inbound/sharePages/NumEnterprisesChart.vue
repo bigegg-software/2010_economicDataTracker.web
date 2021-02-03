@@ -346,7 +346,7 @@ export default {
       industryAddYoYData = industryAddYoYData.sort((a, b) => {
         return b.year - a.year;
       });
-      if (this.status[0].checked) {
+      // if (this.status[0].checked) {
         let tableInfo = {
           fileName: "开办企业数",
           tHeader: ["年份", "行业", "单位", "企业数", "企业数同比"],
@@ -360,7 +360,7 @@ export default {
           tableData: [...industryAddYoYData]
         };
         this.$store.commit("saveChartTable", tableInfo);
-      }
+      // }
       //
     },
     async getChartsData(aug) {

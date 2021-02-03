@@ -90,12 +90,12 @@ export default {
             width: "30%"
           },
           inflowsFDIMillion: {
-            text: "实际使用外资金额_FDI inflows to China",
+            text: "实际使用外资金额_Actual use of foreign capital",
             width: "30%",
             formatNum: true
           },
           inflowsYOYGrowth: {
-            text: "实际使用外资金额同比_FDI inflows to China y-o-y growth",
+            text: "实际使用外资金额同比_Y-o-y actual use of foreign capital",
             width: "30%",
             formatPer: true
           }
@@ -342,7 +342,7 @@ export default {
       industryAddYoYData = industryAddYoYData.sort((a, b) => {
         return b.year - a.year;
       });
-      if (this.status[0].checked) {
+      // if (this.status[0].checked) {
         let tableInfo = {
           fileName: "实际使用外资金额",
           tHeader: [
@@ -362,7 +362,7 @@ export default {
           tableData: [...industryAddYoYData]
         };
         this.$store.commit("saveChartTable", tableInfo);
-      }
+      // }
       //
     },
     async getChartsData(aug) {
