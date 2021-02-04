@@ -111,7 +111,7 @@ export default {
         xData: [2020],
         grid: {
           top: "22%",
-          left: "3%",
+          left: "8%",
           bottom: "10%",
           enGapch: this.$fz(0.4) //数据来源中英文间距
         },
