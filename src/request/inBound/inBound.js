@@ -302,40 +302,40 @@ export default {
             item.unitMillion='百万美元'
             return item
         })
-        let tableres=await JSON.parse(JSON.stringify(res));
-         tableres=tableres.reverse();
-         if(tabIndex==1){
-            let tableInfo={
-                fileName: '开办企业数',
-                tHeader:[
-                    "年份",
-                    '行业（英文）',
-                    '行业',
-                    '单位',
-                    '企业数',
-                    '企业数同比'
-                ],
-                filterVal:['year','industryEn','industry','enterprisesNumberUnit','enterprisesNumber','numberYOYGrowth'],
-                tableData:[...tableres]
-                }
-            store.commit('saveChartTable',tableInfo);
-         }
-         if(tabIndex==2){
-            let tableInfo={
-                fileName: '实际使用外资金额',
-                tHeader:[
-                    "年份",
-                    '行业（英文）',
-                    '行业',
-                    '单位',
-                    '实际使用外资金额',
-                    '实际使用外资金额同比'
-                ],
-                filterVal:['year','industryEn','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
-                tableData:[...tableres]
-                }
-            store.commit('saveChartTable',tableInfo);
-         }
+        // let tableres=await JSON.parse(JSON.stringify(res));
+        //  tableres=tableres.reverse();
+        //  if(tabIndex==1){
+        //     let tableInfo={
+        //         fileName: '开办企业数',
+        //         tHeader:[
+        //             "年份",
+        //             '行业（英文）',
+        //             '行业',
+        //             '单位',
+        //             '企业数',
+        //             '企业数同比'
+        //         ],
+        //         filterVal:['year','industryEn','industry','enterprisesNumberUnit','enterprisesNumber','numberYOYGrowth'],
+        //         tableData:[...tableres]
+        //         }
+        //     store.commit('saveChartTable',tableInfo);
+        //  }
+        //  if(tabIndex==2){
+        //     let tableInfo={
+        //         fileName: '实际使用外资金额',
+        //         tHeader:[
+        //             "年份",
+        //             '行业（英文）',
+        //             '行业',
+        //             '单位',
+        //             '实际使用外资金额',
+        //             '实际使用外资金额同比'
+        //         ],
+        //         filterVal:['year','industryEn','industry','unitMillion','inflowsFDIMillion','inflowsYOYGrowth'],
+        //         tableData:[...tableres]
+        //         }
+        //     store.commit('saveChartTable',tableInfo);
+        //  }
         let industrys = await chartDataFun.getServerIndustry();
         let resoult = [];
         for (let k = 0; k < industrys.length; k++) {

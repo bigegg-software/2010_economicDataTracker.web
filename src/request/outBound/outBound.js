@@ -659,22 +659,22 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
          item.unitMillion='百万美元';
          return item
      })
-     let tableres=await JSON.parse(JSON.stringify(res));
-         tableres=tableres.reverse();
-         let tableInfo={
-            fileName: '中国对外直接投资流量行业分布情况',
-            tHeader:[
-                "年份",
-                '行业（英文）',
-                '行业',
-                '流量',
-                '同比',
-                '单位'
-            ],
-            filterVal:['year','industryEn','industry','outflowsMillion','yOY','unitMillion'],
-            tableData:[...tableres]
-            }
-            store.commit('saveChartTable',tableInfo);
+    //  let tableres=await JSON.parse(JSON.stringify(res));
+    //      tableres=tableres.reverse();
+    //      let tableInfo={
+    //         fileName: '中国对外直接投资流量行业分布情况',
+    //         tHeader:[
+    //             "年份",
+    //             '行业（英文）',
+    //             '行业',
+    //             '流量',
+    //             '同比',
+    //             '单位'
+    //         ],
+    //         filterVal:['year','industryEn','industry','outflowsMillion','yOY','unitMillion'],
+    //         tableData:[...tableres]
+    //         }
+    //         store.commit('saveChartTable',tableInfo);
      let industrys=chartDataFun.industry();
         let resoult=[];
       for (let k = 0; k < industrys.length; k++) {
