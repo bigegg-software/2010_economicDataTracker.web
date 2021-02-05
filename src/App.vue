@@ -5,13 +5,27 @@
   </div>
 </template>
 <script>
+import user from '@/request/user'
 export default {
   data() {
     return {
 
     }
   },
-  created() {
+  async created() {
+    localStorage.removeItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
+    if(this.$storage.getItem('user')){
+      let u=this.$storage.getItem('user');
+      let user= new this.$Parse.Query('User');
+          user.equalTo('objectId',u.objectId);
+      let res=await user.first();
+      if(res){
+        localStorage.setItem(`Parse/${process.env.VUE_APP_ID}/currentUser`,sessionStorage.getItem('user'));
+      }else{
+        this.$storage.removeItem('user');
+        localStorage.removeItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
+      }
+    }
     window.addEventListener('beforeunload',()=>{
          if(this.$store.getters.userInfo.sessionToken){
            this.$storage.setItem('user',this.$store.getters.userInfo);
