@@ -170,11 +170,16 @@ export default {
     //分享到 facebook
     sharetoFacebook() {
       window.open(
-        "http://www.facebook.com/sharer/sharer.php?u=" +
-          encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch) +
-          encodeURIComponent(window.location.href),
-        "sharer",
-        "toolbar=0,status=0,width=626,height=436"
+        "https://www.facebook.com/sharer.php?title="+
+        encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch)+
+        "&u="+
+        encodeURIComponent(window.location.href)
+        // "http://www.facebook.com/sharer/sharer.php?u=" +
+        //   encodeURIComponent(window.location.href)+
+        //   "&t="+
+        //   encodeURIComponent(this.urlTitle[0].en + this.urlTitle[0].ch),
+        // "sharer",
+        // "toolbar=0,status=0,width=626,height=436"
       );
     },
     // 分享到微信

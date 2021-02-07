@@ -211,7 +211,7 @@ export default {
         return item.toJSON().continent;
       });
       let res = Array.from(new Set(continent));
-      console.log(res);
+       
       for (let i = 0; i < this.allContinent.length; i++) {
         if (res.includes(this.allContinent[i].ch)) {
           this.selectOption.op.push(this.allContinent[i]);

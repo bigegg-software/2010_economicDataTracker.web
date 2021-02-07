@@ -86,7 +86,6 @@ export default {
     ForgetPassword
   },
   mounted() {
-    console.log(this.dataList)
   },
   computed:{
      userInfo() {
@@ -106,7 +105,6 @@ export default {
     jumpPage(data) {
       this.$router.push({name:data.name});
       this.$store.commit('setInitScreen');
-      // console.log(data, "最新数据");
       this.show = false;
     },
     logout() {
@@ -132,7 +130,7 @@ export default {
       this.visible=true;
     },
     logInfo() {
-      console.log(this.$route)
+      
       this.$router.push({
         path:'/login',
         query:{redirect:this.$route.fullPath}

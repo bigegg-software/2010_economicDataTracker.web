@@ -28,7 +28,6 @@ export default {
     return {};
   },
   mounted() {
-    // console.log(this.$route);
   },
   methods: {}
 };

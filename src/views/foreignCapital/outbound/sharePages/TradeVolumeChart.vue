@@ -132,7 +132,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -191,13 +191,13 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("LaborServiceCooperation");
-      console.log(res);
+       
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res.Y;
         }
-        console.log(obj);
+        
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -313,7 +313,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
+       
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

@@ -171,7 +171,6 @@ export default {
       // 金额
       let outflow = [];
       res.forEach(item => {
-        console.log(item);
         Xname.push(item.countryEn + "\n" + item.country);
         outflow.push(item.outflowMillion);
       });

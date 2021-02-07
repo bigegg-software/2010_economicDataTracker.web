@@ -335,7 +335,6 @@ let getsearchMenuLists = function () {
   return menu2Nav;
 }
 let searchMenuLists = getsearchMenuLists();
-console.log(searchMenuLists)
 
 
 export { foreignCapitalMenuLists, foreignTradeMenuLists, searchMenuLists, economicIndicatorsMenuLists };

@@ -76,7 +76,6 @@ export default {
   },
   props: { totalData: {} },
   mounted() {
-    console.log(this.totalData);
   },
   methods: {}
 };

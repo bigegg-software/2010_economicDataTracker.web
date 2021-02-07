@@ -258,7 +258,6 @@ export default {
     });
   },
   mounted() {
-    // console.log(this.isShowTable, "isShowTable");
     if (!this.isShowYearOnYear) {
       this.$EventBus.$on("downLoadImg", () => {
         this.$refs.barChart && this.$refs.barChart.downloadFile();
@@ -292,7 +291,7 @@ export default {
         for (let k in obj.list) {
           obj.list[k].frame = res.Y;
         }
-        console.log(obj);
+        
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -427,7 +426,7 @@ export default {
               .join(",")
               .toLowerCase()
               // .split(",");  //去掉了切割成分组 可以搜索英文字符串 不用输入全英文单词
-            console.log(splitList);
+            
             let active = true;
             for (let k = 0; k < arrName.length; k++) {
               if (!splitList.includes(arrName[k].toLowerCase())) {
@@ -441,7 +440,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
+       
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

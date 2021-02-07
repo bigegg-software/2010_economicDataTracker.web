@@ -56,7 +56,6 @@ export default {
 //       }
 //     },
     handleClickSubnav(subnav,  i) {
-    //   console.log(subnav, index, i);
       this.$router.push({ name: subnav.name });
     }
   }

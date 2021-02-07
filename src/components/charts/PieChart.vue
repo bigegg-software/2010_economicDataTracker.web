@@ -36,13 +36,16 @@ export default {
   mounted() {
     this.chartDataSourcesEn =
       "Data Sources:" +
-      (this.totalData.dataSources.enThird
-        ? this.totalData.dataSources.en +
-          this.totalData.dataSources.enSecond +
-          this.totalData.dataSources.enThird
-        : this.totalData.dataSources.enSecond
-        ? this.totalData.dataSources.en + this.totalData.dataSources.enSecond
-        : this.totalData.dataSources.en
+      (
+        (this.totalData.dataSources && this.totalData.dataSources.en
+          ? this.totalData.dataSources.en
+          : "") +
+        (this.totalData.dataSources && this.totalData.dataSources.enSecond
+          ? this.totalData.dataSources.enSecond
+          : "") +
+        (this.totalData.dataSources && this.totalData.dataSources.enThird
+          ? this.totalData.dataSources.enThird
+          : "")
       ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
@@ -53,7 +56,6 @@ export default {
       const element = arrValues[index];
       if (element.indexOf(",") >= 0) {
         let arrDot = element.split(",");
-        console.log("arrDot", arrDot);
         arrDot.map(item => {
           if (item.length > 0) {
             arrRes.push(item);
@@ -78,15 +80,17 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.totalData.dataSources.chThird
-      ? this.totalData.dataSources.ch +
-        this.totalData.dataSources.chSecond +
-        this.totalData.dataSources.chThird
-      : this.totalData.dataSources.chSecond
-      ? this.totalData.dataSources.ch + this.totalData.dataSources.chSecond
-      : this.totalData.dataSources.ch
+    this.chartDataSourcesCh = (
+      (this.totalData.dataSources && this.totalData.dataSources.ch
+        ? this.totalData.dataSources.ch
+        : "") +
+      (this.totalData.dataSources && this.totalData.dataSources.chSecond
+        ? this.totalData.dataSources.chSecond
+        : "") +
+      (this.totalData.dataSources && this.totalData.dataSources.chThird
+        ? this.totalData.dataSources.chThird
+        : "")
     ).replace(/_/g, "");
-    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -174,8 +178,8 @@ export default {
             let e = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${params.value}</div>`;
             let f = `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;"">${
               // params.data.proportion.toFixed(1)
-              (Math.round(params.data.proportion*10)/10).toFixed(1)
-              }%</div>`;
+              (Math.round(params.data.proportion * 10) / 10).toFixed(1)
+            }%</div>`;
             let dom = year + a + b + e + c + d + f;
             return `<div style="width:auto;height:auto;border-radius:0.026rem;padding: 0 0.078125rem;background:#fff;box-shadow: #999 0px 0px .026rem 1px;">${dom}</div>`;
           }

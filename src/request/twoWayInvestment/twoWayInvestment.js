@@ -58,13 +58,11 @@ export default {
                 return item
             })
 
-            console.log("tableres ====   ====", res)
 
             // let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
             //     return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
             // })
     
-            // console.log("tableres", tableres)
             let tableres = await JSON.parse(JSON.stringify(res))
             tableres = tableres.reverse();
             let tableInfo = {
@@ -131,7 +129,6 @@ export default {
             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
         })
      }
-     console.log('美元实际使用外资转百万美',res)
      let tableres = await JSON.parse(JSON.stringify(res))
             tableres = tableres.reverse();
             let tableInfo = {

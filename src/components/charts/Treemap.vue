@@ -35,13 +35,16 @@ export default {
   mounted() {
     this.chartDataSourcesEn =
       "Data Sources:" +
-      (this.totalData.dataSources.enThird
-        ? this.totalData.dataSources.en +
-          this.totalData.dataSources.enSecond +
-          this.totalData.dataSources.enThird
-        : this.totalData.dataSources.enSecond
-        ? this.totalData.dataSources.en + this.totalData.dataSources.enSecond
-        : this.totalData.dataSources.en
+      (
+        (this.totalData.dataSources && this.totalData.dataSources.en
+          ? this.totalData.dataSources.en
+          : "") +
+        (this.totalData.dataSources && this.totalData.dataSources.enSecond
+          ? this.totalData.dataSources.enSecond
+          : "") +
+        (this.totalData.dataSources && this.totalData.dataSources.enThird
+          ? this.totalData.dataSources.enThird
+          : "")
       ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
@@ -52,7 +55,6 @@ export default {
       const element = arrValues[index];
       if (element.indexOf(",") >= 0) {
         let arrDot = element.split(",");
-        console.log("arrDot", arrDot);
         arrDot.map(item => {
           if (item.length > 0) {
             arrRes.push(item);
@@ -77,15 +79,17 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.totalData.dataSources.chThird
-      ? this.totalData.dataSources.ch +
-        this.totalData.dataSources.chSecond +
-        this.totalData.dataSources.chThird
-      : this.totalData.dataSources.chSecond
-      ? this.totalData.dataSources.ch + this.totalData.dataSources.chSecond
-      : this.totalData.dataSources.ch
+    this.chartDataSourcesCh = (
+      (this.totalData.dataSources && this.totalData.dataSources.ch
+        ? this.totalData.dataSources.ch
+        : "") +
+      (this.totalData.dataSources && this.totalData.dataSources.chSecond
+        ? this.totalData.dataSources.chSecond
+        : "") +
+      (this.totalData.dataSources && this.totalData.dataSources.chThird
+        ? this.totalData.dataSources.chThird
+        : "")
     ).replace(/_/g, "");
-    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
@@ -134,11 +138,14 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(value) {
-      let strs = (Math.round(value*10)/10).toFixed(1)
+      let strs = (Math.round(value * 10) / 10).toFixed(1);
       // return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      let source = String(strs).split(".");//按小数点分成bai2部分
-      source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-      return source.join(".");//再将小数部分合并进来
+      let source = String(strs).split("."); //按小数点分成bai2部分
+      source[0] = source[0].replace(
+        new RegExp("(\\d)(?=(\\d{3})+$)", "ig"),
+        "$1,"
+      ); //只将整数部分进行都好分割
+      return source.join("."); //再将小数部分合并进来
     },
     drawTreemap() {
       this.chart = echarts.init(document.getElementById("treemap"));
@@ -162,7 +169,9 @@ export default {
               (params.data.actual || "").split("_")[0]
             }</div>`;
             let value = `<div style="margin-top:0.055rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-              !!params.data.value||params.data.value=="0" ? this.formatNum(params.data.value) : ""
+              !!params.data.value || params.data.value == "0"
+                ? this.formatNum(params.data.value)
+                : ""
             }</div>`;
             //金额比重
             let proportion = `<div style="height:0.09375rem;margin-top:0.06rem;line-height:0.09375rem;color:#3E3E3E;font-size:0.072917rem">${
@@ -211,7 +220,9 @@ export default {
                   `{d|${(params.data.actual || "").split("_")[1]}}`,
                   `{a|${(params.data.actual || "").split("_")[0]}}`,
                   `{c|${
-                    !!params.data.value ||params.data.value=="0"? this.formatNum(params.data.value) : ""
+                    !!params.data.value || params.data.value == "0"
+                      ? this.formatNum(params.data.value)
+                      : ""
                   }}`,
                   `{d|${(params.data.proportion || "").split("_")[1]}}`,
                   `{a|${(params.data.proportion || "").split("_")[0]}}`,
@@ -224,7 +235,7 @@ export default {
                     ? www
                     : [
                         `{a|${
-                          !!params.data.value||params.data.value=="0"
+                          !!params.data.value || params.data.value == "0"
                             ? this.formatNum(params.data.value)
                             : ""
                         }}`

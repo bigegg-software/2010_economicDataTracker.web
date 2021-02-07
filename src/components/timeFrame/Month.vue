@@ -111,7 +111,6 @@ export default {
       });
     },
     handleClick(item) {
-      //   console.log(`${this.years[this.pageIndex]}-${item.month}`);
       this.$emit("change", `${this.years[this.pageIndex]}-${item.text}`);
     },
     next() {

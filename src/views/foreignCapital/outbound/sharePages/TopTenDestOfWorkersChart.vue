@@ -119,7 +119,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true

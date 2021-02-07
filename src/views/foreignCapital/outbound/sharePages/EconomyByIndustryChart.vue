@@ -192,7 +192,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -214,7 +214,7 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
-    console.log(res);
+     
     let arrmaxmin = res.Y.split("_");
     this.option.value = arrmaxmin[1];
     await this.getChartsData({

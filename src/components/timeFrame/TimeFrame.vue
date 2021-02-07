@@ -104,12 +104,10 @@ export default {
   mounted() {},
   methods: {
     changeProgress(value) {
-      // console.log(this.activeKey, value, "111");
       this.$emit("update", this.activeKey, value);
     },
     //  值，这个值是哪个组件的值，
     changeValue(key, value) {
-      // console.log(this.activeKey, key, value, "222");
       this.$emit("change", this.activeKey, key, value);
     },
     changeActiveKey(key) {

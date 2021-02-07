@@ -92,7 +92,6 @@ sumSameYearData:async (sourceData,field,name)=> {
     getOutFlowsChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
         // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
         // if (FDIOutflow.code == 200) {
-        //     console.log(FDIOutflow.data)
         //     return FDIOutflow.data;
         // }
            let type = params.type;
@@ -431,7 +430,6 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
                            it['unitMillion']='百万美元';
                     return it.country==element;
                 })
-                console.log(vkData)
                 allresult[vk]=vkData;
             }
      }

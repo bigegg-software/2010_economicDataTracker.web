@@ -134,7 +134,7 @@ export default {
   },
   async created() {
     let YearAndMonthres = await this.getMaxMinDate("InvestmentFixedAssests");
-    console.log(YearAndMonthres)
+ 
     this.$store.commit('setDBMinMaxDateQM',{Y:YearAndMonthres.monthMaxMinYear,M:YearAndMonthres.monthMaxMinMonth});
     let Yarrmaxmin = YearAndMonthres.yearMaxMin.split("_");
     let arrmaxmin = YearAndMonthres.monthMaxMinYear.split("_");

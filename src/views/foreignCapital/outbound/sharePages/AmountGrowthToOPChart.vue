@@ -89,7 +89,8 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "完成营业额折合(RMB)_Unit|完成营业额折合同比_Type ",
+            name:
+              "完成营业额(RMB)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -114,7 +115,8 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
+            name:
+              "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -122,11 +124,12 @@ export default {
         ],
         updatedDate: "",
         // isLongTitle: true, //标题是否过长
-        legendMark: {//右上角水印
+        legendMark: {
+          //右上角水印
           en: "Y-o-y",
           ch: "同比",
           doSymbol: "(%)"
-        }  
+        }
       },
       status: [
         {
@@ -210,7 +213,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -218,13 +221,17 @@ export default {
   },
   async created() {
     let res = await this.getMaxMinDate();
-    this.$store.commit('setDBMinMaxDateQM',res);
+    this.$store.commit("setDBMinMaxDateQM", res);
     let arrmaxmin = res.Y.split("_");
     let arrmaxminM = res.M.split("_");
     this.options.yearly.list.start.value = arrmaxmin[0];
     this.options.yearly.list.end.value = arrmaxmin[1];
     // 初始化日期月度季度赋值
-    let QMDefaultTime = await chartDataFun.getQMDefaultTime(arrmaxmin[1],arrmaxminM[1], 1);
+    let QMDefaultTime = await chartDataFun.getQMDefaultTime(
+      arrmaxmin[1],
+      arrmaxminM[1],
+      1
+    );
     // this.options.quarterly.list.start.value=QMDefaultTime.Q.start;
     // this.options.quarterly.list.end.value=QMDefaultTime.Q.end;
     this.options.monthly.list.start.value = QMDefaultTime.M.start;
@@ -363,12 +370,12 @@ export default {
             formatPer: true
           },
           completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
+            text: "完成营业额(RMB)_Revenue of completed contracts",
             width: "20%",
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "20%",
             formatPer: true
           }
@@ -394,12 +401,12 @@ export default {
             formatPer: true
           },
           completedAmount: {
-            text: "完成营业额折合(RMB)_Unit",
+            text: "完成营业额(RMB)_Revenue of completed contracts",
             width: "35%",
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额折合同比_Type",
+            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
             width: "35%",
             formatPer: true
           }
@@ -408,7 +415,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
+       
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

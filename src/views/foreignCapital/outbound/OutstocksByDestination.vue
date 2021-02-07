@@ -161,13 +161,12 @@ export default {
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
     choose(index, i, name) {
-      console.log(index, i, name, "111");
       if (name == "download" && i == 0) {
-        console.log("下载图片");
+        
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        // console.log("下载表格");
+        // 
         this.$store.commit("downloadExcel");
       }
       this.initActionsList();

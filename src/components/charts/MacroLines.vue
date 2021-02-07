@@ -22,15 +22,17 @@ export default {
   },
   async mounted() {
     this.chartDataSourcesEn =
-      "Data Sources:" 
-      +
-      (this.options.dataSources.enThird
-        ? this.options.dataSources.en +
-          this.options.dataSources.enSecond +
-          this.options.dataSources.enThird
-        : this.options.dataSources.enSecond
-        ? this.options.dataSources.en + this.options.dataSources.enSecond
-        : this.options.dataSources.en
+      "Data Sources:" +
+      (
+        (this.options.dataSources && this.options.dataSources.en
+          ? this.options.dataSources.en
+          : "") +
+        (this.options.dataSources && this.options.dataSources.enSecond
+          ? this.options.dataSources.enSecond
+          : "") +
+        (this.options.dataSources && this.options.dataSources.enThird
+          ? this.options.dataSources.enThird
+          : "")
       ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
@@ -65,19 +67,21 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.options.dataSources.chThird
-      ? this.options.dataSources.ch +
-        this.options.dataSources.chSecond +
-        this.options.dataSources.chThird
-      : this.options.dataSources.chSecond
-      ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch
+    this.chartDataSourcesCh = (
+      (this.options.dataSources && this.options.dataSources.ch
+        ? this.options.dataSources.ch
+        : "") +
+      (this.options.dataSources && this.options.dataSources.chSecond
+        ? this.options.dataSources.chSecond
+        : "") +
+      (this.options.dataSources && this.options.dataSources.chThird
+        ? this.options.dataSources.chThird
+        : "")
     ).replace(/_/g, "");
-  
+
     this.$EventBus.$on("resize", () => {
       clearInterval(this.timer);
       this.timer = setTimeout(async () => {
-        console.log("页面尺寸变化");
         this.initChart();
         this.chart.resize();
       }, 1000);
@@ -142,11 +146,14 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      let value = (Math.round(it.value*10)/10).toFixed(1);
+      let value = (Math.round(it.value * 10) / 10).toFixed(1);
       // return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      let source = String(value).split(".");//按小数点分成bai2部分
-      source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-      return source.join(".");//再将小数部分合并进来
+      let source = String(value).split("."); //按小数点分成bai2部分
+      source[0] = source[0].replace(
+        new RegExp("(\\d)(?=(\\d{3})+$)", "ig"),
+        "$1,"
+      ); //只将整数部分进行都好分割
+      return source.join("."); //再将小数部分合并进来
     },
     //企业数 转换成整数
     formatInt(it) {
@@ -164,7 +171,7 @@ export default {
       let totalArray = [];
       let Max1, Min1;
       for (let j = 0; j < this.options.series.length; j++) {
-        this.options.series[j].smooth=true//圆滑曲线
+        this.options.series[j].smooth = true; //圆滑曲线
         for (let i = 0; i < this.options.series[j].data.length; i++) {
           if (this.options.series[j].data) {
             totalArray.push(this.options.series[j].data[i]);
@@ -210,7 +217,9 @@ export default {
                 }</div>`;
               }
               dom += `<div style="padding:0.05rem 0 0.08rem;color:#000;font-size:0.114583rem;font-weight:bold;">${
-                !!params[i].value || params[i].value=='0' ? params[i].value + "%" : "-"
+                !!params[i].value || params[i].value == "0"
+                  ? params[i].value + "%"
+                  : "-"
               }</div>`;
             }
             dom += `</div>`;
@@ -228,7 +237,7 @@ export default {
           //   }
           //   selected: this.selected,
           //   data: legend,
-           selected: this.selected,
+          selected: this.selected,
           selectedMode: true, //是否可以通过点击图例改变系列的显示状态
           formatter: name => {
             if (!this.options.hideLegend) {
@@ -282,13 +291,19 @@ export default {
           max: Max1,
           splitNumber: 5,
           interval: (Max1 - Min1) / 5,
-          name: [
-              `{div|${this.options.yName?this.options.yName.en:''}}`,
-              `{divch|${this.options.yName?this.options.yName.ch:''}}`
-            ].join("\n"),
+          name: [
+            `{div|${this.options.yName ? this.options.yName.en : ""}}`,
+            `{divch|${this.options.yName ? this.options.yName.ch : ""}}`
+          ].join("\n"),
           nameTextStyle: {
             align: "left",
-            padding: [0, -2, 0, -that.$refs.lineChart.offsetWidth *(Max1.toString().length*0.0236)],
+            padding: [
+              0,
+              -2,
+              0,
+              -that.$refs.lineChart.offsetWidth *
+                (Max1.toString().length * 0.0236)
+            ],
             color: "#666",
             rich: {
               div: {

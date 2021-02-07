@@ -119,7 +119,6 @@ export default {
             return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
         })
 
-        console.log("tableres", tableres)
 
         tableres = tableres.reverse();
         let tableInfo = {
@@ -153,7 +152,6 @@ export default {
             return item
         })
         let tableres = JSON.parse(JSON.stringify(res))
-        console.log("=====资投入金额====",tableres)
         tableres = tableres.reverse();
         if (type == 2){
             let tableInfo = {
@@ -226,7 +224,6 @@ export default {
                     it['unitMillion']='百万美元';
                     return it.country == element;
                 })
-                console.log(vkData)
                 allresult[vk] = vkData;
             }
         }
@@ -258,7 +255,6 @@ export default {
     //主要对华投资国家/地区
     getMajorInvestors: async function (params) {
         let res = await this.barQueryData('MajorInvestors', params);
-        console.log(res)
         res = res.map(item => {
             item = item.toJSON();
             item.FDIInflowsMillion = item.FDIInflows / 100;
@@ -347,7 +343,6 @@ export default {
                 }
                 return item.industry == element
             })
-            console.log(re)
             if (re.length) {
                 resoult.push(re);
             }

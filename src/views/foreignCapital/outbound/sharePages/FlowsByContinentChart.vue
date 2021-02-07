@@ -359,7 +359,6 @@ export default {
       }, 600);
     },
     change(activeKey, key, value) {
-      console.log("change");
       let list = JSON.parse(JSON.stringify(this.options[activeKey].list));
       let start =
         key == "start" ? dayjs(`${value}`) : dayjs(`${list.start.value}`);

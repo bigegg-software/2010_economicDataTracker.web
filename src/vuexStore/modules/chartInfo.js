@@ -56,11 +56,9 @@ const chartTable = {
        }
         state.DBMinMaxDateQM=data;
         
-        console.log(state.DBMinMaxDateQM)
     },
     setCurrentTab(state,tab){
         state.currentTab=tab;
-        console.log(state.currentTab)
     }
   }
 }

@@ -205,7 +205,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -258,8 +258,6 @@ export default {
       //   let xx=countrys.filter(v=>{
       //    return !d.includes(v);
       //   })
-      //   console.log(d)
-      //   console.log(xx)
       this.checkBox.op = res;
       res[0].checked = true;
       res[1].checked = true;
@@ -284,13 +282,12 @@ export default {
     async getMaxMinDate() {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate("MajorInvestors");
-      console.log(res);
+       
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
           obj.list[k].frame = res.Y;
         }
-        console.log(obj);
         this.$set(this.options, key, obj);
       }
       this.showTimeFrame = true;
@@ -315,7 +312,7 @@ export default {
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res);
+       
       for (let i = 0; i < res.length; i++) {
         let data = await this.getItemData(res[i], XNameAttr, dataAttr, range);
         this.$set(this.USD.series, i, {
@@ -347,7 +344,7 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
+       
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);
@@ -434,7 +431,7 @@ export default {
             .join(",")
             .toLowerCase()
             // .split(",");  //去掉了切割成分组 可以搜索英文字符串 不用输入全英文单词
-          console.log(splitList);
+          
           let active = true;
           for (let k = 0; k < arrName.length; k++) {
             if (!splitList.includes(arrName[k].toLowerCase())) {

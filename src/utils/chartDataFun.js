@@ -13,7 +13,6 @@ export default {
       tableName,
       flag
     });
-    // console.log(res)
     if (res.code == 200) {
       // return `${res.data[0].min}_${res.data[0].max}`
       return {Y:`${res.data[0].min}_${res.data[0].max}`,M:`${res.data[0].minMonth}_${res.data[0].maxMonth}`}
@@ -39,7 +38,7 @@ export default {
       currentQ = '0' + currentQ;
     }
     let current0M=dayjs().set('month',currentM-1).format('MM');
-    console.log(current0M)
+
     dateRes.Q.start = dayjs(currentY).format('YYYY') - beforeY + '-' + currentQ;
     dateRes.Q.end = dayjs(currentY).format('YYYY') + '-' + currentQ;
     dateRes.M.start = dayjs(currentY).format('YYYY') - beforeY + '-' + current0M;
@@ -86,7 +85,6 @@ export default {
       let res=await Parse.Cloud.run('getCountries',{tableName,country:prop});
        if (res.code == 200) {
          res=res.data.map(v=>v.objectId);
-        //  console.log(res)
          return res;
        }
   },
@@ -205,7 +203,6 @@ export default {
     });
   },
   completionDate: async (sourceData, range) => { //补全数据
-    // console.log(sourceData,range)
     let newDate = [];
     for (let i = 0; i < range.length; i++) {
       if (sourceData.nameArr.indexOf(range[i]) > -1) {

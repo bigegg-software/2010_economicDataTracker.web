@@ -208,7 +208,6 @@ export default {
   mounted() {},
   methods: {
     changeInputValue(value) {
-      console.log(value, "inputvalue");
       // 然后重新发请求修改 checkBox.op
     },
     // 下拉多选框
@@ -223,7 +222,6 @@ export default {
 
       let i = this.checkBox.op.findIndex(v => v.en == op.en);
       this.checkBox.op[i].checked = !this.checkBox.op[i].checked;
-      // console.log(this.result, "this.result");
     },
     // 下拉单选框
     changeRadio(item) {
@@ -235,7 +233,7 @@ export default {
     },
     // timeFrame
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
+       
       // value = [开始，结束] list.start.value = value[0] list.end.value = value[1]
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];

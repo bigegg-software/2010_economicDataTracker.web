@@ -143,11 +143,9 @@ export default {
       this.actionsList[index].checked = !this.actionsList[index].checked;
     },
     // async choose(index, i) {
-    //   console.log(index, i, "-");
     //   this.initActionsList();
     //   if ((index = 1 && i == 0)) {
     //     let base64Url = await getImageDataUrl(".echart-block");
-    //     // console.log(base64Url, "base64Url");
     //     var a = document.createElement("a"); // 创建一个a节点插入的document
     //     var event = new MouseEvent("click"); // 模拟鼠标click点击事件
     //     a.download = "beautifulGirl"; // 设置a节点的download属性值
@@ -155,16 +153,16 @@ export default {
     //     a.dispatchEvent(event); // 触发鼠标点击事件
     //   }
     //   if ((index = 1 && i == 1)) {
-    //     console.log("下载表格");
+    //     
     //   }
     // }
     choose(index, i, name) {
       if (name == "download" && i == 0) {
-        console.log("下载图片");
+        
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
-        // console.log("下载表格");
+        // 
         this.$store.commit("downloadExcel");
       }
       this.initActionsList();

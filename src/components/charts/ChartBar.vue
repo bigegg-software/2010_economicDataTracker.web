@@ -36,14 +36,16 @@ export default {
   mounted() {
     this.chartDataSourcesEn =
       "Data Sources:" +
-      (this.chartBarData.dataSources.enThird
-        ? this.chartBarData.dataSources.en +
-          this.chartBarData.dataSources.enSecond +
-          this.chartBarData.dataSources.enThird
-        : this.chartBarData.dataSources.enSecond
-        ? this.chartBarData.dataSources.en +
-          this.chartBarData.dataSources.enSecond
-        : this.chartBarData.dataSources.en
+      (
+        (this.chartBarData.dataSources && this.chartBarData.dataSources.en
+          ? this.chartBarData.dataSources.en
+          : "") +
+        (this.chartBarData.dataSources && this.chartBarData.dataSources.enSecond
+          ? this.chartBarData.dataSources.enSecond
+          : "") +
+        (this.chartBarData.dataSources && this.chartBarData.dataSources.enThird
+          ? this.chartBarData.dataSources.enThird
+          : "")
       ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
@@ -54,7 +56,6 @@ export default {
       const element = arrValues[index];
       if (element.indexOf(",") >= 0) {
         let arrDot = element.split(",");
-        console.log("arrDot", arrDot);
         arrDot.map(item => {
           if (item.length > 0) {
             arrRes.push(item);
@@ -79,22 +80,22 @@ export default {
     }
     this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.chartBarData.dataSources.chThird
-      ? this.chartBarData.dataSources.ch +
-        this.chartBarData.dataSources.chSecond +
-        this.chartBarData.dataSources.chThird
-      : this.chartBarData.dataSources.chSecond
-      ? this.chartBarData.dataSources.ch +
-        this.chartBarData.dataSources.chSecond
-      : this.chartBarData.dataSources.ch
+    this.chartDataSourcesCh = (
+      (this.chartBarData.dataSources && this.chartBarData.dataSources.ch
+        ? this.chartBarData.dataSources.ch
+        : "") +
+      (this.chartBarData.dataSources && this.chartBarData.dataSources.chSecond
+        ? this.chartBarData.dataSources.chSecond
+        : "") +
+      (this.chartBarData.dataSources && this.chartBarData.dataSources.chThird
+        ? this.chartBarData.dataSources.chThird
+        : "")
     ).replace(/_/g, "");
-    console.log(this.chartDataSourcesEn, this.chartDataSourcesCh);
     if (JSON.stringify(this.chartBarData) != "{}") {
       this.initChart();
       this.$EventBus.$on("resize", () => {
         this.timer = null;
         this.timer = setTimeout(async () => {
-          console.log("页面尺寸变化");
           await this.initChart();
         }, 1000);
       });
@@ -140,11 +141,14 @@ export default {
     },
     formatNum(it) {
       // let value = it.value.toFixed(1);
-      let value = (Math.round(it.value*10)/10).toFixed(1);
+      let value = (Math.round(it.value * 10) / 10).toFixed(1);
       // return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      let source = String(value).split(".");//按小数点分成bai2部分
-      source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-      return source.join(".");//再将小数部分合并进来
+      let source = String(value).split("."); //按小数点分成bai2部分
+      source[0] = source[0].replace(
+        new RegExp("(\\d)(?=(\\d{3})+$)", "ig"),
+        "$1,"
+      ); //只将整数部分进行都好分割
+      return source.join("."); //再将小数部分合并进来
     },
     //企业数 转换成整数
     formatInt(it) {
@@ -372,9 +376,7 @@ export default {
             //右上角水印
             type: "group",
             right: this.$fz(0.2),
-            top: this.chartBarData.isLongTitle
-              ? this.$fz(0.5)
-              : this.$fz(0.15),
+            top: this.chartBarData.isLongTitle ? this.$fz(0.5) : this.$fz(0.15),
             children: [
               {
                 type: "text",
@@ -410,7 +412,7 @@ export default {
               {
                 type: "text",
                 z: 100,
-               left: this.chartBarData.legendMark
+                left: this.chartBarData.legendMark
                   ? this.chartBarData.legendMark.en == "Enterprise"
                     ? this.$fz(0.73)
                     : this.$fz(0.6)
@@ -550,7 +552,7 @@ export default {
                   }
                 }
                 c = `<div style="padding:0.03rem 0 0.08rem;color:#333;font-size:0.114583rem;font-weight:bold;">${
-                  !!it.value||it.value=="0"
+                  !!it.value || it.value == "0"
                     ? (this.chartBarData.dataInt ||
                       (this.chartBarData.yearInt &&
                         it.seriesName.includes("企业数"))

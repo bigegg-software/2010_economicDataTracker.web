@@ -133,7 +133,6 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -190,7 +189,6 @@ export default {
         let quarterStartMonth = parseInt(startTimeArr[1]) / 3;
         let quarterEnd = parseInt(endTimeArr[0]);
         let quarterEndMonth = parseInt(endTimeArr[1]) / 3;
-        console.log(quarterEndMonth);
         await this.getChartsData({
           type,
           start: quarterStart,
@@ -203,7 +201,6 @@ export default {
     async getMaxMinDate(tableName) {
       // 获取最大年最小年
       let res = await chartDataFun.getMaxMinDate(tableName);
-      console.log(res);
       for (let key in this.options) {
         let obj = JSON.parse(JSON.stringify(this.options[key]));
         for (let k in obj.list) {
@@ -214,7 +211,7 @@ export default {
         }
       }
       this.showTimeFrame = true;
-      console.log(res);
+       
       return res;
     },
     async getItemData(arrSourceData, Axis, Ayis, range) {
@@ -232,15 +229,11 @@ export default {
         let data = await chartDataFun.completionDate(dataArr, range);
         resoult[item] = data;
       }
-      console.log(resoult);
       return resoult;
     },
     // 获取当前页面的每条线数据（按年度 季度 月度分）
     async getItemCategoryData(res, XNameAttr, dataAttr, range) {
-      console.log(res, XNameAttr, dataAttr, range);
-      //
       let data = await this.getItemData(res, XNameAttr, dataAttr, range);
-      console.log(data);
       if (XNameAttr == "year") {
         (this.totalData.unit = { ch: "万人", en: "10,000 persons" }),
           (this.USD.yName = { ch: "万人", en: "10,000 persons" }),
@@ -292,7 +285,6 @@ export default {
 
       // 完整的区间
       let range = await chartDataFun.getXRangeMC(aug);
-      console.log(range);
       // 要换取纵轴数据的字段属性
       let dataAttr =
         aug.type == "yearly"
@@ -356,7 +348,6 @@ export default {
     },
     // 时间范围组件 update and change
     update(activeKey, value) {
-      // console.log(activeKey, value, "666");
       this.options[activeKey].list.start.value = value[0];
       this.options[activeKey].list.end.value = value[1];
       clearTimeout(this.timer);

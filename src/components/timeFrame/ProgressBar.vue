@@ -29,7 +29,6 @@ export default {
   watch: {
     activeKey: {
       handler() {
-        console.log(this.options)
         this.initProgress();
       },
       deep: true

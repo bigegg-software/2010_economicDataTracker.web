@@ -71,7 +71,11 @@
     if (width / dpr > 540) {
       width = width * dpr;
     }
-    var rem = width / 10;
+    if (window.top.location != window.self.location) {
+      var rem = width / 7.6;
+    } else {
+      var rem = width / 10;
+    }
     docEl.style.fontSize = rem + 'px';
     flexible.rem = win.rem = rem;
   }

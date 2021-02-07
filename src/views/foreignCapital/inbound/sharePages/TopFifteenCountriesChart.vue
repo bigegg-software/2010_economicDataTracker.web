@@ -156,7 +156,7 @@ export default {
           this.totalData.tableTitle,
           this.$store.getters.chartInfo.tableData
         );
-        console.log(resoult);
+         
         this.$set(this.totalData, "tableData", resoult);
       },
       deep: true
@@ -207,7 +207,6 @@ export default {
       let FDIInflows = [];
       let FDIInflowsYOY = [];
       res.forEach(item => {
-        console.log(item);
         Xname.push(item.countryEn + "\n" + item.country);
         FDIInflows.push(item.FDIInflowsMillion);
         FDIInflowsYOY.push(item.enterpriseNumber);

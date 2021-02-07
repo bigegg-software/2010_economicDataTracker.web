@@ -22,13 +22,16 @@ export default {
   mounted() {
     this.chartDataSourcesEn =
       "Data Sources:" +
-      (this.options.dataSources.enThird
-        ? this.options.dataSources.en +
-          this.options.dataSources.enSecond +
-          this.options.dataSources.enThird
-        : this.options.dataSources.enSecond
-        ? this.options.dataSources.en + this.options.dataSources.enSecond
-        : this.options.dataSources.en
+      (
+        (this.options.dataSources && this.options.dataSources.en
+          ? this.options.dataSources.en
+          : "") +
+        (this.options.dataSources && this.options.dataSources.enSecond
+          ? this.options.dataSources.enSecond
+          : "") +
+        (this.options.dataSources && this.options.dataSources.enThird
+          ? this.options.dataSources.enThird
+          : "")
       ).replace(/_/g, "");
     let str = this.chartDataSourcesEn;
     let result = "";
@@ -62,13 +65,16 @@ export default {
       }
     }
     this.chartDataSourcesEn = result;
-    this.chartDataSourcesCh = (this.options.dataSources.chThird
-      ? this.options.dataSources.ch +
-        this.options.dataSources.chSecond +
-        this.options.dataSources.chThird
-      : this.options.dataSources.chSecond
-      ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch
+    this.chartDataSourcesCh = (
+      (this.options.dataSources && this.options.dataSources.ch
+        ? this.options.dataSources.ch
+        : "") +
+      (this.options.dataSources && this.options.dataSources.chSecond
+        ? this.options.dataSources.chSecond
+        : "") +
+      (this.options.dataSources && this.options.dataSources.chThird
+        ? this.options.dataSources.chThird
+        : "")
     ).replace(/_/g, "");
 
     if (JSON.stringify(this.options) != "{}") {
@@ -137,11 +143,14 @@ export default {
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      let value = (Math.round(it.value*10)/10).toFixed(1);
+      let value = (Math.round(it.value * 10) / 10).toFixed(1);
       // return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      let source = String(value).split(".");//按小数点分成bai2部分
-      source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-      return source.join(".");//再将小数部分合并进来
+      let source = String(value).split("."); //按小数点分成bai2部分
+      source[0] = source[0].replace(
+        new RegExp("(\\d)(?=(\\d{3})+$)", "ig"),
+        "$1,"
+      ); //只将整数部分进行都好分割
+      return source.join("."); //再将小数部分合并进来
     },
     //企业数 转换成整数
     formatInt(it) {

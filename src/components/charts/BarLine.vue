@@ -20,59 +20,65 @@ export default {
   onLoad() {},
   mounted() {
     if (JSON.stringify(this.options) != "{}") {
-// 数据来源
-this.chartDataSourcesEn =
-      "Data Sources:" +
-      (this.options.dataSources.enThird
-        ? this.options.dataSources.en +
-          this.options.dataSources.enSecond +
-          this.options.dataSources.enThird
-        : this.options.dataSources.enSecond
-        ? this.options.dataSources.en + this.options.dataSources.enSecond
-        : this.options.dataSources.en
-      ).replace(/_/g, "");
-    let str = this.chartDataSourcesEn;
-    let result = "";
-    let curlen = 0;
-    let arrValues = str.split(" ");
-    let arrRes = [];
-    for (let index = 0; index < arrValues.length; index++) {
-      const element = arrValues[index];
-      if (element.indexOf(",") >= 0) {
-        let arrDot = element.split(",");
-        arrDot.map(item => {
-          if (item.length > 0) {
-            arrRes.push(item);
-            arrRes.push(",");
-          }
-        });
-      } else {
-        arrRes.push(element);
+      // 数据来源
+      this.chartDataSourcesEn =
+        "Data Sources:" +
+        (
+          (this.options.dataSources && this.options.dataSources.en
+            ? this.options.dataSources.en
+            : "") +
+          (this.options.dataSources && this.options.dataSources.enSecond
+            ? this.options.dataSources.enSecond
+            : "") +
+          (this.options.dataSources && this.options.dataSources.enThird
+            ? this.options.dataSources.enThird
+            : "")
+        ).replace(/_/g, "");
+      let str = this.chartDataSourcesEn;
+      let result = "";
+      let curlen = 0;
+      let arrValues = str.split(" ");
+      let arrRes = [];
+      for (let index = 0; index < arrValues.length; index++) {
+        const element = arrValues[index];
+        if (element.indexOf(",") >= 0) {
+          let arrDot = element.split(",");
+          arrDot.map(item => {
+            if (item.length > 0) {
+              arrRes.push(item);
+              arrRes.push(",");
+            }
+          });
+        } else {
+          arrRes.push(element);
+        }
+        arrRes.push(" ");
       }
-      arrRes.push(" ");
-    }
-    for (let i = 0; i < arrRes.length; i++) {
-      const element = arrRes[i];
-      if (curlen + element.length > 96) {
-        curlen = 0;
-        result += "\n";
-        i--;
-      } else {
-        curlen += element.length;
-        result += arrRes[i];
+      for (let i = 0; i < arrRes.length; i++) {
+        const element = arrRes[i];
+        if (curlen + element.length > 96) {
+          curlen = 0;
+          result += "\n";
+          i--;
+        } else {
+          curlen += element.length;
+          result += arrRes[i];
+        }
       }
-    }
-    this.chartDataSourcesEn = result;
+      this.chartDataSourcesEn = result;
 
-    this.chartDataSourcesCh = (this.options.dataSources.chThird
-      ? this.options.dataSources.ch +
-        this.options.dataSources.chSecond +
-        this.options.dataSources.chThird
-      : this.options.dataSources.chSecond
-      ? this.options.dataSources.ch + this.options.dataSources.chSecond
-      : this.options.dataSources.ch
-    ).replace(/_/g, "");
-// 数据来源结束
+      this.chartDataSourcesCh = (
+        (this.options.dataSources && this.options.dataSources.ch
+          ? this.options.dataSources.ch
+          : "") +
+        (this.options.dataSources && this.options.dataSources.chSecond
+          ? this.options.dataSources.chSecond
+          : "") +
+        (this.options.dataSources && this.options.dataSources.chThird
+          ? this.options.dataSources.chThird
+          : "")
+      ).replace(/_/g, "");
+      // 数据来源结束
 
       this.drawChart();
       this.$EventBus.$on("resize", () => {
@@ -139,11 +145,14 @@ this.chartDataSourcesEn =
       return new Blob([uInt8Array], { type: contentType });
     },
     formatNum(it) {
-      let value = (Math.round(it.value*10)/10).toFixed(1);
+      let value = (Math.round(it.value * 10) / 10).toFixed(1);
       // return value && value.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-      let source = String(value).split(".");//按小数点分成bai2部分
-      source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-      return source.join(".");//再将小数部分合并进来
+      let source = String(value).split("."); //按小数点分成bai2部分
+      source[0] = source[0].replace(
+        new RegExp("(\\d)(?=(\\d{3})+$)", "ig"),
+        "$1,"
+      ); //只将整数部分进行都好分割
+      return source.join("."); //再将小数部分合并进来
     },
     //企业数 转换成整数
     formatInt(it) {
