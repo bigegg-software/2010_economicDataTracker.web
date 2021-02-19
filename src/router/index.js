@@ -847,7 +847,7 @@ router.beforeEach((to, from, next) => {
     }).catch((err)=>{
           user.logOut();
           storage.clear();
-          store.$store.commit('setUserInfo',{});
+          store.commit('setUserInfo',{});
     });
   }
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
