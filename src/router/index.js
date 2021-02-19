@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/vuexStore'
+import storage from '@/storage/storage'
+import user from '@/request/user'
 Vue.use(VueRouter)
 /*解决路由跳转报错问题开始*/
 const originalPush = VueRouter.prototype.push
@@ -840,6 +842,14 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   store.commit('setShowOperate', true);
+  if(store.getters.userInfo.sessionToken){//判断token是否过期  过期后退出操作清空所有登录信息
+    user.becomeLogin(store.getters.userInfo.sessionToken).then((res)=>{
+    }).catch((err)=>{
+          user.logOut();
+          storage.clear();
+          store.$store.commit('setUserInfo',{});
+    });
+  }
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
     if (true) { // 判断当前的token是否存在
       next();

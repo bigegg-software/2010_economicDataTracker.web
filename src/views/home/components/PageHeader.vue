@@ -293,7 +293,7 @@ export default {
       }
     }
     .logout-text{
-      // font-size: 0.104167rem;
+      font-size: 0.104167rem;
       cursor: pointer;
       .text-chinese{
         font-size: 0.072917rem;
