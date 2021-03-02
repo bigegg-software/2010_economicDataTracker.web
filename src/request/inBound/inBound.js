@@ -22,7 +22,7 @@ export default {
         q.limit(limiCcount);
         let type = params.type;
         // 发布的才拉取
-        // q.equalTo('isCheckIn',true);
+        q.equalTo('isCheckIn',true);
         q.greaterThanOrEqualTo('year', params.start)
         q.lessThanOrEqualTo('year', params.end)
         if (type == 'yearly' && !params.noMonth) {
@@ -59,7 +59,7 @@ export default {
         let limiCcount = await q.count();
         q.limit(limiCcount);
         // 发布的才拉取
-        // q.equalTo('isCheckIn',true);
+        q.equalTo('isCheckIn',true);
         if (params.limit) {
             q.limit(params.limit);
         }
