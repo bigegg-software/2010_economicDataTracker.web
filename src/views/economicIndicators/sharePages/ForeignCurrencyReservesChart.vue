@@ -51,8 +51,8 @@ export default {
           en: "Foreign currency reserve"
         },
         unit: {
-          ch: "亿元人民币",
-          en: "100 mln RMB"
+          ch: "百万美元",
+          en: "USD mln"
         },
         tableTitle: {
           year: {
@@ -95,7 +95,7 @@ export default {
         rightInt: true,//右侧为整数
         // yPosition:['left','right'],
         // yLabel:[true,true],
-        yName: { ch: "亿元人民币", en: "100 mln RMB" },
+        yName: { ch: "百万美元", en: "USD mln" },
         yName2: { ch: "百万盎司", en: "Mln Oz." },
         title: {
           ch: "国家外汇储备",

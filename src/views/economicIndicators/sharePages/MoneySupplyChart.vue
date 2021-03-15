@@ -45,8 +45,8 @@ export default {
           en: "Money & Quasi-money"
         },
         unit: {
-          ch: "指数",
-          en: "Index"
+          ch: "亿元人民币",
+          en: "100 mln RMB"
         },
         tableTitle: {
           year: {
