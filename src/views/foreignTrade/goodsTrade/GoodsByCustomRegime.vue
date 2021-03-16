@@ -1,7 +1,17 @@
- <template>
+<template>
   <!-- Chart -->
-  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
+  <div
+    :class="
+      $store.state.fullScreen.isFullScreen == false
+        ? 'fullContainer'
+        : 'container'
+    "
+  >
+    <tab-component
+      :tabList="tabList"
+      :tabComponent="tabComponent"
+      @change="changeTabCompnent"
+    ></tab-component>
     <share-body
       :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
@@ -112,13 +122,13 @@ export default {
     //   this.$set(this.actionsList[0], "checked", false);
     //   this.$store.commit("setShowOperate", true);
     // }
-    tabComponent:{
+    tabComponent: {
       handler() {
         this.$set(this.actionsList[0], "checked", false);
-        this.$store.commit('setShowOperate',true);
-        this.$store.commit('setCurrentTab',this.tabComponent);
+        this.$store.commit("setShowOperate", true);
+        this.$store.commit("setCurrentTab", this.tabComponent);
       },
-      immediate:true
+      immediate: true
     }
   },
   mounted() {},
@@ -157,7 +167,6 @@ export default {
     },
     choose(index, i, name) {
       if (name == "download" && i == 0) {
-        
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {

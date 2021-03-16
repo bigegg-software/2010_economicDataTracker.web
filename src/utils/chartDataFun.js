@@ -8,18 +8,21 @@ import {
 } from '@/utils/menuSearchConfigs'
 export default {
   // 获取年度最大值最小值
-  getMaxMinDate: async (tableName,flag=undefined) => {
+  getMaxMinDate: async (tableName, flag = undefined) => {
     let res = await Parse.Cloud.run('getMinMaxYears', {
       tableName,
       flag
     });
     if (res.code == 200) {
       // return `${res.data[0].min}_${res.data[0].max}`
-      return {Y:`${res.data[0].min}_${res.data[0].max}`,M:`${res.data[0].minMonth}_${res.data[0].maxMonth}`}
+      return {
+        Y: `${res.data[0].min}_${res.data[0].max}`,
+        M: `${res.data[0].minMonth}_${res.data[0].maxMonth}`
+      }
     }
   },
   //计算有月份时数据库最大最小季度和月度
-  getQMDefaultTime(currentY = dayjs().format('YYYY'),currentM=dayjs().format('M'), beforeY = 1) {
+  getQMDefaultTime(currentY = dayjs().format('YYYY'), currentM = dayjs().format('M'), beforeY = 1) {
     currentY = currentY.toString();
     let dateRes = {
       Q: {
@@ -37,7 +40,7 @@ export default {
     if (currentQ < 10) {
       currentQ = '0' + currentQ;
     }
-    let current0M=dayjs().set('month',currentM-1).format('MM');
+    let current0M = dayjs().set('month', currentM - 1).format('MM');
 
     dateRes.Q.start = dayjs(currentY).format('YYYY') - beforeY + '-' + currentQ;
     dateRes.Q.end = dayjs(currentY).format('YYYY') + '-' + currentQ;
@@ -50,43 +53,46 @@ export default {
   },
   //没月份时计算数据库最大季度和最小季度  数据库季度是按1234记录
   async getQNoMonthDefaultTime(tableName) {
-       let res = await Parse.Cloud.run('getMinMaxYears', {
-      tableName
-    });
-      res = res.data[0];
-      let qMax = new Parse.Query(tableName);
-      let limiCcount = await qMax.count();
-      qMax.limit(limiCcount);
-      qMax.equalTo('year', res.max)
-      qMax.descending('quarter');
-      let max = await qMax.find()
-      max = max.map(v => v.toJSON())
-      // 
-      let qMin = new Parse.Query(tableName);
-      let limtMincount = await qMin.count();
-      qMin.limit(limtMincount);
-      qMin.equalTo('year', res.min)
-      qMin.ascending('quarter');
-      let min = await qMin.find()
-      min = min.map(v => v.toJSON())
-      return {
-        max: res.max,  //最大年
-        min: res.min,  //最小年
-        maxQuarter: max[0].quarter, //最大季度
-        minQuarter: min[0].quarter,  //最小季度
-        minQM:min[0].quarter*3,  //最小季度对应的月份（不带前缀0）
-        maxQM:max[0].quarter*3,  ////最大季度对应的月份（不带前缀0）
-        maxQuarterMonth: max[0].quarter*3>10?`${max[0].quarter*3}`:`0${max[0].quarter*3}`,//最大季度对应的月份（带前缀0的情况）
-        minQuarterMonth:min[0].quarter*3>10?`${min[0].quarter*3}`:`0${min[0].quarter*3}`//最小季度对应的月份（带前缀0的情况）
-      }
+    let res = await Parse.Cloud.run('getMinMaxYears', {
+      tableName
+    });
+    res = res.data[0];
+    let qMax = new Parse.Query(tableName);
+    let limiCcount = await qMax.count();
+    qMax.limit(limiCcount);
+    qMax.equalTo('year', res.max)
+    qMax.descending('quarter');
+    let max = await qMax.find()
+    max = max.map(v => v.toJSON())
+    // 
+    let qMin = new Parse.Query(tableName);
+    let limtMincount = await qMin.count();
+    qMin.limit(limtMincount);
+    qMin.equalTo('year', res.min)
+    qMin.ascending('quarter');
+    let min = await qMin.find()
+    min = min.map(v => v.toJSON())
+    return {
+      max: res.max, //最大年
+      min: res.min, //最小年
+      maxQuarter: max[0].quarter, //最大季度
+      minQuarter: min[0].quarter, //最小季度
+      minQM: min[0].quarter * 3, //最小季度对应的月份（不带前缀0）
+      maxQM: max[0].quarter * 3, ////最大季度对应的月份（不带前缀0）
+      maxQuarterMonth: max[0].quarter * 3 > 10 ? `${max[0].quarter*3}` : `0${max[0].quarter*3}`, //最大季度对应的月份（带前缀0的情况）
+      minQuarterMonth: min[0].quarter * 3 > 10 ? `${min[0].quarter*3}` : `0${min[0].quarter*3}` //最小季度对应的月份（带前缀0的情况）
+    }
   },
   // 获取国家名
-  async getCountryName(tableName,prop) {
-      let res=await Parse.Cloud.run('getCountries',{tableName,country:prop});
-       if (res.code == 200) {
-         res=res.data.map(v=>v.objectId);
-         return res;
-       }
+  async getCountryName(tableName, prop) {
+    let res = await Parse.Cloud.run('getCountries', {
+      tableName,
+      country: prop
+    });
+    if (res.code == 200) {
+      res = res.data.map(v => v.objectId);
+      return res;
+    }
   },
   objArrtransArr: async (arr, oldname, oldnum) => { //处理熟路获取echarts格式数据 //横轴名称数组 纵轴数据数组
     // nameArr内部存储柱状图折线图y轴名称信息
@@ -208,7 +214,7 @@ export default {
       if (sourceData.nameArr.indexOf(range[i]) > -1) {
         let index = sourceData.nameArr.indexOf(range[i]);
         // || sourceData.numArr[index]=='0'  新加当数据库数据是0时展示0
-        newDate.push(sourceData.numArr[index] || sourceData.numArr[index]=='0' ? sourceData.numArr[index] : '');
+        newDate.push(sourceData.numArr[index] || sourceData.numArr[index] == '0' ? sourceData.numArr[index] : '');
       } else {
         newDate.push('');
       }
@@ -452,15 +458,15 @@ export default {
   },
   // 转表格所需格式
   formatNum(value) {
-    let strs = (Math.round(value*10)/10).toFixed(1)
+    let strs = (Math.round(value * 10) / 10).toFixed(1)
     // return strs && strs.toString().replace(/(?!^)(?=(\d{3})+\.)/g, ",");
-    let source = String(strs).split(".");//按小数点分成bai2部分
-    source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)','ig'),"$1,");//只将整数部分进行都好分割
-    return source.join(".");//再将小数部分合并进来
+    let source = String(strs).split("."); //按小数点分成bai2部分
+    source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), "$1,"); //只将整数部分进行都好分割
+    return source.join("."); //再将小数部分合并进来
   },
   formatPer(value) {
     // let strs = value.toFixed(1);
-    let strs = (Math.round(value*10)/10).toFixed(1)
+    let strs = (Math.round(value * 10) / 10).toFixed(1)
     let res = strs + '%'
     return res;
   },
@@ -475,22 +481,22 @@ export default {
       for (let i in tableTitle) {
         if ('formatNum' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i]||item[i]=='0' ? (this.formatNum(item[i])) + '_' : '',
+            text: item[i] || item[i] == '0' ? (this.formatNum(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else if ('formatPer' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i]||item[i]=='0' ? (this.formatPer(item[i])) + '_' : '',
+            text: item[i] || item[i] == '0' ? (this.formatPer(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else if ('formatInt' in tableTitle[i]) {
           itemObj[i] = {
-            text: item[i]||item[i]=='0' ? (this.formatInt(item[i])) + '_' : '',
+            text: item[i] || item[i] == '0' ? (this.formatInt(item[i])) + '_' : '',
             width: tableTitle[i].width
           }
         } else {
           itemObj[i] = {
-            text: item[i]||item[i]=='0' ? item[i] + '_' : '',
+            text: item[i] || item[i] == '0' ? item[i] + '_' : '',
             width: tableTitle[i].width
           }
         }
@@ -637,11 +643,11 @@ export default {
       },
       {
         en: 'Border trade',
-        ch: '边境小额贸易 ',
+        ch: '边境小额贸易',
       },
       {
         en: 'Equipment for processing trade',
-        ch: '加工贸易进口设备 ',
+        ch: '加工贸易进口设备',
       },
       {
         en: 'Contracting projects',
@@ -660,7 +666,7 @@ export default {
         ch: '免税品',
       }, {
         en: 'Customs warehousing trade',
-        ch: '保税监管场所进出境货物 ',
+        ch: '保税监管场所进出境货物',
       }, {
         en: 'Logistics goods by customs special control area',
         ch: '海关特殊监管区域物流货物',

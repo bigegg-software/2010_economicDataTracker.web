@@ -1,8 +1,22 @@
- <template>
+<template>
   <!-- 货物进出口按企业性质统计 -->
-  <div :class="$store.state.fullScreen.isFullScreen==false?'fullContainer':'container'">
-    <tab-component :tabList="tabList" :tabComponent="tabComponent" @change="changeTabCompnent"></tab-component>
-    <share-body :describeData="describeList[tabComponent]['dataSources']" :tabComponent="tabComponent" :isShowTable="actionsList[0].checked"></share-body>
+  <div
+    :class="
+      $store.state.fullScreen.isFullScreen == false
+        ? 'fullContainer'
+        : 'container'
+    "
+  >
+    <tab-component
+      :tabList="tabList"
+      :tabComponent="tabComponent"
+      @change="changeTabCompnent"
+    ></tab-component>
+    <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
+      :tabComponent="tabComponent"
+      :isShowTable="actionsList[0].checked"
+    ></share-body>
     <actions-component
       :actionsList="actionsList"
       @handleClickAction="handleClickAction"
@@ -108,13 +122,13 @@ export default {
     //   this.$set(this.actionsList[0], "checked", false);
     //   this.$store.commit("setShowOperate", true);
     // }
-    tabComponent:{
+    tabComponent: {
       handler() {
         this.$set(this.actionsList[0], "checked", false);
-        this.$store.commit('setShowOperate',true);
-        this.$store.commit('setCurrentTab',this.tabComponent);
+        this.$store.commit("setShowOperate", true);
+        this.$store.commit("setCurrentTab", this.tabComponent);
       },
-      immediate:true
+      immediate: true
     }
   },
   mounted() {},
@@ -153,7 +167,6 @@ export default {
     },
     choose(index, i, name) {
       if (name == "download" && i == 0) {
-        
         this.$EventBus.$emit("downLoadImg");
       }
       if (name == "download" && i == 1) {
