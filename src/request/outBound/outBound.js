@@ -653,7 +653,7 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
      res = res.map(item=>{
          item=item.toJSON()
         //  需要换算单位
-         item.outflowsMillion=!!item.outflows||item.outflows==0?item.outflows*100:undefined
+         item.outflowsMillion=!!item.outflows||item.outflows==0?item.outflows:undefined
          item.unitMillion='百万美元';
          return item
      })
