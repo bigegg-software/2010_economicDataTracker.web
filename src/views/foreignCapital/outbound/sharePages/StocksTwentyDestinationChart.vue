@@ -86,6 +86,10 @@ export default {
           bottom: "10%",
           enGapch: this.$fz(0.2) //数据来源中英文间距
         },
+        grid: {
+          bottom: "11%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         xData: [],
         series: [
           {

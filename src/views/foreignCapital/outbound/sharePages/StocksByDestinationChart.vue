@@ -117,6 +117,10 @@ export default {
           ch: "中国对外直接投资存量按国家/地区统计",
           en: "China's outward FDI stocks by destination"
         },
+        grid: {
+          bottom: "14%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         xData: [],
         series: [],
         updatedDate: ""

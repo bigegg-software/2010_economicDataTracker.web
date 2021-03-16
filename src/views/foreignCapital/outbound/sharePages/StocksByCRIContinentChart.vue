@@ -91,6 +91,10 @@ export default {
           ch: "",
           en: ""
         },
+        grid: {
+          bottom: "14%",
+          enGapch: this.$fz(0.4) //数据来源中英文间距
+        },
         yName: {
           ch: "百万美元",
           en: "USD mln"
