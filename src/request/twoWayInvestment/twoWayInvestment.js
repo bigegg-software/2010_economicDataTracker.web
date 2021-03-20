@@ -129,6 +129,15 @@ export default {
             return (item.year>params.start || item.month>=params.startMonth) && (item.year<params.end || item.month<=params.endMonth)
         })
      }
+    //  合并两个表的数据展示到同一表格中
+     res.forEach((ev)=>{
+         allIndustry.forEach((el)=>{
+              if(ev.year==el.year&&ev.month==el.month){
+                  ev.investConversionMillion=el.investConversionMillion;
+                  ev.conversionYOY=el.conversionYOY;
+              }
+         });
+     });
      let tableres = await JSON.parse(JSON.stringify(res))
             tableres = tableres.reverse();
             let tableInfo = {
@@ -137,12 +146,15 @@ export default {
                     "年份",
                     "月份",
                     "实际使用外资",
-                    '实际使用外资同比   ',
+                    '实际使用外资同比',
+                    '对外直接投资流量',
+                    '对外直接投资流量同比',
                     '单位'
                 ],
-                filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY', 'unitMillion'],
+                filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY','investConversionMillion','conversionYOY', 'unitMillion'],
                 tableData: [...tableres]
             }
+            console.log(allIndustry,12)
             store.commit('saveChartTable', tableInfo);
 
      return {allIndustry,res};

@@ -347,20 +347,30 @@ export default {
           this.totalData.tableTitle = {
             year: {
               text: "年份_Year",
-              width: "20%"
+              width: "10%"
             },
             month: {
               text: "月份_Year",
-              width: "20%"
+              width: "10%"
             },
             inwardFDIConMillion: {
               text: "实际使用外资_Actual use of foreign capital",
-              width: "30%",
+              width: "20%",
               formatNum: true
             },
             inwardFDIConYOY: {
               text: "实际使用外资同比_Y-o-y actual use of foreign capital",
-              width: "30%",
+              width: "20%",
+              formatPer: true
+            },
+            investConversionMillion: {
+              text: "对外直接投资流量_FDI outflows",
+              width: "20%",
+              formatNum: true
+            },
+            conversionYOY: {
+              text: "对外直接投资流量同比_Y-o-y FDI outflows",
+              width: "20%",
               formatPer: true
             }
           };
@@ -489,6 +499,7 @@ export default {
         IndustryDataAttr,
         range
       );
+      console.log(allIndustrydata,55)
       this.RMB.series[1]["data"] = allIndustrydata.investConversionMillion;
       this.RMB.series[1]["yearOnYear"] = allIndustrydata.conversionYOY;
     },

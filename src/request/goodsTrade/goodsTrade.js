@@ -757,8 +757,11 @@ export default {
     let q1 = new Parse.Query('TradeCountry');
     let q2 = new Parse.Query('TradeCountry');
     if (searchValue) {
-      q1.contains('abbreviationZH', searchValue)
-      q2.contains('abbreviationEN', searchValue)
+      const regExp = new RegExp([searchValue], 'i');
+      q1.matches('abbreviationEN', regExp);
+      q2.matches('abbreviationZH', regExp);
+      // q1.contains('abbreviationZH', searchValue)
+      // q2.contains('abbreviationEN', searchValue)
     }
     let queryOr = Parse.Query.or(q1, q2);
     // if(activeKey == 'yearly'){

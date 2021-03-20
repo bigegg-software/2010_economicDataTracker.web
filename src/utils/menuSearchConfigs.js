@@ -271,9 +271,9 @@ let economicIndicatorsMenuLists = [  //宏观经济指标模块
   }, {
     name: "industryAddValue",
     ch: "工业增加值",
-    en: "Growth of industry value-added",
+    en: "Growth of industrial value-added",
     cloudFun: ['GIVA'],
-    splitList: ["工", "业", "增", "加", "值", "Growth", "of", "industry", "value-added"],
+    splitList: ["工", "业", "增", "加", "值", "Growth", "of", "industrial", "value-added"],
     active: false,
   }, {
     name: "industrialProfits",
