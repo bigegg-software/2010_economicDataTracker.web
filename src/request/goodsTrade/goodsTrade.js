@@ -11,7 +11,7 @@ export default {
     q.limit(limiCcount);
     let type = params.type;
     // 发布的才拉取
-    q.equalTo('isCheckIn',true);
+    q.equalTo('isCheckIn', true);
     q.greaterThanOrEqualTo('year', params.start)
     q.lessThanOrEqualTo('year', params.end)
     if (type == 'yearly' && !params.noMonth) {
@@ -413,6 +413,7 @@ export default {
     return res
   },
   async getImportExportEnterprise(params) { // 货物进出口总值按企业性质统计 年度 月度
+    console.log(params)
     let enterpriseType = params.enterpriseType
     let type = params.type
     let res = await this.manualQueryData(params);
@@ -609,7 +610,7 @@ export default {
         '进口同比',
         '出口同比'
       ],
-      filterVal: ['year','_monthlyCulumativeImport', '_monthlyCulumativeExport','yoyMonthlyCumulativeImport','yoyMonthlyCumulativeExport'],
+      filterVal: ['year', '_monthlyCulumativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeImport', 'yoyMonthlyCumulativeExport'],
       tableData: [...tableres]
     }
     store.commit('saveChartTable', tableInfo);
@@ -645,8 +646,8 @@ export default {
       ]
     }
     let field = {
-      1: ['year','_monthlyImport', '_monthlyExport'],
-      2: ['year', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],// '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade',
+      1: ['year', '_monthlyImport', '_monthlyExport'],
+      2: ['year', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'], // '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade',
     }
     let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
       return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
@@ -720,8 +721,8 @@ export default {
       let exp = re.filter(v => v.type == 2)[0]
       let obj = {}
       let op = imp ? imp : exp
-      if (!op.volume && op.volume !=0) {
-        op.volume=''
+      if (!op.volume && op.volume != 0) {
+        op.volume = ''
       }
       for (let key in op) {
         obj[`year`] = op['year']
@@ -747,11 +748,11 @@ export default {
     return data
   },
   async getCountryList(searchValue, activeKey) { // 获取所有国家
-    let countrys=[];
-    if(activeKey == 'yearly'){
-      countrys=await chartDataFun.getCountryName('ImportExportOrigin','country');
-    } else if (activeKey == 'monthly'){
-      countrys=await chartDataFun.getCountryName('ImportExportOriginMonth','country');
+    let countrys = [];
+    if (activeKey == 'yearly') {
+      countrys = await chartDataFun.getCountryName('ImportExportOrigin', 'country');
+    } else if (activeKey == 'monthly') {
+      countrys = await chartDataFun.getCountryName('ImportExportOriginMonth', 'country');
     }
     let q1 = new Parse.Query('TradeCountry');
     let q2 = new Parse.Query('TradeCountry');
@@ -763,7 +764,7 @@ export default {
     // if(activeKey == 'yearly'){
     //      queryOr.notContainedIn("abbreviationZH",["拉丁美洲", "非洲"]);
     // }
-    queryOr.containedIn("abbreviationZH",countrys);
+    queryOr.containedIn("abbreviationZH", countrys);
     if (activeKey == 'monthly') {
       queryOr.equalTo('type', 2)
     }
