@@ -637,11 +637,11 @@ export default {
       },
       {
         en: 'Border trade',
-        ch: '边境小额贸易 ',
+        ch: '边境小额贸易',
       },
       {
         en: 'Equipment for processing trade',
-        ch: '加工贸易进口设备 ',
+        ch: '加工贸易进口设备',
       },
       {
         en: 'Contracting projects',
@@ -660,7 +660,7 @@ export default {
         ch: '免税品',
       }, {
         en: 'Customs warehousing trade',
-        ch: '保税监管场所进出境货物 ',
+        ch: '保税监管场所进出境货物',
       }, {
         en: 'Logistics goods by customs special control area',
         ch: '海关特殊监管区域物流货物',
