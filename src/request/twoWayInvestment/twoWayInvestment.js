@@ -90,7 +90,7 @@ export default {
            let allIndustry=await this.manualQueryData('FDIOutflow',params);  // 全行业直接投资
             allIndustry = allIndustry.map(item=>{
                 item=item.toJSON()
-                item.investConversionMillion = item.investConversion * 100;
+                item.investConversionMillion = item.investConversion *10*10;
                 return item
             })
             allIndustry = allIndustry.filter(item=>{
@@ -100,7 +100,7 @@ export default {
             res = res.map(itemElement => {
                 itemElement = itemElement.toJSON()
                 // 美元实际使用外资转百万美元
-                itemElement.inwardFDIConMillion = itemElement.inwardFDICon * 100;
+                itemElement.inwardFDIConMillion = itemElement.inwardFDICon *10*10;
                 itemElement.unitMillion = "百万美元"
                 return itemElement
             })

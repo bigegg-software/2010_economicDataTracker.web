@@ -111,7 +111,7 @@ export default {
         res = res.map(item => {
             item = item.toJSON()
             // 美元实际使用外资转百万美元
-            item.inwardFDIConMillion = item.inwardFDICon * 100;
+            item.inwardFDIConMillion = item.inwardFDICon *10*10;
             item.unitMillion = '百万美元'
             return item
         })
@@ -187,7 +187,7 @@ export default {
         let res = await this.manualQueryData('ForeignInvestment', params);
         res = res.map(item => {
             item = item.toJSON();
-            item.taxMillion = item.tax * 100;
+            item.taxMillion = item.tax *10*10;
             item.unitMillion = '百万美元'
             return item
         })
@@ -293,7 +293,7 @@ export default {
         res = res.map(item => {
             item = item.toJSON()
             //  需要换算单位
-            item.inflowsFDIMillion = item.inflowsFDI * 100
+            item.inflowsFDIMillion = item.inflowsFDI *10*10
             item.enterprisesNumberUnit='家'
             item.unitMillion='百万美元'
             return item
@@ -357,7 +357,7 @@ export default {
         res = res.map(item => {
             item = item.toJSON();
             // 实际投入外资金额
-            item.FDIInflowsMillion = item.FDIInflows * 100;
+            item.FDIInflowsMillion = item.FDIInflows *10*10;
             item.unitMillion = '百万美元'
             return item;
         });
