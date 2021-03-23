@@ -47,7 +47,7 @@
             <div v-for="(action, i) in item.children" :key="i" class="embed">
               <div>{{ action.en }}</div>
               <div>{{ action.ch }}</div>
-              <div>{{ action.src }}</div>
+              <div @selectstart="getSelectedStatus">{{ action.src }}</div>
             </div>
           </div>
           <!-- 分享 -->
@@ -116,6 +116,13 @@ export default {
   },
 
   methods: {
+    getSelectedStatus(e) {
+      this.$store.dispatch('buryPoint',{
+          username:this.$store.getters.userInfo.username,
+          type:'embed',
+          exec_time:new Date()
+        });
+    },
     isShow(action) {
       return (
         (!this.actionsList[0].hide && !this.actionsList[0].checked) ||
@@ -148,6 +155,20 @@ export default {
       }
       if (name == "share" && i == 4) {
         this.sharetoEmail();
+      }
+      if(name=='download'&&i==0){
+          this.$store.dispatch('buryPoint',{
+              username:this.$store.getters.userInfo.username,
+              type:'download_pic',
+              exec_time:new Date()
+            });
+      }
+      if(name=='download'&&i==1){
+          this.$store.dispatch('buryPoint',{
+              username:this.$store.getters.userInfo.username,
+              type:'download_tab',
+              exec_time:new Date()
+            });
       }
     },
     mouseleave() {

@@ -1,5 +1,5 @@
 
-
+import Parse from '../../request'
 const user = {
   state: {
     info:{},
@@ -15,7 +15,12 @@ const user = {
   },
 
   actions: {
-    
+    // 埋点记录
+  buryPoint({commit},params){
+    let BuryPoint=new Parse.Object.extend('BuryPoint');
+    let buryPoint=new BuryPoint();
+        buryPoint.save(params);
+  },
   }
 }
 

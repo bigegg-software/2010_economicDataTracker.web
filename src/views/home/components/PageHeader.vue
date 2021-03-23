@@ -112,8 +112,13 @@ export default {
       this.$confirm({
         title: 'Are you sure you want to exit?',
         content: '确认要退出吗?',
-        onOk() {
+        async onOk() {
           // 退出后删除所有信息
+          await tthis.$store.dispatch('buryPoint',{
+            username:tthis.userInfo.username,
+            type:'logout',
+            exec_time:new Date()
+          });
           user.logOut();
           tthis.$storage.clear();
           tthis.$store.commit('setUserInfo',{});

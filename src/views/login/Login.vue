@@ -65,6 +65,11 @@ export default {
           try {
             let user = await Parse.logIn(values);
             this.$store.commit("setUserInfo", user);
+            this.$store.dispatch('buryPoint',{
+              username:user.username,
+              type:'login',
+              exec_time:new Date()
+            });
             this.$router.push({ path: this.$route.query.redirect });
           } catch (error) {
             this.$message.warning({
