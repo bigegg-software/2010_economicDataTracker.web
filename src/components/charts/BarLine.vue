@@ -219,14 +219,23 @@ export default {
         );
       }
       // 绘制图表
+      let text=this.options.title.en.split(' ');
       let option = {
         title: {
-          text: this.options.title.en,
+          text: (()=> {
+             if(this.options.title.en.length>75){
+                  let textslice=this.options.title.en.slice(0,75).split(' ').length-1;
+                 return [...text.slice(0,textslice),'\n',...text.slice(textslice)].join(' ');
+             }else{
+               return this.options.title.en; 
+             };
+          })(),
           subtext: this.options.title.ch,
           top: "3%",
           left: "center",
           textStyle: {
             color: "#333",
+            width:"100%",
             fontSize: this.$fz(0.26)
           },
           subtextStyle: {
@@ -294,7 +303,7 @@ export default {
         },
         legend: {
           width: "80%",
-          top: "13%",
+          top: this.options.title.en.length>75?"15%":"13%",
           show: true,
           formatter: name => {
             return [`${name.split("_")[1]}`, `${name.split("_")[0]}`].join(
