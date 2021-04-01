@@ -371,7 +371,7 @@ export default {
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外承包工程发展报告》_"
+            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -399,7 +399,7 @@ export default {
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外承包工程发展报告》_"
+            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {

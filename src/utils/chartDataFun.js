@@ -301,7 +301,7 @@ export default {
         ch: '医疗卫生'
       },
       {
-        en: 'Entertainment ',
+        en: 'Entertainment',
         ch: '文娱业'
       },
       {
