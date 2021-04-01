@@ -503,7 +503,7 @@ export default {
     store.commit('saveChartTable', tableInfo);
     return data
   },
-  async getImportExportCustomRegime(params) { // 中国货物进出口总值按贸易方式统计 年度
+  async getImportExportCustomRegime(params) { // 中国货物进出口总值按贸易方式统计 年度666
     let res = await this.manualQueryData(params);
     res = res.map(item => {
       item = item.toJSON()
@@ -522,14 +522,13 @@ export default {
       tHeader: [
         "年份",
         "贸易方式",
-        "当月进出口",
-        "当月进出口同比",
-        '当月进口',
-        '当月进口同比',
-        '当月出口',
-        '当月出口同比',
+        "贸易方式（英文）",
+        '进口',
+        '进口同比',
+        '出口',
+        '出口同比',
       ],
-      filterVal: ['year', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
+      filterVal: ['year','customRegime','customRegimeEN', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
       tableData: [...tableres]
     }
     store.commit('saveChartTable', tableInfo);
@@ -551,9 +550,9 @@ export default {
     let tHeader = {
       1: [
         "年份",
+        "月份",
         "贸易方式",
-        "当月进出口",
-        "当月进出口同比",
+        "贸易方式（英文）",
         '当月进口',
         '当月进口同比',
         '当月出口',
@@ -561,9 +560,9 @@ export default {
       ],
       2: [
         "年份",
+        "月份",
         "贸易方式",
-        "累计进出口",
-        "累计进出口同比",
+        "贸易方式（英文）",
         '累计进口',
         '累计进口同比',
         '累计出口',
@@ -571,8 +570,8 @@ export default {
       ]
     }
     let field = {
-      1: ['year', 'customRegime', '_monthlyTrade', 'yoyMonthlyTrade', '_monthlyImport', 'yoyMonthlyImport', '_monthlyExport', 'yoyMonthlyExport'],
-      2: ['year', 'customRegime', '_monthlyCulumativeTrade', 'yoyMonthlyCumulativeTrade', '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
+      1: ['year','month', 'customRegime', 'customRegimeEN',  '_monthlyImport', 'yoyMonthlyImport', '_monthlyExport', 'yoyMonthlyExport'],
+      2: ['year','month', 'customRegime', 'customRegimeEN',  '_monthlyCulumativeImport', 'yoyMonthlyCumulativeImport', '_monthlyCulumativeExport', 'yoyMonthlyCumulativeExport'],
     }
     let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
       return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)

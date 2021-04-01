@@ -98,13 +98,13 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "当月进口_Monthly import|当月进口同比_Y-o-y monthly import",
+            name: "进口_Import|进口同比_Y-o-y import",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "当月出口_Monthly export|当月出口同比_Y-o-y monthly export",
+            name: "出口_Export|出口同比_Y-o-y export",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
@@ -392,26 +392,30 @@ export default {
           },
           customRegime: {
             text: "贸易方式_Custom regime",
-            width: "20%"
+            width: "25%"
+          },
+          customRegimeEN: {
+            text: "贸易方式（英文）_Custom regime",
+            width: "25%"
           },
           _monthlyCulumativeImport: {
-            text: "当月进口(USD)_Monthly import(USD)",
-            width: "20%",
+            text: "进口_Import",
+            width: "15%",
             formatNum: true
           },
           yoyMonthlyCumulativeImport: {
-            text: "当月进口同比(USD)_Y-o-y monthly import(USD)",
-            width: "20%",
+            text: "进口同比_Y-o-y import",
+            width: "15%",
             formatPer: true
           },
           _monthlyCulumativeExport: {
-            text: "当月出口(USD)_Monthly export(USD)",
-            width: "20%",
+            text: "出口_Export",
+            width: "15%",
             formatNum: true
           },
           yoyMonthlyCumulativeExport: {
-            text: "当月出口同比(USD)_Y-o-y monthly export(USD)",
-            width: "20%",
+            text: "出口同比_Y-o-y export",
+            width: "15%",
             formatPer: true
           }
         };
@@ -424,11 +428,15 @@ export default {
             },
             month: {
               text: "月份_Month",
-              width: "20%"
+              width: "10%"
             },
             customRegime: {
               text: "贸易方式_Custom regime",
               width: "20%"
+            },
+            customRegimeEN: {
+              text: "贸易方式（英文）_Custom regime",
+              width: "25%"
             },
             _monthlyImport: {
               text: "当月进口(USD)_Monthly import(USD)",
@@ -460,10 +468,14 @@ export default {
             },
             month: {
               text: "月份_Month",
-              width: "20%"
+              width: "10%"
             },
             customRegime: {
               text: "贸易方式_Custom regime",
+              width: "25%"
+            },
+            customRegimeEN: {
+              text: "贸易方式（英文）_Custom regime",
               width: "20%"
             },
             _monthlyCulumativeImport: {
@@ -538,9 +550,9 @@ export default {
     handleText() {
       if (this.activeKey == "yearly") {
         this.USD.series[0].name =
-          "当月进口_Monthly import|当月进口同比_Y-o-y monthly import";
+          "进口_Import|进口同比_Y-o-y import";
         this.USD.series[1].name =
-          "当月出口_Monthly export|当月出口同比_Y-o-y monthly export";
+          "出口_Export|出口同比_Y-o-y export";
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
