@@ -178,7 +178,7 @@ export default {
     economyByIndustryChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Domestic investors are classified by the industry in which their product generates the most revenue. Industrial classification is based on Appendix 1 of the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial classification for national economic activities</a>, GB/T 4757-2011.",
+            enText: "Domestic investors are classified by the industry in which their product generates the most revenue. Industrial classification is based on Appendix 1 of the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial classification for national economic activities</a>, GB/T 4754-2011.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
@@ -811,7 +811,7 @@ export default {
     numEnterprisesChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Industrial classification of foreign investors is based on the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial Classification for National Economic Activities</a>, GB/T 4757-2011.",
+            enText: "Industrial classification of foreign investors is based on the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial Classification for National Economic Activities</a>, GB/T 4754-2011.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
@@ -840,7 +840,7 @@ export default {
     inflowsToChinaChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Industrial classification of foreign investors is based on the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial Classification for National Economic Activities</a>, GB/T 4757-2011.",
+            enText: "Industrial classification of foreign investors is based on the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial Classification for National Economic Activities</a>, GB/T 4754-2011.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
