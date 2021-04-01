@@ -48,7 +48,7 @@ export default {
       totalData: {
         title: {
           ch: "工业增加值",
-          en: "Growth of industrial value-added"
+          en: "Industrial value-added"
         },
         unit: {
           ch: "百分比（%）",
@@ -86,7 +86,7 @@ export default {
         yName: { ch: "%", en: "" },
         title: {
           ch: "工业增加值",
-          en: "Growth of industrial value-added"
+          en: "Industrial value-added"
         },
         xData: [],
         unit1Symbol: "%",
@@ -128,7 +128,7 @@ export default {
 
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

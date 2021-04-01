@@ -66,7 +66,7 @@ export default {
         yPosition: ["left", "right"],
         yLabel: [true, true],
         yName: { ch: "万人", en: "10,000 persons" },
-        yName2: { ch: "失业率", en: "100%" },
+        yName2: { ch: "失业率", en: "%" },
         title: {
           ch: "城镇登记失业率",
           en: "Urban registered unemployment rate"

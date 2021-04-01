@@ -42,7 +42,7 @@ export default {
       totalData: {
         title: {
           ch: "货币供应量 （M2)",
-          en: "Money & Quasi-money"
+          en: "Money supply (M2)"
         },
         unit: {
           ch: "亿元人民币",
@@ -54,11 +54,11 @@ export default {
             width: "25%"
           },
           month: {
-            text: "月度_Month",
+            text: "月份_Month",
             width: "25%"
           },
           money: {
-            text: "货币和准货币（M2)_Money & Quasi-money",
+            text: "货币和准货币（M2)_Money supply (M2)",
             width: "50%",
           }
         },
@@ -73,13 +73,13 @@ export default {
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
          ch: "货币供应量 （M2)",
-          en: "Money & Quasi-money"
+          en: "Money supply (M2)"
         },
         xData: [],
         unit1Symbol: "%",
         series: [
           { yAxisIndex:0,
-            name: "货币和准货币（M2)_Money & Quasi-money",
+            name: "货币和准货币_Money & Quasi-money",
             type: "bar",
             color: "#71a6c2",
             data: []
@@ -90,7 +90,7 @@ export default {
       
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

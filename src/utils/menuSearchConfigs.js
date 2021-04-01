@@ -175,7 +175,7 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByCommodity",
         ch: "货物进出口总值按商品类别统计",
-        en: "Import and export by commodity (HS section)",
+        en: "Import and export by Commodity (HS section)",
         cloudFun: ['ImportExportCommodity'],
         splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity', 'HS', 'section'],
         active: false,
@@ -249,7 +249,7 @@ let economicIndicatorsMenuLists = [  //宏观经济指标模块
   {
     name: "purchasingManagersIndex",
     ch: "采购经理人指数",
-    en: "Purchasing Managers’ Index (PMI)",
+    en: "Purchasing Managers' Index (PMI)",
     cloudFun: ['PMI'],
     splitList: ["采", "购", "经", "理", "人", "指", "数", "Purchasing", "Managers’", "Index", "PMI"],
     active: false,
@@ -271,7 +271,7 @@ let economicIndicatorsMenuLists = [  //宏观经济指标模块
   }, {
     name: "industryAddValue",
     ch: "工业增加值",
-    en: "Growth of industrial value-added",
+    en: "Industrial value-added",
     cloudFun: ['GIVA'],
     splitList: ["工", "业", "增", "加", "值", "Growth", "of", "industrial", "value-added"],
     active: false,

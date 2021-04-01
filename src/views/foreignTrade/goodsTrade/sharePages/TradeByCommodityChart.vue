@@ -74,7 +74,7 @@ export default {
       totalData: {
         title: {
           ch: "中国未分类商品进出口总值",
-          en: "China's import and export of unclassified commedities"
+          en: "China's import and export of unclassified commodities"
         },
         unit: {
           ch: "百万美元",
@@ -92,7 +92,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国未分类商品进出口总值",
-          en: "China's import and export of unclassified commedities"
+          en: "China's import and export of unclassified commodities"
         },
         xData: [],
         hideLegend: true,
@@ -152,10 +152,10 @@ export default {
       },
       category: {
         ch: "商品类别",
-        en: "Commodity (HS section)",
+        en: "Commodity types (HS section)",
         value: {
           ch: "未分类商品",
-          en: "Unclassified commedities"
+          en: "Unclassified commodities"
         },
         op: chartDataFun.category()
       },

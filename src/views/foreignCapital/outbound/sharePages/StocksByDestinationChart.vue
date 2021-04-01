@@ -51,7 +51,7 @@ export default {
       tableTotalData: {
         title: {
           ch: "中国对外直接投资存量按国家/地区统计",
-          en: "China's outward FDI stocks by destination"
+          en: "China's outward FDI stocks by country/region"
         },
         unit: {
           ch: "百万美元",
@@ -115,7 +115,7 @@ export default {
         yName: { ch: "百万美元", en: "USD mln" },
          title: {
           ch: "中国对外直接投资存量按国家/地区统计",
-          en: "China's outward FDI stocks by destination"
+          en: "China's outward FDI stocks by country/region"
         },
         grid: {
           bottom: "14%",
