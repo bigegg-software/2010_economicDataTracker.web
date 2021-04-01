@@ -314,7 +314,7 @@ export default {
         // 	年度完成率和季度完成率颜色
         // color: ["#071960", "#1740B4", "#1962CA", ],
         grid: {
-          left: "3%",
+          left: "4%",
           right: "4%",
           top: "30%",
           bottom: this.watermark
@@ -363,7 +363,7 @@ export default {
             ].join("\n"),
             nameTextStyle: {
               align: "left",
-              padding: [0, -2, 0, this.$fz(-0.8)],
+              padding: [0, -2, 0, this.$fz(-0.7)],
               color: "#666",
               rich: {
                 div: {
