@@ -328,7 +328,7 @@ export default {
             width: "15%"
           },
           month: {
-            text: "月度_Quarter",
+            text: "月份_Month",
             width: "15%"
           },
           investment: {

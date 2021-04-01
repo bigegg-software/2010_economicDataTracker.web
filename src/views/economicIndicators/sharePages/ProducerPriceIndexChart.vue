@@ -334,7 +334,7 @@ export default {
             width: "15%"
           },
           month: {
-            text: "月份_month",
+            text: "月份_Month",
             width: "15%"
           },
           yoyGrowth: {

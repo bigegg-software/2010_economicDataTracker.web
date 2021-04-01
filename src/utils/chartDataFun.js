@@ -591,7 +591,7 @@ export default {
         ch: '艺术收藏品'
       },
       {
-        en: 'Unclassified commedities',
+        en: 'Unclassified commodities',
         ch: '未分类商品'
       },
     ]

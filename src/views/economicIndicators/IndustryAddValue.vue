@@ -38,7 +38,7 @@ export default {
         {
           name: "industryAddValueChart",
           chinese: "工业增加值",
-          english: "Growth of industrial value-added"
+          english: "Industrial value-added"
         }
       ],
 

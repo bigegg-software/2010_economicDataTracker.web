@@ -350,7 +350,7 @@ export default {
               width: "10%"
             },
             month: {
-              text: "月份_Year",
+              text: "月份_Month",
               width: "10%"
             },
             inwardFDIConMillion: {

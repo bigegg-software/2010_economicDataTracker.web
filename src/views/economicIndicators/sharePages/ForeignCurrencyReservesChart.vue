@@ -96,7 +96,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "百万美元", en: "USD mln" },
-        yName2: { ch: "百万盎司", en: "Mln Oz." },
+        yName2: { ch: "百万盎司", en: "( mln oz.)" },
         title: {
           ch: "国家外汇储备",
           en: "Foreign currency reserve"
@@ -145,7 +145,7 @@ export default {
       },
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

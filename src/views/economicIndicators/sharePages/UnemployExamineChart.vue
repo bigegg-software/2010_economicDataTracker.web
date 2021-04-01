@@ -47,7 +47,7 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "调查失业率",
+          ch: "城镇调查失业率",
           en: "Urban surveyed unemployment rate"
         },
         unit: {
@@ -60,11 +60,11 @@ export default {
             width: "10%"
           },
           month: {
-            text: "月度_Month",
+            text: "月份_Month",
             width: "20%"
           },
           unemploymentRate: {
-            text: "调查失业率_Urban surveyed unemployment rate",
+            text: "城镇调查失业率_Urban surveyed unemployment rate",
             width: "35%",
             formatPer: true
           },
@@ -83,16 +83,16 @@ export default {
       USD: {
         id: "USD",
         dataSources: this.describeData,
-        yName: { ch: "失业率", en: "100%" },
+        yName: { ch: "失业率", en: "%" },
         title: {
-          ch: "调查失业率",
+          ch: "城镇调查失业率",
           en: "Urban surveyed unemployment rate"
         },
         xData: [],
         unit1Symbol: "%",
         series: [
           {
-            name: "调查失业率_Urban surveyed unemployment rate",
+            name: "城镇调查失业率_Urban surveyed unemployment rate",
             type: "line",
             color: "#6AA3CD",
             data: []
@@ -110,7 +110,7 @@ export default {
 
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

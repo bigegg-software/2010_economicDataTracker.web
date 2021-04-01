@@ -113,7 +113,7 @@ export default {
       },
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

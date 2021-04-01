@@ -60,21 +60,21 @@ export default {
             width: "10%"
           },
           month: {
-            text: "月度_Month",
+            text: "月份_Month",
             width: "10%"
           },
           manufacturingPMI: {
-            text: "制造业采购经理⼈指数_Manufacturing PMI",
+            text: "制造业采购经理人指数_Manufacturing PMI",
             width: "25%",
             formatPer: true
           },
           nonManufacturingPMI: {
-            text: "⾮制造业采购经理⼈指数_Non-manufacturing PMI",
+            text: "非制造业采购经理人指数_Non-manufacturing PMI",
             width: "25%",
             formatPer: true
           },
           comprehensivePMI: {
-            text: "⽉度综合采购经理⼈指数_Comprehensive PMI",
+            text: "年度综合采购经理人指数_Comprehensive PMI",
             width: "25%",
             formatPer: true
           }
@@ -96,7 +96,7 @@ export default {
         unit1Symbol: "%",
         series: [
           {
-            name: "制造业采购经理⼈指数_Manufacturing PMI",
+            name: "制造业采购经理人指数_Manufacturing PMI",
             type: "line",
             color: "#6AA3CD",
             data: [],
@@ -129,13 +129,13 @@ export default {
             }
           },
           {
-            name: "⾮制造业采购经理⼈指数_Non-manufacturing PMI",
+            name: "非制造业采购经理人指数_Non-manufacturing PMI",
             type: "line",
             color: "#c23531",
             data: []
           },
           {
-            name: "⽉度综合采购经理⼈指数_Comprehensive PMI",
+            name: "年度综合采购经理人指数_Comprehensive PMI",
             type: "line",
             color: "#61a0a8",
             data: []
@@ -146,7 +146,7 @@ export default {
 
       options: {
         monthly: {
-          ch: "月度",
+          ch: "月份",
           en: "Monthly",
           list: {
             start: {

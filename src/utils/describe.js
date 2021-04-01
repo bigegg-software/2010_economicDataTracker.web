@@ -24,7 +24,7 @@ export default {
         noteContent: {
             en: "1. All-sector FDI outflows and y-o-y growths from 2003 to 2005 are unavailable. ",
             enSecond: "2. “-” indicates that the source has not released such data.",
-            ch: "1. 2003-2005年缺失中国对外全行业直接投资金额与同比数据。",
+            ch: "1. 缺2003-2005年中国对外全行业直接投资金额与同比数据。",
             chSecond: "2. “-”表示数据源未公布相关数据。"
         }
 
@@ -147,13 +147,13 @@ export default {
     outflowsByIndustryChart: {
         concept: {
             enTitle: "Industrial classification",
-            enText: "Domestic investors are classified by the industry in which their product generates the most revenue. Industrial classification is based on Appendix 1 of the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial classification for national economic activities</a>, GB/T 4757-2011.",
+            enText: "Domestic investors are classified by the industry in which their product generates the most revenue. Industrial classification is based on Appendix 1 of the <a href='http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf' target='_blank' style='color:#666;border-bottom:1px solid #999'>Industrial classification for national economic activities</a>, GB/T 4754-2011.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4454-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
             textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
@@ -296,7 +296,7 @@ export default {
             enText: "Overseas contracted projects refer to Chinese enterprises undertaking contract work in overseas construction projects, including consultations, exploration, design, supervision, bidding, costing, procurement, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines',
+            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
@@ -328,7 +328,7 @@ export default {
             enText: "Overseas contracted projects refer to Chinese enterprises undertaking contract work in overseas construction projects, including consultations, exploration, design, supervision, bidding, costing, procurement, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines',
+            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
@@ -360,7 +360,7 @@ export default {
             enText: "Overseas contracted projects refer to Chinese enterprises undertaking contract work in overseas construction projects, including consultations, exploration, design, supervision, bidding, costing, procurement, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines',
+            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
@@ -371,7 +371,7 @@ export default {
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
+            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -388,7 +388,7 @@ export default {
             enText: "Overseas contracted projects refer to Chinese enterprises undertaking contract work in overseas construction projects, including consultations, exploration, design, supervision, bidding, costing, procurement, installation, debugging, operation and management.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines',
+            enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
             enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
@@ -399,7 +399,7 @@ export default {
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部_2017-2019年《中国对外承包工程发展报告》_"
+            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外承包工程发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -417,7 +417,7 @@ export default {
             enText: "Overseas labor service cooperation refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries and regions.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines, Ministry of Commerce',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
@@ -445,7 +445,7 @@ export default {
             enText: "Overseas labor service cooperation refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries and regions.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines, Ministry of Commerce',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
@@ -456,7 +456,7 @@ export default {
         },
         dataSources: {
             en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
+            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -473,7 +473,7 @@ export default {
             enText: "Overseas labor service cooperation refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries and regions.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines, Ministry of Commerce',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
@@ -484,7 +484,7 @@ export default {
         },
         dataSources: {
             en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
+            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -501,7 +501,7 @@ export default {
             enText: "Overseas labor service cooperation refers to Chinese enterprises organizing and sending workers to work at companies or organizations in foreign countries and regions.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines',
+            enSource: '_"Go global" Public Service Platform - Policies_, Regulations and Business Guidlines, Ministry of Commerce',
             enLink: "http://fec.mofcom.gov.cn/article/ywzn/dwlwhz/",
             chTitle: "对外劳务合作",
             chText: "对外劳务合作指中国企业组织劳务人员赴其他国家或者地区为国外的企业或者机构工作的经营性活动。",
@@ -512,7 +512,7 @@ export default {
         },
         dataSources: {
             en: "_Annual Report on China's Overseas Labor Service Cooperation, 2017 to 2019_, Ministry of Commerce and China International Contractors Association",
-            ch: "商务部_2017-2019年《中国对外劳务合作发展报告》_"
+            ch: "商务部、中国对外承包工程商会_2017-2019年《中国对外劳务合作发展报告》_"
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
@@ -960,14 +960,14 @@ export default {
             enSource: "",
             enLink: "",
             chTitle: "双向直接投资",
-            chText: "双向直接投资指中国对国外直接投资与与实际使用外资之对比。",
+            chText: "双向直接投资指中国对国外直接投资与实际使用外资之对比。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "",
             chLink: ""
         },
         dataSources: {
-            en: "1._World Investment Report_ UNCTAD",
+            en: "1._World Investment Report,_ UNCTAD",
             enSecond: "2. _Monthly Summary Statistics - Outbound Investment, 2003 to present_, Ministry of Commerce and State Administration of Foreign Exchange",
             enThird: "3._ Monthly FDI statistics, 2004 to present_, Ministry of Commerce",
             ch: "1. 联合国贸发会议_《世界投资报告》_",
@@ -1127,7 +1127,7 @@ export default {
     // 货物进出口总值按企业性质统计
     tradeByEnterpriseTypeChart: {
         concept: {
-            enTitle: "Enterprise types",
+            enTitle: "Enterprise type",
             enText: "Based on official classifications, this database covers four categories of companies: State-owned enterprises, private enterprises, foreign-invested enterprises and others. Foreign-invested enterprises include China-foreign contractual joint ventures, China-foreign joint ventures and foreign-owned enterprises.",
             enTitleSecond: "",
             enTextSecond: "",
@@ -1416,7 +1416,7 @@ export default {
             chText: "采购经理指数（PMI）是通过对企业采购经理的月度调查结果统计汇总、编制而成的指数，它涵盖了企业采购、生产、流通等各个环节，包括制造业和非制造业领域，是国际上通用的监测宏观经济走势的先行性指数之一，具有较强的预测、预警作用。综合PMI产出指数是反映当期全行业（制造业和非制造业）产出变化情况的综合指数。PMI通常以50%作为经济强弱的分界点，PMI高于50%时，反映经济总体扩张；低于50%，则反映经济总体收缩。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家数据指标解释 - _PMI_",
+            chSource: "国家数据指标解释 - _PMI_，国家统计局",
             chLink: "https://data.stats.gov.cn/easyquery.htm?cn=A01&zb=A0B01&sj=202011"
         },
         dataSources: {
@@ -1649,7 +1649,7 @@ export default {
     investmentFixedAssetsChart: {
         concept: {
             enTitle: "Investment in fixed assets (excluding rural households)",
-            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan. This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
+            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan（$765,134）. This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "Definiton of indicators - _Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",

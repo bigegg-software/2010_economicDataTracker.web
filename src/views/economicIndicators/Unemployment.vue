@@ -37,12 +37,12 @@ export default {
       tabList: [
         {
           name: "unemployRegisterChart",
-          chinese: "登记失业率",
+          chinese: "城镇登记失业率",
           english: "Urban registered unemployment rate"
         },
         {
           name: "unemployExamineChart",
-          chinese: "调查失业率",
+          chinese: "城镇调查失业率",
           english: "Urban surveyed unemployment rate"
         }
       ],
