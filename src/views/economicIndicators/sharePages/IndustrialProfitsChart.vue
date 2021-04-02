@@ -56,7 +56,7 @@ export default {
         },
         tableTitle: {
           year: {
-            text: "年度_Year",
+            text: "年份_Year",
             width: "15%"
           },
           month: {

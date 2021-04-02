@@ -327,7 +327,7 @@ export default {
       if (aug.type == "yearly") {
         this.totalData.tableTitle = {
           year: {
-            text: "年度_Year",
+            text: "年份_Year",
             width: "10%"
           },
           GDP: {

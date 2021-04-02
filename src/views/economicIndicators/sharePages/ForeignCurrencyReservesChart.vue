@@ -56,7 +56,7 @@ export default {
         },
         tableTitle: {
           year: {
-            text: "年度_Year",
+            text: "年份_Year",
             width: "10%"
           },
           month: {
@@ -96,7 +96,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "百万美元", en: "USD mln" },
-        yName2: { ch: "百万盎司", en: "( mln oz.)" },
+        yName2: { ch: "百万盎司", en: "mln oz." },
         title: {
           ch: "国家外汇储备",
           en: "Foreign currency reserve"

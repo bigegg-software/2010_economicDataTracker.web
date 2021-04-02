@@ -17,7 +17,7 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_World Investment Report_, UNCTAD ",
+            en: "_World Investment Report, UNCTAD ",
             ch: "联合国贸发会议_《世界投资报告》_"
         },
         sourceLink: "https://unctad.org/topic/investment/world-investment-report",
@@ -153,7 +153,7 @@ export default {
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4454-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4454-2011，见附录一 )，按销售收入份额最大的产品的所属行业确定其行业类别。",
             textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",
@@ -184,7 +184,7 @@ export default {
             enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "行业分类",
-            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售 收入份额最大的产品的所属行业确定其行业类别。",
+            chText: "境内投资者根据中华人民共和国_《国民经济行业分类》_(GB/T 4754-2011，见附录一 )，按销售收入份额最大的产品的所属行业确定其行业类别。",
             textLink: "http://www.stats.gov.cn/tjsj/tjbz/hyflbz/201905/P020190716349644060705.pdf",
             chTitleSecond: "",
             chTextSecond: "",

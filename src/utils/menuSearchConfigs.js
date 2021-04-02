@@ -175,7 +175,7 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByCommodity",
         ch: "货物进出口总值按商品类别统计",
-        en: "Import and export by Commodity (HS section)",
+        en: "Import and export by commodity (HS section)",
         cloudFun: ['ImportExportCommodity'],
         splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity', 'HS', 'section'],
         active: false,
