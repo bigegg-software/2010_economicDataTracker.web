@@ -98,13 +98,13 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进口_Import|进口同比_Y-o-y import",
+            name: "进口_Imports|进口同比_YOY imports",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "出口_Export|出口同比_Y-o-y export",
+            name: "出口_Exports|出口同比_YOY exports",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
@@ -392,22 +392,22 @@ export default {
             width: "20%"
           },
           _cumulativeImport: {
-            text: "进口_Import",
+            text: "进口_Imports",
             width: "20%",
             formatNum: true
           },
           yoyCumulativeImport: {
-            text: "进口同比_Y-o-y import",
+            text: "进口同比_YOY imports",
             width: "20%",
             formatPer: true
           },
           _cumulativeExport: {
-            text: "出口_Export",
+            text: "出口_Exports",
             width: "20%",
             formatNum: true
           },
           yoyCumulativeExport: {
-            text: "出口同比_Y-o-y export",
+            text: "出口同比_YOY exports",
             width: "20%",
             formatPer: true
           }
@@ -428,12 +428,12 @@ export default {
               width: "20%"
             },
             _import: {
-              text: "当月进口_Monthly import",
+              text: "当月进口_Monthly imports",
               width: "20%",
               formatNum: true
             },
             _export: {
-              text: "当月出口_Monthly export",
+              text: "当月出口_Monthly exports",
               width: "20%",
               formatNum: true
             }
@@ -454,22 +454,22 @@ export default {
               width: "20%"
             },
             _cumulativeImport: {
-              text: "累计进口_Cumulative monthly import",
+              text: "累计进口_Cumulative monthly imports",
               width: "20%",
               formatNum: true
             },
             yoyCumulativeImport: {
-              text: "累计进口同比_Y-o-y cumulative monthly import",
+              text: "累计进口同比_YOY cumulative monthly imports",
               width: "20%",
               formatPer: true
             },
             _cumulativeExport: {
-              text: "累计出口_Cumulative monthly export",
+              text: "累计出口_Cumulative monthly exports",
               width: "20%",
               formatNum: true
             },
             yoyCumulativeExport: {
-              text: "累计出口同比_Y-o-y cumulative monthly export",
+              text: "累计出口同比_YOY cumulative monthly exports",
               width: "20%",
               formatPer: true
             }
@@ -524,19 +524,19 @@ export default {
     },
     handleText() {
       if (this.activeKey == "yearly") {
-        this.USD.series[0].name = "进口_Import|进口同比_Y-o-y import";
-        this.USD.series[1].name = "出口_Export|出口同比_Y-o-y export";
+        this.USD.series[0].name = "进口_Imports|进口同比_YOY imports";
+        this.USD.series[1].name = "出口_Exports|出口同比_YOY exports";
       }
       if (this.activeKey == "monthly") {
         if (this.selectOption.value.id == 1) {
-          this.USD.series[0].name = "当月进口_Monthly import|";
-          this.USD.series[1].name = "当月出口_Monthly export|";
+          this.USD.series[0].name = "当月进口_Monthly imports|";
+          this.USD.series[1].name = "当月出口_Monthly exports|";
         }
         if (this.selectOption.value.id == 2) {
           this.USD.series[0].name =
-            "累计进口_Cumulative monthly import|累计进口同比_Y-o-y cumulative monthly import";
+            "累计进口_Cumulative monthly imports|累计进口同比_YOY cumulative monthly imports";
           this.USD.series[1].name =
-            "累计出口_Cumulative monthly export|累计出口同比_Y-o-y cumulative monthly export";
+            "累计出口_Cumulative monthly exports|累计出口同比_YOY cumulative monthly exports";
         }
       }
     }

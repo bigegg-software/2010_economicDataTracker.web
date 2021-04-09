@@ -95,7 +95,7 @@ export default {
             formatInt: true
           },
           numberYOYGrowth: {
-            text: "企业数同比_Number of enterprises y-o-y growth",
+            text: "企业数同比_Number of enterprises YOY growth",
             width: "30%",
             formatPer: true
           }
@@ -168,7 +168,7 @@ export default {
         ],
         updatedDate: "",
         legendMark: {//右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -332,7 +332,7 @@ export default {
             let selectedIndustry = {
               name: `${res[i][0].industry}_${res[i][0].industryEn}|${
                 res[i][0].industry
-              }同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
+              }同比_YOY ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["enterprisesNumber"],
               yearOnYear: data["numberYOYGrowth"],
               color: [this.randomColor[p]]

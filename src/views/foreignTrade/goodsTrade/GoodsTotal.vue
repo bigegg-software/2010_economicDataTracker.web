@@ -7,13 +7,13 @@
         : 'container'
     "
   >
-    <tab-component
+   <tab-component
       :tabList="tabList"
       :tabComponent="tabComponent"
       @change="changeTabCompnent"
     ></tab-component>
-    <share-body
-    :describeData="describeList[tabComponent]['dataSources']"
+   <share-body
+      :describeData="describeList[tabComponent]['dataSources']"
       :tabComponent="tabComponent"
       :isShowTable="actionsList[0].checked"
     ></share-body>
@@ -53,7 +53,7 @@ export default {
         {
           name: "goodsTradeBalanceChart",
           chinese: "中国货物进出口贸易差额",
-          english: "China's trade balance"
+          english: "China’s balance of trade"
         }
       ],
 

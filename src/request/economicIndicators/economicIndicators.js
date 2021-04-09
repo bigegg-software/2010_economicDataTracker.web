@@ -707,8 +707,8 @@ getForeignCurrencyReserveChartsData:async function(tableName,params) {// 获取�
                  '外汇储备',
                  '基金组织储备头寸',
                  '特别提款权',
-                 '黄金（美元）',
-                 '黄金（盎司）',
+                 '黄金（百万美元）',
+                 '黄金（百万盎司）',
              ],
              filterVal:['year','month','unit','reserves','IMF','SDRs','goldUSD','goldMLN'],
              tableData:[...tableres]

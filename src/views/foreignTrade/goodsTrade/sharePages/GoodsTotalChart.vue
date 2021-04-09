@@ -87,7 +87,7 @@ export default {
       totalData: {
         title: {
           ch: "中国进出口贸易总额",
-          en: "Revenue of completed contract from China's overseas projects"
+          en: "China’s total trade volume of goods"
         },
         unit: {
           ch: "百万美元/亿人民币",
@@ -116,19 +116,19 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进口_Import|进口同比_Y-o-y import",
+            name: "进口_Imports|进口同比_YOY imports",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "出口_Export|出口同比_Y-o-y export",
+            name: "出口_Exports|出口同比_YOY exports",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
           },
           {
-            name: "进出口_Trade volume|进出口同比_Y-o-y trade",
+            name: "进出口_Trade volume|进出口同比_YOY trade",
             color: "#91c7ae",
             data: [],
             yearOnYear: []
@@ -153,19 +153,19 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "进口_Import|进口同比_Y-o-y import",
+            name: "进口_Imports|进口同比_YOY imports",
             color: "#c23531",
             data: [],
             yearOnYear: []
           },
           {
-            name: "出口_Export|出口同比_Y-o-y export",
+            name: "出口_Exports|出口同比_YOY exports",
             color: "#61a0a8",
             data: [],
             yearOnYear: []
           },
           {
-            name: "进出口_Trade volume|进出口同比_Y-o-y trade",
+            name: "进出口_Trade volume|进出口同比_YOY trade",
             color: "#91c7ae",
             data: [],
             yearOnYear: []
@@ -478,27 +478,27 @@ export default {
             formatNum: true
           },
           USD_yoyTrade: {
-            text: "进出口同比(USD)_Y-o-y trade(USD)",
+            text: "进出口同比(USD)_YOY trade(USD)",
             width: "100px",
             formatPer: true
           },
           USD_import: {
-            text: "进口(USD)_Import(USD)",
+            text: "进口(USD)_Imports(USD)",
             width: "100px",
             formatNum: true
           },
           USD_yoyImport: {
-            text: "进口同比(USD)_Y-o-y import(USD)",
+            text: "进口同比(USD)_YOY imports(USD)",
             width: "100px",
             formatPer: true
           },
           USD_export: {
-            text: "出口(USD)_Export(USD)",
+            text: "出口(USD)_Exports(USD)",
             width: "100px",
             formatNum: true
           },
           USD_yoyExport: {
-            text: "出口同比(USD)_Y-o-y export(USD)",
+            text: "出口同比(USD)_YOY exports(USD)",
             width: "100px",
             formatPer: true
           },
@@ -508,27 +508,27 @@ export default {
             formatNum: true
           },
           RMB_yoyTrade: {
-            text: "进出口同比(RMB)_Y-o-y trade(RMB)",
+            text: "进出口同比(RMB)_YOY trade(RMB)",
             width: "100px",
             formatPer: true
           },
           RMB_import: {
-            text: "进口(RMB)_Import(RMB)",
+            text: "进口(RMB)_Imports(RMB)",
             width: "100px",
             formatNum: true
           },
           RMB_yoyImport: {
-            text: "进口同比(RMB)_Y-o-y import(RMB)",
+            text: "进口同比(RMB)_YOY imports(RMB)",
             width: "100px",
             formatPer: true
           },
           RMB_export: {
-            text: "出口(RMB)_Export(RMB)",
+            text: "出口(RMB)_Exports(RMB)",
             width: "100px",
             formatNum: true
           },
           RMB_yoyExport: {
-            text: "出口同比(RMB)_Y-o-y export(RMB)",
+            text: "出口同比(RMB)_YOY exports(RMB)",
             width: "100px",
             formatPer: true
           }
@@ -550,27 +550,27 @@ export default {
               formatNum: true
             },
             USD_yoyTrade: {
-              text: "当月进出口同比(USD)_Y-o-y monthly trade(USD)",
+              text: "当月进出口同比(USD)_YOY monthly trade(USD)",
               width: "25%",
               formatPer: true
             },
             USD_import: {
-              text: "当月进口(USD)_Monthly import(USD)",
+              text: "当月进口(USD)_Monthly imports(USD)",
               width: "20%",
               formatNum: true
             },
             USD_yoyImport: {
-              text: "当月进口同比(USD)_Y-o-y monthly import(USD)",
+              text: "当月进口同比(USD)_YOY monthly imports(USD)",
               width: "20%",
               formatPer: true
             },
             USD_export: {
-              text: "当月出口(USD)_Monthly export(USD)",
+              text: "当月出口(USD)_Monthly exports(USD)",
               width: "20%",
               formatNum: true
             },
             USD_yoyExport: {
-              text: "当月出口同比(USD)_Y-o-y monthly export(USD)",
+              text: "当月出口同比(USD)_YOY monthly exports(USD)",
               width: "20%",
               formatPer: true
             },
@@ -580,27 +580,27 @@ export default {
               formatNum: true
             },
             RMB_yoyTrade: {
-              text: "当月进出口同比(RMB)_Y-o-y monthly trade(RMB)",
+              text: "当月进出口同比(RMB)_YOY monthly trade(RMB)",
               width: "25%",
               formatPer: true
             },
             RMB_import: {
-              text: "当月进口(RMB)_Monthly import(RMB)",
+              text: "当月进口(RMB)_Monthly imports(RMB)",
               width: "20%",
               formatNum: true
             },
             RMB_yoyImport: {
-              text: "当月进口同比(RMB)_Y-o-y monthly import(RMB)",
+              text: "当月进口同比(RMB)_YOY monthly imports(RMB)",
               width: "20%",
               formatPer: true
             },
             RMB_export: {
-              text: "当月出口(RMB)_Monthly export(RMB)",
+              text: "当月出口(RMB)_Monthly exports(RMB)",
               width: "20%",
               formatNum: true
             },
             RMB_yoyExport: {
-              text: "当月出口同比(RMB)_Y-o-y monthly export(RMB)",
+              text: "当月出口同比(RMB)_YOY monthly exports(RMB)",
               width: "20%",
               formatPer: true
             }
@@ -622,27 +622,27 @@ export default {
               formatNum: true
             },
             USD_yoyCumulativeTrade: {
-              text: "累计进出口同比(USD)_Y-o-y cumulative monthly trade(USD)",
+              text: "累计进出口同比(USD)_YOY cumulative monthly trade(USD)",
               width: "25%",
               formatPer: true
             },
             USD_cumulativeImport: {
-              text: "累计进口(USD)_Cumulative monthly import(USD)",
+              text: "累计进口(USD)_Cumulative monthly imports(USD)",
               width: "20%",
               formatNum: true
             },
             USD_yoyCumulativeImport: {
-              text: "累计进口同比(USD)_Y-o-y cumulative monthly import(USD)",
+              text: "累计进口同比(USD)_YOY cumulative monthly imports(USD)",
               width: "20%",
               formatPer: true
             },
             USD_cumulativeExport: {
-              text: "累计出口(USD)_Cumulative monthly export(USD)",
+              text: "累计出口(USD)_Cumulative monthly exports(USD)",
               width: "20%",
               formatNum: true
             },
             USD_yoyCumulativeExport: {
-              text: "累计出口同比(USD)_Y-o-y cumulative monthly export(USD)",
+              text: "累计出口同比(USD)_YOY cumulative monthly exports(USD)",
               width: "20%",
               formatPer: true
             },
@@ -652,27 +652,27 @@ export default {
               formatNum: true
             },
             RMB_yoyCumulativeTrade: {
-              text: "累计进出口同比(RMB)_Y-o-y cumulative monthly trade(RMB)",
+              text: "累计进出口同比(RMB)_YOY cumulative monthly trade(RMB)",
               width: "25%",
               formatPer: true
             },
             RMB_cumulativeImport: {
-              text: "累计进口(RMB)_Cumulative monthly import(RMB)",
+              text: "累计进口(RMB)_Cumulative monthly imports(RMB)",
               width: "20%",
               formatNum: true
             },
             RMB_yoyCumulativeImport: {
-              text: "累计进口同比(RMB)_Y-o-y cumulative monthly import(RMB)",
+              text: "累计进口同比(RMB)_YOY cumulative monthly imports(RMB)",
               width: "20%",
               formatPer: true
             },
             RMB_cumulativeExport: {
-              text: "累计出口(RMB)_Cumulative monthly export(RMB)",
+              text: "累计出口(RMB)_Cumulative monthly exports(RMB)",
               width: "20%",
               formatNum: true
             },
             RMB_yoyCumulativeExport: {
-              text: "累计出口同比(RMB)_Y-o-y cumulative monthly export(RMB)",
+              text: "累计出口同比(RMB)_YOY cumulative monthly exports(RMB)",
               width: "20%",
               formatPer: true
             }
@@ -731,27 +731,27 @@ export default {
       let keys = ["USD", "RMB"];
       for (let i = 0; i < keys.length; i++) {
         if (this.activeKey == "yearly") {
-          this[keys[i]].series[0].name = "进口_Import|进口同比_Y-o-y import";
-          this[keys[i]].series[1].name = "出口_Export|出口同比_Y-o-y export";
+          this[keys[i]].series[0].name = "进口_Imports|进口同比_YOY imports";
+          this[keys[i]].series[1].name = "出口_Exports|出口同比_YOY exports";
           this[keys[i]].series[2].name =
-            "进出口_Monthly trade|进出口同比_Y-o-y trade";
+            "进出口_Monthly trade|进出口同比_YOY trade";
         }
         if (this.activeKey == "monthly") {
           if (this.selectOption.value.id == 1) {
             this[keys[i]].series[0].name =
-              "当月进口_Monthly import|当月进口同比_Y-o-y monthly import";
+              "当月进口_Monthly imports|当月进口同比_YOY monthly imports";
             this[keys[i]].series[1].name =
-              "当月出口_Monthly export|当月出口同比_Y-o-y monthly export";
+              "当月出口_Monthly exports|当月出口同比_YOY monthly exports";
             this[keys[i]].series[2].name =
-              "当月进出口_Trade volume|当月进出口同比_Y-o-y monthly trade";
+              "当月进出口_Trade volume|当月进出口同比_YOY monthly trade";
           }
           if (this.selectOption.value.id == 2) {
             this[keys[i]].series[0].name =
-              "累计进口_Cumulative monthly import|累计进口同比_Y-o-y cumulative monthly import";
+              "累计进口_Cumulative monthly imports|累计进口同比_YOY cumulative monthly imports";
             this[keys[i]].series[1].name =
-              "累计出口_Cumulative monthly export|累计出口同比_Y-o-y cumulative monthly export";
+              "累计出口_Cumulative monthly exports|累计出口同比_YOY cumulative monthly exports";
             this[keys[i]].series[2].name =
-              "累计进出口_Cumulative monthly trade|累计进出口同比_Y-o-y cumulative monthly trade";
+              "累计进出口_Cumulative monthly trade|累计进出口同比_YOY cumulative monthly trade";
           }
         }
       }

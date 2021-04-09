@@ -111,13 +111,13 @@ export default {
         },
         series: [
           {
-            name: "中国对外全行业直接投资_All-sector FDI outflows|中国对外全行业直接投资同比_Y-o-y all-sector FDI outflows",
+            name: "中国对外全行业直接投资_All-sector FDI outflows|中国对外全行业直接投资同比_YOY all-sector FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
-            name: "中国对外非金融类直接投资_Non-financial FDI outflows|中国对外非金融类直接投资同比_Y-o-y non-financial FDI outflows",
+            name: "中国对外非金融类直接投资_Non-financial FDI outflows|中国对外非金融类直接投资同比_YOY non-financial FDI outflows",
             color: "#d43838",
             data: [],
             yearOnYear: []
@@ -126,7 +126,7 @@ export default {
         updatedDate: "",
         //右上角水印
         legendMark:{
-          en:"Y-o-y",
+          en:"YOY",
           ch:"同比",
           doSymbol:"(%)"
         }
@@ -352,7 +352,7 @@ export default {
             formatNum: true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_Y-o-y China's FDI outflows",
+            text: "中国对外直接投资流量同比_YOY China's FDI outflows",
             width: "35%",
             formatPer: true
           },
@@ -381,7 +381,7 @@ export default {
             formatNum: true
           },
           conversionYOY: {
-            text: "中国对外直接投资流量同比_Y-o-y China's FDI outflows",
+            text: "中国对外直接投资流量同比_YOY China's FDI outflows",
             width: "35%",
             formatPer: true
           },

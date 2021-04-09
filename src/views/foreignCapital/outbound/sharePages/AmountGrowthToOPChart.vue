@@ -90,7 +90,7 @@ export default {
         series: [
           {
             name:
-              "完成营业额(RMB)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
+              "完成营业额(RMB)_Revenue of completed contracts|完成营业额同比_YOY growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -116,7 +116,7 @@ export default {
         series: [
           {
             name:
-              "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue ",
+              "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_YOY growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -126,7 +126,7 @@ export default {
         // isLongTitle: true, //标题是否过长
         legendMark: {
           //右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -365,7 +365,7 @@ export default {
             formatNum: true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "25%",
             formatPer: true
           },
@@ -375,7 +375,7 @@ export default {
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "20%",
             formatPer: true
           }
@@ -396,7 +396,7 @@ export default {
             formatNum: true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "35%",
             formatPer: true
           },
@@ -406,7 +406,7 @@ export default {
             formatNum: true
           },
           completedAmountYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "35%",
             formatPer: true
           }

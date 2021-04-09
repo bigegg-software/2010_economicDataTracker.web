@@ -70,7 +70,7 @@ export default {
           },
           YOYGrowth: {
             text:
-              "外商投资企业税收额同比_Y-o-y tax revenue from foreign-invested enterprises",
+              "外商投资企业税收额同比_YOY tax revenue from foreign-invested enterprises",
             width: "30%",
             formatPer: true
           },
@@ -298,7 +298,7 @@ export default {
       }
       if (index == 0) {
         this.USD.series[0].name =
-          "外商投资企业税收统计_Tax revenue from foreign-invested enterprises|外商投资企业税收额同比_Y-o-y tax revenue from foreign-invested enterprises";
+          "外商投资企业税收统计_Tax revenue from foreign-invested enterprises|外商投资企业税收额同比_YOY tax revenue from foreign-invested enterprises";
         this.USD.series[0]["yearOnYear"] = this.yearOnYearData;
         this.status[index].checked
           ? this.$set(this.USD, "yearOnYear", true)

@@ -76,7 +76,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "同比", en: "Y-o-y" },
+        yName2: { ch: "同比", en: "YOY" },
         title: {
           ch: "财政收支情况",
           en: "National revenue and expenditure"
@@ -214,7 +214,7 @@ export default {
         if (this.selectOption.value.en == "Current") {
           this.USD.yName2 = "";
         }else{
-          this.USD.yName2= { ch: "同比", en: "Y-o-y" }
+          this.USD.yName2= { ch: "同比", en: "YOY" }
         }
         this.monthScreen = true; //月份选择组件显示
         let startTimeArr = start.value.split("-");
@@ -286,7 +286,7 @@ export default {
           {
             type: "line",
             yAxisIndex: 1, //百分比
-            name: "收入同比_Y-o-y revenue",
+            name: "收入同比_YOY revenue",
             color: "#61a0a8",
             data: data.yoyRevenue,
             percent: true
@@ -301,7 +301,7 @@ export default {
           {
             type: "line",
             yAxisIndex: 1, //百分比
-            name: "支出同比_Y-o-y expenditure",
+            name: "支出同比_YOY expenditure",
             color: "#c23531",
             data: data.yoyExpenditure,
             percent: true
@@ -337,7 +337,7 @@ export default {
             {
               type: "line",
               yAxisIndex: 1, //百分比
-              name: "月度累计收入同比_Y-o-y cumulative monthly revenue",
+              name: "月度累计收入同比_YOY cumulative monthly revenue",
               color: "#61a0a8",
               data: data.yoyRevenue,
               percent: true
@@ -352,7 +352,7 @@ export default {
             {
               type: "line",
               yAxisIndex: 1,
-              name: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
+              name: "月度累计支出同比_YOY cumulative monthly expenditure",
               color: "#c23531",
               data: data.yoyExpenditure,
               percent: true
@@ -432,7 +432,7 @@ export default {
             formatNum: true
           },
           yoyRevenue: {
-            text: "收入同比_Y-o-y revenue",
+            text: "收入同比_YOY revenue",
             width: "20%",
             formatPer: true
           },
@@ -442,7 +442,7 @@ export default {
             formatNum: true
           },
           yoyExpenditure: {
-            text: "支出同比_Y-o-y expenditure",
+            text: "支出同比_YOY expenditure",
             width: "20%",
             formatPer: true
           }
@@ -489,7 +489,7 @@ export default {
               formatNum: true
             },
             yoyRevenue: {
-              text: "月度累计收入同比_Y-o-y cumulative monthly revenue",
+              text: "月度累计收入同比_YOY cumulative monthly revenue",
               width: "20%",
               formatPer: true
             },
@@ -499,7 +499,7 @@ export default {
               formatNum: true
             },
             yoyExpenditure: {
-              text: "月度累计支出同比_Y-o-y cumulative monthly expenditure",
+              text: "月度累计支出同比_YOY cumulative monthly expenditure",
               width: "20%",
               formatPer: true
             }

@@ -709,7 +709,7 @@ export default {
         ch: '金融业',
       },
       {
-        en: 'Intellectual property',
+        en: 'Charges for IP use',
         ch: '知识产权费用',
       },
       {

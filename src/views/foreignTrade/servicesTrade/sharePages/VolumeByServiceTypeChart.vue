@@ -97,12 +97,12 @@ export default {
         xData: [],
         series: [
           {
-            name: "进口_Import|进口同比_Y-o-y import",
+            name: "进口_Import|进口同比_YOY import",
             color: "#c23531",
             data: []
           },
           {
-            name: "出口_Export|出口同比_Y-o-y export",
+            name: "出口_Export|出口同比_YOY export",
             color: "#61a0a8",
             data: []
           }

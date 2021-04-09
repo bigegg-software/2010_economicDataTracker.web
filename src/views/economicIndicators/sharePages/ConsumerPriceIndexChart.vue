@@ -224,7 +224,7 @@ export default {
       if (XNameAttr == "year") {
         this.USD.series = [
           {
-            name: "消费者价格指数年度同比_Y-o-y CPI",
+            name: "消费者价格指数年度同比_YOY CPI",
             type: "line",
             color: "#6AA3CD",
             data: data.yoyGrowth,
@@ -251,7 +251,7 @@ export default {
       } else {
         this.USD.series = [
           {
-            name: "月度消费者价格指数同比_Y-o-y monthly CPI",
+            name: "月度消费者价格指数同比_YOY monthly CPI",
             type: "line",
             color: "#6AA3CD",
             data: data.yoyCPI,
@@ -323,7 +323,7 @@ export default {
             width: "20%"
           },
           yoyGrowth: {
-            text: "消费者价格指数年度同比_Y-o-y CPI",
+            text: "消费者价格指数年度同比_YOY CPI",
             width: "80%",
             formatPer: true
           }
@@ -339,7 +339,7 @@ export default {
             width: "15%"
           },
           yoyCPI: {
-            text: "月度消费者价格指数同比_Y-o-y monthly CPI",
+            text: "月度消费者价格指数同比_YOY monthly CPI",
             width: "35%",
             formatPer: true
           },

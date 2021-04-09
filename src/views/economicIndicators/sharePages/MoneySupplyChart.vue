@@ -60,6 +60,7 @@ export default {
           money: {
             text: "货币和准货币（M2)_Money supply (M2)",
             width: "50%",
+						formatNum: true
           }
         },
         tableData: [],

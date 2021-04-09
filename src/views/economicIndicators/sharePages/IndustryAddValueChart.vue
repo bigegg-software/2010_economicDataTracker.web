@@ -64,13 +64,13 @@ export default {
             width: "15%"
           },
           yoyGrowth: {
-            text: "工业增加值月度同比_Y-o-y monthly industrial value-added",
+            text: "工业增加值月度同比_YOY monthly industrial value-added",
             width: "35%",
             formatPer: true
           },
           yoyCumulativeGrowth: {
             text:
-              "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
+              "工业增加值月度累计同比_YOY cumulative monthly industrial value-added",
             width: "35%",
             formatPer: true
           }
@@ -92,7 +92,7 @@ export default {
         unit1Symbol: "%",
         series: [
           {
-            name: "工业增加值月度同比_Y-o-y monthly industrial value-added",
+            name: "工业增加值月度同比_YOY monthly industrial value-added",
             type: "line",
             color: "#6AA3CD",
             data: [],
@@ -117,7 +117,7 @@ export default {
           },
           {
             name:
-              "工业增加值月度累计同比_Y-o-y cumulative monthly industrial value-added",
+              "工业增加值月度累计同比_YOY cumulative monthly industrial value-added",
             type: "line",
             color: "#c23531",
             data: []

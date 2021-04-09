@@ -38,7 +38,7 @@ export default {
         {
           name: "investmentFixedAssetsChart",
           chinese: "固定资产投资（不含农户）",
-          english: "Investment in fixed assests (Excluding rural households)"
+          english: "Investment in fixed assests (excluding rural households)"
         }
       ],
 

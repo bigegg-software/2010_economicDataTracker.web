@@ -223,7 +223,7 @@ export default {
       if (XNameAttr == "year") {
         this.USD.series = [
           {
-            name: "工业生产者价格指数同比_Y-o-y PPI",
+            name: "工业生产者价格指数同比_YOY PPI",
             type: "line",
             color: "#6AA3CD",
             data: data.yoyGrowth,
@@ -250,7 +250,7 @@ export default {
       } else {
         this.USD.series = [
           {
-            name: "工业生产者价格指数月度同比_Y-o-y monthly PPI",
+            name: "工业生产者价格指数月度同比_YOY monthly PPI",
             type: "line",
             color: "#6AA3CD",
             data: data.yoyGrowth,
@@ -322,7 +322,7 @@ export default {
             width: "20%"
           },
           yoyGrowth: {
-            text: "工业生产者价格指数同比_Y-o-y PPI",
+            text: "工业生产者价格指数同比_YOY PPI",
             width: "80%",
             formatPer: true
           }
@@ -338,7 +338,7 @@ export default {
             width: "15%"
           },
           yoyGrowth: {
-            text: "工业生产者价格指数月度同比_Y-o-y monthly PPI",
+            text: "工业生产者价格指数月度同比_YOY monthly PPI",
             width: "35%",
             formatPer: true
           },

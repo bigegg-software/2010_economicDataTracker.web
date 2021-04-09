@@ -38,7 +38,7 @@ export default {
         {
           name: "foreignCurrencyReservesChart",
           chinese: "国家外汇储备",
-          english: "Foreign currency reserve"
+          english: "Foreign exchange reserves"
         }
       ],
 

@@ -22,7 +22,7 @@ export default {
         },
         sourceLink: "https://unctad.org/topic/investment/world-investment-report",
         noteContent: {
-            en: "1. All-sector FDI outflows and y-o-y growths from 2003 to 2005 are unavailable. ",
+            en: "1. All-sector FDI outflows and YOY growths from 2003 to 2005 are unavailable. ",
             enSecond: "2. “-” indicates that the source has not released such data.",
             ch: "1. 缺2003-2005年中国对外全行业直接投资金额与同比数据。",
             chSecond: "2. “-”表示数据源未公布相关数据。"
@@ -162,16 +162,18 @@ export default {
         },
         dataSources: {
             en: "_Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce, National Bureau of Statistics and State Administration of Foreign Exchange",
-            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_"
+            ch: "商务部、国家统计局、外汇管理局历年_《中国对外直接投资统计公报》_",
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tjsj/tjgb/",
         noteContent: {
             en: "1. There are no data available on Finance and Education in 2004 and 2005. ",
-            enSecond: "2. Most y-o-y data from 2005 to 2015 are manually calculated, as there are no origional data provided by the source. ",
+            enSecond: "2. Most YOY data from 2005 to 2015 are manually calculated, as there are no origional data provided by the source. ",
             ch: "1. 2004、2005年金融业与教育业对外直接投资流量无公布数据；",
             chSecond: "2. 2005-2015年大部分同比数据为计算得出，无原始公布数据；",
-            enThird:"3. “-” indicates that the source has not released such data. ",
-            chThird:"3. “-”表示数据源未公布相关数据。"
+            enThird:"3. “-” indicates that the source has not released such data.",
+            chThird:"3. “-”表示数据源未公布相关数据。",
+			enFour:"4. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries."
+
         }
     },
     // 中国对主要经济体投资按行业统
@@ -200,7 +202,8 @@ export default {
             en: "1. Data of some countries between 2007 and 2009 are unavailable.",
             enSecond: "2.  “-” indicates that the source has not released such data.",
             ch: "1. 2007-2009年部分国家数据缺失；",
-            chSecond: "2. “-”表示数据源未公布相关数据。"
+            chSecond: "2. “-”表示数据源未公布相关数据。",
+			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries."
         }
     },
     // ---------------中国对“一带一路”沿线国家投资
@@ -297,13 +300,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
         },
         dataSources: {
             en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
@@ -329,13 +332,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
         },
         dataSources: {
             en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
@@ -361,13 +364,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
@@ -389,13 +392,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
@@ -516,9 +519,9 @@ export default {
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "暂无。",
+            en: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
             enSecond: "",
-            ch: "None.",
+            ch: "",
             chSecond: ""
         }
     },
@@ -859,9 +862,9 @@ export default {
         },
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=6",
         noteContent: {
-            en: "暂无。",
-            enSecond: "",
-            ch: "None.",
+            en: "",
+            enSecond: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
+            ch: "",
             chSecond: ""
         }
     },
@@ -902,7 +905,7 @@ export default {
             enTitleSecond: "Countries involved in the Belt and Road Initiative",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
             enSource: '_What is the "Belt and Road" Initiative?_ Belt and Road Portal',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
@@ -930,7 +933,7 @@ export default {
             enTitleSecond: "Countries involved in the Belt and Road Initiative",
             enTextSecond: "The Belt and Road Initiative is open to all countries. By the end of 2019, under the framework, China had signed intergovernmental documents on cooperation with 137 countries and 30 international organizations.",
             enSource: '_What is the "Belt and Road" Initiative?_ Belt and Road Portal',
-            enLink: "https://eng.yidaiyilu.gov.cn/ghsl/cjwd/2757.htm",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
             chTitle: "“一带一路”",
             chText: "“一带一路”是“丝绸之路经济带”和“21世纪海上丝绸之路”的简称，是由中国国家主席习近平在2013年9月和10月出访中亚和东南亚国家期间提出的区域经济合作与发展倡议。",
             chTitleSecond: "“一带一路”沿线国家",
@@ -1348,7 +1351,7 @@ export default {
             chText: "指一个国家所有常住单位在一定时期内生产活动的最终成果。国内生产总值有三种表现形态，即价值形态、收入形态和产品形态。从价值形态看，它是所有常住单位在一定时期内生产的全部货物和服务价值与同期投入的全部非固定资产货物和服务价值的差额，即所有常住单位的增加值之和；从收入形态看，它是所有常住单位在一定时期内创造的各项收入之和，包括劳动者报酬、生产税净额、固定资产折旧和营业盈余；从产品形态看，它是所有常住单位在一定时期内最终使用的货物和服务价值与货物和服务净出口价值之和。在实际核算中，国内生产总值有三种计算方法，即生产法、收入法和支出法。三种方法分别从不同的方面反映国内生产总值及其构成。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《国民经济核算》_",
+            chSource: "国家统计局_国家数据指标解释 –《国民经济核算》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713058.html"
         },
         dataSources: {
@@ -1382,7 +1385,7 @@ export default {
             chText: "居民消费价格指数是反映一定时期内城乡居民所购买的生活消费品和服务项目价格变动趋势和程度的相对数，是对城市居民消费价格指数和农村居民消费价格指数进行综合汇总计算的结果。通过该指数可以观察和分析消费品的零售价格和服务项目价格变动对城乡居民实际生活费支出的影响程度。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《价格》_",
+            chSource: "国家统计局_国家数据指标解释 –《价格》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713056.html"
         },
         dataSources: {
@@ -1416,7 +1419,7 @@ export default {
             chText: "采购经理指数（PMI）是通过对企业采购经理的月度调查结果统计汇总、编制而成的指数，它涵盖了企业采购、生产、流通等各个环节，包括制造业和非制造业领域，是国际上通用的监测宏观经济走势的先行性指数之一，具有较强的预测、预警作用。综合PMI产出指数是反映当期全行业（制造业和非制造业）产出变化情况的综合指数。PMI通常以50%作为经济强弱的分界点，PMI高于50%时，反映经济总体扩张；低于50%，则反映经济总体收缩。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家数据指标解释 - _PMI_，国家统计局",
+            chSource: "国家统计局_国家数据指标解释 – 采购经理人指数（PMI）_",
             chLink: "https://data.stats.gov.cn/easyquery.htm?cn=A01&zb=A0B01&sj=202011"
         },
         dataSources: {
@@ -1450,12 +1453,12 @@ export default {
             chText: "城镇登记失业率指城镇登记失业人员与城镇单位就业人员(扣除使用的农村劳动力、聘用的离退休人员、港澳台及外方人员)、城镇单位中的不在岗职工、城镇私营业主、个体户主、城镇私营企业和个体就业人员、城镇登记失业人员之和的比。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《就业和工资》_",
+            chSource: "国家统计局_国家数据指标解释 –《就业和工资》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713057.html"
         },
         dataSources: {
-            en: "_Latest Release_, National Bureau of Statistics",
-            enSecond: "_Statistics_, Ministry of Human Resources and Social Security",
+            en: "_Latest Release,_ National Bureau of Statistics",
+            enSecond: "_Statistics,_ Ministry of Human Resources and Social Security",
             enThird: "",
             ch: "国家统计局_最新发布_",
             chSecond: "人力资源社会保障部_统计数据_",
@@ -1512,13 +1515,13 @@ export default {
             enText: "The Producer Price Index reflects the trend and level of price changes in industrial products that are sold for the first time within a certain period. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Price_, National Bureau of Statistics",
+            enSource: "_Price Indices,_ National Bureau of Statistics",
             enLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713056.html",
             chTitle: "工业生产者出厂价格指数",
             chText: "工业生产者出厂价格指数是反映一定时期内全部工业产品第一次出售时的出厂价格总水平的变动趋势和变动幅度的相对数。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《价格》_",
+            chSource: "国家统计局_国家数据指标解释 –《价格》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713056.html"
         },
         dataSources: {
@@ -1546,13 +1549,13 @@ export default {
             enText: "Industrial value-added refers to the final results of industrial production in money terms during a reporting period. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Definiton of indicators - _Industrial value-added, National Bureau of Statistics_",
+            enSource: "_Definiton of indicators - Industrial value-added,_ National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "工业增加值",
             chText: "工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家数据指标解释 - _工业增加值_",
+            chSource: "国家统计局_国家数据指标解释 - 工业增加值_",
             chLink: "https://data.stats.gov.cn/easyquery.htm?cn=A01"
         },
         dataSources: {
@@ -1580,13 +1583,13 @@ export default {
             enText: "Industrial profits refer to the operational results of industrial companies during a specific accounting period. It is the balance between various incomes and outgoings over the course of operation, reflecting the profits and losses of enterprises over the reporting period.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Definiton of indicators - _Industrial profits_, National Bureau of Statistics",
+            enSource: "_Definiton of indicators - Industrial profits_, National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "工业企业利润",
             chText: "工业企业利润总额指企业在一定会计期间的经营成果，是生产经营过程中各种收入扣除各种耗费后的盈余，反映企业在报告期内实现的盈亏总额。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家数据指标解释 - _利润总额_",
+            chSource: "国家统计局_国家数据指标解释 - 利润总额_",
             chLink: "https://data.stats.gov.cn/easyquery.htm?cn=A01"
         },
         dataSources: {
@@ -1614,13 +1617,13 @@ export default {
             enText: "Total retail sales of consumer goods refers to the amount gained by businesses (including self-employed individuals) through direct sales to individuals and organizations of commodities that are not for production or business operations. Individuals include rural and urban households, plus people from abroad. Organizations include government agencies, social institutions, military units, schools, enterprises, public institutions and community or village committees.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Definiton of indicators - _Total retail sales of consumer goods_, National Bureau of Statistics",
+            enSource: "_Definiton of indicators - Total retail sales of consumer goods_, National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "社会消费品零售总额",
             chText: "社会消费品零售总额指企业（单位、个体户）通过交易直接售给个人和社会集团的非生产、非经营用的实物商品之金额，以及提供餐饮服务所取得的收入金额。个人包括城乡居民和入境人员，社会集团包括机关、社会团体、部队、学校、企事业单位、居委会或村委会等。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《批发和零售业》_",
+            chSource: "国家统计局_国家数据指标解释 –《批发和零售业》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713046.html"
         },
         dataSources: {
@@ -1652,13 +1655,13 @@ export default {
             enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan（$765,134）. This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "Definiton of indicators - _Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",
+            enSource: "_Definiton of indicators - Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "固定资产投资（不含农户）",
             chText: "固定资产投资（不含农户）指城镇和农村各种登记注册类型的企业、事业、行政单位及城镇个体户进行的计划总投资500万元及以上的建设项目投资和房地产开发投资，包括原口径的城镇固定资产投资加上农村企事业组织项目投资，该口径自2011年起开始使用。",
             chTitleSecond: "",
             chTextSecond: "",
-            chSource: "国家统计局_《固定资产投资》_",
+            chSource: "国家统计局_国家数据指标解释 –《固定资产投资》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713051.html"
         },
         dataSources: {
@@ -1689,13 +1692,13 @@ export default {
             enTextThird: "National revenue is divided into central and local revenue according to the current tax system.",
             enTitleSecond: "General public budget expenditure",
             enTextSecond: "General public budget expenditure refers to the distribution and use of the funds that government finance has raised, so as to meet the needs of economic development and various causes. It includes the following main items: expenditure on general public services, foreign affairs, national defense, public security, education, science and technology, culture, sports and media, social security and employment, healthcare and family planning, energy conservation and environmental protection, urban and rural communities, agriculture, forestry and water conservancy, transportation, geological prospecting works, commerce, finance, assistance to other regions, land, sea and meteorology, housing security, grain and oil supplies reserves, debt payment, and debt issuance expenditures. Fiscal expenditure is divided into central and local fiscal expenditures.",
-            enSource: "Government _Finance_",
+            enSource: "_Government Finance,_National Bureau of Statistics",
             enLink: "http://www.stats.gov.cn/english/ClassificationsMethods/Definitions/200205/t20020517_72387.html",
             chTitle: "一般公共预算收入",
             chText: "一般公共预算收入指国家财政参与社会产品分配所取得的收入，是实现国家职能的财力保证。主要包括：（1）各项税收：包括国内增值税、国内消费税、进口货物增值税和消费税、出口货物退增值税和消费税、企业所得税、个人所得税、资源税、城市维护建设税、房产税、印花税、城镇土地使用税、土地增值税、车船税、船舶吨税、车辆购置税、关税、耕地占用税、契税、烟叶税、环境保护税等。（2）非税收入：包括专项收入、行政事业性收费、罚没收入、国有资本经营收入、国有资源（资产）有偿使用收入和其他收入。财政收入按现行分税制财政体制划分为中央本级收入和地方本级收入。",
             chTitleSecond: "一般公共预算支出",
             chTextSecond: "一般公共预算支出指国家财政将筹集起来的资金进行分配使用，以满足经济建设和各项事业的需要。主要包括：一般公共服务、外交、国防、公共安全、教育、科学技术、文化体育与传媒、社会保障和就业、医疗卫生与计划生育、节能环保、城乡社区、农林水、交通运输、资源勘探信息等、商业服务业等、金融、援助其他地区、国土海洋气象等、住房保障、粮油物资储备、债务付息、债务发行费用等方面的支出。财政支出根据政府在经济和社会活动中的不同职权，划分为中央财政支出和地方财政支出。",
-            chSource: "国家统计局_《财政》_",
+            chSource: "国家统计局_国家数据指标解释 –《财政》_",
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713054.html"
         },
         dataSources: {
@@ -1725,7 +1728,7 @@ export default {
             enText: "Money supply is the stock of money in society as a whole, and is the sum of all financial instruments that bear the means of circulation and payment at any given time.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Note on Money Supply Data from the Head of the People's Bank of China_",
+            enSource: "Note on Money Supply Data from the Head of the People's Bank of China",
             enLink: "http://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2855487/index.html",
             chTitle: "货币供应量",
             chText: "货币供应量是全社会的货币存量，是某一时点承担流通和支付手段的金融工具总和。",
@@ -1780,7 +1783,7 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "The People's Bank of China started to provide gold denominated in USD, the IMF reserve position and SDRs in June 2015.",
+            en: "The People's Bank of China started to provide gold data denominated in USD, the IMF reserve position and SDRs in June 2015.",
             enSecond: "",
             ch: "自2015年6月起，中国人民银行开始提供以美元计价的黄金数据，并增加基金组织储备头寸和特别提款权数据。",
             chSecond: ""

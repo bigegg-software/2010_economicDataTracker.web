@@ -95,7 +95,7 @@ export default {
             formatNum: true
           },
           inflowsYOYGrowth: {
-            text: "实际使用外资金额同比_Y-o-y actual use of foreign capital",
+            text: "实际使用外资金额同比_YOY actual use of foreign capital",
             width: "30%",
             formatPer: true
           }
@@ -166,7 +166,7 @@ export default {
         ],
         updatedDate: "",
         legendMark: {//右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -328,7 +328,7 @@ export default {
             });
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_YOY ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["inflowsFDIMillion"],
               yearOnYear: data["inflowsYOYGrowth"],
               color: [this.randomColor[p]]

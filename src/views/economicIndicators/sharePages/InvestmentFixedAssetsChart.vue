@@ -47,7 +47,7 @@ export default {
       totalData: {
         title: {
           ch: "固定资产投资（不含农户）",
-          en: "Investment in fixed assests (Excluding rural households)"
+          en: "Investment in fixed assests (excluding rural households)"
         },
         unit: {
           ch: "亿元人民币",
@@ -65,10 +65,10 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "同比", en: "Y-o-y" },
+        yName2: { ch: "同比", en: "YOY" },
         title: {
           ch: "固定资产投资（不含农户）",
-          en: "Investment in fixed assests (Excluding rural households)"
+          en: "Investment in fixed assests (excluding rural households)"
         },
         xData: [],
         // hideLegend: true,
@@ -246,7 +246,7 @@ export default {
           {
             type: "line",
             yAxisIndex: 1, //百分比
-            name: "固定资产投资额同比_Y-o-y investment in fixed assets",
+            name: "固定资产投资额同比_YOY investment in fixed assets",
             color: "#c23531",
             data: data.yoyGrowth,
             percent: true
@@ -266,7 +266,7 @@ export default {
             type: "line",
             yAxisIndex: 1, //百分比
             name:
-              "月度固定资产投资额同比_Y-o-y cumulative monthly investment in fixed assets",
+              "月度固定资产投资额同比_YOY cumulative monthly investment in fixed assets",
             color: "#c23531",
             data: data.yoyGrowth,
             percent: true
@@ -316,7 +316,7 @@ export default {
             formatNum: true
           },
           yoyGrowth: {
-            text: "固定资产投资额同比_Y-o-y investment in fixed assets",
+            text: "固定资产投资额同比_YOY investment in fixed assets",
             width: "40%",
             formatPer: true
           }
@@ -339,7 +339,7 @@ export default {
           },
           yoyGrowth: {
             text:
-              "月度固定资产投资额同比_Y-o-y cumulative monthly investment in fixed assets",
+              "月度固定资产投资额同比_YOY cumulative monthly investment in fixed assets",
             width: "35%",
             formatPer: true
           }

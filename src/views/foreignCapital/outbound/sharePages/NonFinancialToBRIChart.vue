@@ -76,7 +76,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "非金融类直接投资金额_Non-financial FDI outflows|非金融类直接投资同比_Y-o-y non-financial FDI outflows",
+            name: "非金融类直接投资金额_Non-financial FDI outflows|非金融类直接投资同比_YOY non-financial FDI outflows",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -85,7 +85,7 @@ export default {
         updatedDate: "",
          //右上角水印
         legendMark:{
-          en:"Y-o-y",
+          en:"YOY",
           ch:"同比",
           doSymbol:"(%)"
         }
@@ -305,7 +305,7 @@ export default {
           },
           conversionYOY: {
             text:
-              "非金融类直接投资同比_Y-o-y non-financial FDI outflows",
+              "非金融类直接投资同比_YOY non-financial FDI outflows",
             width: "45%",
             formatPer:true
           }
@@ -327,7 +327,7 @@ export default {
           },
           conversionYOY: {
             text:
-              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires y-o-y growth",
+              "非金融类直接投资同比_China's non-financial FDI outflows to BRI countires YOY growth",
             width: "35%",
             formatPer:true
           }

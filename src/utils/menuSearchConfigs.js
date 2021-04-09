@@ -292,7 +292,7 @@ let economicIndicatorsMenuLists = [  //宏观经济指标模块
   }, {
     name: "investmentFixedAssets",
     ch: "固定资产投资（不含农户）",
-    en: "Investment in fixed assets (Excluding rural households)",
+    en: "Investment in fixed assets (excluding rural households)",
     cloudFun: ['InvestmentFixedAssests'],
     splitList: ["固", "定", "资", "产", "投", "资", "不", "含", "农", "户", "Investment", "in", "fixed", "assets", "Excluding", "rural", "households"],
     active: false,
@@ -313,7 +313,7 @@ let economicIndicatorsMenuLists = [  //宏观经济指标模块
   }, {
     name: "foreignCurrencyReserves",
     ch: "国家外汇储备",
-    en: "Foreign currency reserves",
+    en: "Foreign exchange reserves",
     cloudFun: ['ForeignCurrencyReserve'],
     splitList: ["国", "家", "外", "汇", "储", "备", "Foreign", "currency", "reserves"],
     active: false,

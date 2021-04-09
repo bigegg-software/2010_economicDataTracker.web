@@ -120,14 +120,14 @@ export default {
         series: [
           {
             name:
-              "实际使用外资_Actual use of foreign capital|实际使用外资同比_Y-o-y actual use of foreign capital",
+              "实际使用外资_Actual use of foreign capital|实际使用外资同比_YOY actual use of foreign capital",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
           },
           {
             name:
-              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
+              "对外直接投资流量_FDI outflows|对外直接投资流量同比_YOY FDI outflows",
             color: "#d43838",
             data: [],
             yearOnYear: []
@@ -136,7 +136,7 @@ export default {
         updatedDate: "",
         legendMark: {
           //右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -158,13 +158,13 @@ export default {
         series: [
           {
             name:
-              "实际使用外资_Actual use of foreign capital|实际使用外资同比_Y-o-y actual use of foreign capital",
+              "实际使用外资_Actual use of foreign capital|实际使用外资同比_YOY actual use of foreign capital",
             color: "#6AA3CD",
             data: []
           },
           {
             name:
-              "对外直接投资流量_FDI outflows|对外直接投资流量同比_Y-o-y FDI outflows",
+              "对外直接投资流量_FDI outflows|对外直接投资流量同比_YOY FDI outflows",
             color: "#d43838",
             data: []
           }
@@ -359,7 +359,7 @@ export default {
               formatNum: true
             },
             inwardFDIConYOY: {
-              text: "实际使用外资同比_Y-o-y actual use of foreign capital",
+              text: "实际使用外资同比_YOY actual use of foreign capital",
               width: "20%",
               formatPer: true
             },
@@ -369,7 +369,7 @@ export default {
               formatNum: true
             },
             conversionYOY: {
-              text: "对外直接投资流量同比_Y-o-y FDI outflows",
+              text: "对外直接投资流量同比_YOY FDI outflows",
               width: "20%",
               formatPer: true
             }

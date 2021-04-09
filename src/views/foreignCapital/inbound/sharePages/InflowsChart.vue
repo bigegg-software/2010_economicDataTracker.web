@@ -75,7 +75,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "实际使用外资_Actual use of foreign capitals|实际使用外资同比_Y-o-y actual use of foreign capital",
+            name: "实际使用外资_Actual use of foreign capitals|实际使用外资同比_YOY actual use of foreign capital",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -83,7 +83,7 @@ export default {
         ],
         updatedDate: "",
         legendMark: {//右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -268,7 +268,7 @@ export default {
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_Y-o-y actual use of foreign capital",
+            text: "实际使用外资同比_YOY actual use of foreign capital",
             width: "45%",
             formatPer:true
           }
@@ -289,7 +289,7 @@ export default {
             formatNum:true
           },
           inwardFDIConYOY: {
-            text: "实际使用外资同比_Y-o-y actual use of foreign capital",
+            text: "实际使用外资同比_YOY actual use of foreign capital",
             width: "35%",
             formatPer:true
           }

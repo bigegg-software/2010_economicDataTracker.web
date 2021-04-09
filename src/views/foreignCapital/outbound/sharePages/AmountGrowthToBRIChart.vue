@@ -76,7 +76,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "完成营业额_Revenue of completed contracts|完成营业额同比_Y-o-y growth of completed contracts revenue",
+            name: "完成营业额_Revenue of completed contracts|完成营业额同比_YOY growth of completed contracts revenue",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -85,7 +85,7 @@ export default {
         updatedDate: "",
         isLongTitle: true, //标题是否过长
         legendMark: {//右上角水印
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         }
@@ -301,7 +301,7 @@ export default {
             formatNum:true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "45%",
             formatPer:true
           }
@@ -322,7 +322,7 @@ export default {
             formatNum:true
           },
           completedAmountConYOY: {
-            text: "完成营业额同比_Y-o-y growth of completed contracts revenue",
+            text: "完成营业额同比_YOY growth of completed contracts revenue",
             width: "35%",
             formatPer:true
           }

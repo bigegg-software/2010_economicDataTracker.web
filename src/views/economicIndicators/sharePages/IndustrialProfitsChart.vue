@@ -69,7 +69,7 @@ export default {
             formatNum: true
           },
           yoyGrowth: {
-            text: "月度累计工业企业利润额同比_Y-o-y cumulative monthly industrial profit",
+            text: "月度累计工业企业利润额同比_YOY cumulative monthly industrial profit",
             width: "35%",
             formatPer: true
           }
@@ -85,7 +85,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "同比", en: "Y-o-y" },
+        yName2: { ch: "同比", en: "YOY" },
         title: {
           ch: "工业企业利润",
           en: "Industrial profit"

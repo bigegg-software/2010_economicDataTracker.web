@@ -76,7 +76,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "同比", en: "Y-o-y" },
+        yName2: { ch: "同比", en: "YOY" },
         title: {
           ch: "社会消费品零售总额",
           en: "Total retail sales of consumer goods"
@@ -279,7 +279,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "社会消费品零售总额同比_Y-o-y total retail sales of consumer goods",
+                  name: "社会消费品零售总额同比_YOY total retail sales of consumer goods",
                   color: "red",
                   data: data.yoyGrowth,
                   percent:true
@@ -298,7 +298,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "当月社会消费品零售总额同比_Y-o-y monthly retail sales",
+                  name: "当月社会消费品零售总额同比_YOY monthly retail sales",
                   color: "#333",
                   data: data.yoyGrowth,
                   percent:true
@@ -316,7 +316,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "月度累计社会消费品零售总额同比_Y-o-y cumulative monthly retail sales",
+                  name: "月度累计社会消费品零售总额同比_YOY cumulative monthly retail sales",
                   color: "#333",
                   data: data.cumulativeYoyGrowth,
                   percent:true
@@ -377,7 +377,7 @@ export default {
             formatNum: true
           },
           yoyGrowth: {
-            text: "社会消费品零售总额同比_Y-o-y total retail sales of consumer goods",
+            text: "社会消费品零售总额同比_YOY total retail sales of consumer goods",
             width: "40%",
             formatPer: true
           }
@@ -399,7 +399,7 @@ export default {
             formatNum: true
           },
           yoyGrowth : {
-            text: "当月社会消费品零售总额同比_Y-o-y monthly retail sales",
+            text: "当月社会消费品零售总额同比_YOY monthly retail sales",
             width: "35%",
             formatPer: true
           }
@@ -420,7 +420,7 @@ export default {
               formatNum: true
             },
              cumulativeYoyGrowth: {
-              text: "月度累计社会消费品零售总额同比_Y-o-y cumulative monthly retail sales",
+              text: "月度累计社会消费品零售总额同比_YOY cumulative monthly retail sales",
               width: "35%",
               formatPer: true
             }

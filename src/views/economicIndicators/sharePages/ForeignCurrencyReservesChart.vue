@@ -48,7 +48,7 @@ export default {
       totalData: {
         title: {
           ch: "国家外汇储备",
-          en: "Foreign currency reserve"
+          en: "Foreign exchange reserves"
         },
         unit: {
           ch: "百万美元",
@@ -64,24 +64,28 @@ export default {
             width: "10%"
           },
           reserves: {
-            text: "外汇储备_Foreign currency reserves",
-            width: "16%"
+            text: "外汇储备_Foreign exchange reserves",
+            width: "16%",
+						formatNum: true
           },
           IMF: {
             text: "基金组织储备头寸_IMF reserve position",
-            width: "16%"
+            width: "16%",
+						formatNum: true
           },
           SDRs: {
             text: "特别提款权_SDRs",
-            width: "16%"
+            width: "16%",
+						formatNum: true
           },
           goldMLN: {
-            text: "黄金（盎司）_Gold ( mln oz.)",
+            text: "黄金（百万盎司）_Gold ( mln oz.)",
             width: "16%"
           },
           goldUSD: {
-            text: "黄金（美元）_Gold (USD mln)",
-            width: "16%"
+            text: "黄金（百万美元）_Gold (USD mln)",
+            width: "16%",
+						formatNum: true
           }
         },
         tableData: [],
@@ -99,7 +103,7 @@ export default {
         yName2: { ch: "百万盎司", en: "mln oz." },
         title: {
           ch: "国家外汇储备",
-          en: "Foreign currency reserve"
+          en: "Foreign exchange reserves"
         },
         xData: [],
         // hideLegend: true,
@@ -107,7 +111,7 @@ export default {
           {
             type: "line",
             yAxisIndex: 0, //数值
-            name: "外汇储备_Foreign currency reserves",
+            name: "外汇储备_Foreign exchange reserves",
             color: "#c23531",
             data: []
           },
@@ -128,14 +132,14 @@ export default {
           {
             type: "line",
             yAxisIndex: 0, //百分比
-            name: "黄金（美元）_Gold (USD mln)",
+            name: "黄金（百万美元）_Gold (USD mln)",
             color: "#a65783",
             data: []
           },
           {
             type: "bar",
             yAxisIndex: 1, //百分比
-            name: "黄金（盎司）_Gold ( mln oz.)",
+            name: "黄金（百万盎司）_Gold ( mln oz.)",
             color: "#71a6c2",
             data: [],
             rightInt: true

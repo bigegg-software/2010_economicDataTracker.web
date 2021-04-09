@@ -95,7 +95,7 @@ export default {
             formatNum: true
           },
           yOY: {
-            text: "对外直接投资流量同比_Y-o-y FDI outflows",
+            text: "对外直接投资流量同比_YOY FDI outflows",
             width: "35%",
             formatPer: true
           }
@@ -171,7 +171,7 @@ export default {
         updatedDate: "",
          //右上角水印
         legendMark:{
-          en:"Y-o-y",
+          en:"YOY",
           ch:"同比",
           doSymbol:"(%)"
         }
@@ -332,7 +332,7 @@ export default {
             // 为了保存同比下的行业分布情况在表格中展示
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_Y-o-y ${res[i][0].industryEn.slice("0").toLowerCase()}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_YOY${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["outflowsMillion"],
               yearOnYear: data["yOY"],
               color: [this.randomColor[p]]

@@ -65,7 +65,7 @@ export default {
         // yPosition:['left','right'],
         // yLabel:[true,true],
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
-        yName2: { ch: "同比", en: "Y-o-y" },
+        yName2: { ch: "同比", en: "YOY" },
         title: {
           ch: "国内生产总值",
           en: "Gross Domestic Product"
@@ -239,7 +239,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "年度增速_Y-o-y GDP",
+                  name: "年度增速_YOY GDP",
                   color: "#c23531",
                   data: data.yoyGrowth,
                   percent:true
@@ -257,7 +257,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "当季同比增速_Y-o-y quarterly GDP",
+                  name: "当季同比增速_YOY quarterly GDP",
                   color: "#d95959",
                   data: data.yoyGrowth,
                   percent:true
@@ -272,7 +272,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
+                  name: "季度累计同比增速_YOY cumulative quarterly GDP",
                   color: "#61a0c0",
                   data: data.cumulativeYoyGrowth ,
                   percent:true
@@ -280,7 +280,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "季度环比增速_Q-o-q GDP",
+                  name: "季度环比增速_QOQ GDP",
                   color: "#69b9a0",
                   data: data.qoqGDP ,
                   percent:true
@@ -336,7 +336,7 @@ export default {
             formatNum: true
           },
           yoyGrowth: {
-            text: "年度增速_Y-o-y GDP",
+            text: "年度增速_YOY GDP",
             width: "40%",
             formatPer: true
           }
@@ -362,17 +362,17 @@ export default {
             formatNum: true
           },
           yoyGrowth : {
-            text: "当季同比增速_Y-o-y quarterly GDP",
+            text: "当季同比增速_YOY quarterly GDP",
             width: "35%",
             formatPer: true
           },
           cumulativeYoyGrowth : {
-            text: "季度累计同比增速_Y-o-y cumulative quarterly GDP",
+            text: "季度累计同比增速_YOY cumulative quarterly GDP",
             width: "35%",
             formatPer: true
           },
           qoqGDP  : {
-            text: "季度环比增速_Q-o-q GDP",
+            text: "季度环比增速_QOQ GDP",
             width: "35%",
             formatPer: true
           }
