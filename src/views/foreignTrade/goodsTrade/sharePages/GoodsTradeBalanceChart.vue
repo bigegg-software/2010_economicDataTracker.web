@@ -70,7 +70,7 @@ export default {
       },
       totalData: {
         title: {
-         ch: "中国货物进出口贸易差额", en: "China’s balance of trade"    },
+         ch: "中国货物进出口贸易差额", en: "China's balance of trade"    },
         unit: {
           ch: "百万美元",
           en: "USD mln"
@@ -86,7 +86,7 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "百万美元", en: "USD mln" },
         yearOnYear: false, //通过修改这个值来显示同比
-        title: { ch: "中国货物进出口贸易差额", en: "China’s balance of trade" },
+        title: { ch: "中国货物进出口贸易差额", en: "China's balance of trade" },
         xData: [],
         hideLegend: true,
         series: [

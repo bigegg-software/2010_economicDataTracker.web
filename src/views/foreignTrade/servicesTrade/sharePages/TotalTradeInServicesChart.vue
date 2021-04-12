@@ -84,12 +84,12 @@ export default {
         xData: [],
         series: [
           {
-            name: "进口_Import|进口同比_YOY import",
+            name: "进口_Imports|进口同比_YOY imports",
             color: "#c23531",
             data: []
           },
           {
-            name: "出口_Export|出口同比_YOY export",
+            name: "出口_Exports|出口同比_YOY exports",
             color: "#61a0a8",
             data: []
           }
@@ -287,12 +287,12 @@ export default {
             width: "10%"
           },
           import: {
-            text: "进口_Import",
+            text: "进口_Imports",
             width: "20%",
             formatNum: true
           },
           export: {
-            text: "出口_Export",
+            text: "出口_Exports",
             width: "20%",
             formatNum: true
           }
@@ -308,12 +308,12 @@ export default {
             width: "20%"
           },
           import: {
-            text: "进口_Import",
+            text: "进口_Imports",
             width: "20%",
             formatNum: true
           },
           export: {
-            text: "出口_Export",
+            text: "出口_Exports",
             width: "20%",
             formatNum: true
           }

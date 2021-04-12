@@ -53,7 +53,7 @@ export default {
         {
           name: "goodsTradeBalanceChart",
           chinese: "中国货物进出口贸易差额",
-          english: "China’s balance of trade"
+          english: "China's balance of trade"
         }
       ],
 
