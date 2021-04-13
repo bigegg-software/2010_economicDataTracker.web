@@ -835,6 +835,7 @@ export default {
         noteContent: {
             en: "1.Data on some industries in 2010 are unavailable.",
             enSecond: "2. “-” indicates that the source has not released such data.",
+			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
             ch: "1. 2010年部分行业同比数据缺失。",
             chSecond: "2. “-”表示数据源未公布相关数据。"
         }
