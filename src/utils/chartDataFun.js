@@ -241,7 +241,7 @@ export default {
         ch: '制造业'
       },
       {
-        en: 'Agriculture',
+        en: 'Ag, Forestry, Fishing,',
         ch: '农林牧渔业'
       },
       {
