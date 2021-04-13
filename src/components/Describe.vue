@@ -59,7 +59,7 @@
           {{describeData.concept.chTextSecond.split("_")[2]}}
         </div>
         <div class="chSource">
-          {{describeData.concept.chSource.split("_")[0]}}
+          <span>{{describeData.concept.chSource.split("_")[0]}}</span>
           <a
             :href="describeData.concept.chLink"
             target="_blank"

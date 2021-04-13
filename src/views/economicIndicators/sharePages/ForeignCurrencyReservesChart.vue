@@ -51,8 +51,8 @@ export default {
           en: "Foreign exchange reserves"
         },
         unit: {
-          ch: "百万美元",
-          en: "USD mln"
+          ch: "百万美元/百万盎司",
+          en: "USD mln/mln oz."
         },
         tableTitle: {
           year: {

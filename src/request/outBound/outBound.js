@@ -441,8 +441,8 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
                 "年份",
                 '大洲（英文）',
                 '大洲',
-                '国家（英文）',
-                '国家',
+                '国家/地区(英文)',
+                '国家/地区',
                 tabIndex==1?'中国对外直接投资存量':'中国对外直接投资流量',
                 '单位'
             ],
