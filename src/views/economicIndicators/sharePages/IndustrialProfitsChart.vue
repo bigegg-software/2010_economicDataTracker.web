@@ -103,7 +103,7 @@ export default {
                 {
                   type:'line',
                   yAxisIndex:1,//百分比
-                  name: "月度累计工业企业利润额同比_Y-o-y cumulative monthly industrial profit",
+                  name: "月度累计工业企业利润额同比_YOY cumulative monthly industrial profit",
                   color: "red",
                   data: [],
                   percent:true

@@ -74,7 +74,7 @@ export default {
       totalData: {
         title: {
           ch: "中国未分类商品进出口总值",
-          en: "China's import and export of unclassified commodities"
+          en: "China's imports and exports of unclassified commodities"
         },
         unit: {
           ch: "百万美元",
@@ -92,7 +92,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国未分类商品进出口总值",
-          en: "China's import and export of unclassified commodities"
+          en: "China's imports and exports of unclassified commodities"
         },
         xData: [],
         hideLegend: true,
@@ -203,7 +203,7 @@ export default {
         let str = this.category.value.en;
         str = str.replace(str[0], str[0].toLowerCase()); //商品类别首字母小写
         this.totalData.title.ch = this.USD.title.ch = `中国${this.category.value.ch}进出口总值`;
-        this.totalData.title.en = this.USD.title.en = `China's import and export of ${str}`;
+        this.totalData.title.en = this.USD.title.en = `China's imports and exports of ${str}`;
       },
       deep: true
     }

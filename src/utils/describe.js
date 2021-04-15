@@ -17,7 +17,7 @@ export default {
             chLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml"
         },
         dataSources: {
-            en: "_World Investment Report, UNCTAD ",
+            en: "_World Investment Report_, UNCTAD ",
             ch: "联合国贸发会议_《世界投资报告》_"
         },
         sourceLink: "https://unctad.org/topic/investment/world-investment-report",
@@ -618,7 +618,7 @@ export default {
             enText: "FDI stocks measure the total level of direct investment at a given point in time, usually the end of a quarter or a year. Outward FDI stocks refer to the net stock of outward foreign direct investment.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment_, Ministry of Commerce",
+            enSource: "_Appendix 5. Definitions and Explanations of Main Indicators, 2015 Statistical Bulletin of China's Outward Foreign Direct Investment,_ Ministry of Commerce",
             enLink: "http://hzs.mofcom.gov.cn/article/date/201612/20161202103624.shtml",
             chTitle: "对外直接投资存量",
             chText: "对外投资存量指对外直接投资累计净额。",
@@ -971,7 +971,7 @@ export default {
             chLink: ""
         },
         dataSources: {
-            en: "1._World Investment Report,_ UNCTAD",
+            en: "1._World Investment Report_, UNCTAD",
             enSecond: "2. _Monthly Summary Statistics - Outbound Investment, 2003 to present_, Ministry of Commerce and State Administration of Foreign Exchange",
             enThird: "3._ Monthly FDI statistics, 2004 to present_, Ministry of Commerce",
             ch: "1. 联合国贸发会议_《世界投资报告》_",
@@ -1380,7 +1380,7 @@ export default {
             enText: "The Consumer Price Index (CPI) reflects the trends and degrees of change in the prices of consumer goods and services purchased by urban and rural residents, and is a composite index derived from the urban consumer price index and the rural consumer price index. The CPI can be used to analyze the impact of consumer price changes on actual expenditure and the living costs of urban and rural residents.",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Price Indices_，National Bureau of Statistics",
+            enSource: "_Price Indices_, National Bureau of Statistics",
             enLink: "http://www.stats.gov.cn/english/ClassificationsMethods/Definitions/200205/t20020517_72386.html",
             chTitle: "居民消费价格指数 (CPI)",
             chText: "居民消费价格指数是反映一定时期内城乡居民所购买的生活消费品和服务项目价格变动趋势和程度的相对数，是对城市居民消费价格指数和农村居民消费价格指数进行综合汇总计算的结果。通过该指数可以观察和分析消费品的零售价格和服务项目价格变动对城乡居民实际生活费支出的影响程度。",
@@ -1458,8 +1458,8 @@ export default {
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713057.html"
         },
         dataSources: {
-            en: "_Latest Release,_ National Bureau of Statistics",
-            enSecond: "_Statistics,_ Ministry of Human Resources and Social Security",
+            en: "_Latest Release_, National Bureau of Statistics",
+            enSecond: "_Statistics_, Ministry of Human Resources and Social Security",
             enThird: "",
             ch: "国家统计局_最新发布_",
             chSecond: "人力资源社会保障部_统计数据_",
@@ -1492,7 +1492,7 @@ export default {
             chLink: "https://data.stats.gov.cn/easyquery.htm?cn=A01"
         },
         dataSources: {
-            en: "_Latest Release_, National Bureau of Statistics",
+            en: "_Latest Release,_ National Bureau of Statistics",
             enSecond: "",
             enThird: "",
             ch: "国家统计局_最新发布_",
@@ -1526,7 +1526,7 @@ export default {
             chLink: "http://www.stats.gov.cn/tjsj/zbjs/201912/t20191202_1713056.html"
         },
         dataSources: {
-            en: "_Latest Release_, National Bureau of Statistics",
+            en: "_Latest Release,_ National Bureau of Statistics",
             enSecond: "",
             enThird: "",
             ch: "国家统计局_最新发布_",
@@ -1550,7 +1550,7 @@ export default {
             enText: "Industrial value-added refers to the final results of industrial production in money terms during a reporting period. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Definiton of indicators - Industrial value-added,_ National Bureau of Statistics",
+            enSource: "_Definiton of indicators - Industrial value-added_, National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "工业增加值",
             chText: "工业增加值是指工业企业在报告期内以货币形式表现的从事工业生产活动的最终成果",
@@ -1656,7 +1656,7 @@ export default {
             enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan（$765,134）. This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
             enTitleSecond: "",
             enTextSecond: "",
-            enSource: "_Definiton of indicators - Investment in fixed assets (excluding rural households),_ National Bureau of Statistics",
+            enSource: "_Definiton of indicators - Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",
             enLink: "https://data.stats.gov.cn/english/easyquery.htm?cn=A01",
             chTitle: "固定资产投资（不含农户）",
             chText: "固定资产投资（不含农户）指城镇和农村各种登记注册类型的企业、事业、行政单位及城镇个体户进行的计划总投资500万元及以上的建设项目投资和房地产开发投资，包括原口径的城镇固定资产投资加上农村企事业组织项目投资，该口径自2011年起开始使用。",
@@ -1693,7 +1693,7 @@ export default {
             enTextThird: "National revenue is divided into central and local revenue according to the current tax system.",
             enTitleSecond: "General public budget expenditure",
             enTextSecond: "General public budget expenditure refers to the distribution and use of the funds that government finance has raised, so as to meet the needs of economic development and various causes. It includes the following main items: expenditure on general public services, foreign affairs, national defense, public security, education, science and technology, culture, sports and media, social security and employment, healthcare and family planning, energy conservation and environmental protection, urban and rural communities, agriculture, forestry and water conservancy, transportation, geological prospecting works, commerce, finance, assistance to other regions, land, sea and meteorology, housing security, grain and oil supplies reserves, debt payment, and debt issuance expenditures. Fiscal expenditure is divided into central and local fiscal expenditures.",
-            enSource: "_Government Finance,_National Bureau of Statistics",
+            enSource: "_Government Finance_, National Bureau of Statistics",
             enLink: "http://www.stats.gov.cn/english/ClassificationsMethods/Definitions/200205/t20020517_72387.html",
             chTitle: "一般公共预算收入",
             chText: "一般公共预算收入指国家财政参与社会产品分配所取得的收入，是实现国家职能的财力保证。主要包括：（1）各项税收：包括国内增值税、国内消费税、进口货物增值税和消费税、出口货物退增值税和消费税、企业所得税、个人所得税、资源税、城市维护建设税、房产税、印花税、城镇土地使用税、土地增值税、车船税、船舶吨税、车辆购置税、关税、耕地占用税、契税、烟叶税、环境保护税等。（2）非税收入：包括专项收入、行政事业性收费、罚没收入、国有资本经营收入、国有资源（资产）有偿使用收入和其他收入。财政收入按现行分税制财政体制划分为中央本级收入和地方本级收入。",

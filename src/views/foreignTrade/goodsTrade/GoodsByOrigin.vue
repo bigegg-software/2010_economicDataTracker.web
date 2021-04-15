@@ -38,7 +38,7 @@ export default {
         {
           name: "tradeByOriginChart",
           chinese: "货物进出口总值(国别/地区)",
-          english: "Import and export by origin"
+          english: "Imports and exports by origin"
         }
       ],
 

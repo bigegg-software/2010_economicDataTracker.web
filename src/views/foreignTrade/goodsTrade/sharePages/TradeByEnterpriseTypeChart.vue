@@ -66,7 +66,7 @@ export default {
       totalData: {
         title: {
           ch: "中国国有企业货物进出口总值",
-          en: "China's import and export by state-owned enterprises"
+          en: "China's imports and exports by state-owned enterprises"
         },
         unit: {
           ch: "百万美元",
@@ -84,7 +84,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国国有企业货物进出口总值",
-          en: "China's import and export by state-owned enterprises"
+          en: "China's imports and exports by state-owned enterprises"
         },
         xData: [],
         hideLegend: true,
@@ -201,7 +201,7 @@ export default {
         let str = this.enterpriseType.value.en;
         str = str.replace(str[0], str[0].toLowerCase()); //商品类别首字母小写
         this.totalData.title.ch = this.USD.title.ch = `中国${this.enterpriseType.value.ch}货物进出口总值`;
-        this.totalData.title.en = this.USD.title.en = `China's import and export by ${str}`;
+        this.totalData.title.en = this.USD.title.en = `China's imports and exports by ${str}`;
       },
       deep: true
     }

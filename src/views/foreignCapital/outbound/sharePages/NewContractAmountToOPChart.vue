@@ -111,7 +111,7 @@ export default {
         hideLegend: true,
         series: [
           {
-            name: "新签合同额(USD)_Total value of new contracts|新签合同额同比_Total value of new contracts YOY growth",
+            name: "新签合同额 (USD)_Total value of new contracts|新签合同额同比_Total value of new contracts YOY growth",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -347,7 +347,7 @@ export default {
             width: "10%"
           },
           newConAmountConMillion: {
-            text: "新签合同额(USD)_Total value of new contracts",
+            text: "新签合同额 (USD)_Total value of new contracts",
             width: "20%",
             formatNum: true
           },
@@ -378,7 +378,7 @@ export default {
             width: "20%"
           },
           newConAmountConMillion: {
-            text: "新签合同额(USD)_Total value of new contracts",
+            text: "新签合同额 (USD)_Total value of new contracts",
             width: "35%",
             formatNum: true
           },

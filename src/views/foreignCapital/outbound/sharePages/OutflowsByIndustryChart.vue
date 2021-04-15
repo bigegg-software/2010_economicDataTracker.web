@@ -332,7 +332,7 @@ export default {
             // 为了保存同比下的行业分布情况在表格中展示
             industryAddYoYData.push(...res[i]);
             let selectedIndustry = {
-              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_YOY${res[i][0].industryEn.slice("0").toLowerCase()}`,
+              name: `${res[i][0].industry}_${res[i][0].industryEn}|${res[i][0].industry}同比_YOY ${res[i][0].industryEn.slice("0").toLowerCase()}`,
               data: data["outflowsMillion"],
               yearOnYear: data["yOY"],
               color: [this.randomColor[p]]

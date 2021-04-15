@@ -167,7 +167,7 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByOrigin",
         ch: "货物进出口总值按国别/地区统计",
-        en: "Import and export by origin",
+        en: "Imports and exports by origin",
         cloudFun: ['ImportExportOrigin'],
         splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '国', '别', '地', '区', '统', '计', 'Import', 'and', 'export', 'by', 'origin'],
         active: false,
@@ -175,7 +175,7 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByCommodity",
         ch: "货物进出口总值按商品类别统计",
-        en: "Import and export by commodity (HS section)",
+        en: "Imports and exports by commodity (HS section)",
         cloudFun: ['ImportExportCommodity'],
         splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '商', '品', '类', '别', '统', '计', 'Import', 'and', 'export', 'by', 'commodity', 'HS', 'section'],
         active: false,
@@ -183,14 +183,14 @@ let foreignTradeMenuLists = [  //外贸模块
       {
         name: "goodsByEnterpriseType",
         ch: "货物进出口总值按企业性质统计",
-        en: "Import and export by enterprise type",
+        en: "Imports and exports by enterprise type",
         cloudFun: ['ImportExportEnterprise'],
         splitList: ['货', '物', '进', '出', '口', '按', '企', '业', '性', '质', '统', '计', 'Import', 'and', 'export', 'by', 'enterprise', 'type'],
         active: false,
       }, {
         name: "goodsByCustomRegime",
         ch: "货物进出口总值按贸易方式统计",
-        en: "Import and export by custom regime",
+        en: "Imports and exports by custom regime",
         cloudFun: ['ImportExportCustomRegime'],
         splitList: ["货", "物", "进", "出", "口", "总", "值", "按", "贸", "易", "方", "式", "统", "计", "Import", "and", "export", "by", "custom", "regime"],
         active: false,

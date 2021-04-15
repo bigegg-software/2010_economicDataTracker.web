@@ -48,7 +48,7 @@ export default {
         {
           name: "tradeByEnterpriseTypeChart",
           chinese: "货物进出口总值按企业性质统计",
-          english: "Import and export by enterprise type"
+          english: "Imports and exports by enterprise type"
         }
       ],
 

@@ -274,7 +274,7 @@ export default {
             }
           },
           {
-            name: "工业生产者价格指数月度环比_M-o-m monthly PPI",
+            name: "工业生产者价格指数月度环比_MOM monthly PPI",
             type: "line",
             color: "#c23531",
             data: data.momGrowth
@@ -343,7 +343,7 @@ export default {
             formatPer: true
           },
           momGrowth: {
-            text: "工业生产者价格指数月度环比_M-o-m monthly PPI",
+            text: "工业生产者价格指数月度环比_MOM monthly PPI",
             width: "35%",
             formatPer: true
           }
