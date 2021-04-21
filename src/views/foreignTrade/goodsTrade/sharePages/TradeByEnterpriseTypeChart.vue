@@ -199,7 +199,7 @@ export default {
     enterpriseType: {
       handler() {
         let str = this.enterpriseType.value.en;
-        str = str.replace(str[0], str[0].toLowerCase()); //商品类别首字母小写
+        str = str.replace(str[0], str=='State-owned enterprises'?str[0]:str[0].toLowerCase()); //商品类别首字母小写，state-owned开头字母大写
         this.totalData.title.ch = this.USD.title.ch = `中国${this.enterpriseType.value.ch}货物进出口总值`;
         this.totalData.title.en = this.USD.title.en = `China's imports and exports by ${str}`;
       },
