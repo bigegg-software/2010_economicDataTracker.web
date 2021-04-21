@@ -318,6 +318,7 @@ export default {
       ],
       2: [
         "年份",
+        "月份",
         '累计进出口',
         '累计进出口同比',
         '累计进口',
@@ -357,12 +358,14 @@ export default {
       fileName: '中国货物进出口总值按商品类别统计',
       tHeader: [
         "年份",
+        "商品类别",
+        "商品类别（英文）",
         '进口',
         '进口同比',
         '出口',
         '出口同比',
       ],
-      filterVal: ['year', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport'],
+      filterVal: ['year','categoryZH','categoryEN', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport'],
       tableData: [...tableres]
     }
     store.commit('saveChartTable', tableInfo);
@@ -382,13 +385,16 @@ export default {
     let tHeader = {
       1: [
         "年份",
-        "商品总类",
+        "商品类别",
+        "商品类别（英文）",
         '当月进口',
         '当月出口',
       ],
       2: [
         "年份",
-        "商品总类",
+        "月份",
+        "商品类别",
+        "商品类别（英文）",
         '累计进口',
         '累计进口同比',
         '累计出口',
@@ -396,8 +402,8 @@ export default {
       ]
     }
     let field = {
-      1: ['year', 'categoryZH', '_import', '_export', ],
-      2: ['year', 'month', 'categoryZH', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport']
+      1: ['year', 'categoryZH','categoryEN', '_import', '_export'],
+      2: ['year', 'month', 'categoryZH','categoryEN', '_cumulativeImport', 'yoyCumulativeImport', '_cumulativeExport', 'yoyCumulativeExport']
     }
     let tableres = await JSON.parse(JSON.stringify(res)).filter(item => {
       return (item.year > params.start || item.month >= params.startMonth) && (item.year < params.end || item.month <= params.endMonth)
@@ -448,27 +454,29 @@ export default {
         obj[`IMP${key}`] = imp ? imp[key] : ""
         obj[`EXP${key}`] = exp ? exp[key] : ""
         obj['enterpriseType'] = enterpriseType.ch
+        obj['enterpriseTypeEN'] = enterpriseType.en
       }
       data.push(obj)
     }
     let field = {
       yearly: {
-        1: ['year', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
-        2: ['year', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
-        3: ['year', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
-        4: ['year', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+        1: ['year', 'enterpriseType','enterpriseTypeEN', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
+        2: ['year', 'enterpriseType','enterpriseTypeEN', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
+        3: ['year', 'enterpriseType','enterpriseTypeEN', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
+        4: ['year', 'enterpriseType','enterpriseTypeEN', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
       },
       monthly: {
-        1: ['year', 'month', 'enterpriseType', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
-        2: ['year', 'month', 'enterpriseType', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
-        3: ['year', 'month', 'enterpriseType', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
-        4: ['year', 'month', 'enterpriseType', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
+        1: ['year', 'month', 'enterpriseType','enterpriseTypeEN', 'IMP_importStateOwnedEns', 'IMPyoyImportStateOwnedEns', 'EXP_importStateOwnedEns', 'EXPyoyImportStateOwnedEns'],
+        2: ['year', 'month', 'enterpriseType','enterpriseTypeEN', 'IMP_importForeignInvestedEns', 'IMPyoyImportForeignInvestedEns', 'EXP_importForeignInvestedEns', 'EXPyoyImportForeignInvestedEns'],
+        3: ['year', 'month', 'enterpriseType','enterpriseTypeEN', 'IMP_importPrivateOwnedEns', 'IMPyoyImportPrivateOwnedEns', 'EXP_importPrivateOwnedEns', 'EXPyoyImportPrivateOwnedEns'],
+        4: ['year', 'month', 'enterpriseType','enterpriseTypeEN', 'IMP_importOtherEns', 'IMPyoyImportOtherEns', 'EXP_importOtherEns', 'EXPyoyImportOtherEns'],
       }
     }
     let tHeader = {
       yearly: [
         "年份",
         '企业性质',
+        '企业性质（英文）',
         '进口',
         '进口同比',
         '出口',
@@ -478,6 +486,7 @@ export default {
         "年份",
         '月份',
         '企业性质',
+        '企业性质（英文）',
         '进口',
         '进口同比',
         '出口',
@@ -495,7 +504,7 @@ export default {
     }
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按商品类别统计',
+      fileName: '中国货物进出口总值按企业性质统计',
       tHeader: tHeader[type],
       filterVal: field[type][enterpriseType.id],
       tableData: [...tableres]

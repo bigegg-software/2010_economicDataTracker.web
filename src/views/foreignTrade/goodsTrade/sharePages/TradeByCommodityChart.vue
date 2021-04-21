@@ -391,6 +391,10 @@ export default {
             text: "商品类别_Commodity section",
             width: "20%"
           },
+          categoryEN: {
+            text: "商品类别（英文）_Commodity section",
+            width: "30%"
+          },
           _cumulativeImport: {
             text: "进口_Imports",
             width: "20%",
@@ -427,6 +431,10 @@ export default {
               text: "商品类别_Commodity section",
               width: "20%"
             },
+            categoryEN: {
+              text: "商品类别（英文）_Commodity section",
+              width: "30%"
+            },
             _import: {
               text: "当月进口_Monthly imports",
               width: "20%",
@@ -452,6 +460,10 @@ export default {
             categoryZH: {
               text: "商品类别_Commodity section",
               width: "20%"
+            },
+            categoryEN: {
+              text: "商品类别（英文）_Commodity section",
+              width: "30%"
             },
             _cumulativeImport: {
               text: "累计进口_Cumulative monthly imports",

@@ -345,6 +345,10 @@ export default {
         text: "企业性质_Enterprise type",
         width: "20%"
       };
+      obj.enterpriseTypeEN = {
+        text: "企业性质（英文）_Enterprise type",
+        width: "30%"
+      };
       obj[field[0]] = {
         text: "进口_Imports",
         width: "20%",
