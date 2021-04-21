@@ -113,7 +113,7 @@ export default {
         updatedDate: "",
         legendMark: {
           //右上角水印 
-          en: "Y-o-y",
+          en: "YOY",
           ch: "同比",
           doSymbol: "(%)"
         },

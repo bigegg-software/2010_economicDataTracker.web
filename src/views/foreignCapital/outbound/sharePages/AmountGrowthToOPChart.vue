@@ -116,7 +116,7 @@ export default {
         series: [
           {
             name:
-              "完成营业额(USD)_Revenue of completed contracts|完成营业额同比_YOY growth of completed contracts revenue ",
+              "完成营业额 (USD)_Revenue of completed contracts|完成营业额同比_YOY growth of completed contracts revenue ",
             color: "#6AA3CD",
             data: [],
             yearOnYear: []
@@ -360,7 +360,7 @@ export default {
             width: "10%"
           },
           completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contracts",
+            text: "完成营业额 (USD)_Revenue of completed contracts",
             width: "25%",
             formatNum: true
           },
@@ -391,7 +391,7 @@ export default {
             width: "20%"
           },
           completedAmountCon: {
-            text: "完成营业额(USD)_Revenue of completed contracts",
+            text: "完成营业额 (USD)_Revenue of completed contracts",
             width: "35%",
             formatNum: true
           },

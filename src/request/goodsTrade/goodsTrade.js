@@ -53,18 +53,18 @@ export default {
     let tHeader = {
       yearly: [
         "年份",
-        '进出口(USD)',
-        '进出口同比(USD)',
-        '进口(USD)',
-        '进口同比(USD)',
-        '出口(USD)',
-        '出口同比(USD)',
-        '进出口(RMB)',
-        '进出口同比(RMB)',
-        '进口(RMB)',
-        '进口同比(RMB)',
-        '出口(RMB)',
-        '出口同比(RMB)'
+        '进出口 (USD)',
+        '进出口同比 (USD)',
+        '进口 (USD)',
+        '进口同比 (USD)',
+        '出口 (USD)',
+        '出口同比 (USD)',
+        '进出口 (RMB)',
+        '进出口同比 (RMB)',
+        '进口 (RMB)',
+        '进口同比 (RMB)',
+        '出口 (RMB)',
+        '出口同比 (RMB)'
       ],
     }
     let field = {
@@ -111,34 +111,34 @@ export default {
       1: [
         "年份",
         "月份",
-        '当月进出口(USD)',
-        '当月进出口同比(USD)',
-        '当月进口(USD)',
-        '当月进口同比(USD)',
-        '当月出口(USD)',
-        '当月出口同比(USD)',
-        '当月进出口(RMB)',
-        '当月进出口同比(RMB)',
-        '当月进口(RMB)',
-        '当月进口同比(RMB)',
-        '当月出口(RMB)',
-        '当月出口同比(RMB)'
+        '当月进出口 (USD)',
+        '当月进出口同比 (USD)',
+        '当月进口 (USD)',
+        '当月进口同比 (USD)',
+        '当月出口 (USD)',
+        '当月出口同比 (USD)',
+        '当月进出口 (RMB)',
+        '当月进出口同比 (RMB)',
+        '当月进口 (RMB)',
+        '当月进口同比 (RMB)',
+        '当月出口 (RMB)',
+        '当月出口同比 (RMB)'
       ],
       2: [
         "年份",
         "月份",
-        '累计进出口(USD)',
-        '累计进出口同比(USD)',
-        '累计进口(USD)',
-        '累计进口同比(USD)',
-        '累计出口(USD)',
-        '累计出口同比(USD)',
-        '累计进出口(RMB)',
-        '累计进出口同比(RMB)',
-        '累计进口(RMB)',
-        '累计进口同比(RMB)',
-        '累计出口(RMB)',
-        '累计出口同比(RMB)'
+        '累计进出口 (USD)',
+        '累计进出口同比 (USD)',
+        '累计进口 (USD)',
+        '累计进口同比 (USD)',
+        '累计出口 (USD)',
+        '累计出口同比 (USD)',
+        '累计进出口 (RMB)',
+        '累计进出口同比 (RMB)',
+        '累计进口 (RMB)',
+        '累计进口同比 (RMB)',
+        '累计出口 (RMB)',
+        '累计出口同比 (RMB)'
       ]
     }
     let field = {
@@ -280,7 +280,7 @@ export default {
     let tableres = await JSON.parse(JSON.stringify(res))
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按国别/地区统计',
+      fileName: '中国货物进出口总值按国家/地区统计',
       tHeader: [
         "年份",
         '进出口',
@@ -334,7 +334,7 @@ export default {
     let tableres = await JSON.parse(JSON.stringify(res))
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按国别/地区统计',
+      fileName: '中国货物进出口总值按国家/地区统计',
       tHeader: tHeader[dataType],
       filterVal: field[dataType],
       tableData: [...tableres]

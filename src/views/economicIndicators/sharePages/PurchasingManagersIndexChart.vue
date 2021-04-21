@@ -74,7 +74,7 @@ export default {
             formatPer: true
           },
           comprehensivePMI: {
-            text: "年度综合采购经理人指数_Comprehensive PMI",
+            text: "综合采购经理人产出指数_Composite PMI",
             width: "25%",
             formatPer: true
           }
@@ -135,7 +135,7 @@ export default {
             data: []
           },
           {
-            name: "年度综合采购经理人指数_Comprehensive PMI",
+            name: "综合采购经理人产出指数_Composite PMI",
             type: "line",
             color: "#61a0a8",
             data: []

@@ -38,7 +38,7 @@ export default {
         {
           name: "tradeByCommodityChart",
           chinese: "货物进出口总值按商品类别统计",
-          english: "Import and export of goods by commodity"
+          english: "Imports and exports of goods by commodity"
         }
       ],
 

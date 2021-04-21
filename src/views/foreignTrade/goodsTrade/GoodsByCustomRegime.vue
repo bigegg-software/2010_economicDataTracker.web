@@ -48,7 +48,7 @@ export default {
         {
           name: "tradeByCustomRegimeChart",
           chinese: "货物进出口总值按贸易方式统计",
-          english: "Import and export by custom regime"
+          english: "Imports and exports by custom regime"
         }
       ],
 

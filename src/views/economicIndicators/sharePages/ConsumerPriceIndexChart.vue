@@ -275,7 +275,7 @@ export default {
             }
           },
           {
-            name: "月度消费者价格指数环比_M-o-m monthly CPI",
+            name: "月度消费者价格指数环比_MOM monthly CPI",
             type: "line",
             color: "#c23531",
             data: data.momCPI
@@ -344,7 +344,7 @@ export default {
             formatPer: true
           },
           momCPI: {
-            text: "月度消费者价格指数环比_M-o-m monthly CPI",
+            text: "月度消费者价格指数环比_MOM monthly CPI",
             width: "35%",
             formatPer: true
           }

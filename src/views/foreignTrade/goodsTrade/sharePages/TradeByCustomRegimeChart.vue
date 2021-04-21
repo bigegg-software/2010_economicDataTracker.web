@@ -74,7 +74,7 @@ export default {
       totalData: {
         title: {
           ch: "中国货物进出口总值按贸易方式统计 - 一般贸易",
-          en: "China's import and export by custom regime - Ordinary trade"
+          en: "China's imports and exports by custom regime - Ordinary trade"
         },
         unit: {
           ch: "百万美元",
@@ -92,7 +92,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国货物进出口总值按贸易方式统计 - 一般贸易",
-          en: "China's import and export by custom regime - Ordinary trade"
+          en: "China's imports and exports by custom regime - Ordinary trade"
         },
         xData: [],
         hideLegend: true,
@@ -201,7 +201,7 @@ export default {
     customRegime: {
       handler() {
         this.totalData.title.ch = this.USD.title.ch = `中国货物进出口总值按贸易方式统计 - ${this.customRegime.value.ch}`;
-        this.totalData.title.en = this.USD.title.en = `China's import and export by custom regime - ${this.customRegime.value.en}`;
+        this.totalData.title.en = this.USD.title.en = `China's imports and exports by custom regime - ${this.customRegime.value.en}`;
       },
       deep: true
     }
@@ -439,22 +439,22 @@ export default {
               width: "25%"
             },
             _monthlyImport: {
-              text: "当月进口(USD)_Monthly imports(USD)",
+              text: "当月进口 (USD)_Monthly imports(USD)",
               width: "20%",
               formatNum: true
             },
             yoyMonthlyImport: {
-              text: "当月进口同比(USD)_YOY monthly imports(USD)",
+              text: "当月进口同比 (USD)_YOY monthly imports(USD)",
               width: "20%",
               formatPer: true
             },
             _monthlyExport: {
-              text: "当月出口(USD)_Monthly exports(USD)",
+              text: "当月出口 (USD)_Monthly exports(USD)",
               width: "20%",
               formatNum: true
             },
             yoyMonthlyExport: {
-              text: "当月出口同比(USD)_YOY monthly exports(USD)",
+              text: "当月出口同比 (USD)_YOY monthly exports(USD)",
               width: "20%",
               formatPer: true
             }
@@ -479,22 +479,22 @@ export default {
               width: "20%"
             },
             _monthlyCulumativeImport: {
-              text: "累计进口(USD)_Cumulative monthly imports(USD)",
+              text: "累计进口 (USD)_Cumulative monthly imports (USD)",
               width: "20%",
               formatNum: true
             },
             yoyMonthlyCumulativeImport: {
-              text: "累计进口同比(USD)_YOY cumulative monthly imports(USD)",
+              text: "累计进口同比 (USD)_YOY cumulative monthly imports (USD)",
               width: "20%",
               formatPer: true
             },
             _monthlyCulumativeExport: {
-              text: "累计出口(USD)_Cumulative monthly exports(USD)",
+              text: "累计出口 (USD)_Cumulative monthly exports (USD)",
               width: "20%",
               formatNum: true
             },
             yoyMonthlyCumulativeExport: {
-              text: "累计出口同比(USD)_YOY cumulative monthly exports(USD)",
+              text: "累计出口同比 (USD)_YOY cumulative monthly exports (USD)",
               width: "20%",
               formatPer: true
             }

@@ -37,8 +37,8 @@ export default {
       tabList: [
         {
           name: "tradeByOriginChart",
-          chinese: "货物进出口总值(国别/地区)",
-          english: "Import and export by origin"
+          chinese: "货物进出口总值(国家/地区)",
+          english: "Imports and exports by origin"
         }
       ],
 
