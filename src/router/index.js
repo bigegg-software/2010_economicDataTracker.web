@@ -202,7 +202,7 @@ const routes = [{
         path: 'goodsByOrigin',
         name: 'goodsByOrigin',
         meta: {
-          title: '货物进出口总值按国别/地区统计'
+          title: '货物进出口总值按国家/地区统计'
         },
         component: () => import('@/views/foreignTrade/goodsTrade/GoodsByOrigin')
       },
@@ -538,7 +538,7 @@ const routes = [{
   path: '/topTenCountriesToOPChart',
   name: 'topTenCountriesToOPChart',
   meta: {
-    title: '前十国别（市场）'
+    title: '前十国家（市场）'
   },
   component: () => import('@/views/foreignCapital/outbound/sharePages/TopTenCountriesToOPChart')
 },
@@ -720,7 +720,7 @@ const routes = [{
   path: '/tradeByOriginChart',
   name: 'tradeByOriginChart',
   meta: {
-    title: '中国货物进出口总值按国别/地区统计'
+    title: '中国货物进出口总值按国家/地区统计'
   },
   component: () => import('@/views/foreignTrade/goodsTrade/sharePages/TradeByOriginChart')
 }, {

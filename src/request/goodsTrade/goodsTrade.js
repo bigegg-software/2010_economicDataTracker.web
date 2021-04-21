@@ -280,7 +280,7 @@ export default {
     let tableres = await JSON.parse(JSON.stringify(res))
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按国别/地区统计',
+      fileName: '中国货物进出口总值按国家/地区统计',
       tHeader: [
         "年份",
         '进出口',
@@ -333,7 +333,7 @@ export default {
     let tableres = await JSON.parse(JSON.stringify(res))
     tableres = tableres.reverse();
     let tableInfo = {
-      fileName: '中国货物进出口总值按国别/地区统计',
+      fileName: '中国货物进出口总值按国家/地区统计',
       tHeader: tHeader[dataType],
       filterVal: field[dataType],
       tableData: [...tableres]

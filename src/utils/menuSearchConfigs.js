@@ -166,7 +166,7 @@ let foreignTradeMenuLists = [  //外贸模块
       },
       {
         name: "goodsByOrigin",
-        ch: "货物进出口总值按国别/地区统计",
+        ch: "货物进出口总值按国家/地区统计",
         en: "Imports and exports by origin",
         cloudFun: ['ImportExportOrigin'],
         splitList: ['货', '物', '进', '出', '口', '总', '值', '按', '国', '别', '地', '区', '统', '计', 'Import', 'and', 'export', 'by', 'origin'],

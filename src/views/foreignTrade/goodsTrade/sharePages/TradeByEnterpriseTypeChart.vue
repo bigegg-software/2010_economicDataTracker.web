@@ -66,7 +66,7 @@ export default {
       totalData: {
         title: {
           ch: "中国国有企业货物进出口总值",
-          en: "China's imports and exports by state-owned enterprises"
+          en: "China's imports and exports by State-owned enterprises"
         },
         unit: {
           ch: "百万美元",
@@ -84,7 +84,7 @@ export default {
         yearOnYear: true, //通过修改这个值来显示同比
         title: {
           ch: "中国国有企业货物进出口总值",
-          en: "China's imports and exports by state-owned enterprises"
+          en: "China's imports and exports by State-owned enterprises"
         },
         xData: [],
         hideLegend: true,

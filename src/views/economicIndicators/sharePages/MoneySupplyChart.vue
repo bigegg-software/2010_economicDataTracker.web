@@ -73,7 +73,7 @@ export default {
         dataSources: this.describeData,
         yName: { ch: "亿元人民币", en: "100 mln RMB" },
         title: {
-         ch: "货币供应量 （M2)",
+         ch: "货币供应量 (M2)",
           en: "Money supply (M2)"
         },
         xData: [],

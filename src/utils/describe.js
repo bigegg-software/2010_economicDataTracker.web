@@ -1069,7 +1069,7 @@ export default {
             enTextThird: "The country of final destination applies to exports. It refers to the country or region where the goods are consumed, used, processed or manufactured.",
             enSource: "_Explanatory Notes of 2020_",
             enLink: "http://english.customs.gov.cn/Statics/82619448-afbe-4851-aab4-a8fee9bc15a6.html",
-            chTitle: "国别/地区",
+            chTitle: "国家/地区",
             chText: "原产国/地区适用于进口货物的统计，指进口货物的生产、开采或加工制造的国家。最终目的国/地区适用于出口货物的统计，指出口货物已知的消费、使用或进一步加工制造的国家。自2020年2月起，英国被归在欧盟的统计范围之外。",
             chTitleSecond: "",
             chTextSecond: "",

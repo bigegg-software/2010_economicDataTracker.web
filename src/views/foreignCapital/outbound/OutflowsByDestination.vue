@@ -49,7 +49,7 @@ export default {
         {
           name: "flowsTwentyDestinationChart",
           chinese: "历年前20位国家/地区",
-          english: "Top 20 destination of China's FDI outflows"
+          english: "Top 20 destinations of China's FDI outflows"
         }
       ],
 

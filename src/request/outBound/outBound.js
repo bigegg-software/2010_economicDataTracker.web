@@ -501,11 +501,11 @@ getTopTenCountriesToOPChart:async function(params) {
     });
     let tableres=await JSON.parse(JSON.stringify(res));
         let tableInfo={
-            fileName:  params.type==1?'中国对外承包工程前十国别新签合同额':'中国对外承包工程前十国别完成营业额',
+            fileName:  params.type==1?'中国对外承包工程前十国家新签合同额':'中国对外承包工程前十国家完成营业额',
             tHeader:[
                 "年份",
                 '排名',
-                '国别（英文）',
+                '国家（英文）',
                 '国别',
                 params.type==1?'新签合同额':'完成营业额',
                 params.type==1?'新签合同额同比':'完成营业额同比',

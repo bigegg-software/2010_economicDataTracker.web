@@ -47,7 +47,7 @@ export default {
     return {
       totalData: {
         title: {
-          ch: "2018年中国对外承包工程新签合同额前十大国别/地区",
+          ch: "2018年中国对外承包工程新签合同额前十大国家/地区",
           en:
             "Top 10 countries/regions by value of new contracts in 2018"
         },
@@ -65,11 +65,11 @@ export default {
             width: "20%"
           },
           countryEn: {
-            text: "国别（英文）_Country/Region",
+            text: "国家（英文）_Country/Region",
             width: "35%"
           },
           country: {
-            text: "国别_Country/Region",
+            text: "国家_Country/Region",
             width: "35%"
           },
           amountMillion: {
@@ -88,7 +88,7 @@ export default {
       },
       totalData2: {
         title: {
-          ch: "2018年中国对外承包工程完成营业额前十大国别/地区",
+          ch: "2018年中国对外承包工程完成营业额前十大国家/地区",
           en:
             "Top 10 countries/regions by value of new contracts in 2018"
         },
@@ -106,11 +106,11 @@ export default {
             width: "20%"
           },
           countryEn: {
-            text: "国别（英文）_Country/Region",
+            text: "国家（英文）_Country/Region",
             width: "35%"
           },
           country: {
-            text: "国别_Country/Region",
+            text: "国家_Country/Region",
             width: "35%"
           },
           amountMillion: {
@@ -231,7 +231,7 @@ export default {
     },
     option: {
       handler() {
-        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程新签合同额前十大国别/地区`;
+        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程新签合同额前十大国家/地区`;
         this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `Top 10 countries/regions by value of new contracts in ${this.option.value}`;
       },
       deep: true
@@ -321,10 +321,10 @@ export default {
         year: Number(this.option.value)
       });
       if (this.selectOption.value.id == 1) {                    
-        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程新签合同额前十大国别/地区`;
+        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程新签合同额前十大国家/地区`;
         this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `Top 10 countries/regions by value of new contracts in ${this.option.value}`;
       } else {
-        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程完成营业额前十大国别/地区`;
+        this.chartBar.title.text = this.totalData.title.ch = this.totalData2.title.ch = `${this.option.value}年中国对外承包工程完成营业额前十大国家/地区`;
         this.chartBar.title.subtext = this.totalData.title.en = this.totalData2.title.en = `Top 10 countries/regions by value of completed contracts in ${this.option.value}`;
       }
 
