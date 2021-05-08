@@ -65,11 +65,11 @@ export default {
             width: "20%"
           },
           countryEn: {
-            text: "国家（英文）_Country/Region",
+            text: "国家/地区(英文)_Country/Region",
             width: "35%"
           },
           country: {
-            text: "国家_Country/Region",
+            text: "国家/地区_Country/Region",
             width: "35%"
           },
           amountMillion: {
@@ -106,11 +106,11 @@ export default {
             width: "20%"
           },
           countryEn: {
-            text: "国家（英文）_Country/Region",
+            text: "国家/地区(英文)_Country/Region",
             width: "35%"
           },
           country: {
-            text: "国家_Country/Region",
+            text: "国家/地区_Country/Region",
             width: "35%"
           },
           amountMillion: {

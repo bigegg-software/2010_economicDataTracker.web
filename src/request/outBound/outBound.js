@@ -505,7 +505,7 @@ getTopTenCountriesToOPChart:async function(params) {
             tHeader:[
                 "年份",
                 '排名',
-                '国家（英文）',
+                '国家/地区(英文)',
                 '国别',
                 params.type==1?'新签合同额':'完成营业额',
                 params.type==1?'新签合同额同比':'完成营业额同比',
@@ -707,7 +707,7 @@ getoutflowsByIndustryBarChartsData:async function(params) {//获取  //柱状图
                 "年份",
                 '大洲（英文）',
                 '大洲',
-                '国家（英文）',
+                '国家/地区(英文)',
                 '国家',
                 '中国对外直接投资存量',
                 '单位'
@@ -734,8 +734,8 @@ getFDIOutflowDestination: async function (params) {
                 "年份",
                 '大洲（英文）',
                 '大洲',
-                '国家（英文）',
-                '国家',
+                '国家/地区(英文)',
+                '国家/地区',
                 '中国对外直接投资流量',
                 '单位'
             ],
