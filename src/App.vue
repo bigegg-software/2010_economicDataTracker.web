@@ -44,12 +44,12 @@ export default {
           await this.$Parse.User.become(u.sessionToken);
           this.$store.commit('setUserInfo',JSON.parse(JSON.stringify(res)));
         }catch(e) {
-            this.$message.error('登录已失效，请重新登陆');
+            this.$message.error('登录已失效，请重新登录');
             this.$store.commit('setUserInfo',{});
             this.$storage.clear();
         }
         }else{
-          this.$message.error('登录已失效，请重新登陆');
+          this.$message.error('登录已失效，请重新登录');
           this.$store.commit('setUserInfo',{});
           this.$storage.clear();
         }
