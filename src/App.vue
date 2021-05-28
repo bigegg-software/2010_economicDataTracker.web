@@ -13,30 +13,47 @@ export default {
     }
   },
   async created() {
-    localStorage.removeItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
-    if(this.$storage.getItem('user')){
-      let u=this.$storage.getItem('user');
-      let user= new this.$Parse.Query('User');
-          user.equalTo('objectId',u.objectId);
-      let res=await user.first();
-      if(res){
-        localStorage.setItem(`Parse/${process.env.VUE_APP_ID}/currentUser`,sessionStorage.getItem('user'));
-      }else{
-        this.$storage.removeItem('user');
-        localStorage.removeItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
-      }
+    let tthis=this;
+    let currentUser=`Parse/${process.env.VUE_APP_ID}/currentUser`;
+    let current=this.$storage.getItem(currentUser);
+    if(current){
+      this.vali();
+    }else{
+      this.$store.commit('setUserInfo',{});
+      this.$storage.clear();
     }
-    window.addEventListener('beforeunload',()=>{
-         if(this.$store.getters.userInfo.sessionToken){
-           this.$storage.setItem('user',this.$store.getters.userInfo);
-         }
-    });
-    window.addEventListener('load',()=>{
-         if(this.$storage.getItem('user')){
-           this.$store.commit('setUserInfo',this.$storage.getItem('user'));
-           this.$storage.removeItem('user');
-         }
-    });
+    window.addEventListener("storage",  async(e)=> {
+      let current=this.$storage.getItem(currentUser);
+      if(current){
+          tthis.vali();
+      }else{
+        this.$store.commit('setUserInfo',{});
+        this.$storage.clear();
+      }
+    })
+  },
+  methods:{
+    async vali() {
+      let currentUser=`Parse/${process.env.VUE_APP_ID}/currentUser`;
+      let u=this.$storage.getItem(currentUser);
+        let user= new this.$Parse.Query('User');
+            user.equalTo('objectId',u.objectId);
+        let res=await user.first();
+      if(res){
+        try{
+          await this.$Parse.User.become(u.sessionToken);
+          this.$store.commit('setUserInfo',JSON.parse(JSON.stringify(res)));
+        }catch(e) {
+            this.$message.error('登录已失效，请重新登陆');
+            this.$store.commit('setUserInfo',{});
+            this.$storage.clear();
+        }
+        }else{
+          this.$message.error('登录已失效，请重新登陆');
+          this.$store.commit('setUserInfo',{});
+          this.$storage.clear();
+        }
+    }
   }
 }
 </script>

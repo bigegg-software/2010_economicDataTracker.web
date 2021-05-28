@@ -1,4 +1,4 @@
-let storage = window.sessionStorage;
+let storage = window.localStorage;
 export default {
   setItem(key, value) {
     storage.setItem(key, JSON.stringify(value))
