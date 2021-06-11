@@ -57,21 +57,10 @@ export default {
       tableName
     });
     res = res.data[0];
-    let qMax = new Parse.Query(tableName);
-    let limiCcount = await qMax.count();
-    qMax.limit(limiCcount);
-    qMax.equalTo('year', res.max)
-    qMax.descending('quarter');
-    let max = await qMax.find()
-    max = max.map(v => v.toJSON())
-    // 
-    let qMin = new Parse.Query(tableName);
-    let limtMincount = await qMin.count();
-    qMin.limit(limtMincount);
-    qMin.equalTo('year', res.min)
-    qMin.ascending('quarter');
-    let min = await qMin.find()
-    min = min.map(v => v.toJSON())
+    let Qres=await new Parse.Cloud.run('getMaxMinquarter',{tableName,max:res.max,min:res.min});
+        Qres=Qres.data.result;
+    let max = Qres.max.map(v => v.toJSON())
+    let min = Qres.min.map(v => v.toJSON())
     return {
       max: res.max, //最大年
       min: res.min, //最小年
@@ -321,23 +310,14 @@ export default {
   },
   // 获取行业
   getServerIndustry: async () => {
-    let industrys = new Parse.Query('Industry');
-    industrys = await industrys.map(item => {
-      item = item.toJSON();
-      item.ch = item.industryZH;
-      item.en = item.industryEN;
-      item.searchArr = [...item.industryZH.split(''), ...item.industryEN.split(' ')];
-      item.checked = false;
-      item.show = true;
-      return item;
-    });
+    let industrys=await new Parse.Cloud.run('getServerIndustry');
+        industrys=industrys.data.result;
     return industrys;
   },
   // 获取表中最新更新时间
   getLatestTime: async (tableName) => {
-    let q = new Parse.Query('News');
-    q.equalTo('tableName', tableName);
-    let res = await q.find();
+    let res=await new Parse.Cloud.run('getLatestTime',{tableName});
+        res=res.data.result;
     if (res.length) {
       res = res.map(item => {
         item = item.toJSON();
@@ -349,16 +329,14 @@ export default {
       store.commit('saveLatestTime', '');
       return ''
     }
-    // return dayjs(res[0].checkDate.iso).format('YYYY-MM-DD HH:mm:ss');
   },
   //获取News表中三天内的更新数据
   getInThreeDays: async function (p_count) {
-    let q = new Parse.Query('News');
-    q.descending('checkDate');
     let dd = new Date();
     dd.setDate(dd.getDate() + p_count);
     let beforexDaysTime = dd.getTime();
-    let res = await q.find();
+    let res=await new Parse.Cloud.run('getInThreeDays');
+        res=res.data.result;
     res = res.map((item) => {
       item = item.toJSON();
       return item;

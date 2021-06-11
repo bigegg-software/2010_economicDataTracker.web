@@ -4,40 +4,11 @@ import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据 
-           chartDataFun.getInThreeDays(-3);
-           chartDataFun.getLatestTime(tableName); 
-            let q = new Parse.Query(tableName);
-            let limiCcount = await q.count();
-            q.limit(limiCcount);
-            // 发布的才拉取
-            q.equalTo('isCheckIn',true);
-            let type = params.type;
-            q.greaterThanOrEqualTo('year',params.start)
-            q.lessThanOrEqualTo('year',params.end)
-            if (type == 'yearly'&&!params.noMonth){
-                q.equalTo('month',12)//应该是12
-                q.ascending('year')
-            }else if (type == 'yearly'&&params.noMonth){
-                q.ascending('year')
-            }else if(type == 'quarterly'){
-                q.containedIn('month',[3,6,9,12])//应该是12
-                q.ascending('year')
-                q.addAscending(['month'])
-            } else if (type == 'monthly'){
-                q.ascending('year')
-                q.addAscending(['month'])
-            }
-            if(params.equalTo){ //等值
-                for(let u in params.equalTo){
-                    q.equalTo(u,params.equalTo[u])
-                }
-            }
-            if(params.containedIn){ //包含值
-                for(let c in params.containedIn){
-                    q.containedIn(c,params.containedIn[c])
-                }
-            }
-            let res = await q.find();
+            chartDataFun.getInThreeDays(-3);
+            chartDataFun.getLatestTime(tableName);
+            params.tableName=tableName;
+            let res=await new Parse.Cloud.run('getManualQueryDataInvestment',params);
+            res=res.data.result;
             return res;
     },
 // 各州国家金额求和
@@ -73,27 +44,11 @@ sumSameYearData:async (sourceData,field,name)=> {
     return resD;
 },
     getAllCountryName:async function(prop,countrys) {  // 获取所有国家
-        let q = new Parse.Query('Country');
-        q.containedIn(prop,countrys);
-        q.limit(500);
-        let res=await q.find();
-        res = res.map( item=>{
-            item=item.toJSON();
-            item.ch=item.abbreviationZH;
-            item.en=item.abbreviationEN;
-            item.searchArr= [...item.abbreviationZH.split(''),...item.abbreviationEN.split(' ')];
-            item.checked=false;
-            item.show=true;
-            return item;
-        });
-        res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
+        let res=await new Parse.Cloud.run('getAllCountryName',{prop,countrys});
+        res=res.data.result;
         return res;
     },
     getOutFlowsChartsData:async function(tableName,params) {// 获取中国对外直接投资流量数据函数接口
-        // let FDIOutflow = await Parse.Cloud.run('getFDIOutflowInfo', aug);
-        // if (FDIOutflow.code == 200) {
-        //     return FDIOutflow.data;
-        // }
            let type = params.type;
            let res=await this.manualQueryData(tableName,params);
             res = res.map(item=>{
@@ -456,37 +411,9 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
 barQueryData:async function (tableName,params){  //初始去数据库查询数据  
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(tableName); 
-    let q = new Parse.Query(tableName);
-    let limiCcount = await q.count();
-        q.limit(limiCcount);
-        // 发布的才拉取
-        q.equalTo('isCheckIn',true);
-        if(params.limit){
-            q.limit(params.limit);
-        }
-        if(params.ascending){
-            q.ascending(params.ascending);
-        }
-        if(params.descending){
-            q.descending(params.descending);
-        }
-        if(params.year){
-           q.equalTo('year',params.year); 
-        }
-        if(params.type){
-            q.equalTo('type',params.type); 
-         }
-         if(params.equalTo){ //等值
-            for(let u in params.equalTo){
-                q.equalTo(u,params.equalTo[u])
-            }
-        }
-        if(params.containedIn){ //包含值
-            for(let c in params.containedIn){
-                q.containedIn(c,params.containedIn[c])
-            }
-        }
-    let res = await q.find();
+     params.tableName=tableName;
+    let res=await new Parse.Cloud.run('getBarQueryDataInvestment',params);
+    res=res.data.result;
     return res;
 },
 // // 对外承包前十国别市场

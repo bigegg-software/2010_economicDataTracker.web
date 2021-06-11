@@ -209,10 +209,9 @@ export default {
   methods: {
     //获取大洲
     async getContinent() {
-      let q = await new Parse.Query("FDIOutflowDestination");
-      await q.limit(await q.count());
-      let continent = await q.find();
-      continent = continent.map(item => {
+      let continent=await new Parse.Cloud.run('getContinent',{tableName:'FDIOutflowDestination'});
+          continent=continent.data.result;
+          continent = continent.map(item => {
         return item.toJSON().continent;
       });
       let res = Array.from(new Set(continent));

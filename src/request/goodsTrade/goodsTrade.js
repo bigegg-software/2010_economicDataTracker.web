@@ -6,38 +6,8 @@ export default {
   manualQueryData: async function (params) { //初始去数据库查询数据
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(params.tableName);
-    let q = new Parse.Query(params.tableName)
-    let limiCcount = await q.count();
-    q.limit(limiCcount);
-    let type = params.type;
-    // 发布的才拉取
-    q.equalTo('isCheckIn', true);
-    q.greaterThanOrEqualTo('year', params.start)
-    q.lessThanOrEqualTo('year', params.end)
-    if (type == 'yearly' && !params.noMonth) {
-      q.equalTo('month', 12) //应该是12
-      q.ascending('year')
-    } else if (type == 'yearly' && params.noMonth) {
-      q.ascending('year')
-    } else if (type == 'quarterly') {
-      q.containedIn('month', [3, 6, 9, 12]) //应该是12
-      q.ascending('year')
-      q.addAscending(['month'])
-    } else if (type == 'monthly') {
-      q.ascending('year')
-      q.addAscending(['month'])
-    }
-    if (params.equalTo) { //等值
-      for (let u in params.equalTo) {
-        q.equalTo(u, params.equalTo[u])
-      }
-    }
-    if (params.containedIn) { //包含值
-      for (let c in params.containedIn) {
-        q.containedIn(c, params.containedIn[c])
-      }
-    }
-    let res = await q.find()
+    let res=await new Parse.Cloud.run('getManualQueryDataTrade',params);
+    res=res.data.result;
     return res;
   },
   async getTotalTradeGoods(params) { // 中国货物进出口总值 / 差额  年度
@@ -755,41 +725,19 @@ export default {
     store.commit('saveChartTable', tableInfo);
     return data
   },
-  async getCountryList(searchValue, activeKey) { // 获取所有国家
+  async getCountryList(searchValue, activeKey) { // 获取所有国家  //要把countrys传进去
     let countrys = [];
     if (activeKey == 'yearly') {
       countrys = await chartDataFun.getCountryName('ImportExportOrigin', 'country');
     } else if (activeKey == 'monthly') {
       countrys = await chartDataFun.getCountryName('ImportExportOriginMonth', 'country');
     }
-    let q1 = new Parse.Query('TradeCountry');
-    let q2 = new Parse.Query('TradeCountry');
-    if (searchValue) {
-      const regExp = new RegExp([searchValue], 'i');
-      q1.matches('abbreviationEN', regExp);
-      q2.matches('abbreviationZH', regExp);
-      // q1.contains('abbreviationZH', searchValue)
-      // q2.contains('abbreviationEN', searchValue)
-    }
-    let queryOr = Parse.Query.or(q1, q2);
-    // if(activeKey == 'yearly'){
-    //      queryOr.notContainedIn("abbreviationZH",["拉丁美洲", "非洲"]);
-    // }
-    queryOr.containedIn("abbreviationZH", countrys);
-    if (activeKey == 'monthly') {
-      queryOr.equalTo('type', 2)
-    }
-    queryOr.limit(500);
-    let res = await queryOr.find();
-    res = res.map(item => {
-      item = item.toJSON();
-      item.ch = item.abbreviationZH;
-      item.en = item.abbreviationEN;
-      item.checked = false;
-      return item;
-    });
-    return res.sort((a, b) => {
-      return (a.en + '').localeCompare(b.en + '')
-    });
+    let params={}
+    params.searchValue=searchValue;
+    params.activeKey=activeKey;
+    params.countrys=countrys;
+    let res=await new Parse.Cloud.run('getAllTradeCountry',params);
+    res=res.data.result;
+    return res;
   },
 }

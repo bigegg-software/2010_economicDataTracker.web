@@ -70,7 +70,7 @@ export default {
               type:'login',
               exec_time:new Date()
             });
-            this.$router.push({ path: this.$route.query.redirect });
+            this.$router.push({path: this.$route.query.redirect?this.$route.query.redirect:'/' });
           } catch (error) {
             this.$message.warning({
               content: "用户名或密码错误",

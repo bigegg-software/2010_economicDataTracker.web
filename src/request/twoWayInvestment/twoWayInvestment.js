@@ -7,38 +7,9 @@ export default {
  manualQueryData: async function (tableName, params) {  //初始去数据库查询数据 
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(tableName);  
-    let q = new Parse.Query(tableName)
-    let type = params.type;
-    let limiCcount = await q.count();
-    q.limit(limiCcount);
-    // 发布的才拉取
-    q.equalTo('isCheckIn',true);
-    q.greaterThanOrEqualTo('year', params.start)
-    q.lessThanOrEqualTo('year', params.end)
-    if (type == 'yearly' && !params.noMonth) {
-        q.equalTo('month', 12)//应该是12
-        q.ascending('year')
-    } else if (type == 'yearly' && params.noMonth) {
-        q.ascending('year')
-    } else if (type == 'quarterly') {
-        q.containedIn('month', [3, 6, 9, 12])//应该是12
-        q.ascending('year')
-        q.addAscending(['month'])
-    } else if (type == 'monthly') {
-        q.ascending('year')
-        q.addAscending(['month'])
-    }
-    if (params.equalTo) { //等值
-        for (let u in params.equalTo) {
-            q.equalTo(u, params.equalTo[u])
-        }
-    }
-    if (params.containedIn) { //包含值
-        for (let c in params.containedIn) {
-            q.containedIn(c, params.containedIn[c])
-        }
-    }
-    let res = await q.find()
+    params.tableName=tableName;
+    let res=await new Parse.Cloud.run('getManualQueryData',params);
+    res=res.data.result;
     return res;
 },
     // 获取最小月 最大月

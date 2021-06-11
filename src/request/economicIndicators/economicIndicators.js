@@ -6,54 +6,14 @@ export default {
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据 
            chartDataFun.getInThreeDays(-3);
            chartDataFun.getLatestTime(tableName); 
-            let q = new Parse.Query(tableName);
-            let limiCcount = await q.count();
-            q.limit(limiCcount);
-            // 发布的才拉取
-            q.equalTo('isCheckIn',true);
-            let type = params.type;
-            q.greaterThanOrEqualTo('year',params.start)
-            q.lessThanOrEqualTo('year',params.end)
-            if (type == 'yearly'&&!params.noMonth){
-                q.equalTo('month',12)//应该是12
-                q.ascending('year')
-            }else if (type == 'yearly'&&params.noMonth){
-                q.ascending('year')
-            }else if(type == 'quarterly'){
-                q.containedIn('quarter',[1,2,3,4])
-                q.ascending('year')
-                q.addAscending(['quarter'])
-            } else if (type == 'monthly'){
-                q.ascending('year')
-                q.addAscending(['month'])
-            }
-            if(params.equalTo){ //等值
-                for(let u in params.equalTo){
-                    q.equalTo(u,params.equalTo[u])
-                }
-            }
-            if(params.containedIn){ //包含值
-                for(let c in params.containedIn){
-                    q.containedIn(c,params.containedIn[c])
-                }
-            }
-            let res = await q.find();
+           params.tableName=tableName;
+            let res=await new Parse.Cloud.run('getManualQueryDataMacroEconomy',params);
+            res=res.data.result;
             return res;
     },
-    getAllCountryName:async function() {  // 获取所有国家
-        let q = new Parse.Query('Country');
-        q.limit(500);
-        let res=await q.find();
-        res = res.map( item=>{
-            item=item.toJSON();
-            item.ch=item.abbreviationZH;
-            item.en=item.abbreviationEN;
-            item.searchArr= [...item.abbreviationZH.split(''),...item.abbreviationEN.split(' ')];
-            item.checked=false;
-            item.show=true;
-            return item;
-        });
-        res=res.sort((a,b)=>{return (a.en + '').localeCompare(b.en + '')});
+    getAllCountryName:async function() {  // 获取所有国家 好像未使用
+        let res=await new Parse.Cloud.run('getAllCountryNameMacroEconomy',{tableName:'Country'});
+            res=res.data.result;
         return res;
     },
     getGrossDomesticProductChartsData:async function(tableName,params) {// 获取国内生产总值
@@ -720,81 +680,47 @@ getForeignCurrencyReserveChartsData:async function(tableName,params) {// 获取�
      return {res};
 },
 // 柱状图查询  饼图  暂时不用
-barQueryData:async function (tableName,params){  //初始去数据库查询数据  
-    chartDataFun.getInThreeDays(-3);
-    chartDataFun.getLatestTime(tableName); 
-    let q = new Parse.Query(tableName);
-    let limiCcount = await q.count();
-        q.limit(limiCcount);
-        // 发布的才拉取
-        q.equalTo('isCheckIn',true);
-        if(params.limit){
-            q.limit(params.limit);
-        }
-        if(params.ascending){
-            q.ascending(params.ascending);
-        }
-        if(params.descending){
-            q.descending(params.descending);
-        }
-        if(params.year){
-           q.equalTo('year',params.year); 
-        }
-        if(params.type){
-            q.equalTo('type',params.type); 
-         }
-         if(params.equalTo){ //等值
-            for(let u in params.equalTo){
-                q.equalTo(u,params.equalTo[u])
-            }
-        }
-        if(params.containedIn){ //包含值
-            for(let c in params.containedIn){
-                q.containedIn(c,params.containedIn[c])
-            }
-        }
-    let res = await q.find();
-    return res;
-},
+// barQueryData:async function (tableName,params){  //初始去数据库查询数据  
+//     chartDataFun.getInThreeDays(-3);
+//     chartDataFun.getLatestTime(tableName); 
+//     let q = new Parse.Query(tableName);
+//     let limiCcount = await q.count();
+//         q.limit(limiCcount);
+//         // 发布的才拉取
+//         q.equalTo('isCheckIn',true);
+//         if(params.limit){
+//             q.limit(params.limit);
+//         }
+//         if(params.ascending){
+//             q.ascending(params.ascending);
+//         }
+//         if(params.descending){
+//             q.descending(params.descending);
+//         }
+//         if(params.year){
+//            q.equalTo('year',params.year); 
+//         }
+//         if(params.type){
+//             q.equalTo('type',params.type); 
+//          }
+//          if(params.equalTo){ //等值
+//             for(let u in params.equalTo){
+//                 q.equalTo(u,params.equalTo[u])
+//             }
+//         }
+//         if(params.containedIn){ //包含值
+//             for(let c in params.containedIn){
+//                 q.containedIn(c,params.containedIn[c])
+//             }
+//         }
+//     let res = await q.find();
+//     return res;
+// },
 getMaxMinDate:async function (tableName) {  //单独查询
-    let q = new Parse.Query(tableName);
-    let limiCcount = await q.count();
-    q.limit(limiCcount);
-    q.equalTo('isCheckIn',true);
-    let res=await q.find();
-    let yearMaxMin= [];
-    let monthMaxMinYear= [];
-    let yearlyData=[];
-    let monthlyData=[];
-      res.forEach((item)=>{
-            item=item.toJSON();
-            if(item.type==1){
-                yearlyData.push(item);
-               yearMaxMin.push(item.year); 
-            };
-            if(item.type==2){
-                monthlyData.push(item)
-               monthMaxMinYear.push(item.year); 
-            };
-      });
-
-      let resoult={
-                yearMaxMin:`${Math.min.apply(null,yearMaxMin)}_${Math.max.apply(null,yearMaxMin)}`,
-                monthMaxMinYear:`${Math.min.apply(null,monthMaxMinYear)}_${Math.max.apply(null,monthMaxMinYear)}`
-          }
-          let monthlyMinYearM=monthlyData.filter((it)=>{
-                 return it.year==Math.min.apply(null,monthMaxMinYear);
-          }).map((io)=>{
-                 return io.month;
-          })
-          let monthlyMaxYearM=monthlyData.filter( (it)=>{
-                 return  it.year==Math.max.apply(null,monthMaxMinYear);
-          }).map( (io)=>{
-                 return  io.month;
-          })
-          resoult.monthMaxMinMonth=`${Math.min.apply(null,monthlyMinYearM)}_${Math.max.apply(null,monthlyMaxYearM)}`;
-        // resoult的三个属性  yearMaxMin :年度的最大年最小年   monthMaxMinYear:月度的最大年最小年   monthMaxMinMonth:月度的最大月最小月（不带前缀0）
-          return resoult;
+    let res=await new Parse.Cloud.run('getMaxMinDateMacroEconomy',{tableName});
+        res=res.data.result;
+        console.log(res)
+    return res;
 }
 
 }

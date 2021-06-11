@@ -208,9 +208,8 @@ export default {
   methods: {
     //获取大洲
     async getContinent() {
-      let q = await new Parse.Query("FDIStock");
-      await q.limit(await q.count());
-      let continent = await q.find();
+      let continent=await new Parse.Cloud.run('getContinent',{tableName:'FDIStock'});
+          continent=continent.data.result;
       continent = continent.map(item => {
         return item.toJSON().continent;
       });
