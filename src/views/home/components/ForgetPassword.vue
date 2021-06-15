@@ -62,9 +62,8 @@ export default {
       this.$refs['ruleForm'].validate(valid => {
         if (valid) {
             const user = new this.$Parse.User.current();
-            user.set("password", this.ruleForm.pass);
-            user.save().then(res=>{
-            this.$message.success('密码修改成功请重新登录');
+            new this.$Parse.Cloud.run('changePassword',{password:this.ruleForm.pass}).then(res=>{
+            this.$message.success('密码修改成功,请重新登录！');
             this.$parent.visible = false;
             this.confirmLoading = false;
             userRequest.logOut();

@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import user from '@/request/user'
+import Parse from '@/request/user'
 export default {
   data() {
     return {
@@ -19,18 +19,20 @@ export default {
     if(current){
       this.vali();
     }else{
+      await Parse.logOut();
       this.$store.commit('setUserInfo',{});
       this.$storage.clear();
     }
-    window.addEventListener("storage",  async(e)=> {
-      let current=this.$storage.getItem(currentUser);
-      if(current){
-          tthis.vali();
-      }else{
-        this.$store.commit('setUserInfo',{});
-        this.$storage.clear();
-      }
-    })
+    // window.addEventListener("storage",  async(e)=> {
+    //   let current=this.$storage.getItem(currentUser);
+    //   if(current){
+    //       tthis.vali();
+    //   }else{
+    //     await Parse.logOut();
+    //     this.$store.commit('setUserInfo',{});
+    //     this.$storage.clear();
+    //   }
+    // })
   },
   methods:{
     async vali() {
@@ -39,16 +41,20 @@ export default {
         let user= new this.$Parse.Query('User');
             user.equalTo('objectId',u.objectId);
         let res=await user.first();
+        console.log(res,111)
       if(res){
         try{
-          await this.$Parse.User.become(u.sessionToken);
+          let res=await this.$Parse.User.become(u.sessionToken);
+          console.log(res,3333)
           this.$store.commit('setUserInfo',JSON.parse(JSON.stringify(res)));
         }catch(e) {
+            await Parse.logOut();
             this.$message.error('登录已失效，请重新登录');
             this.$store.commit('setUserInfo',{});
             this.$storage.clear();
         }
         }else{
+          await Parse.logOut();
           this.$message.error('登录已失效，请重新登录');
           this.$store.commit('setUserInfo',{});
           this.$storage.clear();

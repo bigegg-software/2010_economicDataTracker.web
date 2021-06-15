@@ -119,7 +119,7 @@ export default {
             type:'logout',
             exec_time:new Date()
           });
-          user.logOut();
+          await user.logOut();
           tthis.$storage.clear();
           tthis.$store.commit('setUserInfo',{});
         },

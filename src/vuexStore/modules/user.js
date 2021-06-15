@@ -16,10 +16,12 @@ const user = {
 
   actions: {
     // 埋点记录
-  buryPoint({commit},params){
-    let BuryPoint=new Parse.Object.extend('BuryPoint');
-    let buryPoint=new BuryPoint();
-        buryPoint.save(params);
+  async buryPoint({commit},params){
+    // let BuryPoint=new Parse.Object.extend('BuryPoint');
+    // let buryPoint=new BuryPoint();
+    //     buryPoint.save(params);
+      let res=await new Parse.Cloud.run("buryPoint",params);
+           console.log(JSON.parse(JSON.stringify(res)))
   },
   }
 }
