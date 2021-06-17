@@ -842,14 +842,14 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   store.commit('setShowOperate', true);
-  if(store.getters.userInfo.sessionToken){//判断token是否过期  过期后退出操作清空所有登录信息
-    user.becomeLogin(store.getters.userInfo.sessionToken).then((res)=>{
-    }).catch(async (err)=>{
-          await user.logOut();
-          storage.clear();
-          store.commit('setUserInfo',{});
-    });
-  }
+  // if(store.getters.userInfo.sessionToken){//判断token是否过期  过期后退出操作清空所有登录信息
+  //   user.becomeLogin(store.getters.userInfo.sessionToken).then((res)=>{
+  //   }).catch(async (err)=>{
+  //         user.logOut();
+  //         storage.clear();
+  //         store.commit('setUserInfo',{});
+  //   });
+  // }
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限
     if (true) { // 判断当前的token是否存在
       next();

@@ -18,6 +18,7 @@
 </template>
 <script>
 import userRequest from '@/request/user'
+import chartDataFun from '@/utils/chartDataFun'
 export default {
   data() {
     let validatePass = (rule, value, callback) => {
@@ -57,7 +58,8 @@ export default {
   },
   props:['visible'],
   methods: {
-    handleOk(e) {
+    async handleOk(e) {
+      await chartDataFun.become();
       this.confirmLoading = true;
       this.$refs['ruleForm'].validate(valid => {
         if (valid) {

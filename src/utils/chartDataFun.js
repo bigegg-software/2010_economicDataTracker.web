@@ -1,14 +1,45 @@
 import dayjs from 'dayjs';
 import Parse from '../request'
 import store from '@/vuexStore'
+import storage from '../storage/storage.js'
+import User from '../request/user'
+import {message} from 'ant-design-vue';
 import {
   foreignCapitalMenuLists,
   foreignTradeMenuLists,
   economicIndicatorsMenuLists
 } from '@/utils/menuSearchConfigs'
 export default {
+//   async handleParseError(err) {
+//   switch (err.code) {
+//     case Parse.Error.INVALID_SESSION_TOKEN:
+//       await Parse.User.logOut();
+//       console.log('登录失效')
+//       break;
+//   }
+// },
+async become() {
+    let currentUser=storage.getItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
+    if(currentUser&&currentUser.sessionToken){
+      try{
+         let res = await User.becomeLogin(currentUser.sessionToken)
+          store.commit('setUserInfo',res);
+      }catch(e) {
+          message.error('登录失效，请重新登录');
+           User.logOut();
+          // this.handleParseError(e);
+          storage.clear();
+          store.commit('setUserInfo',{});
+          
+      }
+    }else{
+          storage.clear();
+          store.commit('setUserInfo',{});
+    } 
+},
   // 获取年度最大值最小值
-  getMaxMinDate: async (tableName, flag = undefined) => {
+  getMaxMinDate: async function (tableName, flag = undefined) {
+    await this.become();
     let res = await Parse.Cloud.run('getMinMaxYears', {
       tableName,
       flag
@@ -53,6 +84,7 @@ export default {
   },
   //没月份时计算数据库最大季度和最小季度  数据库季度是按1234记录
   async getQNoMonthDefaultTime(tableName) {
+    await this.become();
     let res = await Parse.Cloud.run('getMinMaxYears', {
       tableName
     });
@@ -74,6 +106,7 @@ export default {
   },
   // 获取国家名
   async getCountryName(tableName, prop) {
+    await this.become();
     let res = await Parse.Cloud.run('getCountries', {
       tableName,
       country: prop
@@ -309,13 +342,15 @@ export default {
     return industrys;
   },
   // 获取行业
-  getServerIndustry: async () => {
+  getServerIndustry: async function()  {
+    await this.become();
     let industrys=await new Parse.Cloud.run('getServerIndustry');
         industrys=industrys.data.result;
     return industrys;
   },
   // 获取表中最新更新时间
-  getLatestTime: async (tableName) => {
+  getLatestTime: async function(tableName) {
+    await this.become();
     let res=await new Parse.Cloud.run('getLatestTime',{tableName});
         res=res.data.result;
     if (res.length) {
@@ -332,6 +367,7 @@ export default {
   },
   //获取News表中三天内的更新数据
   getInThreeDays: async function (p_count) {
+    await this.become();
     let dd = new Date();
     dd.setDate(dd.getDate() + p_count);
     let beforexDaysTime = dd.getTime();

@@ -499,7 +499,6 @@ export default {
         IndustryDataAttr,
         range
       );
-      console.log(allIndustrydata,55)
       this.RMB.series[1]["data"] = allIndustrydata.investConversionMillion;
       this.RMB.series[1]["yearOnYear"] = allIndustrydata.conversionYOY;
     },

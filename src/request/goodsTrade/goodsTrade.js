@@ -4,6 +4,7 @@ import store from '@/vuexStore'
 export default {
   // 带年度月度季度的折线图使用
   manualQueryData: async function (params) { //初始去数据库查询数据
+    await chartDataFun.become();
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(params.tableName);
     let res=await new Parse.Cloud.run('getManualQueryDataTrade',params);
@@ -389,7 +390,6 @@ export default {
     return res
   },
   async getImportExportEnterprise(params) { // 货物进出口总值按企业性质统计 年度 月度
-    console.log(params)
     let enterpriseType = params.enterpriseType
     let type = params.type
     let res = await this.manualQueryData(params);
@@ -726,6 +726,7 @@ export default {
     return data
   },
   async getCountryList(searchValue, activeKey) { // 获取所有国家  //要把countrys传进去
+    await chartDataFun.become();
     let countrys = [];
     if (activeKey == 'yearly') {
       countrys = await chartDataFun.getCountryName('ImportExportOrigin', 'country');

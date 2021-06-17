@@ -3,7 +3,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图柱状图都使用（带时间区间的）
-  manualQueryData:async function (tableName,params){  //初始去数据库查询数据 
+  manualQueryData:async function (tableName,params){  //初始去数据库查询数据
+           await chartDataFun.become(); 
            chartDataFun.getInThreeDays(-3);
            chartDataFun.getLatestTime(tableName); 
            params.tableName=tableName;
@@ -12,6 +13,7 @@ export default {
             return res;
     },
     getAllCountryName:async function() {  // 获取所有国家 好像未使用
+        await chartDataFun.become();
         let res=await new Parse.Cloud.run('getAllCountryNameMacroEconomy',{tableName:'Country'});
             res=res.data.result;
         return res;
@@ -717,9 +719,9 @@ getForeignCurrencyReserveChartsData:async function(tableName,params) {// 获取�
 //     return res;
 // },
 getMaxMinDate:async function (tableName) {  //单独查询
+    await chartDataFun.become();
     let res=await new Parse.Cloud.run('getMaxMinDateMacroEconomy',{tableName});
         res=res.data.result;
-        console.log(res)
     return res;
 }
 

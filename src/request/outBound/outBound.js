@@ -3,7 +3,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import store from '@/vuexStore'
 export default {
     // 带年度月度季度的折线图使用
-  manualQueryData:async function (tableName,params){  //初始去数据库查询数据 
+  manualQueryData:async function (tableName,params){  //初始去数据库查询数据
+            await chartDataFun.become();
             chartDataFun.getInThreeDays(-3);
             chartDataFun.getLatestTime(tableName);
             params.tableName=tableName;
@@ -44,6 +45,7 @@ sumSameYearData:async (sourceData,field,name)=> {
     return resD;
 },
     getAllCountryName:async function(prop,countrys) {  // 获取所有国家
+        await chartDataFun.become();
         let res=await new Parse.Cloud.run('getAllCountryName',{prop,countrys});
         res=res.data.result;
         return res;
@@ -408,7 +410,8 @@ getFlowsAndStocksByDestinationChartsData:async function(tableName,params,filed,t
      return {res:allresult};
 },
 // 柱状图查询  饼图
-barQueryData:async function (tableName,params){  //初始去数据库查询数据  
+barQueryData:async function (tableName,params){  //初始去数据库查询数据
+    await chartDataFun.become();
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(tableName); 
      params.tableName=tableName;

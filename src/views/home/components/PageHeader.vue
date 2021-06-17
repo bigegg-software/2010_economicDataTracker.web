@@ -119,7 +119,7 @@ export default {
             type:'logout',
             exec_time:new Date()
           });
-          await user.logOut();
+          user.logOut();
           tthis.$storage.clear();
           tthis.$store.commit('setUserInfo',{});
         },
@@ -134,12 +134,27 @@ export default {
     forgetPwd() {
       this.visible=true;
     },
-    logInfo() {
+    async logInfo() {
+      let currentUser=`Parse/${process.env.VUE_APP_ID}/currentUser`;
+      let u=this.$storage.getItem(currentUser);
+      if(u&&u.sessionToken){
+          try{
+            let res=await this.$Parse.User.become(u.sessionToken);
+            this.$store.commit('setUserInfo',JSON.parse(JSON.stringify(res)));
+            this.$message.warn('已登录状态');
+          }catch(e) {
+              this.$router.push({
+                path:'/login',
+                query:{redirect:this.$route.fullPath}
+              });
+          }
+      }else{
+        this.$router.push({
+            path:'/login',
+            query:{redirect:this.$route.fullPath}
+          });
+      }
       
-      this.$router.push({
-        path:'/login',
-        query:{redirect:this.$route.fullPath}
-      });
     }
   }
 };

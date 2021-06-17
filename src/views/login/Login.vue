@@ -48,12 +48,23 @@
 
 <script>
 import Parse from "@/request/user.js";
+import storage from '@/storage/storage'
 export default {
   name: "Login",
   data() {
     return {};
   },
   beforeCreate() {
+    let currentUser=storage.getItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
+    if(currentUser&&currentUser.sessionToken){
+      Parse.becomeLogin(currentUser.sessionToken).then((res)=>{
+      this.$router.push({path: this.$route.query.redirect?this.$route.query.redirect:'/' });
+      }).catch(async (err)=>{
+            Parse.logOut();
+            this.$storage.clear();
+            this.$store.commit('setUserInfo',{});
+      });
+    }
     this.form = this.$form.createForm(this, { name: "loginForm" });
   },
   mounted() {},
@@ -65,6 +76,7 @@ export default {
           try {
             let user = await Parse.logIn(values);
             this.$store.commit("setUserInfo", user);
+            Parse.becomeLogin(user.sessionToken)
             this.$store.dispatch('buryPoint',{
               username:user.username,
               type:'login',

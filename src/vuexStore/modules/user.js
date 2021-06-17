@@ -1,5 +1,6 @@
 
 import Parse from '../../request'
+import chartDataFun from '../../utils/chartDataFun';
 const user = {
   state: {
     info:{},
@@ -17,11 +18,11 @@ const user = {
   actions: {
     // 埋点记录
   async buryPoint({commit},params){
+    await chartDataFun.become();
     // let BuryPoint=new Parse.Object.extend('BuryPoint');
     // let buryPoint=new BuryPoint();
     //     buryPoint.save(params);
       let res=await new Parse.Cloud.run("buryPoint",params);
-           console.log(JSON.parse(JSON.stringify(res)))
   },
   }
 }

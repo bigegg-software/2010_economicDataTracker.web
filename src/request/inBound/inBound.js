@@ -15,6 +15,7 @@ export default {
     },
     // 带年度月度季度的折线图使用
     manualQueryData: async function (tableName, params) {  //初始去数据库查询数据
+        await chartDataFun.become();
         chartDataFun.getInThreeDays(-3);  
         chartDataFun.getLatestTime(tableName); 
         params.tableName=tableName;
@@ -23,7 +24,8 @@ export default {
         return res;
     },
     // 柱状图查询  饼图
-    barQueryData: async function (tableName, params) {  //初始去数据库查询数据  
+    barQueryData: async function (tableName, params) {  //初始去数据库查询数据
+        await chartDataFun.become();  
         chartDataFun.getInThreeDays(-3);
         chartDataFun.getLatestTime(tableName); 
         params.tableName=tableName;
@@ -32,6 +34,7 @@ export default {
         return res;
     },
     getAllCountryName: async function (prop,countrys) {  // 获取所有国家对华
+        await chartDataFun.become();
         let res=await new Parse.Cloud.run('getMainAllCountryName',{prop,countrys});
         res=res.data.result;
         return res;

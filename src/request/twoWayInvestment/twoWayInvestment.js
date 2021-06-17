@@ -4,7 +4,8 @@ import chartDataFun from "@/utils/chartDataFun";
 import dayjs from 'dayjs'
 export default {
  // 带年度月度季度的折线图使用
- manualQueryData: async function (tableName, params) {  //初始去数据库查询数据 
+ manualQueryData: async function (tableName, params) {  //初始去数据库查询数据
+    await chartDataFun.become(); 
     chartDataFun.getInThreeDays(-3);
     chartDataFun.getLatestTime(tableName);  
     params.tableName=tableName;
@@ -125,7 +126,6 @@ export default {
                 filterVal: ['year', 'month', 'inwardFDIConMillion', 'inwardFDIConYOY','investConversionMillion','conversionYOY', 'unitMillion'],
                 tableData: [...tableres]
             }
-            console.log(allIndustry,12)
             store.commit('saveChartTable', tableInfo);
 
      return {allIndustry,res};
