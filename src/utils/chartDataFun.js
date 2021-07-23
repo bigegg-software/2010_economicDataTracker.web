@@ -674,6 +674,14 @@ async become() {
         ch: '租赁贸易',
       },
       {
+        en: 'Duty-free Commodities on Payment of Foreign Currency',
+        ch: '免税外汇商品',
+      },
+      {
+        en: 'Outward Processing',
+        ch: '出料加工贸易',
+      },
+      {
         en: 'Equipment or materials imported as investment by foreign-invested enterprises',
         ch: '外商投资企业作为投资进口的设备、物品',
       },
