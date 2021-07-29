@@ -300,13 +300,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
         },
         dataSources: {
             en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
@@ -332,13 +332,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
         },
         dataSources: {
             en: "1. _Monthly Summary Statistics - Overseas Project, 2003 to present_, Ministry of Commerce",
@@ -364,13 +364,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
@@ -392,13 +392,13 @@ export default {
             enTitleSecond: "",
             enTextSecond: "",
             enSource: '_"Go-global" Public Service Platform - Policies_, Regulations and Business Guidelines, Ministry of Commerce',
-            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml",
+            enLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml",
             chTitle: "对外承包工程",
             chText: "对外承包工程指中国的企业或者其他单位承包境外建设工程项目的活动，包括咨询、勘察、设计、监理、招标、造价、采购、施工、安装、调试、运营、管理等。",
             chTitleSecond: "",
             chTextSecond: "",
             chSource: "商务部_“走出去”公共服务平台-政策法规及业务指南_",
-            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article10.shtml"
+            chLink: "http://fec.mofcom.gov.cn/article/ywzn/ywznn/article08.shtml"
         },
         dataSources: {
             en: "_2017 to 2019 Annual Report on China International Project Contracting_, Ministry of Commerce and China International Contractors Association",
