@@ -9,6 +9,7 @@
       <a-form id="loginForm" :form="form" class="login-form" @submit="handleSubmit">
         <a-form-item>
           <a-input
+            allowClear
             v-decorator="[
               'userName',
               {
@@ -22,6 +23,7 @@
         </a-form-item>
         <a-form-item>
           <a-input
+            allowClear
             v-decorator="[
               'password',
               {
@@ -34,6 +36,51 @@
             <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
           </a-input>
         </a-form-item>
+
+
+        <!-- 输入手机号获取验证码 -->
+        <a-form-item>
+          <a-row :gutter="8">
+          <a-col :span="16">
+          <a-input
+           allowClear
+            class="phone"
+            v-decorator="[
+              'phone',
+              {
+                rules: [{ required: true, message: '请输入手机号' },{validator:valiPhoneNumber}]
+              }
+            ]"
+            type="text"
+            placeholder="手机号 Cell-phone number"
+          >
+            <a-icon slot="prefix" type="phone" style="color: rgba(0,0,0,.25)" />
+          </a-input>
+          </a-col>
+          <a-col :span="8">
+              <a-button type="link" @click="getCode" v-if="issend">获取验证码</a-button>
+              <a-button disabled type="link" v-if="!issend">{{ count }}s后可重新发送</a-button>
+            </a-col>
+              
+          </a-row>
+        </a-form-item>
+
+        <a-form-item>
+          <a-input
+           allowClear
+            v-decorator="[
+              'captcha',
+              {
+                rules: [{ required: true, message: '请输入验证码' }]
+              }
+            ]"
+            type="text"
+            placeholder="验证码 Captcha"
+          >
+            <a-icon slot="prefix" type="api" style="color: rgba(0,0,0,.25)" />
+          </a-input>
+        </a-form-item>
+
         <a-form-item>
           <a-button type="primary" html-type="submit" class="login-form-button">登录 Log in</a-button>
         </a-form-item>
@@ -52,7 +99,11 @@ import storage from '@/storage/storage'
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      count: 30,
+      issend: true,
+      reg_phone:/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+    };
   },
   beforeCreate() {
     let currentUser=storage.getItem(`Parse/${process.env.VUE_APP_ID}/currentUser`);
@@ -69,9 +120,39 @@ export default {
   },
   mounted() {},
   methods: {
+    valiPhoneNumber(rule,val,callback) {
+        if(!!val&&!this.reg_phone.test(val)){
+          callback('手机号不正确')
+        }
+        callback();
+    },
+    getCode(){
+      // let phone=this.form.getForm().getFieldValue('phone');
+         this.form.validateFields(['phone'],(err,value)=>{
+               if(err){
+                  return;
+               }else{
+                 const TIME_COUNT = 30;
+                if (!this.timer) {
+                  this.count = TIME_COUNT;
+                  this.issend = false;
+                  //这里可以插入调用后台接口
+                  this.timer = setInterval(() => {
+                    if (this.count > 1 && this.count <= TIME_COUNT) {
+                      this.count--;
+                    } else {
+                      this.issend = true;
+                      clearInterval(this.timer);
+                      this.timer = null;
+                    }
+                  }, 1000);
+                }
+               }
+         });
+    },
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields(async (err, values) => {
+      this.form.validateFields(['userName','password','captcha'],async (err, values) => {
         if (!err) {
           try {
             let user = await Parse.logIn(values);
@@ -119,6 +200,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .login {
   display: flex;
   width: 100%;
@@ -127,10 +209,10 @@ export default {
 .content {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 75%;
-  padding: 1.460417rem 0 1.377083rem 0;
+  padding: 1.041667rem 0 1.377083rem 0;
   box-sizing: border-box;
   .title {
     text-align: center;
@@ -148,12 +230,15 @@ export default {
   .login-form {
     width: 2.265625rem;
     .ant-form-item {
-      &:nth-child(3) {
+      &:nth-child(5) {
         margin-bottom: 0.052083rem;
       }
     }
     &/deep/ .ant-input {
       height: 0.260417rem;
+    }
+    .phone{
+      // padding-right: .78125rem;
     }
     .login-form-button {
       width: 100%;
