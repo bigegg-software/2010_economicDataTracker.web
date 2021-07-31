@@ -5,7 +5,7 @@ axios.defaults.baseURL=baseURL;
 if(process.env.NODE_ENV === 'development'){
   axios.defaults.baseURL=baseURL
 }else{
-    axios.defaults.baseURL=''
+    axios.defaults.baseURL=process.env.VUE_APP_SMS_URL||''
 }
 const Axios = axios.create({
   // baseURL: process.env.VUE_APP_SMS_URL, // 基础url,如果是多环境配置这样写，也可以像下面一行的写死。
