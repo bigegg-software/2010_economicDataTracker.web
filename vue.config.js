@@ -29,17 +29,17 @@ module.exports = {
   // outputDir: 'serve', //build输出目录
   // assetsDir: 'assets', //静态资源目录（js, css, img）
   // lintOnSave: false, //是否开启eslint
-  // devServer: {
-  //   proxy: {
-  //     //配置跨域
-  //     '/api': {
-  //       target: "https://qyapi.weixin.qq.com",
-  //       ws: true,
-  //       changOrigin: true,
-  //       pathRewrite: {
-  //         '^/api': '/'
-  //       }
-  //     },
-  //   }
-  // }
+  devServer: {
+    proxy: {
+      //配置跨域
+      '/SMSapi': {
+        target: "http://192.168.124.180:1339",
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/SMSapi': ''
+        }
+      },
+    }
+  }
 }

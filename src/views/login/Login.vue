@@ -21,7 +21,7 @@
             <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
           </a-input>
         </a-form-item>
-        <a-form-item>
+        <!-- <a-form-item>
           <a-input
             allowClear
             v-decorator="[
@@ -35,7 +35,7 @@
           >
             <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
           </a-input>
-        </a-form-item>
+        </a-form-item> -->
 
 
         <!-- 输入手机号获取验证码 -->
@@ -69,7 +69,7 @@
           <a-input
            allowClear
             v-decorator="[
-              'captcha',
+              'code',
               {
                 rules: [{ required: true, message: '请输入验证码' }]
               }
@@ -128,48 +128,67 @@ export default {
     },
     getCode(){
       // let phone=this.form.getForm().getFieldValue('phone');
-         this.form.validateFields(['phone'],(err,value)=>{
+         this.form.validateFields(['phone'],async (err,value)=>{
                if(err){
                   return;
                }else{
                  const TIME_COUNT = 30;
                 if (!this.timer) {
-                  this.count = TIME_COUNT;
-                  this.issend = false;
                   //这里可以插入调用后台接口
-                  this.timer = setInterval(() => {
-                    if (this.count > 1 && this.count <= TIME_COUNT) {
-                      this.count--;
-                    } else {
-                      this.issend = true;
-                      clearInterval(this.timer);
-                      this.timer = null;
-                    }
-                  }, 1000);
+                  let rescode=await Parse.getSMSCode(value);
+                     if(rescode.code==200){
+                            this.count = TIME_COUNT;
+                            this.issend = false;
+                             this.timer = setInterval(() => {
+                              if (this.count > 1 && this.count <= TIME_COUNT) {
+                                this.count--;
+                              } else {
+                                this.issend = true;
+                                clearInterval(this.timer);
+                                this.timer = null;
+                              }
+                            }, 1000);
+                     }else{
+                       this.$message.error({content:rescode.data.data.error_response.sub_msg,duration:2});
+                     }
                 }
                }
          });
     },
     handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFields(['userName','password','captcha'],async (err, values) => {
+      e.preventDefault();   //'password',
+      this.form.validateFields(['userName','code'],async (err, values) => {
         if (!err) {
-          try {
-            let user = await Parse.logIn(values);
-            this.$store.commit("setUserInfo", user);
-            Parse.becomeLogin(user.sessionToken)
-            this.$store.dispatch('buryPoint',{
-              username:user.username,
-              type:'login',
-              exec_time:new Date()
-            });
-            this.$router.push({path: this.$route.query.redirect?this.$route.query.redirect:'/' });
-          } catch (error) {
-            this.$message.warning({
-              content: "用户名或密码错误",
-              duration: 2
-            });
-          }
+          // try {
+          //   let user = await Parse.logIn(values);
+          //   this.$store.commit("setUserInfo", user);
+          //   Parse.becomeLogin(user.sessionToken)
+          //   this.$store.dispatch('buryPoint',{
+          //     username:user.username,
+          //     type:'login',
+          //     exec_time:new Date()
+          //   });
+          //   this.$router.push({path: this.$route.query.redirect?this.$route.query.redirect:'/' });
+          // } catch (error) {
+          //   this.$message.warning({
+          //     content: "用户名或密码错误",
+          //     duration: 2
+          //   });
+          // }
+         let user = await Parse.logIn(values);
+             if(user.code==200){
+                  user=user.message;
+                  this.$store.commit("setUserInfo", user);
+                  await Parse.becomeLogin(user.sessionToken)
+                  this.$store.dispatch('buryPoint',{
+                    username:user.username,
+                    type:'login',
+                    exec_time:new Date()
+                  });
+                  this.$router.push({path: this.$route.query.redirect?this.$route.query.redirect:'/' });
+             }else{
+               this.$message.error({content:user.message,duration:2});
+             }
         }
       });
     },
