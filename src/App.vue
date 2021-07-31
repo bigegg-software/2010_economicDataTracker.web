@@ -41,10 +41,10 @@ export default {
     async vali() {
       let currentUser=`Parse/${process.env.VUE_APP_ID}/currentUser`;
       let u=this.$storage.getItem(currentUser);
-        let user= new this.$Parse.Query('User');
-            user.equalTo('objectId',u.objectId);
-        let res=await user.first();
-      if(res){
+        // let user= new this.$Parse.Query('User');
+        //     user.equalTo('objectId',u.objectId);
+        // let res=await user.first();
+      if(u){
         try{
           let res=await this.$Parse.User.become(u.sessionToken);
           this.$store.commit('setUserInfo',JSON.parse(JSON.stringify(res)));
