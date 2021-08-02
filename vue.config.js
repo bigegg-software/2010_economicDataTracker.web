@@ -33,7 +33,7 @@ module.exports = {
     proxy: {
       //配置跨域
       '/SMSapi': {
-        target: "http://192.168.124.180:1339",
+        target: "http://106.12.211.75:1339",
         ws: true,
         changOrigin: true,
         pathRewrite: {
