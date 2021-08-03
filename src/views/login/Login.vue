@@ -86,7 +86,7 @@
         </a-form-item>
         <div class="bottom-btn">
           <span class="go-back" @click="goBack">返回数据页面</span>
-        <span class="forget-pwd" @click="forgetPwd">忘记密码</span>
+        <!-- <span class="forget-pwd" @click="forgetPwd">忘记密码</span> -->
         </div>
       </a-form>
     </div>
