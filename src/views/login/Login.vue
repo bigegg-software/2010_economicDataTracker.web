@@ -149,7 +149,8 @@ export default {
                               }
                             }, 1000);
                      }else{
-                       this.$message.error({content:rescode.data.data.error_response.sub_msg,duration:2});
+                       //rescode.data.data.error_response.sub_msg
+                       this.$message.error({content:`短信验证受限，请稍后登录`,duration:2});
                      }
                 }
                }
