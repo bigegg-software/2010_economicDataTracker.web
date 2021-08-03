@@ -50,13 +50,13 @@
             <p style="margin:0" class="text-chinese">退出</p>
           </div>
         </div>
-        <!-- <div class="line" v-if="userInfo.sessionToken"></div> -->
-        <!-- <div class="logout" v-if="userInfo.sessionToken" @click="forgetPwd">
+        <div class="line" v-if="userInfo.sessionToken"></div>
+        <div class="logout" v-if="userInfo.sessionToken" @click="forgetPwd">
           <div class="logout-text">
             <p style="margin:0" class="text-english">Change password</p>
             <p style="margin:0" class="text-chinese">修改密码</p>
           </div>
-        </div> -->
+        </div>
         <div v-if="!userInfo.sessionToken" class="logout-text" @click="logInfo">
           <p style="margin:0" class="text-english">Log In</p>
           <p style="margin:0" class="text-chinese">登录</p>

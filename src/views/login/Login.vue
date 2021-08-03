@@ -21,9 +21,11 @@
             <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
           </a-input>
         </a-form-item>
-        <!-- <a-form-item>
+        <a-form-item>
+          <a-row :gutter="8">
+          <a-col :span="16">
           <a-input
-            allowClear
+           allowClear
             v-decorator="[
               'password',
               {
@@ -35,11 +37,18 @@
           >
             <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
           </a-input>
-        </a-form-item> -->
+          </a-col>
+          <a-col :span="8">
+              <a-button type="link" @click="getCode" v-if="issend">获取验证码</a-button>
+              <a-button disabled type="link" v-if="!issend">{{ count }}s后可重新发送</a-button>
+            </a-col>
+              
+          </a-row>
+        </a-form-item>
 
 
         <!-- 输入手机号获取验证码 -->
-        <a-form-item>
+        <!-- <a-form-item>
           <a-row :gutter="8">
           <a-col :span="16">
           <a-input
@@ -63,7 +72,7 @@
             </a-col>
               
           </a-row>
-        </a-form-item>
+        </a-form-item> -->
 
         <a-form-item>
           <a-input
@@ -86,7 +95,7 @@
         </a-form-item>
         <div class="bottom-btn">
           <span class="go-back" @click="goBack">返回数据页面</span>
-        <!-- <span class="forget-pwd" @click="forgetPwd">忘记密码</span> -->
+          <span class="forget-pwd" @click="forgetPwd">忘记密码</span>
         </div>
       </a-form>
     </div>
@@ -128,37 +137,41 @@ export default {
     },
     getCode(){
       // let phone=this.form.getForm().getFieldValue('phone');
-         this.form.validateFields(['phone'],async (err,value)=>{
+         this.form.validateFields(['userName','password'],async (err,value)=>{
                if(err){
                   return;
                }else{
                  const TIME_COUNT = 30;
                 if (!this.timer) {
                   //这里可以插入调用后台接口
-                  let rescode=await Parse.getSMSCode(value);
-                     if(rescode.code==200){
-                            this.count = TIME_COUNT;
-                            this.issend = false;
-                             this.timer = setInterval(() => {
-                              if (this.count > 1 && this.count <= TIME_COUNT) {
-                                this.count--;
-                              } else {
-                                this.issend = true;
-                                clearInterval(this.timer);
-                                this.timer = null;
-                              }
-                            }, 1000);
+                  let resval=await Parse.validUserInfo(value);
+                     if(resval.code==200 && resval.message){
+                          let rescode=await Parse.getSMSCode({phone:resval.message});
+                               if(rescode.code==200){
+                                    this.count = TIME_COUNT;
+                                    this.issend = false;
+                                    this.timer = setInterval(() => {
+                                      if (this.count > 1 && this.count <= TIME_COUNT) {
+                                        this.count--;
+                                      } else {
+                                        this.issend = true;
+                                        clearInterval(this.timer);
+                                        this.timer = null;
+                                      }
+                                    }, 1000);
+                               }else{
+                                    this.$message.error({content:`短信验证受限，请稍后登录`,duration:2});
+                               }
                      }else{
-                       //rescode.data.data.error_response.sub_msg
-                       this.$message.error({content:`短信验证受限，请稍后登录`,duration:2});
+                        this.$message.error({content:resval.message,duration:2});
                      }
                 }
                }
          });
     },
     handleSubmit(e) {
-      e.preventDefault();   //'password',
-      this.form.validateFields(['userName','code'],async (err, values) => {
+      e.preventDefault();   //
+      this.form.validateFields(['userName','password','code'],async (err, values) => {
         if (!err) {
           // try {
           //   let user = await Parse.logIn(values);

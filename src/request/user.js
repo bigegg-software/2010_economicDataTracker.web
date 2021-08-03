@@ -10,7 +10,7 @@ export default {
     return Axios.post('/user/login', 
     {
       username:params.userName,
-      // password:params.password,
+      password:params.password,
       code:Number(params.code)
     }
     ).then(function (response) {
@@ -31,16 +31,26 @@ export default {
     let user = await Parse.User.become(token)
     return user.toJSON()
   },
-  async getSMSCode(params) {
-    params.phone=Number(params.phone);
-    // let smscode= await Parse.Cloud.run('getSMSCode',params);
-    // console.log(toJSON(smscode.data.result),111);
-return Axios.post('/user/getSMSCode', params).then(function (response) {
-          return response;
+  async validUserInfo(params) {
+       return Axios.post('/user/validUserInfo',
+       {
+         username:params.userName,
+         password:params.password
+      }
+       ).then(function (res) {
+          return res;
       }).catch(function (error) {
           return error;
       });
     
+  },
+    async getSMSCode(params) {
+    params.phone=Number(params.phone);
+    return Axios.post('/user/getSMSCode', params).then(function (response) {
+              return response;
+          }).catch(function (error) {
+              return error;
+          });
   },
   async logOut() {
     return await Parse.User.logOut()
