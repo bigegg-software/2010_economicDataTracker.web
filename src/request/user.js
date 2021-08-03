@@ -36,10 +36,8 @@ export default {
     // let smscode= await Parse.Cloud.run('getSMSCode',params);
     // console.log(toJSON(smscode.data.result),111);
 return Axios.post('/user/getSMSCode', params).then(function (response) {
-      console.log(response,77777)
           return response;
       }).catch(function (error) {
-          console.log(error);
           return error;
       });
     
