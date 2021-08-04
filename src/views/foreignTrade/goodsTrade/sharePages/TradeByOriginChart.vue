@@ -570,7 +570,15 @@ export default {
     // 改变年度季度月度时：
     async changeActiveKey(activeKey) {
       this.activeKey = activeKey;
+      // 初始
       await this.getCountryList();
+        let chList=this.checkBox.op.map(v=>v.ch);
+        if(!chList.includes(this.checkBox.value.ch)){
+          this.checkBox.value={
+            ch: "中国香港",
+            en: "Hong Kong, China"
+          };
+        }
       this.handleText();
       await this.mainGetChartsData(activeKey);
     },

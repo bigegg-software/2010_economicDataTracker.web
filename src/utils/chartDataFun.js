@@ -674,7 +674,7 @@ async become() {
         ch: '租赁贸易',
       },
       {
-        en: 'Duty-free Commodities on Payment of Foreign Currency',
+        en: 'Duty-free commodities on payment of foreign currency',
         ch: '免税外汇商品',
       },
       {

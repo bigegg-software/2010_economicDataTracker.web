@@ -86,7 +86,7 @@ export default {
       },
       totalData: {
         title: {
-          ch: "中国进出口贸易总额",
+          ch: "中国货物进出口总值",
           en: "China’s total trade volume of goods"
         },
         unit: {

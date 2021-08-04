@@ -182,7 +182,7 @@ export default {
       this.option.value = year;
       await this.getChartsData({
         type: 2,
-        descending: "destinationPercent",
+        descending: "variousTypesPerNum",//destinationPercent
         limit: 10,
         year: Number(year)
       });

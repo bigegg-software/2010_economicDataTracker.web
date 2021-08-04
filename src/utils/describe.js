@@ -1092,8 +1092,8 @@ export default {
             enSecond: "2. “-” indicates that the source has not released such data.",
             ch: "1. 自2020年起，海关总署合并发布1月和2月的统计数据。",
             chSecond: "2.  “-”表示数据源未公布相关数据。",
-            enThird: "3. The General Administration of Customs has started to release China's trade in goods with Africa since 2019.",
-            chThird:"3. 海关总署从2019年起发布中国与非洲的货物进出口数据。"
+            enThird: "3. The General Administration of Customs has started to release China's monthly trade in goods with Africa and Latin America since 2019.",
+            chThird:"3. 海关总署从2019年起发布中国与非洲及拉丁美洲的月度货物进出口数据。"
         }
     },
     // 货物进出口总值按商品类别统计
@@ -1263,8 +1263,8 @@ export default {
         sourceLinkSecond: "",
         sourceLinkThird: "",
         noteContent: {
-            en: "Monthly export and import data from April 2017 were unavailable from the source. Data shown in this database have been manually calculated.",
-            ch: "2017年4月的当月进口、出口数据源缺失，本数据库显示的当月数据为计算得出。",
+            en: "1. Monthly export and import data from April 2017 were unavailable from the source. Data shown in this database have been manually calculated.",
+            ch: "1. 2017年4月的当月进口、出口数据源缺失，本数据库显示的当月数据为计算得出。",
             enSecond: "2. In 2020, the General Administration of Customs combined the release of January and February statistics.",
             chSecond: "2. 2020年，海关总署合并发布了1月和2月的统计数据。",
             enThird:"3. “-” indicates that the source has not released such data. ",
