@@ -145,7 +145,7 @@ export default {
     this.option.value = arrmaxmin[1];
     await this.getChartsData({
       type: 2,
-      descending: "destinationPercent", //比重
+      descending: "variousTypesPerNum", //比重destinationPercent
       limit: 10,
       year: Number(arrmaxmin[1])
     });
