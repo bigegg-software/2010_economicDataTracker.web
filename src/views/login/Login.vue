@@ -145,10 +145,8 @@ export default {
                 if (!this.timer) {
                   //这里可以插入调用后台接口
                   let resval=await Parse.validUserInfo(value);
-                     if(resval.code==200 && resval.message){
-                          let rescode=await Parse.getSMSCode({phone:resval.message});
-                               if(rescode.code==200){
-                                    this.count = TIME_COUNT;
+                     if(resval.code==200){ 
+                              this.count = TIME_COUNT;
                                     this.issend = false;
                                     this.timer = setInterval(() => {
                                       if (this.count > 1 && this.count <= TIME_COUNT) {
@@ -159,11 +157,8 @@ export default {
                                         this.timer = null;
                                       }
                                     }, 1000);
-                               }else{
-                                    this.$message.error({content:`短信验证受限，请稍后登录`,duration:2});
-                               }
                      }else{
-                        this.$message.error({content:resval.message,duration:2});
+                        this.$message.error({content:resval.message||`短信验证受限，请稍后登录`,duration:2});
                      }
                 }
                }
