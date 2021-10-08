@@ -144,7 +144,7 @@ export default {
       if (item.name == "embed") {
         //设置嵌入链接
         item.children[0].src = `
-            <iframe src="${window.location.origin}/web/#/${this.tabComponent}" width="600" height="400">
+            <iframe src="${process.env.VUE_APP_CURRENT_ORIGIN}/#/${this.tabComponent}" width="600" height="400">
         `;
       }
       if (item.name == "chart") {
