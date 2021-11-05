@@ -39,7 +39,7 @@ export default {
         {
           name: "numEnterprisesBRIChart",
           chinese: "新设立企业数",
-          english: "Number of new foreign-invested enterprise"
+          english: "Number of new foreign-invested enterprises"
         },
         {
           name: "inflowsToChinaBRIChart",

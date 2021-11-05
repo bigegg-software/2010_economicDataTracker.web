@@ -1,6 +1,6 @@
 <template>
   <div class="pageFooter">
-    <div class>Copyright©2020 China Daily. All rights reserved.</div>
+    <div class>Copyright©2021 China Daily. All rights reserved.</div>
     <div class>License for publishing multimedia online 0108263</div>
     <div>
       Registration Number: 130349

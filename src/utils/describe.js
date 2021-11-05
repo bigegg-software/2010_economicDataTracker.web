@@ -172,7 +172,7 @@ export default {
             chSecond: "2. 2005-2015年大部分同比数据为计算得出，无原始公布数据；",
             enThird:"3. “-” indicates that the source has not released such data.",
             chThird:"3. “-”表示数据源未公布相关数据。",
-			enFour:"4. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries."
+			enFour:"4. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fishery."
 
         }
     },
@@ -203,7 +203,7 @@ export default {
             enSecond: "2.  “-” indicates that the source has not released such data.",
             ch: "1. 2007-2009年部分国家数据缺失；",
             chSecond: "2. “-”表示数据源未公布相关数据。",
-			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries."
+			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fishery."
         }
     },
     // ---------------中国对“一带一路”沿线国家投资
@@ -519,7 +519,7 @@ export default {
         },
         sourceLink: "http://fec.mofcom.gov.cn/article/tzhzcj/tzhz/",
         noteContent: {
-            en: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
+            en: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fishery.",
             enSecond: "",
             ch: "",
             chSecond: ""
@@ -835,7 +835,7 @@ export default {
         noteContent: {
             en: "1.Data on some industries in 2010 are unavailable.",
             enSecond: "2. “-” indicates that the source has not released such data.",
-			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
+			enThird: "3. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fishery.",
             ch: "1. 2010年部分行业同比数据缺失。",
             chSecond: "2. “-”表示数据源未公布相关数据。"
         }
@@ -864,7 +864,7 @@ export default {
         sourceLink: "http://www.fdi.gov.cn/come-datatongji-list.html?comeID=6",
         noteContent: {
             en: "",
-            enSecond: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fisheries.",
+            enSecond: "1. “Agriculture” in this section includes agriculture, forestry, animal husbandry and fishery.",
             ch: "",
             chSecond: ""
         }
@@ -873,7 +873,7 @@ export default {
     foreignInvestTaxChart: {
         concept: {
             enTitle: "Tax revenue from foreign-invested enterprises",
-            enText: "Tax revenue from foreign-invested enterprises refers to various taxes paid by foreign-invested companies to the Chinese government, excluding Customs duties and ship tonnage tax.",
+            enText: "Tax revenue from foreign-invested enterprises refers to various taxes paid by foreign-invested companies to the Chinese government, excluding customs duties and ship tonnage tax.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_2019 Statistical Bulletin of FDI in China_, Ministry of Commerce",
@@ -1029,7 +1029,7 @@ export default {
     goodsTradeBalanceChart: {
         concept: {
             enTitle: "Trade balance",
-            enText: "The trade balance is equal to the value of export minus that of imports. A positive trade balance is a trade surplus, and a negative one is a trade deficit.",
+            enText: "The trade balance is equal to the value of exports minus that of imports. A positive trade balance is a trade surplus, and a negative one is a trade deficit.",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "",
@@ -1655,7 +1655,7 @@ export default {
     investmentFixedAssetsChart: {
         concept: {
             enTitle: "Investment in fixed assets (excluding rural households)",
-            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan（$765,134）. This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
+            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan($765,134). This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Definiton of indicators - Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",

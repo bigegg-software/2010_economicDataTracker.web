@@ -52,7 +52,7 @@ export default {
       totalData: {
         title: {
           ch: "“一带一路”沿线国家在华新设立外商投资企业数",
-          en: "Number of new foreign-invested enterprise set up by BRI countries in China"
+          en: "Number of new foreign-invested enterprises set up by BRI countries in China"
         },
         unit: {
           ch: "家",
@@ -87,7 +87,7 @@ export default {
         yearOnYear: false, //通过修改这个值来显示同比
         title: {
           ch: "“一带一路”沿线国家在华新设立外商投资企业数",
-          en: "Number of new foreign-invested enterprise set up by BRI countries in China"
+          en: "Number of new foreign-invested enterprises set up by BRI countries in China"
         },
         xData: [],
         hideLegend: true,
