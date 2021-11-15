@@ -2,15 +2,60 @@ import Parse from '../index'
 import chartDataFun from "@/utils/chartDataFun";
 import store from '@/vuexStore'
 export default {
+    spliceYear(start,end) {
+      let years = [];
+      let finaly=[]
+      let space=end-start;
+          for(let i=0; i<space+1; i++) {
+            years=[...years,start++];
+          };
+          do {
+              let range=years.splice(0,5);
+              finaly.push(range);
+          } while (years.length>0);
+          return finaly;
+    },
+    async promiseAll(params) {
+         let array = await this.spliceYear(params.start,params.end);
+             let promises=[];
+             for(let u=0;u<array.length; u++){
+                 let arr=array[u];
+                 params.start=arr[0];
+                 params.end=arr[arr.length-1];
+                 let p = new Promise(async (resolve, reject) => {
+                   let res=await new Parse.Cloud.run('getManualQueryDataInvestment',params);
+                   if(res.code==200){
+                       resolve(res.data.result);
+                   }else{
+                       reject(res)
+                   }
+                })
+                promises.push(p);
+             }
+            return Promise.all(promises).then((result) => {
+    console.log(result,2211)
+                        let arrs=[].concat.apply([],result);
+                        return arrs;
+                        }).catch((error) => {
+                        })
+    },
     // 带年度月度季度的折线图使用
   manualQueryData:async function (tableName,params){  //初始去数据库查询数据
             await chartDataFun.become();
             chartDataFun.getInThreeDays(-3);
             chartDataFun.getLatestTime(tableName);
             params.tableName=tableName;
-            let res=await new Parse.Cloud.run('getManualQueryDataInvestment',params);
-            res=res.data.result;
-            return res;
+            if((tableName=='FDIStock' || tableName=='FDIOutflowDestination') && params.start && params.end){
+                let res=undefined;
+                    res=await this.promiseAll(params);
+                    return res;
+            }else{
+                let res=undefined;
+                    res=await new Parse.Cloud.run('getManualQueryDataInvestment',params);
+                    res=res.data.result;
+                    return res;
+            }
+            
     },
 // 各州国家金额求和
 sumSameYearData:async (sourceData,field,name)=> {

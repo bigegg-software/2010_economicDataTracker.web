@@ -210,11 +210,11 @@ export default {
     async getContinent() {
       await chartDataFun.become();
       let continent=await new Parse.Cloud.run('getContinent',{tableName:'FDIStock'});
-          continent=continent.data.result;
-      continent = continent.map(item => {
-        return item.toJSON().continent;
-      });
-      let res = Array.from(new Set(continent));
+          let res=continent.data.result;
+      //     continent = continent.map(item => {
+      //       return item.toJSON().continent;
+      //     });
+      // let res = Array.from(new Set(continent));
        
       for (let i = 0; i < this.allContinent.length; i++) {
         if (res.includes(this.allContinent[i].ch)) {

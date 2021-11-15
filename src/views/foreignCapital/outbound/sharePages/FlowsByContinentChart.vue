@@ -309,6 +309,8 @@ export default {
       }
     },
     async getChartsData(aug) {
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
       //改变横轴 获取数据
       let {
         Asia,
@@ -325,8 +327,6 @@ export default {
         "outflow",
         2
       );
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
       // 要换取纵轴数据的字段属性
       let dataAttr = ["mount"];
       let XNameAttr = "year";
