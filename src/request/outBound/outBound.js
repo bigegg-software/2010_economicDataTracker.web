@@ -33,7 +33,6 @@ export default {
                 promises.push(p);
              }
             return Promise.all(promises).then((result) => {
-    console.log(result,2211)
                         let arrs=[].concat.apply([],result);
                         return arrs;
                         }).catch((error) => {
