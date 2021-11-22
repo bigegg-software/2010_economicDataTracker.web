@@ -285,6 +285,8 @@ export default {
       //
     },
     async getChartsData(aug) {
+      // 完整的区间
+      let range = await chartDataFun.getXRange(aug);
       //改变横轴 获取数据
       let { res } = await request.getFlowsAndStocksByDestinationChartsData(
         "FDIStock",
@@ -292,8 +294,7 @@ export default {
         "stocks",
         1
       );
-      // 完整的区间
-      let range = await chartDataFun.getXRange(aug);
+      
       // 要换取纵轴数据的字段属性
       let dataAttr = ["stocksMillion"];
       let XNameAttr = "year";
