@@ -1655,7 +1655,7 @@ export default {
     investmentFixedAssetsChart: {
         concept: {
             enTitle: "Investment in fixed assets (excluding rural households)",
-            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan($765,134). This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
+            enText: "Investment in fixed assets (excluding rural households) refers to construction and real estate development projects invested in by urban and rural enterprises, institutions, administrative bodies and self-employed people whose planned investment is at or above five million yuan ($765,134). This indicator combines the original urban fixed-asset investment and rural enterprise investment and has been in use since 2011. ",
             enTitleSecond: "",
             enTextSecond: "",
             enSource: "_Definiton of indicators - Investment in fixed assets (excluding rural households)_, National Bureau of Statistics",
