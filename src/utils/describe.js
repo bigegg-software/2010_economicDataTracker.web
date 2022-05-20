@@ -1471,7 +1471,7 @@ export default {
         sourceLinkSecond: "http://www.mohrss.gov.cn/SYrlzyhshbzb/zwgk/szrs/tjsj/index.html",
         sourceLinkThird: "",
         noteContent: {
-            en: "None.",
+            en: "",
             enSecond: "",
             ch: "人力资源和社会保障部从2022年第一季度起不再发布季度城镇登记失业率。",
             chSecond: "The Ministry of Human Resources and Social Security had stopped publishing quarterly urban registered unemployment rates since March 2022."

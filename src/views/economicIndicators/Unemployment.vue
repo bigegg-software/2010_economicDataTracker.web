@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       describeList,
-      tabComponent: "unemployRegisterChart",
+      tabComponent: "unemployExamineChart",
       tabList: [
         {
           name: "unemployExamineChart",
