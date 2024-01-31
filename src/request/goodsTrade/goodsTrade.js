@@ -168,7 +168,9 @@ export default {
         obj[`year`] = USD['year']
         obj[`month`] = USD['month']
         obj[`USD_${key}`] = USD[key]
-        obj[`RMB_${key}`] = RMB[key]
+        if (RMB && RMB[key]) {
+          obj[`RMB_${key}`] = RMB[key]
+        }
       }
       data.push(obj)
     }
@@ -225,7 +227,9 @@ export default {
         obj[`year`] = USD['year']
         obj[`month`] = USD['month']
         obj[`USD_${key}`] = USD[key]
-        obj[`RMB_${key}`] = RMB[key]
+        if (RMB && RMB[key]) {
+          obj[`RMB_${key}`] = RMB[key]
+        }
       }
       data.push(obj)
     }
